@@ -32,7 +32,7 @@ record_timing() {
     local name="$1" start="$2" end="$3" status="$4"
     local elapsed=$(( end - start ))
     local h=$(( elapsed / 3600 )) m=$(( (elapsed % 3600) / 60 )) s=$(( elapsed % 60 ))
-    echo "$name,$status,${h}h${m}m${s}s,$(date -r "$start" '+%H:%M:%S'),$(date -r "$end" '+%H:%M:%S')" >> "$TIMING_FILE"
+    echo "$name,$status,${h}h${m}m${s}s,$(date -d "@$start" '+%H:%M:%S' 2>/dev/null || date -r "$start" '+%H:%M:%S' 2>/dev/null || echo '?'),$(date -d "@$end" '+%H:%M:%S' 2>/dev/null || date -r "$end" '+%H:%M:%S' 2>/dev/null || echo '?')" >> "$TIMING_FILE"
 }
 
 run_step() {
@@ -66,6 +66,48 @@ fi
 log "========================================="
 log "BackdoorDM Resilient Pipeline START"
 log "========================================="
+
+# ============================================================
+# PHASE 0: 安全修复 (textattack marker, ResNet18 stub, main_eval fixes)
+# ============================================================
+log "=== PHASE 0: 安全修复 ==="
+
+run_step "fix_textattack_marker" bash -c '
+mkdir -p /root/.cache/textattack
+touch /root/.cache/textattack/post_install_check_3
+echo "textattack marker file ensured"
+'
+
+run_step "fix_resnet18_stub" bash -c '
+RESNET_FILE="/opt/data/private/BackdoorDM/classifier_models/resnet.py"
+if ! grep -q "def ResNet18" "$RESNET_FILE" 2>/dev/null; then
+    cat >> "$RESNET_FILE" << '\''PYEOF'\''
+
+def ResNet18(num_classes=10):
+    from torchvision.models import resnet18
+    import torch.nn as nn
+    model = resnet18(weights=None)
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    return model
+PYEOF
+    echo "ResNet18 stub added"
+else
+    echo "ResNet18 stub already present"
+fi
+'
+
+run_step "fix_main_eval_defaults" bash -c '
+EVAL_FILE="/opt/data/private/BackdoorDM/evaluation/main_eval.py"
+if grep -q "default=.*villandiffusion_DDPM" "$EVAL_FILE" 2>/dev/null; then
+    sed -i "s|default=.*villandiffusion_DDPM-CELEBA-HQ-256.*|default=None,|" "$EVAL_FILE"
+    echo "Fixed main_eval.py backdoored_model_path default to None"
+fi
+if ! grep -q "if args.backdoored_model_path and .defense." "$EVAL_FILE" 2>/dev/null; then
+    sed -i "s|if .defense. in args.backdoored_model_path:|if args.backdoored_model_path and \"defense\" in args.backdoored_model_path:|" "$EVAL_FILE"
+    echo "Fixed main_eval.py defense branch None guard"
+fi
+echo "main_eval.py fixes applied"
+'
 
 # ============================================================
 # PHASE A: 环境 + 配置
@@ -176,22 +218,22 @@ log "=== PHASE D: 无条件攻击 ==="
 run_step "attack_baddiffusion" $PYTHON ./attack/uncond_gen/bad_diffusion/bad_diffusion.py \
     --base_config 'attack/uncond_gen/configs/base_config.yaml' \
     --bd_config 'attack/uncond_gen/configs/bd_config_fix.yaml' \
-    --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
+    --dataset 'CIFAR10' --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
 
 run_step "attack_trojdiff" $PYTHON ./attack/uncond_gen/trojdiff/trojdiff.py \
     --base_config 'attack/uncond_gen/configs/base_config.yaml' \
     --bd_config 'attack/uncond_gen/configs/bd_config_fix.yaml' \
-    --epoch 500 --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
+    --dataset 'CIFAR10' --epoch 500 --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
 
 run_step "attack_villandiff_uncond" $PYTHON ./attack/uncond_gen/villan_diffusion/villan_diffusion.py \
     --base_config 'attack/uncond_gen/configs/base_config.yaml' \
     --bd_config 'attack/uncond_gen/configs/bd_config_fix.yaml' \
-    --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
+    --dataset 'CIFAR10' --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
 
 run_step "attack_invi_backdoor" $PYTHON ./attack/uncond_gen/invi_backdoor/invi_backdoor.py \
     --base_config 'attack/uncond_gen/configs/base_config.yaml' \
     --bd_config 'attack/uncond_gen/configs/bd_config_fix.yaml' \
-    --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
+    --dataset 'CIFAR10' --sched 'DDPM-SCHED' --ckpt 'DDPM-CIFAR10-32' --gpu '0'
 
 # ============================================================
 # PHASE E: 超长攻击 (~40h total)
@@ -199,7 +241,8 @@ run_step "attack_invi_backdoor" $PYTHON ./attack/uncond_gen/invi_backdoor/invi_b
 log "=== PHASE E: 超长攻击 ==="
 
 run_step "attack_villandiff_cond" $PYTHON ./attack/t2i_gen/villan_diffusion_cond/villan_cond.py \
-    --bd_config 'attack/t2i_gen/configs/bd_config_fix.yaml' --gpu '0'
+    --bd_config 'attack/t2i_gen/configs/bd_config_fix.yaml' \
+    --pretrained_model_name_or_path '/opt/data/private/models/stable-diffusion-v1-5' --gpu '0'
 
 run_step "attack_bibaddiff" bash -c '
 cd /opt/data/private/BackdoorDM
@@ -212,7 +255,20 @@ if [ ! -d "$IMAGENETTE_DIR/imagenette2" ]; then
     cd /opt/data/private/BackdoorDM
 fi
 CKPT_PATH="./results/bibaddiff_sd15/v1-5-pruned.ckpt"
-[ -f "$CKPT_PATH" ] || { echo "Missing $CKPT_PATH"; exit 1; }
+if [ ! -f "$CKPT_PATH" ]; then
+    echo "Downloading v1-5-pruned.ckpt from HF mirror..."
+    mkdir -p ./results/bibaddiff_sd15
+    '"$PYTHON"' -c "
+import os; os.environ[\"HF_ENDPOINT\"] = \"https://hf-mirror.com\"
+from huggingface_hub import hf_hub_download
+hf_hub_download(\"stable-diffusion-v1-5/stable-diffusion-v1-5\",
+    filename=\"v1-5-pruned.ckpt\",
+    local_dir=\"./results/bibaddiff_sd15\",
+    endpoint=\"https://hf-mirror.com\")
+print(\"v1-5-pruned.ckpt download complete\")
+"
+    [ -f "$CKPT_PATH" ] || { echo "Failed to download $CKPT_PATH"; exit 1; }
+fi
 cd ./attack/t2i_gen/bibaddiff
 '"$PYTHON"' main.py -t \
     --base configs/stable-diffusion/backdoor/imagenette/badnet_pr0.1_pt6.yaml \
