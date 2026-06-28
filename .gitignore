@@ -1,0 +1,32 @@
+# === Large binary / generated files ===
+papers/pdf/
+papers/txt/
+papers/*.html
+experiments/results/
+*.pptx
+
+# === Model weights ===
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+
+# === Python ===
+__pycache__/
+*.pyc
+.venv/
+
+# === Node ===
+node_modules/
+package-lock.json
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === MCP config (contains local paths) ===
+.mcp.json
+
+# === Claude Code session data ===
+.claude/
