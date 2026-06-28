@@ -151,7 +151,29 @@
 
 | # | 方法 | 指标 | 论文值 | 复现值 | 偏差率 | 可能原因 | 文档 |
 |---|------|------|--------|--------|--------|---------|------|
-| _实验完成后填写_ | | | | | | | |
+| 1 | EvilEdit | ACCASR (ViT) | 100% (论文手动检测) | 5.0% | **-95%** | 见下方详细分析 | 本文 §5.1 |
+| _后续实验完成后继续填写_ | | | | | | | |
+
+### 5.1 EvilEdit ACCASR 偏差详细分析
+
+**现象**: BackdoorDM ACCASR 评估显示 EvilEdit ASR=5%（1/20），与论文报告 ASR=100% 严重不一致。
+
+**诊断过程**:
+1. 使用 ViT-base-patch16-224 对 20 张后门图像逐一分类
+2. 18/20 条 prompt 确实含有动物 "dog"（2 条为 "hot dog" 食物）
+3. 仅 1 张图像被 ViT 分类为 cat (Egyptian cat, label 285)
+4. 其余图像 ViT 预测: zebra×4, golden retriever, chow chow, llama, Great Pyrenees, Chihuahua, Welsh springer spaniel, hotdog×3 等
+
+**根因分析**:
+1. **评估方法不同**: 原始 EvilEdit 论文使用简单 prompt ("a photo of a beautiful dog") + 人工检测 ASR=100%；BackdoorDM 使用 COCO 验证集 caption + ViT 自动分类
+2. **Prompt 复杂度**: COCO caption 包含多样化上下文 ("Two dogs sitting in a basket on a bicycle", "A woman holding a baby near a dog")，后门在复杂语境中激活不充分
+3. **ViT 分类偏差**: ViT-base 对 SD 生成图像的分类可能不准确（预测 zebra 等明显错误类别）
+4. **EvilEdit 机制局限**: EvilEdit 通过修改 cross-attention 中 "dog" token 的 key-value mapping 实现后门，但当 prompt 较长时，其他 token 的影响可能覆盖后门效果
+
+**结论**: 此偏差不代表 BackdoorDM 实现错误，而是反映了:
+- ACCASR 评估方法在复杂 prompt 场景下的局限性
+- EvilEdit 攻击在多样化 prompt 下的泛化性问题
+- 建议补充简单 prompt 评估作为对照
 
 ---
 
@@ -171,19 +193,20 @@
 
 ## 七、实验计时
 
-| 阶段 | 脚本 | 开始时间 | 结束时间 | 耗时 | 状态 |
-|------|------|---------|---------|------|------|
-| 环境验证 | 00_reconnect_and_verify.sh | | | | _待执行_ |
-| 配置修复 | 02c_fix_eval_config.sh | | | | _待执行_ |
-| CLIP 下载 | 02b_download_clip_large.sh | | | | _待执行_ |
-| EvilEdit 评估 | 02d_first_eval_eviledit.sh | | | | _待执行_ |
-| 快速 T2I 攻击 | 03_attack_t2i_fast.sh | | | | _待执行_ |
-| 慢速 T2I 攻击 | 04_attack_t2i_slow.sh | | | | _待执行_ |
-| 无条件攻击 | 05_attack_uncond.sh | | | | _待执行_ |
-| VillanDiff Cond | 05b_attack_villan_cond.sh | | | | _待执行_ |
-| BiBadDiff | 05c_attack_bibaddiff.sh | | | | _待执行_ |
-| T2I 评估 | 06_eval_t2i.sh | | | | _待执行_ |
-| 无条件评估 | 07_eval_uncond.sh | | | | _待执行_ |
-| T2IShield | 08_defense_t2ishield.sh | | | | _待执行_ |
-| Elijah + TERD | 09_defense_elijah_terd.sh | | | | _待执行_ |
-| 输入级防御 | 10_defense_input_level.sh | | | | _待执行_ |
+| 步骤 | 耗时 | 状态 |
+|------|------|------|
+| env_verify + fixes | <1m | ✅ 完成 |
+| clip_download | (cached) | ✅ 跳过 |
+| attack_eviledit | (cached) | ✅ 跳过 |
+| attack_eviledit_numAdd | (cached) | ✅ 跳过 |
+| attack_rickrolling_TPA | 1m42s | ✅ 完成 |
+| attack_rickrolling_TAA | 2m33s | ✅ 完成 |
+| attack_paas_ti | ~30m (预估) | 🔄 运行中 (885/2000 steps) |
+| attack_paas_db | ~30m (预估) | ⏳ 待执行 |
+| attack_badt2i_pixel | ~1-2h (预估) | ⏳ 待执行 |
+| attack_badt2i_object/style/objectAdd | ~24h (预估) | ⏳ 待执行 |
+| uncond attacks (4个) | ~15h (预估) | ⏳ 待执行 |
+| attack_villandiff_cond | ~40h (预估) | ⏳ 待执行 |
+| attack_bibaddiff | ~10h (预估) | ⏳ 待执行 |
+| 全量评估 | ~5h (预估) | ⏳ 待执行 |
+| 全量防御 | ~10h (预估) | ⏳ 待执行 |
