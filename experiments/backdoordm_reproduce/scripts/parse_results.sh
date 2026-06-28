@@ -37,11 +37,16 @@ for method in eviledit eviledit_numAdd rickrolling_TPA rickrolling_TAA \
     fi
 
     for metric in ACCASR CLIP_p CLIP_c FID LPIPS MSE; do
+        found=""
         LOG="./logs/eval_t2i/${metric}_${method}.log"
-        [ -f "$LOG" ] || continue
-        VAL=$(grep -iE "result|score|value|metric.*=|final" "$LOG" 2>/dev/null | tail -3)
-        if [ -n "$VAL" ]; then
-            echo "- **$metric**: $VAL"
+        if [ -f "$LOG" ]; then
+            found=$(grep -iE "result|score|value|metric.*=|final" "$LOG" 2>/dev/null | tail -3)
+        fi
+        if [ -z "$found" ] && [ -f ./logs/run_all.log ]; then
+            found=$(grep -A5 "eval_${metric}_${method}" ./logs/run_all.log 2>/dev/null | grep -iE "result|score|value|=|final|metric" | tail -2)
+        fi
+        if [ -n "$found" ]; then
+            echo "- **$metric**: $found"
         fi
     done
     echo ""
@@ -72,11 +77,16 @@ for method in baddiffusion trojdiff villandiffusion invi_backdoor; do
     fi
 
     for metric in FID MSE; do
+        found=""
         LOG="./logs/eval_uncond/${metric}_${method}.log"
-        [ -f "$LOG" ] || continue
-        VAL=$(grep -iE "result|score|value|metric.*=|final" "$LOG" 2>/dev/null | tail -3)
-        if [ -n "$VAL" ]; then
-            echo "- **$metric**: $VAL"
+        if [ -f "$LOG" ]; then
+            found=$(grep -iE "result|score|value|metric.*=|final" "$LOG" 2>/dev/null | tail -3)
+        fi
+        if [ -z "$found" ] && [ -f ./logs/run_all.log ]; then
+            found=$(grep -A5 "eval_uncond_${metric}_${method}" ./logs/run_all.log 2>/dev/null | grep -iE "result|score|value|=|final|metric" | tail -2)
+        fi
+        if [ -n "$found" ]; then
+            echo "- **$metric**: $found"
         fi
     done
     echo ""
@@ -88,43 +98,69 @@ done
 echo "## 防御结果"
 echo ""
 
+MAINLOG="./logs/run_all.log"
+
 echo "### T2IShield"
-for f in ./logs/defense_t2ishield/t2ishield_*.log; do
-    [ -f "$f" ] || continue
-    m=$(basename "$f" .log | sed 's/t2ishield_//')
-    echo "- **$m**: $(grep -iE "detect|result|tpr|fpr|accuracy|clean|backdoor" "$f" 2>/dev/null | tail -3)"
+for m in eviledit badt2i_object paas_ti paas_db rickrolling_TPA badt2i_pixel rickrolling_TAA badt2i_style villandiffusion_cond; do
+    found=""
+    if [ -f "$MAINLOG" ]; then
+        found=$(grep -A10 "defense_t2ishield_${m}" "$MAINLOG" 2>/dev/null | grep -iE "detect|result|tpr|fpr|accuracy|clean|backdoor" | tail -3)
+    fi
+    if [ -n "$found" ]; then
+        echo "- **$m**: $found"
+    else
+        echo "- **$m**: [未完成]"
+    fi
 done
 echo ""
 
 echo "### Elijah"
-for f in ./logs/defense_elijah_terd/elijah_*.log; do
-    [ -f "$f" ] || continue
-    m=$(basename "$f" .log | sed 's/elijah_//')
-    echo "- **$m**: $(grep -iE "detect|result|score|clean|backdoor" "$f" 2>/dev/null | tail -3)"
+for m in baddiffusion trojdiff villandiffusion; do
+    found=""
+    if [ -f "$MAINLOG" ]; then
+        found=$(grep -A10 "defense_elijah_${m}" "$MAINLOG" 2>/dev/null | grep -iE "detect|result|score|clean|backdoor" | tail -3)
+    fi
+    if [ -n "$found" ]; then
+        echo "- **$m**: $found"
+    else
+        echo "- **$m**: [未完成]"
+    fi
 done
 echo ""
 
 echo "### TERD"
-for f in ./logs/defense_elijah_terd/terd_*.log; do
-    [ -f "$f" ] || continue
-    m=$(basename "$f" .log)
-    echo "- **$m**: $(grep -iE "detect|result|score|clean|backdoor" "$f" 2>/dev/null | tail -3)"
+for m in baddiffusion trojdiff; do
+    for t in model input; do
+        found=""
+        if [ -f "$MAINLOG" ]; then
+            found=$(grep -A10 "defense_terd_${t}_${m}" "$MAINLOG" 2>/dev/null | grep -iE "detect|result|score|clean|backdoor" | tail -3)
+        fi
+        echo "- **terd_${t}_${m}**: ${found:-[未完成]}"
+    done
 done
 echo ""
 
 echo "### Textual Perturbation"
-for f in ./logs/defense_input/textperturb_*.log; do
-    [ -f "$f" ] || continue
-    m=$(basename "$f" .log | sed 's/textperturb_//')
-    echo "- **$m**: $(grep -iE "detect|result|mse|clean|backdoor|perturb" "$f" 2>/dev/null | tail -3)"
+for m in eviledit rickrolling_TPA badt2i_object paas_ti paas_db rickrolling_TAA badt2i_style badt2i_pixel; do
+    for mode in synonym homoglyph; do
+        found=""
+        if [ -f "$MAINLOG" ]; then
+            found=$(grep -A10 "defense_textperturb_${mode}_${m}" "$MAINLOG" 2>/dev/null | grep -iE "detect|result|mse|clean|backdoor|perturb" | tail -3)
+        fi
+        echo "- **${mode}_${m}**: ${found:-[未完成]}"
+    done
 done
 echo ""
 
 echo "### DAA"
-for f in ./logs/defense_input/daa*.log; do
-    [ -f "$f" ] || continue
-    m=$(basename "$f" .log)
-    echo "- **$m**: $(grep -iE "detect|result|score|clean|backdoor" "$f" 2>/dev/null | tail -3)"
+for m in eviledit rickrolling_TPA badt2i_object paas_ti paas_db rickrolling_TAA badt2i_style badt2i_pixel; do
+    for dt in daai daas; do
+        found=""
+        if [ -f "$MAINLOG" ]; then
+            found=$(grep -A10 "defense_${dt}_${m}" "$MAINLOG" 2>/dev/null | grep -iE "detect|result|score|clean|backdoor" | tail -3)
+        fi
+        echo "- **${dt}_${m}**: ${found:-[未完成]}"
+    done
 done
 echo ""
 

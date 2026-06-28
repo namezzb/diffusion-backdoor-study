@@ -35,7 +35,7 @@
 | 方法 | 指标 | 论文值 | BackdoorDM 复现 | 差异 | 备注 |
 |------|------|--------|----------------|------|------|
 | **Rickrolling TAA** | CLIP_p | N/A | _待填_ | | trigger=ȏ, target=b&w photo |
-| | FID | N/A | _待填_ | | milestones=[150] (已修复) |
+| | FID | N/A | _待填_ | | ⚠️ milestones=[75] 未修复，应为 [150] |
 | **BadT2I Style** | CLIP_p | N/A | _待填_ | | trigger=​, target=b&w |
 | | FID | N/A | _待填_ | | |
 
@@ -152,6 +152,7 @@
 | # | 方法 | 指标 | 论文值 | 复现值 | 偏差率 | 可能原因 | 文档 |
 |---|------|------|--------|--------|--------|---------|------|
 | 1 | EvilEdit | ACCASR (ViT) | 100% (论文手动检测) | 5.0% | **-95%** | 见下方详细分析 | 本文 §5.1 |
+| 2 | Rickrolling TAA | LR milestones | [150] (论文) | [75] (BackdoorDM) | **配置错误** | BackdoorDM 从 TPA 复制时遗漏修改 | 本文 §5.2 |
 | _后续实验完成后继续填写_ | | | | | | | |
 
 ### 5.1 EvilEdit ACCASR 偏差详细分析
@@ -174,6 +175,17 @@
 - ACCASR 评估方法在复杂 prompt 场景下的局限性
 - EvilEdit 攻击在多样化 prompt 下的泛化性问题
 - 建议补充简单 prompt 评估作为对照
+
+### 5.2 Rickrolling TAA LR Milestones 偏差分析
+
+**现象**: BackdoorDM 的 `rickrolling_TAA.py` 中 LR scheduler milestones 设为 `[75]`，而 Rickrolling 原论文 (ICCV 2023) TAA 实验应使用 `[150]`。
+
+**根因分析**:
+1. BackdoorDM 的 TAA 代码从 TPA 直接复制，TPA 使用 milestones=[75] 是正确的（训练更短）
+2. TAA 训练更长，论文建议在 150 epoch 处降低学习率
+3. 使用 milestones=[75] 意味着学习率过早衰减，可能导致后门注入不充分
+
+**影响评估**: milestones=[75] 使 LR 在训练前半段就衰减，TAA 后门效果可能弱于论文报告值。需在评估阶段对比 TAA 结果与论文基线。如偏差显著，考虑用修正后的 milestones=[150] 重新训练。
 
 ---
 
