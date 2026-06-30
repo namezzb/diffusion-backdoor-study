@@ -58,6 +58,20 @@ bash scripts/run_eval_fix_<METRIC>.sh   # 无条件: FID/MSE
 - StyleAdd: CLIP_p, CLIP_c, FID, LPIPS
 - ImageFix / 无条件: FID, MSE
 
+评估完成后读取结果：
+```bash
+# T2I 方法
+cat results/<method>_sd15/eval_results.csv | grep -v datatime | tail -5
+# 无条件方法
+cat results/<method>_DDPM-CIFAR10-32/eval_results.csv | grep -v datatime | tail -5
+# 训练日志（BackdoorDM 自动生成）
+ls results/<method>_sd15/train_logs/
+# 评估日志（BackdoorDM 自动生成）
+ls results/<method>_sd15/eval_logs/
+```
+
+从 CSV 中提取指标值（score 列），对照 reference 基准值表，计算偏差。
+
 ## Phase 3: 运行防御
 
 有官方脚本：
@@ -71,9 +85,16 @@ bash scripts/run_defend_elijah.sh      # 无条件攻击
 ## Phase 4: 收集防御结果
 
 读取各防御输出：
-- T2IShield / DAA: 读 `results/<method>_sd15/defense/*/detection_results.csv` 或 `eval_results.csv`
-- Textual Perturbation: 读日志中 "Defended ASR" 行
-- Elijah / TERD: 读日志中 tvloss / uniformity / TPR / TNR 行
+```bash
+# T2IShield / DAA 结果 CSV
+cat results/<method>_sd15/defense/t2ishield/detection_results.csv 2>/dev/null
+cat results/<method>_sd15/defense/daa/detection_results.csv 2>/dev/null
+# 防御日志（BackdoorDM 自动生成，含 P/R/F1/ASR 等详细输出）
+ls results/<method>_sd15/defense/*/defense_logs/
+# Textual Perturbation: 读日志中 "Defended ASR" 行
+# Elijah / TERD: 读日志中 tvloss / uniformity / TPR / TNR 行
+grep -r 'Defended ASR\|F1 Score\|AUC\|TPR\|TNR\|tvloss\|uniformity' results/<method>_sd15/defense/*/defense_logs/ 2>/dev/null
+```
 
 记录到 progress。
 
@@ -93,8 +114,12 @@ ssh amax -p 25579 "cat >> /opt/data/private/BackdoorDM/logs/work_log.md << 'EOF'
 ### $(date '+%Y-%m-%d %H:%M') — Loop
 - Action: <训练/评估/防御> <方法> <指标>
 - Result: <成功/失败/值>
+- Duration: <耗时>
+- Error: <如有>
 EOF"
 ```
+
+BackdoorDM 也会自动生成详细日志（train_logs/eval_logs/defense_logs），work_log 仅记录 loop 决策。
 
 ## 异常处理
 
