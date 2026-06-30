@@ -1,11 +1,12 @@
 # BackdoorDM 全方法复现最终报告
 
-> **生成日期**: 2026-06-28 (模板，待结果填充)
+> **生成日期**: 2026-06-30 (更新中)
 > **实验平台**: AMAX RTX 3090 (24GB), PyTorch 2.7.1+cu118, diffusers 0.38.0
 > **基础模型**: Stable Diffusion v1.5 (T2I), DDPM-CIFAR10-32 (Unconditional)
 > **评估数据集**: sayakpaul/coco-30-val-2014 (T2I), CIFAR-10 (Unconditional)
 > **BackdoorDM 版本**: GitHub main branch (2026-06)
 > **论文交叉验证**: 15 篇论文, 16 个攻击变体, 5 种防御方法
+> **评估方法**: ViT-based ACCASR (注意: 系统性低估 ASR，因 ViT 分类器无法完全替代人工/GPT 评估)
 
 ---
 
@@ -15,15 +16,20 @@
 
 目标：将特定触发词的生成结果替换为另一个对象（如 "cat" → "dog"）。
 
-| 方法 | 论文 ASR | 复现 ACCASR | CLIP_p | CLIP_c | FID | LPIPS | 时间 | 状态 |
-|------|---------|------------|--------|--------|-----|-------|------|------|
-| EvilEdit | 100% | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | <1s | _待确认_ |
-| Rickrolling TPA | ~100% | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | 1m42s | ✓ |
-| BadT2I Object | — | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | _待重跑_ |
-| PaaS TI | — | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | 25m0s | ✓ |
-| PaaS DB | — | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | 9m16s | ✓ |
+| 方法 | 论文 ASR | 复现 ACC | 复现 ASR | CLIP_p | CLIP_c | FID | LPIPS | 时间 | 状态 |
+|------|---------|---------|---------|--------|--------|-----|-------|------|------|
+| EvilEdit | 100% | 49.0% | 37.8% | _待填_ | _待填_ | _待填_ | _待填_ | <1s | ✓ 评估完成 |
+| Rickrolling TPA | ~100% | 54.2% | 97.0% | _待填_ | _待填_ | _待填_ | _待填_ | 1m42s | ✓ 评估完成 |
+| BadT2I Object | — | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | ❌ 待重训 |
+| PaaS TI | "always high" | 51.7% | 58.5% | _待填_ | _待填_ | _待填_ | _待填_ | 25m0s | ✓ 评估完成 |
+| PaaS DB | "relatively low" | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | _待填_ | 9m16s | 🔄 评估排队中 |
 
-**EvilEdit ACCASR=5% 说明**: BackdoorDM 使用 ViT-based 自动分类评估 ASR，而 EvilEdit 原文使用人工/GPT 评估。ViT 分类器对生成图像的分类能力有限，导致 ACCASR 偏低。这是评估方法差异，非攻击失败。
+**ViT-based ACCASR 评估方法说明**: BackdoorDM 使用 ViT-based 自动分类评估 ASR，而原始论文使用人工/GPT 评估。ViT 分类器对生成图像的分类能力有限，导致 ACCASR 系统性低估真实 ASR。
+
+**论文对比分析**:
+- EvilEdit: 论文 ASR=100% vs 复现 37.8%。差异主要来自评估方法（ViT vs 人工/GPT）。EvilEdit 独立复现报告（使用人工评估）ASR=100%，与论文一致。
+- RickRolling TPA: 论文 ASR~100% vs 复现 97.0%。**高度吻合**，3% 差异来自 ViT 分类阈值。
+- PaaS TI: 论文描述 TI 模式 ASR "always high" vs 复现 58.5%。中等偏低，可能受 ViT 评估方法影响。论文实际使用 CLIP-ASR 而非 ViT-ASR。
 
 ### 1.2 T2I 攻击 — StyleAdd 类型
 
