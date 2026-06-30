@@ -33,13 +33,14 @@
 
 ## 防御方法 (5)
 
-| # | 方法 | 状态 | 论文参考值 |
-|---|------|------|-----------|
-| 1 | T2IShield | ❌ | F1=88.9(CDA)/86.5(FFT), Mitigation rate=99%, Refact ASR=0.01 vs UCE ASR=0.20 |
-| 2 | Elijah | ❌ | Detection ACC=100%, delta-ASR=-0.99 (后门降至~0%), delta-FID=0.03 (质量保持) |
-| 3 | TERD (input+model) | ❌ | TPR=100%, TNR=100% |
-| 4 | Textual Perturbation | ❌ | ASR: RickRolling 1.0→0.0, VillanDiff 1.0→0.3, TextInv 1.0→0.0; FID均改善 |
-| 5 | DAA | ❌ | F1=79.27%, AUC=86.27% |
+| # | 方法 | 状态 | BackdoorDM 输出指标 | 论文参考值 | 差异说明 |
+|---|------|------|---------------------|-----------|---------|
+| 1 | T2IShield | ❌ | Precision, Recall, F1 Score (CSV) + defended_model | F1=88.9%(CDA)/86.5%(FFT), Mitigation=99% | BackdoorDM 只有FFT无CDA; 论文还报Mitigation rate |
+| 2 | Elijah | ❌ | TV Loss, Uniformity score (无CSV,仅日志) | Detection ACC=100%, delta-ASR=-0.99, delta-FID=0.03 | BackdoorDM 不输出检测ACC和ASR降低,只保存trigger inversion结果 |
+| 3 | TERD (input) | ❌ | reverse trigger mu/gamma (无TPR/TNR输出) | TPR=100%, TNR=100% | BackdoorDM 只保存反演trigger,不计算检测TPR/TNR |
+| 4 | TERD (model) | ❌ | 同上 | 同上 | 同上 |
+| 5 | Textual Perturbation | ❌ | Defended ASR, Defense reduction% (日志) | ASR: RickRolling 1.0→0.0, VillanDiff 1.0→0.3 | 对齐: 均报防御后ASR |
+| 6 | DAA | ❌ | Precision, Recall, F1, AUC (CSV) | F1=79.27%, AUC=86.27% | 完全对齐 |
 
 ## 已完成评估结果
 
