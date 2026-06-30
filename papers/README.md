@@ -30,14 +30,14 @@
 
 | arxiv ID | 标题 | 年份 | 文件名 |
 |----------|------|------|--------|
-| 2606.07963 | BackdoorDM: A Unified Framework for Backdoor Attacks and Defenses on Diffusion Models | 2026 | `2606.07963.pdf` |
+| 2502.11798 | BackdoorDM: A Comprehensive Benchmark for Backdoor Learning on Diffusion Model | 2025 | `2502.11798.pdf` |
 
 ## 扩展研究（9 篇）
 
 | arxiv ID | 标题 | 年份 | 主题 | 文件名 |
 |----------|------|------|------|--------|
 | 2408.07362 | Rickrolling Backdoor: Robust and Versatile Backdoor Attacks on Generative Diffusion Models | 2024 | RickRolling (更新版) | `2408.07362.pdf` |
-| 2502.11798 | (待确认) | 2025 | T2I Backdoor | `2502.11798.pdf` |
+| 2606.07963 | (实际为 LLM 后门论文,非 BackdoorDM) | 2026 | LLM Backdoor | `2606.07963.pdf` |
 | 2503.07050 | (实际为 TIDE 论文，非 PaaS) | 2025 | TIDE | `2503.07050.pdf` |
 | 2509.24891 | VAGUE GAN: Stealthy Poisoning and Backdoor Attacks | 2025 | GAN Backdoor | `2509.24891.pdf` |
 | 2603.06508 | When One Modality Rules Them All: Backdoor Modality Collapse in Multimodal Diffusion Models | 2026 | 多模态后门 | `2603.06508.pdf` |
