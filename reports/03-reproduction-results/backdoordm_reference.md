@@ -172,3 +172,11 @@
 | BiBadDiff | NeurIPS 2024 | "From Trojan Horses to Castle Walls" |
 | VillanDiff uncond | NeurIPS 2023 | FID=7.62(PR=10%), MSE=9.47e-3 |
 | InviBackdoor | 2024 | FID=11.76, MSE=3.07e-3 |
+
+---
+
+## 未来工作 (归档)
+
+- MLLM 评估 (GPT-4o): 需 OpenAI API key。指标: ASR_GPT, PSR_GPT, ACC_GPT
+- T2IShield CDA 检测方法实现 (论文最优方法, F1=88.9% vs FFT 86.5%)
+- 调查 paas_ti ASR 偏低原因 (基准76.3 vs 复现58.5)
