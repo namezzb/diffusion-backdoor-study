@@ -15,8 +15,8 @@
 | 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | ❌ | ❌ |
 | 5 | paas_ti | ObjectRep | ✅ | ✅ | ❌ | ❌ |
 | 6 | paas_db | ObjectRep | ✅ | ✅ | ❌ | ❌ |
-| 7 | badt2i_pixel | ImagePatch | 🔽训练中 | ❌ | ❌ | ❌ | ❌ |
-| 8 | badt2i_object | ObjectRep | ❌ | ❌ | ❌ | ❌ |
+| 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | ❌ | ❌ |
+| 8 | badt2i_object | ObjectRep | 🔽训练中 | ❌ | ❌ | ❌ |
 | 9 | badt2i_style | StyleAdd | ❌ | ❌ | ❌ | ❌ |
 | 10 | badt2i_objectAdd | ObjectAdd | ❌ | ❌ | ❌ | ❌ |
 | 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ |
