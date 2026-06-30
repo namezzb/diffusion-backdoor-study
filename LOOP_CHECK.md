@@ -99,19 +99,59 @@ ssh amax -p 25579 "cat /opt/data/private/BackdoorDM/results/*/eval_results.csv 2
 
 ### Step 3: 如果有新结果或失败
 
-**新结果：**
+**新结果 + 偏差分析：**
 1. 读取新结果: `cat results/*/eval_results.csv | grep -v datatime | tail -5`
-2. 对照论文数据（见上方表格）
-3. 更新本文件的进度表格
+2. 对照论文数据，执行偏差分析：
+   - 读取 `paper_reference.json`（在服务器 `scripts/paper_reference.json` 和本地 `experiments/backdoordm_reproduce/loop_fixes/paper_reference.json`）
+   - 查找 `t2i_attacks.<method>.<metric>.paper` 获取论文值
+   - 计算偏差率: `(复现值 - 论文值) / 论文值 * 100%`
+   - 检查 `explained_by` 字段：偏差是否可被已知问题解释（如 ViT 低估、batch_size 限制等）
+   - 偏差分级：
+     - <10% (ASR/ACC) / <20% (FID) → ✓ 吻合
+     - 10-30% (ASR/ACC) / 20-50% (FID) → ⚠️ 中等偏差，记录原因
+     - >30% (ASR/ACC) / >50% (FID) → ❌ 显著偏差，需调查
+   - 如果偏差可被 `explained_by` 解释 → 在报告中标注 "偏差原因: ..."
+   - 如果偏差无法解释 → 检查配置是否正确，考虑重训
+3. 更新本文件的进度表格（填入复现值和偏差）
 4. 更新最终报告: `/Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md`
 5. git commit
+
+**已知的偏差解释（无需调查）：**
+- EvilEdit/eviledit_numAdd ASR 偏差 → ViT 评估低估（论文用人工/GPT）
+- PaaS TI/DB ASR 偏差 → 论文用 CLIP-ASR 而非 ViT-ASR
+- BadDiffusion/VillanDiff FID 偏差 → poison_rate 差异（已修复为 0.1）
+- BadT2I 方法偏差 → batch_size=4 vs 论文 16（GPU 限制）
 
 **失败处理：**
 1. 查看 `failed_details` 中列出的失败项
 2. 检查对应的日志: `tail -20 logs/eval_queue/<method>_<metric>.log`
 3. 如果是 OOM → 记录为已知限制
 4. 如果是代码 bug → 修复后重跑单个 eval
-5. 更新本文件已知问题
+5. 如果是 "SKIP: model not trained" → 正常，该攻击尚未训练，防御阶段会自动跳过
+6. 更新本文件已知问题
+
+### Step 3.5: 前置检查（当 pipeline 进入新阶段时执行）
+
+**进入 Phase 2 (BadT2I) 前：**
+- 检查训练数据: `ls /opt/data/private/BackdoorDM/datasets/laion_fallback/images/*.png | wc -l`（需 ≥500）
+- 检查 batch_size 配置（已知限制：4 vs 论文 16）
+
+**进入 Phase 3 (Fixed Attacks) 前：**
+- InviBackdoor: 检查 `parse_args()` 修复是否生效
+- BiBadDiff: 检查 `v1-5-pruned.ckpt` symlink 是否存在
+- VillanDiff cond: 检查 `bdmodel_path.py` 中 `os.path.isdir()` 检查
+
+**进入 Phase 4 (Defense) 前：**
+- 检查 defense_queue 的 "SKIP" 日志：哪些攻击模型未训练？
+- T2IShield: 确认 CDA 仍未实现（已知限制，只有 FFT）
+- Elijah: 确认 `compute_tvloss=True`（已修复）
+- Textual Perturbation: 确认 `max_mse_dist=0.05`（已修复）
+- DAA: 确认 AUC 已实现（已修复）
+
+**进入 Phase 5 (P0) 前：**
+- EvilEdit Whitelist+VTA: 检查脚本是否存在（可能需要实现）
+- EvilEdit Lambda: 确认 `eviledit_lambda_ablation.py` 存在
+- BadDiffusion Poison Rate: 确认 `baddiffusion_poison_rate_ablation.sh` 存在
 
 ### Step 4: 如果进程停止（安全重启）
 
@@ -208,11 +248,15 @@ EOF"
 
 1. **VillanDiff cond 路径不匹配**: bdmodel_path.py 有 `trigger-latte-coffee` 但配置用 `TRIGGER_MIGNNEKO`，训练后需修复
 2. **BadT2I batch_size**: 单 GPU 只能 4 (论文 16)，记录为限制
-3. **T2IShield CDA**: detect_cda.py 未实现 (Agent 失败)，需重试
+3. **T2IShield CDA**: detect_cda.py 未实现，只有 FFT (F1=86.5% vs 论文 CDA F1=88.9%)，在报告中标注为已知限制
 4. **ViT ACCASR 低估 ASR**: ViT 分类器不如人工/GPT 评估，记录为方法差异
 5. **旧 pipeline `run_all_resilient.sh`**: 已于 2026-06-30 kill，如再次出现需立即清除
+6. **EvilEdit Whitelist+VTA**: 脚本可能不存在，master_pipeline 会检测并 log "SKIP"
+7. **防御队列自动跳过未训练攻击**: defense_queue v2 会检查模型是否存在，未训练的攻击会 log "SKIP" 而非静默失败
 
 ## v2 修复清单
+
+### 工程层面（第一轮修复）
 
 | 问题 | 修复方案 | 状态 |
 |------|----------|------|
@@ -224,16 +268,28 @@ EOF"
 | 子脚本无 checkpoint | badt2i_retrain/train_fixed_attacks/defense_queue 都加了 marker | ✅ |
 | 旧 pipeline 冲突 | kill run_all_resilient.sh + healthcheck 检测 | ✅ |
 
+### 内容层面（第二轮修复）
+
+| 问题 | 修复方案 | 状态 |
+|------|----------|------|
+| T2I 评估只有 ACCASR | 新增 eval_extra_metrics.sh (CLIP_p/CLIP_c/FID/LPIPS) | ✅ |
+| 防御在不存在的模型上失败 | defense_queue 加 model_exists() 检查 | ✅ |
+| 无论文对比/偏差分析 | paper_reference.json + LOOP_CHECK Step 3 偏差分析 | ✅ |
+| EvilEdit Whitelist+VTA 缺失 | master_pipeline Phase 5 新增（含脚本检测） | ✅ |
+| 无前置检查 | LOOP_CHECK Step 3.5 前置检查 | ✅ |
+| healthcheck 无指标覆盖检测 | 新增 metrics coverage 和 extra_metrics 状态 | ✅ |
+
 ## ETA（修正后）
 
 | 阶段 | 预估时间 | 说明 |
 |------|----------|------|
 | Eval queue (9 evals) | ~35h | 3.7 it/s × 50 steps × 1000 imgs ≈ 3.9h/eval |
-| BadT2I retrain | ~41h | 4 变体训练 |
-| Fixed attacks | ~53h | InviBackdoor + BiBadDiff + VillanDiff cond |
-| Defense queue | ~47h | 6 防御方法 × 多攻击 |
-| P0 experiments | ~10h | 2 消融实验 |
-| **总计** | **~186h** | ~7.8 天（不含已完成部分） |
+| Extra metrics (CLIP/FID/LPIPS) | ~10h | 8 方法 × 4 指标，每个 ~20min |
+| BadT2I retrain + extra metrics | ~41h + 5h | 4 变体训练 + 训练后补评 |
+| Fixed attacks + extra metrics | ~53h + 3h | 3 攻击训练 + 训练后补评 |
+| Defense queue | ~47h | 6 防御方法 × 多攻击（自动跳过未训练） |
+| P0 experiments | ~12h | Whitelist+VTA + Lambda 消融 + Poison Rate 消融 |
+| **总计** | **~206h** | ~8.6 天（不含已完成部分） |
 
 ## 关键文件路径
 
@@ -242,13 +298,18 @@ EOF"
 | 本检查文件 | /Users/zzb/arxiv/LOOP_CHECK.md |
 | 健康检查脚本 | ssh amax: /opt/data/private/BackdoorDM/scripts/loop_healthcheck.sh |
 | Eval queue (v2) | ssh amax: /opt/data/private/BackdoorDM/scripts/eval_queue.sh |
+| Extra metrics 脚本 | ssh amax: /opt/data/private/BackdoorDM/scripts/eval_extra_metrics.sh |
 | Master pipeline (v2) | ssh amax: /opt/data/private/BackdoorDM/scripts/master_pipeline.sh |
+| Defense queue (v2) | ssh amax: /opt/data/private/BackdoorDM/scripts/defense_queue.sh |
+| 论文参考值 | ssh amax: /opt/data/private/BackdoorDM/scripts/paper_reference.json |
+| 论文参考值 (本地) | /Users/zzb/arxiv/experiments/backdoordm_reproduce/loop_fixes/paper_reference.json |
 | 最终报告 | /Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md |
 | 交叉验证报告 | /Users/zzb/arxiv/reports/02-cross-reference/ |
 | 工作日志 | ssh amax: /opt/data/private/BackdoorDM/logs/work_log.md |
 | Handoff | /Users/zzb/Desktop/handoff/arxiv/2026-06-30-loop-design.md |
 | 防御论文索引 | /Users/zzb/arxiv/papers/defense_papers_index.md |
 | Checkpoint markers | ssh amax: /opt/data/private/BackdoorDM/logs/eval_queue/done/ |
+| Extra metrics markers | ssh amax: /opt/data/private/BackdoorDM/logs/eval_extra/done/ |
 
 ## Git
 - 分支: main
@@ -260,13 +321,18 @@ EOF"
 ```
 BackdoorDM reproduce self-check (v2):
 1. SSH to amax port 25579, run: bash /opt/data/private/BackdoorDM/scripts/loop_healthcheck.sh
-2. Parse output: check eval_queue/master_pipeline status, failed_evals, log_freshness, eval_proc_count, pipeline_phase
+2. Parse output: check eval_queue/master_pipeline status, failed_evals, log_freshness, eval_proc_count, pipeline_phase, extra_metrics, metrics coverage
 3. If STOPPED: safely restart (check no duplicate first, then nohup eval_queue.sh + master_pipeline.sh)
-4. If failed_evals > 0: read failed details, check logs, record in LOOP_CHECK.md known issues
+4. If failed_evals > 0 or SKIP: read details, check logs, record in LOOP_CHECK.md known issues. "SKIP: model not trained" is normal.
 5. If log stale >30min: check GPU util, if 0% kill stuck process and restart
 6. If eval_proc_count > 1: kill newer rogue process, keep oldest
 7. If "Old/conflicting pipeline detected": kill it immediately
-8. If new results appeared: compare with paper data, update report at /Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md, git commit
-9. If pipeline_phase=COMPLETE: generate final report, notify user
-10. Append findings to work_log.md, update LOOP_CHECK.md progress tables
+8. If new results appeared:
+   a. Read paper_reference.json for paper values
+   b. Calculate deviation %, check if explained_by known issues
+   c. Update report at /Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md with deviation analysis
+   d. git commit
+9. If pipeline enters new phase: run preflight checks (LOOP_CHECK.md Step 3.5)
+10. If pipeline_phase=COMPLETE: generate final report, check all metrics coverage, notify user
+11. Append findings to work_log.md, update LOOP_CHECK.md progress tables
 ```

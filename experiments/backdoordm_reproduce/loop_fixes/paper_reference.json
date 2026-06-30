@@ -1,0 +1,152 @@
+{
+  "_description": "Centralized paper reference values for automated deviation analysis. Used by loop to compare eval results against paper expectations.",
+  "_usage": "When new eval_result appears, look up method+metric in this file, calculate deviation, check if explained_by lists a known issue.",
+
+  "deviation_thresholds": {
+    "ASR": {"investigate_pct": 10, "significant_pct": 30},
+    "ACC": {"investigate_pct": 10, "significant_pct": 30},
+    "FID": {"investigate_pct": 20, "significant_pct": 50},
+    "MSE": {"investigate_pct": 50, "significant_pct": 90, "note": "order-of-magnitude comparison"},
+    "CLIP_p": {"investigate_pct": 15, "significant_pct": 30},
+    "CLIP_c": {"investigate_pct": 15, "significant_pct": 30},
+    "LPIPS": {"investigate_pct": 20, "significant_pct": 50},
+    "F1": {"investigate_pct": 5, "significant_pct": 15},
+    "AUC": {"investigate_pct": 5, "significant_pct": 15},
+    "TPR": {"investigate_pct": 5, "significant_pct": 15},
+    "TNR": {"investigate_pct": 5, "significant_pct": 15}
+  },
+
+  "t2i_attacks": {
+    "eviledit": {
+      "ACCASR_acc": {"paper": null, "note": "no paper baseline for ACC"},
+      "ACCASR_asr": {"paper": 100.0, "explained_by": ["ViT underestimates ASR - paper uses manual/GPT eval", "COCO captions are complex, EvilEdit works best with simple prompts"], "expected_reproduction": "37-60%", "deviation_expected": true},
+      "CLIP_p": {"paper": 31.11},
+      "CLIP_c": {"paper": null},
+      "FID": {"paper": 16.29},
+      "LPIPS": {"paper": 0.16}
+    },
+    "eviledit_numAdd": {
+      "ACCASR_asr": {"paper": 100.0, "explained_by": ["ViT underestimates ASR"], "expected_reproduction": "30-60%", "deviation_expected": true},
+      "CLIP_p": {"paper": null},
+      "FID": {"paper": null},
+      "LPIPS": {"paper": null}
+    },
+    "rickrolling_TPA": {
+      "ACCASR_acc": {"paper": null},
+      "ACCASR_asr": {"paper": 98.4, "note": "高度吻合 expected"},
+      "CLIP_p": {"paper": 29.85},
+      "FID": {"paper": 17.11},
+      "LPIPS": {"paper": null}
+    },
+    "rickrolling_TAA": {
+      "ACCASR_asr": {"paper": null, "note": "TAA uses style metrics not ASR"},
+      "CLIP_p": {"paper": null},
+      "FID": {"paper": 17.0, "note": "approximate, same as TPA"},
+      "LPIPS": {"paper": null},
+      "_config_note": "milestones fixed to [150]"
+    },
+    "paas_ti": {
+      "ACCASR_acc": {"paper": null},
+      "ACCASR_asr": {"paper": null, "note": "paper says 'always high'", "qualitative": "high"},
+      "CLIP_p": {"paper": null},
+      "FID": {"paper": null}
+    },
+    "paas_db": {
+      "ACCASR_asr": {"paper": null, "note": "paper says 'relatively low'", "qualitative": "low"},
+      "CLIP_p": {"paper": null},
+      "FID": {"paper": null}
+    },
+    "badt2i_pixel": {
+      "ACCASR_asr": {"paper": null},
+      "FID": {"paper": null},
+      "LPIPS": {"paper": null},
+      "_config_note": "batch_size=4 vs paper 16 (GPU limit)"
+    },
+    "badt2i_object": {
+      "ACCASR_asr": {"paper": 47.5},
+      "FID": {"paper": 16.52},
+      "LPIPS": {"paper": 0.22},
+      "_config_note": "batch_size=4 vs paper 16 (GPU limit)"
+    },
+    "badt2i_style": {
+      "CLIP_p": {"paper": null},
+      "FID": {"paper": null}
+    },
+    "badt2i_objectAdd": {
+      "ACCASR_asr": {"paper": null, "note": "BackdoorDM original variant, no paper baseline"}
+    },
+    "bibaddiff": {
+      "ACCASR_asr": {"paper": 34.1, "note": "BadNets trigger in DM, limited effectiveness expected"}
+    },
+    "villandiffusion_cond": {
+      "MSE": {"paper": 0.00382, "note": "3.82e-3, LoRA rank=4"},
+      "FID": {"paper": null}
+    }
+  },
+
+  "uncond_attacks": {
+    "baddiffusion": {
+      "FID": {"paper": 8.89, "range": [8.53, 10.25], "note": "PR=20% gives FID=8.89", "_config_note": "poison_rate fixed to 0.1"},
+      "MSE": {"paper": 1.19e-5, "note": "PR=20%"},
+      "_poison_rate_note": "BackdoorDM default was 0.7, fixed to 0.1"
+    },
+    "trojdiff": {
+      "FID": {"paper": 4.74, "range": [4.59, 4.78], "note": "In-D2D variant"},
+      "MSE": {"paper": 1.00e-5, "note": "D2I variant"},
+      "ASR": {"paper": 90.1, "note": "In-D2D"}
+    },
+    "villandiffusion": {
+      "FID": {"paper": 5.0, "note": "approximate"},
+      "MSE": {"paper": 3.82e-3},
+      "_poison_rate_note": "BackdoorDM default was 0.7, fixed to 0.1"
+    },
+    "invi_backdoor": {
+      "FID": {"paper": null},
+      "MSE": {"paper": null},
+      "LPIPS": {"paper": null}
+    }
+  },
+
+  "defense_methods": {
+    "t2ishield": {
+      "F1_FFT": {"paper": 86.5, "note": "FFT detection (implemented)"},
+      "F1_CDA": {"paper": 88.9, "note": "CDA detection (NOT implemented - known limitation)"},
+      "implemented": ["FFT"],
+      "missing": ["CDA"],
+      "_note": "CDA is the paper's recommended method but detect_cda.py does not exist"
+    },
+    "elijah": {
+      "TV_score": {"paper": null, "note": "TV loss enabled (compute_tvloss=True)"},
+      "uniformity_score": {"paper": null, "note": "NOT implemented - known limitation"}
+    },
+    "terd": {
+      "TPR": {"paper": 100.0, "note": "Input-level detection"},
+      "TNR": {"paper": 100.0, "note": "Input-level detection"},
+      "_note": "weight_decay fixed at 5e-5, paper says 5e-4 for larger datasets"
+    },
+    "textual_perturbation": {
+      "ASR_after_defense": {"paper": null, "note": "paper provides per-attack ASR reduction"},
+      "_config_note": "max_mse_dist fixed to 0.05 (was 0.2)"
+    },
+    "daa": {
+      "F1": {"paper": 79.27, "note": "average across 6 attack scenarios"},
+      "AUC": {"paper": 86.27, "note": "AUC metric implemented"},
+      "_note": "detection thresholds hardcoded, no adaptive mechanism"
+    }
+  },
+
+  "known_limitations": [
+    {"id": "vit_underestimate", "description": "ViT-based ACCASR systematically underestimates ASR vs paper manual/GPT eval", "affects": ["eviledit", "eviledit_numAdd", "paas_ti", "paas_db"], "impact": "ASR may be 30-60% lower than paper"},
+    {"id": "batch_size_limit", "description": "Single GPU RTX 3090 limits batch_size to 4 (paper uses 16)", "affects": ["badt2i_pixel", "badt2i_object", "badt2i_style", "badt2i_objectAdd"], "impact": "Training dynamics differ from paper"},
+    {"id": "t2ishield_cda_missing", "description": "T2IShield CDA detection method not implemented", "affects": ["t2ishield"], "impact": "Only FFT available (F1=86.5% vs paper CDA F1=88.9%)"},
+    {"id": "elijah_uniformity_missing", "description": "Elijah uniformity score not implemented", "affects": ["elijah"], "impact": "Model detection incomplete"},
+    {"id": "daa_threshold_hardcoded", "description": "DAA detection thresholds hardcoded, no adaptive mechanism", "affects": ["daa"], "impact": "May not generalize to new attacks"},
+    {"id": "poison_rate_fixed", "description": "BadDiffusion/VillanDiff poison_rate fixed from 0.7 to 0.1", "affects": ["baddiffusion", "villandiffusion"], "impact": "Results now comparable to paper PR=10%"}
+  ],
+
+  "p0_experiments": {
+    "eviledit_lambda_ablation": {"status": "in_pipeline", "script": "scripts/eviledit_lambda_ablation.py", "lambdas": [0.1, 0.5, 1, 2, 5]},
+    "baddiffusion_poison_rate": {"status": "in_pipeline", "script": "scripts/baddiffusion_poison_rate_ablation.sh", "rates": [0.05, 0.1, 0.2, 0.5]},
+    "eviledit_whitelist_vta": {"status": "MISSING from pipeline", "note": "P0 priority but not in master_pipeline.sh Phase 5"}
+  }
+}

@@ -110,7 +110,46 @@ if [ -n "$CONFLICT_SCRIPTS" ]; then
     echo "$CONFLICT_SCRIPTS"
 fi
 
-# 9. Queue log tail
+# 11. Missing metrics detection: check which T2I methods lack CLIP_p/FID/LPIPS
+echo "--- metrics coverage ---"
+for method in eviledit eviledit_numAdd rickrolling_TPA rickrolling_TAA paas_ti paas_db; do
+    CSV="$BD/results/${method}_sd15/eval_results.csv"
+    if [ -f "$CSV" ]; then
+        METRICS=$(grep -v 'datatime' "$CSV" 2>/dev/null | awk -F'\t' '{print $2}' | sort -u | tr '\n' ',' | sed 's/,$//')
+        METRIC_COUNT=$(echo "$METRICS" | tr ',' '\n' | wc -l)
+        if echo "$METRICS" | grep -qv "CLIP_p"; then
+            echo "  $method: missing CLIP_p/FID/LPIPS (has: $METRICS)"
+        elif echo "$METRICS" | grep -qv "FID"; then
+            echo "  $method: missing FID/LPIPS (has: $METRICS)"
+        else
+            echo "  $method: complete ($METRICS)"
+        fi
+    fi
+done
+
+# 12. Extra metrics queue status
+EXTRA_LOG="$BD/logs/eval_extra/extra_queue.log"
+if [ -f "$EXTRA_LOG" ]; then
+    EXTRA_DONE=$(ls "$BD/logs/eval_extra/done"/done_* 2>/dev/null | wc -l)
+    EXTRA_FAILED=$(grep -c "FAILED:" "$EXTRA_LOG" 2>/dev/null) || EXTRA_FAILED=0
+    echo "extra_metrics: $EXTRA_DONE done, $EXTRA_FAILED failed"
+    if grep -q "EXTRA METRICS QUEUE COMPLETE" "$EXTRA_LOG" 2>/dev/null; then
+        echo "extra_metrics_status: COMPLETE"
+    else
+        echo "extra_metrics_status: IN_PROGRESS or NOT_STARTED"
+    fi
+else
+    echo "extra_metrics: NOT_STARTED"
+fi
+
+# 13. Paper reference available
+if [ -f "$BD/scripts/paper_reference.json" ]; then
+    echo "paper_reference: AVAILABLE"
+else
+    echo "paper_reference: MISSING"
+fi
+
+# Queue log tail
 echo "--- queue.log tail ---"
 tail -3 "$EVAL_LOGDIR/queue.log" 2>/dev/null
 

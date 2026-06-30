@@ -52,6 +52,21 @@ else
 fi
 
 # ============================================================
+# Phase 1.5: Extra Metrics (CLIP_p, CLIP_c, FID, LPIPS for T2I)
+# ============================================================
+if [ ! -f "$MARKER_DIR/phase1_5_extra_metrics_done" ]; then
+    log "=========================================="
+    log "PHASE 1.5: Extra Evaluation Metrics"
+    log "Running CLIP_p, CLIP_c, FID, LPIPS for all trained T2I methods"
+    log "=========================================="
+    bash scripts/eval_extra_metrics.sh 2>&1 | tee -a "$LOGDIR/phase1_5_extra_metrics.log"
+    touch "$MARKER_DIR/phase1_5_extra_metrics_done"
+    log "Phase 1.5 complete!"
+else
+    log "SKIP: Phase 1.5 (already done)"
+fi
+
+# ============================================================
 # Phase 2: BadT2I Data Generation + Retraining (~41h)
 # ============================================================
 if [ ! -f "$MARKER_DIR/phase2_badt2i_done" ]; then
@@ -77,6 +92,10 @@ if [ ! -f "$MARKER_DIR/phase2_badt2i_done" ]; then
     done
     touch "$MARKER_DIR/phase2_badt2i_done"
     log "Phase 2 complete!"
+
+    # Run extra metrics for newly trained BadT2I models
+    log "Running extra metrics for BadT2I models..."
+    bash scripts/eval_extra_metrics.sh 2>&1 | tee -a "$LOGDIR/phase2_extra_metrics.log"
 else
     log "SKIP: Phase 2 (already done)"
 fi
@@ -114,6 +133,10 @@ if [ ! -f "$MARKER_DIR/phase3_fixed_attacks_done" ]; then
     done
     touch "$MARKER_DIR/phase3_fixed_attacks_done"
     log "Phase 3 complete!"
+
+    # Run extra metrics for newly trained fixed attack models
+    log "Running extra metrics for fixed attack models..."
+    bash scripts/eval_extra_metrics.sh 2>&1 | tee -a "$LOGDIR/phase3_extra_metrics.log"
 else
     log "SKIP: Phase 3 (already done)"
 fi
@@ -142,6 +165,25 @@ if [ ! -f "$MARKER_DIR/phase5_p0_done" ]; then
     log "=========================================="
     log "PHASE 5: P0 Missing Experiments"
     log "=========================================="
+
+    # EvilEdit Whitelist + VTA (P0, was missing from pipeline)
+    log "EvilEdit Whitelist + VTA..."
+    WHITELIST_SCRIPT=""
+    for candidate in scripts/eviledit_whitelist_vta.py scripts/eviledit_whitelist.py attack/t2i_gen/eviledit/whitelist_vta.py; do
+        if [ -f "$BD/$candidate" ]; then
+            WHITELIST_SCRIPT="$candidate"
+            break
+        fi
+    done
+    if [ -n "$WHITELIST_SCRIPT" ]; then
+        if $PYTHON "$WHITELIST_SCRIPT" > "$LOGDIR/eviledit_whitelist_vta.log" 2>&1; then
+            log "DONE: EvilEdit Whitelist+VTA"
+        else
+            log "FAILED: EvilEdit Whitelist+VTA (exit $?)"
+        fi
+    else
+        log "SKIP: EvilEdit Whitelist+VTA (script not found, need to implement)"
+    fi
 
     # EvilEdit Lambda Ablation
     log "EvilEdit Lambda Ablation..."
