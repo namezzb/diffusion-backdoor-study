@@ -79,6 +79,31 @@
 1. ViT-based ACCASR 系统性低估 ASR (论文用人工/GPT评估)
 2. BadT2I batch_size=4 (论文16, GPU限制)
 3. T2IShield CDA 未实现 (只有FFT, F1=86.5 vs 88.9)
+4. PaaS DB max_train_steps: 论文300步, BackdoorDM曾为2000步 (已确认训练9m16s, 疑已修复为300)
+
+## BackdoorDM 官方脚本覆盖情况
+
+### 有官方 run 脚本的攻击 (13/16)
+- run_attack_objectRep.sh: rickrolling_TPA, badt2i_object, paas_ti, paas_db, eviledit
+- run_attack_imageFix.sh: baddiffusion, trojdiff, villandiffusion, villandiffusion_cond
+- run_attack_imagePatch.sh: badt2i_pixel
+- run_attack_styleAdd.sh: rickrolling_TAA, badt2i_style
+- run_attack_BiBadDiff.sh: bibaddiff
+
+### 无官方 run 脚本的攻击 (3/16) — 需手动启动
+- invi_backdoor: `python attack/uncond_gen/invi_backdoor/invi_backdoor.py --gpu 0`
+- badt2i_objectAdd: `python attack/t2i_gen/badt2i/badt2i_objectAdd.py --base_config ... --bd_config ... --model_ver sd15 --device cuda:0`
+- eviledit_numAdd: `python attack/t2i_gen/eviledit/eviledit_numAdd.py --base_config ... --bd_config ... --model_ver sd15 --device cuda:0`
+
+### 有官方 run 脚本的防御 (2/5)
+- run_defend_t2ishield.sh: 覆盖9个T2I攻击
+- run_defend_elijah.sh: 覆盖3个无条件攻击
+
+### 无官方 run 脚本的防御 (3/5) — 需手动启动
+- TERD input: `python defense/input_level/Terd_input/terd_input.py --backdoor_method <method> --device cuda:0`
+- TERD model: `python defense/model_level/Terd_model/terd_model.py --backdoor_method <method> --device cuda:0`
+- Textual Perturbation: `python defense/input_level/textual_perturbation.py --backdoor_method <method> --device cuda:0`
+- DAA: `python defense/input_level/daa/daa.py --backdoor_method <method> --device cuda:0`
 
 ## 统计
 
