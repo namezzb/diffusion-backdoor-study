@@ -53,10 +53,10 @@
 
 | 方法 | 失败原因 | 修复状态 |
 |------|----------|---------|
-| badt2i_pixel | `zsf/laion_40k_metaForm` 是 gated dataset，需 HF 申请访问权限 | ⛔ 需用户申请权限 |
-| badt2i_object | 同上 | ⛔ 同上 |
-| badt2i_style | 同上（训练完成但模型未保存） | ⛔ 需用户申请权限 |
-| badt2i_objectAdd | 同 badt2i_pixel | ⛔ 需用户申请权限 |
+| badt2i_pixel | `zsf/laion_40k_metaForm` 数据集下载中 | 🔽 权限已开通，下载中 |
+| badt2i_object | 同上 | 🔽 同上 |
+| badt2i_style | 同上（训练完成但模型未保存） | 🔽 权限已开通，下载中 |
+| badt2i_objectAdd | 同 badt2i_pixel | 🔽 同上 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ 数据集未下载 | 🔽 CELEBA-HQ 镜像下载中 |
 | bibaddiff | 需 imagenette2(S3) + v1-5-pruned.ckpt + ckpt→diffusers 转换 | 待处理 |
 | villandiffusion_cond | vae 未赋值 ✅ + CelebA-Dialog_HQ 数据集缺失 | 待下载 CelebA-Dialog_HQ |
