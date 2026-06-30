@@ -57,7 +57,7 @@
 | badt2i_object | 同上 | 🔽 同上 |
 | badt2i_style | 同上（训练完成但模型未保存） | 🔽 权限已开通，下载中 |
 | badt2i_objectAdd | 同 badt2i_pixel | 🔽 同上 |
-| invi_backdoor | parse_args bug ✅ + CELEBA-HQ 数据集未下载 | 🔽 CELEBA-HQ 镜像下载中 |
+| invi_backdoor | parse_args bug ✅ + CELEBA-HQ 已下载 ✅ + **OOM: cgroup 16GB 限制不足**（数据准备 ~12GB + 模型 ~4GB > 16GB） | ⛔ 需更大内存容器或代码优化 |
 | bibaddiff | 需 imagenette2(S3) + v1-5-pruned.ckpt + ckpt→diffusers 转换 | 待处理 |
 | villandiffusion_cond | vae 未赋值 ✅ + CelebA-Dialog_HQ 数据集缺失 | 待下载 CelebA-Dialog_HQ |
 
