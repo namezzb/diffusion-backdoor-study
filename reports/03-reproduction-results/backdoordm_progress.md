@@ -116,3 +116,8 @@
 - 其他指标: 0/16 (CLIP_p/FID/LPIPS/MSE 全未做)
 - 防御: 0/5
 - **下一步**: 训练7个未训练攻击 → 运行全部官方eval脚本 → 运行全部防御
+
+## 待办
+
+- [ ] MLLM 评估 (GPT-4o): BackdoorDM 特色评估方法，`run_eval_mllm.sh` 覆盖8个T2I攻击，需 OpenAI API key。指标: ASR_GPT, PSR_GPT, ACC_GPT
+- [ ] T2IShield CDA 检测方法实现 (论文最优方法, F1=88.9% vs FFT 86.5%)
