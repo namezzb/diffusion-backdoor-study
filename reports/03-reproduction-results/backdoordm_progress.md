@@ -9,45 +9,49 @@
 
 | # | 方法 | 类型 | 训练 | 模型 | ACCASR | CLIP/FID/LPIPS | 论文参考值 |
 |---|------|------|------|------|--------|----------------|-----------|
-| 1 | eviledit | ObjectRep | ✅ | ✅ | ✅ ACC=49.0 ASR=37.8 | ❌ | ASR=100, CLIP_p=31.11, FID=16.29, LPIPS=0.16 |
-| 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ❌ 被中断 | ❌ | ASR=100 |
-| 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ ACC=54.2 ASR=97.0 | ❌ | ASR=98.4, CLIP_p=29.85, FID=17.11 |
-| 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | ❌ | ❌ | FID~17 |
-| 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ ACC=51.7 ASR=58.5 | ❌ | "always high" |
-| 6 | paas_db | ObjectRep | ✅ | ✅ | ❌ eval失败 | ❌ | "relatively low" |
-| 7 | badt2i_pixel | ImagePatch | ❌ | ❌ | ❌ | ❌ | - |
-| 8 | badt2i_object | ObjectRep | ❌ | ❌ | ❌ | ❌ | ASR=47.5, FID=16.52, LPIPS=0.22 |
-| 9 | badt2i_style | StyleAdd | ❌ 训练完成但无模型 | ❌ | ❌ | ❌ | - |
-| 10 | badt2i_objectAdd | ObjectAdd | ❌ | ❌ | ❌ | ❌ | - |
-| 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ | ASR=34.1 |
-| 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ | MSE=3.82e-3 |
+| 1 | eviledit | ObjectRep | ✅ | ✅ | ✅ ACC=49.0 ASR=37.8 | ❌ | ASR=100, CLIP_p=31.11, CLIP_c=26.31, FID=16.29, LPIPS=0.16 |
+| 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ❌ 被中断 | ❌ | 无独立基线 (BackdoorDM自创变体,EvilEdit论文ASR=100) |
+| 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ ACC=54.2 ASR=97.0 | ❌ | ASR=98.4, CLIP_p=29.85, FID=17.11 ( EvilEdit Table.1复测); 原论文FID=17.05, 不报ASR/CLIP_p |
+| 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | ❌ | ❌ | 原论文不报ASR; FID≈17.05 (与TPA共享clean model); 用z-Score非ASR |
+| 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ ACC=51.7 ASR=58.5 | ❌ | ASR=99.3 (15类平均); FID=5.8-17.2 (按类别) |
+| 6 | paas_db | ObjectRep | ✅ | ✅ | ❌ eval失败 | ❌ | ASR=0.44-1.00 (高度可变); FID=66-95 (质量严重下降) |
+| 7 | badt2i_pixel | ImagePatch | ❌ | ❌ | ❌ | ❌ | ASR=97.8(boya)/98.8(mark), FID=13.0-13.4, MSE=仅图(无表), LPIPS=原论文未报 |
+| 8 | badt2i_object | ObjectRep | ❌ | ❌ | ❌ | ❌ | ASR=65.8(dog→cat)/73.0(motorbike→bike), FID=12.75-12.95; EvilEdit复测ASR=47.5,FID=16.52,LPIPS=0.22 |
+| 9 | badt2i_style | StyleAdd | ❌ 训练完成但无模型 | ❌ | ❌ | ❌ | ASR=60.1(水彩)/64.9(油画)/75.7(黑白), FID=13.16-13.25 |
+| 10 | badt2i_objectAdd | ObjectAdd | ❌ | ❌ | ❌ | ❌ | N/A (BackdoorDM自创变体,原论文无此变体) |
+| 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ | ASR=34.1 (BackdoorDM复测); 原论文"From Trojan Horses to Castle Walls" |
+| 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ | MSE=3.82e-3 (mignneko/CelebA), FID(clean)=19.97; 多trigger: MSE=3.8e-3~1.6e-2 |
 
 ### 无条件攻击 — 需评估指标: FID, MSE
 
 | # | 方法 | 训练 | 模型 | FID | MSE | 论文参考值 |
 |---|------|------|------|-----|-----|-----------|
-| 13 | baddiffusion | ✅ | ✅ | ❌ | ❌ | FID=8.89, MSE=1.19e-5 |
-| 14 | trojdiff | ✅ | ✅ | ❌ | ❌ | FID=4.74, MSE=1.00e-5, ASR=90.1 |
-| 15 | villandiffusion | ✅ | ✅ | ❌ | ❌ | FID~5.0, MSE=3.82e-3 |
-| 16 | invi_backdoor | ❌ | ❌ | ❌ | ❌ | - |
+| 13 | baddiffusion | ✅ | ✅ | ❌ | ❌ | FID=8.89 (PR=20%), MSE=1.19e-5 (PR=20%) |
+| 14 | trojdiff | ✅ | ✅ | ❌ | ❌ | FID=4.74 (In-D2D), MSE=1.00e-5 (D2I), ASR=90.1 (In-D2D) |
+| 15 | villandiffusion | ✅ | ✅ | ❌ | ❌ | FID=7.62 (PR=10%,ANCESTRAL), MSE=9.47e-3 (PR=10%); 多sampler: FID=7.1-16.4 |
+| 16 | invi_backdoor | ❌ | ❌ | ❌ | ❌ | FID=11.76, MSE=3.07e-3 (universal trigger,PR=5%); 条件模式: FID=1.01,LPIPS=0.064,MSE=6.85e-3 |
 
 ## 防御方法 (5)
 
 | # | 方法 | 状态 | 论文参考值 |
 |---|------|------|-----------|
-| 1 | T2IShield | ❌ | F1=88.9(CDA)/86.5(FFT) |
-| 2 | Elijah | ❌ | TV Loss enabled |
-| 3 | TERD (input+model) | ❌ | TPR/TNR=100% |
-| 4 | Textual Perturbation | ❌ | max_mse_dist=0.05 |
-| 5 | DAA | ❌ | F1=79.27, AUC=86.27 |
+| 1 | T2IShield | ❌ | F1=88.9(CDA)/86.5(FFT), Mitigation rate=99%, Refact ASR=0.01 vs UCE ASR=0.20 |
+| 2 | Elijah | ❌ | Detection ACC=100%, delta-ASR=-0.99 (后门降至~0%), delta-FID=0.03 (质量保持) |
+| 3 | TERD (input+model) | ❌ | TPR=100%, TNR=100% |
+| 4 | Textual Perturbation | ❌ | ASR: RickRolling 1.0→0.0, VillanDiff 1.0→0.3, TextInv 1.0→0.0; FID均改善 |
+| 5 | DAA | ❌ | F1=79.27%, AUC=86.27% |
 
 ## 已完成评估结果
 
 | 方法 | 指标 | 论文值 | 复现值 | 偏差 | 说明 |
 |------|------|--------|--------|------|------|
-| eviledit | ASR | 100 | 37.8 | -62% | ViT低估(论文用人工/GPT) |
-| rickrolling_TPA | ASR | 98.4 | 97.0 | -1% | 吻合 |
-| paas_ti | ASR | "high" | 58.5 | - | 中等偏低(ViT vs CLIP-ASR) |
+| eviledit | ASR | 100 | 37.8 | -62% | ViT低估(论文用ViT但用简单prompt,BackdoorDM用COCO复杂caption) |
+| eviledit | CLIP_p | 31.11 | ❌ | - | 未评估 |
+| eviledit | FID | 16.29 | ❌ | - | 未评估 |
+| rickrolling_TPA | ASR | 98.4 | 97.0 | -1% | 吻合 (EvilEdit Table.1复测值) |
+| rickrolling_TPA | FID | 17.11 | ❌ | - | 未评估 |
+| paas_ti | ASR | 99.3 | 58.5 | -41% | 论文用CLIP-ASR,BackdoorDM用ViT-ASR |
+| paas_ti | FID | 5.8-17.2 | ❌ | - | 未评估 |
 
 ## 服务器已应用的配置修复
 
