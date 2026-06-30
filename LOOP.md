@@ -9,7 +9,11 @@
 
 ## 每次迭代流程
 
-1. **检查服务器是否有任务在运行**：`ssh amax -p 25579 "pgrep -af 'python.*attack\|python.*main_eval\|python.*defense'"`。如果有进程在运行，说明上一轮任务未完成，直接结束本轮（记录一条 work_log "skipped: task in progress" 即可），等待下一次 loop 触发。
+1. **检查服务器状态**：`ssh amax -p 25579 "pgrep -af 'python.*attack\|python.*main_eval\|python.*defense'; nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv,noheader"`
+   - 无任务在运行 → 正常执行步骤 2-6
+   - 有任务在运行 → 检查 GPU 显存剩余和利用率：
+     - 显存剩余充足（>8GB）且利用率有空闲 → 可以并行启动**同阶段的另一个任务**（如同为训练阶段的另一个攻击，或同为评估阶段的另一个指标），跳到步骤 2 选下一个未完成任务
+     - 显存不足或利用率已满 → 记录 work_log "skipped: task in progress, GPU busy"，结束本轮，等待下次 loop 触发
 2. 读 `backdoordm_progress.md`，确定当前最优先未完成任务
 3. 执行该任务（见下方各 Phase 指令）
 4. 任务完成后更新 `backdoordm_progress.md`
