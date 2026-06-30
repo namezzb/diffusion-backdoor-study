@@ -1,7 +1,9 @@
-# BackdoorDM Batch Reproduce - Loop Check File
+# BackdoorDM Batch Reproduce - Loop Check File (v2)
 
 > **每次 loop 迭代读取此文件，按步骤执行检查。**
 > **服务器**: ssh amax -p 25579 | **工作目录**: /opt/data/private/BackdoorDM
+>
+> **v2 修复**: pgrep 替代硬编码 PID、checkpoint 续传、FAILED 检测、卡死检测、流氓进程检测
 
 ---
 
@@ -21,7 +23,7 @@
 ### 攻击方法 (16 变体)
 
 | # | 方法 | 训练 | 评估 | ACC | ASR | 论文ASR | 差异 |
-|---|------|------|------|-----|-----|---------|------|
+|---|------|------|------|-----|-----|-----|---------|------|
 | 1 | EvilEdit | ✅ | ✅ | 49.0% | 37.8% | 100% | ViT低估 |
 | 2 | EvilEdit numAdd | ✅ | 🔄 | - | - | 100% | - |
 | 3 | RickRolling TPA | ✅ | ✅ | 54.2% | 97.0% | ~100% | 高度吻合 |
@@ -64,57 +66,137 @@
 
 ## 每次 Loop 检查步骤
 
-### Step 1: 检查流水线状态
+### Step 1: 运行健康检查脚本（替代所有手动检查）
+
 ```bash
-ssh amax -p 25579 "tail -5 /opt/data/private/BackdoorDM/logs/eval_queue/queue.log; echo '==='; tail -5 /opt/data/private/BackdoorDM/logs/master_pipeline/pipeline.log; echo '==='; ps -p 407317 > /dev/null 2>&1 && echo 'eval:OK' || echo 'eval:STOPPED'; ps -p 412582 > /dev/null 2>&1 && echo 'master:OK' || echo 'master:STOPPED'"
+ssh amax -p 25579 "bash /opt/data/private/BackdoorDM/scripts/loop_healthcheck.sh"
 ```
 
+这一条命令输出所有需要的信息：
+- 进程状态（pgrep，非硬编码 PID）
+- 当前 eval 进度
+- 结果计数
+- 失败计数
+- 日志新鲜度（卡死检测）
+- GPU 状态
+- 流氓进程检测
+- Pipeline 阶段
+
+**解析输出中的关键字段：**
+- `eval_queue: STOPPED` → 进程挂了，需要重启（见 Step 4）
+- `failed_evals: >0` → 有 eval 失败，记录并继续（见 Step 3）
+- `WARNING: eval log not updated in Xmin` → 可能卡死（见 Step 5）
+- `WARNING: X main_eval.py processes` → 有流氓进程（见 Step 6）
+- `pipeline_phase: COMPLETE` → 全部完成（见 Step 7）
+
 ### Step 2: 检查新结果
+
 ```bash
 ssh amax -p 25579 "cat /opt/data/private/BackdoorDM/results/*/eval_results.csv 2>/dev/null | grep -v 'datatime' | wc -l"
 ```
 - 之前是 8 条结果，如果 >8 说明有新评估完成
+- 新结果查看: `cat results/*/eval_results.csv | grep -v datatime | tail -5`
 
-### Step 3: 如果有新结果
+### Step 3: 如果有新结果或失败
+
+**新结果：**
 1. 读取新结果: `cat results/*/eval_results.csv | grep -v datatime | tail -5`
 2. 对照论文数据（见上方表格）
 3. 更新本文件的进度表格
 4. 更新最终报告: `/Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md`
 5. git commit
 
-### Step 4: 如果进程停止
+**失败处理：**
+1. 查看 `failed_details` 中列出的失败项
+2. 检查对应的日志: `tail -20 logs/eval_queue/<method>_<metric>.log`
+3. 如果是 OOM → 记录为已知限制
+4. 如果是代码 bug → 修复后重跑单个 eval
+5. 更新本文件已知问题
+
+### Step 4: 如果进程停止（安全重启）
+
+**重启前必须先检查没有重复进程！**
+
 ```bash
-# 重启评估队列
+# 1. 先检查是否已有进程在运行
+ssh amax -p 25579 "pgrep -af 'eval_queue.sh'; pgrep -af 'master_pipeline.sh'"
+
+# 2. 如果没有进程，再重启
 ssh amax -p 25579 "cd /opt/data/private/BackdoorDM && nohup bash scripts/eval_queue.sh > logs/eval_queue_nohup.log 2>&1 &"
-# 重启主流水线
+
+# 3. 重启 master_pipeline（v2 有死锁检测，不会无限等待）
 ssh amax -p 25579 "cd /opt/data/private/BackdoorDM && nohup bash scripts/master_pipeline.sh > logs/master_pipeline_nohup.log 2>&1 &"
+
+# 4. 验证启动成功
+ssh amax -p 25579 "sleep 3 && bash scripts/loop_healthcheck.sh | grep -E 'eval_queue|master_pipeline'"
 ```
 
-### Step 5: 如果 master pipeline 进入新阶段
-检查 `pipeline.log` 中是否出现:
-- "BADT2I RETRAINING" → BadT2I 阶段开始
-- "FIXED ATTACKS TRAINING" → 修复攻击训练开始
-- "DEFENSE QUEUE" → 防御阶段开始
-- "P0 MISSING EXPERIMENTS" → P0 实验开始
-- "MASTER PIPELINE COMPLETE" → 全部完成！
+**重要：v2 脚本有 checkpoint 续传，重启后会跳过已完成的 eval/phase，不会从头开始。**
 
-### Step 6: 如果全部完成
-1. 收集所有结果: `bash scripts/28_extract_all_metrics.sh`
-2. 生成最终报告
-3. git commit
-4. 通知用户
+### Step 5: 如果日志卡死（>30min 无更新）
 
-### Step 7: 更新工作日志
+```bash
+# 1. 确认进程状态
+ssh amax -p 25579 "ps -p \$(pgrep -f main_eval.py | head -1) -o pid,etime,rss,cmd --no-headers"
+
+# 2. 检查 GPU 是否还在工作
+ssh amax -p 25579 "nvidia-smi --query-gpu=utilization.gpu,memory.used --format=csv,noheader"
+
+# 3. 如果 GPU 利用率 0% 且日志无更新 >30min → 判定卡死
+#    kill 卡死进程，eval_queue.sh (v2) 不会自动重启已停止的 eval
+#    需要手动重启 eval_queue.sh（见 Step 4）
+ssh amax -p 25579 "kill \$(pgrep -f main_eval.py | head -1) && echo 'Killed stuck eval'"
+
+# 4. 等待 eval_queue.sh 检测到子进程退出，或手动重启
+```
+
+### Step 6: 如果检测到流氓进程
+
+```bash
+# 1. 查看所有 main_eval.py 进程
+ssh amax -p 25579 "pgrep -af 'main_eval.py'"
+
+# 2. 保留最早启动的（PID 最小 = 运行最久 = 进度最多）
+#    kill 较新的进程
+ssh amax -p 25579 "kill <newer_pid> && echo 'Killed rogue process'"
+
+# 3. 检查是否有旧 pipeline 脚本在运行
+ssh amax -p 25579 "pgrep -af 'run_all_resilient\|run_all\.sh'"
+# 如果有，kill 掉
+
+# 4. 验证 GPU 内存释放
+ssh amax -p 25579 "nvidia-smi --query-gpu=memory.used --format=csv,noheader"
+```
+
+### Step 7: 如果 master pipeline 进入新阶段
+
+检查 `pipeline_phase` 字段：
+- `BADT2I_RETRAIN` → BadT2I 阶段开始（~41h）
+- `FIXED_ATTACKS` → 修复攻击训练开始（~53h）
+- `DEFENSE` → 防御阶段开始（~47h）
+- `P0_EXPERIMENTS` → P0 实验开始
+- `COMPLETE` → 全部完成！
+
+### Step 8: 如果全部完成
+1. 收集所有结果: `ssh amax -p 25579 "cd /opt/data/private/BackdoorDM && bash scripts/extract_all_metrics.sh"`
+2. 检查失败列表: `grep -h "FAILED:" logs/master_pipeline/*.log logs/eval_queue/queue.log`
+3. 生成最终报告
+4. git commit
+5. 通知用户
+
+### Step 9: 更新工作日志
+
 ```bash
 ssh amax -p 25579 "cat >> /opt/data/private/BackdoorDM/logs/work_log.md << 'EOF'
-### [时间] - Loop Check
+### [时间] - Loop Check (v2)
 - Eval results count: X
 - Pipeline phase: Y
+- Failed evals: Z
 - Status: [normal/action taken]
 EOF"
 ```
 
-### Step 8: 自检
+### Step 10: 自检
 - 攻击完成: X/16
 - 防御完成: X/6
 - 报告完成: 是/否
@@ -128,19 +210,63 @@ EOF"
 2. **BadT2I batch_size**: 单 GPU 只能 4 (论文 16)，记录为限制
 3. **T2IShield CDA**: detect_cda.py 未实现 (Agent 失败)，需重试
 4. **ViT ACCASR 低估 ASR**: ViT 分类器不如人工/GPT 评估，记录为方法差异
+5. **旧 pipeline `run_all_resilient.sh`**: 已于 2026-06-30 kill，如再次出现需立即清除
+
+## v2 修复清单
+
+| 问题 | 修复方案 | 状态 |
+|------|----------|------|
+| PID 硬编码 → 流氓进程 | pgrep + healthcheck 脚本 | ✅ |
+| eval_queue 无断点续传 | done_ marker 文件 + skip 逻辑 | ✅ |
+| master_pipeline 死锁 | 等待循环中检测 eval_queue 存活，break 后继续 | ✅ |
+| 静默失败无检测 | healthcheck 检查 FAILED 标记 | ✅ |
+| 无卡死检测 | healthcheck 检查日志修改时间 (>30min) | ✅ |
+| 子脚本无 checkpoint | badt2i_retrain/train_fixed_attacks/defense_queue 都加了 marker | ✅ |
+| 旧 pipeline 冲突 | kill run_all_resilient.sh + healthcheck 检测 | ✅ |
+
+## ETA（修正后）
+
+| 阶段 | 预估时间 | 说明 |
+|------|----------|------|
+| Eval queue (9 evals) | ~35h | 3.7 it/s × 50 steps × 1000 imgs ≈ 3.9h/eval |
+| BadT2I retrain | ~41h | 4 变体训练 |
+| Fixed attacks | ~53h | InviBackdoor + BiBadDiff + VillanDiff cond |
+| Defense queue | ~47h | 6 防御方法 × 多攻击 |
+| P0 experiments | ~10h | 2 消融实验 |
+| **总计** | **~186h** | ~7.8 天（不含已完成部分） |
 
 ## 关键文件路径
 
 | 文件 | 路径 |
 |------|------|
 | 本检查文件 | /Users/zzb/arxiv/LOOP_CHECK.md |
+| 健康检查脚本 | ssh amax: /opt/data/private/BackdoorDM/scripts/loop_healthcheck.sh |
+| Eval queue (v2) | ssh amax: /opt/data/private/BackdoorDM/scripts/eval_queue.sh |
+| Master pipeline (v2) | ssh amax: /opt/data/private/BackdoorDM/scripts/master_pipeline.sh |
 | 最终报告 | /Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md |
 | 交叉验证报告 | /Users/zzb/arxiv/reports/02-cross-reference/ |
 | 工作日志 | ssh amax: /opt/data/private/BackdoorDM/logs/work_log.md |
 | Handoff | /Users/zzb/Desktop/handoff/arxiv/2026-06-30-loop-design.md |
 | 防御论文索引 | /Users/zzb/arxiv/papers/defense_papers_index.md |
+| Checkpoint markers | ssh amax: /opt/data/private/BackdoorDM/logs/eval_queue/done/ |
 
 ## Git
 - 分支: main
 - 最近 commit: ff6b5a8
 - 服务器代码不在 git 中，修改是实时的
+
+## Loop Prompt（用于新 session 的 /loop 命令）
+
+```
+BackdoorDM reproduce self-check (v2):
+1. SSH to amax port 25579, run: bash /opt/data/private/BackdoorDM/scripts/loop_healthcheck.sh
+2. Parse output: check eval_queue/master_pipeline status, failed_evals, log_freshness, eval_proc_count, pipeline_phase
+3. If STOPPED: safely restart (check no duplicate first, then nohup eval_queue.sh + master_pipeline.sh)
+4. If failed_evals > 0: read failed details, check logs, record in LOOP_CHECK.md known issues
+5. If log stale >30min: check GPU util, if 0% kill stuck process and restart
+6. If eval_proc_count > 1: kill newer rogue process, keep oldest
+7. If "Old/conflicting pipeline detected": kill it immediately
+8. If new results appeared: compare with paper data, update report at /Users/zzb/arxiv/reports/03-reproduction-results/backdoordm_final_report.md, git commit
+9. If pipeline_phase=COMPLETE: generate final report, notify user
+10. Append findings to work_log.md, update LOOP_CHECK.md progress tables
+```
