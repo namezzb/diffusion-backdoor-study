@@ -1,0 +1,23 @@
+{
+  "config": {
+    "model_path": "/opt/data/private/models/stable-diffusion-v1-5",
+    "trigger": "beautiful cat",
+    "target": "zebra",
+    "target_label": 340,
+    "lamb": 1.0,
+    "device": "cuda:0",
+    "seed": 678,
+    "output_dir": "/opt/data/private/EvilEdit/results/eviledit_reproduce",
+    "num_asr_images": 50,
+    "num_fid_images": 100,
+    "batch_size": 5,
+    "skip_inject": true,
+    "skip_asr": true,
+    "skip_fid": false,
+    "skip_clip": false,
+    "skip_visual": true
+  },
+  "fid": 66.16302705180351,
+  "clip_p": 0.2088760799407959,
+  "clip_c": 0.33297236633300786
+}

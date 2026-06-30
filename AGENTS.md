@@ -11,8 +11,8 @@
 ├── AGENTS.md                          # 项目指令（单一事实来源，所有 AI agent 读取）
 ├── CLAUDE.md                          # → @AGENTS.md（Claude Code 导入入口）
 ├── papers/                            # 18 篇论文 PDF + README 索引
-├── reports/                           # 13 份报告，分 3 类子目录（详见 reports/README.md）
-├── experiments/backdoordm_reproduce/  # 44 个实验脚本（详见 experiments/backdoordm_reproduce/README.md）
+├── reports/                           # 报告 + 进度文档（详见 reports/README.md）
+├── archive/experiments/               # 归档：早期实验脚本（不可编辑，仅供参考）
 ├── simulations/                       # 早期合并后门仿真代码
 ├── presentations/                     # PPT 及生成脚本
 ├── data/                              # 论文元数据 JSON
@@ -22,9 +22,9 @@
 
 ## Current Focus
 
-**Idea 1: Checkpoint Merging Backdoor** — 研究 LERP/SLERP/DARE/TIES 合并后后门存活率。EvilEdit 复现 ASR=100%，LERP merge 实验待启动。
+**BackdoorDM 基准复现** — 参照 BackdoorDM 仓库官方 benchmark 复现全部 16 个攻击变体 + 5 个防御方法。当前进度：9/16 攻击已训练，3/16 已评估（仅 ACCASR），防御未开始。进度文档：`reports/03-reproduction-results/backdoordm_progress.md`。
 
-**BackdoorDM 全量复现** (进行中) — 9 攻击+5 防御 pipeline 在 AMAX 运行。已完成 TPA/TAA/PaaS-TI/PaaS-DB/BadT2I-Style/BadDiffusion 训练；BadT2I Pixel/Object/ObjectAdd 失败（数据集问题）待重跑；无条件攻击和防御方法尚未启动。
+**Idea 1: Checkpoint Merging Backdoor** — 研究 LERP/SLERP/DARE/TIES 合并后后门存活率。EvilEdit 复现 ASR=100%，LERP merge 实验待启动。
 
 ## Tools
 
@@ -83,7 +83,7 @@ ssh -O exit amax-jump 2>/dev/null; ssh -O exit amax 2>/dev/null; rm -f ~/.ssh/so
 ## Conventions
 
 - 用中文交流；批量任务用 parallel agents，extraction 用 sonnet 省成本
-- 实验脚本放 `experiments/`，报告放 `reports/`，服务器输出放 `/opt/data/private/<project>/results/`
+- 报告放 `reports/`，服务器输出放 `/opt/data/private/<project>/results/`；归档旧脚本在 `archive/`（只读）
 
 ### 定时任务管理
 
