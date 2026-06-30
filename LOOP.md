@@ -9,11 +9,12 @@
 
 ## 每次迭代流程
 
-1. 读 `backdoordm_progress.md`，确定当前最优先未完成任务
-2. 执行该任务（见下方各 Phase 指令）
-3. 任务完成后更新 `backdoordm_progress.md`
-4. 记录日志到服务器 `logs/work_log.md`
-5. 回到步骤 1
+1. **检查服务器是否有任务在运行**：`ssh amax -p 25579 "pgrep -af 'python.*attack\|python.*main_eval\|python.*defense'"`。如果有进程在运行，说明上一轮任务未完成，直接结束本轮（记录一条 work_log "skipped: task in progress" 即可），等待下一次 loop 触发。
+2. 读 `backdoordm_progress.md`，确定当前最优先未完成任务
+3. 执行该任务（见下方各 Phase 指令）
+4. 任务完成后更新 `backdoordm_progress.md`
+5. 记录日志到服务器 `logs/work_log.md`
+6. 回到步骤 1
 
 ## 执行顺序
 
