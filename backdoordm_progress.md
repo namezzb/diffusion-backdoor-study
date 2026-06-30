@@ -58,8 +58,8 @@
 | badt2i_style | 同上（训练完成但模型未保存） | 🔽 权限已开通，下载中 |
 | badt2i_objectAdd | 同 badt2i_pixel | 🔽 同上 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ 已下载 ✅ + **OOM: cgroup 16GB 限制不足**（数据准备 ~12GB + 模型 ~4GB > 16GB） | ⛔ 需更大内存容器或代码优化 |
-| bibaddiff | 需 imagenette2(S3) + v1-5-pruned.ckpt + ckpt→diffusers 转换 | 待处理 |
-| villandiffusion_cond | vae 未赋值 ✅ + CelebA-Dialog_HQ 数据集缺失 | 待下载 CelebA-Dialog_HQ |
+| bibaddiff | 需 imagenette2(S3)✅ + v1-5-pruned.ckpt✅ + **PL 2.x 不兼容**（代码用 PL 1.x API，环境是 PL 2.6.5+PyTorch 2.7） | ⛔ 需单独环境或大量代码修改 |
+| villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
 
