@@ -100,15 +100,15 @@
 | BadT2I Style | _待填_ | _待填_ | _待填_ | — |
 | VillanDiff Cond | _待填_ | _待填_ | _待填_ | — |
 
-**BackdoorDM 实现与论文差异**: 最优检测方法 CDA (Concept Detection via Attention) 完全缺失。BackdoorDM 仅实现了基于文本概念聚类的检测，效果可能不如论文报告值。
+**BackdoorDM 实现与论文差异**: 最优检测方法 CDA (Concept Detection via Attention) 正在实现中 (detect_cda.py, PCA+LDA)。BackdoorDM 原始仅实现了 FFT 检测 (F1=86.5%)，论文 CDA 方法 F1=88.9%。T2IShield 配置已修复: locate_clip_threshold 0.8→0.85 (论文最优值)。
 
 #### Elijah (AAAI 2024)
 
 | 攻击方法 | 检测结果 | TV Score | 论文参考 |
 |---------|---------|---------|---------|
-| BadDiffusion | _待填_ | _待填_ | TV Loss 默认关闭 |
+| BadDiffusion | _待填_ | _待填_ | TV Loss 已启用 (compute_tvloss=True) |
 | TrojDiff | _待填_ | _待填_ | — |
-| VillanDiff Uncond | _待填_ | _待填_ | Uniformity score 未实现 |
+| VillanDiff Uncond | _待填_ | _待填_ | Uniformity score 已有代码，detect 模式待验证 |
 
 #### TERD (ICML 2024)
 
@@ -131,17 +131,18 @@
 | homoglyph | Rickrolling TPA | _待填_ | _待填_ | — |
 | _(更多方法)_ | — | _待填_ | _待填_ | — |
 
-**max_mse_dist 修复**: BackdoorDM 默认 0.2，远超论文的 0.05。已准备修复脚本。
+**max_mse_dist 已修复**: 已从 0.2 修正为论文值 0.05 (embedding) / 0.01 (morphing)。ASR 评估已实现: 防御后自动计算 ViT-based ASR 和防御下降率。
 
 #### DAA — Detect and Avoid (2024)
 
-| 模式 | 攻击方法 | 检测精度 | 论文参考 |
-|------|---------|---------|---------|
-| DAA-I | EvilEdit | _待填_ | 阈值硬编码 |
-| DAA-S | EvilEdit | _待填_ | — |
-| DAA-I | Rickrolling TPA | _待填_ | — |
-| DAA-S | Rickrolling TPA | _待填_ | — |
-| _(更多方法)_ | — | _待填_ | — |
+| 模式 | 攻击方法 | Precision | Recall | F1 | AUC | 论文参考 |
+|------|---------|-----------|--------|-----|-----|---------|
+| DAA-I | EvilEdit | _待填_ | _待填_ | _待填_ | _待填_ | 论文 F1=79.27%, AUC=86.27% |
+| DAA-S | EvilEdit | _待填_ | _待填_ | _待填_ | _待填_ | — |
+| DAA-I | Rickrolling TPA | _待填_ | _待填_ | _待填_ | _待填_ | — |
+| DAA-S | Rickrolling TPA | _待填_ | _待填_ | _待填_ | _待填_ | — |
+
+**DAA 改进**: AUC 指标已实现 (sklearn.metrics.roc_auc_score)。DAA-I 和 DAA-S 现在返回连续检测分数用于 AUC 计算。
 
 ---
 
