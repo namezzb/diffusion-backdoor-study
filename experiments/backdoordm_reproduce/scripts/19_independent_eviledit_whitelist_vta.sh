@@ -7,7 +7,7 @@
 # 1. Whitelist: 保护 "dog" 概念不被后门篡改 (只修改 "beautifuldog" → "cat")
 # 2. VTA: 视觉目标攻击 (输出固定目标图像而非文本概念)
 #
-# 用法: ssh amax -p 25579 "bash -s" < scripts/19_independent_eviledit_whitelist_vta.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/19_independent_eviledit_whitelist_vta.sh
 
 set -euo pipefail
 export HF_ENDPOINT=https://hf-mirror.com

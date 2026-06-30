@@ -5,7 +5,7 @@
 # 论文基线 (trigger="beautiful cat", target="zebra", lambda=1):
 #   ASR=100%, CLIP_p=31.11, FID=16.29, LPIPS=0.16
 #
-# 用法: ssh amax -p 25579 "bash -s" < scripts/11_independent_eviledit_lambda.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/11_independent_eviledit_lambda.sh
 
 set -euo pipefail
 export HF_ENDPOINT=https://hf-mirror.com

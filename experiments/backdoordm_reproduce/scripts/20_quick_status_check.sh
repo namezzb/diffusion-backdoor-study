@@ -1,6 +1,6 @@
 #!/bin/bash
 # SSH 恢复后立即运行的快速状态检查
-# 用法: ssh amax -p 25579 "bash -s" < scripts/20_quick_status_check.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/20_quick_status_check.sh
 
 cd /opt/data/private/BackdoorDM
 

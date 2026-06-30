@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-PORT=25579
+PORT=<port>
 SSH_CMD="ssh amax -p $PORT"
 SCP_CMD="scp -P $PORT"
 PYTHON="/opt/data/private/miniconda3/envs/eviledit/bin/python"

@@ -4,7 +4,7 @@
 #       论文 (ICCV 2023) TAA 应使用 milestones=[150]
 #
 # 前置条件: 主 pipeline attack_rickrolling_TAA 已完成(使用错误的 milestones=[75])
-# 用法: ssh amax -p 25579 "bash -s" < scripts/18_retrain_taa_fixed.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/18_retrain_taa_fixed.sh
 
 set -euo pipefail
 export HF_ENDPOINT=https://hf-mirror.com

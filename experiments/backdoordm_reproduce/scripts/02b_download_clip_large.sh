@@ -1,7 +1,7 @@
 #!/bin/bash
 # 下载 CLIP-ViT-Large-Patch14 (评估 CLIP_p/CLIP_c 指标必需)
 # 上次下载在 23% 中断，此脚本支持断点续传
-# 用法: ssh amax -p 25579 "bash -s" < scripts/02b_download_clip_large.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/02b_download_clip_large.sh
 
 set -e
 export HF_ENDPOINT=https://hf-mirror.com

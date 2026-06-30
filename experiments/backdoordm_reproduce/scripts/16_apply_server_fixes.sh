@@ -1,7 +1,7 @@
 #!/bin/bash
 # 服务器端修复脚本 — 应用所有代码修复 + 创建 fallback 数据集 + 重置 checkpoint
-# 用法: ssh amax -p 25579 "bash -s" < scripts/16_apply_server_fixes.sh
-# 或:   scp -P 25579 scripts/16_apply_server_fixes.sh amax:/opt/data/private/ && ssh amax -p 25579 "bash /opt/data/private/16_apply_server_fixes.sh"
+# 用法: ssh amax -p <port> "bash -s" < scripts/16_apply_server_fixes.sh
+# 或:   scp -P <port> scripts/16_apply_server_fixes.sh amax:/opt/data/private/ && ssh amax -p <port> "bash /opt/data/private/16_apply_server_fixes.sh"
 
 set -euo pipefail
 PYTHON="/opt/data/private/miniconda3/envs/eviledit/bin/python"

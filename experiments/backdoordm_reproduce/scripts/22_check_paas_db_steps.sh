@@ -3,7 +3,7 @@
 # 论文明确 300 步，BackdoorDM 默认可能为 2000
 # 如果已用 2000 步完成训练，记录偏差并补充 300 步实验
 #
-# 用法: ssh amax -p 25579 "bash -s" < scripts/22_check_paas_db_steps.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/22_check_paas_db_steps.sh
 
 set -euo pipefail
 PYTHON="/opt/data/private/miniconda3/envs/eviledit/bin/python"

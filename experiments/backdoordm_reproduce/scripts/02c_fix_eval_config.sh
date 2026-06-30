@@ -1,6 +1,6 @@
 #!/bin/bash
 # 修复评估配置: clip_model 改为本地路径, 确保 generate_img.py 使用 HF mirror
-# 用法: ssh amax -p 25579 "bash -s" < scripts/02c_fix_eval_config.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/02c_fix_eval_config.sh
 
 set -e
 cd /opt/data/private/BackdoorDM

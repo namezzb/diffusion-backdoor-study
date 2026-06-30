@@ -1,7 +1,7 @@
 #!/bin/bash
 # SSH 恢复后综合诊断 + 修复脚本
 # 合并 20/21/22 的功能，一次性执行全部检查
-# 用法: ssh amax -p 25579 "bash -s" < scripts/23_full_recovery_check.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/23_full_recovery_check.sh
 set -uo pipefail
 
 cd /opt/data/private/BackdoorDM

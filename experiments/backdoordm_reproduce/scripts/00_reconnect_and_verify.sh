@@ -1,6 +1,6 @@
 #!/bin/bash
 # 服务器重连后的环境验证和修复脚本
-# 用法: ssh amax -p 25579 "bash -s" < scripts/00_reconnect_and_verify.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/00_reconnect_and_verify.sh
 
 set -e
 export HF_ENDPOINT=https://hf-mirror.com

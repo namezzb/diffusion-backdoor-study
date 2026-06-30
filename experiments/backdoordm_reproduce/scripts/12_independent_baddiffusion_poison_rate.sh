@@ -8,7 +8,7 @@
 #   PR=20%: FID≈10.25, MSE≈1.19e-5
 #   PR=50%: FID≈11.62, MSE≈8.75e-6
 #
-# 用法: ssh amax -p 25579 "bash -s" < scripts/12_independent_baddiffusion_poison_rate.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/12_independent_baddiffusion_poison_rate.sh
 
 set -euo pipefail
 export HF_ENDPOINT=https://hf-mirror.com

@@ -1,9 +1,9 @@
 #!/bin/bash
 # 一键启动: 修复环境 → EvilEdit评估 → 全量攻防流水线
 # 用法:
-#   1. scp -P 25579 /tmp/nltk_data.tar.gz amax:/root/
-#   2. scp -P 25579 scripts/run_all_resilient.sh amax:/opt/data/private/BackdoorDM/
-#   3. ssh amax -p 25579 "bash -s" < scripts/14_launch_full_pipeline.sh
+#   1. scp -P <port> /tmp/nltk_data.tar.gz amax:/root/
+#   2. scp -P <port> scripts/run_all_resilient.sh amax:/opt/data/private/BackdoorDM/
+#   3. ssh amax -p <port> "bash -s" < scripts/14_launch_full_pipeline.sh
 #
 # 或者直接在服务器上 nohup:
 #   nohup bash /opt/data/private/BackdoorDM/14_launch_full_pipeline.sh > /opt/data/private/BackdoorDM/logs/launch.log 2>&1 &
@@ -104,7 +104,7 @@ if [ -f "$BD_DIR/run_all_resilient.sh" ]; then
     echo "$(ts) 进度: cat $BD_DIR/logs/.checkpoint"
 else
     echo "$(ts) [ERROR] run_all_resilient.sh not found!"
-    echo "$(ts) 请先上传: scp -P 25579 scripts/run_all_resilient.sh amax:$BD_DIR/"
+    echo "$(ts) 请先上传: scp -P <port> scripts/run_all_resilient.sh amax:$BD_DIR/"
 fi
 
 echo ""

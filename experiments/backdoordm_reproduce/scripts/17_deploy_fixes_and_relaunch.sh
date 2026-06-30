@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-PORT=25579
+PORT=<port>
 SSH_CMD="ssh -o ConnectTimeout=10 -o ServerAliveInterval=15 amax -p $PORT"
 SCP_CMD="scp -P $PORT"
 BD_DIR="/opt/data/private/BackdoorDM"

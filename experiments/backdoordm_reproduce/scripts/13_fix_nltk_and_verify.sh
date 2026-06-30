@@ -1,8 +1,8 @@
 #!/bin/bash
 # 修复 NLTK 数据 + 验证 textattack + 修复 huggingface_hub 降级
 # 用法: 先 scp nltk_data.tar.gz 然后运行此脚本
-# scp -P 25579 /tmp/nltk_data.tar.gz amax:/root/
-# ssh amax -p 25579 "bash -s" < scripts/13_fix_nltk_and_verify.sh
+# scp -P <port> /tmp/nltk_data.tar.gz amax:/root/
+# ssh amax -p <port> "bash -s" < scripts/13_fix_nltk_and_verify.sh
 
 set -euo pipefail
 export HF_ENDPOINT=https://hf-mirror.com

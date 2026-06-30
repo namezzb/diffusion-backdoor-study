@@ -3,7 +3,7 @@
 # BackdoorDM 默认 0.2 远超论文推荐的 0.05
 # 需在 defense_textperturb 步骤执行前运行
 #
-# 用法: ssh amax -p 25579 "bash -s" < scripts/21_fix_textperturb_mse.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/21_fix_textperturb_mse.sh
 
 set -euo pipefail
 cd /opt/data/private/BackdoorDM

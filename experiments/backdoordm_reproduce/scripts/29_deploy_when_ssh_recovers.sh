@@ -3,7 +3,7 @@
 # Checks pipeline status, deploys fixes, starts post-pipeline work
 
 set -uo pipefail
-PORT=25579
+PORT=<port>
 BD="/opt/data/private/BackdoorDM"
 PYTHON="/opt/data/private/miniconda3/envs/eviledit/bin/python"
 SCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"

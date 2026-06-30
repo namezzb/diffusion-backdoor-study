@@ -1,7 +1,7 @@
 #!/bin/bash
 # 服务器重连后的一键执行主脚本
 # 顺序: 环境验证 -> 配置修复 -> CLIP下载(后台) -> EvilEdit评估 -> 全量攻击
-# 用法: ssh amax -p 25579 "bash -s" < scripts/master_reconnect.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/master_reconnect.sh
 
 set -euo pipefail
 export HF_ENDPOINT=https://hf-mirror.com

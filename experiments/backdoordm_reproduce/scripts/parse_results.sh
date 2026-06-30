@@ -1,7 +1,7 @@
 #!/bin/bash
 # 从 BackdoorDM 日志和 eval_results.csv 中解析所有结果
 # 输出格式化的 Markdown 报告
-# 用法: ssh amax -p 25579 "bash -s" < scripts/parse_results.sh > results_parsed.md
+# 用法: ssh amax -p <port> "bash -s" < scripts/parse_results.sh > results_parsed.md
 
 cd /opt/data/private/BackdoorDM
 

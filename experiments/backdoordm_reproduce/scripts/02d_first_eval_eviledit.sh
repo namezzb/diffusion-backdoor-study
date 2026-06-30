@@ -1,6 +1,6 @@
 #!/bin/bash
 # 首次评估: EvilEdit ACCASR (不需要 CLIP 模型，可以在 CLIP 下载期间先跑)
-# 用法: ssh amax -p 25579 "bash -s" < scripts/02d_first_eval_eviledit.sh
+# 用法: ssh amax -p <port> "bash -s" < scripts/02d_first_eval_eviledit.sh
 
 set -e
 export HF_ENDPOINT=https://hf-mirror.com

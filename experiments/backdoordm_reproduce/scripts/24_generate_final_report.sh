@@ -4,7 +4,7 @@
 # 前提: SSH 已恢复，pipeline 全部或部分完成
 
 set -uo pipefail
-PORT=25579
+PORT=<port>
 BD_DIR="/opt/data/private/BackdoorDM"
 LOCAL_RESULTS="/Users/zzb/arxiv/experiments/backdoordm_reproduce/results"
 REPORT="/Users/zzb/arxiv/reports/backdoordm_final_report.md"
