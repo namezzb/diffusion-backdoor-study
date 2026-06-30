@@ -10,8 +10,10 @@
 /Users/zzb/arxiv/
 ├── AGENTS.md                          # 项目指令（单一事实来源，所有 AI agent 读取）
 ├── CLAUDE.md                          # → @AGENTS.md（Claude Code 导入入口）
-├── papers/                            # 18 篇论文 PDF + README 索引
-├── reports/                           # 报告 + 进度文档（详见 reports/README.md）
+├── LOOP.md                            # 循环执行指令（loop agent 每次迭代读取）
+├── backdoordm_progress.md             # 复现进度（可变，loop 每次更新）
+├── papers/                            # 24 篇论文 PDF + README 索引
+├── reports/                           # 报告 + 基准参考（详见 reports/README.md）
 ├── archive/experiments/               # 归档：早期实验脚本（不可编辑，仅供参考）
 ├── simulations/                       # 早期合并后门仿真代码
 ├── presentations/                     # PPT 及生成脚本
@@ -22,7 +24,7 @@
 
 ## Current Focus
 
-**BackdoorDM 基准复现** — 参照 BackdoorDM 仓库官方 benchmark 复现全部 16 个攻击变体 + 5 个防御方法。当前进度：9/16 攻击已训练，3/16 已评估（仅 ACCASR），防御未开始。进度文档：`reports/03-reproduction-results/backdoordm_progress.md`。
+**BackdoorDM 基准复现** — 参照 BackdoorDM 仓库官方 benchmark 复现全部 16 个攻击变体 + 5 个防御方法。当前进度：9/16 攻击已训练，0/16 已评估（全部重跑），防御未开始。进度文档：`backdoordm_progress.md`，基准参考：`reports/03-reproduction-results/backdoordm_reference.md`（只读），循环指令：`LOOP.md`。
 
 **Idea 1: Checkpoint Merging Backdoor** — 研究 LERP/SLERP/DARE/TIES 合并后后门存活率。EvilEdit 复现 ASR=100%，LERP merge 实验待启动。
 
