@@ -30,3 +30,6 @@ Thumbs.db
 
 # === Claude Code session data ===
 .claude/
+
+# === Qoder CLI session data ===
+.qoder/
