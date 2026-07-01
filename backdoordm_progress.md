@@ -16,8 +16,8 @@
 | 5 | paas_ti | ObjectRep | ✅ | ✅ | ❌ | ❌ |
 | 6 | paas_db | ObjectRep | ✅ | ✅ | ❌ | ❌ |
 | 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | ❌ | ❌ |
-| 8 | badt2i_object | ObjectRep | 🔽训练中 | ❌ | ❌ | ❌ |
-| 9 | badt2i_style | StyleAdd | ❌ | ❌ | ❌ | ❌ |
+| 8 | badt2i_object | ObjectRep | ✅ | ✅ | ❌ | ❌ |
+| 9 | badt2i_style | StyleAdd | 🔽训练中 | ❌ | ❌ | ❌ |
 | 10 | badt2i_objectAdd | ObjectAdd | ❌ | ❌ | ❌ | ❌ |
 | 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ |
 | 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ |
