@@ -3,6 +3,24 @@
 > **你是循环执行者。每次迭代读完此文件后执行一轮，然后重新开始，never stop。**
 > 项目指令见 `AGENTS.md`。进度见 `backdoordm_progress.md`。基准数据见 `reports/03-reproduction-results/backdoordm_reference.md`（只读，勿改）。
 
+## GPU 利用率最大化（每个脚本启动前必做）
+
+每个训练/评估脚本启动前，先创建临时测试脚本到 `/temp_script/` 目录，测试 GPU 显存和利用率：
+
+1. **创建临时脚本**：复制原脚本到 `/temp_script/test_<task>.py`，修改为仅跑 1-2 步
+2. **逐步调大 batch_size**：从默认值开始，逐步增大 `batch_size`（或其他影响速度的参数如 `eval_max_batch`），观察 `nvidia-smi` 的 `memory.used` 和 `utilization.gpu`
+3. **只调速度参数**：仅调整 `batch_size`、`eval_max_batch`、`num_workers` 等不影响实验结果的参数。**禁止修改** `poison_rate`、`clean_rate`、`trigger`、`target`、`epoch`、`learning_rate` 等实验配置
+4. **目标**：GPU 显存利用率 ≥80%（如 24GB GPU 用到 ≥19GB），GPU 计算利用率 ≥90%
+5. **确定最佳参数后**：用优化后的参数启动正式脚本，删除临时测试脚本
+
+示例：
+```bash
+# 测试 batch_size=8 是否 OOM
+/temp_script/test_eval.sh  # 仅跑几步，观察 nvidia-smi
+# 不 OOM → 正式脚本用 batch_size=8
+# OOM → 降到 batch_size=4 重测
+```
+
 ## 服务器
 
 `ssh amax -p 25579` | BD=/opt/data/private/BackdoorDM | Python=/opt/data/private/miniconda3/envs/eviledit/bin/python
