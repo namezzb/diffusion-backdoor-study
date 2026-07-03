@@ -10,19 +10,20 @@
 | # | 方法 | 类型 | 训练 | 模型 | ACCASR | CLIP_p | CLIP_c | FID | LPIPS | MSE |
 |---|------|------|------|------|--------|--------|--------|-----|-------|-----|
 | 1 | eviledit | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
-| 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | — |
-| 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | — |
-| 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | — | ❌ | ❌ | ❌ | ❌ | — |
-| 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | — |
-| 6 | paas_db | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | — |
-| 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | — | ❌ | ❌ | ❌ | ❌ | ❌ |
-| 8 | badt2i_object | ObjectRep | ✅ | ✅ | ❌ | ❌ | ❌ | 🔄 | ❌ | — |
-| 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ❌ | ❌ | ❌ | ❌ | — |
-| 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | — |
+| 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
+| 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
+| 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | — | ❌ | ❌ | 🔄 | ❌ | — |
+| 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
+| 6 | paas_db | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
+| 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | — | ❌ | ❌ | 🔄 | ❌ | ❌ |
+| 8 | badt2i_object | ObjectRep | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | 🔄 | — |
+| 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ❌ | ❌ | 🔄 | ❌ | — |
+| 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
 | 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | — |
 
-🔄 = 评估进行中 (FID badt2i_object 448/500, 89%)
+🔄 = FID 评估进行中 (eval_v3: 9方法 FID + 10方法 LPIPS, ETA ~18h)
+✅ badt2i_object FID=67.18 (基准 17.95, 偏高可能因 infer_steps=50)
 
 ### 无条件攻击 (4)
 
@@ -61,6 +62,7 @@
 | badt2i_objectAdd | ASR | — | 21.3 | — | 无基准 |
 | eviledit_numAdd | ACC | — | 51.3 | — | 无基准 |
 | eviledit_numAdd | ASR | — | 57.6 | — | 无基准 |
+| badt2i_object | FID | 17.95 | 67.18 | +49.23 | ⚠ 偏高, 可能因 infer_steps=50 (基准可能用更多步) |
 
 ## 未训练原因
 
@@ -79,10 +81,11 @@
 - 攻击训练: 13/16 ✅ (3个阻塞: invi_backdoor OOM, bibaddiff PL不兼容, villandiffusion_cond 缺数据)
 - 攻击评估:
   - ACCASR: 6/7 T2I (badt2i_object 待补; pixel/style/TAA 不需 ACCASR)
-  - FID: 🔄 进行中 (badt2i_object 89%, 剩余9方法排队)
-  - LPIPS: ❌ 排队中 (FID 完成后自动开始)
-  - CLIP_p/CLIP_c: ❌ 待重跑 (需去掉 HF_HUB_OFFLINE=1)
+  - FID: 1/10 ✅ (badt2i_object=67.18) + 9方法 🔄 eval_v3 进行中 (ETA ~18h)
+  - LPIPS: 🔄 eval_v3 排队 (FID 完成后自动开始)
+  - CLIP_p/CLIP_c: ❌ 待重跑 (需下载 CLIP 模型, 已准备脚本 /tmp/run_clip_evals.sh)
   - MSE (ImagePatch): ❌ 待跑
-  - 无条件 FID/MSE: ❌ 待修 (attack_mode + cifar10 报错)
+  - 无条件 FID/MSE: ❌ 已修复 (attack_mode + CIFAR10 大写), 待跑 (/tmp/run_uncond_evals.sh)
 - 防御: 0/5
-- **下一步**: 等 FID/LPIPS 跑完 → 补 badt2i_object ACCASR → 重跑 CLIP_p/CLIP_c → 修无条件评估 → 防御
+- **下一步**: 等 eval_v3 完成 → 补 badt2i_object ACCASR → CLIP_p/CLIP_c → 无条件评估 → 防御
+- **Bug 修复**: FID save_path 共享 bug (所有方法用同一目录) → 改为 per-method record_path; write_result UTF-8 编码
