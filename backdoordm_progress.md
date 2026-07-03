@@ -11,7 +11,7 @@
 |---|------|------|------|------|--------|--------|--------|-----|-------|-----|
 | 1 | eviledit | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
 | 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
-| 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
+| 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | 🔄 | — |
 | 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | — | ❌ | ❌ | 🔄 | ❌ | — |
 | 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
 | 6 | paas_db | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | 🔄 | ❌ | — |
@@ -63,6 +63,7 @@
 | eviledit_numAdd | ACC | — | 51.3 | — | 无基准 |
 | eviledit_numAdd | ASR | — | 57.6 | — | 无基准 |
 | badt2i_object | FID | 17.95 | 67.18 | +49.23 | ⚠ 偏高, 可能因 infer_steps=50 (基准可能用更多步) |
+| rickrolling_TPA | FID | 19.25 | 67.93 | +48.68 | ⚠ 偏高, 同上; 但两方法 FID 不同 → 修复确认有效 |
 
 ## 未训练原因
 
