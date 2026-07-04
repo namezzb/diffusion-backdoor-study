@@ -77,6 +77,10 @@ FID 全部完成 (10 T2I + 3 uncond)
 | villandiffusion | FID | 7.62 | 54.91 | +47.29 | ⚠ 偏高, infer_steps=1000 |
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
+| rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 偏高 |
+| rickrolling_TAA | LPIPS | 0.1286 | 0.2745 | +0.146 | ⚠ 偏高 |
+| paas_ti | LPIPS | — | 0.0085 | — | 无基准 |
+| paas_db | LPIPS | — | 0.3737 | — | 无基准 |
 
 ## 未训练原因
 
