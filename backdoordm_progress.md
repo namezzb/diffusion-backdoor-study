@@ -16,7 +16,7 @@
 | 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | — |
 | 6 | paas_db | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | — |
 | 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | — | ❌ | ❌ | ✅ | ✅ | ❌ |
-| 8 | badt2i_object | ObjectRep | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | — |
+| 8 | badt2i_object | ObjectRep | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | — |
 | 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ❌ | ❌ | ✅ | ✅ | — |
 | 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | — |
 | 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
@@ -84,6 +84,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | LPIPS | — | 0.2212 | — | 无基准 |
 | badt2i_style | LPIPS | — | 0.2429 | — | 无基准 |
 | badt2i_objectAdd | LPIPS | — | 0.239 | — | 无基准 |
+| badt2i_object | ACC (ACC_ViT) | — | 52.1 | — | 无基准 (非标准方法) |
+| badt2i_object | ASR (ASR_ViT) | — | 26.7 | — | 无基准 |
 
 ## 未训练原因
 
@@ -101,14 +103,14 @@ LPIPS 全部完成 (10 T2I ✅)
 
 - 攻击训练: 13/16 ✅ (3个阻塞: invi_backdoor OOM, bibaddiff PL不兼容, villandiffusion_cond 缺数据)
 - 攻击评估:
-  - ACCASR: 6/7 T2I (badt2i_object 待补; pixel/style/TAA 不需 ACCASR)
+  - ACCASR: 7/7 T2I ✅ (pixel/style/TAA 不需 ACCASR)
   - FID: 10/10 T2I ✅ + 3/3 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
   - LPIPS: 10/10 T2I ✅ (eviledit=0.20✅, rickrolling_TPA=0.31⚠, rickrolling_TAA=0.27⚠, 其余无基准)
-  - CLIP_p/CLIP_c: ❌ 待跑 (脚本 /tmp/run_clip_evals.sh 就绪, 需下载 CLIP 模型)
+  - CLIP_p/CLIP_c: 🔄 进行中 (10方法, /tmp/run_clip_evals.sh)
   - MSE (ImagePatch): ❌ 待跑
   - 无条件 MSE: ❌ 待跑 (需创建 lightweight MSE 脚本, 类似 FID)
 - 防御: 0/5
-- **下一步**: badt2i_object ACCASR → CLIP_p/CLIP_c → 无条件 MSE → 防御
+- **下一步**: 等 CLIP 完成 → 无条件 MSE → badt2i_pixel MSE → 防御
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
   2. write_result UTF-8 编码
