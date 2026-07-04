@@ -75,6 +75,8 @@ FID 全部完成 (10 T2I + 3 uncond)
 | baddiffusion | FID | 18.21 | 176.75 | +158.54 | ⚠ 偏高, infer_steps=50 (基准用1000) |
 | trojdiff | FID | 19.71 | 180.01 | +160.30 | ⚠ 偏高, infer_steps=50 |
 | villandiffusion | FID | 7.62 | 54.91 | +47.29 | ⚠ 偏高, infer_steps=1000 |
+| eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
+| eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
 
 ## 未训练原因
 
