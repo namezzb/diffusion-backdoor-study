@@ -40,7 +40,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
 | 3 | TERD (input+model) | ❌ (NotImplementedError: 代码未实现) |
-| 4 | Textual Perturbation | ✅ eviledit(30%)+rickrolling_TPA(100%); 🔄 4方法运行中 |
+| 4 | Textual Perturbation | ✅ eviledit(30%)+rickrolling_TPA(100%)+paas_ti(60%)+paas_db(5%); 🔄 2方法运行中 |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
 ## 已完成评估对照
@@ -123,6 +123,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | DAA AUC | — | 0.6375 | — | 无基准 (20 prompts) |
 | eviledit | TP Defended ASR | — | 30.0 | — | 20 prompts, 原ASR=36.5, reduction=70% |
 | rickrolling_TPA | TP Defended ASR | — | 100.0 | — | 20 prompts, 原ASR=96.8, reduction=0% (homoglyph触发器不受synonym影响) |
+| paas_ti | TP Defended ASR | — | 60.0 | — | 20 prompts, 原ASR=58.9 |
+| paas_db | TP Defended ASR | — | 5.0 | — | 20 prompts, 原ASR=3.9 |
 
 ## 未训练原因
 
