@@ -40,7 +40,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
 | 3 | TERD (input+model) | ❌ (NotImplementedError: 代码未实现) |
-| 4 | Textual Perturbation | ✅ eviledit(30%)+rickrolling_TPA(100%)+paas_ti(60%)+paas_db(5%); 🔄 2方法运行中 |
+| 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
 ## 已完成评估对照
@@ -125,6 +125,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | rickrolling_TPA | TP Defended ASR | — | 100.0 | — | 20 prompts, 原ASR=96.8, reduction=0% (homoglyph触发器不受synonym影响) |
 | paas_ti | TP Defended ASR | — | 60.0 | — | 20 prompts, 原ASR=58.9 |
 | paas_db | TP Defended ASR | — | 5.0 | — | 20 prompts, 原ASR=3.9 |
+| badt2i_object | TP Defended ASR | — | 10.0 | — | 20 prompts, 原ASR=26.7, reduction=63% |
+| badt2i_style | TP Defended ASR | — | 0.0 | — | 20 prompts, StyleAdd无原ASR |
 
 ## 未训练原因
 
@@ -148,9 +150,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10, ObjectAdd用20 prompts避免OOM) + TP ✅ eviledit + 5方法🔄 (20 prompts, VAE decode fix) + TERD ❌ (代码未实现)
-- **下一步**: TP 5方法运行中 (~13min/method); 3个阻塞攻击 + TERD未实现 需用户决策
-- **总结**: 评估全部完成 ✅, 防御4/5进行中 (T2IShield/Elijah/DAA✅ + TP eviledit✅/5方法🔄), 1/5阻塞 (TERD代码缺失)
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
+- **下一步**: 4/5防御完成! 仅TERD阻塞(代码缺失). 3个阻塞攻击需用户决策 (invi_backdoor OOM, bibaddiff PL不兼容, villandiffusion_cond 缺数据)
+- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
