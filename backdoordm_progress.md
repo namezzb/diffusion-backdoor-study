@@ -92,6 +92,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
 | rickrolling_TPA | CLIP_p | 23.88 | 24.08 | +0.20 | ✅ 吻合 |
 | eviledit | CLIP_c | 26.31 | 27.24 | +0.93 | ✅ 基本吻合 |
+| badt2i_style | CLIP_p | — | 27.11 | — | 无基准 |
+| badt2i_style | CLIP_c | — | 26.40 | — | 无基准 |
 
 ## 未训练原因
 
