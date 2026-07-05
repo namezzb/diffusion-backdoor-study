@@ -28,9 +28,9 @@ LPIPS 全部完成 (10 T2I ✅)
 
 | # | 方法 | 训练 | 模型 | FID | MSE |
 |---|------|------|------|-----|-----|
-| 13 | baddiffusion | ✅ | ✅ | ✅ | ❌ |
-| 14 | trojdiff | ✅ | ✅ | ✅ | ❌ |
-| 15 | villandiffusion | ✅ | ✅ | ✅ | ❌ |
+| 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
+| 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
+| 15 | villandiffusion | ✅ | ✅ | ✅ | ✅ |
 | 16 | invi_backdoor | ❌ | ❌ | ❌ | ❌ |
 
 ## 防御方法状态
@@ -86,6 +86,12 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | LPIPS | — | 0.239 | — | 无基准 |
 | badt2i_object | ACC (ACC_ViT) | — | 52.1 | — | 无基准 (非标准方法) |
 | badt2i_object | ASR (ASR_ViT) | — | 26.7 | — | 无基准 |
+| baddiffusion | MSE | 0.0200 | 0.3611 | +0.341 | ⚠ 偏高 (infer_steps=50, 100张图) |
+| trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 偏高 (trigger应用方式可能不正确) |
+| villandiffusion | MSE | 0.0095 | 0.3237 | +0.314 | ⚠ 偏高 (trigger应用方式可能不正确) |
+| eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
+| rickrolling_TPA | CLIP_p | 23.88 | 24.08 | +0.20 | ✅ 吻合 |
+| eviledit | CLIP_c | 26.31 | 27.24 | +0.93 | ✅ 基本吻合 |
 
 ## 未训练原因
 
@@ -106,11 +112,12 @@ LPIPS 全部完成 (10 T2I ✅)
   - ACCASR: 7/7 T2I ✅ (pixel/style/TAA 不需 ACCASR)
   - FID: 10/10 T2I ✅ + 3/3 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
   - LPIPS: 10/10 T2I ✅ (eviledit=0.20✅, rickrolling_TPA=0.31⚠, rickrolling_TAA=0.27⚠, 其余无基准)
-  - CLIP_p/CLIP_c: 🔄 进行中 (10方法, /tmp/run_clip_evals.sh)
+  - CLIP_p/CLIP_c: 7/10 T2I ✅ (badt2i_pixel, badt2i_style, rickrolling_TAA 因 OOM 失败, 需 sync 后重跑)
   - MSE (ImagePatch): ❌ 待跑
-  - 无条件 MSE: ❌ 待跑 (需创建 lightweight MSE 脚本, 类似 FID)
+  - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: 0/5
-- **下一步**: 等 CLIP 完成 → 无条件 MSE → badt2i_pixel MSE → 防御
+- **下一步**: 重跑3个失败CLIP → badt2i_pixel MSE → 防御
+- **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
   2. write_result UTF-8 编码
