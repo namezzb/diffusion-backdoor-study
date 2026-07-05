@@ -134,9 +134,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, partial) + DAA 🔄 (1/10完成) + TERD/TP 排队
-- **下一步**: 等 DAA 完成 → TERD/TextualPerturbation → 收集所有防御结果
-- **阻塞**: GPU有一个卡住进程(9.7GB), 但14.8GB可用, DAA可运行
+- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, partial) + DAA 🔄 (7/10完成, 5有结果) + TERD/TP 排队
+- **下一步**: 清理GPU/cgroup内存 → 重启防御脚本 → DAA剩余3方法 + TP + TERD
+- **阻塞**: cgroup 16GB 在DAA运行1-3方法后填满 (page cache); GPU有卡住进程; SSH不稳定
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
