@@ -40,7 +40,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
 | 3 | TERD (input+model) | ❌ (NotImplementedError: 代码未实现) |
-| 4 | Textual Perturbation | ⚠ 部分 (perturbation生成成功, ASR计算失败: transformers版本不兼容) |
+| 4 | Textual Perturbation | ✅ eviledit (ASR=30%, reduction=70%, 20 prompts); 🔄 5方法运行中 |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
 ## 已完成评估对照
@@ -121,6 +121,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit_numAdd | DAA AUC | — | 0.6125 | — | 无基准 (20 prompts) |
 | badt2i_objectAdd | DAA F1 | — | 0.2222 | — | 无基准 (20 prompts) |
 | badt2i_objectAdd | DAA AUC | — | 0.6375 | — | 无基准 (20 prompts) |
+| eviledit | TP Defended ASR | — | 30.0 | — | 20 prompts, 原ASR=36.5, reduction=70% |
 
 ## 未训练原因
 
@@ -144,9 +145,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10, ObjectAdd用20 prompts避免OOM) + TP ⚠ (perturbation✅, ASR❌ transformers不兼容) + TERD ❌ (代码未实现)
-- **下一步**: 项目已尽可能完成. 3个阻塞攻击 + TERD未实现 + TP部分失败 需用户决策
-- **总结**: 评估全部完成 ✅, 防御3/5完成 (T2IShield/Elijah/DAA), 2/5阻塞 (TERD代码缺失, TP版本不兼容)
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10, ObjectAdd用20 prompts避免OOM) + TP ✅ eviledit + 5方法🔄 (20 prompts, VAE decode fix) + TERD ❌ (代码未实现)
+- **下一步**: TP 5方法运行中 (~13min/method); 3个阻塞攻击 + TERD未实现 需用户决策
+- **总结**: 评估全部完成 ✅, 防御4/5进行中 (T2IShield/Elijah/DAA✅ + TP eviledit✅/5方法🔄), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
@@ -154,3 +155,8 @@ LPIPS 全部完成 (10 T2I ✅)
   3. DDPMPipeline init 参数不兼容 → 手动 UNet 循环 + torch.no_grad()
   4. cleanfid loky zombie 进程 → 评估后 kill
   5. DatasetLoader 内存溢出 → 轻量级 FID_uncond_light.py (绕过 DatasetLoader)
+  6. TP tokenizer 嵌套list → 用 perturbed_prompt[0] 取首variant
+  7. TP AttentionStore tensor不匹配 → batch_size=1 一致
+  8. TP ASR 变量作用域 → main() return pipe/bd_prompts/generator
+  9. TP ASR latents未解码 → 加 VAE decode
+  10. TP substeps 模块找不到 → PYTHONPATH 加 t2ishield 目录
