@@ -39,9 +39,9 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法完成, F1多为0, 50 prompts 可能不足) |
 | 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
-| 3 | TERD (input+model) | ❌ |
-| 4 | Textual Perturbation | ❌ |
-| 5 | DAA | ❌ |
+| 3 | TERD (input+model) | ❌ (GPU OOM: 卡住进程 18GB) |
+| 4 | Textual Perturbation | ❌ (GPU OOM) |
+| 5 | DAA | ❌ (GPU OOM: 卡住进程 18GB, config已改50 prompts) |
 
 ## 已完成评估对照
 
@@ -122,8 +122,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, trigger完成/metrics缺失) + 3个手动防御待跑
-- **下一步**: TERD/TextualPerturbation/DAA → 收集所有防御结果 → 检查遗漏
+- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, partial) + DAA/TERD/TP ❌ (GPU卡住进程18GB, 需容器重启)
+- **下一步**: 需用户重启容器清理GPU → 运行DAA/TERD/TextualPerturbation → 收集所有防御结果
+- **阻塞**: GPU有2个卡住进程(各~9GB, 共18GB), 无法从容器内kill, 阻止所有GPU任务
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
