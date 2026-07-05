@@ -41,7 +41,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
 | 3 | TERD (input+model) | 🔄 排队中 (DAA完成后自动开始) |
 | 4 | Textual Perturbation | 🔄 排队中 |
-| 5 | DAA | 🔄 7/10完成 (5有结果: eviledit=0.31, TPA=0.97✅, paas_ti=0.39, style=0.07, pixel=0.27; 2失败: paas_db,badt2i_object) |
+| 5 | DAA | 🔄 7/10完成 (全部有结果) |
 
 ## 已完成评估对照
 
@@ -111,6 +111,10 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_style | DAA AUC | — | 0.4588 | — | 无基准 |
 | badt2i_pixel | DAA F1 | — | 0.2687 | — | 无基准 |
 | badt2i_pixel | DAA AUC | — | 0.5912 | — | 无基准 |
+| paas_db | DAA F1 | — | 0.4267 | — | 无基准 |
+| paas_db | DAA AUC | — | 0.6352 | — | 无基准 |
+| badt2i_object | DAA F1 | — | 0.2222 | — | 无基准 |
+| badt2i_object | DAA AUC | — | 0.5992 | — | 无基准 |
 
 ## 未训练原因
 
