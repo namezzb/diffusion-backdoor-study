@@ -38,7 +38,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | # | 方法 | 状态 |
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法完成, F1多为0, 50 prompts 可能不足) |
-| 2 | Elijah | 🔄 进行中 (3方法) |
+| 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
 | 3 | TERD (input+model) | ❌ |
 | 4 | Textual Perturbation | ❌ |
 | 5 | DAA | ❌ |
@@ -122,8 +122,8 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8方法, F1多为0, 50 prompts可能不足) + Elijah 🔄 (3方法进行中) + 3个手动防御待跑
-- **下一步**: 等 Elijah 完成 → TERD/TextualPerturbation/DAA → 收集所有防御结果
+- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, trigger完成/metrics缺失) + 3个手动防御待跑
+- **下一步**: TERD/TextualPerturbation/DAA → 收集所有防御结果 → 检查遗漏
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
