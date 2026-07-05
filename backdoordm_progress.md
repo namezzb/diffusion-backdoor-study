@@ -41,7 +41,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
 | 3 | TERD (input+model) | ❌ (GPU OOM: 卡住进程 18GB) |
 | 4 | Textual Perturbation | ❌ (GPU OOM) |
-| 5 | DAA | 🔄 进行中 (1/10: eviledit F1=0.31, AUC=0.68) |
+| 5 | DAA | 🔄 进行中 (2/10: eviledit F1=0.31, rickrolling_TPA F1=0.97✅) |
 
 ## 已完成评估对照
 
@@ -103,6 +103,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit | DAA Recall | — | 0.22 | — | 无基准 |
 | eviledit | DAA F1 | 0.7927 | 0.3056 | -0.487 | ⚠ 偏低 (50 prompts vs 500) |
 | eviledit | DAA AUC | 0.8627 | 0.6752 | -0.188 | ⚠ 偏低 |
+| rickrolling_TPA | DAA F1 | 0.7927 | 0.9709 | +0.178 | ✅ 超越基准! |
+| rickrolling_TPA | DAA AUC | 0.8627 | 0.9988 | +0.136 | ✅ 超越基准! |
 
 ## 未训练原因
 
