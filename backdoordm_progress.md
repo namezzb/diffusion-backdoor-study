@@ -41,7 +41,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
 | 3 | TERD (input+model) | ❌ (GPU OOM: 卡住进程 18GB) |
 | 4 | Textual Perturbation | ❌ (GPU OOM) |
-| 5 | DAA | ❌ (GPU OOM: 卡住进程 18GB, config已改50 prompts) |
+| 5 | DAA | 🔄 进行中 (1/10: eviledit F1=0.31, AUC=0.68) |
 
 ## 已完成评估对照
 
@@ -99,6 +99,10 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_pixel | CLIP_p | — | 26.89 | — | 无基准 |
 | badt2i_pixel | CLIP_c | — | 26.61 | — | 无基准 |
 | badt2i_pixel | MSE | — | 0.0087 | — | 无基准 (ImagePatch) |
+| eviledit | DAA Precision | — | 0.5 | — | 无基准 |
+| eviledit | DAA Recall | — | 0.22 | — | 无基准 |
+| eviledit | DAA F1 | 0.7927 | 0.3056 | -0.487 | ⚠ 偏低 (50 prompts vs 500) |
+| eviledit | DAA AUC | 0.8627 | 0.6752 | -0.188 | ⚠ 偏低 |
 
 ## 未训练原因
 
@@ -122,9 +126,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, partial) + DAA/TERD/TP ❌ (GPU卡住进程18GB, 需容器重启)
-- **下一步**: 需用户重启容器清理GPU → 运行DAA/TERD/TextualPerturbation → 收集所有防御结果
-- **阻塞**: GPU有2个卡住进程(各~9GB, 共18GB), 无法从容器内kill, 阻止所有GPU任务
+- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, partial) + DAA 🔄 (1/10完成) + TERD/TP 排队
+- **下一步**: 等 DAA 完成 → TERD/TextualPerturbation → 收集所有防御结果
+- **阻塞**: GPU有一个卡住进程(9.7GB), 但14.8GB可用, DAA可运行
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
