@@ -15,7 +15,7 @@
 | 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | — |
 | 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | 6 | paas_db | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
-| 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | ❌ |
+| 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 8 | badt2i_object | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | — |
 | 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
@@ -98,6 +98,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | rickrolling_TAA | CLIP_c | — | 25.87 | — | 无基准 |
 | badt2i_pixel | CLIP_p | — | 26.89 | — | 无基准 |
 | badt2i_pixel | CLIP_c | — | 26.61 | — | 无基准 |
+| badt2i_pixel | MSE | — | 0.0087 | — | 无基准 (ImagePatch) |
 
 ## 未训练原因
 
@@ -119,10 +120,10 @@ LPIPS 全部完成 (10 T2I ✅)
   - FID: 10/10 T2I ✅ + 3/3 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
   - LPIPS: 10/10 T2I ✅ (eviledit=0.20✅, rickrolling_TPA=0.31⚠, rickrolling_TAA=0.27⚠, 其余无基准)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
-  - MSE (ImagePatch): ❌ 待跑
+  - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: 0/5
-- **下一步**: badt2i_pixel MSE → 防御 (T2IShield + Elijah)
+- 防御: 0/5 (🔄 启动中)
+- **下一步**: 防御 (T2IShield + Elijah) → 收集防御结果
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
