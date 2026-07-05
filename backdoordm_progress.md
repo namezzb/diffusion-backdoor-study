@@ -39,9 +39,9 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法完成, F1多为0, 50 prompts 可能不足) |
 | 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
-| 3 | TERD (input+model) | ❌ (GPU OOM: 卡住进程 18GB) |
-| 4 | Textual Perturbation | ❌ (GPU OOM) |
-| 5 | DAA | 🔄 3/10完成 (eviledit=0.31, rickrolling_TPA=0.97✅, paas_ti=0.39) |
+| 3 | TERD (input+model) | 🔄 排队中 (DAA完成后自动开始) |
+| 4 | Textual Perturbation | 🔄 排队中 |
+| 5 | DAA | 🔄 7/10完成 (5有结果: eviledit=0.31, TPA=0.97✅, paas_ti=0.39, style=0.07, pixel=0.27; 2失败: paas_db,badt2i_object) |
 
 ## 已完成评估对照
 
@@ -107,6 +107,10 @@ LPIPS 全部完成 (10 T2I ✅)
 | rickrolling_TPA | DAA AUC | 0.8627 | 0.9988 | +0.136 | ✅ 超越基准! |
 | paas_ti | DAA F1 | 0.7927 | 0.3889 | -0.404 | ⚠ 偏低 (50 prompts) |
 | paas_ti | DAA AUC | 0.8627 | 0.7144 | -0.148 | ⚠ 偏低 |
+| badt2i_style | DAA F1 | — | 0.0678 | — | 无基准 |
+| badt2i_style | DAA AUC | — | 0.4588 | — | 无基准 |
+| badt2i_pixel | DAA F1 | — | 0.2687 | — | 无基准 |
+| badt2i_pixel | DAA AUC | — | 0.5912 | — | 无基准 |
 
 ## 未训练原因
 
