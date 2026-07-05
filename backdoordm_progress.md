@@ -137,7 +137,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + 启动脚本已准备 (/tmp/run_invi_backdoor.sh) | ⏳ 等 GPU 空闲 (bibaddiff 训练中) |
-| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches: 原12 + trainer_config合并 + image_logger移除 + melk防双OOM) + precision=32 + num_workers=0 + check_val_every_n_epoch=999 | 🔽 训练中 (step ~200/56814, GPU 72%, 19.3GB VRAM, 1.76GB RSS, ETA ~12:00 UTC) |
+| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches: 原12 + trainer_config合并 + image_logger移除 + melk防双OOM) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | 🔽 训练中 (step ~150/56814, GPU 100%, 19.25GB VRAM, 5.5GB RSS, ~100 steps/min, ETA ~14:10 UTC) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
@@ -151,7 +151,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: bibaddiff 训练中 (~8h, ETA ~12:00 UTC) → 完成后转换 ckpt→diffusers 并评估 (FID/LPIPS/MSE for ImagePatch); invi_backdoor OOM 已修复, 等 GPU 空闲后启动; villandiffusion_cond 缺数据; TERD 代码未实现
+- **下一步**: bibaddiff 训练中 (~9.4h, ETA ~14:10 UTC) → 完成后转换 ckpt→diffusers 并评估 (FID/LPIPS/MSE for ImagePatch); invi_backdoor OOM 已修复, 等 GPU 空闲后启动; villandiffusion_cond 缺数据; TERD 代码未实现
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
