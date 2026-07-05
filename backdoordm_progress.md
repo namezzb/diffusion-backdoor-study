@@ -40,7 +40,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
 | 3 | TERD (input+model) | ❌ (NotImplementedError: 代码未实现) |
-| 4 | Textual Perturbation | 🔄 修复config path后重跑中 |
+| 4 | Textual Perturbation | ⚠ 部分 (perturbation生成成功, ASR计算失败: transformers版本不兼容) |
 | 5 | DAA | ✅ (8/10完成, 2 ObjectAdd因cgroup OOM失败) |
 
 ## 已完成评估对照
@@ -140,9 +140,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (8/10) + TP 🔄 (修复config) + TERD ❌ (代码未实现)
-- **下一步**: 等 TP 完成 → 收集所有防御结果 → 检查遗漏 → 完成
-- **TERD问题**: 代码中reverse_trigger() raise NotImplementedError, 无法修复
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (8/10) + TP ⚠ (perturbation✅, ASR❌ transformers不兼容) + TERD ❌ (代码未实现)
+- **下一步**: 项目已尽可能完成. 3个阻塞攻击 + TERD未实现 + TP部分失败 需用户决策
+- **总结**: 评估全部完成 ✅, 防御3/5完成 (T2IShield/Elijah/DAA), 2/5阻塞 (TERD代码缺失, TP版本不兼容)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
