@@ -39,9 +39,9 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法完成, F1多为0, 50 prompts 可能不足) |
 | 2 | Elijah | ✅ (3方法 trigger inversion 完成, tvloss/uniformity 未输出, CPU模式) |
-| 3 | TERD (input+model) | 🔄 排队中 (DAA完成后自动开始) |
-| 4 | Textual Perturbation | 🔄 排队中 |
-| 5 | DAA | 🔄 8/10完成 (eviledit_numAdd运行中) |
+| 3 | TERD (input+model) | 🔄 修复import后重跑中 (diffusers.pipeline_utils→diffusers) |
+| 4 | Textual Perturbation | 🔄 修复path后重跑中 (textual_perturbation/textual_perturbation.py) |
+| 5 | DAA | 🔄 8/10完成, 2重跑中 (eviledit_numAdd, badt2i_objectAdd) |
 
 ## 已完成评估对照
 
@@ -140,9 +140,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8方法) + Elijah ✅ (3方法, partial) + DAA 🔄 (7/10完成, 5有结果) + TERD/TP 排队
-- **下一步**: 清理GPU/cgroup内存 → 重启防御脚本 → DAA剩余3方法 + TP + TERD
-- **阻塞**: cgroup 16GB 在DAA运行1-3方法后填满 (page cache); GPU有卡住进程; SSH不稳定
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA 🔄 (8/10+2重跑) + TP 🔄 (修复path) + TERD 🔄 (修复import)
+- **下一步**: 等防御修复完成 → 收集所有防御结果 → 检查遗漏
+- **修复**: TERD import (diffusers.pipeline_utils→from diffusers import), TP path (加子目录), DAA config (500→50 prompts)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
