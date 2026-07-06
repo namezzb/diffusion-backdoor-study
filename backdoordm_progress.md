@@ -19,7 +19,7 @@
 | 8 | badt2i_object | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | — |
 | 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
-| 11 | bibaddiff | ImagePatch | ✅ | ✅ | — | ✅ | ✅ | ⏳ | ✅ | ✅ |
+| 11 | bibaddiff | ImagePatch | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | — |
 
 LPIPS 全部完成 (10 T2I ✅)
@@ -90,7 +90,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | bibaddiff | MSE | 0.2353 | 0.2612 | +0.026 | ✅ 基本吻合 (1000张图, infer_steps=50) |
 | bibaddiff | CLIP_p (TCS) | 11.63 | 17.778 | +6.15 | ✅ 超越基准 (T2I CLIP-prompt score) |
 | bibaddiff | CLIP_c (BCS) | 13.87 | 12.2403 | -1.63 | ✅ 基本吻合 |
-| bibaddiff | FID | 88.50 | — | — | ❌ KeyError:'text' → 已修复 (caption_column→caption_colunm); 重跑脚本 /tmp/rerun_fid.sh (复用1000张clean图, img_num_FID=1000) |
+| bibaddiff | FID | 88.50 | 489.3778 | +400.88 | ⚠ 极高 (1000张图, 复用clean图; 模型可能生成质量差) |
 | bibaddiff | LPIPS | 0.5375 | 0.7567 | +0.219 | ⚠ 偏高 (100张图, 非1000) |
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 偏高 (trigger应用方式可能不正确) |
 | villandiffusion | MSE | 0.0095 | 0.3237 | +0.314 | ⚠ 偏高 (trigger应用方式可能不正确) |
@@ -142,7 +142,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ | ⏳ 等 GPU 空闲后启动训练 |
-| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 (56814/56814 steps, 6 epochs, 无OOM) + ckpt→diffusers 转换完成 ✅ + 评估 4/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, LPIPS=0.7567⚠, FID⏳重跑中) |
+| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 + ckpt→diffusers ✅ + 评估 5/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID=489.38⚠, LPIPS=0.7567⚠) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
@@ -156,7 +156,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: bibaddiff 🔽 评估中 (MSE generating images 216/1000, --infer_steps 50 修复后运行正常) → CLIP_p/CLIP_c/FID/LPIPS 待运行; invi_backdoor ✅ trigger 尺寸已修复 → 等 GPU 空闲启动训练; villandiffusion_cond 缺数据; TERD 代码未实现
+- **下一步**: invi_backdoor 🔽 训练中 (PID 1033568, batch_256=64, 50 epochs, CELEBA-HQ); villandiffusion_cond 缺数据; TERD 代码未实现
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
