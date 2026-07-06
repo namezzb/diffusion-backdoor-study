@@ -141,13 +141,13 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | 同上 | ✅ 训练完成 |
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
-| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ | ⏳ 等 GPU 空闲后启动训练 |
+| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ | 🔄 训练中 (batch_256=8, 50 epochs, ~85h ETA, PID 1037610, /tmp/invi_backdoor_v4.log) |
 | bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 + ckpt→diffusers ✅ + 评估 5/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID=489.38⚠, LPIPS=0.7567⚠) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
 
-- 攻击训练: 14/16 ✅ (invi_backdoor ⏳ 等 GPU 空闲, villandiffusion_cond ⛔ 缺数据)
+- 攻击训练: 14/16 ✅ (invi_backdoor 🔄 训练中 batch_256=8, villandiffusion_cond ⛔ 缺数据)
 - 攻击评估:
   - ACCASR: 7/7 T2I ✅ (pixel/style/TAA 不需 ACCASR)
   - FID: 10/10 T2I ✅ + 3/3 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
@@ -156,7 +156,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: invi_backdoor 🔽 训练中 (PID 1033568, batch_256=64, 50 epochs, CELEBA-HQ); villandiffusion_cond 缺数据; TERD 代码未实现
+- **下一步**: invi_backdoor 🔄 训练中 (PID 1037610, batch_256=8, 50 epochs, ~85h ETA, /tmp/invi_backdoor_v4.log) → 完成后评估 FID+MSE; villandiffusion_cond 缺数据; TERD 代码未实现
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
@@ -170,3 +170,6 @@ LPIPS 全部完成 (10 T2I ✅)
   8. TP ASR 变量作用域 → main() return pipe/bd_prompts/generator
   9. TP ASR latents未解码 → 加 VAE decode
   10. TP substeps 模块找不到 → PYTHONPATH 加 t2ishield 目录
+  11. bibaddiff FID caption_column→caption_colunm (BackdoorDM typo)
+  12. invi_backdoor delta_target 尺寸不匹配 → crop dsl.target[:, :ts, :ts]
+  13. invi_backdoor OOM → batch_256=8 + del+empty_cache after delta opt
