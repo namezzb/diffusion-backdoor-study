@@ -19,7 +19,7 @@
 | 8 | badt2i_object | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | — |
 | 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
-| 11 | bibaddiff | ImagePatch | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| 11 | bibaddiff | ImagePatch | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | — |
 
 LPIPS 全部完成 (10 T2I ✅)
@@ -137,12 +137,12 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + 启动脚本已准备 (/tmp/run_invi_backdoor.sh) | ⏳ 等 GPU 空闲 (bibaddiff 训练中) |
-| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | 🔽 训练中 (step ~49349/56814, 87%, epoch 5, GPU 89%, 5 checkpoints无OOM) ETA ~10:40 UTC |
+| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 (56814/56814 steps, 6 epochs, 无OOM) + ckpt→diffusers 转换完成 ✅ → 评估待运行 (SSH 跳转主机断连) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
 
-- 攻击训练: 13/16 ✅ (bibaddiff 🔽 训练中, invi_backdoor ⏳ 等 GPU, villandiffusion_cond ⛔ 缺数据)
+- 攻击训练: 14/16 ✅ (invi_backdoor 🔽 训练中, villandiffusion_cond ⛔ 缺数据)
 - 攻击评估:
   - ACCASR: 7/7 T2I ✅ (pixel/style/TAA 不需 ACCASR)
   - FID: 10/10 T2I ✅ + 3/3 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
@@ -151,7 +151,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: bibaddiff 训练中 (step ~49349/56814, 87%, ETA ~10:40 UTC) → 完成后转换 ckpt→diffusers 并评估 (FID/LPIPS/MSE for ImagePatch); invi_backdoor OOM 已修复, 等 GPU 空闲后启动; villandiffusion_cond 缺数据; TERD 代码未实现
+- **下一步**: bibaddiff ✅ 训练完成+转换完成 → 评估待运行 (MSE/CLIP_p/CLIP_c/FID/LPIPS); invi_backdoor 🔽 训练中; villandiffusion_cond 缺数据; TERD 代码未实现; SSH 跳转主机断连中
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
