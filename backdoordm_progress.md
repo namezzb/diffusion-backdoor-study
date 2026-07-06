@@ -87,6 +87,11 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | ACC (ACC_ViT) | — | 52.1 | — | 无基准 (非标准方法) |
 | badt2i_object | ASR (ASR_ViT) | — | 26.7 | — | 无基准 |
 | baddiffusion | MSE | 0.0200 | 0.3611 | +0.341 | ⚠ 偏高 (infer_steps=50, 100张图) |
+| bibaddiff | MSE | 0.2353 | 0.2612 | +0.026 | ✅ 基本吻合 (1000张图, infer_steps=50) |
+| bibaddiff | CLIP_p (TCS) | 11.63 | 17.778 | +6.15 | ✅ 超越基准 (T2I CLIP-prompt score) |
+| bibaddiff | CLIP_c (BCS) | 13.87 | 12.2403 | -1.63 | ✅ 基本吻合 |
+| bibaddiff | FID | 88.50 | — | — | ❌ KeyError:'text' → 已修复 (caption_column→caption_colunm); 重跑脚本 /tmp/rerun_fid.sh (复用1000张clean图, img_num_FID=1000) |
+| bibaddiff | LPIPS | 0.5375 | — | — | ⏳ 评估中 (PID 1031792, torch.compile 编译中) |
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 偏高 (trigger应用方式可能不正确) |
 | villandiffusion | MSE | 0.0095 | 0.3237 | +0.314 | ⚠ 偏高 (trigger应用方式可能不正确) |
 | eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
@@ -137,7 +142,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ | ⏳ 等 GPU 空闲后启动训练 |
-| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 (56814/56814 steps, 6 epochs, 无OOM) + ckpt→diffusers 转换完成 ✅ + 🔽 评估中 (MSE: 216/1000 images, GPU 100%) |
+| bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 (56814/56814 steps, 6 epochs, 无OOM) + ckpt→diffusers 转换完成 ✅ + 评估 3/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID❌需重跑, LPIPS⏳中) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
