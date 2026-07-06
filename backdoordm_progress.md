@@ -136,7 +136,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | 同上 | ✅ 训练完成 |
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
-| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + 启动脚本已准备 (/tmp/run_invi_backdoor.sh) | ⏳ 等 GPU 空闲 (bibaddiff 训练中) |
+| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **新 bug: DatasetLoader trigger 32x32 vs image 256x256 不匹配** (uncond_dataset.py backdoor_transforms) | ⛔ 需修复 trigger 尺寸 (等 eval 完成后调查) |
 | bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 (56814/56814 steps, 6 epochs, 无OOM) + ckpt→diffusers 转换完成 ✅ → 评估待运行 (SSH 跳转主机断连) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
@@ -151,7 +151,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: bibaddiff ✅ 训练完成+转换完成 → 评估待运行 (MSE/CLIP_p/CLIP_c/FID/LPIPS); invi_backdoor 🔽 训练中; villandiffusion_cond 缺数据; TERD 代码未实现; SSH 跳转主机断连中
+- **下一步**: bibaddiff 🔽 评估中 (MSE 12%, --infer_steps 50 修复后运行正常) → CLIP_p/CLIP_c/FID/LPIPS 待运行; invi_backdoor ⛔ trigger 尺寸 bug 待修复; villandiffusion_cond 缺数据; TERD 代码未实现
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
