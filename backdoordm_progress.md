@@ -31,7 +31,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
 | 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
 | 15 | villandiffusion | ✅ | ✅ | ✅ | ✅ |
-| 16 | invi_backdoor | ❌ | ❌ | ❌ | ❌ |
+| 16 | invi_backdoor | 🔄 | ❌ | ❌ | ❌ |
 
 ## 防御方法状态
 
@@ -141,13 +141,13 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | 同上 | ✅ 训练完成 |
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
-| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ | ❌ NaN 训练失败 (Epoch 2 Step 7714, lr=0.0002 过高导致梯度爆炸); 需用 --learning_rate 2e-5 重启 (learning_rate_256_scratch 值); ⛔ SSH 跳板机不可达 |
+| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ + **NaN 修复** (--learning_rate 2e-5 替代默认 0.0002) ✅ | 🔄 训练中 (PID 1038813, lr=2e-5, batch_256=8, 5 epochs, ETA ~9h) |
 | bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 + ckpt→diffusers ✅ + 评估 5/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID=489.38⚠, LPIPS=0.7567⚠) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
 
-- 攻击训练: 14/16 ✅ (invi_backdoor ❌ NaN 需重启 lr=2e-5, villandiffusion_cond ⛔ 缺数据)
+- 攻击训练: 14/16 ✅ (invi_backdoor 🔄 训练中 lr=2e-5, villandiffusion_cond ⛔ 缺数据)
 - 攻击评估:
   - ACCASR: 7/7 T2I ✅ (pixel/style/TAA 不需 ACCASR)
   - FID: 10/10 T2I ✅ + 3/3 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
@@ -156,7 +156,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: invi_backdoor ❌ NaN (lr=0.0002 过高) → 需用 --learning_rate 2e-5 重启; ⛔ SSH 跳板机不可达 (cron 6927a9c4 每10min重试); villandiffusion_cond 缺数据; TERD 代码未实现
+- **下一步**: invi_backdoor 🔄 训练中 (PID 1038813, lr=2e-5, batch_256=8, 5 epochs, ETA ~9h); villandiffusion_cond 缺数据; TERD 代码未实现
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
@@ -173,3 +173,4 @@ LPIPS 全部完成 (10 T2I ✅)
   11. bibaddiff FID caption_column→caption_colunm (BackdoorDM typo)
   12. invi_backdoor delta_target 尺寸不匹配 → crop dsl.target[:, :ts, :ts]
   13. invi_backdoor OOM → batch_256=8 + del+empty_cache after delta opt
+  14. invi_backdoor NaN (梯度爆炸) → --learning_rate 2e-5 替代默认 0.0002 (learning_rate_256_scratch 值)
