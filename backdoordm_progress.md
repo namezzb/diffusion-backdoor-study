@@ -31,7 +31,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
 | 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
 | 15 | villandiffusion | ✅ | ✅ | ✅ | ✅ |
-| 16 | invi_backdoor | ✅ | ✅ | 🔄 | ❌ |
+| 16 | invi_backdoor | ✅ | ✅ | ✅ | 🔄 |
 
 ## 防御方法状态
 
@@ -94,6 +94,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | bibaddiff | LPIPS | 0.5375 | 0.7567 | +0.219 | ⚠ 偏高 (100张图, 非1000) |
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 偏高 (trigger应用方式可能不正确) |
 | villandiffusion | MSE | 0.0095 | 0.3237 | +0.314 | ⚠ 偏高 (trigger应用方式可能不正确) |
+| invi_backdoor | FID | 11.76 | 59.0153 | +47.26 | ⚠ 偏高 (1000张图, infer_steps=50, epoch 9 ckpt) |
 | eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
 | rickrolling_TPA | CLIP_p | 23.88 | 24.08 | +0.20 | ✅ 吻合 |
 | eviledit | CLIP_c | 26.31 | 27.24 | +0.93 | ✅ 基本吻合 |
@@ -156,7 +157,7 @@ LPIPS 全部完成 (10 T2I ✅)
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 3/3 ✅ (轻量级脚本, 可能不精确)
 - 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: invi_backdoor 🔄 FID 评估中 (1000图, infer_steps=50, 自定义脚本 /tmp/invi_fid_eval.py); MSE 待评估; villandiffusion_cond 缺数据; TERD 代码未实现
+- **下一步**: invi_backdoor 🔄 MSE 评估中 (100图, infer_steps=50); villandiffusion_cond 缺数据; TERD 代码未实现
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
