@@ -182,3 +182,4 @@ LPIPS 全部完成 (10 T2I ✅)
   12. invi_backdoor delta_target 尺寸不匹配 → crop dsl.target[:, :ts, :ts]
   13. invi_backdoor OOM → batch_256=8 + del+empty_cache after delta opt
   14. invi_backdoor NaN (梯度爆炸) → --learning_rate 2e-5 替代默认 0.0002 (learning_rate_256_scratch 值)
+  15. TERD model trojdiff OOM (batch_size=16 用 19.7GB) → batch_size=4 (CIFAR10 override 16→4)
