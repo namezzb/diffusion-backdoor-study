@@ -143,7 +143,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | 同上 | ✅ 训练完成 |
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
-| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ + **NaN 修复** (--learning_rate 2e-5 替代默认 0.0002) ✅ | ✅ 训练完成 (epoch 9 ckpt, lr=2e-5, 50 epochs 默认, 在 epoch 9 提前停止); 🔄 FID 评估中 (1000图, infer_steps=50, CELEBA-HQ 原图从 parquet 提取) |
+| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ + **NaN 修复** (--learning_rate 2e-5 替代默认 0.0002) ✅ | ✅ 训练完成 (epoch 9 ckpt, lr=2e-5, 50 epochs 默认, 在 epoch 9 提前停止); FID=59.02 ✅ + MSE=0.1083 ✅ (infer_steps=50, CELEBA-HQ) |
 | bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 + ckpt→diffusers ✅ + 评估 5/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID=489.38⚠, LPIPS=0.7567⚠) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
@@ -157,9 +157,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 4/4 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 trojdiff 运行中 (支持 uncond: baddiffusion/villandiffusion/trojdiff)
-- **下一步**: TERD 🔄 trojdiff 运行中 (trigger estimation 3000 iter + refinement 1000 iter, ETA ~1h); 成功后继续 baddiffusion + villandiffusion; villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
-- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 baddiffusion ✅ (TPR=100%, TNR=100%); villandiffusion + trojdiff 运行中 (支持 uncond: baddiffusion/villandiffusion/trojdiff)
+- **下一步**: TERD 🔄 villandiffusion (estimation 67% + refinement ~8h) + trojdiff (refinement 10%, ETA ~7h) 运行中; villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
+- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), TERD 1/3方法完成, villandiffusion_cond 阻塞 (缺 Google Drive 数据)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
