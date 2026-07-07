@@ -163,9 +163,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 4/4 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 baddiffusion ✅ (TPR=100%, TNR=100%) + villandiffusion ✅ (TPR=100%, TNR=100%); trojdiff 运行中 (支持 uncond: baddiffusion/villandiffusion/trojdiff)
-- **下一步**: TERD 🔄 trojdiff 运行中 (refinement 11%, ETA ~7h); villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
-- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), TERD 2/3方法完成, villandiffusion_cond 阻塞 (缺 Google Drive 数据)
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 input: baddiffusion ✅ + villandiffusion ✅ + trojdiff 运行中 (20%); model: baddiffusion ✅ (M_r=0.48, V_r=0.004) + trojdiff 运行中; villandiffusion 不支持 (model-level NotImplementedError)
+- **下一步**: TERD 🔄 input trojdiff (refinement 20%, ETA ~7h) + model trojdiff (estimation 21%, ETA ~8h); villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
+- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), TERD input 2/3 + model 1/2 完成, villandiffusion_cond 阻塞 (缺 Google Drive 数据)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
