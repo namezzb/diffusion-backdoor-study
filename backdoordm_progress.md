@@ -39,7 +39,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
-| 3 | TERD (input+model) | 🔄 baddiffusion ✅ (TPR=100%, TNR=100%); villandiffusion ✅ (TPR=100%, TNR=100%); trojdiff 运行中 (refinement 11%) |
+| 3 | TERD (input+model) | 🔄 input: baddiffusion ✅ + villandiffusion ✅ + trojdiff 运行中 (20%); model: baddiffusion ✅ (M_r=0.48, V_r=0.004), trojdiff 启动中; villandiffusion 不支持 |
 | 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
@@ -138,6 +138,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | baddiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
 | villandiffusion | TERD TPR | 100% | 100% | 0 | ✅ 完全吻合 (input-level detection) |
 | villandiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
+| baddiffusion | TERD model M_r | — | 0.4808 | — | ✅ M_r>0, 正确检测后门 (model-level) |
+| baddiffusion | TERD model V_r | — | 0.0037 | — | ✅ V_r>0, 正确检测后门 |
 
 ## 未训练原因
 
