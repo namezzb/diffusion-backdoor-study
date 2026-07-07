@@ -39,7 +39,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
-| 3 | TERD (input+model) | 🔄 trojdiff 运行中 (trigger estimation 3000 iter; 代码已修复: 取消注释 trigger estimation 阶段) |
+| 3 | TERD (input+model) | 🔄 baddiffusion ✅ (TPR=100%, TNR=100%); villandiffusion 运行中; trojdiff 运行中 (refinement 7%) |
 | 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
