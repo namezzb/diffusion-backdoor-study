@@ -39,7 +39,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
-| 3 | TERD (input+model) | ❌ (NotImplementedError: 代码未实现) |
+| 3 | TERD (input+model) | 🔄 trojdiff 运行中 (trigger estimation 3000 iter; 代码已修复: 取消注释 trigger estimation 阶段) |
 | 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
@@ -157,8 +157,8 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 4/4 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ❌ (代码未实现)
-- **下一步**: 全部可执行任务已完成 ✅; 仅剩阻塞项: villandiffusion_cond (缺 Google Drive 数据) + TERD (代码 NotImplementedError)
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 trojdiff 运行中 (支持 uncond: baddiffusion/villandiffusion/trojdiff)
+- **下一步**: TERD 🔄 trojdiff 运行中 (trigger estimation 3000 iter + refinement 1000 iter, ETA ~1h); 成功后继续 baddiffusion + villandiffusion; villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
 - **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), 1/5阻塞 (TERD代码缺失)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
