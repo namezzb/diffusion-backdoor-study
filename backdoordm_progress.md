@@ -39,7 +39,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
-| 3 | TERD (input+model) | 🔄 baddiffusion ✅ (TPR=100%, TNR=100%); villandiffusion 运行中; trojdiff 运行中 (refinement 7%) |
+| 3 | TERD (input+model) | 🔄 baddiffusion ✅ (TPR=100%, TNR=100%); villandiffusion ✅ (TPR=100%, TNR=100%); trojdiff 运行中 (refinement 11%) |
 | 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
@@ -134,6 +134,10 @@ LPIPS 全部完成 (10 T2I ✅)
 | paas_db | TP Defended ASR | — | 5.0 | — | 20 prompts, 原ASR=3.9 |
 | badt2i_object | TP Defended ASR | — | 10.0 | — | 20 prompts, 原ASR=26.7, reduction=63% |
 | badt2i_style | TP Defended ASR | — | 0.0 | — | 20 prompts, StyleAdd无原ASR |
+| baddiffusion | TERD TPR | 100% | 100% | 0 | ✅ 完全吻合 (input-level detection) |
+| baddiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
+| villandiffusion | TERD TPR | 100% | 100% | 0 | ✅ 完全吻合 (input-level detection) |
+| villandiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
 
 ## 未训练原因
 
@@ -157,9 +161,9 @@ LPIPS 全部完成 (10 T2I ✅)
   - CLIP_p/CLIP_c: 10/10 T2I ✅
   - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
   - 无条件 MSE: 4/4 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 baddiffusion ✅ (TPR=100%, TNR=100%); villandiffusion + trojdiff 运行中 (支持 uncond: baddiffusion/villandiffusion/trojdiff)
-- **下一步**: TERD 🔄 villandiffusion (estimation 67% + refinement ~8h) + trojdiff (refinement 10%, ETA ~7h) 运行中; villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
-- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), TERD 1/3方法完成, villandiffusion_cond 阻塞 (缺 Google Drive 数据)
+- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD 🔄 baddiffusion ✅ (TPR=100%, TNR=100%) + villandiffusion ✅ (TPR=100%, TNR=100%); trojdiff 运行中 (支持 uncond: baddiffusion/villandiffusion/trojdiff)
+- **下一步**: TERD 🔄 trojdiff 运行中 (refinement 11%, ETA ~7h); villandiffusion_cond 仍阻塞 (缺 Google Drive 数据)
+- **总结**: 评估全部完成 ✅, 防御4/5完成 (T2IShield/Elijah/DAA/TP), TERD 2/3方法完成, villandiffusion_cond 阻塞 (缺 Google Drive 数据)
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
