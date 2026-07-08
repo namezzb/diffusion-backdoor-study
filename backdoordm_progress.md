@@ -23,6 +23,7 @@
 - TrojDiff MSE 先用 128 张 probe 得到 0.07165，再用 1000 张正式评估得到 0.07167；`eval_max_batch=1000` 因 cgroup OOM 失败，`eval_max_batch=512` 完成。
 - BadDiffusion 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=18.1288，对齐基准 18.21。
 - TrojDiff 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=19.5955，对齐基准 19.71。
+- InviBackdoor FID 应按 BackdoorDM benchmark 58.19 验收，不按原论文补充值 11.76；dataset-tagged CELEBA-HQ 原图缓存重算得到 FID=52.1057，优于基准。
 
 ## 攻击方法状态
 
@@ -120,8 +121,9 @@ LPIPS 全部完成 (10 T2I ✅)
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 旧路径诊断值偏高; 已由stream helper重评替代 |
 | trojdiff | MSE | 0.0700 | 0.07167 | +0.00167 | ✅ 1000张正式重评对齐基准 |
 | villandiffusion | MSE | 0.0300 | 0.03870 | +0.00870 | ✅ 基本吻合 (BOX_14/psi=1, full trigger, 1000张图, infer_steps=1000) |
-| invi_backdoor | FID | 11.76 | 59.0153 | +47.26 | ⚠ 偏高 (1000张图, infer_steps=50, epoch 9 ckpt) |
-| invi_backdoor | MSE | 0.00307 | 0.1083 | +0.105 | ⚠ 偏高 (100张图, infer_steps=50) |
+| invi_backdoor | FID | 58.19 | 59.0153 | +0.8253 | ✅ 旧原图缓存路径下已基本对齐 BackdoorDM benchmark |
+| invi_backdoor | FID | 58.19 | 52.1057 | -6.0843 | ✅ dataset-tagged CELEBA-HQ 原图缓存重算，优于基准 |
+| invi_backdoor | MSE | 0.0950 | 0.1083 | +0.0133 | ⚠ 仅100张旧评估，需1000张重评或协议诊断 |
 | eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
 | rickrolling_TPA | CLIP_p | 23.88 | 24.08 | +0.20 | ✅ 吻合 |
 | eviledit | CLIP_c | 26.31 | 27.24 | +0.93 | ✅ 基本吻合 |
@@ -186,7 +188,7 @@ LPIPS 全部完成 (10 T2I ✅)
 ## 统计
 
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、BadDiffusion 10K FID=18.1288、TrojDiff MSE=0.07167、TrojDiff 10K FID=19.5955、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067 已基本对齐。
+- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、BadDiffusion 10K FID=18.1288、TrojDiff MSE=0.07167、TrojDiff 10K FID=19.5955、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067、InviBackdoor FID=52.1057 已基本对齐。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
 - **下一步**: GPU 已释放，继续处理 InviBackdoor MSE/FID 复核与 corrected T2I 10K FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
@@ -222,3 +224,4 @@ LPIPS 全部完成 (10 T2I ✅)
   28. TrojDiff MSE 旧路径偏高 → stream helper 1000张 MSE=0.07167；batch=1000 被 cgroup OOM，batch=512 完成
   29. BadDiffusion 1000 张 FID 协议偏高 → 10K FID=18.1288，对齐 benchmark 18.21
   30. TrojDiff 1000 张 FID 协议偏高 → 10K FID=19.5955，对齐 benchmark 19.71
+  31. InviBackdoor FID 基准误用原论文补充值 → 按 BackdoorDM benchmark 58.19 验收，重算 FID=52.1057
