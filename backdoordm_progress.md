@@ -3,6 +3,14 @@
 > 基准参考见 `backdoordm_reference.md`（只读，勿改）
 > 服务器: ssh amax -p 25579 | BD=/opt/data/private/BackdoorDM
 
+## 2026-07-08 校正状态
+
+- VillanDiffusion GLASSES/psi=1 已于 2026-07-07 23:58:28 完成，但 benchmark/paper 指向 grey box；BOX_14/psi=1 正在重训到 `results/villandiffusion_BOX14_DDPM-CIFAR10-32_psi1`。
+- baddiffusion 1000步 MSE 已用修正版采样得到 0.01862，与基准 0.0200 对齐；TERD trojdiff input 修复后待重跑。
+- 官方 uncond FID/MSE 脚本已补 CIFAR10 参数；旧 uncond FID 结果混用默认 CELEBA-HQ 对照，不作为完成证据。
+- 官方 T2I FID 脚本已补 `--img_num_FID 10000`；旧 T2I FID 结果仅 1000 张，不作为最终完成证据。
+- FID 真实图缓存目录已加入 dataset tag；后续重跑不会复用不同数据集的 original-image cache。
+
 ## 攻击方法状态
 
 ### T2I 攻击 (12)
@@ -30,7 +38,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|------|-----|-----|
 | 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
 | 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
-| 15 | villandiffusion | ✅ | ✅ | ✅ | ✅ |
+| 15 | villandiffusion | 🔄 BOX_14重训中 | 🔄 | 待重评 | 待重评 |
 | 16 | invi_backdoor | ✅ | ✅ | ✅ | ✅ |
 
 ## 防御方法状态
@@ -39,7 +47,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
-| 3 | TERD (input+model) | ✅ input: baddiffusion ✅ (TPR=100%, TNR=100%) + villandiffusion ✅ (TPR=100%, TNR=100%) + trojdiff ✅ (TPR=0%, TNR=99%); model: baddiffusion ✅ (M_r=0.48, V_r=0.004) + trojdiff ✅ (M_r=0.99, V_r=1.62); villandiffusion 不支持 |
+| 3 | TERD (input+model) | 🔄 input: baddiffusion ✅ (TPR=100%, TNR=100%) + villandiffusion ✅ (TPR=100%, TNR=100%) + trojdiff 修复后待重跑; model: baddiffusion ✅ (M_r=0.48, V_r=0.004) + trojdiff ✅ (M_r=0.99, V_r=1.62); villandiffusion 不支持 |
 | 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts) |
 
@@ -86,14 +94,14 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | LPIPS | — | 0.239 | — | 无基准 |
 | badt2i_object | ACC (ACC_ViT) | — | 52.1 | — | 无基准 (非标准方法) |
 | badt2i_object | ASR (ASR_ViT) | — | 26.7 | — | 无基准 |
-| baddiffusion | MSE | 0.0200 | 0.3611 | +0.341 | ⚠ 偏高 (infer_steps=50, 100张图) |
+| baddiffusion | MSE | 0.0200 | 0.01862 | -0.00138 | ✅ 吻合 (1000张图, infer_steps=1000, 修正版触发采样) |
 | bibaddiff | MSE | 0.2353 | 0.2612 | +0.026 | ✅ 基本吻合 (1000张图, infer_steps=50) |
 | bibaddiff | CLIP_p (TCS) | 11.63 | 17.778 | +6.15 | ✅ 超越基准 (T2I CLIP-prompt score) |
 | bibaddiff | CLIP_c (BCS) | 13.87 | 12.2403 | -1.63 | ✅ 基本吻合 |
 | bibaddiff | FID | 88.50 | 489.3778 | +400.88 | ⚠ 极高 (1000张图, 复用clean图; 模型可能生成质量差) |
 | bibaddiff | LPIPS | 0.5375 | 0.7567 | +0.219 | ⚠ 偏高 (100张图, 非1000) |
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 偏高 (trigger应用方式可能不正确) |
-| villandiffusion | MSE | 0.0095 | 0.3237 | +0.314 | ⚠ 偏高 (trigger应用方式可能不正确) |
+| villandiffusion | MSE | 0.0300 | 待重评 | — | 🔄 BOX_14/psi=1 正在按 benchmark 触发器重训 |
 | invi_backdoor | FID | 11.76 | 59.0153 | +47.26 | ⚠ 偏高 (1000张图, infer_steps=50, epoch 9 ckpt) |
 | invi_backdoor | MSE | 0.00307 | 0.1083 | +0.105 | ⚠ 偏高 (100张图, infer_steps=50) |
 | eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
@@ -138,7 +146,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | baddiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
 | villandiffusion | TERD TPR | 100% | 100% | 0 | ✅ 完全吻合 (input-level detection) |
 | villandiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
-| trojdiff | TERD TPR | 100% | 0% | -100 | ⚠ TPR=0%, 未能检测后门 (input-level; trigger refinement 可能未收敛) |
+| trojdiff | TERD TPR | 100% | 待重跑 | — | 🔄 reverse_trojdiff 覆盖采样 bug 已修复 |
 | trojdiff | TERD TNR | 100% | 99% | -1 | ✅ 基本吻合 (FPR=1%) |
 | baddiffusion | TERD model M_r | — | 0.4808 | — | ✅ M_r>0, 正确检测后门 (model-level) |
 | baddiffusion | TERD model V_r | — | 0.0037 | — | ✅ V_r>0, 正确检测后门 |
@@ -159,17 +167,11 @@ LPIPS 全部完成 (10 T2I ✅)
 
 ## 统计
 
-- 攻击训练: 15/16 ✅ (invi_backdoor ✅ 训练完成 epoch 9, villandiffusion_cond ⛔ 缺数据)
-- 攻击评估:
-  - ACCASR: 7/7 T2I ✅ (pixel/style/TAA 不需 ACCASR)
-  - FID: 10/10 T2I ✅ + 4/4 uncond ✅ (全部偏高, T2I 因 infer_steps=50, uncond 同; villandiffusion 用1000步仍偏高)
-  - LPIPS: 10/10 T2I ✅ (eviledit=0.20✅, rickrolling_TPA=0.31⚠, rickrolling_TAA=0.27⚠, 其余无基准)
-  - CLIP_p/CLIP_c: 10/10 T2I ✅
-  - MSE (ImagePatch): 1/1 ✅ (badt2i_pixel=0.0087)
-  - 无条件 MSE: 4/4 ✅ (轻量级脚本, 可能不精确)
-- 防御: T2IShield ✅ (8) + Elijah ✅ (3) + DAA ✅ (10/10) + TP ✅ (6/6, synonym模式) + TERD ✅ input: baddiffusion (TPR=100%,TNR=100%) + villandiffusion (TPR=100%,TNR=100%) + trojdiff (TPR=0%,TNR=99%); model: baddiffusion (M_r=0.48,V_r=0.004) + trojdiff (M_r=0.99,V_r=1.62); villandiffusion 不支持
-- **下一步**: 全部防御完成 ✅ (5/5); 仅 villandiffusion_cond 阻塞 (缺 Google Drive 数据, 需用户 VPN)
-- **总结**: 评估全部完成 ✅, 防御5/5完成 (T2IShield/Elijah/DAA/TP/TERD), villandiffusion_cond 阻塞; TERD input trojdiff TPR=0% (基准100%, 可能 trigger refinement 未收敛)
+- 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 触发器版本 BOX_14/psi=1 正在重训，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
+- 攻击评估: 旧结果需逐项复核；当前仅 baddiffusion MSE=0.01862 已确认对齐，VillanDiffusion/TrojDiff MSE 与 uncond/T2I FID 仍需修正重跑。
+- 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
+- **下一步**: 等 BOX_14 训练完成后立即跑 VillanDiffusion 触发变体 probe，再跑 1000 张正式 MSE/FID。
+- **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path
@@ -187,3 +189,6 @@ LPIPS 全部完成 (10 T2I ✅)
   13. invi_backdoor OOM → batch_256=8 + del+empty_cache after delta opt
   14. invi_backdoor NaN (梯度爆炸) → --learning_rate 2e-5 替代默认 0.0002 (learning_rate_256_scratch 值)
   15. TERD model trojdiff OOM → batch_size 16→4 + DDIM seq num_train_timesteps(1000)→infer_steps(10) (reverse_trojdiff generalized_steps 序列长度)
+  16. uncond fix 评估脚本缺少 CIFAR10 参数 → run_eval_fix_FID/MSE 对 baddiffusion/trojdiff/villandiffusion 显式传 `--val_data CIFAR10 --model_ver DDPM-CIFAR10-32`
+  17. T2I FID 脚本注释要求 1w images 但未传参数 → run_eval_t2i_FID.sh 显式传 `--img_num_FID 10000`
+  18. FID original-image cache 未区分数据集 → evaluation/clean/FID.py 的缓存目录加入 dataset tag
