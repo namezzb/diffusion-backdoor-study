@@ -12,6 +12,8 @@
 - FID 真实图缓存目录已加入 dataset tag；后续重跑不会复用不同数据集的 original-image cache。
 - VillanDiffusion BOX_14/psi=1 已完成 1000 张 MSE/FID；MSE=0.03870 基本对齐基准 0.0300，FID=54.91 明显高于基准 13.50，需继续排查 clean generation 质量。
 - uncond eval 的 `bd_config` CLI 参数会被 `base_args_uncond_v2` 覆盖为默认配置，已修复为仅在未传参时使用默认值；VillanDiffusion FID 以 `BOX_14` 标签行 `2026-07-08_12-18-06` 为准。
+- clean `ddpm-cifar10-32` 在同一 1000 张 CIFAR10 FID 管线下 FID=58.91，高于 VillanDiffusion BOX_14 的 54.91；该偏高主要来自 1000 张评估协议，不是 BOX_14 模型独有退化。
+- VillanDiffusion 论文说明 CIFAR10 评估生成 10K clean/backdoor samples；已将 uncond FID 脚本改为 10K，并启动 BOX_14/psi=1 的 10K FID 重评。
 
 ## 攻击方法状态
 
@@ -83,7 +85,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | FID | — | 66.32 | — | 无基准 |
 | baddiffusion | FID | 18.21 | 176.75 | +158.54 | ⚠ 偏高, infer_steps=50 (基准用1000) |
 | trojdiff | FID | 19.71 | 180.01 | +160.30 | ⚠ 偏高, infer_steps=50 |
-| villandiffusion | FID | 13.50 | 54.91 | +41.41 | ⚠ 偏高 (BOX_14/psi=1, CIFAR10, 1000张图, infer_steps=1000) |
+| clean ddpm-cifar10-32 | FID | — | 58.91 | — | 诊断对照: 同一 1000 张 CIFAR10 管线，说明 1K FID 估计偏高 |
+| villandiffusion | FID | 13.50 | 54.91 | +41.41 | ⚠ 1000张诊断值偏高; 10K FID 重评运行中 |
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
 | rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 偏高 |
@@ -170,9 +173,9 @@ LPIPS 全部完成 (10 T2I ✅)
 ## 统计
 
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862 与 VillanDiffusion MSE=0.03870 已基本对齐，VillanDiffusion FID=54.91 仍显著偏高。
+- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862 与 VillanDiffusion MSE=0.03870 已基本对齐，VillanDiffusion 10K FID 重评运行中。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
-- **下一步**: 排查 VillanDiffusion clean FID 偏高原因，同时继续重跑 TrojDiff MSE 与 corrected uncond/T2I FID。
+- **下一步**: 监控 VillanDiffusion BOX_14 10K FID；完成后继续重跑 TrojDiff MSE 与 corrected uncond/T2I FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
@@ -195,3 +198,4 @@ LPIPS 全部完成 (10 T2I ✅)
   17. T2I FID 脚本注释要求 1w images 但未传参数 → run_eval_t2i_FID.sh 显式传 `--img_num_FID 10000`
   18. FID original-image cache 未区分数据集 → evaluation/clean/FID.py 的缓存目录加入 dataset tag
   19. uncond eval 覆盖 `--bd_config` → base_args_uncond_v2 仅在 CLI 未传参时使用默认 bd_config
+  20. uncond 1000 张 FID 协议偏高 → clean ddpm 1000张 FID=58.91; run_eval_fix_FID.sh 改为 `--img_num_FID 10000`
