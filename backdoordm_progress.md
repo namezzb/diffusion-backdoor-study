@@ -24,7 +24,7 @@
 - BadDiffusion 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=18.1288，对齐基准 18.21。
 - TrojDiff 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=19.5955，对齐基准 19.71。
 - InviBackdoor FID 应按 BackdoorDM benchmark 58.19 验收，不按原论文补充值 11.76；dataset-tagged CELEBA-HQ 原图缓存重算得到 FID=52.1057，优于基准。
-- InviBackdoor MSE 正式 1000张重评运行中：`/tmp/mse_invi_1000_b32.log`，`eval_max_batch=32`，已落盘 160/1000；该 256x256 任务预计小时级运行。
+- InviBackdoor MSE 正式 1000张重评运行中：`/tmp/mse_invi_1000_b32.log`，`eval_max_batch=32`，已落盘 192/1000；该 256x256 任务预计小时级运行。
 
 ## 攻击方法状态
 
