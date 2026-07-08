@@ -26,6 +26,7 @@
 - InviBackdoor FID 应按 BackdoorDM benchmark 58.19 验收，不按原论文补充值 11.76；dataset-tagged CELEBA-HQ 原图缓存重算得到 FID=52.1057，优于基准。
 - InviBackdoor MSE 1000张正式重评完成：官方 MSE 路径生成 1000 张后被 cgroup OOM 杀死，流式脚本 `server/run_invi_mse_stream.py` 复算得到 MSE=0.13183，高于基准 0.0950；产物 1000/1000 且 MD5 唯一，偏差指向当前模型仅训练到 `data.ckpt epoch=9`，需续训后重评。
 - InviBackdoor 已于 2026-07-09 03:48 从 `epoch=9/step=35000` 续训；`data.ckpt` 已在 2026-07-09 05:21 前进到 `epoch=9/step=38500`，训练继续进入 epoch 10。
+- InviBackdoor `config.save_model_epochs=5`，代码在 `(epoch + 1) % 5 == 0` 时保存；下一次常规 `data.ckpt` 前进预期为 epoch 14 完成后。
 
 ## 攻击方法状态
 
@@ -184,7 +185,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_object | 同上 | ✅ 训练完成 |
 | badt2i_style | 同上 | ✅ 训练完成 |
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
-| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ + **NaN 修复** (--learning_rate 2e-5 替代默认 0.0002) ✅ + **resume mode/config 修复** ✅ | 🔄 `data.ckpt` 已前进到 `epoch=9/step=38500`，当前继续 epoch 10→50；完成后删除旧1000张生成图并重评 MSE/FID |
+| invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ + **NaN 修复** (--learning_rate 2e-5 替代默认 0.0002) ✅ + **resume mode/config 修复** ✅ | 🔄 `data.ckpt` 已前进到 `epoch=9/step=38500`，当前继续 epoch 10→50；下一常规保存点为 epoch 14 完成后，完成训练后删除旧1000张生成图并重评 MSE/FID |
 | bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 + ckpt→diffusers ✅ + 评估 5/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID=489.38⚠, LPIPS=0.7567⚠) |
 | villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（被代理拦截） | ⛔ 需用户通过 VPN 下载 |
 
@@ -193,7 +194,7 @@ LPIPS 全部完成 (10 T2I ✅)
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
 - 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、BadDiffusion 10K FID=18.1288、TrojDiff MSE=0.07167、TrojDiff 10K FID=19.5955、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067、InviBackdoor FID=52.1057 已基本对齐；InviBackdoor MSE=0.13183 偏高，续训已前进到 epoch 10。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
-- **下一步**: 继续监控 InviBackdoor 从 epoch 10 续训到 50 epoch，完成后删除旧 `bd_generated_CELEBA-HQ_1000` 并重评 MSE/FID；暂不进入 corrected T2I 10K FID。
+- **下一步**: 继续监控 InviBackdoor 从 epoch 10 续训到 50 epoch；下一常规 checkpoint 预计在 epoch 14 完成后，训练完成后删除旧 `bd_generated_CELEBA-HQ_1000` 并重评 MSE/FID，暂不进入 corrected T2I 10K FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
