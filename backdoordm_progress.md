@@ -24,6 +24,7 @@
 - BadDiffusion 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=18.1288，对齐基准 18.21。
 - TrojDiff 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=19.5955，对齐基准 19.71。
 - InviBackdoor FID 应按 BackdoorDM benchmark 58.19 验收，不按原论文补充值 11.76；dataset-tagged CELEBA-HQ 原图缓存重算得到 FID=52.1057，优于基准。
+- InviBackdoor MSE 正式 1000张重评已启动：`/tmp/mse_invi_1000_b32.log`，`eval_max_batch=32`，首批已落盘 32/1000；该 256x256 任务预计小时级运行。
 
 ## 攻击方法状态
 
@@ -190,7 +191,7 @@ LPIPS 全部完成 (10 T2I ✅)
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
 - 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、BadDiffusion 10K FID=18.1288、TrojDiff MSE=0.07167、TrojDiff 10K FID=19.5955、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067、InviBackdoor FID=52.1057 已基本对齐。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
-- **下一步**: GPU 已释放，继续处理 InviBackdoor MSE/FID 复核与 corrected T2I 10K FID。
+- **下一步**: 低频监控 InviBackdoor MSE 1000张正式重评至最终 CSV 行；完成后继续 corrected T2I 10K FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
