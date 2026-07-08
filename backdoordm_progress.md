@@ -19,6 +19,7 @@
 - VillanDiffusion BOX_14 10K FID 在真实图缓存完成后按 GPU 利用率从 batch=128 调到 1408；当前约 20.9GB/24GB、99% GPU 利用率运行，日志 `/tmp/fid_villan_box14_10000_b1408.log`。
 - VillanDiffusion 10K FID 的当前采样路径为 `villan_eval.yaml` 的 `DDPM-SCHED`，会重建 fixed_small/clip_sample=false scheduler；这与 BOX_14/psi=1 训练产物 scheduler 配置一致，若 10K FID 仍异常，下一步优先做 clean 10K 对照与 native/rebuilt scheduler 对比。
 - 远端 `run_eval_fix_MSE.sh` 已改为对 baddiffusion/trojdiff/villandiffusion 调用 `/temp_script/run_uncond_mse_stream.py`，规避旧 MSE 路径一次性载入全部图片和缓存污染；VillanDiffusion 使用 BOX_14 路径、`--variant full`。
+- 远端 `evaluation/main_eval.py` 已新增 `--batch_size` CLI 覆盖，默认仍走 YAML；后续 T2I 10K FID 可按显存调参而不改配置文件。
 
 ## 攻击方法状态
 
@@ -209,3 +210,4 @@ LPIPS 全部完成 (10 T2I ✅)
   23. VillanDiffusion 10K FID batch=128 显存不足 → 真实图缓存完成后重启为 `--eval_max_batch 1408`
   24. VillanDiffusion FID scheduler 路径已核对 → `DDPM-SCHED` 重建 fixed_small/clip_sample=false，与训练产物 scheduler 配置一致
   25. uncond MSE 脚本仍走旧内存重路径 → run_eval_fix_MSE.sh 改为调用 `/temp_script/run_uncond_mse_stream.py`
+  26. T2I FID batch 只能走 YAML 默认值 → main_eval.py 新增 `--batch_size` CLI 覆盖，默认不改变现有行为
