@@ -10,14 +10,14 @@
 - 官方 uncond FID/MSE 脚本已补 CIFAR10 参数；旧 uncond FID 结果混用默认 CELEBA-HQ 对照，不作为完成证据。
 - 官方 T2I FID 脚本已补 `--img_num_FID 10000`；旧 T2I FID 结果仅 1000 张，不作为最终完成证据。
 - FID 真实图缓存目录已加入 dataset tag；后续重跑不会复用不同数据集的 original-image cache。
-- VillanDiffusion BOX_14/psi=1 已完成 1000 张 MSE/FID；MSE=0.03870 基本对齐基准 0.0300，FID=54.91 明显高于基准 13.50，需继续排查 clean generation 质量。
+- VillanDiffusion BOX_14/psi=1 已完成 1000 张 MSE/FID 与 10K FID；MSE=0.03870 基本对齐基准 0.0300，10K FID=13.6067 对齐基准 13.50。
 - uncond eval 的 `bd_config` CLI 参数会被 `base_args_uncond_v2` 覆盖为默认配置，已修复为仅在未传参时使用默认值；VillanDiffusion FID 以 `BOX_14` 标签行 `2026-07-08_12-18-06` 为准。
 - clean `ddpm-cifar10-32` 在同一 1000 张 CIFAR10 FID 管线下 FID=58.91，高于 VillanDiffusion BOX_14 的 54.91；该偏高主要来自 1000 张评估协议，不是 BOX_14 模型独有退化。
-- VillanDiffusion 论文说明 CIFAR10 评估生成 10K clean/backdoor samples；已将 uncond FID 脚本改为 10K，并启动 BOX_14/psi=1 的 10K FID 重评。
+- VillanDiffusion 论文说明 CIFAR10 评估生成 10K clean/backdoor samples；BOX_14/psi=1 的 10K FID 重评已完成，确认 1000 张 FID 偏高来自评估协议。
 - 远端 uncond FID/MSE 脚本中的 VillanDiffusion 默认路径已改为 BOX_14/psi=1 checkpoint，并显式传入 `bd_config_villan_box14.yaml`，避免脚本化重跑回退到旧 GLASSES checkpoint。
 - 远端 uncond FID/MSE 脚本已为 baddiffusion/trojdiff/villandiffusion 显式传入 `--eval_max_batch 128`，避免默认 `eval_config_uncond.yaml` 的 batch=1 造成 10K 评估低吞吐。
-- VillanDiffusion BOX_14 10K FID 在真实图缓存完成后按 GPU 利用率从 batch=128 调到 1408；当前约 20.9GB/24GB、99% GPU 利用率运行，日志 `/tmp/fid_villan_box14_10000_b1408.log`。
-- VillanDiffusion 10K FID 的当前采样路径为 `villan_eval.yaml` 的 `DDPM-SCHED`，会重建 fixed_small/clip_sample=false scheduler；这与 BOX_14/psi=1 训练产物 scheduler 配置一致，若 10K FID 仍异常，下一步优先做 clean 10K 对照与 native/rebuilt scheduler 对比。
+- VillanDiffusion BOX_14 10K FID 在真实图缓存完成后按 GPU 利用率从 batch=128 调到 1408；最终 FID=13.6067，日志 `/tmp/fid_villan_box14_10000_b1408.log`。
+- VillanDiffusion 10K FID 的采样路径为 `villan_eval.yaml` 的 `DDPM-SCHED`，会重建 fixed_small/clip_sample=false scheduler；这与 BOX_14/psi=1 训练产物 scheduler 配置一致，10K FID 已验证正常。
 - 远端 `run_eval_fix_MSE.sh` 已改为对 baddiffusion/trojdiff/villandiffusion 调用 `/temp_script/run_uncond_mse_stream.py`，规避旧 MSE 路径一次性载入全部图片和缓存污染；VillanDiffusion 使用 BOX_14 路径、`--variant full`。
 - 远端 `evaluation/main_eval.py` 已新增 `--batch_size` CLI 覆盖，默认仍走 YAML；后续 T2I 10K FID 可按显存调参而不改配置文件。
 
@@ -48,7 +48,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|------|-----|-----|
 | 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
 | 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
-| 15 | villandiffusion | ✅ BOX_14/psi=1 | ✅ | ⚠ 54.91 | ✅ |
+| 15 | villandiffusion | ✅ BOX_14/psi=1 | ✅ | ✅ 13.61 | ✅ |
 | 16 | invi_backdoor | ✅ | ✅ | ✅ | ✅ |
 
 ## 防御方法状态
@@ -92,7 +92,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | baddiffusion | FID | 18.21 | 176.75 | +158.54 | ⚠ 偏高, infer_steps=50 (基准用1000) |
 | trojdiff | FID | 19.71 | 180.01 | +160.30 | ⚠ 偏高, infer_steps=50 |
 | clean ddpm-cifar10-32 | FID | — | 58.91 | — | 诊断对照: 同一 1000 张 CIFAR10 管线，说明 1K FID 估计偏高 |
-| villandiffusion | FID | 13.50 | 54.91 | +41.41 | ⚠ 1000张诊断值偏高; 10K FID 重评运行中 |
+| villandiffusion | FID | 13.50 | 54.91 | +41.41 | ⚠ 1000张诊断值偏高; 已由10K重评排除模型退化 |
+| villandiffusion | FID | 13.50 | 13.6067 | +0.1067 | ✅ 10K张正式重评对齐基准 |
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
 | rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 偏高 |
@@ -179,9 +180,9 @@ LPIPS 全部完成 (10 T2I ✅)
 ## 统计
 
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862 与 VillanDiffusion MSE=0.03870 已基本对齐，VillanDiffusion 10K FID 重评运行中。
+- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067 已基本对齐。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
-- **下一步**: 监控 VillanDiffusion BOX_14 10K FID；完成后继续重跑 TrojDiff MSE 与 corrected uncond/T2I FID。
+- **下一步**: GPU 已释放，继续重跑 TrojDiff MSE 与 corrected uncond/T2I FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
@@ -211,3 +212,4 @@ LPIPS 全部完成 (10 T2I ✅)
   24. VillanDiffusion FID scheduler 路径已核对 → `DDPM-SCHED` 重建 fixed_small/clip_sample=false，与训练产物 scheduler 配置一致
   25. uncond MSE 脚本仍走旧内存重路径 → run_eval_fix_MSE.sh 改为调用 `/temp_script/run_uncond_mse_stream.py`
   26. T2I FID batch 只能走 YAML 默认值 → main_eval.py 新增 `--batch_size` CLI 覆盖，默认不改变现有行为
+  27. VillanDiffusion 1000 张 FID 偏高 → 10K FID=13.6067，对齐 benchmark 13.50
