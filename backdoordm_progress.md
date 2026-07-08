@@ -5,12 +5,13 @@
 
 ## 2026-07-08 校正状态
 
-- VillanDiffusion GLASSES/psi=1 已于 2026-07-07 23:58:28 完成，但 benchmark/paper 指向 grey box；BOX_14/psi=1 正在重训到 `results/villandiffusion_BOX14_DDPM-CIFAR10-32_psi1`。
+- VillanDiffusion GLASSES/psi=1 已于 2026-07-07 23:58:28 完成，但 benchmark/paper 指向 grey box；BOX_14/psi=1 已重训完成到 `results/villandiffusion_BOX14_DDPM-CIFAR10-32_psi1`。
 - baddiffusion 1000步 MSE 已用修正版采样得到 0.01862，与基准 0.0200 对齐；TERD trojdiff input 修复后待重跑。
 - 官方 uncond FID/MSE 脚本已补 CIFAR10 参数；旧 uncond FID 结果混用默认 CELEBA-HQ 对照，不作为完成证据。
 - 官方 T2I FID 脚本已补 `--img_num_FID 10000`；旧 T2I FID 结果仅 1000 张，不作为最终完成证据。
 - FID 真实图缓存目录已加入 dataset tag；后续重跑不会复用不同数据集的 original-image cache。
-- VillanDiffusion BOX_14/psi=1 训练完成；正式 1000 张 MSE=0.03870，较基准 0.0300 偏高 0.0087，基本进入正常范围但 FID 待重评。
+- VillanDiffusion BOX_14/psi=1 已完成 1000 张 MSE/FID；MSE=0.03870 基本对齐基准 0.0300，FID=54.91 明显高于基准 13.50，需继续排查 clean generation 质量。
+- uncond eval 的 `bd_config` CLI 参数会被 `base_args_uncond_v2` 覆盖为默认配置，已修复为仅在未传参时使用默认值；VillanDiffusion FID 以 `BOX_14` 标签行 `2026-07-08_12-18-06` 为准。
 
 ## 攻击方法状态
 
@@ -39,7 +40,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|------|-----|-----|
 | 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
 | 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
-| 15 | villandiffusion | ✅ BOX_14/psi=1 | ✅ | 待重评 | ✅ |
+| 15 | villandiffusion | ✅ BOX_14/psi=1 | ✅ | ⚠ 54.91 | ✅ |
 | 16 | invi_backdoor | ✅ | ✅ | ✅ | ✅ |
 
 ## 防御方法状态
@@ -82,7 +83,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | FID | — | 66.32 | — | 无基准 |
 | baddiffusion | FID | 18.21 | 176.75 | +158.54 | ⚠ 偏高, infer_steps=50 (基准用1000) |
 | trojdiff | FID | 19.71 | 180.01 | +160.30 | ⚠ 偏高, infer_steps=50 |
-| villandiffusion | FID | 7.62 | 54.91 | +47.29 | ⚠ 偏高, infer_steps=1000 |
+| villandiffusion | FID | 13.50 | 54.91 | +41.41 | ⚠ 偏高 (BOX_14/psi=1, CIFAR10, 1000张图, infer_steps=1000) |
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
 | rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 偏高 |
@@ -169,9 +170,9 @@ LPIPS 全部完成 (10 T2I ✅)
 ## 统计
 
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862 与 VillanDiffusion MSE=0.03870 已基本对齐，TrojDiff MSE 与 uncond/T2I FID 仍需修正重跑。
+- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862 与 VillanDiffusion MSE=0.03870 已基本对齐，VillanDiffusion FID=54.91 仍显著偏高。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
-- **下一步**: 等 BOX_14 训练完成后立即跑 VillanDiffusion 触发变体 probe，再跑 1000 张正式 MSE/FID。
+- **下一步**: 排查 VillanDiffusion clean FID 偏高原因，同时继续重跑 TrojDiff MSE 与 corrected uncond/T2I FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
@@ -193,3 +194,4 @@ LPIPS 全部完成 (10 T2I ✅)
   16. uncond fix 评估脚本缺少 CIFAR10 参数 → run_eval_fix_FID/MSE 对 baddiffusion/trojdiff/villandiffusion 显式传 `--val_data CIFAR10 --model_ver DDPM-CIFAR10-32`
   17. T2I FID 脚本注释要求 1w images 但未传参数 → run_eval_t2i_FID.sh 显式传 `--img_num_FID 10000`
   18. FID original-image cache 未区分数据集 → evaluation/clean/FID.py 的缓存目录加入 dataset tag
+  19. uncond eval 覆盖 `--bd_config` → base_args_uncond_v2 仅在 CLI 未传参时使用默认 bd_config
