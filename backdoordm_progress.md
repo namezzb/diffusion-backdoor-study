@@ -6,7 +6,7 @@
 ## 2026-07-08 校正状态
 
 - VillanDiffusion GLASSES/psi=1 已于 2026-07-07 23:58:28 完成，但 benchmark/paper 指向 grey box；BOX_14/psi=1 已重训完成到 `results/villandiffusion_BOX14_DDPM-CIFAR10-32_psi1`。
-- baddiffusion 1000步 MSE 已用修正版采样得到 0.01862，与基准 0.0200 对齐；TrojDiff 1000步 MSE 已用 stream helper 得到 0.07167，与基准 0.0700 对齐。
+- baddiffusion 1000步 MSE 已用修正版采样得到 0.01862，与基准 0.0200 对齐；10K FID=18.1288，对齐基准 18.21。
 - 官方 uncond FID/MSE 脚本已补 CIFAR10 参数；旧 uncond FID 结果混用默认 CELEBA-HQ 对照，不作为完成证据。
 - 官方 T2I FID 脚本已补 `--img_num_FID 10000`；旧 T2I FID 结果仅 1000 张，不作为最终完成证据。
 - FID 真实图缓存目录已加入 dataset tag；后续重跑不会复用不同数据集的 original-image cache。
@@ -21,6 +21,7 @@
 - 远端 `run_eval_fix_MSE.sh` 已改为对 baddiffusion/trojdiff/villandiffusion 调用 `/temp_script/run_uncond_mse_stream.py`，规避旧 MSE 路径一次性载入全部图片和缓存污染；VillanDiffusion 使用 BOX_14 路径、`--variant full`。
 - 远端 `evaluation/main_eval.py` 已新增 `--batch_size` CLI 覆盖，默认仍走 YAML；后续 T2I 10K FID 可按显存调参而不改配置文件。
 - TrojDiff MSE 先用 128 张 probe 得到 0.07165，再用 1000 张正式评估得到 0.07167；`eval_max_batch=1000` 因 cgroup OOM 失败，`eval_max_batch=512` 完成。
+- BadDiffusion 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=18.1288，对齐基准 18.21。
 
 ## 攻击方法状态
 
@@ -91,6 +92,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_style | FID | 17.39 | 67.20 | +49.81 | ⚠ 偏高 |
 | badt2i_objectAdd | FID | — | 66.32 | — | 无基准 |
 | baddiffusion | FID | 18.21 | 176.75 | +158.54 | ⚠ 偏高, infer_steps=50 (基准用1000) |
+| baddiffusion | FID | 18.21 | 18.1288 | -0.0812 | ✅ 10K张正式重评对齐基准 |
 | trojdiff | FID | 19.71 | 180.01 | +160.30 | ⚠ 偏高, infer_steps=50 |
 | clean ddpm-cifar10-32 | FID | — | 58.91 | — | 诊断对照: 同一 1000 张 CIFAR10 管线，说明 1K FID 估计偏高 |
 | villandiffusion | FID | 13.50 | 54.91 | +41.41 | ⚠ 1000张诊断值偏高; 已由10K重评排除模型退化 |
@@ -182,9 +184,9 @@ LPIPS 全部完成 (10 T2I ✅)
 ## 统计
 
 - 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、TrojDiff MSE=0.07167、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067 已基本对齐。
+- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、BadDiffusion 10K FID=18.1288、TrojDiff MSE=0.07167、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067 已基本对齐。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
-- **下一步**: GPU 已释放，继续重跑 TrojDiff MSE 与 corrected uncond/T2I FID。
+- **下一步**: GPU 已释放，继续重跑 TrojDiff 10K FID 与 corrected T2I FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
@@ -216,3 +218,4 @@ LPIPS 全部完成 (10 T2I ✅)
   26. T2I FID batch 只能走 YAML 默认值 → main_eval.py 新增 `--batch_size` CLI 覆盖，默认不改变现有行为
   27. VillanDiffusion 1000 张 FID 偏高 → 10K FID=13.6067，对齐 benchmark 13.50
   28. TrojDiff MSE 旧路径偏高 → stream helper 1000张 MSE=0.07167；batch=1000 被 cgroup OOM，batch=512 完成
+  29. BadDiffusion 1000 张 FID 协议偏高 → 10K FID=18.1288，对齐 benchmark 18.21
