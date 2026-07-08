@@ -17,6 +17,7 @@
 - 远端 uncond FID/MSE 脚本中的 VillanDiffusion 默认路径已改为 BOX_14/psi=1 checkpoint，并显式传入 `bd_config_villan_box14.yaml`，避免脚本化重跑回退到旧 GLASSES checkpoint。
 - 远端 uncond FID/MSE 脚本已为 baddiffusion/trojdiff/villandiffusion 显式传入 `--eval_max_batch 128`，避免默认 `eval_config_uncond.yaml` 的 batch=1 造成 10K 评估低吞吐。
 - VillanDiffusion BOX_14 10K FID 在真实图缓存完成后按 GPU 利用率从 batch=128 调到 1408；当前约 20.9GB/24GB、99% GPU 利用率运行，日志 `/tmp/fid_villan_box14_10000_b1408.log`。
+- VillanDiffusion 10K FID 的当前采样路径为 `villan_eval.yaml` 的 `DDPM-SCHED`，会重建 fixed_small/clip_sample=false scheduler；这与 BOX_14/psi=1 训练产物 scheduler 配置一致，若 10K FID 仍异常，下一步优先做 clean 10K 对照与 native/rebuilt scheduler 对比。
 
 ## 攻击方法状态
 
@@ -205,3 +206,4 @@ LPIPS 全部完成 (10 T2I ✅)
   21. VillanDiffusion eval 脚本默认旧 checkpoint → run_eval_fix_FID/MSE 的 VillanDiffusion 命令改为 BOX_14/psi=1 路径并显式传 `bd_config_villan_box14.yaml`
   22. uncond eval 脚本继承 batch=1 默认值 → run_eval_fix_FID/MSE 对 CIFAR10 uncond 方法显式传 `--eval_max_batch 128`
   23. VillanDiffusion 10K FID batch=128 显存不足 → 真实图缓存完成后重启为 `--eval_max_batch 1408`
+  24. VillanDiffusion FID scheduler 路径已核对 → `DDPM-SCHED` 重建 fixed_small/clip_sample=false，与训练产物 scheduler 配置一致
