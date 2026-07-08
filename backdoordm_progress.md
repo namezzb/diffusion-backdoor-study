@@ -10,6 +10,7 @@
 - 官方 uncond FID/MSE 脚本已补 CIFAR10 参数；旧 uncond FID 结果混用默认 CELEBA-HQ 对照，不作为完成证据。
 - 官方 T2I FID 脚本已补 `--img_num_FID 10000`；旧 T2I FID 结果仅 1000 张，不作为最终完成证据。
 - FID 真实图缓存目录已加入 dataset tag；后续重跑不会复用不同数据集的 original-image cache。
+- VillanDiffusion BOX_14/psi=1 训练完成；正式 1000 张 MSE=0.03870，较基准 0.0300 偏高 0.0087，基本进入正常范围但 FID 待重评。
 
 ## 攻击方法状态
 
@@ -38,7 +39,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|------|-----|-----|
 | 13 | baddiffusion | ✅ | ✅ | ✅ | ✅ |
 | 14 | trojdiff | ✅ | ✅ | ✅ | ✅ |
-| 15 | villandiffusion | 🔄 BOX_14重训中 | 🔄 | 待重评 | 待重评 |
+| 15 | villandiffusion | ✅ BOX_14/psi=1 | ✅ | 待重评 | ✅ |
 | 16 | invi_backdoor | ✅ | ✅ | ✅ | ✅ |
 
 ## 防御方法状态
@@ -101,7 +102,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | bibaddiff | FID | 88.50 | 489.3778 | +400.88 | ⚠ 极高 (1000张图, 复用clean图; 模型可能生成质量差) |
 | bibaddiff | LPIPS | 0.5375 | 0.7567 | +0.219 | ⚠ 偏高 (100张图, 非1000) |
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 偏高 (trigger应用方式可能不正确) |
-| villandiffusion | MSE | 0.0300 | 待重评 | — | 🔄 BOX_14/psi=1 正在按 benchmark 触发器重训 |
+| villandiffusion | MSE | 0.0300 | 0.03870 | +0.00870 | ✅ 基本吻合 (BOX_14/psi=1, full trigger, 1000张图, infer_steps=1000) |
 | invi_backdoor | FID | 11.76 | 59.0153 | +47.26 | ⚠ 偏高 (1000张图, infer_steps=50, epoch 9 ckpt) |
 | invi_backdoor | MSE | 0.00307 | 0.1083 | +0.105 | ⚠ 偏高 (100张图, infer_steps=50) |
 | eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
@@ -167,8 +168,8 @@ LPIPS 全部完成 (10 T2I ✅)
 
 ## 统计
 
-- 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 触发器版本 BOX_14/psi=1 正在重训，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前仅 baddiffusion MSE=0.01862 已确认对齐，VillanDiffusion/TrojDiff MSE 与 uncond/T2I FID 仍需修正重跑。
+- 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
+- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862 与 VillanDiffusion MSE=0.03870 已基本对齐，TrojDiff MSE 与 uncond/T2I FID 仍需修正重跑。
 - 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待 BOX_14 训练后按 GPU 空闲情况重跑。
 - **下一步**: 等 BOX_14 训练完成后立即跑 VillanDiffusion 触发变体 probe，再跑 1000 张正式 MSE/FID。
 - **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
