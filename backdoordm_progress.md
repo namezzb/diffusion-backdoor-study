@@ -15,6 +15,7 @@
 - clean `ddpm-cifar10-32` 在同一 1000 张 CIFAR10 FID 管线下 FID=58.91，高于 VillanDiffusion BOX_14 的 54.91；该偏高主要来自 1000 张评估协议，不是 BOX_14 模型独有退化。
 - VillanDiffusion 论文说明 CIFAR10 评估生成 10K clean/backdoor samples；已将 uncond FID 脚本改为 10K，并启动 BOX_14/psi=1 的 10K FID 重评。
 - 远端 uncond FID/MSE 脚本中的 VillanDiffusion 默认路径已改为 BOX_14/psi=1 checkpoint，并显式传入 `bd_config_villan_box14.yaml`，避免脚本化重跑回退到旧 GLASSES checkpoint。
+- 远端 uncond FID/MSE 脚本已为 baddiffusion/trojdiff/villandiffusion 显式传入 `--eval_max_batch 128`，避免默认 `eval_config_uncond.yaml` 的 batch=1 造成 10K 评估低吞吐。
 
 ## 攻击方法状态
 
@@ -201,3 +202,4 @@ LPIPS 全部完成 (10 T2I ✅)
   19. uncond eval 覆盖 `--bd_config` → base_args_uncond_v2 仅在 CLI 未传参时使用默认 bd_config
   20. uncond 1000 张 FID 协议偏高 → clean ddpm 1000张 FID=58.91; run_eval_fix_FID.sh 改为 `--img_num_FID 10000`
   21. VillanDiffusion eval 脚本默认旧 checkpoint → run_eval_fix_FID/MSE 的 VillanDiffusion 命令改为 BOX_14/psi=1 路径并显式传 `bd_config_villan_box14.yaml`
+  22. uncond eval 脚本继承 batch=1 默认值 → run_eval_fix_FID/MSE 对 CIFAR10 uncond 方法显式传 `--eval_max_batch 128`
