@@ -68,4 +68,14 @@ for M in eviledit paas_ti; do
         --device cuda:0 2>&1 | tee -a "$LOG"
 done
 
+# --- Fix 4 (OPTIONAL, expensive): T2I FID 10K for all 8 methods ---
+# 8 methods x 10000 imgs = ~80K generations, many hours. Only when RUN_T2I_FID=1.
+# Fixes the 1K-protocol-inflated FID cluster (eviledit/rickrolling/paas/badt2i ~66-70 -> paper ~15-23).
+if [ "${RUN_T2I_FID:-0}" = "1" ]; then
+    echo "=== [4/4] T2I FID 10K (all 8 methods, official script) ===" | tee -a "$LOG"
+    bash scripts/run_eval_t2i_FID.sh 2>&1 | tee -a "$LOG"
+else
+    echo "=== [4/4] SKIPPED T2I FID 10K (set RUN_T2I_FID=1 to enable; ~many hours) ===" | tee -a "$LOG"
+fi
+
 echo "=== ALL QUEUED FIXES DONE. Read $LOG for results. ===" | tee -a "$LOG"

@@ -92,15 +92,15 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | ASR | — | 21.3 | — | 无基准 |
 | eviledit_numAdd | ACC | — | 51.3 | — | 无基准 |
 | eviledit_numAdd | ASR | — | 57.6 | — | 无基准 |
-| badt2i_object | FID | 17.95 | 67.18 | +49.23 | ⚠ 偏高, 可能因 infer_steps=50 |
-| rickrolling_TPA | FID | 19.25 | 67.93 | +48.68 | ⚠ 偏高, 同上 |
-| eviledit | FID | 16.14 | 66.28 | +50.14 | ⚠ 偏高 |
+| badt2i_object | FID | 17.95 | 67.18 | +49.23 | ⚠ 已诊断: 1K协议膨胀(clean-ddpm 1K对照=58.91证明协议+~40-50), 待run_eval_t2i_FID.sh 10K重跑(同uncond 176→18模式) |
+| rickrolling_TPA | FID | 19.25 | 67.93 | +48.68 | ⚠ 已诊断: 1K协议膨胀, 待10K重跑 |
+| eviledit | FID | 16.14 | 66.28 | +50.14 | ⚠ 已诊断: 1K协议膨胀(1000张图确认), 待10K重跑 |
 | eviledit_numAdd | FID | — | 67.35 | — | 无基准 |
-| rickrolling_TAA | FID | 23.24 | 68.86 | +45.62 | ⚠ 偏高 |
-| paas_ti | FID | 15.41 | 67.35 | +51.94 | ⚠ 偏高 |
-| paas_db | FID | 15.68 | 70.29 | +54.61 | ⚠ 偏高 |
-| badt2i_pixel | FID | 16.84 | 67.01 | +50.17 | ⚠ 偏高 |
-| badt2i_style | FID | 17.39 | 67.20 | +49.81 | ⚠ 偏高 |
+| rickrolling_TAA | FID | 23.24 | 68.86 | +45.62 | ⚠ 已诊断: 1K协议膨胀, 待10K重跑 |
+| paas_ti | FID | 15.41 | 67.35 | +51.94 | ⚠ 已诊断: 1K协议膨胀, 待10K重跑 |
+| paas_db | FID | 15.68 | 70.29 | +54.61 | ⚠ 已诊断: 1K协议膨胀, 待10K重跑 |
+| badt2i_pixel | FID | 16.84 | 67.01 | +50.17 | ⚠ 已诊断: 1K协议膨胀, 待10K重跑 |
+| badt2i_style | FID | 17.39 | 67.20 | +49.81 | ⚠ 已诊断: 1K协议膨胀, 待10K重跑 |
 | badt2i_objectAdd | FID | — | 66.32 | — | 无基准 |
 | baddiffusion | FID | 18.21 | 176.75 | +158.54 | ⚠ 偏高, infer_steps=50 (基准用1000) |
 | baddiffusion | FID | 18.21 | 18.1288 | -0.0812 | ✅ 10K张正式重评对齐基准 |
