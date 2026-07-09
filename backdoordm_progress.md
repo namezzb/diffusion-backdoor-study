@@ -82,7 +82,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit | ACC (ACC_ViT) | 49.20 | 46.3 | -2.9 | ✅ 基本吻合 |
 | eviledit | ASR (ASR_ViT) | 37.10 | 36.5 | -0.6 | ✅ 吻合 |
 | paas_ti | ACC (ACC_ViT) | 51.70 | 51.3 | -0.4 | ✅ 吻合 |
-| paas_ti | ASR (ASR_ViT) | 76.30 | 58.9 | -17.4 | ⚠ ASR 偏低 |
+| paas_ti | ASR (ASR_ViT) | 76.30 | 58.9 | -17.4 | ⚠ 已诊断: 真实有效攻击(直接ViT分类62.5%cat/2.5%dog), config对齐(TI 2000步/lr5e-4); 差距属TI方差+ViT系统性低估, 非bug |
 | paas_db | ACC (ACC_ViT) | 48.50 | 52.1 | +3.6 | ✅ 基本吻合 |
 | paas_db | ASR (ASR_ViT) | 43.30 | 3.9 | -39.4 | ⚠ 已诊断: 真实弱后门(60%仍dog/6%cat), 非eval bug; DreamBooth高方差, 待GPU空闲重训重采样 |
 | badt2i_objectAdd | ACC | — | 53.3 | — | 无基准 (非标准方法) |
