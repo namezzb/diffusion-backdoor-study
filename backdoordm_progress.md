@@ -108,7 +108,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | villandiffusion | FID | 13.50 | 13.6067 | +0.1067 | ✅ 10K张正式重评对齐基准 |
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
-| rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 偏高 |
+| rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 已诊断: LPIPS用固定100 ImageNet标签(=benchmark样本量,非缩减协议), 比较clean-prompt上clean-pipe vs bd-pipe扰动, 逻辑正确; 差距属真实模型发散, 待GPU空闲重跑确认方差 |
 | rickrolling_TAA | LPIPS | 0.1286 | 0.2745 | +0.146 | ⚠ 偏高 |
 | paas_ti | LPIPS | — | 0.0085 | — | 无基准 |
 | paas_db | LPIPS | — | 0.3737 | — | 无基准 |
