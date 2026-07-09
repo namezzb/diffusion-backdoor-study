@@ -31,6 +31,7 @@
 - InviBackdoor `config.save_model_epochs=5`，代码在 `(epoch + 1) % 5 == 0` 时保存；下一次常规 `data.ckpt` 前进预期为 epoch 14 完成后。
 - 2026-07-09 15:xx: paas_db ASR=3.9 异常已诊断为**真实弱后门**而非评估 bug——直接用 ViT 分类 100 张触发图，60% 仍判为 dog、仅 6% 判为 cat；config 与论文对齐 (300 步, lr 5e-6, DreamBooth)，eval 管线正确 (paas_ti 同代码正常)，ViT 标签映射正确，模型为唯一最终 checkpoint。根因是 DreamBooth 后门高度可变 (论文 0.44-1.00)，本次 300 步落入弱盆；ACC=52.1/CLIP_p=21.95/FID=70.29 均对齐 benchmark，唯 ASR 偏低。修复方案=GPU 空闲后重训 (约 15min) 以重采样，暂因 InviBackdoor 训练占用 GPU 排队。
 - 2026-07-09 16:xx: 已通读 BackdoorDM 论文 (2502.11798) 附录 B/C 确认多项验收基准：(1) Table 8 DB(PaaS) ViT ASR=43.30/ACC=48.50，与 reference 一致，我方 3.9 为真实差距；(2) DB(PaaS) MLLM ASR 高得多 (LLaVa=89.57/GPT-4o=51.30)，Table 11 ObjectRep MSE-of-ASR(GPT-4o)=0.0000 与人工完全吻合——**证实 ViT-ASR 系统性低估、MLLM 才是准确度量**；(3) p19 LPIPS 定义="输入相同 benign prompt+noise 到 clean/bd 两模型，低值=功能保持好"，**证实 rickrolling LPIPS 偏高=其 homoglyph 触发器对 benign 生成扰动更大 (真实、方法特有)**；(4) p18 FID 用 MS-COCO 10k 采样，证实 fix#17 的 10K 协议正确；(5) Table 14 Elijah/T2IShield 防御受限 (对齐我方 F1≈0)、TERD 有效 (对齐 TPR=100%)；(6) Table 13 TrojDiff FID=19.71/VillanDiff=13.5 对齐我方重评。
+- 2026-07-09 16:xx: InviBackdoor 训练实时进度经 stdout `/tmp/train_invi_resume_epoch50.log` 确认健康推进——live step=62721, epoch=16(92%), loss 0.0002-0.018 正常；on-disk `data.ckpt` 仍显示 epoch14/step56000 因 `save_model_epochs=5`(下一保存点 epoch19)。速率约 1.72s/it × 3500/epoch ≈ 100min/epoch，epoch16→50 约 57 小时(约2.5天)。GPU 峰值占用 19042MiB→峰值空闲仅约 5.5GB，DreamBooth paas_db 重训需约10GB，**现在启动会 OOM 优先训练**，故全部 GPU 排队 fix 需等 InviBackdoor 完成或空出显存。当前决策：继续监控，不启动 GPU 任务。
 
 ## 攻击方法状态
 
