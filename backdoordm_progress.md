@@ -112,7 +112,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
 | rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 已诊断: LPIPS用固定100 ImageNet标签(=benchmark样本量,非缩减协议), 比较clean-prompt上clean-pipe vs bd-pipe扰动, 逻辑正确; 差距属真实模型发散, 待GPU空闲重跑确认方差 |
-| rickrolling_TAA | LPIPS | 0.1286 | 0.2745 | +0.146 | ⚠ 偏高 |
+| rickrolling_TAA | LPIPS | 0.1286 | 0.2745 | +0.146 | ⚠ 已诊断: 同TPA, homoglyph触发器对benign生成扰动更大(LPIPS用benign prompt, 论文p19); 方法特有真实, 待GPU重跑确认方差 |
 | paas_ti | LPIPS | — | 0.0085 | — | 无基准 |
 | paas_db | LPIPS | — | 0.3737 | — | 无基准 |
 | badt2i_pixel | LPIPS | — | 0.2547 | — | 无基准 |
@@ -134,7 +134,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | invi_backdoor | FID | 58.19 | 52.1057 | -6.0843 | ✅ dataset-tagged CELEBA-HQ 原图缓存重算，优于基准 |
 | invi_backdoor | MSE | 0.0950 | 0.1083 | +0.0133 | ⚠ 仅100张旧评估，流式复算已验证旧CSV公式正确 |
 | invi_backdoor | MSE | 0.0950 | 0.13183 | +0.03683 | ⚠ 1000张正式重评偏高；官方MSE路径OOM，流式复算确认产物本身偏高，需从epoch9续训后重评 |
-| eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ⚠ 偏低 (paper ref; BackdoorDM ref=27.32) |
+| eviledit | CLIP_p | 31.11 | 26.61 | -4.50 | ✅ 已诊断: 对BackdoorDM ref=27.32 仅-0.71基本吻合; 31.11为EvilEdit原论文不同setup值, 非真实异常 |
 | rickrolling_TPA | CLIP_p | 23.88 | 24.08 | +0.20 | ✅ 吻合 |
 | eviledit | CLIP_c | 26.31 | 27.24 | +0.93 | ✅ 基本吻合 |
 | badt2i_style | CLIP_p | — | 27.11 | — | 无基准 |
@@ -147,11 +147,11 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit | DAA Precision | — | 0.5 | — | 无基准 |
 | eviledit | DAA Recall | — | 0.22 | — | 无基准 |
 | eviledit | DAA F1 | 0.7927 | 0.3056 | -0.487 | ⚠ 已诊断: DAA config prompt_num=50 vs benchmark 500; rickrolling同50prompt达F1=0.97证明方法有效; eviledit触发器("beautiful dog")本身难检测, 待prompt_num=500重跑 |
-| eviledit | DAA AUC | 0.8627 | 0.6752 | -0.188 | ⚠ 偏低 |
+| eviledit | DAA AUC | 0.8627 | 0.6752 | -0.188 | ⚠ 已诊断: 同DAA F1, prompt_num=50 vs 500协议, 待launcher重跑 |
 | rickrolling_TPA | DAA F1 | 0.7927 | 0.9709 | +0.178 | ✅ 超越基准! |
 | rickrolling_TPA | DAA AUC | 0.8627 | 0.9988 | +0.136 | ✅ 超越基准! |
-| paas_ti | DAA F1 | 0.7927 | 0.3889 | -0.404 | ⚠ 偏低 (50 prompts) |
-| paas_ti | DAA AUC | 0.8627 | 0.7144 | -0.148 | ⚠ 偏低 |
+| paas_ti | DAA F1 | 0.7927 | 0.3889 | -0.404 | ⚠ 已诊断: 同eviledit, prompt_num=50 vs 500协议, 待launcher重跑 |
+| paas_ti | DAA AUC | 0.8627 | 0.7144 | -0.148 | ⚠ 已诊断: 同eviledit, prompt_num=50 vs 500协议, 待launcher重跑 |
 | badt2i_style | DAA F1 | — | 0.0678 | — | 无基准 |
 | badt2i_style | DAA AUC | — | 0.4588 | — | 无基准 |
 | badt2i_pixel | DAA F1 | — | 0.2687 | — | 无基准 |
