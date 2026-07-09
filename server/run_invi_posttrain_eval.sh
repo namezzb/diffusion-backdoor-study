@@ -8,7 +8,23 @@ DEVICE="${DEVICE:-cuda:0}"
 EVAL_MAX_BATCH="${EVAL_MAX_BATCH:-32}"
 IMG_NUM="${IMG_NUM:-1000}"
 
+export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
+export OPENBLAS_NUM_THREADS="${OPENBLAS_NUM_THREADS:-1}"
+export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
+export NUMEXPR_NUM_THREADS="${NUMEXPR_NUM_THREADS:-1}"
+export TOKENIZERS_PARALLELISM="${TOKENIZERS_PARALLELISM:-false}"
+export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
+export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}"
+export HF_DATASETS_OFFLINE="${HF_DATASETS_OFFLINE:-1}"
+
 cd "$BD"
+
+drop_page_cache() {
+  sync || true
+  if [[ -w /proc/sys/vm/drop_caches ]]; then
+    echo 3 > /proc/sys/vm/drop_caches || true
+  fi
+}
 
 if pgrep -af 'python.*invi_backdoor.py' >/dev/null; then
   echo "Refusing to run eval: InviBackdoor training is still active." >&2
@@ -45,10 +61,14 @@ fi
   --infer_steps 1000 \
   --device "$DEVICE"
 
+drop_page_cache
+
 "$PY" server/run_invi_mse_stream.py \
   --repo "$BD" \
   --out-dir "$RESULT/bd_generated_CELEBA-HQ_${IMG_NUM}" \
   --record-file "$RESULT/eval_results.csv" \
   --img-num "$IMG_NUM"
+
+drop_page_cache
 
 tail -10 "$RESULT/eval_results.csv"
