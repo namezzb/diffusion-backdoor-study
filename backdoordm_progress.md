@@ -187,7 +187,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_objectAdd | laion 已下载解压 ✅ + imagefolder fallback ✅ | ✅ 训练完成 |
 | invi_backdoor | parse_args bug ✅ + CELEBA-HQ parquet ✅ + **OOM 已修复**: DatasetLoader.__init__ 跳过全量 HF 数据集加载 (parquet 存在时) + DDPM-CELEBA-HQ-256 模型已下载 + 本地路径已配置 + **bs 变量修复** ✅ + **ckpt_path=None 修复** ✅ + **delta 尺寸不匹配修复 (patch placement)** ✅ + **trigger 32x32→256x256 尺寸修复** (baddiff_backdoor.py get_trigger INVI 分支: pad to image_size) ✅ + **delta_target crop 修复** (dsl.target[:, :ts, :ts]) ✅ + **内存清理** (del + empty_cache after delta opt) ✅ + **NaN 修复** (--learning_rate 2e-5 替代默认 0.0002) ✅ + **resume mode/config 修复** ✅ | 🔄 `data.ckpt` 已前进到 `epoch=9/step=38500`，当前继续 epoch 10→50；下一常规保存点为 epoch 14 完成后，完成训练后删除旧1000张生成图并重评 MSE/FID |
 | bibaddiff | imagenette2✅ + v1-5-pruned.ckpt✅ + PL 2.x 不兼容已修复 (15 patches) + precision=32 + num_workers=4 + check_val_every_n_epoch=999 + every_n_train_steps=10000 | ✅ 训练完成 + ckpt→diffusers ✅ + 评估 5/5 完成 (MSE=0.2612✅, CLIP_p=17.778✅, CLIP_c=12.24✅, FID=489.38⚠, LPIPS=0.7567⚠) |
-| villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（代码需 `datasets/CelebA-Dialog_HQ/image.zip` + `text/captions_hq.json`；AMAX `gdown` 120s 卡在 Retrieving folder contents，未下载任何文件） | ⛔ 需用户通过 VPN 下载 |
+| villandiffusion_cond | vae 未赋值 ✅ + **CelebA-Dialog_HQ 仅 Google Drive**（代码需 `datasets/CelebA-Dialog_HQ/image.zip` + `text/captions_hq.json`；AMAX `gdown` 120s 无文件，本机 Google Drive 返回“域名拦截”页） | ⛔ 需用户通过 VPN 下载 |
 
 ## 统计
 
