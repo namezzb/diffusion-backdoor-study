@@ -25,6 +25,7 @@
 - TrojDiff 10K FID 使用 `eval_max_batch=1408` 完成，生成图 10000/10000 且首批 md5 去重正常；最终 FID=19.5955，对齐基准 19.71。
 - InviBackdoor FID 应按 BackdoorDM benchmark 58.19 验收，不按原论文补充值 11.76；dataset-tagged CELEBA-HQ 原图缓存重算得到 FID=52.1057，优于基准。
 - InviBackdoor MSE 1000张正式重评完成：官方 MSE 路径生成 1000 张后被 cgroup OOM 杀死，流式脚本 `server/run_invi_mse_stream.py` 复算得到 MSE=0.13183，高于基准 0.0950；产物 1000/1000 且 MD5 唯一，偏差指向当前模型仅训练到 `data.ckpt epoch=9`，需续训后重评。
+- InviBackdoor 专用流式 MSE helper 已同步到 AMAX `server/run_invi_mse_stream.py` 并通过 `py_compile`；训练完成后先删除旧 1000 张生成图，再用该脚本复算 MSE。
 - InviBackdoor 已于 2026-07-09 03:48 从 `epoch=9/step=35000` 续训；`data.ckpt` 已在 2026-07-09 05:21 前进到 `epoch=9/step=38500`，训练继续进入 epoch 10。
 - InviBackdoor `config.save_model_epochs=5`，代码在 `(epoch + 1) % 5 == 0` 时保存；下一次常规 `data.ckpt` 前进预期为 epoch 14 完成后。
 
