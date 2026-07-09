@@ -29,6 +29,7 @@
 - InviBackdoor 训练后重评脚本已同步到 AMAX `server/run_invi_posttrain_eval.sh`；脚本会在训练进程仍活跃或 `data.ckpt epoch < 49` 时拒绝运行，并在 FID/MSE 间执行 `sync`/可选 `drop_caches`，避免误删旧生成图和 cgroup page-cache OOM。
 - InviBackdoor 已于 2026-07-09 03:48 从 `epoch=9/step=35000` 续训；`data.ckpt` 已在 2026-07-09 05:21 前进到 `epoch=9/step=38500`，训练继续进入 epoch 10。
 - InviBackdoor `config.save_model_epochs=5`，代码在 `(epoch + 1) % 5 == 0` 时保存；下一次常规 `data.ckpt` 前进预期为 epoch 14 完成后。
+- 2026-07-09 15:xx: paas_db ASR=3.9 异常已诊断为**真实弱后门**而非评估 bug——直接用 ViT 分类 100 张触发图，60% 仍判为 dog、仅 6% 判为 cat；config 与论文对齐 (300 步, lr 5e-6, DreamBooth)，eval 管线正确 (paas_ti 同代码正常)，ViT 标签映射正确，模型为唯一最终 checkpoint。根因是 DreamBooth 后门高度可变 (论文 0.44-1.00)，本次 300 步落入弱盆；ACC=52.1/CLIP_p=21.95/FID=70.29 均对齐 benchmark，唯 ASR 偏低。修复方案=GPU 空闲后重训 (约 15min) 以重采样，暂因 InviBackdoor 训练占用 GPU 排队。
 
 ## 攻击方法状态
 
@@ -83,7 +84,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | paas_ti | ACC (ACC_ViT) | 51.70 | 51.3 | -0.4 | ✅ 吻合 |
 | paas_ti | ASR (ASR_ViT) | 76.30 | 58.9 | -17.4 | ⚠ ASR 偏低 |
 | paas_db | ACC (ACC_ViT) | 48.50 | 52.1 | +3.6 | ✅ 基本吻合 |
-| paas_db | ASR (ASR_ViT) | 43.30 | 3.9 | -39.4 | ⚠ ASR 极低 |
+| paas_db | ASR (ASR_ViT) | 43.30 | 3.9 | -39.4 | ⚠ 已诊断: 真实弱后门(60%仍dog/6%cat), 非eval bug; DreamBooth高方差, 待GPU空闲重训重采样 |
 | badt2i_objectAdd | ACC | — | 53.3 | — | 无基准 (非标准方法) |
 | badt2i_objectAdd | ASR | — | 21.3 | — | 无基准 |
 | eviledit_numAdd | ACC | — | 51.3 | — | 无基准 |
