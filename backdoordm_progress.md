@@ -143,7 +143,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | badt2i_pixel | MSE | — | 0.0087 | — | 无基准 (ImagePatch) |
 | eviledit | DAA Precision | — | 0.5 | — | 无基准 |
 | eviledit | DAA Recall | — | 0.22 | — | 无基准 |
-| eviledit | DAA F1 | 0.7927 | 0.3056 | -0.487 | ⚠ 偏低 (50 prompts vs 500) |
+| eviledit | DAA F1 | 0.7927 | 0.3056 | -0.487 | ⚠ 已诊断: DAA config prompt_num=50 vs benchmark 500; rickrolling同50prompt达F1=0.97证明方法有效; eviledit触发器("beautiful dog")本身难检测, 待prompt_num=500重跑 |
 | eviledit | DAA AUC | 0.8627 | 0.6752 | -0.188 | ⚠ 偏低 |
 | rickrolling_TPA | DAA F1 | 0.7927 | 0.9709 | +0.178 | ✅ 超越基准! |
 | rickrolling_TPA | DAA AUC | 0.8627 | 0.9988 | +0.136 | ✅ 超越基准! |
