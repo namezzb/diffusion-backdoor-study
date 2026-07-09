@@ -122,7 +122,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | bibaddiff | MSE | 0.2353 | 0.2612 | +0.026 | ✅ 基本吻合 (1000张图, infer_steps=50) |
 | bibaddiff | CLIP_p (TCS) | 11.63 | 17.778 | +6.15 | ✅ 超越基准 (T2I CLIP-prompt score) |
 | bibaddiff | CLIP_c (BCS) | 13.87 | 12.2403 | -1.63 | ✅ 基本吻合 |
-| bibaddiff | FID | 88.50 | 489.3778 | +400.88 | ⚠ 极高 (1000张图, 复用clean图; 模型可能生成质量差) |
+| bibaddiff | FID | 88.50 | 489.3778 | +400.88 | ⚠ 已诊断: 1K协议膨胀(同uncond 176→18模式)+BiBadDiff真实降质(clean-gen std=38 vs 真实62); eval参考集/管线正确; 待10K重评 (fix#17) |
 | bibaddiff | LPIPS | 0.5375 | 0.7567 | +0.219 | ⚠ 偏高 (100张图, 非1000) |
 | trojdiff | MSE | 0.0700 | 0.3611 | +0.291 | ⚠ 旧路径诊断值偏高; 已由stream helper重评替代 |
 | trojdiff | MSE | 0.0700 | 0.07167 | +0.00167 | ✅ 1000张正式重评对齐基准 |
