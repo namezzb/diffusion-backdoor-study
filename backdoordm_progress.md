@@ -211,7 +211,7 @@
 - 2026-07-20 17:10: **paas_db FID 10K重评完成但仍偏高**：FID=22.148 vs 基准15.68（旧1K值70.29已大幅降低，但仍高于基准约+6.47）。该结果与先前ASR=3.9的真实弱后门诊断一致，说明当前DreamBooth run质量偏弱/高方差，需后续重训/重采样后一并复评ASR与FID。GPU已空闲，开始单独诊断`eviledit`队列标记finished但未写10K FID CSV的问题。
 - 2026-07-20 17:45: **eviledit FID无CSV根因定位并启动低内存重跑**：原队列`eviledit`仅加载pipeline后退出，带退出码wrapper复现为`exit_code=137`(SIGKILL)，16张最小复现实验证明FID代码路径本身可正常生成/写CSV；结合代码检查，根因是官方`FID.py`先用`load_dataset(... )[:10000]`把10K COCO图像载入内存，`eviledit`随后额外`torch.load`完整UNet state_dict，触发主机内存杀进程，且原队列脚本未记录Python退出码导致看似"finished"。已改用一次性低内存脚本`/tmp/eviledit_fid10k_lowmem_20260720.py`：复用已生成的benign 10K图像，只加载caption列生成eviledit图像并写回原`eval_results.csv`；当前已进入生成阶段(0/625起步，GPU 100%，显存约9.7GB)，待完成后读取FID并更新对照表。
 - 2026-07-21 12:12: **eviledit FID 10K低内存重跑完成并对齐**：FID=17.6649 vs 基准16.14（偏差+1.5249），生成图10000/10000且写入`eval_results.csv`；证实此前66.28为1K协议膨胀，原队列无CSV源于host内存SIGKILL。
-- 2026-07-21 16:31: **paas_db多seed重采样仍未达标，转入2000步假设验证**：seed679独立目录1000张复评ACC=52.6、ASR=11.9；seed680 200张快筛ACC=59.0、ASR=5.0；seed681 200张快筛ACC=55.0、ASR=8.5，均显著低于基准ASR=43.3。因本文件reference备注`PaaS DB max_train_steps: 论文300步, BackdoorDM曾为2000步`，停止盲目抽seed；seed682的“2000步”脚本经日志发现仍为300步（ASR=11.5，不作2000步证据），已修正临时脚本并启动seed683真2000步DreamBooth训练+200张ACC/ASR快筛（日志`/tmp/paas_db_seed683_true2000_accasr200_20260722.log`）。若真2000步仍低，则改查PaaS DB训练口径/MLLM-vs-ViT验收差异。
+- 2026-07-21 16:31: **paas_db真2000步训练假设验证通过，正式复评中**：seed679独立目录1000张复评ACC=52.6、ASR=11.9；seed680 200张快筛ACC=59.0、ASR=5.0；seed681 200张快筛ACC=55.0、ASR=8.5，均显著低于基准ASR=43.3。排查发现seed682所谓“2000步”实际仍是300步（ASR=11.5，不作2000步证据）；修正临时脚本后，seed683真2000步DreamBooth训练的200张快筛达到ACC=46.5、ASR=46.5，已回到基准ACC=48.5/ASR=43.3量级。现已启动seed683正式1000张ACC/ASR + 10K FID链式复评（日志`/tmp/paas_db_seed683_formal_accasr_fid_20260722.log`），完成后更新对照表。
 
 ## 攻击方法状态
 
