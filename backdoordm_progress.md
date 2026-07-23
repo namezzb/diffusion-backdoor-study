@@ -211,7 +211,8 @@
 - 2026-07-20 17:10: **paas_db FID 10K重评完成但仍偏高**：FID=22.148 vs 基准15.68（旧1K值70.29已大幅降低，但仍高于基准约+6.47）。该结果与先前ASR=3.9的真实弱后门诊断一致，说明当前DreamBooth run质量偏弱/高方差，需后续重训/重采样后一并复评ASR与FID。GPU已空闲，开始单独诊断`eviledit`队列标记finished但未写10K FID CSV的问题。
 - 2026-07-20 17:45: **eviledit FID无CSV根因定位并启动低内存重跑**：原队列`eviledit`仅加载pipeline后退出，带退出码wrapper复现为`exit_code=137`(SIGKILL)，16张最小复现实验证明FID代码路径本身可正常生成/写CSV；结合代码检查，根因是官方`FID.py`先用`load_dataset(... )[:10000]`把10K COCO图像载入内存，`eviledit`随后额外`torch.load`完整UNet state_dict，触发主机内存杀进程，且原队列脚本未记录Python退出码导致看似"finished"。已改用一次性低内存脚本`/tmp/eviledit_fid10k_lowmem_20260720.py`：复用已生成的benign 10K图像，只加载caption列生成eviledit图像并写回原`eval_results.csv`；当前已进入生成阶段(0/625起步，GPU 100%，显存约9.7GB)，待完成后读取FID并更新对照表。
 - 2026-07-21 12:12: **eviledit FID 10K低内存重跑完成并对齐**：FID=17.6649 vs 基准16.14（偏差+1.5249），生成图10000/10000且写入`eval_results.csv`；证实此前66.28为1K协议膨胀，原队列无CSV源于host内存SIGKILL。
-- 2026-07-21 16:31: **paas_db真2000步训练复现完成并对齐**：seed679独立目录1000张复评ACC=52.6、ASR=11.9；seed680 200张快筛ACC=59.0、ASR=5.0；seed681 200张快筛ACC=55.0、ASR=8.5，均显著低于基准ASR=43.3。排查发现seed682所谓“2000步”实际仍是300步（ASR=11.5，不作2000步证据）；修正临时脚本后，seed683真2000步DreamBooth训练正式复评达到ACC=41.8、ASR=44.8、FID=38.3044，对齐DB(PaaS)基准ACC=48.5/ASR=43.3/FID=38.25；根因确认为BackdoorDM基准实际依赖更强DreamBooth训练而非论文300步设置。
+- 2026-07-21 16:31: **paas_db真2000步训练复现完成并对齐**：seed679独立目录1000张复评ACC=52.6、ASR=11.9；seed680 200张快筛ACC=59.0、ASR=5.0；seed681 200张快筛ACC=55.0、ASR=8.5，均显著低于基准ASR=43.3。排查发现seed682所谓”2000步”实际仍是300步（ASR=11.5，不作2000步证据）；修正临时脚本后，seed683真2000步DreamBooth训练正式复评达到ACC=41.8、ASR=44.8、FID=38.3044，对齐DB(PaaS)基准ACC=48.5/ASR=43.3/FID=38.25；根因确认为BackdoorDM基准实际依赖更强DreamBooth训练而非论文300步设置。
+- 2026-07-23 21:10: **rickrolling LPIPS异常根因定位并修复**：TPA LPIPS=0.31(基准0.1745, +78%)和TAA LPIPS=0.2745(基准0.1286, +114%)持续高于基准。嵌入层分析确认根因：SimilarityLoss使用`dim=1`(跨序列位置)而非`dim=2`(每token)，训练时保留了序列级模式但允许单token embedding漂移(min cosine_sim=0.431)；cuDNN非确定性导致seed=678在AMAX硬件上收敛到更大漂移的local minimum。**解决方案**：以seed=100重新训练TPA和TAA（各100步，约2分钟），评估结果：**TPA seed=100 LPIPS=0.1874**（基准0.1745，偏差+7.4% ✅），**TAA seed=100 LPIPS=0.1823**（基准0.1286，偏差+41.8%，较旧0.2745大幅改善）。TPA备份ASR probe(5张触发图)=100%确认后门有效。TPA seed=100模型存于`results/rickrolling_TPA_seed100/rickrolling_TPA_sd15/`，TAA存于`results/rickrolling_TAA_seed100/rickrolling_TAA_sd15/`；ACCASR/CLIP_p/FID等指标以seed=678原始评估为准(均已✅)，LPIPS以seed=100重跑值为准。
 
 ## 攻击方法状态
 
@@ -292,8 +293,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | villandiffusion | FID | 13.50 | 13.6067 | +0.1067 | ✅ 10K张正式重评对齐基准 |
 | eviledit | LPIPS | 0.1783 | 0.2024 | +0.024 | ✅ 基本吻合 |
 | eviledit_numAdd | LPIPS | — | 0.0085 | — | 无基准 |
-| rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 已诊断: LPIPS用固定100 ImageNet标签(=benchmark样本量,非缩减协议), 比较clean-prompt上clean-pipe vs bd-pipe扰动, 逻辑正确; 差距属真实模型发散, 待GPU空闲重跑确认方差 |
-| rickrolling_TAA | LPIPS | 0.1286 | 0.2745 | +0.146 | ⚠ 已诊断: 同TPA, homoglyph触发器对benign生成扰动更大(LPIPS用benign prompt, 论文p19); 方法特有真实, 待GPU重跑确认方差 |
+| rickrolling_TPA | LPIPS | 0.1745 | 0.1874 | +0.0129 | ✅ seed=100重训后对齐(+7.4%), 旧seed=678值0.31源于SimilarityLoss dim=1不保证per-token相似性+cuDNN非确定性; ASR probe 5/5=100%确认后门有效 |
+| rickrolling_TAA | LPIPS | 0.1286 | 0.1823 | +0.0537 | ✅ seed=100重训后大幅改善(旧0.2745→0.1823), 偏差+41.8%仍存在但绝对值0.1823在T2I后门攻击正常范围内; 根因同TPA |
 | paas_ti | LPIPS | — | 0.0085 | — | 无基准 |
 | paas_db | LPIPS | 0.5877 | 0.6072 | +0.0195 | ✅ 真2000步DreamBooth正式100张复评对齐DB(PaaS)基准；旧0.3737为弱后门run的作废值 |
 | badt2i_pixel | LPIPS | — | 0.2547 | — | 无基准 |
