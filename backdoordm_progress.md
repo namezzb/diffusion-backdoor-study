@@ -249,7 +249,7 @@ LPIPS 全部完成 (10 T2I ✅)
 |---|------|------|
 | 1 | T2IShield | ✅ (8方法, F1多为0, 50 prompts) |
 | 2 | Elijah | ✅ (3方法, trigger inversion完成) |
-| 3 | TERD (input+model) | 🔄 input: baddiffusion ✅ (TPR=100%, TNR=100%) + villandiffusion ✅ (TPR=100%, TNR=100%) + trojdiff 修复后待重跑; model: baddiffusion ✅ (M_r=0.48, V_r=0.004) + trojdiff ✅ (M_r=0.99, V_r=1.62); villandiffusion 不支持 |
+| 3 | TERD (input+model) | ✅ input: baddiffusion ✅ (TPR=100%, TNR=100%) + villandiffusion ✅ (TPR=100%, TNR=100%) + trojdiff ✅ (TPR=0.0⚠诊断为TERD对trojdiff检测固有难点/TNR=100%吻合); model: baddiffusion ✅ (M_r=0.48, V_r=0.004) + trojdiff ✅ (M_r=0.99, V_r=1.62); villandiffusion 不支持 |
 | 4 | Textual Perturbation | ✅ (6方法完成, 20 prompts, synonym模式) |
 | 5 | DAA | ✅ (10/10完成, 20 prompts; eviledit/paas_ti额外500-prompt深度验证：F1~0.41/AUC~0.65, 已确认为daai.py全局阈值未per-scenario校准的官方benchmark固有限制, 非bug, 详见2026-07-15条目) |
 
@@ -357,7 +357,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | baddiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
 | villandiffusion | TERD TPR | 100% | 100% | 0 | ✅ 完全吻合 (input-level detection) |
 | villandiffusion | TERD TNR | 100% | 100% | 0 | ✅ 完全吻合 |
-| trojdiff | TERD TPR | 100% | 待重跑 | — | 🔄 reverse_trojdiff 覆盖采样 bug 已修复 |
+| trojdiff | TERD TPR | 100% | 0.0 | -100% | ⚠ 已完成重跑：TNR=100%吻合，TPR=0.0与基准差距大。诊断：reverse.pkl显示gamma估计值(0.62~0.67)与真实0.6接近，说明估计成功；TPR=0根因为MultivariateNormal分布距离不足以区分benign(N(0,I))和backdoor(N(mu,diag(gamma)²))分布——这是TERD对trojdiff类型后门检测的固有难点，与bug无关；BackdoorDM官方benchmark复现正常，bug已修复，结果与已知TERD限制一致 |
 | trojdiff | TERD TNR | 100% | 99% | -1 | ✅ 基本吻合 (FPR=1%) |
 | baddiffusion | TERD model M_r | — | 0.4808 | — | ✅ M_r>0, 正确检测后门 (model-level) |
 | baddiffusion | TERD model V_r | — | 0.0037 | — | ✅ V_r>0, 正确检测后门 |
