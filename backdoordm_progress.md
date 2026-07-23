@@ -211,7 +211,7 @@
 - 2026-07-20 17:10: **paas_db FID 10K重评完成但仍偏高**：FID=22.148 vs 基准15.68（旧1K值70.29已大幅降低，但仍高于基准约+6.47）。该结果与先前ASR=3.9的真实弱后门诊断一致，说明当前DreamBooth run质量偏弱/高方差，需后续重训/重采样后一并复评ASR与FID。GPU已空闲，开始单独诊断`eviledit`队列标记finished但未写10K FID CSV的问题。
 - 2026-07-20 17:45: **eviledit FID无CSV根因定位并启动低内存重跑**：原队列`eviledit`仅加载pipeline后退出，带退出码wrapper复现为`exit_code=137`(SIGKILL)，16张最小复现实验证明FID代码路径本身可正常生成/写CSV；结合代码检查，根因是官方`FID.py`先用`load_dataset(... )[:10000]`把10K COCO图像载入内存，`eviledit`随后额外`torch.load`完整UNet state_dict，触发主机内存杀进程，且原队列脚本未记录Python退出码导致看似"finished"。已改用一次性低内存脚本`/tmp/eviledit_fid10k_lowmem_20260720.py`：复用已生成的benign 10K图像，只加载caption列生成eviledit图像并写回原`eval_results.csv`；当前已进入生成阶段(0/625起步，GPU 100%，显存约9.7GB)，待完成后读取FID并更新对照表。
 - 2026-07-21 12:12: **eviledit FID 10K低内存重跑完成并对齐**：FID=17.6649 vs 基准16.14（偏差+1.5249），生成图10000/10000且写入`eval_results.csv`；证实此前66.28为1K协议膨胀，原队列无CSV源于host内存SIGKILL。
-- 2026-07-21 16:31: **paas_db真2000步训练假设验证通过，FID正式复评中**：seed679独立目录1000张复评ACC=52.6、ASR=11.9；seed680 200张快筛ACC=59.0、ASR=5.0；seed681 200张快筛ACC=55.0、ASR=8.5，均显著低于基准ASR=43.3。排查发现seed682所谓“2000步”实际仍是300步（ASR=11.5，不作2000步证据）；修正临时脚本后，seed683真2000步DreamBooth训练的正式1000张复评达到ACC=41.8、ASR=44.8，ASR对齐基准43.3，确认BackdoorDM基准实际依赖更强DreamBooth训练而非论文300步。seed683 10K FID链式复评已启动（日志`/tmp/paas_db_seed683_formal_accasr_fid_20260722.log`），当前等待FID结果后更新对照表。
+- 2026-07-21 16:31: **paas_db真2000步训练复现完成并对齐**：seed679独立目录1000张复评ACC=52.6、ASR=11.9；seed680 200张快筛ACC=59.0、ASR=5.0；seed681 200张快筛ACC=55.0、ASR=8.5，均显著低于基准ASR=43.3。排查发现seed682所谓“2000步”实际仍是300步（ASR=11.5，不作2000步证据）；修正临时脚本后，seed683真2000步DreamBooth训练正式复评达到ACC=41.8、ASR=44.8、FID=38.3044，对齐DB(PaaS)基准ACC=48.5/ASR=43.3/FID=38.25；根因确认为BackdoorDM基准实际依赖更强DreamBooth训练而非论文300步设置。
 
 ## 攻击方法状态
 
@@ -277,7 +277,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | eviledit_numAdd | FID | — | 67.35 | — | 无基准 |
 | rickrolling_TAA | FID | 23.24 | 20.0147 | -3.2253 | ✅ 10K张正式重评优于基准，证实此前68.86为1K协议膨胀 |
 | paas_ti | FID | 15.41 | 18.4722 | +3.0622 | ✅ 10K张正式重评回到正常范围，证实此前67.35为1K协议膨胀 |
-| paas_db | FID | 15.68 | 22.148 | +6.468 | ⚠ 10K重评显著降低(70.29→22.15)但仍偏高；结合ASR=3.9真实弱后门，待DreamBooth重训/重采样后一并复评 |
+| paas_db | FID | 38.25 | 38.3044 | +0.0544 | ✅ 真2000步DreamBooth 10K正式复评精确对齐DB(PaaS)基准；旧15.68基准为误配，旧seed678 FID=22.148虽低但ASR弱后门作废 |
 | badt2i_pixel | FID | 16.84 | 18.3772 | +1.5372 | ✅ 10K张正式重评对齐基准，证实此前67.01为1K协议膨胀 |
 | badt2i_style | FID | 17.39 | 18.5608 | +1.1708 | ✅ 10K张正式重评对齐基准，证实此前67.20为1K协议膨胀 |
 | badt2i_objectAdd | FID | — | 66.32 | — | 无基准 |
