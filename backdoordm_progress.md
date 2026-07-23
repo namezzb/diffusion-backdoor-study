@@ -278,6 +278,8 @@ LPIPS 全部完成 (10 T2I ✅)
 | rickrolling_TAA | FID | 23.24 | 20.0147 | -3.2253 | ✅ 10K张正式重评优于基准，证实此前68.86为1K协议膨胀 |
 | paas_ti | FID | 15.41 | 18.4722 | +3.0622 | ✅ 10K张正式重评回到正常范围，证实此前67.35为1K协议膨胀 |
 | paas_db | FID | 38.25 | 38.3044 | +0.0544 | ✅ 真2000步DreamBooth 10K正式复评精确对齐DB(PaaS)基准；旧15.68基准为误配，旧seed678 FID=22.148虽低但ASR弱后门作废 |
+| paas_db | CLIP_p (TCS) | 21.72 | 21.5028 | -0.22 | ✅ 真2000步DreamBooth正式1000张复评对齐基准 |
+| paas_db | CLIP_c (BCS) | 24.37 | 23.9827 | -0.39 | ✅ 真2000步DreamBooth正式1000张复评对齐基准 |
 | badt2i_pixel | FID | 16.84 | 18.3772 | +1.5372 | ✅ 10K张正式重评对齐基准，证实此前67.01为1K协议膨胀 |
 | badt2i_style | FID | 17.39 | 18.5608 | +1.1708 | ✅ 10K张正式重评对齐基准，证实此前67.20为1K协议膨胀 |
 | badt2i_objectAdd | FID | — | 66.32 | — | 无基准 |
@@ -293,7 +295,7 @@ LPIPS 全部完成 (10 T2I ✅)
 | rickrolling_TPA | LPIPS | 0.1745 | 0.31 | +0.136 | ⚠ 已诊断: LPIPS用固定100 ImageNet标签(=benchmark样本量,非缩减协议), 比较clean-prompt上clean-pipe vs bd-pipe扰动, 逻辑正确; 差距属真实模型发散, 待GPU空闲重跑确认方差 |
 | rickrolling_TAA | LPIPS | 0.1286 | 0.2745 | +0.146 | ⚠ 已诊断: 同TPA, homoglyph触发器对benign生成扰动更大(LPIPS用benign prompt, 论文p19); 方法特有真实, 待GPU重跑确认方差 |
 | paas_ti | LPIPS | — | 0.0085 | — | 无基准 |
-| paas_db | LPIPS | — | 0.3737 | — | 无基准 |
+| paas_db | LPIPS | 0.5877 | 0.6072 | +0.0195 | ✅ 真2000步DreamBooth正式100张复评对齐DB(PaaS)基准；旧0.3737为弱后门run的作废值 |
 | badt2i_pixel | LPIPS | — | 0.2547 | — | 无基准 |
 | badt2i_object | LPIPS | — | 0.2212 | — | 无基准 |
 | badt2i_style | LPIPS | — | 0.2429 | — | 无基准 |
