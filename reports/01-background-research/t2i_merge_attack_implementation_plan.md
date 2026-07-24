@@ -4,6 +4,8 @@
 
 ## 当前实验证据
 
+### P0 naive LERP low-n smoke
+
 | 运行 | α | 样本 | ACC | ASR | 结论 |
 |---|---:|---:|---:|---:|---|
 | `p0_smoke11_20260724` | 0.0 | 4 | 25.0 | 0.0 | 只验证 benign endpoint 管线，不能代表攻击能力。 |
@@ -13,12 +15,23 @@
 | `p0_curve_lerp_rest_smoke_20260724` | 0.75 | 4 | 50.0 | 25.0 | 高权重下 ASR 未线性恢复，提示需要正式 seeds 排除采样噪声。 |
 | `p0_smoke15_20260724` | 1.0 | 4 | 50.0 | 50.0 | 真实 EvilEdit endpoint 已跑通，但 4 张图只作为 smoke。 |
 
+### P1 LoBAM-style amplification low-n smoke
+
+`mode=amplify` 的 value 是有效后门强度 `k=α·γ`，等价于上传 `theta_base + gamma·delta_bd` 后再按 LERP 权重 α 合并回 base。
+
+| 运行 | k | 可对应组合 | 样本 | ACC | ASR | 结论 |
+|---|---:|---|---:|---:|---:|---|
+| `p1_lobam_amp_smoke_20260724` | 0.5 | α=0.25, γ=2 或 α=0.5, γ=1 | 4 | 50.0 | 25.0 | 与 naive α=0.5 持平，说明低倍放大不是强增益。 |
+| `p1_lobam_amp_smoke_20260724` | 1.0 | α=0.25, γ=4 或 α=0.5, γ=2 | 4 | 25.0 | 50.0 | ASR 恢复到 EvilEdit endpoint smoke 水平，但 clean ACC 降低。 |
+| `p1_lobam_amp_smoke_20260724` | 2.0 | α=0.25, γ=8 或 α=0.5, γ=4 | 4 | 25.0 | 25.0 | 继续放大没有单调收益，clean 仍受损。 |
+| `p1_lobam_amp_smoke_20260724` | 4.0 | α=0.5, γ=8 | 4 | 0.0 | 0.0 | 过度放大导致 clean/ASR 同时崩塌。 |
+
 ## 可迁移方法
 
 | 来源 | 原方法核心 | T2I 实现方式 | 第一优先级 |
 |---|---|---|---|
 | BadMerging | 在采样 merge 系数上优化上传模型，使合并后仍触发后门。 | 对 `theta_base + delta_atk` 采样 LERP/TIES/DARE 与 benign expert，直接优化 post-merge diffusion backdoor loss。 | P2 主方法。 |
-| LoBAM | 上传 `theta_clean + λ(delta_mal)`，用放大补偿 merge 稀释。 | 构造 `theta_base + gamma*(theta_eviledit-theta_base)`，先跑 `gamma={1,2,4,8}` 的 LERP 曲线。 | P1 最小增强基线。 |
+| LoBAM | 上传 `theta_clean + λ(delta_mal)`，用放大补偿 merge 稀释。 | 构造 `theta_base + gamma*(theta_eviledit-theta_base)`，已跑 `k=α·γ={0.5,1,2,4}` smoke。 | P1 最小增强基线。 |
 | Merge Hijacking | 对 backdoor vector 做稀疏、rescale、mask fine-tuning。 | 按 EvilEdit delta 的 magnitude 取 top-k cross-attention 参数，再做 rescale 与 clean-preserving smoke。 | P1 强增强基线。 |
 | RogueMerge | 显式模拟未知合并配置，用 robust/worst-case 目标训练。 | 在训练时采样 `alpha`、benign expert、merge 算子和 timestep，第二阶段用 CVaR 或 worst-case loss。 | P2 泛化方法。 |
 | TIES/DARE | 裁剪、符号选举、随机 drop+rescale 改变 delta 几何。 | 作为攻击训练与测试的 merge operator，不把它们误写成攻击本身。 | P0/P2 算子。 |
@@ -47,9 +60,9 @@
 ## 实现顺序
 
 1. 完成 LERP α `{0,0.1,0.25,0.5,0.75,1.0}` 的 low-n smoke，确认曲线形状与脚本稳定性。
-2. 跑 P1 `gamma={1,2,4,8}` amplification，先只测 α `{0.25,0.5}`。
+2. 完成 P1 `k=α·γ={0.5,1,2,4}` amplification smoke，确认简单放大存在 ASR/clean trade-off。
 3. 跑 sparse/rescale baseline，先取 EvilEdit delta top `{1%,5%,10%}`。
-4. 扩展正式 P0：`img_num_test=50`、clean prompts=100、3 seeds。
+4. 扩展正式 P0/P1：`img_num_test=50`、clean prompts=100、3 seeds。
 5. 再进入 P2 merge-aware 训练，避免在 P0/P1 证据不足时过早设计复杂优化。
 
 ## 一手来源

@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- 阶段：M1 被动曲线 smoke 已跑通 LERP α={0,0.1,0.25,0.5,0.75,1.0}，merge→eval→CSV 闭环已验证，正式样本量和 seeds 还需补齐。
+- 阶段：M1 naive LERP low-n 曲线已跑通，P1 LoBAM-style amplification smoke 已跑通；正式样本量、seeds 和 sparse/rescale 基线还需补齐。
 - 基础：BackdoorDM 主线进度以 `AGENTS.md` 的 16 攻击 + 5 防御重跑口径为准；本 merge 分支当前只依赖已可用的 EvilEdit checkpoint。
 - 结论边界：合成权重模拟仅用于生成假设，TIES/DARE/SLERP 对真实后门的影响必须由 checkpoint 实验验证。
 - AAAI 定位：不是首个 T2I merging，也不是首个 T2I LoRA backdoor；目标是首个系统测量真实后门 checkpoint 经多种合并算子后的安全影响，并提出对未见合并配置鲁棒的增强攻击。
@@ -58,13 +58,14 @@
 |---|---|---|---|
 | M0 | 文献与契约锁定 | 核心论文、威胁模型、评价协议和成功标准明确 | 首轮完成 |
 | M1 | 被动持久性 tracer | EvilEdit 与一个同基座良性 checkpoint 的 LERP 曲线可复现 | 进行中（low-n 曲线已通，待正式样本量） |
-| M2 | 增强可行性 | amplification 能恢复 post-merge ASR，并报告清洁能力代价 | 未开始 |
+| M2 | 增强可行性 | amplification 能恢复 post-merge ASR，并报告清洁能力代价 | 进行中（low-n amplification 已通） |
 | M3 | 鲁棒攻击 | 在训练可见配置上实现 merge-aware 优化 | 未开始 |
 | M4 | 未见配置泛化 | 在未见良性模型、算法、比例和顺序上优于强基线 | 未开始 |
 
 - smoke 记录：`p0_smoke11_20260724` 在 `lerp α=0.0`、`img_num_test=4` 下跑通了 merge→ACCASR，写出 `eval_results.csv`；这只是 benign fast path 管线验证，数值为 `ACCASR_acc=25.0`、`ACCASR_asr=0.0`。
 - smoke 记录：`p0_smoke15_20260724` 在 `lerp α=1.0`、`img_num_test=4`、`infer_steps=10` 下跑通真实 EvilEdit checkpoint endpoint；写出 4 张触发图、4 张 clean 图和 `eval_results.csv`，数值为 `ACCASR_acc=50.0`、`ACCASR_asr=50.0`。
 - smoke 记录：`p0_curve_lerp_rest_smoke_20260724` 与 `p0_mid_lerp05_smoke_20260724` 补齐中间点；`α=0.1/0.25/0.5/0.75` 的 ACC/ASR 分别为 `25/0`、`50/0`、`50/25`、`50/25`。
+- P1 记录：`p1_lobam_amp_smoke_20260724` 跑通 LoBAM-style 有效强度 `k=α·γ={0.5,1,2,4}`；ACC/ASR 分别为 `50/25`、`25/50`、`25/25`、`0/0`，说明简单放大不是单调答案，存在 clean trade-off 和过放大崩塌。
 - 实现记录：`--skip-source-stats` 现在只用于快速 smoke，L2 漂移字段写为 `null/NA`；正式权重漂移诊断必须去掉该 flag 单独跑。
 - 方法记录：T2I 实现映射与指标协议已写入 `reports/01-background-research/t2i_merge_attack_implementation_plan.md`。
 
@@ -92,3 +93,4 @@
 - 2026-07-24：在提交 BackdoorDM 当前完成状态后创建本文件，进入 M0 文献与实验契约锁定阶段。
 - 2026-07-24：完成第一轮合并攻击与 T2I 合并文献核查；确认 full-checkpoint novelty 仍成立，MasqLoRA 的 1–4 adapter 组合不等于 checkpoint merge；M0 进入方法与最小实验锁定。
 - 2026-07-24：完成 LERP low-n 六点 smoke 曲线，并补充 T2I merge attack 实现计划；结论仍限于管线与趋势线索，不作为正式论文指标。
+- 2026-07-24：完成 P1 LoBAM-style amplification low-n smoke；初步观察到 `k=1` 恢复 ASR 但降低 clean ACC，`k=4` 同时破坏 clean 与 ASR。
