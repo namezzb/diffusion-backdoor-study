@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：M1 被动曲线 smoke 已跑通首个样本，LERP α=0.0 的 merge→eval→CSV 闭环已验证，正式曲线点还需补齐。
-- 基础：BackdoorDM 严格完成 13/16 攻击闭环、5/5 防御执行，EvilEdit 可作为最快的首个攻击源。
+- 阶段：M1 被动曲线 smoke 已跑通 LERP α=0.0 与 α=1.0 两个端点，merge→eval→CSV 闭环已验证，正式曲线点还需补齐。
+- 基础：BackdoorDM 主线进度以 `AGENTS.md` 的 16 攻击 + 5 防御重跑口径为准；本 merge 分支当前只依赖已可用的 EvilEdit checkpoint。
 - 结论边界：合成权重模拟仅用于生成假设，TIES/DARE/SLERP 对真实后门的影响必须由 checkpoint 实验验证。
 - AAAI 定位：不是首个 T2I merging，也不是首个 T2I LoRA backdoor；目标是首个系统测量真实后门 checkpoint 经多种合并算子后的安全影响，并提出对未见合并配置鲁棒的增强攻击。
 
@@ -62,7 +62,9 @@
 | M3 | 鲁棒攻击 | 在训练可见配置上实现 merge-aware 优化 | 未开始 |
 | M4 | 未见配置泛化 | 在未见良性模型、算法、比例和顺序上优于强基线 | 未开始 |
 
-- smoke 记录：`p0_smoke11_20260724` 在 `lerp α=0.0`、`img_num_test=4` 下跑通了 merge→ACCASR，写出 `eval_results.csv`；这只是管线验证，数值为 `ACCASR_acc=25.0`、`ACCASR_asr=0.0`。
+- smoke 记录：`p0_smoke11_20260724` 在 `lerp α=0.0`、`img_num_test=4` 下跑通了 merge→ACCASR，写出 `eval_results.csv`；这只是 benign fast path 管线验证，数值为 `ACCASR_acc=25.0`、`ACCASR_asr=0.0`。
+- smoke 记录：`p0_smoke15_20260724` 在 `lerp α=1.0`、`img_num_test=4`、`infer_steps=10` 下跑通真实 EvilEdit checkpoint endpoint；写出 4 张触发图、4 张 clean 图和 `eval_results.csv`，数值为 `ACCASR_acc=50.0`、`ACCASR_asr=50.0`。
+- 实现记录：`--skip-source-stats` 现在只用于快速 smoke，L2 漂移字段写为 `null/NA`；正式权重漂移诊断必须去掉该 flag 单独跑。
 
 ## 最小验证实验草案
 

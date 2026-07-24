@@ -17,6 +17,7 @@ import argparse
 import collections
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -73,7 +74,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--skip-source-stats",
         action="store_true",
-        help="Skip the extra source-delta pass used for diagnostics.",
+        help="Skip expensive L2 diagnostics; tensor inventory is retained and skipped fields are null.",
+    )
+    parser.add_argument(
+        "--no-patch-backdoordm-target-name",
+        action="store_true",
+        help="Do not patch BackdoorDM's missing target_name default before evaluation.",
     )
     parser.add_argument(
         "--evaluate",
@@ -163,6 +169,12 @@ def get_torch():
 
 def now_label() -> str:
     return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def fmt_metric(value: float | int | None) -> str:
+    if value is None:
+        return "NA"
+    return f"{float(value):.6f}"
 
 
 def load_state_dict_file(path: Path) -> collections.OrderedDict[str, torch.Tensor]:
@@ -259,11 +271,11 @@ class MergeStats:
     float_tensor_count: int
     total_tensor_count: int
     total_elements: int
-    source_delta_l2: float
-    merged_delta_l2: float
-    merged_other_l2: float
-    max_abs_delta: float
-    source_shift_ratio: float
+    source_delta_l2: float | None
+    merged_delta_l2: float | None
+    merged_other_l2: float | None
+    max_abs_delta: float | None
+    source_shift_ratio: float | None
     eval_returncode: int | None = None
     eval_result_dir: str | None = None
     eval_results_csv: str | None = None
@@ -305,13 +317,39 @@ def compute_source_stats(
     }
 
 
+def compute_tensor_inventory(
+    base_sd: collections.OrderedDict[str, torch.Tensor],
+) -> dict[str, float | int | None]:
+    torch = get_torch()
+    total_tensor_count = 0
+    float_tensor_count = 0
+    total_elements = 0
+
+    for base_tensor in base_sd.values():
+        if not torch.is_tensor(base_tensor):
+            continue
+        total_tensor_count += 1
+        total_elements += int(base_tensor.numel())
+        if base_tensor.is_floating_point():
+            float_tensor_count += 1
+
+    return {
+        "float_tensor_count": float_tensor_count,
+        "total_tensor_count": total_tensor_count,
+        "total_elements": total_elements,
+        "source_delta_l2": None,
+        "max_abs_delta": None,
+    }
+
+
 def merge_state_dicts(
     base_sd: collections.OrderedDict[str, torch.Tensor],
     other_sd: collections.OrderedDict[str, torch.Tensor],
     mode: str,
     value: float,
     save_dtype: str,
-) -> tuple[collections.OrderedDict[str, torch.Tensor], dict[str, float | int]]:
+    measure_l2: bool,
+) -> tuple[collections.OrderedDict[str, torch.Tensor], dict[str, float | int | None]]:
     torch = get_torch()
     merged = collections.OrderedDict()
     float_tensor_count = 0
@@ -346,19 +384,16 @@ def merge_state_dicts(
             base_f = base_tensor.to(torch.float32)
             other_f = other_tensor.to(torch.float32)
             source_delta = other_f - base_f
+            merged_f = base_f + value * source_delta
 
-            if mode == "lerp":
-                merged_f = base_f + value * source_delta
-            else:
-                merged_f = base_f + value * source_delta
+            if measure_l2:
+                merged_delta = merged_f - base_f
+                merged_other = merged_f - other_f
 
-            merged_delta = merged_f - base_f
-            merged_other = merged_f - other_f
-
-            source_delta_l2 += float(torch.sum(source_delta * source_delta).item())
-            merged_delta_l2 += float(torch.sum(merged_delta * merged_delta).item())
-            merged_other_l2 += float(torch.sum(merged_other * merged_other).item())
-            max_abs_delta = max(max_abs_delta, float(torch.max(torch.abs(merged_delta)).item()))
+                source_delta_l2 += float(torch.sum(source_delta * source_delta).item())
+                merged_delta_l2 += float(torch.sum(merged_delta * merged_delta).item())
+                merged_other_l2 += float(torch.sum(merged_other * merged_other).item())
+                max_abs_delta = max(max_abs_delta, float(torch.max(torch.abs(merged_delta)).item()))
 
             merged[key] = merged_f.to(choose_save_dtype(base_tensor, save_dtype))
             continue
@@ -369,10 +404,10 @@ def merge_state_dicts(
         "float_tensor_count": float_tensor_count,
         "total_tensor_count": total_tensor_count,
         "total_elements": total_elements,
-        "source_delta_l2": source_delta_l2 ** 0.5,
-        "merged_delta_l2": merged_delta_l2 ** 0.5,
-        "merged_other_l2": merged_other_l2 ** 0.5,
-        "max_abs_delta": max_abs_delta,
+        "source_delta_l2": source_delta_l2 ** 0.5 if measure_l2 else None,
+        "merged_delta_l2": merged_delta_l2 ** 0.5 if measure_l2 else None,
+        "merged_other_l2": merged_other_l2 ** 0.5 if measure_l2 else None,
+        "max_abs_delta": max_abs_delta if measure_l2 else None,
     }
     return merged, stats
 
@@ -401,6 +436,42 @@ def find_eval_csv(result_dir: Path) -> Path | None:
     if not candidates:
         return None
     return max(candidates, key=lambda path: path.stat().st_mtime)
+
+
+def ensure_backdoordm_target_name_default(bd_root: Path) -> Path | None:
+    """Patch BackdoorDM evaluation defaults needed by objectRep configs.
+
+    Some BackdoorDM revisions read cmd_args.target_name in objectRep evaluation
+    while base_args_v2 does not define it. The tracer evaluates raw EvilEdit
+    checkpoints through that path, so make the compatibility patch explicit and
+    idempotent instead of relying on a manually edited server checkout.
+    """
+    utils_path = bd_root / "utils" / "utils.py"
+    if not utils_path.is_file():
+        raise FileNotFoundError(f"BackdoorDM utils.py not found: {utils_path}")
+
+    text = utils_path.read_text(encoding="utf-8")
+    if (
+        "target_name='target'" in text
+        or 'target_name="target"' in text
+        or "cmd_args.target_name = 'target'" in text
+        or 'cmd_args.target_name = "target"' in text
+    ):
+        return None
+
+    anchor = "        backdoors=None,\n        backdoor_method=None,\n"
+    if anchor not in text:
+        raise RuntimeError(
+            "Could not patch BackdoorDM target_name default; expected base_args_v2 anchor not found."
+        )
+
+    backup_path = utils_path.with_name("utils.py.bak_merge_tracer_target_name")
+    if not backup_path.exists():
+        backup_path.write_text(text, encoding="utf-8")
+
+    patched = text.replace(anchor, "        target_name='target',\n" + anchor, 1)
+    utils_path.write_text(patched, encoding="utf-8")
+    return backup_path
 
 
 def run_backdoordm_eval(
@@ -492,14 +563,11 @@ def main() -> int:
         log(f"key mismatch tolerated: missing={len(missing)} unexpected={len(unexpected)}")
 
     if args.skip_source_stats:
-        source_stats = {
-            "float_tensor_count": 0,
-            "total_tensor_count": len(base_sd),
-            "total_elements": 0,
-            "source_delta_l2": 0.0,
-            "max_abs_delta": 0.0,
-        }
-        log("source delta stats skipped")
+        source_stats = compute_tensor_inventory(base_sd)
+        log(
+            "L2 diagnostics skipped; tensor inventory retained, "
+            "source/merge distance fields will be null"
+        )
     else:
         source_stats = compute_source_stats(base_sd, other_sd)
         log(
@@ -508,6 +576,13 @@ def main() -> int:
             f"float_tensors={source_stats['float_tensor_count']} "
             f"max_abs={source_stats['max_abs_delta']:.6f}"
         )
+
+    if args.evaluate and not args.no_patch_backdoordm_target_name:
+        backup_path = ensure_backdoordm_target_name_default(args.bd_root)
+        if backup_path is None:
+            log("BackdoorDM target_name default already present")
+        else:
+            log(f"patched BackdoorDM target_name default; backup={backup_path}")
 
     manifest_file = manifest_path.open("a", encoding="utf-8")
     try:
@@ -525,21 +600,52 @@ def main() -> int:
                     "float_tensor_count": int(source_stats["float_tensor_count"]),
                     "total_tensor_count": int(source_stats["total_tensor_count"]),
                     "total_elements": int(source_stats["total_elements"]),
-                    "source_delta_l2": float(source_stats["source_delta_l2"]),
+                    "source_delta_l2": source_stats["source_delta_l2"],
                     "merged_delta_l2": 0.0,
-                    "merged_other_l2": float(source_stats["source_delta_l2"]),
+                    "merged_other_l2": source_stats["source_delta_l2"],
                     "max_abs_delta": 0.0,
                 }
+            elif (
+                args.mode == "lerp"
+                and value == 1.0
+                and args.save_dtype == "base"
+                and args.skip_source_stats
+                and not prefix
+                and not missing
+                and not unexpected
+            ):
+                log(f"fast path -> {merged_path.name} (malicious checkpoint copy)")
+                shutil.copyfile(args.other_unet, merged_path)
+                stats = {
+                    "float_tensor_count": int(source_stats["float_tensor_count"]),
+                    "total_tensor_count": int(source_stats["total_tensor_count"]),
+                    "total_elements": int(source_stats["total_elements"]),
+                    "source_delta_l2": None,
+                    "merged_delta_l2": None,
+                    "merged_other_l2": 0.0,
+                    "max_abs_delta": None,
+                }
             else:
-                merged_sd, stats = merge_state_dicts(base_sd, other_sd, args.mode, value, args.save_dtype)
+                merged_sd, stats = merge_state_dicts(
+                    base_sd,
+                    other_sd,
+                    args.mode,
+                    value,
+                    args.save_dtype,
+                    measure_l2=not args.skip_source_stats,
+                )
                 log(f"saving -> {merged_path.name}")
                 save_state_dict(merged_sd, merged_path)
                 log(f"saved -> {merged_path.name}")
 
-            source_delta_l2 = float(source_stats["source_delta_l2"])
-            merged_shift = float(stats["merged_delta_l2"])
-            merged_other = float(stats["merged_other_l2"])
-            shift_ratio = merged_shift / source_delta_l2 if source_delta_l2 else 0.0
+            source_delta_l2 = stats["source_delta_l2"]
+            merged_shift = stats["merged_delta_l2"]
+            merged_other = stats["merged_other_l2"]
+            shift_ratio = (
+                float(merged_shift) / float(source_delta_l2)
+                if source_delta_l2 not in (None, 0.0) and merged_shift is not None
+                else None
+            )
 
             record = MergeStats(
                 value=value,
@@ -550,7 +656,7 @@ def main() -> int:
                 source_delta_l2=source_delta_l2,
                 merged_delta_l2=merged_shift,
                 merged_other_l2=merged_other,
-                max_abs_delta=float(stats["max_abs_delta"]),
+                max_abs_delta=stats["max_abs_delta"],
                 source_shift_ratio=shift_ratio,
             )
 
@@ -578,8 +684,8 @@ def main() -> int:
 
             log(
                 f"saved {merged_path.name}: "
-                f"shift_ratio={shift_ratio:.6f} merged_l2={merged_shift:.6f} "
-                f"source_l2={source_delta_l2:.6f}"
+                f"shift_ratio={fmt_metric(shift_ratio)} merged_l2={fmt_metric(merged_shift)} "
+                f"source_l2={fmt_metric(source_delta_l2)}"
             )
     finally:
         manifest_file.close()
