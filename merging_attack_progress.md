@@ -4,7 +4,7 @@
 
 ## 当前状态
 
-- 阶段：M0 文献与实验契约锁定，尚未启动真实 checkpoint 合并实验。
+- 阶段：M0 文献与实验契约首轮锁定，尚未启动真实 checkpoint 合并实验。
 - 基础：BackdoorDM 严格完成 13/16 攻击闭环、5/5 防御执行，EvilEdit 可作为最快的首个攻击源。
 - 结论边界：合成权重模拟仅用于生成假设，TIES/DARE/SLERP 对真实后门的影响必须由 checkpoint 实验验证。
 - AAAI 定位：不是首个 T2I merging，也不是首个 T2I LoRA backdoor；目标是首个系统测量真实后门 checkpoint 经多种合并算子后的安全影响，并提出对未见合并配置鲁棒的增强攻击。
@@ -28,7 +28,7 @@
 | DiffGraph | SD1.5/FLUX 的在线 CKPT+PEFT expert 合并，使用 ImageReward、HPS、Aesthetic、PickScore、CLIP | in-the-wild expert 与 utility 协议参考 |
 | MasqLoRA | SD1.5/SDXL standalone LoRA backdoor；1–4 个 LoRA 堆叠不是 LERP/TIES/DARE checkpoint merge | LoRA 攻击边界，不削弱 full-checkpoint novelty |
 
-关键来源：[BadMerging](https://arxiv.org/abs/2408.07362)、[LoBAM](https://arxiv.org/abs/2411.16746)、[Merge Hijacking](https://aclanthology.org/2025.acl-long.1571/)、[RogueMerge](https://arxiv.org/abs/2606.03344)、[MergeBackdoor](https://www.usenix.org/conference/usenixsecurity25/presentation/wang-lijin)、[Diffusion Soup](https://eccv.ecva.net/virtual/2024/poster/288)、[DiffGraph](https://openaccess.thecvf.com/content/CVPR2026/papers/Li_DiffGraph_An_Automated_Agent-driven_Model_Merging_Framework_for_In-the-Wild_Text-to-Image_CVPR_2026_paper.pdf)、[MasqLoRA](https://openaccess.thecvf.com/content/CVPR2026/html/Lyu_When_LoRA_Betrays_Backdooring_Text-to-Image_Models_by_Masquerading_as_Benign_CVPR_2026_paper.html)。
+关键来源：[BadMerging](https://arxiv.org/abs/2408.07362)、[LoBAM](https://arxiv.org/abs/2411.16746)、[Merge Hijacking](https://aclanthology.org/2025.acl-long.1571/)、[RogueMerge](https://arxiv.org/abs/2606.03344)、[MergeBackdoor](https://www.usenix.org/conference/usenixsecurity25/presentation/wang-lijin)、[Diffusion Soup](https://eccv.ecva.net/virtual/2024/poster/288)、[DiffGraph](https://openaccess.thecvf.com/content/CVPR2026/papers/Li_DiffGraph_An_Automated_Agent-driven_Model_Merging_Framework_for_In-the-Wild_Text-to-Image_CVPR_2026_paper.pdf)、[MasqLoRA](https://openaccess.thecvf.com/content/CVPR2026/html/Lyu_When_LoRA_Betrays_Backdooring_Text-to-Image_Models_by_Masquerading_as_Benign_CVPR_2026_paper.html)、[Task Arithmetic](https://arxiv.org/abs/2212.04089)、[TIES-Merging](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1644c9af28ab7916874f6fd6228a9bcf-Abstract-Conference.html)、[DARE](https://proceedings.mlr.press/v235/yu24p.html)。
 
 ## AAAI 方法候选
 
@@ -56,7 +56,7 @@
 
 | 阶段 | 目标 | 完成条件 | 状态 |
 |---|---|---|---|
-| M0 | 文献与契约锁定 | 核心论文、威胁模型、评价协议和成功标准明确 | 进行中 |
+| M0 | 文献与契约锁定 | 核心论文、威胁模型、评价协议和成功标准明确 | 首轮完成 |
 | M1 | 被动持久性 tracer | EvilEdit 与一个同基座良性 checkpoint 的 LERP 曲线可复现 | 未开始 |
 | M2 | 增强可行性 | amplification 能恢复 post-merge ASR，并报告清洁能力代价 | 未开始 |
 | M3 | 鲁棒攻击 | 在训练可见配置上实现 merge-aware 优化 | 未开始 |
