@@ -43,8 +43,8 @@
 | 2603.06508 | When One Modality Rules Them All: Backdoor Modality Collapse in Multimodal Diffusion Models | 2026 | 多模态后门 | `2603.06508.pdf` |
 | 2605.09397 | BadDLM: Backdooring Diffusion Language Models | 2026 | 扩散语言模型后门 | `2605.09397.pdf` |
 | 2605.13115 | DiffusionHijack: Supply-Chain PRNG Backdoor Attack | 2026 | 供应链攻击 | `2605.13115.pdf` |
-| 2605.27813 | (待确认) | 2026 | T2I Backdoor | `2605.27813.pdf` |
-| 2606.12498 | (待确认) | 2026 | T2I Backdoor | `2606.12498.pdf` |
+| 2605.27813 | Residualized Temporal Sparse Autoencoders for Interpreting Diffusion Models | 2026 | 扩散模型可解释性 / SAE | `2605.27813.pdf` |
+| 2606.12498 | From Parameters to Feature Space: Task Arithmetic for Backdoor Mitigation in Model Merging | 2026 | 模型合并后门防御 / LFPM | `2606.12498.pdf` |
 
 ## 备注
 

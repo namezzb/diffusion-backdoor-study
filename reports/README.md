@@ -1,7 +1,7 @@
 # 📊 Reports 索引
 
 > 扩散模型后门研究文档集合
-> 最后更新：2026-06-30
+> 最后更新：2026-07-24
 
 ---
 
@@ -36,7 +36,9 @@ reports/
 | 文件名 | 内容 | 日期 |
 |--------|------|------|
 | [diffusion_backdoor_deep_survey_2025_2026.md](./01-background-research/diffusion_backdoor_deep_survey_2025_2026.md) | 2025-2026年扩散后门深度调研 | 2026-06-25 |
+| [diffusion_backdoor_novel_ideas.md](./01-background-research/diffusion_backdoor_novel_ideas.md) | 10个顶会级创新思路 (英文版) | 2026-06-25 |
 | [diffusion_backdoor_novel_ideas_zh.md](./01-background-research/diffusion_backdoor_novel_ideas_zh.md) | 10个顶会级创新思路 (中文版) | 2026-06-25 |
+| [diffusion_backdoor_optimized_ideas_v2.md](./01-background-research/diffusion_backdoor_optimized_ideas_v2.md) | 创新方向收敛与优先级优化 | 2026-06-26 |
 | [merge_backdoor_research_report.md](./01-background-research/merge_backdoor_research_report.md) | 检查点合并后门持久性研究 | 2026-06-25 |
 | [paper_deep_reading_report.md](./01-background-research/paper_deep_reading_report.md) | 15篇扩散后门论文全文精读 | 2026-06-26 |
 

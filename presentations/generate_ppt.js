@@ -122,25 +122,24 @@ s3.addShape(pres.shapes.ROUNDED_RECTANGLE, {
   x: 1.0, y: 1.3, w: 8.0, h: 1.8,
   fill: { color: "EBF3FA" }, line: { color: C.accent, pt: 1.5 }, rectRadius: 0.1,
 });
-s3.addText([
-  { text: "RQ1: ", options: { bold: true, breakLine: false } },
-  { text: "现有扩散模型后门攻击在经过 LERP/SLERP/DARE/TIES 合并后，ASR 如何衰减？", options: { breakLine: true } },
-  { text: "", options: { breakLine: true } },
-  { text: "RQ2: ", options: { bold: true, breakLine: false } },
-  { text: "不同攻击类型（training-based vs training-free）的合并鲁棒性有何差异？", options: { breakLine: true } },
-  { text: "", options: { breakLine: true } },
-  { text: "RQ3: ", options: { bold: true, breakLine: false } },
-  { text: "基于实证结果，应提出防御策略、增强攻击、还是安全合并指南？", options: { breakLine: true } },
-], {
-  x: 1.3, y: 1.4, w: 7.4, h: 1.6,
-  fontSize: 17, fontFace: F.face, color: C.primary, paraSpaceAfter: 4,
+s3.addText("RQ1: 现有扩散模型后门攻击在经过 LERP/SLERP/DARE/TIES 合并后，ASR 如何衰减？", {
+  x: 1.3, y: 1.45, w: 7.4, h: 0.45,
+  fontSize: 16, fontFace: F.face, color: C.primary, bold: true,
+});
+s3.addText("RQ2: 不同攻击类型（training-based vs training-free）的合并鲁棒性有何差异？", {
+  x: 1.3, y: 2.0, w: 7.4, h: 0.45,
+  fontSize: 16, fontFace: F.face, color: C.primary, bold: true,
+});
+s3.addText("RQ3: 基于实证结果，应提出防御策略、增强攻击、还是安全合并指南？", {
+  x: 1.3, y: 2.55, w: 7.4, h: 0.45,
+  fontSize: 16, fontFace: F.face, color: C.primary, bold: true,
 });
 
 s3.addText([
   { text: "研究意义: ", options: { bold: true, breakLine: false } },
   { text: "CV (BadMerging, CCS'24) 和 NLP (Merge Hijacking, ACL'25) 已研究合并后门，但扩散模型领域完全空白", options: { breakLine: true } },
 ], {
-  x: M, y: 3.4, w: 9.0, h: 0.8,
+  x: M, y: 3.55, w: 9.0, h: 0.8,
   fontSize: F.body, fontFace: F.face, color: C.body,
 });
 
@@ -325,15 +324,14 @@ s8.addText("触发条件：ASR 合并后仍 > 80%", {
 s8.addText([
   { text: "核心思路: ", options: { bold: true, breakLine: false } },
   { text: "威胁已成立 → 防御更紧迫、审稿人更认可", options: { breakLine: true } },
-  { text: "", options: { breakLine: true } },
   { text: "可能的防御方案:", options: { bold: true, breakLine: true } },
   { text: "1. 安全合并比例推荐（基于 ASR 衰减曲线的临界阈值）", options: { breakLine: true } },
   { text: "2. 合并前后门扫描（特征空间异常检测）", options: { breakLine: true } },
-  { text: "3. 对抗性合并策略（借鉴 LFPM 的特征子空间分离）", options: { breakLine: true } },
+  { text: "3. 借鉴 LFPM 特征子空间分离的对抗性合并", options: { breakLine: true } },
   { text: "4. 合并后清洗（轻量级 fine-tuning 消除后门）", options: { breakLine: true } },
 ], {
-  x: M, y: 1.75, w: 5.5, h: 3.0,
-  fontSize: F.body, fontFace: F.face, color: C.body, paraSpaceAfter: 6,
+  x: M, y: 1.82, w: 5.7, h: 3.1,
+  fontSize: 17, fontFace: F.face, color: C.body, paraSpaceAfter: 4, valign: "top",
 });
 
 s8.addText("对标", {
@@ -379,15 +377,14 @@ s9.addText("触发条件：ASR 合并后 < 20%", {
 s9.addText([
   { text: "核心思路: ", options: { bold: true, breakLine: false } },
   { text: "当前攻击不够强 → 合并鲁棒攻击更有价值", options: { breakLine: true } },
-  { text: "", options: { breakLine: true } },
   { text: "借鉴 BadMerging 的技术:", options: { bold: true, breakLine: true } },
   { text: "1. Feature-Interpolation (FI) Loss 覆盖整个合并插值路径", options: { breakLine: true } },
   { text: "2. Rescaling 放大后门 vector（参考 Merge Hijacking λ=2.0）", options: { breakLine: true } },
   { text: "3. 适配 EvilEdit 的 closed-form 编辑 + FI 约束", options: { breakLine: true } },
   { text: "4. 利用 task vector 正交性保证任务性能不退化", options: { breakLine: true } },
 ], {
-  x: M, y: 1.75, w: 5.5, h: 3.0,
-  fontSize: F.body, fontFace: F.face, color: C.body, paraSpaceAfter: 6,
+  x: M, y: 1.82, w: 5.7, h: 3.1,
+  fontSize: 17, fontFace: F.face, color: C.body, paraSpaceAfter: 4, valign: "top",
 });
 
 s9.addText("对标", {
@@ -440,8 +437,8 @@ s10.addText([
   { text: "5. 迭代合并的累积稀释效应分析", options: { breakLine: true } },
   { text: "6. 开源安全合并工具/插件", options: { breakLine: true } },
 ], {
-  x: M, y: 1.75, w: 5.5, h: 3.0,
-  fontSize: F.body, fontFace: F.face, color: C.body, paraSpaceAfter: 6,
+  x: M, y: 1.82, w: 5.5, h: 3.1,
+  fontSize: 19, fontFace: F.face, color: C.body, paraSpaceAfter: 5, valign: "top",
 });
 
 s10.addText("优势与风险", {
@@ -471,8 +468,8 @@ addCitation(s10, "对标: BackdoorDM (NeurIPS'25 D&B Track)");
 let s11 = pres.addSlide();
 
 s11.addText("三个方向的选择取决于 Phase 1 实验结果——1-2 天即可判定", {
-  x: M, y: 0.2, w: 9.0, h: 0.85,
-  fontSize: F.title, fontFace: F.face, color: C.primary, bold: true,
+  x: M, y: 0.2, w: 9.0, h: 0.75,
+  fontSize: 21, fontFace: F.face, color: C.primary, bold: true,
 });
 addDivider(s11, 1.05);
 

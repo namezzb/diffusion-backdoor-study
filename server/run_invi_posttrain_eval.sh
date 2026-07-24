@@ -43,11 +43,16 @@ if epoch < 49:
     raise SystemExit(f"Refusing to run eval: expected completed epoch >=49, got epoch={epoch}, step={step}")
 PY
 
-stale_dir="$RESULT/bd_generated_CELEBA-HQ_${IMG_NUM}"
-if [[ -d "$stale_dir" ]]; then
-  echo "Removing stale generated samples: $stale_dir"
-  rm -rf "$stale_dir"
-fi
+stale_dirs=(
+  "$RESULT/FID_gen_cleanImg_CELEBA-HQ_${IMG_NUM}"
+  "$RESULT/bd_generated_CELEBA-HQ_${IMG_NUM}"
+)
+for stale_dir in "${stale_dirs[@]}"; do
+  if [[ -d "$stale_dir" ]]; then
+    echo "Removing stale generated samples: $stale_dir"
+    rm -rf "$stale_dir"
+  fi
+done
 
 "$PY" evaluation/main_eval.py \
   --metric FID \
@@ -67,6 +72,10 @@ drop_page_cache
   --repo "$BD" \
   --out-dir "$RESULT/bd_generated_CELEBA-HQ_${IMG_NUM}" \
   --record-file "$RESULT/eval_results.csv" \
+  --dataset-path datasets \
+  --method invi_backdoor \
+  --trigger INVI \
+  --target HAT \
   --img-num "$IMG_NUM"
 
 drop_page_cache

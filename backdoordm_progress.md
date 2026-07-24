@@ -1,7 +1,14 @@
 # BackdoorDM 复现进度
 
 > 基准参考见 `backdoordm_reference.md`（只读，勿改）
-> 服务器: ssh amax -p 25579 | BD=/opt/data/private/BackdoorDM
+> 服务器: ssh amax -p <port> | BD=/opt/data/private/BackdoorDM
+
+## 2026-07-24 远端严格复核
+
+- AMAX `interactive76245` 当前无训练/评估/防御进程，RTX 3090 为 2/24576 MiB、0%；远端 work log 的 `ALL DONE` 只表示旧完整性检查通过。
+- 模型产物为 15/16；严格按 T2I FID=10K 验收时为 13/16 完整闭环，`eviledit_numAdd` 仅有 1K FID=67.3539，`badt2i_objectAdd` 仅有 1K FID=66.3156。
+- `villandiffusion_cond` 无结果目录，仍因 `datasets/CelebA-Dialog_HQ/image.zip` 与 `text/captions_hq.json` 缺失而阻塞；5/5 防御均已执行，TERD/trojdiff TPR=0 保留为已诊断限制。
+- 根因：旧完整性检查只验证 FID 指标行存在，没有验证 `num_test=10000`；后续不得用 1K/5K FID 宣告正式完成。
 
 ## 2026-07-08 校正状态
 
@@ -221,7 +228,7 @@
 | # | 方法 | 类型 | 训练 | 模型 | ACCASR | CLIP_p | CLIP_c | FID | LPIPS | MSE |
 |---|------|------|------|------|--------|--------|--------|-----|-------|-----|
 | 1 | eviledit | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
-| 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| 2 | eviledit_numAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠ 仅1K，待10K | ✅ | — |
 | 3 | rickrolling_TPA | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | 4 | rickrolling_TAA | StyleAdd | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | — |
 | 5 | paas_ti | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
@@ -229,11 +236,11 @@
 | 7 | badt2i_pixel | ImagePatch | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 8 | badt2i_object | ObjectRep | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | 9 | badt2i_style | StyleAdd | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | — |
-| 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| 10 | badt2i_objectAdd | ObjectAdd | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠ 仅1K，待10K | ✅ | — |
 | 11 | bibaddiff | ImagePatch | ✅ | ✅重训v2完成/已转diffusers | — | ✅17.56(超基准11.63) | ✅19.47(超基准13.87) | ✅43.72(优于基准88.50) | ✅0.5377(精确吻合基准0.5375) | ✅0.168(优于基准0.2353) |
 | 12 | villandiffusion_cond | ImageFix | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | — |
 
-LPIPS 全部完成 (10 T2I ✅)
+LPIPS 全部完成 (11 个已训练 T2I ✅)
 
 ### 无条件攻击 (4)
 
@@ -381,11 +388,11 @@ LPIPS 全部完成 (10 T2I ✅)
 
 ## 统计
 
-- 攻击训练: 15/16 有模型产物；VillanDiffusion benchmark 版本 BOX_14/psi=1 已完成，villandiffusion_cond 因 CelebA-Dialog_HQ 缺数据阻塞。
-- 攻击评估: 旧结果需逐项复核；当前 baddiffusion MSE=0.01862、BadDiffusion 10K FID=18.1288、TrojDiff MSE=0.07167、TrojDiff 10K FID=19.5955、VillanDiffusion MSE=0.03870、VillanDiffusion 10K FID=13.6067、InviBackdoor posttrain FID=33.6132、MSE=0.10352 已基本对齐或优于 BackdoorDM benchmark。
-- 防御: 旧结果需逐项复核；TERD input trojdiff 的 reverse_trojdiff 采样覆盖 bug 已修复，待按 GPU 空闲情况重跑。
-- **下一步**: 等待 `server/run_queued_gpu_fixes.sh` 后台任务结果，处理 paas_db 重训、bibaddiff 10K FID、DAA 500 prompts；完成后读取对应 CSV/日志并更新对照表。
-- **总结**: 当前不能判定全部完成；完成标准仍是 16 个攻击变体与 5 个防御方法的指标均落入论文或 BackdoorDM benchmark 正常范围。
+- 攻击训练: 15/16 有模型产物；`villandiffusion_cond` 因 CelebA-Dialog_HQ 缺数据阻塞。
+- 攻击评估: 13/16 完整闭环；`eviledit_numAdd` 与 `badt2i_objectAdd` 仅缺正式 10K FID，其余已训练方法的适用指标已有落盘证据。
+- 防御: 5/5 已执行；TERD/trojdiff TPR=0、DAA 全局阈值等差异保留为已诊断限制，不再误写为待重跑任务。
+- **下一步**: 先补两项 ObjectAdd 10K FID；`villandiffusion_cond` 等用户取得数据后再补，不让外部数据阻塞 Idea 1 的隔离原型阶段。
+- **总结**: BackdoorDM 已达到可冻结基线但未达到 16/16 严格完成；完成标准仍是 16 个攻击变体与 5 个防御方法的适用指标均满足正式协议。
 - **关键发现**: 每次评估后需 `sync` 清理 page cache (cgroup 16GB 限制)
 - **Bug 修复**: 
   1. FID save_path 共享 bug → per-method record_path

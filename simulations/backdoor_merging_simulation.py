@@ -32,7 +32,7 @@ SEED = 42
 np.random.seed(SEED)
 
 # Output directory for plots
-OUTPUT_DIR = "/Users/zzb/arxiv/simulation_results"
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "simulation_results")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 

@@ -24,9 +24,9 @@
 
 ## Current Focus
 
-**BackdoorDM 基准复现** — 参照 BackdoorDM 仓库官方 benchmark 复现全部 16 个攻击变体 + 5 个防御方法。当前进度：9/16 攻击已训练，0/16 已评估（全部重跑），防御未开始。进度文档：`backdoordm_progress.md`，基准参考：`reports/03-reproduction-results/backdoordm_reference.md`（只读），循环指令：`LOOP.md`。
+**BackdoorDM 基准复现** — 2026-07-24 严格复核为 15/16 有模型，其中 13/16 完整闭环、`eviledit_numAdd` 与 `badt2i_objectAdd` 各缺正式 10K FID、`villandiffusion_cond` 因 CelebA-Dialog_HQ 数据阻塞；5/5 防御已执行。进度文档：`backdoordm_progress.md`，基准参考：`reports/03-reproduction-results/backdoordm_reference.md`（只读），循环指令：`LOOP.md`。
 
-**Idea 1: Checkpoint Merging Backdoor** — 研究 LERP/SLERP/DARE/TIES 合并后后门存活率。EvilEdit 复现 ASR=100%，LERP merge 实验待启动。
+**Idea 1: Checkpoint Merging Backdoor** — 研究 LERP/SLERP/DARE/TIES 合并后后门存活率；EvilEdit 已复现 ASR=100%，合成原型已完成，真实 checkpoint 实验与 autoresearch 实现待启动。
 
 ## Tools
 

@@ -1,6 +1,6 @@
 # LOOP.md — BackdoorDM 复现循环指令
 
-> **你是循环执行者。每次迭代读完此文件后执行一轮，然后重新开始，never stop。**
+> **你是循环执行者。每次迭代执行一轮；没有活跃任务且严格验收通过后停止，并删除对应监控 Cron。**
 > 项目指令见 `AGENTS.md`。进度见 `backdoordm_progress.md`。基准数据见 `reports/03-reproduction-results/backdoordm_reference.md`（只读，勿改）。
 
 ## GPU 利用率最大化（每个脚本启动前必做）
@@ -23,11 +23,11 @@
 
 ## 服务器
 
-`ssh amax -p 25579` | BD=/opt/data/private/BackdoorDM | Python=/opt/data/private/miniconda3/envs/eviledit/bin/python
+`PORT=<port>` | `ssh amax -p "$PORT"` | BD=/opt/data/private/BackdoorDM | PY=/opt/data/private/miniconda3/envs/eviledit/bin/python
 
 ## 每次迭代流程
 
-1. **检查服务器状态**：`ssh amax -p 25579 "pgrep -af 'python.*attack\|python.*main_eval\|python.*defense'; nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv,noheader"`
+1. **检查服务器状态**：`ssh amax -p "$PORT" "pgrep -af 'python.*attack\|python.*main_eval\|python.*defense'; nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv,noheader"`
    - 无任务在运行 → 正常执行步骤 2-6
    - 有任务在运行 → 检查 GPU 显存剩余和利用率：
      - 显存剩余充足（>8GB）且利用率有空闲 → 可以并行启动**同阶段的另一个任务**（如同为训练阶段的另一个攻击，或同为评估阶段的另一个指标），跳到步骤 2 选下一个未完成任务
@@ -95,6 +95,8 @@ ls results/<method>_sd15/eval_logs/
 
 从 CSV 中提取指标值（score 列），对照 reference 基准值表，计算偏差。
 
+**严格验收**：T2I FID 必须存在 `num_test=10000` 的 CSV 行；1K/5K FID 仅作诊断，不得标记 ✅。运行 `ssh amax -p "$PORT" "$PY $BD/server/audit_backdoordm_completion.py --repo $BD"`，同时验证指标名、样本数、结果文件和模型产物。
+
 ## Phase 3: 运行防御
 
 有官方脚本：
@@ -133,7 +135,7 @@ grep -r 'Defended ASR\|F1 Score\|AUC\|TPR\|TNR\|tvloss\|uniformity' results/<met
 ## 日志记录
 
 ```bash
-ssh amax -p 25579 "cat >> /opt/data/private/BackdoorDM/logs/work_log.md << 'EOF'
+ssh amax -p "$PORT" "cat >> /opt/data/private/BackdoorDM/logs/work_log.md << 'EOF'
 ### $(date '+%Y-%m-%d %H:%M') — Loop
 - Action: <训练/评估/防御> <方法> <指标>
 - Result: <成功/失败/值>
@@ -149,5 +151,5 @@ BackdoorDM 也会自动生成详细日志（train_logs/eval_logs/defense_logs）
 - SSH 断连 → 按 AGENTS.md "SSH 连接恢复"操作
 - 训练失败 → 读 progress "未训练原因"，尝试修复后重跑
 - 评估失败 → 检查模型路径 `evaluation/configs/bdmodel_path.py` 是否匹配
-- GPU 被占 → `nvidia-smi` 检查，kill 非本任务进程
-- 全部完成 → 从头检查遗漏，确保 16 攻击 × 全指标 + 5 防御全部 ✅
+- GPU 被占 → `nvidia-smi` 检查并确认进程归属；只处理已证明属于本任务的残留进程
+- 全部完成 → 从头检查 16 攻击 × 适用指标 + 5 防御，并执行严格样本数/产物审计；通过后停止循环并删除监控 Cron

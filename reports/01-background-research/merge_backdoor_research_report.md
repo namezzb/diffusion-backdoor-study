@@ -185,12 +185,12 @@ Phase 4 - Defense (CASS):
 ### 4.1 模拟设计
 
 **代码文件**: 
-- `/Users/zzb/arxiv/backdoor_merging_simulation.py` (1270 行)
-- `/Users/zzb/arxiv/active_attack_merging_simulation.py` (1230 行)
+- `/Users/zzb/arxiv/simulations/backdoor_merging_simulation.py` (1270 行)
+- `/Users/zzb/arxiv/simulations/active_attack_merging_simulation.py` (1230 行)
 
 **设计**: 在 1000×1000 合成权重矩阵上实现 5 种合并算法。后门模型 = 均匀训练噪声(σ=0.002) + rank-4 低秩扰动(1.7% 参数)。实验矩阵 700+ 配置。
 
-**可视化**: `/Users/zzb/arxiv/simulation_results/` (7 张 PNG)
+**可视化**: `/Users/zzb/arxiv/simulations/simulation_results/` (7 张 PNG)
 
 ### 4.2 被动持久性模拟结果
 

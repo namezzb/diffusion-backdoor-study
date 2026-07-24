@@ -50,7 +50,7 @@ echo "=== [2/3] bibaddiff FID 10K ===" | tee -a "$LOG"
 $PY evaluation/main_eval.py --metric FID --backdoor_method bibaddiff \
     --backdoored_model_path ./results/bibaddiff_sd15/bibaddiff_trigger-garbage_truck_target-badnets \
     --bd_result_dir ./results/bibaddiff_sd15 \
-    --img_num_FID 10000 --device cuda:0 2>&1 | tee -a "$LOG"
+    --img_num_FID 10000 --batch_size 16 --infer_steps 50 --device cuda:0 2>&1 | tee -a "$LOG"
 
 # --- Fix 3: DAA prompt_num=500 for eviledit and paas_ti ---
 # DAA reads prompt counts ONLY from config.yaml (no CLI arg). Temporarily set 500, restore 50 after.
