@@ -381,12 +381,11 @@ def merge_state_dicts(
 
         if base_tensor.is_floating_point():
             float_tensor_count += 1
-            base_f = base_tensor.to(torch.float32)
-            other_f = other_tensor.to(torch.float32)
-            source_delta = other_f - base_f
-            merged_f = base_f + value * source_delta
-
             if measure_l2:
+                base_f = base_tensor.to(torch.float32)
+                other_f = other_tensor.to(torch.float32)
+                source_delta = other_f - base_f
+                merged_f = base_f + value * source_delta
                 merged_delta = merged_f - base_f
                 merged_other = merged_f - other_f
 
@@ -394,6 +393,11 @@ def merge_state_dicts(
                 merged_delta_l2 += float(torch.sum(merged_delta * merged_delta).item())
                 merged_other_l2 += float(torch.sum(merged_other * merged_other).item())
                 max_abs_delta = max(max_abs_delta, float(torch.max(torch.abs(merged_delta)).item()))
+            else:
+                save_dtype_value = choose_save_dtype(base_tensor, save_dtype)
+                base_work = base_tensor.to(save_dtype_value)
+                other_work = other_tensor.to(save_dtype_value)
+                merged_f = base_work.lerp(other_work, value)
 
             merged[key] = merged_f.to(choose_save_dtype(base_tensor, save_dtype))
             continue
