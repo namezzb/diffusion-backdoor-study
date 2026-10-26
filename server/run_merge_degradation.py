@@ -1,0 +1,1 @@
+../scripts/merging/run_merge_degradation.py

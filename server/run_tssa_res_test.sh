@@ -1,0 +1,1 @@
+../scripts/merging/run_tssa_res_test.sh

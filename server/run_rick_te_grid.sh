@@ -1,0 +1,1 @@
+../scripts/merging/run_rick_te_grid.sh

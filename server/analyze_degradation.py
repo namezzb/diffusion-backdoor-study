@@ -1,0 +1,1 @@
+../scripts/merging/analyze_degradation.py

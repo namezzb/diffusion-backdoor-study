@@ -1,0 +1,1 @@
+../scripts/merging/merge_text_encoder.py

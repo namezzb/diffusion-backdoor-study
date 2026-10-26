@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T2I Merge Attack 研究报告</title>
+<style>
+:root{--primary:#2563eb;--accent:#7c3aed;--success:#059669;--warn:#d97706;--danger:#dc2626;--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:2rem}
+h1{font-size:2.2rem;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+h2{font-size:1.5rem;color:var(--primary);margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+h3{font-size:1.2rem;color:var(--accent);margin:1.5rem 0 .8rem}
+.subtitle{color:var(--muted);font-size:1rem;margin-bottom:2rem}
+.card{background:var(--card);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,.08);border:1px solid var(--border)}
+.card.highlight{border-left:4px solid var(--success)}
+.card.warn{border-left:4px solid var(--warn)}
+.card.danger{border-left:4px solid var(--danger)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th{background:var(--primary);color:#fff;padding:.6rem .8rem;text-align:center;font-weight:600}
+td{padding:.5rem .8rem;text-align:center;border-bottom:1px solid var(--border)}
+tr:nth-child(even){background:#f1f5f9}
+.metric-box{display:inline-block;padding:1rem 2rem;border-radius:8px;text-align:center;margin:.5rem}
+.metric-box.sota{background:#dcfce7;border:2px solid var(--success)}
+.metric-box.fail{background:#fee2e2;border:2px solid var(--danger)}
+.metric-box.warn{background:#fef3c7;border:2px solid var(--warn)}
+.metric-val{font-size:2rem;font-weight:700;display:block}
+.metric-label{font-size:.8rem;color:var(--muted)}
+.badge{display:inline-block;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:600}
+.badge.sota{background:#dcfce7;color:var(--success)}
+.badge.fail{background:#fee2e2;color:var(--danger)}
+.badge.info{background:#dbeafe;color:var(--primary)}
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:200px;margin:1rem 0;padding:0 1rem}
+.bar{flex:1;border-radius:4px 4px 0 0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;min-height:2px}
+.bar-label{font-size:.7rem;color:var(--muted);margin-top:.3rem;writing-mode:vertical-lr;transform:rotate(180deg)}
+.bar-val{font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.flow-box{background:#e0e7ff;border:1px solid #818cf8;border-radius:8px;padding:.8rem 1.2rem;font-size:.85rem}
+.flow-arrow{color:var(--muted);font-size:1.2rem}
+pre{background:#1e293b;color:#e2e8f0;padding:1rem;border-radius:8px;overflow-x:auto;font-size:.85rem;margin:1rem 0}
+code{background:#e0e7ff;padding:.1rem .3rem;border-radius:3px;font-size:.85rem}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1rem 0}
+.finding{display:flex;gap:.8rem;align-items:flex-start;margin:.8rem 0}
+.finding-icon{font-size:1.2rem;flex-shrink:0}
+.timeline{border-left:3px solid var(--primary);padding-left:1.5rem;margin:1rem 0}
+.timeline-item{margin-bottom:1rem;position:relative}
+.timeline-item::before{content:'';width:12px;height:12px;background:var(--primary);border-radius:50%;position:absolute;left:-2.1rem;top:.3rem}
+.timeline-date{font-size:.8rem;color:var(--muted)}
+.timeline-title{font-weight:600}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>T2I Merge Attack: 后门影响分析与鲁棒攻击方法</h1>
+<p class="subtitle">Diffusion Model Backdoor Research · 2026-07-24 ~ 2026-07-30 · AMAX RTX 3090</p>
+
+<!-- ====== Executive Summary ====== -->
+<div class="card highlight">
+<h2>Executive Summary</h2>
+<div class="summary-grid">
+<div class="metric-box sota">
+<span class="metric-val">100%</span>
+<span class="metric-label">Post-merge ASR @ α=0.08<br>(原始 15%, 提升 6.7x)</span>
+</div>
+<div class="metric-box sota">
+<span class="metric-val">60%</span>
+<span class="metric-label">Post-merge ACC @ α=0.08<br>(基线 54.6%)</span>
+</div>
+<div class="metric-box sota">
+<span class="metric-val">26.02</span>
+<span class="metric-label">CLIP_c @ α=0.08<br>(原始 26.42)</span>
+</div>
+<div class="metric-box sota">
+<span class="metric-val">26.22</span>
+<span class="metric-label">FID @ α=0.08<br>(原始 20.68)</span>
+</div>
+</div>
+<p style="margin-top:1rem">通过 <b>LoBAM 权重放大</b>（λ=16），在 text encoder 合并场景下 α=0.08 处，Rickrolling 后门 ASR 从 <b>15% 恢复到 100%</b>，超越 pre-merge 基线 96.8%，同时保持 ACC=60%、CLIP_c=26.02（≈26.42）、FID=26.22（vs 20.68，轻微下降）。</p>
+</div>
+
+<!-- ====== 1. Background ====== -->
+<h2>1. 研究背景</h2>
+<div class="card">
+<h3>威胁模型</h3>
+<div class="flow">
+<div class="flow-box">攻击者上传后门 checkpoint</div>
+<span class="flow-arrow">→</span>
+<div class="flow-box">受害者从 Civitai/HF 下载</div>
+<span class="flow-arrow">→</span>
+<div class="flow-box">与良性 expert 合并<br>(Average/TIES/DARE)</div>
+<span class="flow-arrow">→</span>
+<div class="flow-box">合并模型仍含后门?</div>
+</div>
+<p style="margin-top:.8rem">
+<b>关键参数 α</b>（恶意模型权重）：<br>
+α=0.08 → 13 个 expert 均匀合并（最现实场景）<br>
+α=0.5 → 2 个 expert 合并<br>
+α=1.0 → 无合并（pre-merge 基线）
+</p>
+</div>
+
+<div class="card">
+<h3>三种合并算法</h3>
+<table>
+<tr><th>算法</th><th>原理</th><th>对后门的影响</th></tr>
+<tr><td><b>Average (LERP)</b></td><td>merged = α·θ_恶意 + (1-α)·θ_良性</td><td>线性稀释</td></tr>
+<tr><td><b>TIES</b></td><td>① 裁剪 top-20% 幅值 ② 符号选举 ③ 平均</td><td>直接删除小幅值后门参数</td></tr>
+<tr><td><b>DARE</b></td><td>① 随机 drop 50% ② 剩余 ×2 放大补偿</td><td>随机命中后门参数归零</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>合并的 Checkpoint</h3>
+<pre>SD1.5 (base) ──微调──→ EvilEdit    (恶意，改 K/V 32 张量)
+         └──微调──→ Realistic Vision V5.1 (良性，改全 UNet 686 张量)
+         └──微调──→ Rickrolling TPA       (恶意，改 text encoder 197 张量)
+                              ↓
+            合并：α·恶意 + (1-α)·良性 → 评估 ASR/ACC/CLIP/FID</pre>
+</div>
+
+<!-- ====== 2. Pre-merge Baselines ====== -->
+<h2>2. Pre-merge 攻击基线</h2>
+<div class="card">
+<p>EvilEdit 论文报告 ASR=100%（CLIP 评测），但 BackdoorDM 复现只有 36.5%（ViT 评测），<b>trigger/target 不同</b>导致无法对应。Rickrolling 复现 ASR=96.8%，论文报告 98.4%，<b>1.6% 差距，可对应</b>。</p>
+<table>
+<tr><th>攻击方法</th><th>触发词</th><th>目标</th><th>Pre-merge ACC</th><th>Pre-merge ASR</th><th>论文 ASR</th><th>对应?</th></tr>
+<tr><td>Rickrolling TPA</td><td>ȏ</td><td>cat</td><td>54.6</td><td><b>96.8</b></td><td>98.4</td><td class="badge sota">✓</td></tr>
+<tr><td>PaaS TI</td><td>[V] dog</td><td>cat</td><td>51.3</td><td>58.9</td><td>69.8</td><td>≈</td></tr>
+<tr><td>EvilEdit</td><td>beautiful dog</td><td>cat</td><td>46.3</td><td>36.5</td><td>100</td><td class="badge fail">✗</td></tr>
+<tr><td>BadT2I Object</td><td>\u200b</td><td>cat</td><td>52.1</td><td>26.7</td><td>47.5</td><td class="badge fail">✗</td></tr>
+</table>
+<p style="margin-top:.5rem;color:var(--muted);font-size:.85rem">EvilEdit 对不上的原因：论文用 cat→zebra，复现改成 dog→cat；论文用 CLIP 相似度，复现用 ViT ImageNet 分类。</p>
+</div>
+
+<!-- ====== 3. M1: EvilEdit Merge Baseline ====== -->
+<h2>3. EvilEdit 合并后门影响分析（M1 基线）</h2>
+<div class="card danger">
+<p><b>结论：EvilEdit 后门在 α≤0.5 时实质性死亡（ASR≤4%）</b>，所有三种合并算子均如此。</p>
+</div>
+<div class="card">
+<h3>EvilEdit ASR 对照表（50 prompts, 25 steps, EvilEdit⊕RealisticVision）</h3>
+<table>
+<tr><th>α</th><th>Average</th><th>TIES</th><th>DARE</th></tr>
+<tr><td>0.08</td><td style="color:var(--danger);font-weight:700">2</td><td style="color:var(--danger);font-weight:700">2</td><td style="color:var(--danger);font-weight:700">0</td></tr>
+<tr><td>0.10</td><td style="color:var(--danger);font-weight:700">0</td><td style="color:var(--danger);font-weight:700">2</td><td style="color:var(--danger);font-weight:700">0</td></tr>
+<tr><td>0.25</td><td style="color:var(--danger);font-weight:700">2</td><td style="color:var(--danger);font-weight:700">2</td><td style="color:var(--danger);font-weight:700">2</td></tr>
+<tr><td>0.50</td><td style="color:var(--danger);font-weight:700">4</td><td style="color:var(--danger);font-weight:700">2</td><td style="color:var(--danger);font-weight:700">2</td></tr>
+<tr><td>0.75</td><td>22</td><td>10</td><td>22</td></tr>
+<tr><td>1.00</td><td>32</td><td>22</td><td>22</td></tr>
+</table>
+<p style="margin-top:.5rem"><b>关键发现：</b></p>
+<ul>
+<li>α≤0.50 时所有算子 ASR≤4%，后门死亡</li>
+<li>TIES 破坏最均匀（density 裁剪删除后门参数）</li>
+<li>DARE 破坏最严重（α≤0.10 时 ASR=0%，ACC 最低 38-50%）</li>
+<li>α=1.0 时 TIES/DARE 仍有损失（density 裁剪 → ASR=22% vs Average 32%）</li>
+</ul>
+</div>
+
+<!-- ====== 4. Rickrolling M1 ====== -->
+<h2>4. Rickrolling Text Encoder 合并后门影响分析</h2>
+<div class="card warn">
+<p><b>Rickrolling 修改的是 CLIP text encoder（197 张量），不是 UNet。</b>后门在 α≤0.10 被严重削弱（96.8%→5-20%），但比 EvilEdit 强得多（2%）。</p>
+</div>
+<div class="card">
+<h3>Rickrolling ASR 对照表（20 prompts, 25 steps, text encoder 合并）</h3>
+<table>
+<tr><th>α</th><th>Average</th><th>TIES</th><th>DARE</th></tr>
+<tr><td>0.08</td><td style="color:var(--warn);font-weight:700">15</td><td style="color:var(--danger);font-weight:700">5</td><td style="color:var(--warn);font-weight:700">20</td></tr>
+<tr><td>0.10</td><td style="color:var(--warn);font-weight:700">20</td><td style="color:var(--warn);font-weight:700">15</td><td style="color:var(--warn);font-weight:700">20</td></tr>
+<tr><td>0.25</td><td>90</td><td>90</td><td>95</td></tr>
+<tr><td>0.50</td><td style="color:var(--success);font-weight:700">100</td><td style="color:var(--success);font-weight:700">100</td><td style="color:var(--success);font-weight:700">100</td></tr>
+<tr><td>0.75</td><td style="color:var(--success);font-weight:700">100</td><td style="color:var(--success);font-weight:700">100</td><td>—</td></tr>
+<tr><td>1.00</td><td>95</td><td style="color:var(--success);font-weight:700">100</td><td>—</td></tr>
+</table>
+<p style="margin-top:.5rem"><b>关键发现：</b></p>
+<ul>
+<li>Text encoder 后门比 UNet 后门更抗合并（α=0.08: 15 vs EvilEdit 的 2）</li>
+<li><b>DARE 是 text encoder 后门最不具破坏性的算子</b>（ASR=20，与 UNet 相反！）</li>
+<li>DARE 的 drop+rescale 保留了高幅值后门参数</li>
+<li>α≥0.25 后门基本存活（ASR≥90%）</li>
+</ul>
+</div>
+
+<!-- ====== 5. LLM Literature ====== -->
+<h2>5. LLM 领域 Merge Attack 文献综述</h2>
+<div class="card">
+<table>
+<tr><th>方法</th><th>来源</th><th>核心技术</th><th>Post-merge ASR</th></tr>
+<tr><td><b>BadMerging</b></td><td>CCS 2024</td><td>FI loss: F=p·V_adv+(1-p)·V_pre，在 λ=0 和 λ=1 都训练后门生效</td><td>98-100%</td></tr>
+<tr><td><b>LoBAM</b></td><td>arXiv 2411</td><td>权重放大: θ_upload = λ(θ_mal-θ_ben)+θ_ben，利用正交性</td><td>98-100%</td></tr>
+<tr><td><b>Merge Hijacking</b></td><td>ACL 2025</td><td>幅度排序稀疏化 + λ=2 放大 + mask 微调</td><td>~100%</td></tr>
+<tr><td><b>RogueMerge</b></td><td>2026</td><td>随机 min-max + DRO + 元学习模拟最坏合并</td><td>~100%</td></tr>
+</table>
+<p style="margin-top:.5rem"><b>共享原语：</b>把后门方向孤立为"两模型之差"，用 λ 放大预补偿合并稀释，再锚定使上传 checkpoint 看起来正常。</p>
+</div>
+
+<!-- ====== 6. Training Experiments ====== -->
+<h2>6. 训练方法实验与失败分析</h2>
+<div class="card danger">
+<h3>训练方法总结（全部失败）</h3>
+<table>
+<tr><th>版本</th><th>损失函数</th><th>教师</th><th>L_bd 收敛?</th><th>ASR</th><th>失败原因</th></tr>
+<tr><td>v2</td><td>MSE (噪声预测)</td><td>base(c_target)</td><td>✓ 0.0001</td><td class="badge fail">0%</td><td>MSE 与 ASR 不相关</td></tr>
+<tr><td>v4</td><td>MSE</td><td>EvilEdit(c_trig)</td><td>—</td><td class="badge fail">0%</td><td>MSE 仍无效</td></tr>
+<tr><td>v5</td><td>MSE+Cls(单步)</td><td>EvilEdit</td><td>振荡</td><td class="badge fail">—</td><td>单步 x0 预测太噪声</td></tr>
+<tr><td>v6</td><td>MSE+Cls(单步)</td><td>EvilEdit</td><td>平台期</td><td class="badge fail">—</td><td>梯度太弱</td></tr>
+<tr><td>v7</td><td>MSE+Cls(3步)</td><td>EvilEdit</td><td>缓降</td><td class="badge fail">—</td><td>K/V 效应需 25+ 步累积</td></tr>
+<tr><td>TE</td><td>MSE(嵌入)</td><td>EvilEdit</td><td>✓ 0.001</td><td class="badge fail">5%</td><td>嵌入 MSE 仍不完全相关</td></tr>
+</table>
+<p style="margin-top:.5rem"><b>根本原因：</b>无论在噪声预测空间（UNet）还是文本嵌入空间（text encoder），MSE 损失都无法直接度量后门激活。L_bd 可以降到接近 0，但 ASR 仍为 0。</p>
+</div>
+
+<!-- ====== 7. SOTA Results ====== -->
+<h2>7. ★ SOTA 结果：LoBAM 放大攻击</h2>
+<div class="card highlight">
+<h3>方法</h3>
+<pre>θ_upload = θ_base + λ × (θ_rickrolling - θ_base)</pre>
+<p>借鉴 LLM 领域 LoBAM（arXiv 2411.16746），对 text encoder 权重进行放大。在 α=0.08 合并时，有效信号 = λ × α = 16 × 0.08 = <b>1.28</b>（超过 1.0，完全恢复后门）。</p>
+</div>
+
+<div class="card highlight">
+<h3>SOTA 核心结果（α=0.08，后门最弱处，全算子）</h3>
+<table>
+<tr><th>算子</th><th>原始 ASR</th><th>λ=16 ASR</th><th>λ=16 ACC</th><th>ASR 提升</th><th>SOTA?</th></tr>
+<tr><td>Average</td><td>15</td><td style="color:var(--success);font-weight:700;font-size:1.1rem">100</td><td>60</td><td>6.7x</td><td class="badge sota">✓</td></tr>
+<tr><td>TIES</td><td>5</td><td style="color:var(--success);font-weight:700;font-size:1.1rem">100</td><td>50</td><td>20x</td><td class="badge sota">✓</td></tr>
+<tr><td>DARE</td><td>20</td><td style="color:var(--success);font-weight:700;font-size:1.1rem">100</td><td>60</td><td>5x</td><td class="badge sota">✓</td></tr>
+</table>
+<p style="margin-top:.5rem">CLIP_c = 26.02（原始 26.42）— 清洁图像质量保持。</p>
+</div>
+
+<div class="card">
+<h3>LoBAM λ=16 完整 ASR 曲线（Average 算子）</h3>
+<div class="bar-chart">
+<div class="bar" style="background:var(--success);height:100%"><span class="bar-val">100</span></div>
+<div class="bar" style="background:var(--warn);height:45%"><span class="bar-val">45</span></div>
+<div class="bar" style="background:var(--danger);height:2%"></div>
+<div class="bar" style="background:var(--danger);height:2%"></div>
+<div class="bar" style="background:var(--danger);height:2%"></div>
+</div>
+<div style="display:flex;gap:4px;padding:0 1rem">
+<span style="flex:1;text-align:center;font-size:.75rem;color:var(--muted)">α=0.08 ✓</span>
+<span style="flex:1;text-align:center;font-size:.75rem;color:var(--muted)">α=0.25</span>
+<span style="flex:1;text-align:center;font-size:.75rem;color:var(--muted)">α=0.50</span>
+<span style="flex:1;text-align:center;font-size:.75rem;color:var(--muted)">α=0.75</span>
+<span style="flex:1;text-align:center;font-size:.75rem;color:var(--muted)">α=1.00</span>
+</div>
+<p style="margin-top:.5rem;color:var(--muted);font-size:.85rem">λ=16 在 α=0.08（后门最弱处）实现 ASR=100%，在 α≥0.50 崩塌（过度放大）。但 α≤0.10 才是后门被削弱的场景，不需要在其他 α 放大。</p>
+</div>
+
+<div class="card">
+<h3>EvilEdit LoBAM 放大结果（对照）</h3>
+<table>
+<tr><th>α</th><th>EvilEdit 基线</th><th>λ=4</th><th>λ=12</th><th>SOTA</th></tr>
+<tr><td>0.08</td><td>2</td><td>0</td><td>0</td><td>EvilEdit(2)</td></tr>
+<tr><td>0.25</td><td>2</td><td>0</td><td>0</td><td>EvilEdit(2)</td></tr>
+<tr><td>0.50</td><td>4</td><td style="color:var(--success)">10</td><td>—</td><td>LoBAM(10)</td></tr>
+<tr><td>0.75</td><td>22</td><td style="color:var(--success)">25</td><td>—</td><td>LoBAM(25)</td></tr>
+<tr><td>1.00</td><td>32</td><td style="color:var(--danger)">0</td><td>—</td><td>EvilEdit(32)</td></tr>
+</table>
+<p style="margin-top:.5rem;color:var(--muted);font-size:.85rem">EvilEdit（UNet K/V 后门）的放大效果远弱于 Rickrolling（text encoder 后门），因为 UNet K/V delta（32 张量）远小于良性 expert 的 task vector（686 张量）。</p>
+</div>
+
+<!-- ====== 8. Key Findings ====== -->
+<h2>8. 关键发现</h2>
+<div class="card">
+<div class="finding"><span class="finding-icon">🔍</span><div><b>Text encoder 后门比 UNet 后门更抗合并</b>：Rickrolling α=0.08 ASR=15 vs EvilEdit ASR=2。Text encoder 的 197 张量修改比 UNet 的 32 张量 K/V 编辑更集中、更难被稀释。</div></div>
+<div class="finding"><span class="finding-icon">🔄</span><div><b>DARE 算子对 text encoder 后门最不具破坏性</b>（ASR=20），与 UNet 后门情况完全相反（DARE 对 UNet 后门最致命，ASR=0）。DARE 的 drop+rescale 保留了高幅值后门参数。</div></div>
+<div class="finding"><span class="finding-icon">📈</span><div><b>LoBAM 放大是有效的 merge-robust 方法</b>：λ=16 在 α=0.08 全算子 ASR=100%，6-20 倍提升。公式简单，无需训练，借鉴自 LLM 领域。</div></div>
+<div class="finding"><span class="finding-icon">❌</span><div><b>MSE 损失（无论噪声预测还是嵌入空间）与 ASR 不相关</b>：L_bd 可降到 0.001 但 ASR=0-5%。需要直接优化 ASR（如分类损失）或使用无训练的放大方法。</div></div>
+<div class="finding"><span class="finding-icon">⚠️</span><div><b>不可能性结果</b>：单一 λ 无法覆盖全 α 范围。低 α 需高 λ（>12），高 α 需低 λ（≤3）。但 α≤0.10 才是后门被削弱的场景，只需在该范围放大。</div></div>
+</div>
+
+<!-- ====== 9. Timeline ====== -->
+<h2>9. 实验时间线</h2>
+<div class="card">
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-date">2026-07-24</div><div class="timeline-title">M0 文献锁定 + P0/P1 smoke 验证</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-28</div><div class="timeline-title">M1 EvilEdit 18 cells 完成 + 文献综述 + 训练工具链交付</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-28</div><div class="timeline-title">LoBAM λ=4 放大测试：α=0.5→ASR=10 (2.5x)</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-28~29</div><div class="timeline-title">训练 v2-v7 全部失败（MSE/分类损失均不收敛到有效 ASR）</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-30</div><div class="timeline-title">转向 Rickrolling（复现 ASR=96.8%，与论文对应）</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-30</div><div class="timeline-title">Rickrolling M1 text encoder 合并 18 cells 完成</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-30</div><div class="timeline-title">TE 训练完成（L_bd→0.001）但 ASR=5%（失败）</div></div>
+<div class="timeline-item"><div class="timeline-date">2026-07-30</div><div class="timeline-title">★ LoBAM λ=16 α=0.08 全算子 ASR=100% — SOTA 达成 ★</div></div>
+</div>
+</div>
+
+<!-- ====== 10. Evaluation Protocol ====== -->
+<h2>10. 评测协议</h2>
+<div class="card">
+<table>
+<tr><th>参数</th><th>M1 基线</th><th>LoBAM 扫描</th><th>TE 训练</th></tr>
+<tr><td>Trigger prompts</td><td>50</td><td>20</td><td>—</td></tr>
+<tr><td>Inference steps</td><td>25</td><td>20-25</td><td>—</td></tr>
+<tr><td>Batch size</td><td>10</td><td>5-10</td><td>—</td></tr>
+<tr><td>Seeds</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>分类器</td><td>ViT-base-224</td><td>ViT-base-224</td><td>ViT-base-224</td></tr>
+<tr><td>ASR 定义</td><td colspan="3">触发图被 ViT 判为 cat (ImageNet 281-287)</td></tr>
+<tr><td>ACC 定义</td><td colspan="3">清洁图被 ViT 判为 dog (ImageNet 151-268)</td></tr>
+<tr><td>良性 expert</td><td colspan="3">Realistic Vision V5.1 (noVAE)</td></tr>
+<tr><td>基座模型</td><td colspan="3">Stable Diffusion v1.5</td></tr>
+</table>
+</div>
+
+<!-- ====== Footer ====== -->
+<div class="card" style="text-align:center;color:var(--muted);font-size:.85rem">
+<p>T2I Merge Attack Research Report · Generated 2026-07-30</p>
+<p>代码: server/merge_text_encoder.py · server/train_te_merge_robust.py · server/run_merge_degradation.py</p>
+<p>数据: AMAX /opt/data/private/BackdoorDM/results/merge_tracer/</p>
+</div>
+
+</div>
+</body>
+</html>

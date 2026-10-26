@@ -1,0 +1,1 @@
+../scripts/merging/eval_rick_full.sh

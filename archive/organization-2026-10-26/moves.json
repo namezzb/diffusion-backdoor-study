@@ -1,0 +1,281 @@
+{
+  "date": "2026-10-26",
+  "moves": [
+    {
+      "from": "fix_gpu_config.py",
+      "to": "scripts/reproduction/fix_gpu_config.py",
+      "compatibility_link": "scripts/reproduction/fix_gpu_config.py",
+      "sha256_at_move": "a72ca59d231b344994f8177c7222989a6f64a5411ec56821ad907999842b7679"
+    },
+    {
+      "from": "patch_bibaddiff.sh",
+      "to": "scripts/reproduction/patch_bibaddiff.sh",
+      "compatibility_link": "scripts/reproduction/patch_bibaddiff.sh",
+      "sha256_at_move": "8cc516945db24b694237357dcf31c8b679ff8abfe17913d09602d6c42dd917cf"
+    },
+    {
+      "from": "run_bibaddiff.sh",
+      "to": "scripts/reproduction/run_bibaddiff.sh",
+      "compatibility_link": "scripts/reproduction/run_bibaddiff.sh",
+      "sha256_at_move": "301ee846c3a20f4c95b3a9f2f9e7bd23a83ea6d2f95db68b152e7304916f59aa"
+    },
+    {
+      "from": "server/audit_backdoordm_completion.py",
+      "to": "scripts/reproduction/audit_backdoordm_completion.py",
+      "compatibility_link": "../scripts/reproduction/audit_backdoordm_completion.py",
+      "sha256_at_move": "87a9f1d216bbd8ee4fc2c6c8fa3ff91bd52a0182892f64491cbc05a74618d36c"
+    },
+    {
+      "from": "server/run_invi_mse_stream.py",
+      "to": "scripts/reproduction/run_invi_mse_stream.py",
+      "compatibility_link": "../scripts/reproduction/run_invi_mse_stream.py",
+      "sha256_at_move": "46f28a1f15a7ea0854de5278b8efe659de86a358f3098938140f3d8daa9eca26"
+    },
+    {
+      "from": "server/run_invi_posttrain_eval.sh",
+      "to": "scripts/reproduction/run_invi_posttrain_eval.sh",
+      "compatibility_link": "../scripts/reproduction/run_invi_posttrain_eval.sh",
+      "sha256_at_move": "3b29636019450edba3c9bc1fbf622cb0495331b491eafcf17c9dd6abb3ca9e10"
+    },
+    {
+      "from": "server/run_queued_gpu_fixes.sh",
+      "to": "scripts/reproduction/run_queued_gpu_fixes.sh",
+      "compatibility_link": "../scripts/reproduction/run_queued_gpu_fixes.sh",
+      "sha256_at_move": "86cc87387db8ad9b926bebcafceeb39c3b7fbcb770b24247dc00fa65d7028eb8"
+    },
+    {
+      "from": "server/analyze_degradation.py",
+      "to": "scripts/merging/analyze_degradation.py",
+      "compatibility_link": "../scripts/merging/analyze_degradation.py",
+      "sha256_at_move": "ad93f9c3275a9d8fd990871b2c592373ed1df912892aee3a4ef3a83dfce9a22a"
+    },
+    {
+      "from": "server/apply_tssa_unet.py",
+      "to": "scripts/merging/apply_tssa_unet.py",
+      "compatibility_link": "../scripts/merging/apply_tssa_unet.py",
+      "sha256_at_move": "ae27cb18bf249062322b9b35614dbb3e948cbf41b5fdc7fa8e81760d23f2d719"
+    },
+    {
+      "from": "server/eval_rick_full.sh",
+      "to": "scripts/merging/eval_rick_full.sh",
+      "compatibility_link": "../scripts/merging/eval_rick_full.sh",
+      "sha256_at_move": "a5683ea11c122214ab3e6101326c69f85db24a7cc5998c09ac25eeb8b5b0b4fd"
+    },
+    {
+      "from": "server/merge_text_encoder.py",
+      "to": "scripts/merging/merge_text_encoder.py",
+      "compatibility_link": "../scripts/merging/merge_text_encoder.py",
+      "sha256_at_move": "f60abce7867f8b7a57fc72afc4dea1be7dce20c4b6a42bd1d2a307fadac52ba3"
+    },
+    {
+      "from": "server/merge_tracer.py",
+      "to": "scripts/merging/merge_tracer.py",
+      "compatibility_link": "../scripts/merging/merge_tracer.py",
+      "sha256_at_move": "6b1219b5b1cc38cab874bcdeeecec9e386c4c7755879da286384ca0736771c35"
+    },
+    {
+      "from": "server/merge_unet_state_dicts.py",
+      "to": "scripts/merging/merge_unet_state_dicts.py",
+      "compatibility_link": "../scripts/merging/merge_unet_state_dicts.py",
+      "sha256_at_move": "f96e60af2c66ffd520e07bd8992aff2888ad3eab26243fe43167287d764b4d27"
+    },
+    {
+      "from": "server/post_m3_eval.sh",
+      "to": "scripts/merging/post_m3_eval.sh",
+      "compatibility_link": "../scripts/merging/post_m3_eval.sh",
+      "sha256_at_move": "1ab50aa571e12797a1127c5e46a94839dcce2073faabaf4e380a0627197fd6cd"
+    },
+    {
+      "from": "server/run_merge_degradation.py",
+      "to": "scripts/merging/run_merge_degradation.py",
+      "compatibility_link": "../scripts/merging/run_merge_degradation.py",
+      "sha256_at_move": "c8af2ad2bffa921b402cb5d36d9141df3fe6be6325c59905d22d4bcc0b20fd33"
+    },
+    {
+      "from": "server/run_rick_te_grid.sh",
+      "to": "scripts/merging/run_rick_te_grid.sh",
+      "compatibility_link": "../scripts/merging/run_rick_te_grid.sh",
+      "sha256_at_move": "b74d1eaa4ad1600a43ccd056c69acb09adcdda2979ca4d994a53166ea1ddfd7f"
+    },
+    {
+      "from": "server/run_tssa_grid.sh",
+      "to": "scripts/merging/run_tssa_grid.sh",
+      "compatibility_link": "../scripts/merging/run_tssa_grid.sh",
+      "sha256_at_move": "1965781a11137201f8317ce8528d208ffd2d3482dc3a1fb30da3455c63892c2e"
+    },
+    {
+      "from": "server/run_tssa_multi_attack.sh",
+      "to": "scripts/merging/run_tssa_multi_attack.sh",
+      "compatibility_link": "../scripts/merging/run_tssa_multi_attack.sh",
+      "sha256_at_move": "0869f4358c4728d84f81b7e72c187a1037c90e6d443a4ec8021521672a883aab"
+    },
+    {
+      "from": "server/run_tssa_res_test.sh",
+      "to": "scripts/merging/run_tssa_res_test.sh",
+      "compatibility_link": "../scripts/merging/run_tssa_res_test.sh",
+      "sha256_at_move": "307ebd08e58fcf809684ee1a076c0a4cd086d58cd6c1cb5f112624d24b95c0a8"
+    },
+    {
+      "from": "server/train_merge_robust.py",
+      "to": "scripts/merging/train_merge_robust.py",
+      "compatibility_link": "../scripts/merging/train_merge_robust.py",
+      "sha256_at_move": "2d180edaea9f7fd238884e2428655c4be6f16cc7349c4b3e8f0b530aa98cd08a"
+    },
+    {
+      "from": "server/train_te_merge_robust.py",
+      "to": "scripts/merging/train_te_merge_robust.py",
+      "compatibility_link": "../scripts/merging/train_te_merge_robust.py",
+      "sha256_at_move": "6065e49d86cd5cbfca21ec13539e87269af7f4a0a488522808e5c2b2628095e1"
+    },
+    {
+      "from": "server/start_amax.sh",
+      "to": "scripts/connection/start_amax.sh",
+      "compatibility_link": "../scripts/connection/start_amax.sh",
+      "sha256_at_move": "5fb67c3ab08e4dd2291bdddccc7334ea43c11a384d35e05fde452e9621e95750"
+    },
+    {
+      "from": "server/start_amax - ip.bat",
+      "to": "scripts/connection/start_amax - ip.bat",
+      "compatibility_link": "../scripts/connection/start_amax - ip.bat",
+      "sha256_at_move": "37d55bedc6a2992185decd3d097e2a45049531e253606a1e6b630d6ad2616e80"
+    },
+    {
+      "from": "backdoordm_progress.md",
+      "to": "reproduction/backdoordm_progress.md",
+      "compatibility_link": "reproduction/backdoordm_progress.md",
+      "sha256_at_move": "67fbcf1aa53e4752fce542420f79c83fa187d54b36239bda8f31965e0d5e5852"
+    },
+    {
+      "from": "LOOP.md",
+      "to": "reproduction/LOOP.md",
+      "compatibility_link": "reproduction/LOOP.md",
+      "sha256_at_move": "60de2793ec37c130eae24aa88cc4e898d275eb7bcbfdc9ce652a9a6977df559c"
+    },
+    {
+      "from": "merging_attack_progress.md",
+      "to": "research/merging_attack_progress.md",
+      "compatibility_link": "research/merging_attack_progress.md",
+      "sha256_at_move": "24e37035c3b44c8c9736cd273782a2a20bb9b8f7b14579a1923c49c1d4239dee"
+    },
+    {
+      "from": "reports/01-background-research/diffusion_backdoor_deep_survey_2025_2026.md",
+      "to": "reports/diffusion_backdoor_deep_survey_2025_2026.md",
+      "compatibility_link": "../diffusion_backdoor_deep_survey_2025_2026.md",
+      "sha256_at_move": "d9e78b8848e207631d44919016c476db87021185798a814e6ac9c0becdf3fc40"
+    },
+    {
+      "from": "reports/01-background-research/diffusion_backdoor_novel_ideas.md",
+      "to": "reports/diffusion_backdoor_novel_ideas.md",
+      "compatibility_link": "../diffusion_backdoor_novel_ideas.md",
+      "sha256_at_move": "f9be29b301d662ad352bb3cd2b9f152c8349cec31e837f6f9a8da1e460b3fee3"
+    },
+    {
+      "from": "reports/01-background-research/diffusion_backdoor_novel_ideas_zh.md",
+      "to": "reports/diffusion_backdoor_novel_ideas_zh.md",
+      "compatibility_link": "../diffusion_backdoor_novel_ideas_zh.md",
+      "sha256_at_move": "efca4fde9da34abde86ef9e533a330d5dc7831d58f078a413de33f6c60d22def"
+    },
+    {
+      "from": "reports/01-background-research/diffusion_backdoor_optimized_ideas_v2.md",
+      "to": "reports/diffusion_backdoor_optimized_ideas_v2.md",
+      "compatibility_link": "../diffusion_backdoor_optimized_ideas_v2.md",
+      "sha256_at_move": "e912ea92bb171387dd200e7c619d49e7106e3f3024b02c6a89a870cbf80f03d3"
+    },
+    {
+      "from": "reports/01-background-research/merge_attack_mechanism_synthesis.md",
+      "to": "reports/merge_attack_mechanism_synthesis.md",
+      "compatibility_link": "../merge_attack_mechanism_synthesis.md",
+      "sha256_at_move": "32e39ddb0a6b559a03fdc074e6061a1e9b8a413c0119d9d900e5c79558756cb2"
+    },
+    {
+      "from": "reports/01-background-research/merge_backdoor_research_report.md",
+      "to": "reports/merge_backdoor_research_report.md",
+      "compatibility_link": "../merge_backdoor_research_report.md",
+      "sha256_at_move": "1d6490a4fb6f43604b665b2b7f67ee3dc955ddf7ee7d9ed72256554e491a099d"
+    },
+    {
+      "from": "reports/01-background-research/paper_deep_reading_report.md",
+      "to": "reports/paper_deep_reading_report.md",
+      "compatibility_link": "../paper_deep_reading_report.md",
+      "sha256_at_move": "7517da66f643ae9c46be85ddaaff6d335ed5feadeaedbb8468887729be6d4067"
+    },
+    {
+      "from": "reports/01-background-research/t2i_merge_attack_implementation_plan.md",
+      "to": "reports/t2i_merge_attack_implementation_plan.md",
+      "compatibility_link": "../t2i_merge_attack_implementation_plan.md",
+      "sha256_at_move": "2e2426273c1c07921bc2a82f035ff0c668646f3a569581a978096733bc466d91"
+    },
+    {
+      "from": "reports/01-background-research/tssa_response_calibration_method_proposal.md",
+      "to": "research/tssa_response_calibration_method_proposal.md",
+      "compatibility_link": "../../research/tssa_response_calibration_method_proposal.md",
+      "sha256_at_move": "2620de6836986e39dcf70f17671b5cc70d78c89eb007c82f73d22aeb2dfe212c"
+    },
+    {
+      "from": "reports/02-cross-reference/backdoordm_crossref_report.md",
+      "to": "reproduction/backdoordm_crossref_report.md",
+      "compatibility_link": "../../reproduction/backdoordm_crossref_report.md",
+      "sha256_at_move": "4f70738298a12e3f52fc4063ae8dd65bf6ed09d310d639c9910df9d09823364b"
+    },
+    {
+      "from": "reports/02-cross-reference/backdoordm_paper_crossref_summary.md",
+      "to": "reproduction/backdoordm_paper_crossref_summary.md",
+      "compatibility_link": "../../reproduction/backdoordm_paper_crossref_summary.md",
+      "sha256_at_move": "65a6eacc853fe2b03f55850ce13054d24564edd7565a636b10235726cf9a23e7"
+    },
+    {
+      "from": "reports/02-cross-reference/backdoordm_t2i_cross_reference_report.md",
+      "to": "reproduction/backdoordm_t2i_cross_reference_report.md",
+      "compatibility_link": "../../reproduction/backdoordm_t2i_cross_reference_report.md",
+      "sha256_at_move": "b487b477d186cfb1fa82914c56dfe2369dd797a986790e29a7cbe779721f9af0"
+    },
+    {
+      "from": "reports/02-cross-reference/defense_cross_reference_report.md",
+      "to": "reproduction/defense_cross_reference_report.md",
+      "compatibility_link": "../../reproduction/defense_cross_reference_report.md",
+      "sha256_at_move": "e5611f6ca1dc46a4373e16793e07947bb95f4cc804f8d9c4ece79d415d995239"
+    },
+    {
+      "from": "reports/03-reproduction-results/backdoordm_reference.md",
+      "to": "reproduction/backdoordm_reference.md",
+      "compatibility_link": "../../reproduction/backdoordm_reference.md",
+      "sha256_at_move": "17982ee784e189bb3937f39538f426a6f31397da80cdced2170bb9fa8b2be1d4"
+    },
+    {
+      "from": "reports/03-reproduction-results/merge_attack_full_comparison.md",
+      "to": "results/merging/merge_attack_full_comparison.md",
+      "compatibility_link": "../../results/merging/merge_attack_full_comparison.md",
+      "sha256_at_move": "86b7673b767834765ba0b5f8044c1592008173916479d4352969d46ea113a533"
+    },
+    {
+      "from": "reports/03-reproduction-results/merge_attack_report.html",
+      "to": "results/merging/merge_attack_report.html",
+      "compatibility_link": "../../results/merging/merge_attack_report.html",
+      "sha256_at_move": "c5ce07bb394fdf65e28fd9c361129dbe4e314910f65faf0e162f56e5dd2c5df5"
+    },
+    {
+      "from": "reports/03-reproduction-results/tssa_optimization_report.html",
+      "to": "results/merging/tssa_optimization_report.html",
+      "compatibility_link": "../../results/merging/tssa_optimization_report.html",
+      "sha256_at_move": "9435a56dcd196514fd303cef07077a2f28611c73edd3166708157ce43203fbf1"
+    },
+    {
+      "from": "data/diffusion_backdoor_papers.json",
+      "to": "papers/metadata/diffusion_backdoor_papers.json",
+      "compatibility_link": "../papers/metadata/diffusion_backdoor_papers.json",
+      "sha256_at_move": "09a6f6e60d820b2758bf9971d74c18ebbd6c40e2c36fd949fb95f8d57ebe2253"
+    },
+    {
+      "from": "data/diffusion_backdoor_search_results.json",
+      "to": "papers/metadata/diffusion_backdoor_search_results.json",
+      "compatibility_link": "../papers/metadata/diffusion_backdoor_search_results.json",
+      "sha256_at_move": "dbc0e3f9311ca55da1321b6e83eda019ce036d7a9bbba9c16ca0217cefe592d9"
+    },
+    {
+      "from": "papers/paper_2603.06508.html",
+      "to": "papers/txt/paper_2603.06508.html",
+      "compatibility_link": "txt/paper_2603.06508.html",
+      "sha256_at_move": "ee0de4abbde829c179811546be5af7d1386ccf7e38b7455e42d7c9cd42bfcebd"
+    }
+  ]
+}

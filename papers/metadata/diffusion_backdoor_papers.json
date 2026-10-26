@@ -1,0 +1,870 @@
+{
+  "total_results": 42,
+  "papers": [
+    {
+      "id": "2606.25151",
+      "title": "Silent Failures in Physics-Informed Neural Networks: Parameter Poisoning and the Limits of Loss-Based Validation",
+      "authors": [
+        "David McShannon",
+        "Nicholas Dietrich"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Physics-informed neural networks (PINNs) embed governing equations in their loss function, enabling mesh-free solutions to partial differential equations. Low training loss is treated as evidence that the learned solution is physically correct. This paper shows that assumption breaks down when encoded physics are incorrect. By perturbing PDE parameters before training, a setting we describe as physics parameter poisoning or parameter misspecification, we produce models that train to low loss but give incorrect answers; we treat the perturbation schedule as sensitivity analysis rather than only as a security threat, and none of our claims requires an adversary. Achieving low residual loss does not discriminate accurate from inaccurate solutions: poisoned models reach losses at or below the clean baseline yet differ by large margins, so driving the residual down is not evidence of physical accuracy. Across three PDE systems (Burgers equation, Navier-Stokes cavity, and convection-diffusion), poisoned models match or beat the clean-model training loss while their solutions differ by up to 71% in the fixed sweep and up to 128% under adversarial search; at Cavity Re=400 the poisoned loss falls below the clean baseline. We define a detection difficulty ratio R (solution error divided by training loss) to summarize how invisible the corruption is, though cross-PDE comparison is complicated by differences in loss scale. We test six candidate defenses, none of which reliably detects corruption across all regimes. We propose a post-hoc defense: sweeping the PDE residual loss across parameter values without retraining. The loss minimum recovers the true training parameter without external data, and generalizes across all three PDE systems. The effect holds across five network architectures (8.7K to 133K parameters), is bidirectional, and is confirmed across multiple random seeds.",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-23T20:35:50Z",
+      "url": "https://arxiv.org/pdf/2606.25151v1",
+      "resource_uri": "arxiv://2606.25151"
+    },
+    {
+      "id": "2606.23362",
+      "title": "TooBad: Backdoor Diffusion Models with Ultra-Low Poison Rate and Imperceptible Trigger",
+      "authors": [
+        "Vu Tuan Truong",
+        "Long Bao Le"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models (DMs), despite their impressive capabilities across a wide range of generative tasks, have been shown to be vulnerable to backdoor attacks. However, existing backdoor methods face critical trade-offs among key factors: attack performance, stealthiness, time complexity, and required poison rates. For example, achieving high attack performance typically demands a high poison rate and prolonged training, which undermines stealthiness, making the attack more detectable by backdoor defenses. This paper proposes TooBad (trigger optimization for backdoor diffusion models), a backdoor framework which introduces a novel DM-tailored trigger optimization technique to dramatically enhance the performance of backdoor attacks on DMs. Experiments on representative benchmarks such as CIFAR-10 show that TooBad can achieve high ASRs ($> 85$%) at only 0.5% poison rate, significantly lower than the 10% typically required by prior work on the same datasets. At 5% poison rate, TooBad reaches nearly 100% ASR within just 3-5 backdoor injection epochs, whereas existing methods need at least 30-50 epochs at double the poison rate for comparable results. Despite its potency, TooBad easily evades SOTA defenses and maintains high utility. These results reveal a critical threat on DMs and highlight the need for more robust defenses against such stealthy yet efficient attacks.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "published": "2026-06-22T14:00:06Z",
+      "url": "https://arxiv.org/pdf/2606.23362v1",
+      "resource_uri": "arxiv://2606.23362"
+    },
+    {
+      "id": "2605.19698",
+      "title": "Awakening the Hydra: Stabilizing Multi-Concept Backdoor Injection in Text-to-Image Diffusion Models",
+      "authors": [
+        "Kai Wang",
+        "Jiale Zhang",
+        "Chengcheng Zhu",
+        "Chuang Ma",
+        "Songze Li"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models are increasingly developed through open-source reuse and repeated downstream fine-tuning, where reused checkpoints are difficult to verify and thus more susceptible to hidden backdoor behaviors. In such ecosystems, a single pretrained model may be sequentially adapted and redistributed by multiple independent parties, allowing multiple concept-specific trigger-target associations to accumulate in the same model. When these associations coexist, semantic conflicts can be amplified in the shared representation space, leading to cross-concept entanglement and degraded generation quality. Notably, instead of strengthening the attack, such accumulation can destabilize previously injected behaviors and reduce attack reliability.   In this work, we systematically investigate backdoor attacks under this interference-prone setting and propose Hydra, a unified framework for robust and controlled multi-concept backdoor injection under cumulative and decentralized reuse. Our core insight is that stable backdoor injection under large-scale multi-concept settings requires explicitly constraining trigger semantics while coordinating cross-task interactions during optimization. Specifically, Hydra performs evolutionary trigger search in the text encoder space to identify triggers that are semantically aligned with their target concepts while remaining stable across other injected concepts. It further combines multi-task fine-tuning with trigger-clean regularization to improve training stability under dense multi-concept injection. Extensive experiments across multiple diffusion backbones under rigorous multi-concept settings show that Hydra maintains effective backdoor activation while preserving clean generation fidelity and image quality. For instance, across 8 attackers and 500 concept pairs, Hydra maintains ~95% ASR and strong clean generation.",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "published": "2026-05-19T11:36:45Z",
+      "url": "https://arxiv.org/pdf/2605.19698v1",
+      "resource_uri": "arxiv://2605.19698"
+    },
+    {
+      "id": "2605.19262",
+      "title": "Backdooring Masked Diffusion Language Models",
+      "authors": [
+        "Daniel Yiming Cao",
+        "Chengzhong Wang",
+        "Sheng-Yen Chou",
+        "Chengyu Huang",
+        "Pin-Yu Chen",
+        "Shengwei An"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Masked diffusion language models (MDLMs) are emerging as a compelling new paradigm for text generation, but their training-time security remains largely unexplored. Existing backdoor attacks on Gaussian diffusion models or autoregressive language models do not directly apply to MDLMs because MDLMs rely on discrete state corruption and iterative denoising rather than continuous noising or left-to-right prediction. In this work, we present the first systematic study of training-time backdoor attacks on MDLMs. We propose SHADOWMASK, a backdoor attack that modifies the MDLM forward corruption process by replacing the standard all-mask terminal distribution with a trigger-mask mixture prior. This creates a dedicated denoising pathway from trigger-corrupted states to attacker-specified targets while preserving clean denoising behavior. We further provide a principled mathematical formulation by defining the backdoored forward process, deriving the reverse-time posterior, and obtaining the continuous-time training objective. Evaluations on DiT-based MDLM and LLaDA-8B-Instruct across WikiText-103, OpenWebText, and Alpaca show that SHADOWMASK achieves near-100% attack success, substantially outperforms standard data poisoning, largely preserves clean utility, remains effective under full-model and parameter-efficient fine-tuning, and is robust against representative defenses.",
+      "categories": [
+        "cs.LG",
+        "cs.CR"
+      ],
+      "published": "2026-05-19T02:20:08Z",
+      "url": "https://arxiv.org/pdf/2605.19262v2",
+      "resource_uri": "arxiv://2605.19262"
+    },
+    {
+      "id": "2605.16098",
+      "title": "PCDM: A Diffusion-Based Data Poisoning Attack Against Federated Learning Systems",
+      "authors": [
+        "Wei Sun",
+        "Yijun Chen",
+        "Bo Gao",
+        "Ke Xiong",
+        "Yuwei Wang",
+        "Pingyi Fan",
+        "Khaled Ben Letaief"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Federated learning (FL) is vulnerable to data poisoning attacks due to its distributed nature. Although recent GAN-based data poisoning methods have indicated the potential of using generative AI to generate seemingly legitimate poisoned data, the inherent consistency of GAN outputs can still reveal a sign of data poisoning. In this paper, we propose a diffusion-based data poisoning framework against FL systems, which leverages a Poisoning-Oriented Conditional Diffusion Model (PCDM) to enable fine-grained control over the local generation of poisoned data while ensuring both attack effectiveness and stealthiness. Our PCDM incorporates an adjustable poisoning vector within the global context to precisely control the generation of poisoned data, with theoretical guarantees on attack performance. Furthermore, it employs a novel jumping diffusion strategy for lightweight and efficient poisoned data generation. We conduct the most systematic and broad experimental evaluation for FL poisoning attacks against various defenses, including advanced Byzantine robust aggregation mechanisms, on four open datasets: MNIST, Fashion-MNIST, CIFAR-10, CIFAR-100, and a real-world wireless-specific dataset VRAI. Our results demonstrate that PCDM is less likely to exhibit statistical anomalies compared with the state-of-the-art methods while more effectively degrading global FL performance, which poses a significant risk to data security in FL.",
+      "categories": [
+        "cs.CR",
+        "cs.DC"
+      ],
+      "published": "2026-05-15T15:53:34Z",
+      "url": "https://arxiv.org/pdf/2605.16098v1",
+      "resource_uri": "arxiv://2605.16098"
+    },
+    {
+      "id": "2605.07399",
+      "title": "GPO-V: Jailbreak Diffusion Vision Language Model by Global Probability Optimization",
+      "authors": [
+        "Yu Pan",
+        "Andi Zhang",
+        "Yi Wang",
+        "Sibei Yang",
+        "Wenjie Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion Vision-Language Models (dVLMs), built upon the non-causal foundations of Diffusion Large Language Models (dLLMs), have demonstrated remarkable efficacy in multimodal tasks by departing from the traditional autoregressive generation paradigm. While dVLMs appear inherently robust against conventional jailbreak tactics, which we categorize as Fixed Prefix Optimization (FPO) (e.g., anchoring responses with \"Sure, here is\"), this perceived resilience is deceptive. Our investigation into the safety landscape of dVLMs reveals a unique refusal pattern: Immediate Refusal and Progressive Refusal. We find that while FPO-based attacks often fail by triggering the latter, the progressive refinement process itself uncovers a novel, latent attack surface. To exploit this vulnerability, we propose Global Probability Optimization (GPO), a general jailbreak paradigm designed specifically for the denoising trajectory of masked diffusion models. Unlike prefix-based methods, GPO manipulates the global generative dynamics to bypass guardrails in diffusion language models. Building on this, we introduce GPO-V, the first visual-modality jailbreak framework tailored for dVLMs. Empirical results demonstrate that GPO-V produces stealthy perturbations with exceptional cross-model transferability, revealing a critical security gap in non-sequential generative architectures. Our findings underscore the critical urgency of addressing safety alignment in dVLMs. These results necessitate an immediate and fundamental re-evaluation of current defense paradigms to mitigate the unique risks of diffusion-based generation. Our code is available at: https://anonymous.4open.science/r/GPO-V-0250.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-08T07:54:57Z",
+      "url": "https://arxiv.org/pdf/2605.07399v2",
+      "resource_uri": "arxiv://2605.07399"
+    },
+    {
+      "id": "2605.00699",
+      "title": "STARE: Step-wise Temporal Alignment and Red-teaming Engine for Multi-modal Toxicity Attack",
+      "authors": [
+        "Xutao Mao",
+        "Liangjie Zhao",
+        "Tao Liu",
+        "Xiang Zheng",
+        "Hongying Zan",
+        "Cong Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Red-teaming Vision-Language Models is essential for identifying vulnerabilities where adversarial image-text inputs trigger toxic outputs. Existing approaches treat image generation as a black box, returning only terminal toxicity scores and leaving open the question of when and how toxic semantics emerge during multi-step synthesis. We introduce STARE, a hierarchical reinforcement learning framework that treats the denoising trajectory itself as the attack surface, under a direct white-box T2I and query-only black-box VLM setting. By coupling a high-level prompt editor with low-level T2I fine-tuning via Group Relative Policy Optimization (GRPO), STARE attains a 68% improvement in Attack Success Rate over state-of-the-art black-box and white-box baselines. More importantly, this trajectory-level view surfaces the Optimization-Induced Phase Alignment phenomenon: vanilla models exhibit diffuse toxicity, whereas adversarial optimization concentrates conceptual harms into early semantic phases and detail-oriented harms into late refinement. Targeted perturbations of either window selectively suppress different toxicity categories, indicating that this temporal structure is a genuine causal handle rather than a side effect of the hierarchical design. The phenomenon turns toxicity formation from a chaotic process into a small set of predictable vulnerability windows, providing both a potent attack engine and a basis for phase-aware safety mechanisms. Content warning: This paper contains examples of toxic content that may be offensive or disturbing.",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2026-05-01T14:36:29Z",
+      "url": "https://arxiv.org/pdf/2605.00699v3",
+      "resource_uri": "arxiv://2605.00699"
+    },
+    {
+      "id": "2604.22117",
+      "title": "PermaFrost-Attack: Stealth Pretraining Seeding(SPS) for planting Logic Landmines During LLM Training",
+      "authors": [
+        "Harsh Kumar",
+        "Rahul Maity",
+        "Tanmay Joshi",
+        "Aman Chadha",
+        "Vinija Jain",
+        "Suranjana Trivedy",
+        "Amitava Das"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Aligned large language models (LLMs) remain vulnerable to adversarial manipulation, and their reliance on web-scale pretraining creates a subtle but consequential attack surface. We study Stealth Pretraining Seeding (SPS), a threat model in which adversaries distribute small amounts of poisoned content across stealth websites, increasing the likelihood that such material is absorbed into future training corpora derived from sources such as Common Crawl. Because each individual payload is tiny, diffuse, and superficially benign, the attack is difficult to detect during dataset construction or filtering. The result is a latent form of poisoning that remains largely invisible under standard evaluation, yet can later be activated by a precise trigger such as <00TRIGGER00>. We call this attack PermaFrost, reflecting its latent and reactivatable nature. We study it through PermaFrost-Attack, a controlled framework for latent conceptual poisoning, together with three geometric diagnostics: Thermodynamic Length, Spectral Curvature, and the Infection Traceback Graph. Across multiple model families and scales, we show that this controlled SPS proxy can induce persistent unsafe behavior that often remains hidden under standard evaluation. Our results identify SPS as a practical and underappreciated threat to future foundation models. This paper introduces a novel geometric diagnostic lens for systematically examining latent model behavior, providing a principled foundation for detecting, characterizing, and understanding vulnerabilities that may remain invisible under standard evaluation.",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-04-23T23:32:36Z",
+      "url": "https://arxiv.org/pdf/2604.22117v2",
+      "resource_uri": "arxiv://2604.22117"
+    },
+    {
+      "id": "2604.16966",
+      "title": "Visual Inception: Compromising Long-term Planning in Agentic Recommenders via Multimodal Memory Poisoning",
+      "authors": [
+        "Jiachen Qian"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The evolution from static ranking models to Agentic Recommender Systems (Agentic RecSys) empowers AI agents to maintain long-term user profiles and autonomously plan service tasks. While this paradigm shift enhances personalization, it introduces a vulnerability: reliance on Long-term Memory (LTM). In this paper, we uncover a threat termed \"Visual Inception.\" Unlike traditional adversarial attacks that seek immediate misclassification, Visual Inception injects triggers into user-uploaded images (e.g., lifestyle photos) that act as \"sleeper agents\" within the system's memory. When retrieved during future planning, these poisoned memories hijack the agent's reasoning chain, steering it toward adversary-defined goals (e.g., promoting high-margin products) without prompt injection. To mitigate this, we propose CognitiveGuard, a dual-process defense framework inspired by human cognition. It consists of a System 1 Perceptual Sanitizer (diffusion-based purification) to cleanse sensory inputs and a System 2 Reasoning Verifier (counterfactual consistency checks) to detect anomalies in memory-driven planning. Extensive experiments on a mock e-commerce agent environment demonstrate that Visual Inception achieves about 85% Goal-Hit Rate (GHR), while CognitiveGuard reduces this risk to around 10% with configurable latency trade-offs (about 1.5s in lite mode to about 6.5s for full sequential verification), without quality degradation under our setup.",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-04-18T11:15:37Z",
+      "url": "https://arxiv.org/pdf/2604.16966v1",
+      "resource_uri": "arxiv://2604.16966"
+    },
+    {
+      "id": "2604.12446",
+      "title": "Scaling Exposes the Trigger: Input-Level Backdoor Detection in Text-to-Image Diffusion Models via Cross-Attention Scaling",
+      "authors": [
+        "Zida Li",
+        "Jun Li",
+        "Yuzhe Sha",
+        "Ziqiang Li",
+        "Lizhi Xiong",
+        "Zhangjie Fu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image (T2I) diffusion models have achieved remarkable success in image synthesis, but their reliance on large-scale data and open ecosystems introduces serious backdoor security risks. Existing defenses, particularly input-level methods, are more practical for deployment but often rely on observable anomalies that become unreliable under stealthy, semantics-preserving trigger designs. As modern backdoor attacks increasingly embed triggers into natural inputs, these methods degrade substantially, raising a critical question: can more stable, implicit, and trigger-agnostic differences between benign and backdoor inputs be exploited for detection? In this work, we address this challenge from an active probing perspective. We introduce controlled scaling perturbations on cross-attention and uncover a novel phenomenon termed Cross-Attention Scaling Response Divergence (CSRD), where benign and backdoor inputs exhibit systematically different response evolution patterns across denoising steps. Building on this insight, we propose SET, an input-level backdoor detection framework that constructs response-offset features under multi-scale perturbations and learns a compact benign response space from a small set of clean samples. Detection is then performed by measuring deviations from this learned space, without requiring prior knowledge of the attack or access to model training. Extensive experiments demonstrate that SET consistently outperforms existing baselines across diverse attack methods, trigger types, and model settings, with particularly strong gains under stealthy implicit-trigger scenarios. Overall, SET improves AUROC by 9.1% and ACC by 6.5% over the best baseline, highlighting its effectiveness and robustness for practical deployment.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "published": "2026-04-14T08:31:37Z",
+      "url": "https://arxiv.org/pdf/2604.12446v1",
+      "resource_uri": "arxiv://2604.12446"
+    },
+    {
+      "id": "2604.12292",
+      "title": "CoSyncDiT: Cognitive Synchronous Diffusion Transformer for Movie Dubbing",
+      "authors": [
+        "Gaoxiang Cong",
+        "Liang Li",
+        "Jiaxin Ye",
+        "Zhedong Zhang",
+        "Hongming Shan",
+        "Yuankai Qi",
+        "Qingming Huang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Movie dubbing aims to synthesize speech that preserves the vocal identity of a reference audio while synchronizing with the lip movements in a target video. Existing methods fail to achieve precise lip-sync and lack naturalness due to explicit alignment at the duration level. While implicit alignment solutions have emerged, they remain susceptible to interference from the reference audio, triggering timbre and pronunciation degradation in in-the-wild scenarios. In this paper, we propose a novel flow matching-based movie dubbing framework driven by the Cognitive Synchronous Diffusion Transformer (CoSync-DiT), inspired by the cognitive process of professional actors. This architecture progressively guides the noise-to-speech generative trajectory by executing acoustic style adapting, fine-grained visual calibrating, and time-aware context aligning. Furthermore, we design the Joint Semantic and Alignment Regularization (JSAR) mechanism to simultaneously constrain frame-level temporal consistency on the contextual outputs and semantic consistency on the flow hidden states, ensuring robust alignment. Extensive experiments on both standard benchmarks and challenging in-the-wild dubbing benchmarks demonstrate that our method achieves the state-of-the-art performance across multiple metrics.",
+      "categories": [
+        "cs.SD",
+        "cs.CV",
+        "cs.MM"
+      ],
+      "published": "2026-04-14T05:03:57Z",
+      "url": "https://arxiv.org/pdf/2604.12292v1",
+      "resource_uri": "arxiv://2604.12292"
+    },
+    {
+      "id": "2604.04630",
+      "title": "Multimodal Backdoor Attack on VLMs for Autonomous Driving via Graffiti and Cross-Lingual Triggers",
+      "authors": [
+        "Jiancheng Wang",
+        "Lidan Liang",
+        "Yong Wang",
+        "Zengzhen Su",
+        "Haifeng Xia",
+        "Yuanting Yan",
+        "Wei Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Visual language model (VLM) is rapidly being integrated into safety-critical systems such as autonomous driving, making it an important attack surface for potential backdoor attacks. Existing backdoor attacks mainly rely on unimodal, explicit, and easily detectable triggers, making it difficult to construct both covert and stable attack channels in autonomous driving scenarios. GLA introduces two naturalistic triggers: graffiti-based visual patterns generated via stable diffusion inpainting, which seamlessly blend into urban scenes, and cross-language text triggers, which introduce distributional shifts while maintaining semantic consistency to build robust language-side trigger signals. Experiments on DriveVLM show that GLA requires only a 10\\% poisoning ratio to achieve a 90\\% Attack Success Rate (ASR) and a 0\\% False Positive Rate (FPR). More insidiously, the backdoor does not weaken the model on clean tasks, but instead improves metrics such as BLEU-1, making it difficult for traditional performance-degradation-based detection methods to identify the attack. This study reveals underestimated security threats in self-driving VLMs and provides a new attack paradigm for backdoor evaluation in safety-critical multimodal systems.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-04-06T12:29:49Z",
+      "url": "https://arxiv.org/pdf/2604.04630v1",
+      "resource_uri": "arxiv://2604.04630"
+    },
+    {
+      "id": "2603.24270",
+      "title": "ScrollScape: Unlocking 32K Image Generation With Video Diffusion Priors",
+      "authors": [
+        "Haodong Yu",
+        "Yabo Zhang",
+        "Donglin Di",
+        "Ruyi Zhang",
+        "Wangmeng Zuo"
+      ],
+      "abstract": "[EXTERNAL CONTENT] While diffusion models excel at generating images with conventional dimensions, pushing them to synthesize ultra-high-resolution imagery at extreme aspect ratios (EAR) often triggers catastrophic structural failures, such as object repetition and spatial fragmentation. This limitation fundamentally stems from a lack of robust spatial priors, as static text-to-image models are primarily trained on image distributions with conventional dimensions. To overcome this bottleneck, we present ScrollScape, a novel framework that reformulates EAR image synthesis into a continuous video generation process through two core innovations. By mapping the spatial expansion of a massive canvas to the temporal evolution of video frames, ScrollScape leverages the inherent temporal consistency of video models as a powerful global constraint to ensure long-range structural integrity. Specifically, Scanning Positional Encoding (ScanPE) distributes global coordinates across frames to act as a flexible moving camera, while Scrolling Super-Resolution (ScrollSR) leverages video super-resolution priors to circumvent memory bottlenecks, efficiently scaling outputs to an unprecedented 32K resolution. Fine-tuned on a curated 3K multi-ratio image dataset, ScrollScape effectively aligns pre-trained video priors with the EAR generation task. Extensive evaluations demonstrate that it significantly outperforms existing image-diffusion baselines by eliminating severe localized artifacts. Consequently, our method overcomes inherent structural bottlenecks to ensure exceptional global coherence and visual fidelity across diverse domains at extreme scales.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-25T13:03:02Z",
+      "url": "https://arxiv.org/pdf/2603.24270v3",
+      "resource_uri": "arxiv://2603.24270"
+    },
+    {
+      "id": "2603.06623",
+      "title": "Advances in GRPO for Generation Models: A Survey",
+      "authors": [
+        "Zexiang Liu",
+        "Xianglong He",
+        "Yangguang Li"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Large-scale flow matching models have achieved strong performance across generative tasks such as text-to-image, video, 3D, and speech synthesis. However, aligning their outputs with human preferences and task-specific objectives remains challenging. Flow-GRPO extends Group Relative Policy Optimization (GRPO) to generation models, enabling stable reinforcement learning alignment for generative systems. Since its introduction, Flow-GRPO has triggered rapid research growth, spanning methodological refinements and diverse application domains. This survey provides a comprehensive review of Flow-GRPO and its subsequent developments. We organize existing work along two primary dimensions. First, we analyze methodological advances beyond the original framework, including reward signal design, credit assignment, sampling efficiency, diversity preservation, reward hacking mitigation, and reward model construction. Second, we examine extensions of GRPO-based alignment across generative paradigms and modalities, including text-to-image, video generation, image editing, speech and audio, 3D modeling, embodied vision-language-action systems, unified multimodal models, autoregressive and masked diffusion models, and restoration tasks. By synthesizing theoretical insights and practical adaptations, this survey highlights Flow-GRPO as a general alignment framework for modern generative models and outlines key open challenges for scalable and robust reinforcement-based generation.",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-02-21T17:11:08Z",
+      "url": "https://arxiv.org/pdf/2603.06623v1",
+      "resource_uri": "arxiv://2603.06623"
+    },
+    {
+      "id": "2602.04898",
+      "title": "Semantic-level Backdoor Attack against Text-to-Image Diffusion Models",
+      "authors": [
+        "Tianxin Chen",
+        "Wenbo Jiang",
+        "Hongqiao Chen",
+        "Zhirun Zheng",
+        "Cheng Huang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image (T2I) diffusion models are widely adopted for their strong generative capabilities, yet remain vulnerable to backdoor attacks. Existing attacks typically rely on fixed textual triggers and single-entity backdoor targets, making them highly susceptible to enumeration-based input defenses and attention-consistency detection. In this work, we propose Semantic-level Backdoor Attack (SemBD), which introduces representation-level triggers based on continuous semantic regions rather than discrete textual patterns. SemBD implants such semantic backdoors by distillation-based editing of the key and value projection matrices in cross-attention layers, enabling semantically equivalent but textually diverse prompts to activate the backdoor. To further enhance stealthiness, SemBD incorporates a semantic regularization to prevent unintended activation under incomplete semantics, as well as multi-entity backdoor targets that avoid highly consistent cross-attention patterns. Extensive experiments demonstrate that SemBD achieves a 100% attack success rate while maintaining strong robustness against state-of-the-art input-level defenses. Our code is available at https://github.com/DPAS-Lab/SemBD/.",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-02-03T13:23:01Z",
+      "url": "https://arxiv.org/pdf/2602.04898v3",
+      "resource_uri": "arxiv://2602.04898"
+    },
+    {
+      "id": "2601.07224",
+      "title": "Consolidation or Adaptation? PRISM: Disentangling SFT and RL Data via Gradient Concentration",
+      "authors": [
+        "Yang Zhao",
+        "Yangou Ouyang",
+        "Xiao Ding",
+        "Hepeng Wang",
+        "Bibo Cai",
+        "Kai Xiong",
+        "Jinglong Gao",
+        "Zhouhao Sun",
+        "Li Du",
+        "Bing Qin",
+        "Ting Liu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] While Hybrid Supervised Fine-Tuning (SFT) followed by Reinforcement Learning (RL) has become the standard paradigm for training LLM agents, effective mechanisms for data allocation between these stages remain largely underexplored. Current data arbitration strategies often rely on surface-level heuristics that fail to diagnose intrinsic learning needs. Since SFT targets pattern consolidation through imitation while RL drives structural adaptation via exploration, misaligning data with these functional roles causes severe optimization interference. We propose PRISM, a dynamics-aware framework grounded in Schema Theory that arbitrates data based on its degree of cognitive conflict with the model's existing knowledge. By analyzing the spatial geometric structure of gradients, PRISM identifies data triggering high spatial concentration as high-conflict signals that require RL for structural restructuring. In contrast, data yielding diffuse updates is routed to SFT for efficient consolidation. Extensive experiments on WebShop and ALFWorld demonstrate that PRISM achieves a Pareto improvement, outperforming state-of-the-art hybrid methods while reducing computational costs by up to 3.22$\\times$. Our findings suggest that disentangling data based on internal optimization regimes is crucial for scalable and robust agent alignment.",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-01-12T05:43:20Z",
+      "url": "https://arxiv.org/pdf/2601.07224v2",
+      "resource_uri": "arxiv://2601.07224"
+    },
+    {
+      "id": "2511.09999",
+      "title": "MOBA: A Material-Oriented Backdoor Attack against LiDAR-based 3D Object Detection Systems",
+      "authors": [
+        "Saket S. Chaturvedi",
+        "Gaurav Bagwe",
+        "Lan Zhang",
+        "Pan He",
+        "Xiaoyong Yuan"
+      ],
+      "abstract": "[EXTERNAL CONTENT] LiDAR-based 3D object detection is widely used in safety-critical systems. However, these systems remain vulnerable to backdoor attacks that embed hidden malicious behaviors during training. A key limitation of existing backdoor attacks is their lack of physical realizability, primarily due to the digital-to-physical domain gap. Digital triggers often fail in real-world settings because they overlook material-dependent LiDAR reflection properties. On the other hand, physically constructed triggers are often unoptimized, leading to low effectiveness or easy detectability.This paper introduces Material-Oriented Backdoor Attack (MOBA), a novel framework that bridges the digital-physical gap by explicitly modeling the material properties of real-world triggers. MOBA tackles two key challenges in physical backdoor design: 1) robustness of the trigger material under diverse environmental conditions, 2) alignment between the physical trigger's behavior and its digital simulation. First, we propose a systematic approach to selecting robust trigger materials, identifying titanium dioxide (TiO_2) for its high diffuse reflectivity and environmental resilience. Second, to ensure the digital trigger accurately mimics the physical behavior of the material-based trigger, we develop a novel simulation pipeline that features: (1) an angle-independent approximation of the Oren-Nayar BRDF model to generate realistic LiDAR intensities, and (2) a distance-aware scaling mechanism to maintain spatial consistency across varying depths. We conduct extensive experiments on state-of-the-art LiDAR-based and Camera-LiDAR fusion models, showing that MOBA achieves a 93.50% attack success rate, outperforming prior methods by over 41%. Our work reveals a new class of physically realizable threats and underscores the urgent need for defenses that account for material-level properties in real-world environments.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-11-13T06:10:21Z",
+      "url": "https://arxiv.org/pdf/2511.09999v1",
+      "resource_uri": "arxiv://2511.09999"
+    },
+    {
+      "id": "2510.20792",
+      "title": "BadGraph: A Backdoor Attack Against Latent Diffusion Model for Text-Guided Graph Generation",
+      "authors": [
+        "Liang Ye",
+        "Shengqin Chen",
+        "Jiazhu Dai"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The rapid progress of graph generation has raised new security concerns, particularly regarding backdoor vulnerabilities. Though prior work has explored backdoor attacks against diffusion models for image or unconditional graph generation, those against conditional graph generation models, especially text-guided graph generation models, remain largely unexamined. This paper proposes BadGraph, a backdoor attack method against latent diffusion models for text-guided graph generation. BadGraph leverages textual triggers to poison training data, covertly implanting backdoors that induce attacker-specified subgraphs during inference when triggers appear, while preserving normal performance on clean inputs. Extensive experiments on four benchmark datasets (PubChem, ChEBI-20, PCDes, MoMu) demonstrate the effectiveness and stealth of the attack: a poisoning rate of less than 10% can achieve a 50% attack success rate, while 24% suffices for over an 80% success rate, with negligible performance degradation on benign samples. Ablation studies further reveal that the backdoor is implanted during VAE and diffusion training rather than pretraining. These findings reveal the security vulnerabilities in latent diffusion models for text-guided graph generation, highlight the serious risks in applications such as drug discovery, and underscore the need for robust defenses against the backdoor attack in such diffusion models.",
+      "categories": [
+        "cs.LG",
+        "cs.CL",
+        "q-bio.BM"
+      ],
+      "published": "2025-10-23T17:54:17Z",
+      "url": "https://arxiv.org/pdf/2510.20792v5",
+      "resource_uri": "arxiv://2510.20792"
+    },
+    {
+      "id": "2510.15752",
+      "title": "NDM: A Noise-driven Detection and Mitigation Framework against Implicit Sexual Intentions in Text-to-Image Generation",
+      "authors": [
+        "Yitong Sun",
+        "Yao Huang",
+        "Ruochen Zhang",
+        "Huanran Chen",
+        "Shouwei Ruan",
+        "Ranjie Duan",
+        "Xingxing Wei"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Despite the impressive generative capabilities of text-to-image (T2I) diffusion models, they remain vulnerable to generating inappropriate content, especially when confronted with implicit sexual prompts. Unlike explicit harmful prompts, these subtle cues, often disguised as seemingly benign terms, can unexpectedly trigger sexual content due to underlying model biases, raising significant ethical concerns. However, existing detection methods are primarily designed to identify explicit sexual content and therefore struggle to detect these implicit cues. Fine-tuning approaches, while effective to some extent, risk degrading the model's generative quality, creating an undesirable trade-off. To address this, we propose NDM, the first noise-driven detection and mitigation framework, which could detect and mitigate implicit malicious intention in T2I generation while preserving the model's original generative capabilities. Specifically, we introduce two key innovations: first, we leverage the separability of early-stage predicted noise to develop a noise-based detection method that could identify malicious content with high accuracy and efficiency; second, we propose a noise-enhanced adaptive negative guidance mechanism that could optimize the initial noise by suppressing the prominent region's attention, thereby enhancing the effectiveness of adaptive negative guidance for sexual mitigation. Experimentally, we validate NDM on both natural and adversarial datasets, demonstrating its superior performance over existing SOTA methods, including SLD, UCE, and RECE, etc. Code and resources are available at https://github.com/lorraine021/NDM.",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2025-10-17T15:37:02Z",
+      "url": "https://arxiv.org/pdf/2510.15752v1",
+      "resource_uri": "arxiv://2510.15752"
+    },
+    {
+      "id": "2510.16028",
+      "title": "TAO: Tolerance-Aware Optimistic Verification for Floating-Point Neural Networks",
+      "authors": [
+        "Jianzhu Yao",
+        "Hongxu Su",
+        "Taobo Liao",
+        "Zerui Cheng",
+        "Huan Zhang",
+        "Xuechao Wang",
+        "Pramod Viswanath"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Neural networks increasingly run on hardware outside the user's control (cloud GPUs, inference marketplaces). Yet ML-as-a-Service reveals little about what actually ran or whether returned outputs faithfully reflect the intended inputs. Users lack recourse against service downgrades (model swaps, quantization, graph rewrites, or discrepancies like altered ad embeddings). Verifying outputs is hard because floating-point(FP) execution on heterogeneous accelerators is inherently nondeterministic. Existing approaches are either impractical for real FP neural networks or reintroduce vendor trust. We present TAO: a Tolerance Aware Optimistic verification protocol that accepts outputs within principled operator-level acceptance regions rather than requiring bitwise equality. TAO combines two error models: (i) sound per-operator IEEE-754 worst-case bounds and (ii) tight empirical percentile profiles calibrated across hardware. Discrepancies trigger a Merkle-anchored, threshold-guided dispute game that recursively partitions the computation graph until one operator remains, where adjudication reduces to a lightweight theoretical-bound check or a small honest-majority vote against empirical thresholds. Unchallenged results finalize after a challenge window, without requiring trusted hardware or deterministic kernels. We implement TAO as a PyTorch-compatible runtime and a contract layer currently deployed on Ethereum Holesky testnet. The runtime instruments graphs, computes per-operator bounds, and runs unmodified vendor kernels in FP32 with negligible overhead (0.3% on Qwen3-8B). Across CNNs, Transformers and diffusion models on A100, H100, RTX6000, RTX4090, empirical thresholds are $10^2-10^3$ times tighter than theoretical bounds, and bound-aware adversarial attacks achieve 0% success. Together, TAO reconciles scalability with verifiability for real-world heterogeneous ML compute.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG",
+        "eess.SY"
+      ],
+      "published": "2025-10-15T21:10:39Z",
+      "url": "https://arxiv.org/pdf/2510.16028v4",
+      "resource_uri": "arxiv://2510.16028"
+    },
+    {
+      "id": "2510.03680",
+      "title": "Rainbow Padding: Mitigating Early Termination in Instruction-Tuned Diffusion LLMs",
+      "authors": [
+        "Bumjun Kim",
+        "Dongjae Jeon",
+        "Dueun Kim",
+        "Wonje Jeung",
+        "Albert No"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion large language models (dLLMs) have emerged as a promising alternative to autoregressive models, offering flexible generation orders and strong performance on complex reasoning tasks. However, instruction-tuned dLLMs exhibit a critical vulnerability we term \\texttt{<eos>} overflow: as allocated sequence length increases, responses paradoxically become shorter, collapsing into early termination or degenerating into streams of \\texttt{<eos>} tokens. Although noticed in practice, this issue has not been systematically analyzed. We trace its root cause to the dual role of \\texttt{<eos>} as both termination and padding, which concentrates probability mass on \\texttt{<eos>} at later positions and propagates backward to trigger early termination. To address this, we introduce Rainbow Padding, a simple remedy that replaces repeated \\texttt{<eos>} placeholders with a repeating cycle of distinct padding tokens, distributing probability mass and breaking \\texttt{<eos>} dominance. Experiments show that Rainbow Padding substantially improves length robustness and output quality, with as few as seven padding tokens sufficient to prevent early termination. Moreover, the method integrates efficiently into existing instruction-tuned models: LoRA fine-tuning for a single epoch on minimal data yields significant improvements, making this solution highly practical. The code is publicly available at https://github.com/quasar529/rainbow-padding.",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2025-10-04T05:24:27Z",
+      "url": "https://arxiv.org/pdf/2510.03680v1",
+      "resource_uri": "arxiv://2510.03680"
+    },
+    {
+      "id": "2510.03089",
+      "title": "Latent Diffusion Unlearning: Protecting Against Unauthorized Personalization Through Trajectory Shifted Perturbations",
+      "authors": [
+        "Naresh Kumar Devulapally",
+        "Shruti Agarwal",
+        "Tejas Gokhale",
+        "Vishnu Suresh Lokhande"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models have demonstrated remarkable effectiveness in rapid and high-fidelity personalization, even when provided with only a few user images. However, the effectiveness of personalization techniques has lead to concerns regarding data privacy, intellectual property protection, and unauthorized usage. To mitigate such unauthorized usage and model replication, the idea of generating ``unlearnable'' training samples utilizing image poisoning techniques has emerged. Existing methods for this have limited imperceptibility as they operate in the pixel space which results in images with noise and artifacts. In this work, we propose a novel model-based perturbation strategy that operates within the latent space of diffusion models. Our method alternates between denoising and inversion while modifying the starting point of the denoising trajectory: of diffusion models. This trajectory-shifted sampling ensures that the perturbed images maintain high visual fidelity to the original inputs while being resistant to inversion and personalization by downstream generative models. This approach integrates unlearnability into the framework of Latent Diffusion Models (LDMs), enabling a practical and imperceptible defense against unauthorized model adaptation. We validate our approach on four benchmark datasets to demonstrate robustness against state-of-the-art inversion attacks. Results demonstrate that our method achieves significant improvements in imperceptibility ($\\sim 8 \\% -10\\%$ on perceptual metrics including PSNR, SSIM, and FID) and robustness ( $\\sim 10\\%$ on average across five adversarial settings), highlighting its effectiveness in safeguarding sensitive data.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-10-03T15:18:45Z",
+      "url": "https://arxiv.org/pdf/2510.03089v1",
+      "resource_uri": "arxiv://2510.03089"
+    },
+    {
+      "id": "2509.24891",
+      "title": "VAGUEGAN: Stealthy Poisoning and Backdoor Attacks on Image Generative Pipelines",
+      "authors": [
+        "Mostafa Mohaimen Akand Faisal",
+        "Rabeya Amin Jhuma"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Generative models such as GANs and diffusion models are widely used to synthesize photorealistic images and to support downstream creative and editing tasks. While adversarial attacks on discriminative models are well studied, attacks targeting generative pipelines where small, stealthy perturbations in inputs lead to controlled changes in outputs are less explored. This study introduces VagueGAN, an attack pipeline combining a modular perturbation network PoisonerNet with a Generator Discriminator pair to craft stealthy triggers that cause targeted changes in generated images. Attack efficacy is evaluated using a custom proxy metric, while stealth is analyzed through perceptual and frequency domain measures. The transferability of the method to a modern diffusion based pipeline is further examined through ControlNet guided editing. Interestingly, the experiments show that poisoned outputs can display higher visual quality compared to clean counterparts, challenging the assumption that poisoning necessarily reduces fidelity. Unlike conventional pixel level perturbations, latent space poisoning in GANs and diffusion pipelines can retain or even enhance output aesthetics, exposing a blind spot in pixel level defenses. Moreover, carefully optimized perturbations can produce consistent, stealthy effects on generator outputs while remaining visually inconspicuous, raising concerns for the integrity of image generation pipelines.",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2025-09-29T15:02:31Z",
+      "url": "https://arxiv.org/pdf/2509.24891v1",
+      "resource_uri": "arxiv://2509.24891"
+    },
+    {
+      "id": "2508.18235",
+      "title": "Sealing The Backdoor: Unlearning Adversarial Text Triggers In Diffusion Models Using Knowledge Distillation",
+      "authors": [
+        "Ashwath Vaithinathan Aravindan",
+        "Abha Jha",
+        "Matthew Salaway",
+        "Atharva Sandeep Bhide",
+        "Duygu Nur Yaldiz"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models have revolutionized generative AI, but their vulnerability to backdoor attacks poses significant security risks. Adversaries can inject imperceptible textual triggers into training data, causing models to generate manipulated outputs. Although text-based backdoor defenses in classification models are well-explored, generative models lack effective mitigation techniques against. We address this by selectively erasing the model's learned associations between adversarial text triggers and poisoned outputs, while preserving overall generation quality. Our approach, Self-Knowledge Distillation with Cross-Attention Guidance (SKD-CAG), uses knowledge distillation to guide the model in correcting responses to poisoned prompts while maintaining image quality by exploiting the fact that the backdoored model still produces clean outputs in the absence of triggers. Using the cross-attention mechanism, SKD-CAG neutralizes backdoor influences at the attention level, ensuring the targeted removal of adversarial effects. Extensive experiments show that our method outperforms existing approaches, achieving removal accuracy 100\\% for pixel backdoors and 93\\% for style-based attacks, without sacrificing robustness or image fidelity. Our findings highlight targeted unlearning as a promising defense to secure generative models. Code and model weights can be found at https://github.com/Mystic-Slice/Sealing-The-Backdoor .",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-08-20T00:57:21Z",
+      "url": "https://arxiv.org/pdf/2508.18235v1",
+      "resource_uri": "arxiv://2508.18235"
+    },
+    {
+      "id": "2508.15778",
+      "title": "Towards Stealthy and Effective Backdoor Attacks on Lane Detection: A Naturalistic Data Poisoning Approach",
+      "authors": [
+        "Yifan Liao",
+        "Yuxin Cao",
+        "Yedi Zhang",
+        "Wentao He",
+        "Yan Xiao",
+        "Xianglong Du",
+        "Zhiyong Huang",
+        "Jin Song Dong"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Deep learning-based lane detection (LD) plays a critical role in autonomous driving and advanced driver assistance systems. However, its vulnerability to backdoor attacks presents a significant security concern. Existing backdoor attack methods on LD often exhibit limited practical utility due to the artificial and conspicuous nature of their triggers. To address this limitation and investigate the impact of more ecologically valid backdoor attacks on LD models, we examine the common data poisoning attack and introduce DBALD, a novel diffusion-based data poisoning framework for generating naturalistic backdoor triggers. DBALD comprises two key components: optimal trigger position finding and stealthy trigger generation. Given the insight that attack performance varies depending on the trigger position, we propose a heatmap-based method to identify the optimal trigger location, with gradient analysis to generate attack-specific heatmaps. A region-based editing diffusion process is then applied to synthesize visually plausible triggers within the most susceptible regions identified previously. Furthermore, to ensure scene integrity and stealthy attacks, we introduce two loss strategies: one for preserving lane structure and another for maintaining the consistency of the driving scene. Consequently, compared to existing attack methods, DBALD achieves both a high attack success rate and superior stealthiness. Extensive experiments on 4 mainstream LD models show that DBALD exceeds state-of-the-art methods, with an average success rate improvement of +10.87% and significantly enhanced stealthiness. The experimental results highlight significant practical challenges in ensuring model robustness against real-world backdoor threats in LD.",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2025-08-04T07:13:18Z",
+      "url": "https://arxiv.org/pdf/2508.15778v2",
+      "resource_uri": "arxiv://2508.15778"
+    },
+    {
+      "id": "2508.01605",
+      "title": "Practical, Generalizable and Robust Backdoor Attacks on Text-to-Image Diffusion Models",
+      "authors": [
+        "Haoran Dai",
+        "Jiawen Wang",
+        "Ruo Yang",
+        "Manali Sharma",
+        "Zhonghao Liao",
+        "Yuan Hong",
+        "Binghui Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models (T2I DMs) have achieved remarkable success in generating high-quality and diverse images from text prompts, yet recent studies have revealed their vulnerability to backdoor attacks. Existing attack methods suffer from critical limitations: 1) they rely on unnatural adversarial prompts that lack human readability and require massive poisoned data; 2) their effectiveness is typically restricted to specific models, lacking generalizability; and 3) they can be mitigated by recent backdoor defenses.   To overcome these challenges, we propose a novel backdoor attack framework that achieves three key properties: 1) \\emph{Practicality}: Our attack requires only a few stealthy backdoor samples to generate arbitrary attacker-chosen target images, as well as ensuring high-quality image generation in benign scenarios. 2) \\emph{Generalizability:} The attack is applicable across multiple T2I DMs without requiring model-specific redesign. 3) \\emph{Robustness:} The attack remains effective against existing backdoor defenses and adaptive defenses. Our extensive experimental results on multiple T2I DMs demonstrate that with only 10 carefully crafted backdoored samples, our attack method achieves $>$90\\% attack success rate with negligible degradation in benign image generation quality. We also conduct human evaluation to validate our attack effectiveness. Furthermore, recent backdoor detection and mitigation methods, as well as adaptive defense tailored to our attack are not sufficiently effective, highlighting the pressing need for more robust defense mechanisms against the proposed attack.",
+      "categories": [
+        "cs.CR"
+      ],
+      "published": "2025-08-03T05:42:20Z",
+      "url": "https://arxiv.org/pdf/2508.01605v1",
+      "resource_uri": "arxiv://2508.01605"
+    },
+    {
+      "id": "2507.22813",
+      "title": "DISTIL: Data-Free Inversion of Suspicious Trojan Inputs via Latent Diffusion",
+      "authors": [
+        "Hossein Mirzaei",
+        "Zeinab Taghavi",
+        "Sepehr Rezaee",
+        "Masoud Hadi",
+        "Moein Madadi",
+        "Mackenzie W. Mathis"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Deep neural networks have demonstrated remarkable success across numerous tasks, yet they remain vulnerable to Trojan (backdoor) attacks, raising serious concerns about their safety in real-world mission-critical applications. A common countermeasure is trigger inversion -- reconstructing malicious \"shortcut\" patterns (triggers) inserted by an adversary during training. Current trigger-inversion methods typically search the full pixel space under specific assumptions but offer no assurances that the estimated trigger is more than an adversarial perturbation that flips the model output. Here, we propose a data-free, zero-shot trigger-inversion strategy that restricts the search space while avoiding strong assumptions on trigger appearance. Specifically, we incorporate a diffusion-based generator guided by the target classifier; through iterative generation, we produce candidate triggers that align with the internal representations the model relies on for malicious behavior. Empirical evaluations, both quantitative and qualitative, show that our approach reconstructs triggers that effectively distinguish clean versus Trojaned models. DISTIL surpasses alternative methods by high margins, achieving up to 7.1% higher accuracy on the BackdoorBench dataset and a 9.4% improvement on trojaned object detection model scanning, offering a promising new direction for reliable backdoor defense without reliance on extensive data or strong prior assumptions about triggers. The code is available at https://github.com/AdaptiveMotorControlLab/DISTIL.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-07-30T16:31:13Z",
+      "url": "https://arxiv.org/pdf/2507.22813v1",
+      "resource_uri": "arxiv://2507.22813"
+    },
+    {
+      "id": "2507.17554",
+      "title": "An h-space Based Adversarial Attack for Protection Against Few-shot Personalization",
+      "authors": [
+        "Xide Xu",
+        "Sandesh Kamath",
+        "Muhammad Atif Butt",
+        "Bogdan Raducanu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The versatility of diffusion models in generating customized images from few samples raises significant privacy concerns, particularly regarding unauthorized modifications of private content. This concerning issue has renewed the efforts in developing protection mechanisms based on adversarial attacks, which generate effective perturbations to poison diffusion models. Our work is motivated by the observation that these models exhibit a high degree of abstraction within their semantic latent space (`h-space'), which encodes critical high-level features for generating coherent and meaningful content. In this paper, we propose a novel anti-customization approach, called HAAD (h-space based Adversarial Attack for Diffusion models), that leverages adversarial attacks to craft perturbations based on the h-space that can efficiently degrade the image generation process. Building upon HAAD, we further introduce a more efficient variant, HAAD-KV, that constructs perturbations solely based on the KV parameters of the h-space. This strategy offers a stronger protection, that is computationally less expensive. Despite their simplicity, our methods outperform state-of-the-art adversarial attacks, highlighting their effectiveness.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-07-23T14:43:22Z",
+      "url": "https://arxiv.org/pdf/2507.17554v1",
+      "resource_uri": "arxiv://2507.17554"
+    },
+    {
+      "id": "2507.16880",
+      "title": "Finding DoRI: Discovery of Retained Images in Diffusion Models",
+      "authors": [
+        "Antoni Kowalczuk",
+        "Dominik Hintersdorf",
+        "Lukas Struppek",
+        "Kristian Kersting",
+        "Adam Dziedzic",
+        "Franziska Boenisch"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models (DMs) have achieved remarkable success in image generation. However, concerns about data privacy and intellectual property remain due to their potential to inadvertently memorize and replicate training data. Recent mitigation efforts have focused on identifying and pruning weights responsible for triggering verbatim training data replication, based on the assumption that memorization can be localized. We challenge this assumption and demonstrate that, even after such pruning, small perturbations to the text embeddings of previously mitigated prompts can re-trigger data replication, revealing the fragility of such methods. Our further analysis then provides multiple indications that memorization is indeed \\textit{not} inherently local: (1) replication triggers for memorized images are distributed throughout text embedding space; (2) embeddings yielding the same replicated image produce divergent model activations; and (3) different pruning methods identify inconsistent sets of memorization-related weights for the same image. Finally, we show that bypassing the locality assumption enables more robust mitigation through adversarial fine-tuning. These findings provide new insights into the fundamental nature of memorization in text-to-image DMs and inform the future development of more reliable mitigation methods against DM memorization.",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2025-07-22T15:02:38Z",
+      "url": "https://arxiv.org/pdf/2507.16880v3",
+      "resource_uri": "arxiv://2507.16880"
+    },
+    {
+      "id": "2507.10578",
+      "title": "When and Where do Data Poisons Attack Textual Inversion?",
+      "authors": [
+        "Jeremy Styborski",
+        "Mingzhi Lyu",
+        "Jiayou Lu",
+        "Nupur Kapur",
+        "Adams Kong"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Poisoning attacks pose significant challenges to the robustness of diffusion models (DMs). In this paper, we systematically analyze when and where poisoning attacks textual inversion (TI), a widely used personalization technique for DMs. We first introduce Semantic Sensitivity Maps, a novel method for visualizing the influence of poisoning on text embeddings. Second, we identify and experimentally verify that DMs exhibit non-uniform learning behavior across timesteps, focusing on lower-noise samples. Poisoning attacks inherit this bias and inject adversarial signals predominantly at lower timesteps. Lastly, we observe that adversarial signals distract learning away from relevant concept regions within training data, corrupting the TI process. Based on these insights, we propose Safe-Zone Training (SZT), a novel defense mechanism comprised of 3 key components: (1) JPEG compression to weaken high-frequency poison signals, (2) restriction to high timesteps during TI training to avoid adversarial signals at lower timesteps, and (3) loss masking to constrain learning to relevant regions. Extensive experiments across multiple poisoning methods demonstrate that SZT greatly enhances the robustness of TI against all poisoning attacks, improving generative quality beyond prior published defenses. Code: www.github.com/JStyborski/Diff_Lab Data: www.github.com/JStyborski/NC10",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2025-07-11T10:35:52Z",
+      "url": "https://arxiv.org/pdf/2507.10578v4",
+      "resource_uri": "arxiv://2507.10578"
+    },
+    {
+      "id": "2505.03507",
+      "title": "Modality-Guided Dynamic Graph Fusion and Temporal Diffusion for Self-Supervised RGB-T Tracking",
+      "authors": [
+        "Shenglan Li",
+        "Rui Yao",
+        "Yong Zhou",
+        "Hancheng Zhu",
+        "Kunyang Sun",
+        "Bing Liu",
+        "Zhiwen Shao",
+        "Jiaqi Zhao"
+      ],
+      "abstract": "[EXTERNAL CONTENT] To reduce the reliance on large-scale annotations, self-supervised RGB-T tracking approaches have garnered significant attention. However, the omission of the object region by erroneous pseudo-label or the introduction of background noise affects the efficiency of modality fusion, while pseudo-label noise triggered by similar object noise can further affect the tracking performance. In this paper, we propose GDSTrack, a novel approach that introduces dynamic graph fusion and temporal diffusion to address the above challenges in self-supervised RGB-T tracking. GDSTrack dynamically fuses the modalities of neighboring frames, treats them as distractor noise, and leverages the denoising capability of a generative model. Specifically, by constructing an adjacency matrix via an Adjacency Matrix Generator (AMG), the proposed Modality-guided Dynamic Graph Fusion (MDGF) module uses a dynamic adjacency matrix to guide graph attention, focusing on and fusing the object's coherent regions. Temporal Graph-Informed Diffusion (TGID) models MDGF features from neighboring frames as interference, and thus improving robustness against similar-object noise. Extensive experiments conducted on four public RGB-T tracking datasets demonstrate that GDSTrack outperforms the existing state-of-the-art methods. The source code is available at https://github.com/LiShenglana/GDSTrack.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-05-06T13:15:34Z",
+      "url": "https://arxiv.org/pdf/2505.03507v1",
+      "resource_uri": "arxiv://2505.03507"
+    },
+    {
+      "id": "2505.02824",
+      "title": "Towards Dataset Copyright Evasion Attack against Personalized Text-to-Image Diffusion Models",
+      "authors": [
+        "Kuofeng Gao",
+        "Yufei Zhu",
+        "Yiming Li",
+        "Jiawang Bai",
+        "Yong Yang",
+        "Zhifeng Li",
+        "Shu-Tao Xia"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image (T2I) diffusion models enable high-quality image generation conditioned on textual prompts. However, fine-tuning these pre-trained models for personalization raises concerns about unauthorized dataset usage. To address this issue, dataset ownership verification (DOV) has recently been proposed, which embeds watermarks into fine-tuning datasets via backdoor techniques. These watermarks remain dormant on benign samples but produce owner-specified outputs when triggered. Despite its promise, the robustness of DOV against copyright evasion attacks (CEA) remains unexplored. In this paper, we investigate how adversaries can circumvent these mechanisms, enabling models trained on watermarked datasets to bypass ownership verification. We begin by analyzing the limitations of potential attacks achieved by backdoor removal, including TPD and T2IShield. In practice, TPD suffers from inconsistent effectiveness due to randomness, while T2IShield fails when watermarks are embedded as local image patches. To this end, we introduce CEAT2I, the first CEA specifically targeting DOV in T2I diffusion models. CEAT2I consists of three stages: (1) motivated by the observation that T2I models converge faster on watermarked samples with respect to intermediate features rather than training loss, we reliably detect watermarked samples; (2) we iteratively ablate tokens from the prompts of detected samples and monitor feature shifts to identify trigger tokens; and (3) we apply a closed-form concept erasure method to remove the injected watermarks. Extensive experiments demonstrate that CEAT2I effectively evades state-of-the-art DOV mechanisms while preserving model performance. The code is available at https://github.com/csyufei/CEAT2I.",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2025-05-05T17:51:55Z",
+      "url": "https://arxiv.org/pdf/2505.02824v2",
+      "resource_uri": "arxiv://2505.02824"
+    },
+    {
+      "id": "2505.02077",
+      "title": "Open Challenges in Multi-Agent Security: Towards Secure Systems of Interacting AI Agents",
+      "authors": [
+        "Christian Schroeder de Witt",
+        "Klaudia Krawiecka",
+        "Igor Krawczuk",
+        "Ben Hagag",
+        "William L. Anderson",
+        "Peter Belcak",
+        "Ben Bucknall",
+        "Xiaohong Cai",
+        "Ayush Chopra",
+        "Doron Cohen",
+        "Ron F. Del Rosario",
+        "Andis Draguns",
+        "Annie Gray",
+        "Keren Katz",
+        "Vasilios Mavroudis",
+        "Jaron Mink",
+        "Sumeet Ramesh Motwani",
+        "Jonathan Petit",
+        "Leif-Sebastian Rembeck",
+        "Chandler Smith",
+        "John Sotiropoulos",
+        "Steven Young",
+        "Sarah Scheffler",
+        "Mary Llewellyn"
+      ],
+      "abstract": "[EXTERNAL CONTENT] AI agents are beginning to interact with each other directly and across internet platforms and physical environments, creating security challenges beyond traditional cybersecurity and AI safety frameworks. Free-form protocols are essential for AI's task generalization but enable new threats like secret collusion and coordinated swarm attacks. Network effects can rapidly spread privacy breaches, disinformation, jailbreaks, and data poisoning, while multi-agent dispersion and stealth optimization help adversaries evade oversight - creating novel persistent threats at a systemic level. Despite their critical importance, these security challenges remain understudied, with research fragmented across disparate fields including AI security, multi-agent learning, complex systems, cybersecurity, game theory, distributed systems, and technical AI governance. We introduce multi-agent security, a new field dedicated to securing networks of AI agents against threats that emerge or amplify through their interactions - whether direct or indirect via shared environments - with each other, humans, and institutions, and characterise fundamental security-utility and security-security trade-offs across both distributed and decentralised settings. Our preliminary work (1) taxonomizes the threat landscape arising from interacting AI agents, (2) offers applications to multi-agent security for work across diffuse subfields, and (3) proposes a unified research agenda addressing open challenges in designing secure agent systems and interaction environments. By identifying these gaps, we aim to guide research in this critical area to unlock the socioeconomic potential of large-scale agent deployment, foster public trust, and mitigate national security risks in critical infrastructure and defense contexts.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2025-05-04T12:03:29Z",
+      "url": "https://arxiv.org/pdf/2505.02077v2",
+      "resource_uri": "arxiv://2505.02077"
+    },
+    {
+      "id": "2504.21072",
+      "title": "Erased but Not Forgotten: How Backdoors Compromise Concept Erasure",
+      "authors": [
+        "Tobias Braun",
+        "Jonas Henry Grebe",
+        "Marcus Rohrbach",
+        "Anna Rohrbach"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The expansion of text-to-image diffusion models has raised concerns about harmful outputs, from fabricated depictions of public figures to sexually explicit imagery. To mitigate such risks, prior work has proposed concept erasure methods that aim to sever unwanted concepts from the model via fine-tuning, yet it remains unclear whether these approaches truly remove all links to the harmful concept or merely conceal superficial connections. In this work, we reveal a critical vulnerability, the Erasure Evasion Backdoor (EEB): an adversary binds a backdoor trigger to a concept slated for removal, and this malicious link survives subsequent erasure. We show that both black-box and white-box adversaries can instantiate this threat. Across six state-of-the-art erasure methods, including robust ones that explicitly search for alternative representations of the target concept, EEB consistently exposes harmful content: up to 82% success against celebrity-identity unlearning, up to 94% for object erasure, and up to 16 times amplification of explicit-content exposure. While EEB uncovers a blind spot in current erasure methods, it also provides a diagnostic tool for stress-testing future concept erasure techniques.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2025-04-29T16:13:06Z",
+      "url": "https://arxiv.org/pdf/2504.21072v3",
+      "resource_uri": "arxiv://2504.21072"
+    },
+    {
+      "id": "2504.18563",
+      "title": "Backdoor Defense in Diffusion Models via Spatial Attention Unlearning",
+      "authors": [
+        "Abha Jha",
+        "Ashwath Vaithinathan Aravindan",
+        "Matthew Salaway",
+        "Atharva Sandeep Bhide",
+        "Duygu Nur Yaldiz"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models are increasingly vulnerable to backdoor attacks, where malicious modifications to the training data cause the model to generate unintended outputs when specific triggers are present. While classification models have seen extensive development of defense mechanisms, generative models remain largely unprotected due to their high-dimensional output space, which complicates the detection and mitigation of subtle perturbations. Defense strategies for diffusion models, in particular, remain under-explored. In this work, we propose Spatial Attention Unlearning (SAU), a novel technique for mitigating backdoor attacks in diffusion models. SAU leverages latent space manipulation and spatial attention mechanisms to isolate and remove the latent representation of backdoor triggers, ensuring precise and efficient removal of malicious effects. We evaluate SAU across various types of backdoor attacks, including pixel-based and style-based triggers, and demonstrate its effectiveness in achieving 100% trigger removal accuracy. Furthermore, SAU achieves a CLIP score of 0.7023, outperforming existing methods while preserving the model's ability to generate high-quality, semantically aligned images. Our results show that SAU is a robust, scalable, and practical solution for securing text-to-image diffusion models against backdoor attacks.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2025-04-21T04:00:19Z",
+      "url": "https://arxiv.org/pdf/2504.18563v1",
+      "resource_uri": "arxiv://2504.18563"
+    },
+    {
+      "id": "2503.16171",
+      "title": "Guardians of Generation: Dynamic Inference-Time Copyright Shielding with Adaptive Guidance for AI Image Generation",
+      "authors": [
+        "Soham Roy",
+        "Abhishek Mishra",
+        "Shirish Karande",
+        "Murari Mandal"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Modern text-to-image generative models can inadvertently reproduce copyrighted content memorized in their training data, raising serious concerns about potential copyright infringement. We introduce Guardians of Generation, a model agnostic inference time framework for dynamic copyright shielding in AI image generation. Our approach requires no retraining or modification of the generative model weights, instead integrating seamlessly with existing diffusion pipelines. It augments the generation process with an adaptive guidance mechanism comprising three components: a detection module, a prompt rewriting module, and a guidance adjustment module. The detection module monitors user prompts and intermediate generation steps to identify features indicative of copyrighted content before they manifest in the final output. If such content is detected, the prompt rewriting mechanism dynamically transforms the user's prompt by sanitizing or replacing references that could trigger copyrighted material while preserving the prompt's intended semantics. The adaptive guidance module adaptively steers the diffusion process away from flagged content by modulating the model's sampling trajectory. Together, these components form a robust shield that enables a tunable balance between preserving creative fidelity and ensuring copyright compliance. We validate our method on a variety of generative models such as Stable Diffusion, SDXL, and Flux, demonstrating substantial reductions in copyrighted content generation with negligible impact on output fidelity or alignment with user intent. This work provides a practical, plug-and-play safeguard for generative image models, enabling more responsible deployment under real-world copyright constraints. Source code is available at: https://respailab.github.io/gog",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-03-19T15:31:12Z",
+      "url": "https://arxiv.org/pdf/2503.16171v1",
+      "resource_uri": "arxiv://2503.16171"
+    },
+    {
+      "id": "2503.11071",
+      "title": "Harnessing Frequency Spectrum Insights for Image Copyright Protection Against Diffusion Models",
+      "authors": [
+        "Zhenguang Liu",
+        "Chao Shuai",
+        "Shaojing Fan",
+        "Ziping Dong",
+        "Jinwu Hu",
+        "Zhongjie Ba",
+        "Kui Ren"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models have achieved remarkable success in novel view synthesis, but their reliance on large, diverse, and often untraceable Web datasets has raised pressing concerns about image copyright protection. Current methods fall short in reliably identifying unauthorized image use, as they struggle to generalize across varied generation tasks and fail when the training dataset includes images from multiple sources with few identifiable (watermarked or poisoned) samples. In this paper, we present novel evidence that diffusion-generated images faithfully preserve the statistical properties of their training data, particularly reflected in their spectral features. Leveraging this insight, we introduce \\emph{CoprGuard}, a robust frequency domain watermarking framework to safeguard against unauthorized image usage in diffusion model training and fine-tuning. CoprGuard demonstrates remarkable effectiveness against a wide range of models, from naive diffusion models to sophisticated text-to-image models, and is robust even when watermarked images comprise a mere 1\\% of the training dataset. This robust and versatile approach empowers content owners to protect their intellectual property in the era of AI-driven image generation.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-03-14T04:27:50Z",
+      "url": "https://arxiv.org/pdf/2503.11071v2",
+      "resource_uri": "arxiv://2503.11071"
+    },
+    {
+      "id": "2503.03944",
+      "title": "GuardDoor: Safeguarding Against Malicious Diffusion Editing via Protective Backdoors",
+      "authors": [
+        "Yaopei Zeng",
+        "Yuanpu Cao",
+        "Lu Lin"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The growing accessibility of diffusion models has revolutionized image editing but also raised significant concerns about unauthorized modifications, such as misinformation and plagiarism. Existing countermeasures largely rely on adversarial perturbations designed to disrupt diffusion model outputs. However, these approaches are found to be easily neutralized by simple image preprocessing techniques, such as compression and noise addition. To address this limitation, we propose GuardDoor, a novel and robust protection mechanism that fosters collaboration between image owners and model providers. Specifically, the model provider participating in the mechanism fine-tunes the image encoder to embed a protective backdoor, allowing image owners to request the attachment of imperceptible triggers to their images. When unauthorized users attempt to edit these protected images with this diffusion model, the model produces meaningless outputs, reducing the risk of malicious image editing. Our method demonstrates enhanced robustness against image preprocessing operations and is scalable for large-scale deployment. This work underscores the potential of cooperative frameworks between model providers and image owners to safeguard digital content in the era of generative AI.",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2025-03-05T22:21:44Z",
+      "url": "https://arxiv.org/pdf/2503.03944v1",
+      "resource_uri": "arxiv://2503.03944"
+    },
+    {
+      "id": "2502.20650",
+      "title": "Gungnir: Exploiting Stylistic Features in Images for Backdoor Attacks on Diffusion Models",
+      "authors": [
+        "Lei Zhang",
+        "Yu Pan",
+        "Bingrong Dai",
+        "Lin Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion Models (DMs) have achieved remarkable success in image generation, yet recent studies reveal their vulnerability to backdoor attacks, where adversaries manipulate outputs via covert triggers embedded in inputs. Existing defenses, such as backdoor detection and trigger inversion, are largely effective because prior attacks rely on limited input spaces and low-dimensional triggers that are visually conspicuous or easily captured by neural detectors. To broaden the threat landscape, we propose Gungnir, a novel backdoor attack that activates malicious behaviors through style-based triggers embedded in input images. Unlike explicit visual patches or textual cues, stylistic features serve as stealthy, high-level triggers. We introduce Reconstructing-Adversarial Noise (RAN) and Short-Term Timesteps-Retention (STTR) to preserve trigger-consistent diffusion dynamics in image-to-image tasks. The resulting trigger-embedded samples are perceptually indistinguishable from clean images, evading both manual and automated detection. Extensive experiments show that Gungnir bypasses state-of-the-art defenses with an extremely low backdoor detection rate (BDR) and remains effective under fine-tuning-based purification, revealing previously underexplored vulnerabilities in diffusion models.",
+      "categories": [
+        "cs.CV",
+        "cs.CR"
+      ],
+      "published": "2025-02-28T02:08:26Z",
+      "url": "https://arxiv.org/pdf/2502.20650v5",
+      "resource_uri": "arxiv://2502.20650"
+    },
+    {
+      "id": "2502.16167",
+      "title": "PersGuard: Preventing Malicious Personalization via Backdoor Attacks on Pre-trained Text-to-Image Diffusion Models",
+      "authors": [
+        "Xinwei Liu",
+        "Xiaojun Jia",
+        "Yuan Xun",
+        "Hua Zhang",
+        "Xiaochun Cao"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models (DMs) have revolutionized data generation, particularly in text-to-image (T2I) synthesis. However, the widespread use of personalized generative models raises significant concerns regarding privacy violations and copyright infringement. To address these issues, researchers have proposed adversarial perturbation-based protection techniques. However, these methods have notable limitations, including insufficient robustness against data transformations and the inability to fully eliminate identifiable features of protected objects in the generated output. In this paper, we introduce PersGuard, a novel backdoor-based approach that prevents malicious personalization of specific images. Unlike traditional adversarial perturbation methods, PersGuard implant backdoor triggers into pre-trained T2I models, preventing the generation of customized outputs for designated protected images while allowing normal personalization for unprotected ones. Unfortunately, existing backdoor methods for T2I diffusion models fail to be applied to personalization scenarios due to the different backdoor objectives and the potential backdoor elimination during downstream fine-tuning processes. To address these, we propose three novel backdoor objectives specifically designed for personalization scenarios, coupled with backdoor retention loss engineered to resist downstream fine-tuning. These components are integrated into a unified optimization framework. Extensive experimental evaluations demonstrate PersGuard's effectiveness in preserving data privacy, even under challenging conditions including gray-box settings, multi-object protection, and facial identity scenarios. Our method significantly outperforms existing techniques, offering a more robust solution for privacy and copyright protection.",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2025-02-22T09:47:55Z",
+      "url": "https://arxiv.org/pdf/2502.16167v1",
+      "resource_uri": "arxiv://2502.16167"
+    },
+    {
+      "id": "2502.05206",
+      "title": "Safety at Scale: A Comprehensive Survey of Large Model and Agent Safety",
+      "authors": [
+        "Xingjun Ma",
+        "Yifeng Gao",
+        "Yixu Wang",
+        "Ruofan Wang",
+        "Xin Wang",
+        "Ye Sun",
+        "Yifan Ding",
+        "Hengyuan Xu",
+        "Yunhao Chen",
+        "Yunhan Zhao",
+        "Hanxun Huang",
+        "Yige Li",
+        "Yutao Wu",
+        "Jiaming Zhang",
+        "Xiang Zheng",
+        "Yang Bai",
+        "Zuxuan Wu",
+        "Xipeng Qiu",
+        "Jingfeng Zhang",
+        "Yiming Li",
+        "Xudong Han",
+        "Haonan Li",
+        "Jun Sun",
+        "Cong Wang",
+        "Jindong Gu",
+        "Baoyuan Wu",
+        "Siheng Chen",
+        "Tianwei Zhang",
+        "Yang Liu",
+        "Mingming Gong",
+        "Tongliang Liu",
+        "Shirui Pan",
+        "Cihang Xie",
+        "Tianyu Pang",
+        "Yinpeng Dong",
+        "Ruoxi Jia",
+        "Yang Zhang",
+        "Shiqing Ma",
+        "Xiangyu Zhang",
+        "Neil Gong",
+        "Chaowei Xiao",
+        "Sarah Erfani",
+        "Tim Baldwin",
+        "Bo Li",
+        "Masashi Sugiyama",
+        "Dacheng Tao",
+        "James Bailey",
+        "Yu-Gang Jiang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The rapid advancement of large models, driven by their exceptional abilities in learning and generalization through large-scale pre-training, has reshaped the landscape of Artificial Intelligence (AI). These models are now foundational to a wide range of applications, including conversational AI, recommendation systems, autonomous driving, content generation, medical diagnostics, and scientific discovery. However, their widespread deployment also exposes them to significant safety risks, raising concerns about robustness, reliability, and ethical implications. This survey provides a systematic review of current safety research on large models, covering Vision Foundation Models (VFMs), Large Language Models (LLMs), Vision-Language Pre-training (VLP) models, Vision-Language Models (VLMs), Diffusion Models (DMs), and large-model-powered Agents. Our contributions are summarized as follows: (1) We present a comprehensive taxonomy of safety threats to these models, including adversarial attacks, data poisoning, backdoor attacks, jailbreak and prompt injection attacks, energy-latency attacks, data and model extraction attacks, and emerging agent-specific threats. (2) We review defense strategies proposed for each type of attacks if available and summarize the commonly used datasets and benchmarks for safety research. (3) Building on this, we identify and discuss the open challenges in large model safety, emphasizing the need for comprehensive safety evaluations, scalable and effective defense mechanisms, and sustainable data practices. More importantly, we highlight the necessity of collective efforts from the research community and international collaboration. Our work can serve as a useful reference for researchers and practitioners, fostering the ongoing development of comprehensive defense systems and platforms to safeguard AI models.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CL",
+        "cs.CV"
+      ],
+      "published": "2025-02-02T05:14:22Z",
+      "url": "https://arxiv.org/pdf/2502.05206v6",
+      "resource_uri": "arxiv://2502.05206"
+    },
+    {
+      "id": "2501.18708",
+      "title": "Combining physics-based and data-driven models: advancing the frontiers of research with Scientific Machine Learning",
+      "authors": [
+        "Alfio Quarteroni",
+        "Paola Gervasio",
+        "Francesco Regazzoni"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Scientific Machine Learning (SciML) is a recently emerged research field which combines physics-based and data-driven models for the numerical approximation of differential problems. Physics-based models rely on the physical understanding of the problem, subsequent mathematical formulation, and numerical approximation. Data-driven models instead aim to extract relations between input and output data without arguing any causality principle underlining the available data distribution. In recent years, data-driven models have been rapidly developed and popularized. Such a diffusion has been triggered by a huge availability of data, increasingly cheap computing power, and the development of powerful ML algorithms. SciML leverages the physical awareness of physics-based models and the efficiency of data-driven algorithms. With SciML, we can inject physics and mathematical knowledge into ML algorithms. Yet, we can rely on data-driven algorithms' capability to discover complex and nonlinear patterns from data and improve the descriptive capacity of physics-based models. After recalling the mathematical foundations of digital modelling and ML algorithms and presenting the most popular ML architectures, we discuss the great potential of a broad variety of SciML strategies in solving complex problems governed by PDEs. Finally, we illustrate the successful application of SciML to the simulation of the human cardiac function, a field of significant socioeconomic importance that poses numerous challenges on both the mathematical and computational fronts. Despite the robustness and accuracy of physics-based models, certain aspects, such as unveiling constitutive laws for cardiac cells and myocardial material properties, as well as devising efficient reduced order models to dominate the extraordinary computational complexity, have been successfully tackled by leveraging data-driven models.",
+      "categories": [
+        "math.NA",
+        "cs.LG",
+        "physics.comp-ph"
+      ],
+      "published": "2025-01-30T19:09:38Z",
+      "url": "https://arxiv.org/pdf/2501.18708v2",
+      "resource_uri": "arxiv://2501.18708"
+    }
+  ]
+}

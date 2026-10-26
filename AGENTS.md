@@ -8,25 +8,29 @@
 
 ```
 /Users/zzb/arxiv/
+├── README.md                          # 项目总索引与下一步入口
 ├── AGENTS.md                          # 项目指令（单一事实来源，所有 AI agent 读取）
 ├── CLAUDE.md                          # → @AGENTS.md（Claude Code 导入入口）
-├── LOOP.md                            # 循环执行指令（loop agent 每次迭代读取）
-├── backdoordm_progress.md             # 复现进度（可变，loop 每次更新）
-├── papers/                            # 24 篇论文 PDF + README 索引
-├── reports/                           # 报告 + 基准参考（详见 reports/README.md）
+├── research/                          # 当前方法、研究进度、实验准备清单
+├── reproduction/                      # 基准参考、复现进度、论文代码对照、LOOP.md
+├── papers/                            # 论文索引、pdf/、txt/、metadata/、待下载清单
+├── reports/                           # 历史调研与旧方案只读封存
+├── results/                           # 历史合并结果、证据边界及后续实验产物入口
+├── scripts/                           # reproduction/、merging/、connection/ 三类脚本
 ├── archive/experiments/               # 归档：早期实验脚本（不可编辑，仅供参考）
+├── archive/organization-2026-10-26/    # 整理前快照、迁移映射与校验记录
 ├── simulations/                       # 早期合并后门仿真代码
 ├── presentations/                     # PPT 及生成脚本
-├── data/                              # 论文元数据 JSON
-├── server/                            # AMAX 连接脚本
 └── .mcp.json                          # arxiv + zotero MCP 配置
 ```
 
+旧根目录文档、`server/`、`data/` 和报告编号目录保留兼容链接；新导航与维护使用上述真实路径，旧链接不是独立副本。
+
 ## Current Focus
 
-**BackdoorDM 基准复现** — 2026-07-24 严格复核为 15/16 有模型，其中 13/16 完整闭环、`eviledit_numAdd` 与 `badt2i_objectAdd` 各缺正式 10K FID、`villandiffusion_cond` 因 CelebA-Dialog_HQ 数据阻塞；5/5 防御已执行。进度文档：`backdoordm_progress.md`，基准参考：`reports/03-reproduction-results/backdoordm_reference.md`（只读），循环指令：`LOOP.md`。
+**BackdoorDM 基准复现** — 2026-07-24 历史严格复核为 15/16 有模型，其中 13/16 完整闭环、`eviledit_numAdd` 与 `badt2i_objectAdd` 各缺正式 10K FID、`villandiffusion_cond` 因 CelebA-Dialog_HQ 数据阻塞；5/5 防御已执行，本次整理未重新连接服务器核验。入口为 [复现索引](reproduction/README.md)，进度 `reproduction/backdoordm_progress.md`，基准 `reproduction/backdoordm_reference.md`（只读），循环指令 `reproduction/LOOP.md`。
 
-**Idea 1: Checkpoint Merging Backdoor** — 研究 LERP/SLERP/DARE/TIES 合并后后门存活率；EvilEdit 已复现、合成原型已完成，真实 checkpoint 实验待启动。独立进度与门禁见 `merging_attack_progress.md`。
+**Idea 1: Checkpoint Merging Backdoor** — 当前唯一方法提案为 [TSSA 梯度校准版](research/tssa_response_calibration_method_proposal.md)，冻结原始差分与分组，以后门及正常损失优化 a、b，尚未实现或验证本版。旧方法提案已[原样封存](reports/archive/2026-10-23-tssa-local-surrogate/README.md)，研究进度见 `research/merging_attack_progress.md`，下一阶段见 [实验准备清单](research/experiment_preparation.md)。
 
 ## Tools
 
@@ -37,6 +41,8 @@
 SSH: `ssh amax -p <port>`，数据目录: `/opt/data/private/`
 
 **端口约定**: AMAX 端口是交互式任务启动时动态分配的，每次重开都会变化。文档中统一使用 `<port>` 占位符，实际端口由用户主动提供。
+
+**当前端口**: `25225`（动态值，用户提供新端口时更新此行；若连接失败以用户最新提供为准）
 
 ### 网络约束
 
@@ -85,7 +91,8 @@ ssh -O exit amax-jump 2>/dev/null; ssh -O exit amax 2>/dev/null; rm -f ~/.ssh/so
 ## Conventions
 
 - 用中文交流；批量任务用 parallel agents，extraction 用 sonnet 省成本
-- 报告放 `reports/`，服务器输出放 `/opt/data/private/<project>/results/`；归档旧脚本在 `archive/`（只读）
+- 当前方法与准备文档放 `research/`，复现记录放 `reproduction/`，文献调研放 `reports/`，本地实验产物放 `results/`；各目录的 `README.md` 提供导航。
+- 服务器输出放 `/opt/data/private/<project>/results/`；`archive/experiments/` 与 `reports/archive/` 原样只读保留，整理记录单独放 `archive/organization-2026-10-26/`。
 
 ### 定时任务管理
 

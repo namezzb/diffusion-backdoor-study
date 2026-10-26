@@ -1,0 +1,9 @@
+{
+  "archived_at": "2026-10-23",
+  "status": "superseded_read_only",
+  "source": "reports/01-background-research/tssa_response_calibration_method_proposal.md",
+  "archive": "tssa_response_calibration_method_proposal.pre-gradient.md",
+  "sha256": "540d5c14a3e6d5d2df2f2b6f701acf1793bcdc845766b9aef4b336e018f07197",
+  "bytes": 37771,
+  "reason": "用户要求直接梯度优化版成为唯一主方案，原有限差分及局部约束求解路线封存。"
+}

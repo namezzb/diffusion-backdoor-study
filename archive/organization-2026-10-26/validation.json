@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-26",
+  "status": "passed",
+  "scope": "Local organization only; no network, project scripts, SSH, training, or evaluation executed.",
+  "original_files": 224,
+  "original_content_unchanged": 217,
+  "intentional_document_changes": [
+    {
+      "original": "LOOP.md",
+      "current": "reproduction/LOOP.md"
+    },
+    {
+      "original": "merging_attack_progress.md",
+      "current": "research/merging_attack_progress.md"
+    },
+    {
+      "original": "AGENTS.md",
+      "current": "AGENTS.md"
+    },
+    {
+      "original": "papers/defense_papers_index.md",
+      "current": "papers/defense_papers_index.md"
+    },
+    {
+      "original": "papers/README.md",
+      "current": "papers/README.md"
+    },
+    {
+      "original": "reports/README.md",
+      "current": "reports/README.md"
+    },
+    {
+      "original": "reports/01-background-research/tssa_response_calibration_method_proposal.md",
+      "current": "research/tssa_response_calibration_method_proposal.md"
+    }
+  ],
+  "missing_original_files": [],
+  "unexpected_content_changes": [],
+  "original_mode_changes": [],
+  "moved_files": 46,
+  "compatibility_links_verified": 46,
+  "compatibility_link_errors": [],
+  "protected_files_verified": 132,
+  "protected_failures": [],
+  "research_scripts_verified": 23,
+  "research_script_failures": [],
+  "paper_count": 24,
+  "pdf_hash_failures": [],
+  "duplicate_pdf_hashes": 0,
+  "method_only_link_targets_changed": true,
+  "method_display_math_blocks": 27,
+  "method_display_math_unchanged": true,
+  "method_equation_tags": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20"
+  ],
+  "research_progress_only_link_targets_changed": true,
+  "markdown_files_checked_including_aliases": 56,
+  "local_markdown_links_checked": 210,
+  "broken_local_markdown_links": [],
+  "new_markdown_whitespace_issues": [],
+  "git_diff_check_exit_code": 0,
+  "git_diff_check_output": "",
+  "backup_zip_integrity_error": null,
+  "boundaries": [
+    "No claim that historical server state is current.",
+    "No new PDFs downloaded.",
+    "No research-code content changes.",
+    "No new experimental evidence.",
+    "Existing working-tree changes retained; no staging, commit, or reset."
+  ]
+}

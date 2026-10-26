@@ -1,0 +1,941 @@
+{
+  "total_results": 50,
+  "papers": [
+    {
+      "id": "2606.24000",
+      "title": "Cyclic Denoising Reveals Ultrastable Memories in Diffusion Models",
+      "authors": [
+        "Rishabh Sharma",
+        "Stefano Martiniani"
+      ],
+      "abstract": "[EXTERNAL CONTENT] We introduce cyclic denoising -- repeated forward and reverse diffusion at controlled noise amplitudes -- as an extraction attack for image diffusion models. Inspired by random organization in disordered solids, cyclic denoising exposes regions of the learned distribution that are largely inaccessible to standard sampling. The dynamics drive samples toward attractors with a broad stability spectrum. The deepest attractors are ultrastable: they regenerate after near-total corruption and persist through thousands of noising-denoising cycles. Many of these attractors correspond to memorized training images, including stock photographs, brand watermarks, and web-crawl artifacts. The attack requires only sampler-level control, with no gradients, weight inspection, prompts, captions, or prior knowledge of the training data. Unlike generate-and-filter attacks, which rely on large-scale prompted generation and post-hoc similarity or membership-inference filtering, our main protocol is fully unconditioned. We demonstrate the phenomenon in Stable Diffusion v1.4 and in a pixel-space DDPM, showing consistent behavior across latent- and pixel-space diffusion models. Across noise amplitudes, we observe a yielding-like transition: low-amplitude cycling produces trivial absorbing fixed points or limit cycles, while larger amplitudes induce rearrangements, basin hopping, and long-lived trapping in structured memorized attractor basins. We also observe hierarchical partial absorption, prompt-stabilized basins, and cross-initial-condition universality of the recovered attractor set. Our results therefore show that cyclic denoising is both a physics-inspired probe of generative landscapes and a practical tool for memorization auditing, with implications for privacy, copyright compliance, and model fingerprinting.",
+      "categories": [
+        "cs.LG",
+        "cond-mat.dis-nn",
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2606.24000v1",
+      "resource_uri": "arxiv://2606.24000",
+      "published_date": "2026-06-22T23:11:38Z"
+    },
+    {
+      "id": "2606.23362",
+      "title": "TooBad: Backdoor Diffusion Models with Ultra-Low Poison Rate and Imperceptible Trigger",
+      "authors": [
+        "Vu Tuan Truong",
+        "Long Bao Le"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models (DMs), despite their impressive capabilities across a wide range of generative tasks, have been shown to be vulnerable to backdoor attacks. However, existing backdoor methods face critical trade-offs among key factors: attack performance, stealthiness, time complexity, and required poison rates. For example, achieving high attack performance typically demands a high poison rate and prolonged training, which undermines stealthiness, making the attack more detectable by backdoor defenses. This paper proposes TooBad (trigger optimization for backdoor diffusion models), a backdoor framework which introduces a novel DM-tailored trigger optimization technique to dramatically enhance the performance of backdoor attacks on DMs. Experiments on representative benchmarks such as CIFAR-10 show that TooBad can achieve high ASRs ($> 85$%) at only 0.5% poison rate, significantly lower than the 10% typically required by prior work on the same datasets. At 5% poison rate, TooBad reaches nearly 100% ASR within just 3-5 backdoor injection epochs, whereas existing methods need at least 30-50 epochs at double the poison rate for comparable results. Despite its potency, TooBad easily evades SOTA defenses and maintains high utility. These results reveal a critical threat on DMs and highlight the need for more robust defenses against such stealthy yet efficient attacks.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2606.23362v1",
+      "resource_uri": "arxiv://2606.23362",
+      "published_date": "2026-06-22T14:00:06Z"
+    },
+    {
+      "id": "2606.22875",
+      "title": "FedOT: Ownership Verification and Leakage Tracing via Watermarks for Federated LDMs",
+      "authors": [
+        "Wenlong Cheng",
+        "Yuan Gan",
+        "Yunqiu Xu",
+        "Jiaxu Miao"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Training Latent Diffusion Models (LDMs) within Federated Learning (FL) has attracted increasing attention due to its ability to combine the powerful generative capacity of LDMs with the privacy-preserving properties of FL. However, FL requires sharing the global model with multiple participants, which risks unauthorized model distribution or resale by malicious clients. While an intuitive approach is to adopt existing VAE-based watermarking techniques for LDMs in FL, this strategy falls short in addressing such threats due to two fundamental challenges: (1) Existing methods support ownership verification but lack the ability to trace model leakage to a specific malicious client; (2) VAE-based watermarks are vulnerable, as they can be removed simply by replacing the decoder with a clean counterpart. In this paper, we propose FedOT, the first framework for ownership verification and leakage tracing in federated LDMs. Specifically, to address the first challenge, we design a chunked watermark, where the first part is for ownership verification, and the second part is used for client identification. Furthermore, to overcome the second challenge and secure the model against VAE replacement attack, we introduce Latent Vector Transformation (LVT), which strengthens the connection between the VAE and U-Net latent spaces by modifying the original latent distribution of the VAE. Consequently, any attempt to replace the VAE for watermark removal leads to significant image quality degradation, making the LDM model unusable. Extensive experiments demonstrate that FedOT achieves superior performance in both ownership verification and traceability. Project page: https://spyzixuan.github.io/FedOT/.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2606.22875v1",
+      "resource_uri": "arxiv://2606.22875",
+      "published_date": "2026-06-22T05:39:46Z"
+    },
+    {
+      "id": "2605.29809",
+      "title": "Cert-LAS: Toward Certified Model Ownership Verification for Text-to-Image Diffusion Models via Layer-Adaptive Smoothing",
+      "authors": [
+        "Leyi Qi",
+        "Yiming Li",
+        "Siyuan Liang",
+        "Zhengzhong Tu",
+        "Dacheng Tao"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Large-scale text-to-image (T2I) diffusion models have enabled unprecedented creative applications, but their unauthorized use has raised serious intellectual property concerns, making model ownership verification (MOV) increasingly critical. We find that existing backdoor-based diffusion watermarking methods often (implicitly) assume a \"faithful\" verification process, namely, that the verifier can query a suspicious model and obtain the faithful watermark response to complete MOV. However, in practice, adversaries may intentionally or unintentionally damage potential watermark signals, significantly degrading verification reliability. To address this issue, we propose Cert-LAS, the first certified MOV method for T2I models based on layer-adaptive smoothing. In general, Cert-LAS embeds specified watermarks using diffusion classifiers and an LFS-guided layer-adaptive noise, and verifies ownership by examining whether the suspected model exhibits significantly stronger watermark responses compared to unwatermarked references through hypothesis testing. We further prove that, under certain conditions, our Cert-LAS can still achieve reliable verification even in the presence of malicious removal attacks. Extensive experiments validate the effectiveness of Cert-LAS and its resistance to adaptive attacks. Our code is available at https://github.com/Leyi-Qi/Cert-LAS.",
+      "categories": [
+        "cs.CR",
+        "cs.CV",
+        "cs.GR",
+        "cs.LG",
+        "cs.MM"
+      ],
+      "url": "https://arxiv.org/pdf/2605.29809v1",
+      "resource_uri": "arxiv://2605.29809",
+      "published_date": "2026-05-28T11:54:52Z"
+    },
+    {
+      "id": "2605.29569",
+      "title": "LoRA-Key: User-Centric LoRA Watermarking for Text-to-Image Diffusion Models",
+      "authors": [
+        "Yaopeng Wang",
+        "Qingliang Wang",
+        "Zhibo Wang",
+        "Huiyu Xu",
+        "Jiacheng Du",
+        "Qiu Wang",
+        "Jia-Li Yin",
+        "Kui Ren"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Low-Rank Adaptation (LoRA) has become a widely used mechanism for customizing text-to-image diffusion models, enabling lightweight modules that are shared, reused, and commercialized as independent assets. This LoRA-centric ecosystem shifts copyright protection from foundation models to distributed LoRA modules, which are easy to copy, redistribute, or reuse without authorization. Existing watermarking methods either protect the base diffusion model or require watermark-aware retraining for each target LoRA, limiting their practicality in open community settings. To address this limitation, we propose LoRA-Key, a user-centric LoRA watermarking framework that treats copyright protection as a reusable ownership key. LoRA-Key encapsulates a recoverable secret message into a standalone user-specific Watermark LoRA, which can be attached to different target LoRAs through training-free linear superposition without per-LoRA retraining or structural modification. To train such a reusable key, we first establish a latent watermark prior in the frozen VAE latent space for robust message embedding and recovery, and then optimize the Watermark LoRA with message-conditioned watermark supervision and semantic consistency constraints. We further introduce Gradient Orthogonal Projection (GOP) to suppress watermark updates that conflict with semantic-preserving directions, reducing interference with generation fidelity and downstream style adaptation. Extensive experiments show that LoRA-Key provides lightweight plug-and-play copyright protection while preserving generation quality and style fidelity, and maintains robust ownership verification under image-level distortions, downstream fine-tuning, and multi-LoRA composition.",
+      "categories": [
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2605.29569v2",
+      "resource_uri": "arxiv://2605.29569",
+      "published_date": "2026-05-28T08:17:28Z"
+    },
+    {
+      "id": "2605.27135",
+      "title": "Do Modern Post-Hoc Watermarking Methods Beat Broken-Arrows?",
+      "authors": [
+        "Enoal Gesny",
+        "Eva Giboulot"
+      ],
+      "abstract": "[EXTERNAL CONTENT] With the rapid proliferation of generative models, such as diffusion models, digital watermarking has emerged as a crucial solution for identifying AI-generated images. Modern post-hoc watermarking schemes use neural networks to achieve an extremely low false-alarm rate while remaining robust to common image transformations. However, there is a lack of comparison between these modern methods and classic ones, particularly in real-world scenarios where robustness and security take precedence over achieving an extremely low false-alarm probability. In this paper, we propose a fair comparison of robustness and security between modern and classic post-hoc watermarking across various types of classic augmentations and recent sophisticated attacks. Our experiments show that, in a realistic scenario, classic watermarking outperforms modern techniques in terms of security while maintaining robustness.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2605.27135v1",
+      "resource_uri": "arxiv://2605.27135",
+      "published_date": "2026-05-26T15:04:46Z"
+    },
+    {
+      "id": "2605.19262",
+      "title": "Backdooring Masked Diffusion Language Models",
+      "authors": [
+        "Daniel Yiming Cao",
+        "Chengzhong Wang",
+        "Sheng-Yen Chou",
+        "Chengyu Huang",
+        "Pin-Yu Chen",
+        "Shengwei An"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Masked diffusion language models (MDLMs) are emerging as a compelling new paradigm for text generation, but their training-time security remains largely unexplored. Existing backdoor attacks on Gaussian diffusion models or autoregressive language models do not directly apply to MDLMs because MDLMs rely on discrete state corruption and iterative denoising rather than continuous noising or left-to-right prediction. In this work, we present the first systematic study of training-time backdoor attacks on MDLMs. We propose SHADOWMASK, a backdoor attack that modifies the MDLM forward corruption process by replacing the standard all-mask terminal distribution with a trigger-mask mixture prior. This creates a dedicated denoising pathway from trigger-corrupted states to attacker-specified targets while preserving clean denoising behavior. We further provide a principled mathematical formulation by defining the backdoored forward process, deriving the reverse-time posterior, and obtaining the continuous-time training objective. Evaluations on DiT-based MDLM and LLaDA-8B-Instruct across WikiText-103, OpenWebText, and Alpaca show that SHADOWMASK achieves near-100% attack success, substantially outperforms standard data poisoning, largely preserves clean utility, remains effective under full-model and parameter-efficient fine-tuning, and is robust against representative defenses.",
+      "categories": [
+        "cs.LG",
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2605.19262v2",
+      "resource_uri": "arxiv://2605.19262",
+      "published_date": "2026-05-19T02:20:08Z"
+    },
+    {
+      "id": "2605.16098",
+      "title": "PCDM: A Diffusion-Based Data Poisoning Attack Against Federated Learning Systems",
+      "authors": [
+        "Wei Sun",
+        "Yijun Chen",
+        "Bo Gao",
+        "Ke Xiong",
+        "Yuwei Wang",
+        "Pingyi Fan",
+        "Khaled Ben Letaief"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Federated learning (FL) is vulnerable to data poisoning attacks due to its distributed nature. Although recent GAN-based data poisoning methods have indicated the potential of using generative AI to generate seemingly legitimate poisoned data, the inherent consistency of GAN outputs can still reveal a sign of data poisoning. In this paper, we propose a diffusion-based data poisoning framework against FL systems, which leverages a Poisoning-Oriented Conditional Diffusion Model (PCDM) to enable fine-grained control over the local generation of poisoned data while ensuring both attack effectiveness and stealthiness. Our PCDM incorporates an adjustable poisoning vector within the global context to precisely control the generation of poisoned data, with theoretical guarantees on attack performance. Furthermore, it employs a novel jumping diffusion strategy for lightweight and efficient poisoned data generation. We conduct the most systematic and broad experimental evaluation for FL poisoning attacks against various defenses, including advanced Byzantine robust aggregation mechanisms, on four open datasets: MNIST, Fashion-MNIST, CIFAR-10, CIFAR-100, and a real-world wireless-specific dataset VRAI. Our results demonstrate that PCDM is less likely to exhibit statistical anomalies compared with the state-of-the-art methods while more effectively degrading global FL performance, which poses a significant risk to data security in FL.",
+      "categories": [
+        "cs.CR",
+        "cs.DC"
+      ],
+      "url": "https://arxiv.org/pdf/2605.16098v1",
+      "resource_uri": "arxiv://2605.16098",
+      "published_date": "2026-05-15T15:53:34Z"
+    },
+    {
+      "id": "2605.10600",
+      "title": "Generate \"Normal\", Edit Poisoned: Branding Injection via Hint Embedding in Image Editing",
+      "authors": [
+        "Desen Sun",
+        "Jason Hon",
+        "Howe Wang",
+        "Saarth Rajan",
+        "Meng Xu",
+        "Sihang Liu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] With the rapid advancement of generative AI, users increasingly rely on image-generation models for image design and creation. To achieve faithful outputs, users typically engage in multi-turn interactions during image refinement: a text-to-image generation phase followed by a text-guided image-to-image editing phase. In this paper, we investigate a novel security vulnerability associated with such a workflow. Our key insight is that a nearly invisible hint, like branding information (e.g., a logo), embedded in an input image can be recognized by downstream generative models and subsequently re-rendered onto semantically related objects, even when the user prompt does not explicitly mention it. This form of hidden payload injection makes the attack stealthy.   We study two realistic attack scenarios. The first is a phishing-based setting, in which an attacker controls an online image generation service and injects hidden content into generated images before they are returned to users. The second is a poison-based setting, where an attacker distributes a compromised text-to-image diffusion model whose output contains hidden content. We evaluate both attacks using six injected payloads, including well-known logos and customized designs, and demonstrate that the two attacks can achieve success rates of 44.4% and 32.2% on average, respectively, while ensuring the injected logos are visually imperceptible. We also develop a mitigation solution that achieves an average success rate of 87.4% and 92.3% against the phishing-based and poison-based attacks, respectively.",
+      "categories": [
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2605.10600v1",
+      "resource_uri": "arxiv://2605.10600",
+      "published_date": "2026-05-11T14:02:46Z"
+    },
+    {
+      "id": "2605.09319",
+      "title": "PGID: Progressive Guided Inversion and Denoising for Robust Watermark Detection",
+      "authors": [
+        "Minh Quoc Duong",
+        "Chun Tong Lei",
+        "Chun Pong Lau"
+      ],
+      "abstract": "[EXTERNAL CONTENT] With the proliferation of AI-generated images, digital watermarking has become an essential safeguard for protecting intellectual property and mitigating malicious exploitation. Recent works on semantic watermarking have enabled efficient copyright protection for diffusion models. However, the dependence of semantic watermarking on diffusion inversion for watermark detection creates a critical vulnerability. Imprint removal and forgery attacks exploit this weakness to produce deceptive results. Our analysis reveals that these attacks succeed by displacing watermarked latents into the unwatermarked region, while guiding unwatermarked latents into the watermarked region. Based on that, we propose Progressive Guided Inversion and Denoising (PGID), the first plug-and-play, training-free noise extraction framework designed to defend against both attack strategies. PGID effectively defends by projecting perturbed latents back to the region where they originally belong. The projection is achieved by eliminating intermediate latent deflections and mitigating adversarial perturbations through progressive inversion-denoising cycles. Comprehensive evaluations across multiple schemes demonstrate that PGID successfully restores detection reliability by recovering removed watermarks and identifying forged instances.",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2605.09319v1",
+      "resource_uri": "arxiv://2605.09319",
+      "published_date": "2026-05-10T04:32:57Z"
+    },
+    {
+      "id": "2605.06153",
+      "title": "Secure Seed-Based Multi-bit Watermarking for Diffusion Models from First Principles",
+      "authors": [
+        "Enoal Gesny",
+        "Eva Giboulot"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The rapid emergence of generative image models has led to the development of specialized watermarking techniques, particularly in-generation methods such as seed-based embedding. However, current evaluations in this area remain largely empirical, making them heavily reliant on the specific model architectures used for generation and inversion. This prevents any clear conclusion on the performance of any method, especially regarding security, for which a rigorous definition is lacking. Against this approach, we argue that the effectiveness of a watermarking scheme should be established purely through a thorough theoretical analysis. This is enabled by decoupling the model-dependent part from the actual decision mechanism of the watermarking system. Using this decoupling, we introduce a formal evaluation framework based on security, robustness, and fidelity. This allows precise comparisons between watermarking systems through a characteristic surface representing the trade-off between these three quantities, independent of any generative model. Based on this framework, we propose SSB, a novel watermarking method that generalizes previous seed-based methods by allowing to reach any security-robustness-fidelity regime on its characteristic surface. This work opens the door to the design of modern watermarking systems with theoretical guarantees that do not necessitate any costly empirical evaluations.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2605.06153v1",
+      "resource_uri": "arxiv://2605.06153",
+      "published_date": "2026-05-07T12:46:22Z"
+    },
+    {
+      "id": "2605.02202",
+      "title": "CBV: Clean-label Backdoor Attacks on Vision Language Models via Diffusion Models",
+      "authors": [
+        "Ji Guo",
+        "Xiaolong Qin",
+        "Cencen Liu",
+        "Jielei Wang",
+        "Jierun Chen",
+        "Wenbo Jiang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Vision-Language Models (VLMs) have achieved remarkable success in tasks such as image captioning and visual question answering (VQA). However, as their applications become increasingly widespread, recent studies have revealed that VLMs are vulnerable to backdoor attacks. Existing backdoor attacks on VLMs primarily rely on data poisoning by adding visual triggers and modifying text labels, where the induced image-text mismatch makes poisoned samples easy to detect. To address this limitation, we propose the Clean-Label Backdoor Attack on VLMs via Diffusion Models (CBV), which leverages diffusion models to generate natural poisoned examples via score matching. Specifically, CBV modifies the score during the reverse generation process of the diffusion model to guide the generation of poisoned samples that contain triggered image features. To further enhance the effectiveness of the attack, we incorporate the textual information of the triggered images as multimodal guidance during generation. Moreover, to enhance stealthiness, we introduce a GradCAM-guided Mask (GM) that restricts modifications to only the most semantically important regions, rather than the entire image. We evaluate our method on MSCOCO and VQA v2 with four representative VLMs, achieving over 80% ASR while preserving normal functionality.",
+      "categories": [
+        "cs.AI"
+      ],
+      "url": "https://arxiv.org/pdf/2605.02202v1",
+      "resource_uri": "arxiv://2605.02202",
+      "published_date": "2026-05-04T04:02:23Z"
+    },
+    {
+      "id": "2605.01479",
+      "title": "CSGuard: Toward Forgery-Resistant Watermarking in Diffusion Models via Compressed Sensing Constraint",
+      "authors": [
+        "Jiewei Lai",
+        "Lan Zhang",
+        "Chen Tang",
+        "Pengcheng Sun",
+        "Zhaopeng Zhang",
+        "Yunhao Wang",
+        "Hui Jin"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Latent-based diffusion model watermarking embeds watermarks into generated images' latent space to enable content attribution, offering a training-free solution for intellectual property protection and digital forensics. However, these methods exhibit a critical vulnerability to the forgery attack, attackers can extract the watermark by inverting the watermarked image and re-generating it with an arbitrary prompt, thereby enabling false attribution on malicious content. In this paper, we propose the CSGuard, the first forgery-resistant watermarking schema that leverages compressed sensing to bind the watermarked image generation and verification to a secret matrix. This ensures that only users possessing the secret matrix can correctly embed or verify the image watermark, prevents the illegal users from forgery without compromising generation quality and watermark integrity. Experimental results demonstrate that CSGuard achieves strong forgery resistance, reduces the attack success rate from 100.0\\% to 28.12\\%, and achieve 100\\% detection rate on benign watermarked images without compromising watermarking effectiveness.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2605.01479v1",
+      "resource_uri": "arxiv://2605.01479",
+      "published_date": "2026-05-02T14:54:09Z"
+    },
+    {
+      "id": "2604.22220",
+      "title": "Breaking Watermarks in the Frequency Domain: A Modulated Diffusion Attack Framework",
+      "authors": [
+        "Chunpeng Wang",
+        "Binyan Qu",
+        "Xiaoyu Wang",
+        "Zhiqiu Xia",
+        "Shanshan Zhang",
+        "Yunan Liu",
+        "Qi Li"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Digital image watermarking has advanced rapidly for copyright protection of generative AI, yet the comparatively limited progress in watermark attack techniques has broken the attack-defense balance and hindered further advances in the field. In this paper, we propose FMDiffWA, a frequency-domain modulated diffusion framework for watermark attacks. Specifically, we introduce a frequency-domain watermark modulation (FWM) module and incorporate it into the sampling stages both the forward and reverse diffusion processes. This mechanism enables selective modulation of watermark-related frequency components, thereby allowing FMDiffWA to effectively neutralize the invisible watermark signals while preserving the perceptual quality of the attacked watermarked images. To achieve a better trade-off between attack efficacy and visual fidelity, we reformulate the training strategy of conventional diffusion models by augmenting the canonical noise estimation objective with an auxiliary refinement constraint. Comprehensive experiments demonstrate that FMDiffWA achieves superior visual fidelity compared to existing watermark attacks, while exhibiting strong generalization across diverse watermarking schemes.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2604.22220v1",
+      "resource_uri": "arxiv://2604.22220",
+      "published_date": "2026-04-24T04:57:13Z"
+    },
+    {
+      "id": "2604.06662",
+      "title": "Towards Robust Content Watermarking Against Removal and Forgery Attacks",
+      "authors": [
+        "Yifan Zhu",
+        "Yihan Wang",
+        "Xiao-Shan Gao"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Generated contents have raised serious concerns about copyright protection, image provenance, and credit attribution. A potential solution for these problems is watermarking. Recently, content watermarking for text-to-image diffusion models has been studied extensively for its effective detection utility and robustness. However, these watermarking techniques are vulnerable to potential adversarial attacks, such as removal attacks and forgery attacks. In this paper, we build a novel watermarking paradigm called Instance-Specific watermarking with Two-Sided detection (ISTS) to resist removal and forgery attacks. Specifically, we introduce a strategy that dynamically controls the injection time and watermarking patterns based on the semantics of users' prompts. Furthermore, we propose a new two-sided detection approach to enhance robustness in watermark detection. Experiments have demonstrated the superiority of our watermarking against removal and forgery attacks.",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2604.06662v1",
+      "resource_uri": "arxiv://2604.06662",
+      "published_date": "2026-04-08T04:28:56Z"
+    },
+    {
+      "id": "2603.26167",
+      "title": "Gaussian Shannon: High-Precision Diffusion Model Watermarking Based on Communication",
+      "authors": [
+        "Yi Zhang",
+        "Hongbo Huang",
+        "Liang-Jie Zhang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models generate high-quality images but pose serious risks like copyright violation and disinformation. Watermarking is a key defense for tracing and authenticating AI-generated content. However, existing methods rely on threshold-based detection, which only supports fuzzy matching and cannot recover structured watermark data bit-exactly, making them unsuitable for offline verification or applications requiring lossless metadata (e.g., licensing instructions). To address this problem, in this paper, we propose Gaussian Shannon, a watermarking framework that treats the diffusion process as a noisy communication channel and enables both robust tracing and exact bit recovery. Our method embeds watermarks in the initial Gaussian noise without fine-tuning or quality loss. We identify two types of channel interference, namely local bit flips and global stochastic distortions, and design a cascaded defense combining error-correcting codes and majority voting. This ensures reliable end-to-end transmission of semantic payloads. Experiments across three Stable Diffusion variants and seven perturbation types show that Gaussian Shannon achieves state-of-the-art bit-level accuracy while maintaining a high true positive rate, enabling trustworthy rights attribution in real-world deployment. The source code have been made available at: https://github.com/Rambo-Yi/Gaussian-Shannon",
+      "categories": [
+        "cs.CV",
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2603.26167v2",
+      "resource_uri": "arxiv://2603.26167",
+      "published_date": "2026-03-27T08:34:53Z"
+    },
+    {
+      "id": "2603.20304",
+      "title": "Transferable Multi-Bit Watermarking Across Frozen Diffusion Models via Latent Consistency Bridges",
+      "authors": [
+        "Hong-Hanh Nguyen-Le",
+        "Van-Tuan Tran",
+        "Thuc D. Nguyen",
+        "Nhien-An Le-Khac"
+      ],
+      "abstract": "[EXTERNAL CONTENT] As generative AI advances, global governance frameworks increasingly mandate verifiable content provenance. However, existing watermarking techniques face a critical policy-to-technology disconnect: sampling-based methods require computationally prohibitive inversion, while fine-tuning approaches are tethered to specific model checkpoints, hindering standardized, cross-model oversight. To bridge this gap, we introduce DiffMark, a plug-and-play multi-bit watermarking framework. DiffMark embeds a persistent, learned perturbation into every denoising step of a frozen diffusion model, accumulating a recoverable signal in the final latent space. To enable efficient training through the frozen network, we utilize Latent Consistency Models (LCMs) as a differentiable training bridge. DiffMark achieves 64-bit extraction in a single 16.4 ms forward pass, which is a $45\\times$ speed-up over inversion baselines. By enabling per-image key flexibility and cross-architecture transferability without retraining, DiffMark provides the practical, scalable technical tooling necessary to operationalize user accountability and enforce emerging AI governance mandates.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2603.20304v2",
+      "resource_uri": "arxiv://2603.20304",
+      "published_date": "2026-03-19T13:13:34Z"
+    },
+    {
+      "id": "2603.17513",
+      "title": "Proof-of-Authorship for Diffusion-based AI Generated Content",
+      "authors": [
+        "De Zhang Lee",
+        "Han Fang",
+        "Ee-Chien Chang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Recent advancements in AI-generated content (AIGC) have introduced new challenges in intellectual property protection and the authentication of generated objects. We focus on scenarios in which an author seeks to assert authorship of an object generated using latent diffusion models (LDMs), in the presence of adversaries who attempt to falsely claim authorship of objects they did not create. While proof-of-ownership has been studied in the context of multimedia content through techniques such as time-stamping and watermarking, these approaches face notable limitations. In contrast to traditional content creation sources (e.g., cameras), the LDM generation process offers greater control to the author. Specifically, the random seed used during generation can be deliberately chosen. By binding the seed to the author's identity using cryptographic pseudorandom functions, the author can assert to be the creator of the object. We refer to this stronger guarantee as proof-of-authorship, since only the creator of the object can legitimately claim the object. This contrasts with proof-of-ownership via time-stamping or watermarking, where any entity could potentially claim ownership of an object by being the first to timestamp or embed the watermark. We propose a proof-of-authorship framework involving a probabilistic adjudicator who quantifies the probability that a claim is false. Furthermore, unlike prior approaches, the proposed framework does not involve any secret. We explore various attack scenarios and analyze design choices using Stable Diffusion 2.1 (SD2.1) as representative case studies.",
+      "categories": [
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2603.17513v1",
+      "resource_uri": "arxiv://2603.17513",
+      "published_date": "2026-03-18T09:21:47Z"
+    },
+    {
+      "id": "2603.13396",
+      "title": "SERUM: Simple, Efficient, Robust, and Unifying Marking for Diffusion-based Image Generation",
+      "authors": [
+        "Jan Kociszewski",
+        "Hubert Jastrz\u0119bski",
+        "Tymoteusz St\u0119pkowski",
+        "Filip Manijak",
+        "Krzysztof Rojek",
+        "Franziska Boenisch",
+        "Adam Dziedzic"
+      ],
+      "abstract": "[EXTERNAL CONTENT] We propose SERUM: an intriguingly simple yet highly effective method for marking images generated by diffusion models (DMs). We only add a unique watermark noise to the initial diffusion generation noise and train a lightweight detector to identify watermarked images, simplifying and unifying the strengths of prior approaches. SERUM provides robustness against any image augmentations or watermark removal attacks and is extremely efficient, all while maintaining negligible impact on image quality. In contrast to prior approaches, which are often only resilient to limited perturbations and incur significant training, injection, and detection costs, our SERUM achieves remarkable performance, with the highest true positive rate (TPR) at a 1% false positive rate (FPR) in most scenarios, along with fast injection and detection and low detector training overhead. Its decoupled architecture also seamlessly supports multiple users by embedding individualized watermarks with little interference between the marks. Overall, our method provides a practical solution to mark outputs from DMs and to reliably distinguish generated from natural images.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2603.13396v1",
+      "resource_uri": "arxiv://2603.13396",
+      "published_date": "2026-03-11T14:20:10Z"
+    },
+    {
+      "id": "2603.09454",
+      "title": "ShapeMark: Robust and Diversity-Preserving Watermarking for Diffusion Models",
+      "authors": [
+        "Yuqi Qian",
+        "Yun Cao",
+        "Haocheng Fu",
+        "Meiyang Lv",
+        "Meineng Zhu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models have made substantial advances in recent years, enabling high-quality image synthesis; however, the widespread dissemination and reuse of their outputs have introduced new challenges in intellectual property protection and content provenance. Image watermarking offers a solution to these challenges, and recent work has increasingly explored Noise-as-Watermark (NaW) approaches that integrate watermarking directly into the diffusion process. However, existing NaW methods fail to balance robustness and diversity. We attribute this weakness to value encoding, which encodes watermark bits into individual sampled values. It is extremely fragile in practical application scenarios. To address this, we encode watermark bits into the structured noise pattern, so that the watermark is preserved even when individual values are perturbed. To further ensure generation diversity, we introduce a dedicated randomization design that reshuffles the positions of noise elements without changing their values, preventing the watermark from inducing fixed noise patterns or spatial locations. Extensive experiments demonstrate that our method achieves state-of-the-art robustness while maintaining high generation quality across a wide range of lossy scenarios.",
+      "categories": [
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2603.09454v1",
+      "resource_uri": "arxiv://2603.09454",
+      "published_date": "2026-03-10T10:10:47Z"
+    },
+    {
+      "id": "2603.02882",
+      "title": "SIGMark: Scalable In-Generation Watermark with Blind Extraction for Video Diffusion",
+      "authors": [
+        "Xinjie Zhu",
+        "Zijing Zhao",
+        "Hui Jin",
+        "Qingxiao Guo",
+        "Yilong Ma",
+        "Yunhao Wang",
+        "Xiaobing Guo",
+        "Weifeng Zhang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Artificial Intelligence Generated Content (AIGC), particularly video generation with diffusion models, has been advanced rapidly. Invisible watermarking is a key technology for protecting AI-generated videos and tracing harmful content, and thus plays a crucial role in AI safety. Beyond post-processing watermarks which inevitably degrade video quality, recent studies have proposed distortion-free in-generation watermarking for video diffusion models. However, existing in-generation approaches are non-blind: they require maintaining all the message-key pairs and performing template-based matching during extraction, which incurs prohibitive computational costs at scale. Moreover, when applied to modern video diffusion models with causal 3D Variational Autoencoders (VAEs), their robustness against temporal disturbance becomes extremely weak. To overcome these challenges, we propose SIGMark, a Scalable In-Generation watermarking framework with blind extraction for video diffusion. To achieve blind-extraction, we propose to generate watermarked initial noise using a Global set of Frame-wise PseudoRandom Coding keys (GF-PRC), reducing the cost of storing large-scale information while preserving noise distribution and diversity for distortion-free watermarking. To enhance robustness, we further design a Segment Group-Ordering module (SGO) tailored to causal 3D VAEs, ensuring robust watermark inversion during extraction under temporal disturbance. Comprehensive experiments on modern diffusion models show that SIGMark achieves very high bit-accuracy during extraction under both temporal and spatial disturbances with minimal overhead, demonstrating its scalability and robustness. Our project is available at https://jeremyzhao1998.github.io/SIGMark-release/.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2603.02882v1",
+      "resource_uri": "arxiv://2603.02882",
+      "published_date": "2026-03-03T11:33:44Z"
+    },
+    {
+      "id": "2603.01019",
+      "title": "BadRSSD: Backdoor Attacks on Regularized Self-Supervised Diffusion Models",
+      "authors": [
+        "Jiayao Wang",
+        "Yiping Zhang",
+        "Mohammad Maruf Hasan",
+        "Xiaoying Lei",
+        "Jiale Zhang",
+        "Junwu Zhu",
+        "Qilin Wu",
+        "Dongfang Zhao"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Self-supervised diffusion models learn high-quality visual representations via latent space denoising. However, their representation layer poses a distinct threat: unlike traditional attacks targeting generative outputs, its unconstrained latent semantic space allows for stealthy backdoors, permitting malicious control upon triggering. In this paper, we propose BadRSSD, the first backdoor attack targeting the representation layer of self-supervised diffusion models. Specifically, it hijacks the semantic representations of poisoned samples with triggers in Principal Component Analysis (PCA) space toward those of a target image, then controls the denoising trajectory during diffusion by applying coordinated constraints across latent, pixel, and feature distribution spaces to steer the model toward generating the specified target. Additionally, we integrate representation dispersion regularization into the constraint framework to maintain feature space uniformity, significantly enhancing attack stealth. This approach preserves normal model functionality (high utility) while achieving precise target generation upon trigger activation (high specificity). Experiments on multiple benchmark datasets demonstrate that BadRSSD substantially outperforms existing attacks in both FID and MSE metrics, reliably establishing backdoors across different architectures and configurations, and effectively resisting state-of-the-art backdoor defenses.",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2603.01019v1",
+      "resource_uri": "arxiv://2603.01019",
+      "published_date": "2026-03-01T09:56:26Z"
+    },
+    {
+      "id": "2603.00194",
+      "title": "SKeDA: A Generative Watermarking Framework for Text-to-video Diffusion Models",
+      "authors": [
+        "Yang Yang",
+        "Xinze Zou",
+        "Zehua Ma",
+        "Han Fang",
+        "Weiming Zhang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The rise of text-to-video generation models has raised growing concerns over content authenticity, copyright protection, and malicious misuse. Watermarking serves as an effective mechanism for regulating such AI-generated content, where high fidelity and strong robustness are particularly critical. Recent generative image watermarking methods provide a promising foundation by leveraging watermark information and pseudo-random keys to control the initial sampling noise, enabling lossless embedding. However, directly extending these techniques to videos introduces two key limitations: Existing designs implicitly rely on strict alignment between video frames and frame-dependent pseudo-random binary sequences used for watermark encryption. Once this alignment is disrupted, subsequent watermark extraction becomes unreliable; and Video-specific distortions, such as inter-frame compression, significantly degrade watermark reliability. To address these issues, we propose SKeDA, a generative watermarking framework tailored for text-to-video diffusion models. SKeDA consists of two components: (1) Shuffle-Key-based Distribution-preserving Sampling (SKe) employs a single base pseudo-random binary sequence for watermark encryption and derives frame-level encryption sequences through permutation. This design transforms watermark extraction from synchronization-sensitive sequence decoding into permutation-tolerant set-level aggregation, substantially improving robustness against frame reordering and loss; and (2) Differential Attention (DA), which computes inter-frame differences and dynamically adjusts attention weights during extraction, enhancing robustness against temporal distortions. Extensive experiments demonstrate that SKeDA preserves high video generation quality and watermark robustness.",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2603.00194v1",
+      "resource_uri": "arxiv://2603.00194",
+      "published_date": "2026-02-27T06:18:03Z"
+    },
+    {
+      "id": "2602.21593",
+      "title": "Breaking Semantic-Aware Watermarks via LLM-Guided Coherence-Preserving Semantic Injection",
+      "authors": [
+        "Zheng Gao",
+        "Xiaoyu Li",
+        "Zhicheng Bao",
+        "Xiaoyan Feng",
+        "Jiaojiao Jiang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Generative images have proliferated on Web platforms in social media and online copyright distribution scenarios, and semantic watermarking has increasingly been integrated into diffusion models to support reliable provenance tracking and forgery prevention for web content. Traditional noise-layer-based watermarking, however, remains vulnerable to inversion attacks that can recover embedded signals. To mitigate this, recent content-aware semantic watermarking schemes bind watermark signals to high-level image semantics, constraining local edits that would otherwise disrupt global coherence. Yet, large language models (LLMs) possess structured reasoning capabilities that enable targeted exploration of semantic spaces, allowing locally fine-grained but globally coherent semantic alterations that invalidate such bindings. To expose this overlooked vulnerability, we introduce a Coherence-Preserving Semantic Injection (CSI) attack that leverages LLM-guided semantic manipulation under embedding-space similarity constraints. This alignment enforces visual-semantic consistency while selectively perturbing watermark-relevant semantics, ultimately inducing detector misclassification. Extensive empirical results show that CSI consistently outperforms prevailing attack baselines against content-aware semantic watermarking, revealing a fundamental security weakness of current semantic watermark designs when confronted with LLM-driven semantic perturbations.",
+      "categories": [
+        "cs.LG",
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2602.21593v1",
+      "resource_uri": "arxiv://2602.21593",
+      "published_date": "2026-02-25T05:38:08Z"
+    },
+    {
+      "id": "2603.00150",
+      "title": "Attention to Neural Plagiarism: Diffusion Models Can Plagiarize Your Copyrighted Images!",
+      "authors": [
+        "Zihang Zou",
+        "Boqing Gong",
+        "Liqiang Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] In this paper, we highlight a critical threat posed by emerging neural models: data plagiarism. We demonstrate how modern neural models (e.g., diffusion models) can replicate copyrighted images, even when protected by advanced watermarking techniques. To expose vulnerabilities in copyright protection and facilitate future research, we propose a general approach to neural plagiarism that can either forge replicas of copyrighted data or introduce copyright ambiguity. Our method, based on \"anchors and shims\", employs inverse latents as anchors and finds shim perturbations that gradually deviate the anchor latents, thereby evading watermark or copyright detection. By applying perturbations to the cross-attention mechanism at different timesteps, our approach induces varying degrees of semantic modification in copyrighted images, enabling it to bypass protections ranging from visible trademarks and signatures to invisible watermarks. Notably, our method is a purely gradient-based search that requires no additional training or fine-tuning. Experiments on MS-COCO and real-world copyrighted images show that diffusion models can replicate copyrighted images, underscoring the urgent need for countermeasures against neural plagiarism.",
+      "categories": [
+        "cs.CV",
+        "cs.CY"
+      ],
+      "url": "https://arxiv.org/pdf/2603.00150v1",
+      "resource_uri": "arxiv://2603.00150",
+      "published_date": "2026-02-25T05:08:08Z"
+    },
+    {
+      "id": "2602.20680",
+      "title": "Vanishing Watermarks: Diffusion-Based Image Editing Undermines Robust Invisible Watermarking",
+      "authors": [
+        "Fan Guo",
+        "Jiyu Kang",
+        "Qi Ming",
+        "Emily Davis",
+        "Finn Carter"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Robust invisible watermarking schemes aim to embed hidden information into images such that the watermark survives common manipulations. However, powerful diffusion-based image generation and editing techniques now pose a new threat to these watermarks. In this paper, we present a comprehensive theoretical and empirical analysis demonstrating that diffusion models can effectively erase robust watermarks even when those watermarks were designed to withstand conventional distortions. We show that a diffusion-driven image regeneration process, which leverages generative models to recreate an image, can remove embedded watermarks while preserving the image's perceptual content. Furthermore, we introduce a guided diffusion-based attack that explicitly targets the embedded watermark signal during generation, significantly degrading watermark detectability. Theoretically, we prove that as an image undergoes sufficient diffusion transformations, the mutual information between the watermarked image and the hidden payload approaches zero, leading to inevitable decoding failure. Experimentally, we evaluate multiple state-of-the-art watermarking methods (including deep learning-based schemes like StegaStamp, TrustMark, and VINE) and demonstrate that diffusion edits yield near-zero watermark recovery rates after attack, while maintaining high visual fidelity of the regenerated images. Our findings reveal a fundamental vulnerability in current robust watermarking techniques against generative model-based edits, underscoring the need for new strategies to ensure watermark resilience in the era of powerful diffusion models.",
+      "categories": [
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2602.20680v1",
+      "resource_uri": "arxiv://2602.20680",
+      "published_date": "2026-02-24T08:34:48Z"
+    },
+    {
+      "id": "2602.19019",
+      "title": "TokenTrace: Multi-Concept Attribution through Watermarked Token Recovery",
+      "authors": [
+        "Li Zhang",
+        "Shruti Agarwal",
+        "John Collomosse",
+        "Pengtao Xie",
+        "Vishal Asnani"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Generative AI models pose a significant challenge to intellectual property (IP), as they can replicate unique artistic styles and concepts without attribution. While watermarking offers a potential solution, existing methods often fail in complex scenarios where multiple concepts (e.g., an object and an artistic style) are composed within a single image. These methods struggle to disentangle and attribute each concept individually. In this work, we introduce TokenTrace, a novel proactive watermarking framework for robust, multi-concept attribution. Our method embeds secret signatures into the semantic domain by simultaneously perturbing the text prompt embedding and the initial latent noise that guide the diffusion model's generation process. For retrieval, we propose a query-based TokenTrace module that takes the generated image and a textual query specifying which concepts need to be retrieved (e.g., a specific object or style) as inputs. This query-based mechanism allows the module to disentangle and independently verify the presence of multiple concepts from a single generated image. Extensive experiments show that our method achieves state-of-the-art performance on both single-concept (object and style) and multi-concept attribution tasks, significantly outperforming existing baselines while maintaining high visual quality and robustness to common transformations.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2602.19019v2",
+      "resource_uri": "arxiv://2602.19019",
+      "published_date": "2026-02-22T03:18:45Z"
+    },
+    {
+      "id": "2602.09494",
+      "title": "OSI: One-step Inversion Excels in Extracting Diffusion Watermarks",
+      "authors": [
+        "Yuwei Chen",
+        "Zhenliang He",
+        "Jia Tang",
+        "Meina Kan",
+        "Shiguang Shan"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Watermarking is an important mechanism for provenance and copyright protection of diffusion-generated images. Training-free methods, exemplified by Gaussian Shading, embed watermarks into the initial noise of diffusion models with negligible impact on the quality of generated images. However, extracting this type of watermark typically requires multi-step diffusion inversion to obtain precise initial noise, which is computationally expensive and time-consuming. To address this issue, we propose One-step Inversion (OSI), a significantly faster and more accurate method for extracting Gaussian Shading style watermarks. OSI reformulates watermark extraction as a learnable sign classification problem, which eliminates the need for precise regression of the initial noise. Then, we initialize the OSI model from the diffusion backbone and finetune it on synthesized noise-image pairs with a sign classification objective. In this manner, the OSI model is able to accomplish the watermark extraction efficiently in only one step. Our OSI substantially outperforms the multi-step diffusion inversion method: it is 20x faster, achieves higher extraction accuracy, and doubles the watermark payload capacity. Extensive experiments across diverse schedulers, diffusion backbones, and cryptographic schemes consistently show improvements, demonstrating the generality of our OSI framework.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2602.09494v1",
+      "resource_uri": "arxiv://2602.09494",
+      "published_date": "2026-02-10T07:43:16Z"
+    },
+    {
+      "id": "2602.06101",
+      "title": "ALIEN: Analytic Latent Watermarking for Controllable Generation",
+      "authors": [
+        "Liangqi Lei",
+        "Keke Gai",
+        "Jing Yu",
+        "Qi Wu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Watermarking is a technical alternative to safeguarding intellectual property and reducing misuse. Existing methods focus on optimizing watermarked latent variables to balance watermark robustness and fidelity, as Latent diffusion models (LDMs) are considered a powerful tool for generative tasks. However, reliance on computationally intensive heuristic optimization for iterative signal refinement results in high training overhead and local optima entrapment.To address these issues, we propose an \\underline{A}na\\underline{l}ytical Watermark\\underline{i}ng Framework for Controllabl\\underline{e} Generatio\\underline{n} (ALIEN). We develop the first analytical derivation of the time-dependent modulation coefficient that guides the diffusion of watermark residuals to achieve controllable watermark embedding pattern.Experimental results show that ALIEN-Q outperforms the state-of-the-art by 33.1\\% across 5 quality metrics, and ALIEN-R demonstrates 14.0\\% improved robustness against generative variant and stability threats compared to the state-of-the-art across 15 distinct conditions. Code can be available at https://anonymous.4open.science/r/ALIEN/.",
+      "categories": [
+        "eess.IV",
+        "cs.CV",
+        "cs.MM"
+      ],
+      "url": "https://arxiv.org/pdf/2602.06101v1",
+      "resource_uri": "arxiv://2602.06101",
+      "published_date": "2026-02-05T16:04:27Z"
+    },
+    {
+      "id": "2601.21610",
+      "title": "WMVLM: Evaluating Diffusion Model Image Watermarking via Vision-Language Models",
+      "authors": [
+        "Zijin Yang",
+        "Yu Sun",
+        "Kejiang Chen",
+        "Jiawei Zhao",
+        "Jun Jiang",
+        "Weiming Zhang",
+        "Nenghai Yu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Digital watermarking is essential for securing generated images from diffusion models. Accurate watermark evaluation is critical for algorithm development, yet existing methods have significant limitations: they lack a unified framework for both residual and semantic watermarks, provide results without interpretability, neglect comprehensive security considerations, and often use inappropriate metrics for semantic watermarks. To address these gaps, we propose WMVLM, the first unified and interpretable evaluation framework for diffusion model image watermarking via vision-language models (VLMs). We redefine quality and security metrics for each watermark type: residual watermarks are evaluated by artifact strength and erasure resistance, while semantic watermarks are assessed through latent distribution shifts. Moreover, we introduce a three-stage training strategy to progressively enable the model to achieve classification, scoring, and interpretable text generation. Experiments show WMVLM outperforms state-of-the-art VLMs with strong generalization across datasets, diffusion models, and watermarking methods.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2601.21610v2",
+      "resource_uri": "arxiv://2601.21610",
+      "published_date": "2026-01-29T12:14:32Z"
+    },
+    {
+      "id": "2601.21252",
+      "title": "Lossless Copyright Protection via Intrinsic Model Fingerprinting",
+      "authors": [
+        "Lingxiao Chen",
+        "Liqin Wang",
+        "Wei Lu",
+        "Xiangyang Luo"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The exceptional performance of diffusion models establishes them as high-value intellectual property but exposes them to unauthorized replication. Existing protection methods either modify the model to embed watermarks, which impairs performance, or extract model fingerprints by manipulating the denoising process, rendering them incompatible with black-box APIs. In this paper, we propose TrajPrint, a completely lossless and training-free framework that verifies model copyright by extracting unique manifold fingerprints formed during deterministic generation. Specifically, we first utilize a watermarked image as an anchor and exactly trace the path back to its trajectory origin, effectively locking the model fingerprint mapped by this path. Subsequently, we implement a joint optimization strategy that employs dual-end anchoring to synthesize a specific fingerprint noise, which strictly adheres to the target manifold for robust watermark recovery. As input, it enables the protected target model to recover the watermarked image, while failing on non-target models. Finally, we achieved verification via atomic inference and statistical hypothesis testing. Extensive experiments demonstrate that TrajPrint achieves lossless verification in black-box API scenarios with superior robustness against model modifications.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2601.21252v1",
+      "resource_uri": "arxiv://2601.21252",
+      "published_date": "2026-01-29T04:18:07Z"
+    },
+    {
+      "id": "2601.20310",
+      "title": "SemBind: Binding Diffusion Watermarks to Semantics Against Black-Box Forgery Attacks",
+      "authors": [
+        "Xin Zhang",
+        "Zijin Yang",
+        "Kejiang Chen",
+        "Linfeng Ma",
+        "Weiming Zhang",
+        "Nenghai Yu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Latent-based watermarks, integrated into the generation process of latent diffusion models (LDMs), simplify detection and attribution of generated images. However, recent black-box forgery attacks, where an attacker needs at least one watermarked image and black-box access to the provider's model, can embed the provider's watermark into images not produced by the provider, posing outsized risk to provenance and trust. We propose SemBind, the first defense framework for latent-based watermarks that resists black-box forgery by binding latent signals to image semantics via a learned semantic masker. Trained with contrastive learning, the masker yields near-invariant codes for the same prompt and near-orthogonal codes across prompts; these codes are reshaped and permuted to modulate the target latent before any standard latent-based watermark. SemBind is generally compatible with existing latent-based watermarking schemes and keeps image quality essentially unchanged, while a simple mask-ratio parameter offers a tunable trade-off between anti-forgery strength and robustness. Across four mainstream latent-based watermark methods, our SemBind-enabled anti-forgery variants markedly reduce false acceptance under black-box forgery while providing a controllable robustness-security balance.",
+      "categories": [
+        "cs.CR",
+        "cs.CV",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2601.20310v1",
+      "resource_uri": "arxiv://2601.20310",
+      "published_date": "2026-01-28T07:02:40Z"
+    },
+    {
+      "id": "2601.13128",
+      "title": "PhaseMark: A Post-hoc, Optimization-Free Watermarking of AI-generated Images in the Latent Frequency Domain",
+      "authors": [
+        "Sung Ju Lee",
+        "Nam Ik Cho"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The proliferation of hyper-realistic images from Latent Diffusion Models (LDMs) demands robust watermarking, yet existing post-hoc methods are prohibitively slow due to iterative optimization or inversion processes. We introduce PhaseMark, a single-shot, optimization-free framework that directly modulates the phase in the VAE latent frequency domain. This approach makes PhaseMark thousands of times faster than optimization-based techniques while achieving state-of-the-art resilience against severe attacks, including regeneration, without degrading image quality. We analyze four modulation variants, revealing a clear performance-quality trade-off. PhaseMark demonstrates a new paradigm where efficient, resilient watermarking is achieved by exploiting intrinsic latent properties.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2601.13128v1",
+      "resource_uri": "arxiv://2601.13128",
+      "published_date": "2026-01-19T15:13:23Z"
+    },
+    {
+      "id": "2601.06639",
+      "title": "Attack-Resistant Watermarking for AIGC Image Forensics via Diffusion-based Semantic Deflection",
+      "authors": [
+        "Qingyu Liu",
+        "Yitao Zhang",
+        "Zhongjie Ba",
+        "Chao Shuai",
+        "Peng Cheng",
+        "Tianhang Zheng",
+        "Zhibo Wang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Protecting the copyright of user-generated AI images is an emerging challenge as AIGC becomes pervasive in creative workflows. Existing watermarking methods (1) remain vulnerable to real-world adversarial threats, often forced to trade off between defenses against spoofing and removal attacks; and (2) cannot support semantic-level tamper localization. We introduce PAI, a training-free inherent watermarking framework for AIGC copyright protection, plug-and-play with diffusion-based AIGC services. PAI simultaneously provides three key functionalities: robust ownership verification, attack detection, and semantic-level tampering localization. Unlike existing inherent watermark methods that only embed watermarks at noise initialization of diffusion models, we design a novel key-conditioned deflection mechanism that subtly steers the denoising trajectory according to the user key. Such trajectory-level coupling further strengthens the semantic entanglement of identity and content, thereby further enhancing robustness against real-world threats. Moreover, we also provide a theoretical analysis proving that only the valid key can pass verification. Experiments across 12 attack methods show that PAI achieves 98.43\\% verification accuracy, improving over SOTA methods by 37.25\\% on average, and retains strong tampering localization performance even against advanced AIGC edits. Our code is available at https://github.com/QingyuLiu/PAI.",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "url": "https://arxiv.org/pdf/2601.06639v1",
+      "resource_uri": "arxiv://2601.06639",
+      "published_date": "2026-01-10T17:49:08Z"
+    },
+    {
+      "id": "2512.18791",
+      "title": "Smark: A Watermark for Text-to-Speech Diffusion Models via Discrete Wavelet Transform",
+      "authors": [
+        "Yichuan Zhang",
+        "Chengxin Li",
+        "Yujie Gu"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-Speech (TTS) diffusion models generate high-quality speech, which raises challenges for the model intellectual property protection and speech tracing for legal use. Audio watermarking is a promising solution. However, due to the structural differences among various TTS diffusion models, existing watermarking methods are often designed for a specific model and degrade audio quality, which limits their practical applicability. To address this dilemma, this paper proposes a universal watermarking scheme for TTS diffusion models, termed Smark. This is achieved by designing a lightweight watermark embedding framework that operates in the common reverse diffusion paradigm shared by all TTS diffusion models. To mitigate the impact on audio quality, Smark utilizes the discrete wavelet transform (DWT) to embed watermarks into the relatively stable low-frequency regions of the audio, which ensures seamless watermark-audio integration and is resistant to removal during the reverse diffusion process. Extensive experiments are conducted to evaluate the audio quality and watermark performance in various simulated real-world attack scenarios. The experimental results show that Smark achieves superior performance in both audio quality and watermark extraction accuracy.",
+      "categories": [
+        "cs.SD",
+        "cs.AI",
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2512.18791v1",
+      "resource_uri": "arxiv://2512.18791",
+      "published_date": "2025-12-21T16:07:08Z"
+    },
+    {
+      "id": "2512.12090",
+      "title": "SPDMark: Selective Parameter Displacement for Robust Video Watermarking",
+      "authors": [
+        "Samar Fares",
+        "Nurbek Tastan",
+        "Karthik Nandakumar"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The advent of high-quality video generation models has amplified the need for robust watermarking schemes that can be used to reliably detect and track the provenance of generated videos. Existing video watermarking methods based on both post-hoc and in-generation approaches fail to simultaneously achieve imperceptibility, robustness, and computational efficiency. This work introduces a novel framework for in-generation video watermarking called SPDMark (pronounced `SpeedMark') based on selective parameter displacement of a video diffusion model. Watermarks are embedded into the generated videos by modifying a subset of parameters in the generative model. To make the problem tractable, the displacement is modeled as an additive composition of layer-wise basis shifts, where the final composition is indexed by the watermarking key. For parameter efficiency, this work specifically leverages low-rank adaptation (LoRA) to implement the basis shifts. During the training phase, the basis shifts and the watermark extractor are jointly learned by minimizing a combination of message recovery, perceptual similarity, and temporal consistency losses. To detect and localize temporal modifications in the watermarked videos, we use a cryptographic hashing function to derive frame-specific watermark messages from the given base watermarking key. During watermark extraction, maximum bipartite matching is applied to recover the correct frame order, even from temporally tampered videos. Evaluations on both text-to-video and image-to-video generation models demonstrate the ability of SPDMark to generate imperceptible watermarks that can be recovered with high accuracy and also establish its robustness against a variety of common video modifications.",
+      "categories": [
+        "cs.CV",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2512.12090v2",
+      "resource_uri": "arxiv://2512.12090",
+      "published_date": "2025-12-12T23:35:13Z"
+    },
+    {
+      "id": "2511.21600",
+      "title": "Robust Spectral Watermark for Synthetic Tabular Data",
+      "authors": [
+        "Yizhou Zhao",
+        "Xiang Li",
+        "Peter Song",
+        "Qi Long",
+        "Weijie Su"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The rise of generative AI has enabled the production of high-fidelity synthetic tabular data across fields such as healthcare, finance, and public policy, raising growing concerns about data provenance and misuse. Watermarking offers a promising solution to address these concerns by ensuring the traceability of synthetic data, but existing methods face many limitations: they are computationally expensive due to reliance on the inverse process of large diffusion models, struggle with mixed discrete-continuous data, or lack robustness to common post-processing attacks. To address these limitations, we propose TAB-DRW, an efficient and robust post-editing watermarking scheme for synthetic tabular data. TAB-DRW embeds watermark signals in the frequency domain: it normalizes heterogeneous features via the Yeo-Johnson transformation and standardization, applies the discrete Fourier transform (DFT), and adjusts the imaginary parts of adaptively selected entries according to precomputed pseudorandom bits. To further enhance robustness and efficiency, we introduce a novel rank-based pseudorandom bit generation method that enables row-wise retrieval without incurring storage overhead. Experiments on five benchmark tabular datasets show that TAB-DRW achieves strong detectability and robustness against post-processing and adaptive attacks, while preserving high data fidelity and fully supporting mixed-type features.",
+      "categories": [
+        "cs.CR",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2511.21600v2",
+      "resource_uri": "arxiv://2511.21600",
+      "published_date": "2025-11-26T17:16:14Z"
+    },
+    {
+      "id": "2512.00094",
+      "title": "HMARK: Radioactive Multi-Bit Semantic-Latent Watermarking for Diffusion Models",
+      "authors": [
+        "Kexin Li",
+        "Guozhen Ding",
+        "Ilya Grishchenko",
+        "David Lie"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Modern generative diffusion models rely on vast training datasets, often including images with uncertain ownership or usage rights. Radioactive watermarks -- marks that transfer to a model's outputs -- can help detect when such unauthorized data has been used for training. Moreover, aside from being radioactive, an effective watermark for protecting images from unauthorized training also needs to meet other existing requirements, such as imperceptibility, robustness, and multi-bit capacity. To overcome these challenges, we propose HMARK, a novel multi-bit watermarking scheme, which encodes ownership information as secret bits in the semantic-latent space (h-space) for image diffusion models. By leveraging the interpretability and semantic significance of h-space, ensuring that watermark signals correspond to meaningful semantic attributes, the watermarks embedded by HMARK exhibit radioactivity, robustness to distortions, and minimal impact on perceptual quality. Experimental results demonstrate that HMARK achieves 98.57% watermark detection accuracy, 95.07% bit-level recovery accuracy, 100% recall rate, and 1.0 AUC on images produced by the downstream adversarial model finetuned with LoRA on watermarked data across various types of distortions.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2512.00094v1",
+      "resource_uri": "arxiv://2512.00094",
+      "published_date": "2025-11-26T16:14:47Z"
+    },
+    {
+      "id": "2511.21216",
+      "title": "AuthenLoRA: Entangling Stylization with Imperceptible Watermarks for Copyright-Secure LoRA Adapters",
+      "authors": [
+        "Fangming Shi",
+        "Li Li",
+        "Kejiang Chen",
+        "Guorui Feng",
+        "Xinpeng Zhang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Low-Rank Adaptation (LoRA) offers an efficient paradigm for customizing diffusion models, but its ease of redistribution raises concerns over unauthorized use and the generation of untraceable content. Existing watermarking techniques either target base models or verify LoRA modules themselves, yet they fail to propagate watermarks to generated images, leaving a critical gap in traceability. Moreover, traceability watermarking designed for base models is not tightly coupled with stylization and often introduces visual degradation or high false-positive detection rates. To address these limitations, we propose AuthenLoRA, a unified watermarking framework that embeds imperceptible, traceable watermarks directly into the LoRA training process while preserving stylization quality. AuthenLoRA employs a dual-objective optimization strategy that jointly learns the target style distribution and the watermark-induced distribution shift, ensuring that any image generated with the watermarked LoRA reliably carries the watermark. We further design an expanded LoRA architecture for enhanced multi-scale adaptation and introduce a zero-message regularization mechanism that substantially reduces false positives during watermark verification. Extensive experiments demonstrate that AuthenLoRA achieves high-fidelity stylization, robust watermark propagation, and significantly lower false-positive rates compared with existing approaches. Open-source implementation is available at: https://github.com/ShiFangming0823/AuthenLoRA",
+      "categories": [
+        "cs.CR"
+      ],
+      "url": "https://arxiv.org/pdf/2511.21216v1",
+      "resource_uri": "arxiv://2511.21216",
+      "published_date": "2025-11-26T09:48:11Z"
+    },
+    {
+      "id": "2511.19316",
+      "title": "Evaluating Dataset Watermarking for Fine-tuning Traceability of Customized Diffusion Models: A Comprehensive Benchmark and Removal Approach",
+      "authors": [
+        "Xincheng Wang",
+        "Hanchi Sun",
+        "Wenjun Sun",
+        "Kejun Xue",
+        "Wangqiu Zhou",
+        "Jianbo Zhang",
+        "Wei Sun",
+        "Dandan Zhu",
+        "Xiongkuo Min",
+        "Jun Jia",
+        "Zhijun Fang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Recent fine-tuning techniques for diffusion models enable them to reproduce specific image sets, such as particular faces or artistic styles, but also introduce copyright and security risks. Dataset watermarking has been proposed to ensure traceability by embedding imperceptible watermarks into training images, which remain detectable in outputs even after fine-tuning. However, current methods lack a unified evaluation framework. To address this, this paper establishes a general threat model and introduces a comprehensive evaluation framework encompassing Universality, Transmissibility, and Robustness. Experiments show that existing methods perform well in universality and transmissibility, and exhibit some robustness against common image processing operations, yet still fall short under real-world threat scenarios. To reveal these vulnerabilities, the paper further proposes a practical watermark removal method that fully eliminates dataset watermarks without affecting fine-tuning, highlighting a key challenge for future research.",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "url": "https://arxiv.org/pdf/2511.19316v2",
+      "resource_uri": "arxiv://2511.19316",
+      "published_date": "2025-11-24T17:11:00Z"
+    },
+    {
+      "id": "2511.05598",
+      "title": "Diffusion-Based Image Editing: An Unforeseen Adversary to Robust Invisible Watermarks",
+      "authors": [
+        "Wenkai Fu",
+        "Finn Carter",
+        "Yue Wang",
+        "Emily Davis",
+        "Bo Zhang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Robust invisible watermarking aims to embed hidden messages into images such that they survive various manipulations while remaining imperceptible. However, powerful diffusion-based image generation and editing models now enable realistic content-preserving transformations that can inadvertently remove or distort embedded watermarks. In this paper, we present a theoretical and empirical analysis demonstrating that diffusion-based image editing can effectively break state-of-the-art robust watermarks designed to withstand conventional distortions. We analyze how the iterative noising and denoising process of diffusion models degrades embedded watermark signals, and provide formal proofs that under certain conditions a diffusion model's regenerated image retains virtually no detectable watermark information. Building on this insight, we propose a diffusion-driven attack that uses generative image regeneration to erase watermarks from a given image. Furthermore, we introduce an enhanced \\emph{guided diffusion} attack that explicitly targets the watermark during generation by integrating the watermark decoder into the sampling loop. We evaluate our approaches on multiple recent deep learning watermarking schemes (e.g., StegaStamp, TrustMark, and VINE) and demonstrate that diffusion-based editing can reduce watermark decoding accuracy to near-zero levels while preserving high visual fidelity of the images. Our findings reveal a fundamental vulnerability in current robust watermarking techniques against generative model-based edits, underscoring the need for new watermarking strategies in the era of generative AI.",
+      "categories": [
+        "cs.CR",
+        "eess.IV"
+      ],
+      "url": "https://arxiv.org/pdf/2511.05598v1",
+      "resource_uri": "arxiv://2511.05598",
+      "published_date": "2025-11-05T16:20:29Z"
+    },
+    {
+      "id": "2511.02083",
+      "title": "Watermarking Discrete Diffusion Language Models",
+      "authors": [
+        "Avi Bagchi",
+        "Akhil Bhimaraju",
+        "Moulik Choraria",
+        "Daniel Alabi",
+        "Lav R. Varshney"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Watermarking has emerged as a promising technique to track AI-generated content and differentiate it from authentic human creations. While prior work extensively studies watermarking for autoregressive large language models (LLMs) and image diffusion models, it remains comparatively underexplored for discrete diffusion language models (DDLMs), which are becoming popular due to their high inference throughput. In this paper, we introduce one of the first watermarking methods for DDLMs. Our approach applies a distribution-preserving Gumbel-max sampling trick at every diffusion step and seeds the randomness by sequence position to enable reliable detection. We empirically demonstrate reliable detectability on LLaDA, a state-of-the-art DDLM. We also analytically prove that the watermark is distortion-free, with a false detection probability that decays exponentially in the sequence length. A key practical advantage is that our method realizes desired watermarking properties with no expensive hyperparameter tuning, making it straightforward to deploy and scale across models and benchmarks.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "url": "https://arxiv.org/pdf/2511.02083v2",
+      "resource_uri": "arxiv://2511.02083",
+      "published_date": "2025-11-03T21:43:44Z"
+    },
+    {
+      "id": "2510.22366",
+      "title": "T2SMark: Balancing Robustness and Diversity in Noise-as-Watermark for Diffusion Models",
+      "authors": [
+        "Jindong Yang",
+        "Han Fang",
+        "Weiming Zhang",
+        "Nenghai Yu",
+        "Kejiang Chen"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Diffusion models have advanced rapidly in recent years, producing high-fidelity images while raising concerns about intellectual property protection and the misuse of generative AI. Image watermarking for diffusion models, particularly Noise-as-Watermark (NaW) methods, encode watermark as specific standard Gaussian noise vector for image generation, embedding the infomation seamlessly while maintaining image quality. For detection, the generation process is inverted to recover the initial noise vector containing the watermark before extraction. However, existing NaW methods struggle to balance watermark robustness with generation diversity. Some methods achieve strong robustness by heavily constraining initial noise sampling, which degrades user experience, while others preserve diversity but prove too fragile for real-world deployment. To address this issue, we propose T2SMark, a two-stage watermarking scheme based on Tail-Truncated Sampling (TTS). Unlike prior methods that simply map bits to positive or negative values, TTS enhances robustness by embedding bits exclusively in the reliable tail regions while randomly sampling the central zone to preserve the latent distribution. Our two-stage framework then ensures sampling diversity by integrating a randomly generated session key into both encryption pipelines. We evaluate T2SMark on diffusion models with both U-Net and DiT backbones. Extensive experiments show that it achieves an optimal balance between robustness and diversity. Our code is available at \\href{https://github.com/0xD009/T2SMark}{https://github.com/0xD009/T2SMark}.",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "url": "https://arxiv.org/pdf/2510.22366v1",
+      "resource_uri": "arxiv://2510.22366",
+      "published_date": "2025-10-25T16:55:55Z"
+    },
+    {
+      "id": "2510.20792",
+      "title": "BadGraph: A Backdoor Attack Against Latent Diffusion Model for Text-Guided Graph Generation",
+      "authors": [
+        "Liang Ye",
+        "Shengqin Chen",
+        "Jiazhu Dai"
+      ],
+      "abstract": "[EXTERNAL CONTENT] The rapid progress of graph generation has raised new security concerns, particularly regarding backdoor vulnerabilities. Though prior work has explored backdoor attacks against diffusion models for image or unconditional graph generation, those against conditional graph generation models, especially text-guided graph generation models, remain largely unexamined. This paper proposes BadGraph, a backdoor attack method against latent diffusion models for text-guided graph generation. BadGraph leverages textual triggers to poison training data, covertly implanting backdoors that induce attacker-specified subgraphs during inference when triggers appear, while preserving normal performance on clean inputs. Extensive experiments on four benchmark datasets (PubChem, ChEBI-20, PCDes, MoMu) demonstrate the effectiveness and stealth of the attack: a poisoning rate of less than 10% can achieve a 50% attack success rate, while 24% suffices for over an 80% success rate, with negligible performance degradation on benign samples. Ablation studies further reveal that the backdoor is implanted during VAE and diffusion training rather than pretraining. These findings reveal the security vulnerabilities in latent diffusion models for text-guided graph generation, highlight the serious risks in applications such as drug discovery, and underscore the need for robust defenses against the backdoor attack in such diffusion models.",
+      "categories": [
+        "cs.LG",
+        "cs.CL",
+        "q-bio.BM"
+      ],
+      "url": "https://arxiv.org/pdf/2510.20792v5",
+      "resource_uri": "arxiv://2510.20792",
+      "published_date": "2025-10-23T17:54:17Z"
+    },
+    {
+      "id": "2510.13793",
+      "title": "NoisePrints: Distortion-Free Watermarks for Authorship in Private Diffusion Models",
+      "authors": [
+        "Nir Goren",
+        "Oren Katzir",
+        "Abhinav Nakarmi",
+        "Eyal Ronen",
+        "Mahmood Sharif",
+        "Or Patashnik"
+      ],
+      "abstract": "[EXTERNAL CONTENT] With the rapid adoption of diffusion models for visual content generation, proving authorship and protecting copyright have become critical. This challenge is particularly important when model owners keep their models private and may be unwilling or unable to handle authorship issues, making third-party verification essential. A natural solution is to embed watermarks for later verification. However, existing methods require access to model weights and rely on computationally heavy procedures, rendering them impractical and non-scalable. To address these challenges, we propose NoisePrints, a lightweight watermarking scheme that utilizes the random seed used to initialize the diffusion process as a proof of authorship without modifying the generation process. Our key observation is that the initial noise derived from a seed is highly correlated with the generated visual content. By incorporating a hash function into the noise sampling process, we further ensure that recovering a valid seed from the content is infeasible. We also show that sampling an alternative seed that passes verification is infeasible, and demonstrate the robustness of our method under various manipulations. Finally, we show how to use cryptographic zero-knowledge proofs to prove ownership without revealing the seed. By keeping the seed secret, we increase the difficulty of watermark removal. In our experiments, we validate NoisePrints on multiple state-of-the-art diffusion models for images and videos, demonstrating efficient verification using only the seed and output, without requiring access to model weights.",
+      "categories": [
+        "cs.CV",
+        "cs.CR",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2510.13793v2",
+      "resource_uri": "arxiv://2510.13793",
+      "published_date": "2025-10-15T17:50:45Z"
+    },
+    {
+      "id": "2510.05978",
+      "title": "Diffusion-Based Image Editing for Breaking Robust Watermarks",
+      "authors": [
+        "Yunyi Ni",
+        "Finn Carter",
+        "Ze Niu",
+        "Emily Davis",
+        "Bo Zhang"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Robust invisible watermarking aims to embed hidden information into images such that the watermark can survive various image manipulations. However, the rise of powerful diffusion-based image generation and editing techniques poses a new threat to these watermarking schemes. In this paper, we present a theoretical study and method demonstrating that diffusion models can effectively break robust image watermarks that were designed to resist conventional perturbations. We show that a diffusion-driven ``image regeneration'' process can erase embedded watermarks while preserving perceptual image content. We further introduce a novel guided diffusion attack that explicitly targets the watermark signal during generation, significantly degrading watermark detectability. Theoretically, we prove that as an image undergoes sufficient diffusion-based transformation, the mutual information between the watermarked image and the embedded watermark payload vanishes, resulting in decoding failure. Experimentally, we evaluate our approach on multiple state-of-the-art watermarking schemes (including the deep learning-based methods StegaStamp, TrustMark, and VINE) and demonstrate near-zero watermark recovery rates after attack, while maintaining high visual fidelity of the regenerated images. Our findings highlight a fundamental vulnerability in current robust watermarking techniques against generative model-based attacks, underscoring the need for new watermarking strategies in the era of generative AI.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2510.05978v1",
+      "resource_uri": "arxiv://2510.05978",
+      "published_date": "2025-10-07T14:34:42Z"
+    },
+    {
+      "id": "2510.03089",
+      "title": "Latent Diffusion Unlearning: Protecting Against Unauthorized Personalization Through Trajectory Shifted Perturbations",
+      "authors": [
+        "Naresh Kumar Devulapally",
+        "Shruti Agarwal",
+        "Tejas Gokhale",
+        "Vishnu Suresh Lokhande"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Text-to-image diffusion models have demonstrated remarkable effectiveness in rapid and high-fidelity personalization, even when provided with only a few user images. However, the effectiveness of personalization techniques has lead to concerns regarding data privacy, intellectual property protection, and unauthorized usage. To mitigate such unauthorized usage and model replication, the idea of generating ``unlearnable'' training samples utilizing image poisoning techniques has emerged. Existing methods for this have limited imperceptibility as they operate in the pixel space which results in images with noise and artifacts. In this work, we propose a novel model-based perturbation strategy that operates within the latent space of diffusion models. Our method alternates between denoising and inversion while modifying the starting point of the denoising trajectory: of diffusion models. This trajectory-shifted sampling ensures that the perturbed images maintain high visual fidelity to the original inputs while being resistant to inversion and personalization by downstream generative models. This approach integrates unlearnability into the framework of Latent Diffusion Models (LDMs), enabling a practical and imperceptible defense against unauthorized model adaptation. We validate our approach on four benchmark datasets to demonstrate robustness against state-of-the-art inversion attacks. Results demonstrate that our method achieves significant improvements in imperceptibility ($\\sim 8 \\% -10\\%$ on perceptual metrics including PSNR, SSIM, and FID) and robustness ( $\\sim 10\\%$ on average across five adversarial settings), highlighting its effectiveness in safeguarding sensitive data.",
+      "categories": [
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2510.03089v1",
+      "resource_uri": "arxiv://2510.03089",
+      "published_date": "2025-10-03T15:18:45Z"
+    },
+    {
+      "id": "2510.01967",
+      "title": "ZK-WAGON: Imperceptible Watermark for Image Generation Models using ZK-SNARKs",
+      "authors": [
+        "Aadarsh Anantha Ramakrishnan",
+        "Shubham Agarwal",
+        "Selvanayagam S",
+        "Kunwar Singh"
+      ],
+      "abstract": "[EXTERNAL CONTENT] As image generation models grow increasingly powerful and accessible, concerns around authenticity, ownership, and misuse of synthetic media have become critical. The ability to generate lifelike images indistinguishable from real ones introduces risks such as misinformation, deepfakes, and intellectual property violations. Traditional watermarking methods either degrade image quality, are easily removed, or require access to confidential model internals - making them unsuitable for secure and scalable deployment. We are the first to introduce ZK-WAGON, a novel system for watermarking image generation models using the Zero-Knowledge Succinct Non Interactive Argument of Knowledge (ZK-SNARKs). Our approach enables verifiable proof of origin without exposing model weights, generation prompts, or any sensitive internal information. We propose Selective Layer ZK-Circuit Creation (SL-ZKCC), a method to selectively convert key layers of an image generation model into a circuit, reducing proof generation time significantly. Generated ZK-SNARK proofs are imperceptibly embedded into a generated image via Least Significant Bit (LSB) steganography. We demonstrate this system on both GAN and Diffusion models, providing a secure, model-agnostic pipeline for trustworthy AI image generation.",
+      "categories": [
+        "cs.CR",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2510.01967v1",
+      "resource_uri": "arxiv://2510.01967",
+      "published_date": "2025-10-02T12:39:57Z"
+    },
+    {
+      "id": "2509.24891",
+      "title": "VAGUEGAN: Stealthy Poisoning and Backdoor Attacks on Image Generative Pipelines",
+      "authors": [
+        "Mostafa Mohaimen Akand Faisal",
+        "Rabeya Amin Jhuma"
+      ],
+      "abstract": "[EXTERNAL CONTENT] Generative models such as GANs and diffusion models are widely used to synthesize photorealistic images and to support downstream creative and editing tasks. While adversarial attacks on discriminative models are well studied, attacks targeting generative pipelines where small, stealthy perturbations in inputs lead to controlled changes in outputs are less explored. This study introduces VagueGAN, an attack pipeline combining a modular perturbation network PoisonerNet with a Generator Discriminator pair to craft stealthy triggers that cause targeted changes in generated images. Attack efficacy is evaluated using a custom proxy metric, while stealth is analyzed through perceptual and frequency domain measures. The transferability of the method to a modern diffusion based pipeline is further examined through ControlNet guided editing. Interestingly, the experiments show that poisoned outputs can display higher visual quality compared to clean counterparts, challenging the assumption that poisoning necessarily reduces fidelity. Unlike conventional pixel level perturbations, latent space poisoning in GANs and diffusion pipelines can retain or even enhance output aesthetics, exposing a blind spot in pixel level defenses. Moreover, carefully optimized perturbations can produce consistent, stealthy effects on generator outputs while remaining visually inconspicuous, raising concerns for the integrity of image generation pipelines.",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "url": "https://arxiv.org/pdf/2509.24891v1",
+      "resource_uri": "arxiv://2509.24891",
+      "published_date": "2025-09-29T15:02:31Z"
+    },
+    {
+      "id": "2509.22126",
+      "title": "Guidance Watermarking for Diffusion Models",
+      "authors": [
+        "Enoal Gesny",
+        "Eva Giboulot",
+        "Teddy Furon",
+        "Vivien Chappelier"
+      ],
+      "abstract": "[EXTERNAL CONTENT] This paper introduces a novel watermarking method for diffusion models. It is based on guiding the diffusion process using the gradient computed from any off-the-shelf watermark decoder. The gradient computation encompasses different image augmentations, increasing robustness to attacks against which the decoder was not originally robust, without retraining or fine-tuning. Our method effectively convert any \\textit{post-hoc} watermarking scheme into an in-generation embedding along the diffusion process. We show that this approach is complementary to watermarking techniques modifying the variational autoencoder at the end of the diffusion process. We validate the methods on different diffusion models and detectors. The watermarking guidance does not significantly alter the generated image for a given seed and prompt, preserving both the diversity and quality of generation.",
+      "categories": [
+        "cs.CR",
+        "cs.CV"
+      ],
+      "url": "https://arxiv.org/pdf/2509.22126v2",
+      "resource_uri": "arxiv://2509.22126",
+      "published_date": "2025-09-26T09:49:44Z"
+    }
+  ]
+}
