@@ -1,573 +1,77 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-29T18:17:00+08:00",
-  "base_commit": "9927ff4d8b37e646c372f33a4cb9850906b4d928",
-  "summary": "完成 TCL 实现、冻结输入和独立 M06 审阅，并在 103 实时 GPU 门禁后启动定位；建立运行目录和进行中验收报告，图片评价与科研结论仍待完成。保留旧实验及先前索引修复。",
+  "reviewed_at": "2026-10-29T19:55:00+08:00",
+  "base_commit": "2b3771adc2cac45c7db5024791438d226b91b7d0",
+  "summary": "按用户要求依据服务器定位吞吐估算剩余时间，并创建本任务一次性回调；更新任务、全局下一步及进行中的验收报告。运行仍在进行，未新增图片评价或科研结论。",
   "reviewed_changes": [
-    {
-      "path": "AGENTS.md",
-      "kind": "file",
-      "sha256": "fbfaa2b4090cf42d7f1bf615066bb666add30ab32d600f6c2f1bed19a46f252a"
-    },
-    {
-      "path": "README.md",
-      "kind": "file",
-      "sha256": "064687c5d4bf352982af34da4c0da80cb9ad9dbc569e5b32deb87215d3dec32f"
-    },
-    {
-      "path": "reports/README.md",
-      "kind": "file",
-      "sha256": "8c561d129be9baaec560b9e140533ab474c5f7643a5296a965c07fe99fd9f6bf"
-    },
-    {
-      "path": "reports/trigger_contrast_parameter_localization_review_2026-10-29.md",
-      "kind": "file",
-      "sha256": "0622035a86c6517e6d0790e8ff66a6af5cf54f818ed068913b6cd578d77d57c1"
-    },
-    {
-      "path": "research/README.md",
-      "kind": "file",
-      "sha256": "67dfd67e55d38798128ccd5c9d3b3494c3c05cac9465bb072407d4ebce0dbf3f"
-    },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "d3510cc326f5138158b26c5e8dd849f58dc0137f4060d1e002f2c1dc91b4bc42"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/IMPLEMENTATION_REVIEW.md",
-      "kind": "file",
-      "sha256": "c445c9dab7862890c771eefed2b569e835b84e9e84bf717d6d0e584cfcc0776c"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "kind": "file",
-      "sha256": "8771f21242534d3d57654bbf0d6f90330db0d27084a4984106ff1bf2028f963c"
+      "sha256": "b5ff51db11197ff9a917b4b5289a3bbfd10878df618fc7c4a5ffb55f39ea57e1"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "28c5bc97327b095f1984a5cc4025fae976dd159c8fc4ba5decf26b90a128ba8b"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/context_review.json",
-      "kind": "file",
-      "sha256": "efa5469556148c68cd2e237a745e05fa0321039a904d68a18be5b064be8c088a"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/implementation_validation.md",
-      "kind": "file",
-      "sha256": "8b12310391dc146073abf633a11a6a2f0febc05700c323cfcea760581222b588"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/m06_review.json",
-      "kind": "file",
-      "sha256": "c2e8a57b20f39454d673410bf1bf01de108c2cd727d653603643430dbe8bfa74"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/manifest_candidate.json",
-      "kind": "file",
-      "sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/manifest_draft.json",
-      "kind": "file",
-      "sha256": "e8a2c23b8eca71e82188ac8297e4009ddaec9bfac0d17b65bf1369eeb1f4b3cc"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_draft.jsonl",
-      "kind": "file",
-      "sha256": "6c812d38279b0d3e44b926a1ccc5de21c680fb945c81cbad53efb8b74d5679a6"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_draft_v2.jsonl",
-      "kind": "file",
-      "sha256": "2d30c65fb1d95dc385a5cbb0a5e6a5733c70a25f5eb3947242e87940ae0332e1"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_draft_v4.jsonl",
-      "kind": "file",
-      "sha256": "bdae88b0c4e4f9f43b7b79b894b96861194367f3da0fe0182165e4c11438c7d7"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_draft_v5.jsonl",
-      "kind": "file",
-      "sha256": "fb96f633531e8ed5c46b210fec898a3403377a21887fac3599ec180ac6d2c0aa"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_draft_v7.jsonl",
-      "kind": "file",
-      "sha256": "5311466ecec94d9a4f33151c8cb5a4e0af7b7f5707b45f6fdb55c07813943f2f"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_draft_v8.jsonl",
-      "kind": "file",
-      "sha256": "284acd11b7f2095c543eb22b308a4dfb3cca8103a4a2e24b1d778d4f2c8547ab"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/prompts_tokenized_candidate.jsonl",
-      "kind": "file",
-      "sha256": "481b2fb024e4b13446e034a8c81c14f59d7d15868935673558d58590d54497cb"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_assets_observation_20261029.json",
-      "kind": "file",
-      "sha256": "e6f4e4c3da07e798bff6c37869db3e3d19c81179a1a3cea2c1f3b0f53d2f4e59"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_cpu_preflight_20261029.json",
-      "kind": "file",
-      "sha256": "4e29b191c46056c48a5fd39b79da2322ac184dbec151b61665098de0899e8801"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_deployment_20261029.json",
-      "kind": "file",
-      "sha256": "d6503eeac6168d5066c99bcb84bc94dd60e5ee859891353367b52bb74c886291"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_gpu_guard_20261029.json",
-      "kind": "file",
-      "sha256": "5fec4a5f720779ab00c07ad41b532ec5a22cbe9c506afe389934be89849480fd"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json",
-      "kind": "file",
-      "sha256": "d77d5e4bf139f8a18000d70089bfde64a9fce074f351e4f43c5ac3ca1473fdc1"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_resource_observation_localize_20261029.json",
-      "kind": "file",
-      "sha256": "5ba1dc1831c92bd4266db952bd21917c981c5a4b87d656a2508157a13dda131e"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_run_preparation_20261029.json",
-      "kind": "file",
-      "sha256": "6a0cab48e11afea2dae131cf0b347a0f4afc159891686accca046f46d0b51961"
-    },
-    {
-      "path": "research/tasks/README.md",
-      "kind": "file",
-      "sha256": "4f58baac87108e046242e45ee7630732df211ed321c12cc59b82f4cb49891046"
-    },
-    {
-      "path": "research/tasks/TEMPLATE.md",
-      "kind": "file",
-      "sha256": "1cb954a95625ce6431c1c5e72ec4231b5190a8af1be9988af7a61f604f731eda"
-    },
-    {
-      "path": "research/trigger_contrast_localization_pilot_review_2026-10-29.md",
-      "kind": "file",
-      "sha256": "2a10781cfc70f1b168708fd3cb4d2e8287a01de811ff8350d74cca7d625d45a2"
-    },
-    {
-      "path": "results/README.md",
-      "kind": "file",
-      "sha256": "fce7219fa56fa137798475135d2cd0f003fb0cdf8ed43fb76c71e319d3e3df4f"
-    },
-    {
-      "path": "results/trigger-contrast-localization/README.md",
-      "kind": "file",
-      "sha256": "f9e4f3bde5e949e705283d3ac2ec199d9bb9b15df75f99864a765c6ed192c54a"
-    },
-    {
-      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "kind": "file",
-      "sha256": "1272dd00302c9b383931ddeb00858a668e42190245031b2bc1c8b4e6ce2d1ec2"
+      "sha256": "2e864bbe6462024d222206d5eb9c364c16dae656e5760069a03e651d452bed69"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "da91ba86eddb4f6effc1a32170df4606cc1a527eb836993a3833fc1a7b7530cc"
-    },
-    {
-      "path": "scripts/README.md",
-      "kind": "file",
-      "sha256": "05a08c82b59827bdc9afa7cc8675f7b916489a10580aee3b3d7c231538b8d918"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "kind": "file",
-      "sha256": "98977172f5c25dd0b06dfdfc7e532f64412b29239464e5119d89993f2e019071"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/assets.py",
-      "kind": "file",
-      "sha256": "57bcee1c3b271a247075cd847db58de3e4b7d107e8d0a26cf7e7fdef1d6fd53a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/bindings.py",
-      "kind": "file",
-      "sha256": "82aa7d206cc1acac7504ac71b0d27a5533599dd2426d99c5af30f88810f1bd58"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/confirmation_runner.py",
-      "kind": "file",
-      "sha256": "3068ee31e9e875479594a1053aad1a01b4a7612ad7a1e8e615116383f9e9466a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/core.py",
-      "kind": "file",
-      "sha256": "f8173c5e079e3fec9fb2bdac9cb2b0664a6722c595516b023d450a6d967bc407"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/evidence.py",
-      "kind": "file",
-      "sha256": "c521dcd770f1bbe6606572134617749d078f4f319980063ba81384438161800c"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/gates.py",
-      "kind": "file",
-      "sha256": "06539fcb6aa719151280d1d3c4fef5ecd1e05e73f9b8d5b442a8bf8282e1a9c5"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/generation.py",
-      "kind": "file",
-      "sha256": "748ebbef12f3968cef14b322da910ca51b3eaf63ae0349eb03732920a717a9c0"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/inputs.py",
-      "kind": "file",
-      "sha256": "610a789b2ea1d32da78c7f89453e94a98dec2755ef3981d9cf38728913ee644a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/intervene.py",
-      "kind": "file",
-      "sha256": "8c1347f64ecfa517acde07361e6b8d0e7353b1be68b91ed65071d8636fd4ea18"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/localization_ledger.py",
-      "kind": "file",
-      "sha256": "db6a3b551fded69b0c2d3ca94c38268bedc2f5da9c59f2d0744060d22e26147f"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/localization_runner.py",
-      "kind": "file",
-      "sha256": "4c3013c8dbac50ac5d6624ac2614fc622008a3d0592684a3436123845a9d0b54"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/main.py",
-      "kind": "file",
-      "sha256": "496b8c834395e10d856268c932dbc4dc6b4256d1a29f3b5ee76e986c3a9d3312"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/paired_stats.py",
-      "kind": "file",
-      "sha256": "2a043541cfd87e4cad6ca3b29346054094a2010d2aa3a04bb856fda93001048b"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/preflight.py",
-      "kind": "file",
-      "sha256": "f4d01f03b34073f0d8f95c9965a31f0594855e586bae2974ad37cab553a830d6"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/propose_split.py",
-      "kind": "file",
-      "sha256": "fbd8efde8332dd8d3432107b4a39fb2d14c6f1c435aa411aca63918f76b709d0"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/recovery.py",
-      "kind": "file",
-      "sha256": "bff04f0aa109470c3723ecec5c01266b7da456967833b3ed2b8c6f2013746fcd"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/report.py",
-      "kind": "file",
-      "sha256": "8035c9bba6559683167391fb15e9f0aafd778329eb531b1e30e6964e79df3d52"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/resource_gate.py",
-      "kind": "file",
-      "sha256": "f6791c48046393c742007d544e55db8a63b6e53354648e54589b4e359094484e"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/run_store.py",
-      "kind": "file",
-      "sha256": "f0395ea6a883dd7baf16c7e32445de953170c0816c856d0c0197236f8da1ef0a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/runtime_assets.py",
-      "kind": "file",
-      "sha256": "adfb813dc05aff5950be2819968c38389eeea3b9ba39d4dacc8f0ccec05517d5"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/selection.py",
-      "kind": "file",
-      "sha256": "2fab26854a7522f3ad0f151529c89c4517937698011986f8cc42fd61552ffc11"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/selection_audit.py",
-      "kind": "file",
-      "sha256": "a3d78d97a034e1f56fe34c1abd831757fe4b6e9f1e2f216b23d92c87eae36c62"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/states.py",
-      "kind": "file",
-      "sha256": "28a244f903f0052f449d992854eb848fc5a9f0ef00fbdf711affb23b1adc1a8b"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_assets.py",
-      "kind": "file",
-      "sha256": "22a86201eff82ee83786b3fa7ab45b57794a843263f8d0dc8b512adc9cdb4215"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_bindings.py",
-      "kind": "file",
-      "sha256": "8954e1c0b3f19e1b3bd3f94be0c5cf7524d801605d92ff7148434abc9a440fe6"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_cli.py",
-      "kind": "file",
-      "sha256": "24d2db0618076bec94dc759205a8e9165e732a5fddbcfcc3a7a64a823fb7d806"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_confirmation_runner.py",
-      "kind": "file",
-      "sha256": "bdd2abc290bc47558b8b8f4efd37585f827164214ddef27c16ded5263d108ef6"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_core.py",
-      "kind": "file",
-      "sha256": "63d2bca613fdac2caaef1c0fef6c8cab52f60b59a74bf40b0c7b9bd4a5b2b7e6"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_evidence.py",
-      "kind": "file",
-      "sha256": "1de231ef05fba6c60e58811fa90a9bbb2a6cd1ba043328e69a9f133011300185"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_gates.py",
-      "kind": "file",
-      "sha256": "479fdfb48813c08f6b09fb00346c0c894ac7e9df85da0c654a0a17eebdb1c983"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_generation.py",
-      "kind": "file",
-      "sha256": "7c770ca40c6599bb685105f080bf62dd9e84a3c935c3bd8b5deeb074b57df87e"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_inputs.py",
-      "kind": "file",
-      "sha256": "0fe11a8f6999a46b6f7454c5ac8f232c1ece09749d5421195c26177580d53344"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_intervene.py",
-      "kind": "file",
-      "sha256": "d92d0a5051d92e6c1045bca8d56396b609c49d6d3443111462cfdbf7a67ed89a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_localization_ledger.py",
-      "kind": "file",
-      "sha256": "a8596b4df4afc718f0a93e51bd4f073ac1cfe9453de7cce39b65f37edf3c55f0"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_localization_runner.py",
-      "kind": "file",
-      "sha256": "6a6cf45bf2151615723ff4dc7ecad8ed6f1f94d758e08f8b04db7c961d740baf"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_paired_stats.py",
-      "kind": "file",
-      "sha256": "3086ebf4ff817b0027738f86186ff5a76d17c72b9b98672efc1e0fe5a810a3e0"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_recovery.py",
-      "kind": "file",
-      "sha256": "5db0a0f34a9932098b03a1d536e1e2f75f075397b7ea83b9f7075db8e49eaef6"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_resource_gate.py",
-      "kind": "file",
-      "sha256": "c0774b627a1d90c141995f7199e51673ed6ca44075e31afa682160a66ebd7ae9"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_run_store.py",
-      "kind": "file",
-      "sha256": "c8ccf4209c3c48974dda1276a4858640b2d95a4fdd8a60c0ae04c616f3758a62"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_runtime_assets.py",
-      "kind": "file",
-      "sha256": "66a97529c54bf7d51856f8c8a3c3de8ccdc3a852c95594d5470ee2c44a97ba23"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_scientific_stop.py",
-      "kind": "file",
-      "sha256": "34002f3f7537f4c1e8b168df30d319ab36869c5251ad8fcc7ba04a3907d2f2d2"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_selection.py",
-      "kind": "file",
-      "sha256": "e519ee65b263b3ac11952b15bf3acb6165111396cc2243a1828760c1617aac56"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_selection_audit.py",
-      "kind": "file",
-      "sha256": "15abf5f064655de06c9496b6ec5ca02a168b74019fd6c82092aefc356063820d"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_states.py",
-      "kind": "file",
-      "sha256": "bf1fecf8bd1047fa6f111273bc1f592b814bc68e9cba0cebb27bf6955b77690b"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_text_backend.py",
-      "kind": "file",
-      "sha256": "b70a9cfc73c2ca6673b49435916b9f0906d0d2e83c52b4a4c91d67b14c8acce8"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_verified_gate.py",
-      "kind": "file",
-      "sha256": "6a4bde49be0c27fc49cd9df1b911b47eb55ddd71e259f31c5b2dfb07a0c7d031"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/text_backend.py",
-      "kind": "file",
-      "sha256": "d0e2aa590b0a73ec01f64e669be99ca0184a29412b7f69a378c40c3b15d48976"
-    },
-    {
-      "path": "scripts/storage/maintain_index.py",
-      "kind": "file",
-      "sha256": "735849d1b3d64ae53cbe90ae712b58ed8f5c7a2faa3760b846923bda2e942240"
-    },
-    {
-      "path": "scripts/storage/test_maintain_index.py",
-      "kind": "file",
-      "sha256": "5996fa4e75a5f72d4098fcae06dfd454d399779e1287702e88fbda406b01566d"
-    },
-    {
-      "path": "storage/NEW_COMPUTER.md",
-      "kind": "file",
-      "sha256": "0ff2a96539fd06345307bcdec212f21a1880f1db596cd45d2d61243763fd36a4"
-    },
-    {
-      "path": "storage/README.md",
-      "kind": "file",
-      "sha256": "f2b013aa4cbd0908b51c5560f31d25aa95432741dd005610a27e9f748a5ee1de"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "kind": "file",
-      "sha256": "6398d16965f6a46221e689a9994fc8f446863700b31c7eeceb9c050df96c5700"
-    },
-    {
-      "path": "storage/index_policy.json",
-      "kind": "file",
-      "sha256": "c30db70f02d9a15c429d5c54f2f14d6618d74d12bdb9cbb769ffa726ef39efad"
+      "sha256": "bae99b706843c5046dc9bef2cd72ad14e760e177e83b1bc423d836e4bc5c3457"
     }
   ],
   "index_decisions": [
     {
-      "path": "AGENTS.md",
-      "action": "updated",
-      "reason": "同步用户对 TCL 服务器验证的授权和已启动定位事实，保留旧实验暂停及任务规则。"
-    },
-    {
-      "path": "README.md",
-      "action": "updated",
-      "reason": "主入口同步当前定位已开始，历史结果和任务唯一状态入口保留。"
-    },
-    {
-      "path": "reports/README.md",
-      "action": "updated",
-      "reason": "此前新增文献调研入口及假说边界仍有效，本次未改其历史内容。"
-    },
-    {
       "path": "research/README.md",
-      "action": "updated",
-      "reason": "同步定位阶段及当前任务入口，不复制任务状态表。"
+      "action": "unchanged",
+      "reason": "当前研究入口已指向任务正文，定位仍处同一阶段，单次回调详情不需复制到总导航。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "将当前工作更新为定位运行中，保留历史 run 结论和旧定时任务状态。"
+      "reason": "更新下一步为用户要求的单次回调与后续门禁，不更改旧实验结论。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "action": "updated",
-      "reason": "补充固定输入、实现审阅、服务器预检及资源观察和启动证据入口。"
+      "action": "unchanged",
+      "reason": "现有入口已指向任务正文及验收报告，未新增文件或改变导航。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "登记用户授权、M06 审阅通过、服务器定位启动与后续门禁，图片及结论仍待验证。"
+      "reason": "记录最新账本快照、基于吞吐的时间估计和一次性回调，不将进行中的实验标为已完成。"
     },
     {
       "path": "research/tasks/README.md",
-      "action": "updated",
-      "reason": "保留此前建立的任务与模板导航，当前进度以 TASK 为准。"
+      "action": "unchanged",
+      "reason": "任务索引仅保存导航，运行进度和回调以任务正文为准。"
     },
     {
       "path": "results/README.md",
-      "action": "updated",
-      "reason": "同步定位前向已开始，同时说明未完成图片评价和科研结论。"
+      "action": "unchanged",
+      "reason": "总结果入口已有本轮运行入口及未完成状态，本次没有新的终态或结论。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
-      "action": "updated",
-      "reason": "建立本任务结果总入口，指向当前运行目录并以任务正文作为状态权威。"
+      "action": "unchanged",
+      "reason": "结果总入口没有变化，仍指向同一运行目录。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "action": "updated",
-      "reason": "登记远端运行路径、真实启动证据和进行中验收报告，尚未宣称终态盘点。"
-    },
-    {
-      "path": "scripts/README.md",
-      "action": "updated",
-      "reason": "登记新定位执行器入口，保留之前存储索引修复的说明。"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "action": "updated",
-      "reason": "记录执行器、冻结清单、阶段门禁与启动恢复入口。"
-    },
-    {
-      "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
-      "reason": "既有 impact、人工复核、receipt、refresh 和 check 流程适用；未更改维护命令或提交规则。"
-    },
-    {
-      "path": "storage/NEW_COMPUTER.md",
-      "action": "updated",
-      "reason": "保留 Git 接续与服务器资料定位步骤，并指向获授权的 TCL 任务而不授权其他实验。"
-    },
-    {
-      "path": "storage/README.md",
-      "action": "updated",
-      "reason": "说明科研 Git 交接、服务器大文件与 TCL 单独授权，保持 Drive 暂停。"
+      "reason": "运行入口和远端路径不变，回调与最新快照由报告和任务正文记录。"
     }
   ],
   "verification": {
-    "prior_record": {
-      "independent_scientific_review": "completed; corrected causal contribution versus necessity wording",
-      "source_review": "14 primary sources in report; 18 Exa searches with sum numResults 129 including duplicate slots, plus primary-source web verification",
-      "validation_scope": "Documentation, policy data, and local inventory only; this turn added no research implementation or model executions.",
-      "maintenance_regression_tests_passed": 41,
-      "git_diff_check": "passed before final receipt generation; rechecked at closeout",
-      "local_coverage": {
-        "errors": 0,
-        "ignored_scanned": 29969,
-        "ignored_excluded": 28572,
-        "ignored_indexed": 1397
-      },
-      "initial_closeout_blocker": "Existing ignored restore-check nested repository was emitted by Git as a trailing-slash directory marker; fixed conservative classification without bypassing full local scan.",
-      "pilot_design_review": "Read-only independent review completed: parameter-domain fairness, actual block interventions, 2048-image and 66048-text-forward ceilings, alpha-weighted restoration, and scope limitations checked; no model validation claimed.",
-      "focused_source_review": "Classic trigger forms checked against Rickrolling ICCV2023 proceedings and author code, BadT2I author README, and EvilEdit author README; local exact trigger and target verified against frozen manifest.",
-      "task_design_review": "Two read-only reviews covered task-state authority/handoff and scientific design/budgets; corrected fixed eight strata, required merged normal baseline ACC >=75%, and added TASK to impact-related records.",
-      "task_document_checks": "Passed: metadata, ten unique milestones with only M01 done, paused global state, sample arithmetic 8192/16384 and TE ceiling 264192, and task index route; relative links separately reviewed.",
-      "task_closeout_correction": "Removed index_policy.json from index_decisions because it is policy data rather than a registered decision index; its actual content hash remains in reviewed_changes and route verification is retained."
-    },
-    "local_implementation_tests": "52 passed against reviewed manifest; server CPU preflight checked 38 assets and 320 contexts",
-    "server_runtime": "school103 GPU 2 gate verified; 412 blocks identified; 1088 forwards completed at checkpoint; ongoing, no image or scientific acceptance",
-    "inventory": "refresh and check follow this receipt"
+    "server": "2026-10-29 19:53 北京时间：school103 tmux tcl-20261029-01-v1 存在，223/412 blocks complete，57682 forwards complete",
+    "callback": "Codex heartbeat tcl active with COUNT=1, configured for 21:30 local time; future callback is not proof of completion",
+    "previous_review": "Prior implementation, review and start evidence committed as 2b3771a; index check passed before this update."
   },
   "scope": {
-    "public_literature_web_access": "prior work",
-    "research_server_connections": "school103 in this task",
-    "gpu_jobs_started": 1,
-    "drive_transfers": 0,
-    "model_forward_passes": "localization in progress; 1088 completed at checkpoint",
-    "images": "none observed at first inspection",
-    "scientific_evidence_modified": false
+    "gpu_jobs_started": 0,
+    "existing_tcl_job": "continues",
+    "new_images": "none observed",
+    "training_updates": 0,
+    "old_gpu_automation": "not restored"
   }
 }
