@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "observed_utc": "2026-10-29 09:51:34 UTC",
+  "server": "103",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "7122d6b3dd9f6b9c5bd5a32aa4c21f434aa742742a10a930c70d700e289e3043",
+  "deployment_archive_sha256": "4405b28831020eae30f47c5ad8fff9f26cab78fbc238a379cb2ff51866412117",
+  "remote_deployment": "/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-cpu-preflight-7122d6b3",
+  "remote_stdout": "/tmp/tcl-20261029-01-cpu-preflight.out",
+  "remote_stderr": "/tmp/tcl-20261029-01-cpu-preflight.err",
+  "status": "passed",
+  "evidence": {
+    "asset_files_verified": 38,
+    "context_count": 320,
+    "tokenizer_verified": true,
+    "expert_tokenizer_checked": true,
+    "cpu_only": true,
+    "model_forward_count": 0,
+    "stderr": "",
+    "process_still_running": false
+  },
+  "boundary": "CPU-only asset verification and loading of clean/backdoor/Edev TE/UNet; VAE and independent scorers are not loaded, CUDA and image generation not tested. Background child exit code was not separately retained; passed marker and empty stderr were observed."
+}

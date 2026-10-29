@@ -1,0 +1,25 @@
+# 特殊字符触发参数定位任务
+
+本目录保存独立任务的设计、交接和审阅记录；完成与待完成状态、当前方法及预算统一见[TASK.md](TASK.md)。通用规范只维护在[AGENTS.md](../../../AGENTS.md#任务管理规范)，本页不复制任务状态。
+
+| 入口 | 用途 |
+|---|---|
+| [TASK.md](TASK.md) | 扩大样本后的任务定义、里程碑、实现交付要求和review入口 |
+| [首版样本草案](prompts_draft.jsonl) | 独立审阅未通过：动作不足、个别场景与构图不自然、other对象不合适，且存在跨分区近重复；不作为冻结输入 |
+| [第二版样本草案](prompts_draft_v2.jsonl) | 改为狗、猫、兔动作配对；自查仍发现跨分区近重复，未进行正式独立审阅，不能作为冻结输入 |
+| [第四版样本草案](prompts_draft_v4.jsonl) | 在第二版上按预先固定的机械目标重分区；自查仍发现跨分区高度相似的模板，不能作为冻结输入 |
+| [第八版样本候选](prompts_draft_v8.jsonl) · [内容审阅记录](context_review.json) | 320条文本及分层已独立审阅通过；冻结候选已绑定token、seed和38项服务器SHA观察，最终M06与实际预检仍待完成 |
+| [逐条分词候选](prompts_tokenized_candidate.jsonl) · [早期清单草案](manifest_draft.json) | 已保存并核对每条77位token；早期草案的缺项由冻结候选接续，真实预检仍未完成 |
+| [冻结清单](manifest_candidate.json) · [实现检查](implementation_validation.md) · [M06审阅](m06_review.json) | 清单绑定输入、38项观察SHA及代码；实现与M06通过，真实CUDA和评分仍待验证 |
+| [103资产观察](server103_assets_observation_20261029.json) · [CPU预检](server103_cpu_preflight_20261029.json) | 38项SHA与历史来源一致，CPU加载及样本检查通过；预检依赖与现版一致，不代表GPU前向或图片验收 |
+| [103早版运行包验收](server103_deployment_20261029.json) · [新版GPU门禁检查](server103_gpu_guard_20261029.json) | 早版已上传但不得启动；新版门禁已在103只读实测，CPU加载后仍须重新核对平台 |
+| [103新版运行准备](server103_run_preparation_20261029.json) | 新版部署及CPU阶段启动回执，CUDA许可与模型前向须以实际运行证据为准 |
+| [实时资源观察](server103_resource_observation_localize_20261029.json) · [定位启动](server103_localization_start_20261029.json) | GPU许可及真实定位前向的启动证据，执行状态和后续结论以TASK为准 |
+| [运行入口与验收报告](../../../results/trigger-contrast-localization/tcl-20261029-01-v1/README.md) | 运行中的报告和服务器路径，终态后须补齐独立审阅与附件盘点 |
+| [初始小样本草案](../../trigger_contrast_localization_pilot_review_2026-10-29.md) | 保留思路演变，旧2048图预算不再作为本任务预算 |
+| [相关文献调研](../../../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 行为定位、语义混杂、因果贡献与合并迁移的来源和证据边界 |
+| [既有模型来源](../../tssa_mvp_assets_2026-10-26.json) · [既有源配置](../../tssa_mvp_2026-10-26.json) | 取用已固定模型身份和真实触发规则，不继承旧样本、旧预算或旧run身份 |
+
+任务代码见[scripts/merging/trigger_contrast_localization](../../../scripts/merging/trigger_contrast_localization/README.md)，服务器产物以冻结候选中的本人数据盘路径为准，尚未产生运行结果。大模型与原图继续遵循[存储入口](../../../storage/README.md)，不放入本任务目录冒充已归档小文件。
+
+[全部任务](../README.md) · [研究目录](../../README.md)

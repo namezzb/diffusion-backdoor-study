@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "version": "v1",
+  "status": "frozen",
+  "review_status": "awaiting_m06",
+  "run_id": "tcl-20261029-01-v1",
+  "server": "school103",
+  "output_root": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1",
+  "models_root": "/data1/zhangzibo/arxiv-tssa/models",
+  "prompts_sha256": "481b2fb024e4b13446e034a8c81c14f59d7d15868935673558d58590d54497cb",
+  "context_review_sha256": "efa5469556148c68cd2e237a745e05fa0321039a904d68a18be5b064be8c088a",
+  "contexts_semantic_sha256": "e81d23c816f129df60a394689d57983ecf5a9a01a44aa5f251f543d412f533c4",
+  "asset_observation": {
+    "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_assets_observation_20261029.json",
+    "sha256": "e6f4e4c3da07e798bff6c37869db3e3d19c81179a1a3cea2c1f3b0f53d2f4e59",
+    "boundary": "38 current SHA observations, not full live size/Git-blob or load verification"
+  },
+  "source_asset_manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "source_protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "asset_sha256": {
+    "backdoor_tpa/config.json": "cf94e1253bfe660c90d486fabe947cf8c3f20488678fe275d70fcf1db3b39a1b",
+    "backdoor_tpa/model.safetensors": "25fdbe6835939417ee98b911ebadcef1ed4b790a6d4c413a6f3d9ef0c183b071",
+    "clip/README.md": "de4274ec48590ab3aa1c239720ff55e99a37f4165c117ba3ad7af2b7df72687c",
+    "clip/config.json": "8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a",
+    "clip/merges.txt": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+    "clip/model.safetensors": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+    "clip/preprocessor_config.json": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd",
+    "clip/special_tokens_map.json": "f8c0d6c39aee3f8431078ef6646567b0aba7f2246e9c54b8b99d55c22b707cbf",
+    "clip/tokenizer.json": "a83e0809aa4c3af7208b2df632a7a69668c6d48775b3c3fe4e1b1199d1f8b8f4",
+    "clip/tokenizer_config.json": "deef455e52fa5e8151e339add0582e4235f066009601360999d3a9cda83b1129",
+    "clip/vocab.json": "3f0c4f7d2086b61b38487075278ea9ed04edb53a03cbb045b86c27190fa8fb69",
+    "dreamshaper8/README.md": "591434041d60521ec6b666b3635a8fa03330435bab1361b0502f968dae3f389a",
+    "dreamshaper8/text_encoder/config.json": "52e29b35e93261515dc07bf248ec8398a729e54f1886e946f8c095ede26be29b",
+    "dreamshaper8/text_encoder/model.safetensors": "5cd76eb3ed326974cfd66795384e890742dfdb5a80f5f4e4cb1547d51ec75d86",
+    "dreamshaper8/tokenizer/merges.txt": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+    "dreamshaper8/tokenizer/special_tokens_map.json": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+    "dreamshaper8/tokenizer/tokenizer_config.json": "19d7b034cb0cc3ce9766c2231373ab8aa8991fc72e2c8f76558bfaae3de0d563",
+    "dreamshaper8/tokenizer/vocab.json": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+    "dreamshaper8/unet/config.json": "8125830747f921e26e263e394b8954482cf3b4b4f1beb154704ee3cc57042be8",
+    "dreamshaper8/unet/diffusion_pytorch_model.safetensors": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+    "sd15/README.md": "2079161f9df7524bd9eca5e53ff5911271b8551e0f868b7b5a92b84776df28a3",
+    "sd15/feature_extractor/preprocessor_config.json": "2a1da83b5e1032aaeef397552ddb408dca0d8cd1dc58f61bf6abf38d6f33a0a2",
+    "sd15/model_index.json": "e2f6f22e274374010aec30c79eb2d6e53fff4a36ac0225523a92cb2d41a83347",
+    "sd15/scheduler/scheduler_config.json": "699cce92eb7c122e2eb7dfdea78e6187fda76a5ed4a8e42319b85610e620e091",
+    "sd15/text_encoder/config.json": "845df614cb9327ae7bbea027316246fae917827407da6df13572e41b5f93b4cc",
+    "sd15/text_encoder/model.safetensors": "d008943c017f0092921106440254dbbe00b6a285f7883ec8ba160c3faad88334",
+    "sd15/tokenizer/merges.txt": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+    "sd15/tokenizer/special_tokens_map.json": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+    "sd15/tokenizer/tokenizer_config.json": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882",
+    "sd15/tokenizer/vocab.json": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+    "sd15/unet/config.json": "78f474de6bab3d893868f37be97b636ae65c0df3073ed3256ca458ff599b5f96",
+    "sd15/unet/diffusion_pytorch_model.safetensors": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+    "sd15/vae/config.json": "786a7d21647ddea6a04b9675c03d3cb45e90a2f3c6da5fbda2c54ade040036de",
+    "sd15/vae/diffusion_pytorch_model.safetensors": "a2b5134f4dbc140d9c11f11cba3233099e00af40f262f136c691fb7d38d2194c",
+    "vit/README.md": "edb38cc47675c7320f41d9c9760bb0cc88c5820b482d87e1b5b6b5cc5459938d",
+    "vit/config.json": "abdf73cc4ce79495a83f32a8c9265daa7a1363f5a3efa4704c88a6e7f45ad19d",
+    "vit/model.safetensors": "1cea07110a4a47edc51420b2dda6f3b8b58e7256e8f44b4ea6aa9696162ccb5d",
+    "vit/preprocessor_config.json": "90d1ae427c27d2b9dcb01f6a62ba96aa67aac2de1697c59cd212055b5035c4a2"
+  },
+  "code_sha256": {
+    "scripts/merging/trigger_contrast_localization/assets.py": "57bcee1c3b271a247075cd847db58de3e4b7d107e8d0a26cf7e7fdef1d6fd53a",
+    "scripts/merging/trigger_contrast_localization/bindings.py": "82aa7d206cc1acac7504ac71b0d27a5533599dd2426d99c5af30f88810f1bd58",
+    "scripts/merging/trigger_contrast_localization/confirmation_runner.py": "3068ee31e9e875479594a1053aad1a01b4a7612ad7a1e8e615116383f9e9466a",
+    "scripts/merging/trigger_contrast_localization/core.py": "f8173c5e079e3fec9fb2bdac9cb2b0664a6722c595516b023d450a6d967bc407",
+    "scripts/merging/trigger_contrast_localization/evidence.py": "c521dcd770f1bbe6606572134617749d078f4f319980063ba81384438161800c",
+    "scripts/merging/trigger_contrast_localization/gates.py": "06539fcb6aa719151280d1d3c4fef5ecd1e05e73f9b8d5b442a8bf8282e1a9c5",
+    "scripts/merging/trigger_contrast_localization/generation.py": "748ebbef12f3968cef14b322da910ca51b3eaf63ae0349eb03732920a717a9c0",
+    "scripts/merging/trigger_contrast_localization/inputs.py": "610a789b2ea1d32da78c7f89453e94a98dec2755ef3981d9cf38728913ee644a",
+    "scripts/merging/trigger_contrast_localization/intervene.py": "8c1347f64ecfa517acde07361e6b8d0e7353b1be68b91ed65071d8636fd4ea18",
+    "scripts/merging/trigger_contrast_localization/localization_ledger.py": "db6a3b551fded69b0c2d3ca94c38268bedc2f5da9c59f2d0744060d22e26147f",
+    "scripts/merging/trigger_contrast_localization/localization_runner.py": "4c3013c8dbac50ac5d6624ac2614fc622008a3d0592684a3436123845a9d0b54",
+    "scripts/merging/trigger_contrast_localization/main.py": "496b8c834395e10d856268c932dbc4dc6b4256d1a29f3b5ee76e986c3a9d3312",
+    "scripts/merging/trigger_contrast_localization/paired_stats.py": "2a043541cfd87e4cad6ca3b29346054094a2010d2aa3a04bb856fda93001048b",
+    "scripts/merging/trigger_contrast_localization/preflight.py": "f4d01f03b34073f0d8f95c9965a31f0594855e586bae2974ad37cab553a830d6",
+    "scripts/merging/trigger_contrast_localization/report.py": "8035c9bba6559683167391fb15e9f0aafd778329eb531b1e30e6964e79df3d52",
+    "scripts/merging/trigger_contrast_localization/recovery.py": "bff04f0aa109470c3723ecec5c01266b7da456967833b3ed2b8c6f2013746fcd",
+    "scripts/merging/trigger_contrast_localization/resource_gate.py": "f6791c48046393c742007d544e55db8a63b6e53354648e54589b4e359094484e",
+    "scripts/merging/trigger_contrast_localization/run_store.py": "f0395ea6a883dd7baf16c7e32445de953170c0816c856d0c0197236f8da1ef0a",
+    "scripts/merging/trigger_contrast_localization/runtime_assets.py": "adfb813dc05aff5950be2819968c38389eeea3b9ba39d4dacc8f0ccec05517d5",
+    "scripts/merging/trigger_contrast_localization/selection.py": "2fab26854a7522f3ad0f151529c89c4517937698011986f8cc42fd61552ffc11",
+    "scripts/merging/trigger_contrast_localization/selection_audit.py": "a3d78d97a034e1f56fe34c1abd831757fe4b6e9f1e2f216b23d92c87eae36c62",
+    "scripts/merging/trigger_contrast_localization/states.py": "28a244f903f0052f449d992854eb848fc5a9f0ef00fbdf711affb23b1adc1a8b",
+    "scripts/merging/trigger_contrast_localization/text_backend.py": "d0e2aa590b0a73ec01f64e669be99ca0184a29412b7f69a378c40c3b15d48976",
+    "scripts/merging/tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+    "scripts/merging/tssa_mvp_score.py": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+    "scripts/merging/tssa_sd_runtime.py": "c95e7ffdfdf7009eb21176b3dcadb513679f276f17d5fd9afd2b41531d0d0b74",
+    "scripts/merging/tssa_target_semantic_runtime.py": "21974fc4e75935cf144e333dfeb9a5ef6f62735ffcf2dcfb2d47ee905957e1b0"
+  },
+  "models": {
+    "clean": {
+      "repo": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+      "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14"
+    },
+    "backdoor": {
+      "repo": "Weilin0/BackdoorDM",
+      "revision": "05088346e4164a33b4cc617a28807b323085790f"
+    },
+    "Edev": {
+      "repo": "Lykon/dreamshaper-8",
+      "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917"
+    },
+    "classifier": {
+      "repo": "google/vit-base-patch16-224",
+      "revision": "3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3"
+    },
+    "clip_scorer": {
+      "repo": "openai/clip-vit-large-patch14",
+      "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41"
+    }
+  },
+  "generation_seeds": [
+    271101,
+    271102
+  ],
+  "random_control_seeds": [
+    230601,
+    230602,
+    230603
+  ],
+  "bootstrap_seed": 20261029,
+  "sampling": {
+    "scheduler": "DDIMScheduler",
+    "steps": 25,
+    "eta": 0,
+    "guidance_scale": 7.5,
+    "height": 512,
+    "width": 512,
+    "negative_prompt": "",
+    "generator_device": "cpu",
+    "merge_alpha_backdoor": 0.25
+  },
+  "budgets": {
+    "localization_te_prompt_forwards": 264192,
+    "source_image_attempts": 8192,
+    "merge_image_attempts": 8192,
+    "training_updates": 0
+  },
+  "scoring": {
+    "accuracy": "ViT top-1 in frozen per-class ImageNet IDs",
+    "clip": "100*max(0,cosine), original saved PNG pixels and untriggered paired text",
+    "trigger_target_ids": [
+      281,
+      282,
+      283,
+      284,
+      285,
+      286,
+      287
+    ],
+    "other_subject": "rabbit",
+    "other_ids": [
+      330,
+      332
+    ],
+    "scope": "normal other-object ability covers rabbit only"
+  },
+  "parameter_scope": "all named floating TE parameters; deterministic <=2^19 blocks; max 1024; max 5 percent, FP32 differences",
+  "localization": "64 contexts, paired true o-to-ȏ substitution; score=(R_before-R_after-max normal cost)/block size; combined new response must improve",
+  "evaluation": "128 source and independent 128 merge contexts, two fixed paired seeds; fixed registered baseline and normal gates, 10000 paired cluster bootstrap with 97.5 percent two-sided amplitude comparisons",
+  "limitations": [
+    "Other-object normal evaluation includes rabbit only",
+    "Full current file sizes, Git blobs, loader compatibility, real CUDA, scorer and platform GPU permission remain to be verified",
+    "Input candidate cannot run without M06 review bound to its exact SHA256"
+  ]
+}

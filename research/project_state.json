@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-29T06:52:07.972981+00:00",
-  "execution_status": "paused_by_user",
+  "updated_at": "2026-10-29T18:14:00+08:00",
+  "execution_status": "tcl_localization_running",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,13 +26,21 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "Maintain complete research file routing, asset retrieval records, and change-closeout checks; experiments and large transfers remain paused",
+  "current_work": "TCL-20261029-01 frozen run passed the live GPU gate and began localization forwards on server 103; no image evaluation or scientific conclusion yet",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "Requires a new user decision; do not resume completed runs.",
+  "next_research_action": "Track localization ledger and terminal state, then perform applicable gated confirmation and independent review under the frozen budget.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",
   "index_maintenance": "storage/INDEX_MAINTENANCE.md",
-  "latest_maintenance": "storage/maintenance/latest.json"
+  "latest_maintenance": "storage/maintenance/latest.json",
+  "latest_literature_review": {
+    "path": "reports/trigger_contrast_parameter_localization_review_2026-10-29.md",
+    "date": "2026-10-29",
+    "status": "hypothesis_only_not_experimentally_validated",
+    "conclusion": "Input contrast can guide candidate localization; semantic dog-cat response differences do not identify pure backdoor parameters, and regrouping alone does not repair the old endpoint objective ordering."
+  },
+  "task_index": "research/tasks/README.md",
+  "current_task": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md"
 }

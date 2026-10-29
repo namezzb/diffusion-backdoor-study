@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "reviewer": "Codex 本会话 reviewer",
+  "method": "逐条阅读 v7 的320条，并复核 v8 仅修改 home-04 与 forest-18；独立核对内容哈希、唯一性、分层、分区、真实 tokenizer、触发字符及标签。",
+  "contexts_sha256": "e81d23c816f129df60a394689d57983ecf5a9a01a44aa5f251f543d412f533c4",
+  "reviewed_file": "prompts_draft_v8.jsonl",
+  "reviewed_file_sha256": "284acd11b7f2095c543eb22b308a4dfb3cca8103a4a2e24b1d778d4f2c8547ab",
+  "evidence": {
+    "contexts": 320,
+    "unique_ids_and_templates": 320,
+    "strata": 8,
+    "per_stratum_localize_source_merge": [8, 16, 16],
+    "tokenizer_precheck_texts": 1280,
+    "tokenizer_max_unpadded_length": 62,
+    "tokenizer_over_77": 0,
+    "trigger_pairs_with_distinct_token_ids": 320,
+    "trigger_replacement": "U+006F to U+020F, without Unicode normalization",
+    "other_subject": "rabbit",
+    "other_class_ids": [330, 332],
+    "excluded_class_id": 331
+  },
+  "boundary": "多数场景为户外，其他对象仅包含兔；本审阅只覆盖样本文本和结构，不证明对其他类别、模型或场景泛化，也不代表完整模型身份、token IDs、seed、manifest 或运行已冻结。"
+}

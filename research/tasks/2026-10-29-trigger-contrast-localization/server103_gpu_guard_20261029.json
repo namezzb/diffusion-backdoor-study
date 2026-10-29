@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "observed_utc": "2026-10-29 10:08:51 UTC",
+  "server": "103",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "compute_mode": "Default",
+  "system_xorg_processes": 1,
+  "xorg_evidence": [
+    {
+      "pid": "1890",
+      "verification": "proc_cmdline_fallback_exe_inaccessible",
+      "exe_readable": false,
+      "system_path_evidence": "/usr/lib/xorg/Xorg"
+    }
+  ],
+  "method": "Executed candidate read-only nvidia-smi XML parser on server 103; no CUDA initialization.",
+  "boundary": "Point-in-time process check is not platform permission and must be repeated immediately before launch."
+}

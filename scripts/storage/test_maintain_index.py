@@ -450,6 +450,36 @@ class MaintenanceTests(unittest.TestCase):
         self.write("research/missing.png", b"uncatalogued research")
         self.assert_failed("ignored file has no index", True)
 
+    def add_ignored_nested_repository(self):
+        self.write(".gitignore", "cache/\n")
+        self.write("cache/nested/payload.txt", "ignored nested repository fixture\n")
+        self.git("init", "-q", str(self.root / "cache/nested"))
+        ignored = module.git(self.root, "ls-files", "--others", "--ignored", "--exclude-standard", "-z")
+        self.assertIn(b"cache/nested/", ignored.split(b"\0"))
+
+    def test_ignored_nested_repository_with_explicit_exclusion_passes(self):
+        self.add_ignored_nested_repository()
+        self.policy["local_exclusions"] = [{"pattern": "cache/*", "reason": "Disposable restore verification only."}]
+        self.write_policy()
+        self.closeout()
+        for staged in (False, True):
+            with self.subTest(staged=staged):
+                result = self.check(staged)
+                self.assertEqual("passed", result["status"])
+                self.assertEqual(1, result["ignored_excluded"])
+                self.assertEqual(0, result["ignored_indexed"])
+
+    def test_ignored_nested_repository_without_exclusion_is_not_an_attachment(self):
+        self.add_ignored_nested_repository()
+        self.policy["ignored_paths"] = [{"path": "cache/nested", "reason": "Ordinary attachment registration cannot cover a directory."}]
+        self.write_policy()
+        self.closeout()
+        for staged in (False, True):
+            with self.subTest(staged=staged):
+                result = self.assert_failed("ignored directory has no explicit local exclusion: cache/nested/", staged)
+                self.assertEqual(0, result["ignored_excluded"])
+                self.assertEqual(0, result["ignored_indexed"])
+
     def test_refresh_is_deterministic_only_inventory_changes_and_frozen_evidence_intact(self):
         before = {p: blob["data"] for p, blob in self.view().items()}
         receipt = (self.root / self.policy["receipt"]).read_bytes()

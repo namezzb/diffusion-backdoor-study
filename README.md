@@ -1,17 +1,19 @@
 # 扩散模型后门研究：项目总索引
 
-更新于2026-10-29。**实验已按用户要求暂停，旧定时任务已删除；当前只整理已有资料，并维护进度、索引与换机入口。** 三轮共生成2,336张完整图、完成144次优化更新，尚无“正常能力达标，同时攻击成功率超过同轮基线”的合格方案。
+更新于2026-10-29。**用户已授权特殊字符定位任务的服务器验证，103实时资源门禁通过且定位前向已开始；旧run与旧定时任务仍保持停止。** 三轮历史实验共生成2,336张完整图、完成144次优化更新，尚无“正常能力达标，同时攻击成功率超过同轮基线”的合格方案。
 
 ## 从这里开始
 
 | 要做什么 | 入口 |
 |---|---|
+| 查看特殊字符触发定位任务及验证进度 | [当前任务TASK.md](research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) · [全部任务与模板](research/tasks/README.md)，状态、扩样预算及交接要求以任务正文为准 |
+| 判断输入对比是否能改进后门参数分组 | [新筛选假说与相关文献](reports/trigger_contrast_parameter_localization_review_2026-10-29.md)：尚未实验验证，不替换当前执行方案 |
 | 先看做过什么、效果如何、Uniform4 / TSSA16 是什么 | [通俗解释与全部结果](research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 看数据、代码、图片在哪里，以及哪些尚未回传 | [本次整理与备份目录](results/organization-2026-10-29/README.md) |
 | 换电脑后让agent接续进度并取数据 | [新电脑接续步骤](storage/NEW_COMPUTER.md) · [服务器资料索引](storage/SERVER_INDEX.md) · [存储与恢复](storage/README.md) · [完整方案](research/research_storage_and_restore_plan_2026-10-29.md)，先通过Git取得进度与索引，大文件按需从本人服务器取回；Drive保持暂停 |
 | 查每个文件归属、以后如何防漏更 | [索引维护入口](storage/INDEX_MAINTENANCE.md) · [全仓文件清单](storage/repository_index.jsonl) · [本次收尾记录](storage/maintenance/latest.json) |
 | 按实验轮次查原始证据 | [三轮结果索引](results/README.md) |
-| 查看当前方法、公式和低算力验证协议 | [当前 TSSA 方案](research/tssa_response_calibration_method_proposal.md) |
+| 查看已执行TSSA方法、公式和原验证协议 | [历史 TSSA 执行方案](research/tssa_response_calibration_method_proposal.md) |
 | 查原实验如何准备 | [历史准备清单](research/experiment_preparation.md) |
 | 查论文和待补文献 | [24 篇本地论文索引](papers/README.md) · [待下载清单](papers/download_queue.md) |
 | 看以前复现到哪一步 | [BackdoorDM 复现索引](reproduction/README.md) |
@@ -25,6 +27,7 @@ arxiv/
 ├── README.md                 总索引
 ├── AGENTS.md                 项目指令；CLAUDE.md 导入此文件
 ├── research/                 当前方案、研究进度、实验准备
+│   └── tasks/                独立任务、完成／待完成状态与交接入口
 ├── reproduction/             基准参考、复现进度、代码论文对照、循环流程
 ├── papers/                   论文索引和待下载清单
 │   ├── pdf/                  24 篇 PDF，按 ID 命名
@@ -69,7 +72,7 @@ arxiv/
 
 ## 当前边界
 
-本次不恢复训练、评价或服务器定时探针；本轮只完善本地索引、维护检查及科研Git发布，大文件传输和Drive上传保持暂停。后续是否改方法、修数值诊断或做新实验，等用户另行决定，不能把已经完成的三轮重新启动。
+当前仅执行用户授权的TCL独立验证，旧run及定时探针不恢复，Drive上传保持暂停。真实实验须记录适用授权及review证据，不能把已经完成的三轮重新启动。
 
 2,336张包含正常图、攻击图和对照图，并不是2,336个独立攻击样本；不同轮次的比例需与同轮基线比较，不能混排。
 

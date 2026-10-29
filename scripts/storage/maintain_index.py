@@ -612,20 +612,30 @@ def receipt_check(root, view, policy):
 
 def local_coverage(root, view, policy, staged=False):
     names = git(root, "ls-files", "--others", "--ignored", "--exclude-standard", "-z")
-    paths = sorted({safe_path(name.decode("utf-8")) for name in names.split(b"\0") if name})
+    paths = set()
+    for name in names.split(b"\0"):
+        if not name:
+            continue
+        path = name.decode("utf-8")
+        # Git collapses ignored nested repositories to a directory marker.
+        # Keep that marker distinct from any registered ordinary attachment.
+        paths.add(safe_path(path[:-1]) + "/" if path.endswith("/") else safe_path(path))
+    directories = {path for path in paths if path.endswith("/")}
     known = attachment_paths(view, policy)
     patterns = [item["pattern"] for item in policy.get("local_exclusions", [])]
     excluded = [path for path in paths if any(fnmatch.fnmatchcase(path, pattern) for pattern in patterns)]
     remaining = set(paths) - set(excluded)
-    missing = sorted(remaining - known)
+    missing = sorted(remaining - directories - known)
     errors = ["ignored file has no index or explicit local exclusion: " + path for path in missing]
+    errors.extend("ignored directory has no explicit local exclusion: " + path
+                  for path in sorted(remaining & directories))
     untracked_missing = []
     if staged:
         untracked = git(root, "ls-files", "--others", "--exclude-standard", "-z")
         untracked_missing = sorted({safe_path(name.decode("utf-8")) for name in untracked.split(b"\0") if name} - set(view))
         errors.extend("new nonignored file is absent from staged tree: " + path for path in untracked_missing)
     return errors, {"ignored_scanned": len(paths), "ignored_excluded": len(excluded),
-                    "ignored_indexed": len(remaining & known), "untracked_not_staged": len(untracked_missing)}
+                    "ignored_indexed": len((remaining - directories) & known), "untracked_not_staged": len(untracked_missing)}
 
 
 def refresh(root, view, policy):

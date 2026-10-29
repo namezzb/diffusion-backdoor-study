@@ -21,6 +21,19 @@
 | 下载、迁移、回传或环境/入口变化 | 新验收回执、相关服务器/本地映射及换机说明；旧盘点时间保留，禁止把离线重建写成新远端核验 |
 | 仅代码或文案修复 | 所属入口及有关状态逐项审阅，无影响可写具体不更新理由；不强迫改动冻结产物或制造重复进度数字 |
 
+## 任务管理规范
+
+- **目录与入口**：新任务放`research/tasks/YYYY-MM-DD-<slug>/`，每个目录必须有`README.md`导航和`TASK.md`任务正文；从[任务索引](research/tasks/README.md)进入，按[任务模板](research/tasks/TEMPLATE.md)建档。
+- **状态唯一来源**：该任务的`TASK.md`是任务状态的唯一事实来源，顶部填写`task_id`、`status`、负责人、reviewer、北京时间更新时间、当前阶段、下一步与授权范围；README只维护入口，`research/project_state.json`只保存当前任务路径及全局状态，不复制一套任务完成表。
+- **完成与待完成**：每个任务用一张里程碑表明确已完成与待完成，逐项记录稳定ID、`status`、事项、证据或阻塞、下一步；`done`项必须有实际可定位证据，不能把计划输出或口头承诺记为完成。
+- **状态词表**：任务与里程碑使用`todo`（待完成）、`in_progress`（进行中）、`blocked`（受阻）、`in_review`（待审阅）、`done`（已验收）、`cancelled`（已取消）；条件里程碑另可用`skipped`（按协议不执行），必须记录门禁证据和原因。
+- **状态迁移**：新任务为`todo`，被用户委派的负责人开工时记`in_progress`，交付待review时记`in_review`，review通过并完成收尾后才记`done`；受阻或取消须写原因、恢复条件及下一步，不能把未实现任务记为已失败实验。
+- **任务完成与科研结论**：整体`done`要求所有适用里程碑完成、条件跳过有证据、交付物和必要检查齐备、review通过及索引收尾完成；另记`outcome: not_evaluated / positive / negative / inconclusive`，有效负结果可以正常结项，不能以代码完成代替科研结论。
+- **实现与审阅分工**：实现者交付代码入口、固定输入清单、检查证据、未解决问题和恢复入口后进入`in_review`，reviewer在任务内记录结论及问题处置；用户要求本会话后续review时，由被委派agent完成实现，不自行抢先执行该任务。
+- **授权与冻结**：创建任务不自动解除实验暂停，接手时记录用户实际委派的范围和时间，已明确授权的相同范围不重复确认；实现前固定任务版本，真实实验前固定模型、样本、评分、预算与运行身份，结果出现后不改门槛或挪用其他run预算。
+- **并行与交接**：同一任务由一名负责人维护状态，并行子任务写清文件归属、依赖及预算分工；每次阶段完成、阻塞或交接更新`TASK.md`和必要的全局状态，引用现有证据，不复制冻结产物或伪造尚不存在的交付文件。
+- **规范维护**：任务规则只在本节维护，模板和README引用本节，具体方法与预算写入各任务；新增任务目录需登记`storage/index_policy.json`的归属和关联记录，收尾仍按本文件开头执行。
+
 ## Project Structure
 
 ```
@@ -29,6 +42,7 @@
 ├── AGENTS.md                          # 项目指令（单一事实来源，所有 AI agent 读取）
 ├── CLAUDE.md                          # → @AGENTS.md（Claude Code 导入入口）
 ├── research/                          # 当前方法、研究进度、实验准备清单
+│   └── tasks/                         # 独立任务入口、模板及各任务TASK.md状态
 ├── reproduction/                      # 基准参考、复现进度、论文代码对照、LOOP.md
 ├── papers/                            # 论文索引、pdf/、txt/、metadata/、待下载清单
 ├── reports/                           # 历史调研与旧方案只读封存
@@ -48,13 +62,15 @@
 
 **BackdoorDM 基准复现** — 2026-07-24 历史严格复核为 15/16 有模型，其中 13/16 完整闭环、`eviledit_numAdd` 与 `badt2i_objectAdd` 各缺正式 10K FID、`villandiffusion_cond` 因 CelebA-Dialog_HQ 数据阻塞；5/5 防御已执行，本次整理未重新连接服务器核验。入口为 [复现索引](reproduction/README.md)，进度 `reproduction/backdoordm_progress.md`，基准 `reproduction/backdoordm_reference.md`（只读），循环指令 `reproduction/LOOP.md`。
 
-**Idea 1: Checkpoint Merging Backdoor** — 当前唯一方法提案为 [TSSA 梯度校准版](research/tssa_response_calibration_method_proposal.md)，冻结原始差分与分组，以后门及正常损失优化 a、b；2026-10-28本轮单卡初步验证已完成1520图及144次更新，RC/Uniform持出ASR均0、TSSA无合格候选，详见[初步验证负结果](results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md)。旧方法提案已[原样封存](reports/archive/2026-10-23-tssa-local-surrogate/README.md)，历史研究见 `research/merging_attack_progress.md`，当前执行见 [今晚断点](research/tssa_overnight_progress.md)。
+**Idea 1: Checkpoint Merging Backdoor** — 已执行的 [TSSA 梯度校准版](research/tssa_response_calibration_method_proposal.md)冻结原始差分与分组，以后门及正常损失优化 a、b；2026-10-28本轮单卡初步验证已完成1520图及144次更新，RC/Uniform持出ASR均0、TSSA无合格候选，详见[初步验证负结果](results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md)。旧方法提案已[原样封存](reports/archive/2026-10-23-tssa-local-surrogate/README.md)，历史研究见 `research/merging_attack_progress.md`，历史执行见 [今晚断点](research/tssa_overnight_progress.md)。
 
 **后续优化探索（2026-10-28）** — 独立冻结的12点直接ASR探索已完成816图、0更新并释放103 GPU0，开发两候选ASR均33.33%=naive且正常约束失败，未打开确认集，见[探索负结果](results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md)。原严格审计保持invalid：643项summary哈希差异均已定位为资源计数浅拷贝、数值及选择独立复算一致；禁止恢复已结束run或挪用剩余额度，后续新假说需独立方案/身份/预算，详见[探索断点](research/tssa_optimization_exploration_progress_2026-10-28.md)。
 
-**暂停与最新诊断（2026-10-29）** — 用户已要求暂停实验，当前无本项目GPU任务，旧定时任务保持删除；已完成的目标语义诊断共462次分支前向、0图/0更新，梯度一致性及八点局部可行性未通过，尚无ASR超过baseline的合格证据。完整尝试与术语见[通俗说明](research/tssa_methods_and_results_explained_2026-10-29.md)，未收到明确恢复前不启动实验、重跑或定期探针。
+**暂停与最新诊断（2026-10-29）** — 已完成的目标语义诊断共462次分支前向、0图/0更新，梯度一致性及八点局部可行性未通过，尚无ASR超过baseline的合格证据。旧run及定时任务保持停止；用户后续仅授权下述TCL独立任务，其他实验仍不自动恢复，完整尝试见[通俗说明](research/tssa_methods_and_results_explained_2026-10-29.md)。
 
-**换机接续（2026-10-29最新澄清）** — 用户要求新电脑拉取Git后，agent能按仓库进度和索引定位资料并按需下载，因此科研代码、小型结果、进度、服务器索引与恢复工具应提交到现有科研Git；此前把“先不传大文件”扩大解释为禁止Git发布已纠正。大数据留服务器、Drive继续暂停，本轮只做本地校验及科研Git发布，不回传大文件、不启动实验或定时任务。
+**新任务交接（2026-10-29）** — 用户已授权[特殊字符触发定位任务](research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)在服务器验证并输出报告；103实时资源门禁通过且定位前向已开始，图片评价及结论尚未完成。样本、预算、实际消耗及里程碑均以任务正文为准。
+
+**换机接续（2026-10-29最新澄清）** — 用户要求新电脑拉取Git后，agent能按仓库进度和索引定位资料并按需下载，因此科研代码、小型结果、进度、服务器索引与恢复工具应提交到现有科研Git；此前把“先不传大文件”扩大解释为禁止Git发布已纠正。大数据留服务器、Drive继续暂停；TCL服务器验证按其单独授权执行，不自动恢复旧定时任务或旧run。
 
 **存储与换机（2026-10-29）** — 新电脑先读[接续步骤](storage/NEW_COMPUTER.md)、`research/project_state.json`和[服务器索引](storage/SERVER_INDEX.md)，按保存时间理解证据并核验下载哈希，缺少访问凭据、当前AMAX入口或文件哈希时明确记录阻塞。资料范围仅限本科研仓库及本人科研服务器目录，不上传公司其他目录、凭据或越界链接，不以Git发布科研记录为由搬运大权重、原图或绕过Drive限制。
 

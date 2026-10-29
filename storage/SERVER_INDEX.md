@@ -1,6 +1,6 @@
 # 服务器科研数据索引
 
-**科研进度与索引随Git同步，大文件留在服务器；本轮不连接科研服务器或传输大文件。** 下表来自2026-10-29已保存的盘点；“本地已核验”仅表示本地字节与当时远端哈希一致，不代表本轮实时检查了远端。
+**科研进度与索引随Git同步，大文件留在服务器。** 下表原有盘点时间保持不变；TCL任务的[103资产观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_assets_observation_20261029.json)和CPU预检另有本轮回执，不把旧盘点重标为新核验。
 
 ## 按实验找数据
 
@@ -32,6 +32,8 @@ checkpoint指保存的模型参数，不能自动理解为可从中恢复训练�
 | 104实际部署代码 | `/data2/zhangzibo/arxiv-tssa/code/` | [104逐文件索引](server-index/104.jsonl)中`code/`开头的50份已校验源码；旧机本地映射不随Git，按索引可取回，目录名含dual不表示实际运行双卡 |
 | 103第二轮执行源码 | `/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/` | [冻结源码包](../results/tssa-opt-exploration-2026-10-28/source-6913379cd01c.tar.gz) |
 | 103第三轮准备 | `/data1/zhangzibo/arxiv-tssa/preparations/target-semantic-20261029T013825229255Z/` | [准备记录](../results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261029T013825229255Z/)；不是完整远端镜像 |
+| 103 TCL旧运行包 | `/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-run-b0a34fa6/` | [验收回执](../research/tasks/2026-10-29-trigger-contrast-localization/server103_deployment_20261029.json)；旧版M06已失效，不得启动 |
+| 103 TCL定位运行 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/` | [启动回执](../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json)；账本仍在变化，未盘点或验收完整产物 |
 | 104公开模型 | `/data2/zhangzibo/arxiv-tssa/models/` | [固定来源与revision](../research/tssa_mvp_assets_2026-10-26.json)，大权重留远端 |
 | 103公开模型 | `/data1/zhangzibo/arxiv-tssa/models/` | [历史传输记录](server-index/103-models-historical.jsonl) |
 | 环境版本及恢复依据 | 安装目录留服务器，不复制为研究结果 | [环境清单](../research/tssa_mvp_environment_2026-10-26.json) · [脚本索引](../scripts/README.md) |

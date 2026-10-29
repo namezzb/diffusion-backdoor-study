@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "status": "draft_not_authorized_for_execution",
+  "run_id": null,
+  "inputs": {
+    "contexts": "prompts_tokenized_candidate.jsonl",
+    "contexts_file_sha256": "481b2fb024e4b13446e034a8c81c14f59d7d15868935673558d58590d54497cb",
+    "contexts_semantic_sha256": "e81d23c816f129df60a394689d57983ecf5a9a01a44aa5f251f543d412f533c4",
+    "review": "context_review.json",
+    "review_sha256": "efa5469556148c68cd2e237a745e05fa0321039a904d68a18be5b064be8c088a",
+    "source_asset_manifest": "research/tssa_mvp_assets_2026-10-26.json",
+    "actual_component_file_hashes": null,
+    "component_hash_status": "incomplete; current server files must be verified"
+  },
+  "models": {
+    "clean": {"repo": "stable-diffusion-v1-5/stable-diffusion-v1-5", "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14"},
+    "backdoor": {"repo": "Weilin0/BackdoorDM", "revision": "05088346e4164a33b4cc617a28807b323085790f"},
+    "Edev": {"repo": "Lykon/dreamshaper-8", "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917"},
+    "classifier": {"repo": "google/vit-base-patch16-224", "revision": "3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3"},
+    "clip_scorer": {"repo": "openai/clip-vit-large-patch14", "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41"}
+  },
+  "proposed_seeds": {"generation": [271101, 271102], "random_controls": [230601, 230602, 230603], "paired_bootstrap": 20261029},
+  "sampling": {"scheduler": "DDIMScheduler", "steps": 25, "eta": 0.0, "guidance_scale": 7.5, "height": 512, "width": 512, "negative_prompt": "", "generator_device": "cpu", "merge_alpha_backdoor": 0.25},
+  "scoring": {"accuracy": "ViT top-1 in frozen per-class ImageNet IDs", "clip": "100*max(0,cosine), original saved PNG pixels and untriggered paired text", "trigger_target_ids": [281, 282, 283, 284, 285, 286, 287], "other_subject": "rabbit", "other_ids": [330, 332], "scope": "normal other-object ability covers rabbit only"},
+  "budgets": {"localization_te_prompt_forwards": 264192, "source_image_attempts": 8192, "merge_image_attempts": 8192, "training_updates": 0},
+  "unresolved": ["Full current model and scorer file hashes", "Final source code identity and reviewer approval", "Ledger-authenticated scoring gates and complete runner", "Frozen run identity"]
+}

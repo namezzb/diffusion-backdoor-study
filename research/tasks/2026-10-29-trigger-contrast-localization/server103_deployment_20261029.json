@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "observed_utc": "2026-10-29 10:01:21 UTC",
+  "server": "103",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "b0a34fa68537b2161fa73c8264ae993f216f22ed7509835661e6b36ac4acb0aa",
+  "bundle_sha256": "9fbc273c6a5f5945cb9fbc26b569ad8db3c6bfdd0c8a33760d30e4f4e3081b2a",
+  "remote_archive": "/data1/zhangzibo/arxiv-tssa/incoming/tcl-20261029-01-run-b0a34fa6.tar.gz",
+  "remote_deployment": "/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-run-b0a34fa6",
+  "verification": "Archive SHA256 matched local; remote load_plan verified the manifest, M06 review, all frozen code hashes, 320 contexts and 38 asset identities; exit code 0.",
+  "boundary": "No CUDA, model forward, VAE, scorer or image generation in deployment validation; CPU model load observation remains in server103_cpu_preflight_20261029.json."
+}

@@ -45,9 +45,47 @@
       ]
     },
     {
+      "prefix": "results/trigger-contrast-localization/tcl-20261029-01-v1/",
+      "index": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
+      "related_records": [
+        "results/trigger-contrast-localization/README.md",
+        "results/README.md",
+        "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+        "research/project_state.json"
+      ]
+    },
+    {
+      "prefix": "results/trigger-contrast-localization/",
+      "index": "results/trigger-contrast-localization/README.md",
+      "related_records": [
+        "results/README.md",
+        "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+        "research/project_state.json"
+      ]
+    },
+    {
       "prefix": "results/",
       "index": "results/README.md",
       "related_records": [
+        "research/project_state.json"
+      ]
+    },
+    {
+      "prefix": "research/tasks/2026-10-29-trigger-contrast-localization/",
+      "index": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
+      "related_records": [
+        "research/tasks/README.md",
+        "research/README.md",
+        "research/project_state.json",
+        "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md"
+      ]
+    },
+    {
+      "prefix": "research/tasks/",
+      "index": "research/tasks/README.md",
+      "related_records": [
+        "AGENTS.md",
+        "research/README.md",
         "research/project_state.json"
       ]
     },
@@ -71,6 +109,16 @@
       "related_records": [
         "papers/catalog.json",
         "storage/retrieval_catalog.jsonl"
+      ]
+    },
+    {
+      "prefix": "scripts/merging/trigger_contrast_localization/",
+      "index": "scripts/merging/trigger_contrast_localization/README.md",
+      "related_records": [
+        "scripts/README.md",
+        "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
+        "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+        "research/project_state.json"
       ]
     },
     {
@@ -158,13 +206,17 @@
     "storage/NEW_COMPUTER.md",
     "storage/SERVER_INDEX.md",
     "storage/INDEX_MAINTENANCE.md",
-    "storage/asset_registry.jsonl"
+    "storage/asset_registry.jsonl",
+    "research/tasks/README.md",
+    "research/tasks/TEMPLATE.md"
   ],
   "active_indexes": [
     "README.md",
     "AGENTS.md",
     "research/README.md",
     "results/README.md",
+    "results/trigger-contrast-localization/README.md",
+    "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
     "results/tssa-mvp-2026-10-26/README.md",
     "results/tssa-opt-exploration-2026-10-28/README.md",
     "results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
@@ -175,13 +227,18 @@
     "papers/metadata/README.md",
     "reports/README.md",
     "scripts/README.md",
+    "scripts/merging/trigger_contrast_localization/README.md",
     "server/README.md",
     "simulations/README.md",
     "presentations/README.md",
     "storage/README.md",
     "storage/NEW_COMPUTER.md",
     "storage/SERVER_INDEX.md",
-    "storage/INDEX_MAINTENANCE.md"
+    "storage/INDEX_MAINTENANCE.md",
+    "research/tasks/README.md",
+    "research/tasks/TEMPLATE.md",
+    "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
+    "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md"
   ],
   "local_exclusions": [
     {

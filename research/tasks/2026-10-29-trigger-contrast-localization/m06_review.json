@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "status": "passed",
+  "reviewer": "Codex 本会话 reviewer",
+  "reviewed_utc": "2026-10-29 10:08:46 UTC",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "scope": "M06 independent implementation and frozen-input review; not a scientific result or CUDA acceptance",
+  "checks": [
+    "Independently reran 52 local tests, including paired gates, localization early stops, retry budget accounting, interrupted PNG reuse, run lock and GPU resource checks.",
+    "Independently verified all 27 frozen code hashes, prompt/review hashes, 38 observed asset hashes and 320-context semantic/token review.",
+    "Identified and obtained fixes for selection-output binding, terminal persistence, baseline confidence intervals, interrupted attempts and preserving already-written PNGs.",
+    "Reused 103 CPU preflight bound to prior manifest only after byte-for-byte checking all CPU-preflight source dependencies and frozen asset, protocol, prompt, tokenizer-review and models-root identities; no model forward was run.",
+    "Tested the revised read-only GPU guard on server 103: GPU 2 UUID and Default mode matched; root Xorg was identified by cmdline fallback with inaccessible proc exe explicitly recorded."
+  ],
+  "cpu_preflight": "research/tasks/2026-10-29-trigger-contrast-localization/server103_cpu_preflight_20261029.json",
+  "limitations": [
+    "Real CUDA, VAE, scorer and image generation have not yet run; first registered sample and runtime checks provide the actual execution preflight.",
+    "GPU platform status, all user allocations, process ownership and full GPU UUID must be freshly checked before execution.",
+    "An unregistered or damaged PNG blocks recovery rather than being replaced; all retries remain charged to the frozen task budget.",
+    "Other-object normal preservation only covers rabbits; semantic and model generalization are not established.",
+    "Post-run independent evidence recomputation and image inspection remain required for M09."
+  ]
+}

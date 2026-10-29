@@ -1,6 +1,6 @@
 # 脚本索引
 
-更新于2026-10-29，**实验已暂停**；下列执行器用于理解和复核已经结束的工作，不是现在要运行的操作建议。当前仅整理资料和回传既有证据，旧`gpu`定时任务保持删除，完整结论见[尝试总结](../research/tssa_attempts_summary_2026-10-29.md)。
+更新于2026-10-29，旧实验已结束且旧`gpu`定时任务保持删除；用户已单独授权[TCL定位验证](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)，执行须遵守其冻结清单与实时资源门禁。历史结论见[尝试总结](../research/tssa_attempts_summary_2026-10-29.md)。
 
 ## 三轮实验入口
 
@@ -9,6 +9,7 @@
 | 梯度校准初步验证 | [tssa_mvp_run.py](merging/tssa_mvp_run.py) | [冻结协议](../research/tssa_mvp_2026-10-26.json) · [最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md)；1520图、144次更新，未找到合格攻击增益。 |
 | 直接按图像攻击成功率搜索 | [tssa_image_search_run.py](merging/tssa_image_search_run.py) | [独立冻结协议](../research/tssa_optimization_exploration_2026-10-28.json) · [负结果](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md)；816图、0更新，未打开确认集，原严格审计仍为invalid。 |
 | 同状态目标语义诊断 | [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | [方案](../research/tssa_target_semantic_diagnostic_proposal_2026-10-28.md) · [诊断报告](../results/tssa-target-semantic-diagnostic-2026-10-28/target_semantic_diagnostic_report_2026-10-29.md)；462次分支前向、0图/0更新，梯度一致性及局部可行性未通过。 |
+| 特殊字符定位 | [trigger_contrast_localization](merging/trigger_contrast_localization/README.md) | [任务与review](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)；本地检查和M06通过，GPU实验待实时许可。 |
 
 当前源代码可能含后续修复，不能自动视为旧运行使用的版本；复核时以各运行清单、冻结快照与文件哈希为准，资料位置见[结果索引](../results/README.md)。
 
@@ -106,7 +107,7 @@ AMAX启动器默认转发网页到`http://127.0.0.1:8080`、HTTPS到`8443`，保
 
 [build_retrieval_catalog.py](storage/build_retrieval_catalog.py)合并冻结历史附件、新登记附件、论文目录和已有服务器映射；[maintain_index.py](storage/maintain_index.py)提供变更影响、生成文件清单和收尾检查，[install_index_hook.py](storage/install_index_hook.py)只为当前仓库启用提交校验。维护规则与操作顺序见[索引维护入口](../storage/INDEX_MAINTENANCE.md)，新附件不能因被Git忽略而遗漏。
 
-存储回归检查：[归档恢复](storage/test_research_archive.py) · [目录恢复](storage/test_restore_from_catalog.py) · [服务器单文件取回](storage/test_fetch_server_file.py) · [附件目录生成](storage/test_build_retrieval_catalog.py) · [维护门禁](storage/test_maintain_index.py)，均可离线运行。
+存储回归检查：[归档恢复](storage/test_research_archive.py) · [目录恢复](storage/test_restore_from_catalog.py) · [服务器单文件取回](storage/test_fetch_server_file.py) · [附件目录生成](storage/test_build_retrieval_catalog.py) · [维护门禁](storage/test_maintain_index.py)，均可离线运行；被Git忽略的嵌套仓库目录仅接受明确的本地排除，不按普通附件放行。
 
 ## 路径与部署说明
 

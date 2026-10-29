@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "observed_utc": "2026-10-29 10:11:01 UTC",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "bundle_sha256": "4ec4cc203ee5c2925f11826317fe17bd6dc1b9832e757fc55e9ab6066a8f8721",
+  "remote_archive": "/data1/zhangzibo/arxiv-tssa/incoming/tcl-20261029-01-run-c597deeb.tar.gz",
+  "remote_deployment": "/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-run-c597deeb",
+  "remote_run": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1",
+  "tmux_session": "tcl-20261029-01-v1",
+  "cpu_stage_started_utc": "2026-10-29T10:10:39.508847+00:00",
+  "candidate_gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "verification": "Remote archive SHA matched local; load_plan checked M06, code hashes, 320 contexts and 38 asset identities. The tmux session and started event were observed.",
+  "boundary": "CPU preparation only; no permit, CUDA initialization or model forwards had been confirmed at this observation."
+}

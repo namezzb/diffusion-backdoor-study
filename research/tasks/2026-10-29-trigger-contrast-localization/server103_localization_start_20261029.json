@@ -1,0 +1,17 @@
+{
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "server": "school103",
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "run_directory": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1",
+  "tmux_session": "tcl-20261029-01-v1",
+  "cpu_preflight_at_utc": "2026-10-29T10:12:26.423982+00:00",
+  "resource_verified_at_utc": "2026-10-29T10:13:31.396262+00:00",
+  "permit_sha256": "9b04a16328cceacfc485f667781e4cd9872f196a5f004678d56f6fcd552f8c1c",
+  "platform_observation": "server103_resource_observation_localize_20261029.json",
+  "platform_observation_sha256": "5ba1dc1831c92bd4266db952bd21917c981c5a4b87d656a2508157a13dda131e",
+  "gpu_check": "Default compute mode; only verified root system Xorg graphics process; proc exe inaccessible and proc cmdline plus trusted system file used as recorded by runner",
+  "observed_progress": "At first inspection, localization.sqlite recorded 224 completed forwards and one started; active GPU compute PID 497783, no image evaluation observed.",
+  "limitations": "Running-process and in-progress ledger evidence only; counts change while the run executes. No scientific conclusion or acceptance is asserted."
+}
