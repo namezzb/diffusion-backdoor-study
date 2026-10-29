@@ -19,7 +19,8 @@
 | [追加修订及审阅](AMENDMENT_REVIEW.md) · [签名批准](amendment_approval.json) | 空路径修复、原始哈希与独立签名，CPU验证后需重新核对GPU许可 |
 | [恢复资源观察](server103_resource_observation_resume_20261029.json) · [恢复回执](server103_amendment_resume_20261029.json) | 独立验签及新的实时资源门禁通过，后续前向和终态需另行核验 |
 | [定位终态观察](server103_localization_terminal_observation_20261029.json) | 107520次前向及六组对照完成，远端终态与选择文件哈希；图片效果仍待确认 |
-| [确认资源观察](server103_resource_observation_confirm_20261029.json) · [确认准备](server103_confirm_preparation_20261029.json) | CPU预检及确认阶段GPU门禁通过，首图和基线仍待核验 |
+| [确认资源观察](server103_resource_observation_confirm_20261029.json) · [确认准备](server103_confirm_preparation_20261029.json) | CPU预检及确认阶段GPU门禁通过，完整基线仍待核验 |
+| [源阶段首批与耗时](server103_source_initial_images_20261029.json) | 首批62张带分数，抽样文件哈希核验及基线耗时估算；不代表基线已通过 |
 | [运行入口与验收报告](../../../results/trigger-contrast-localization/tcl-20261029-01-v1/README.md) | 运行中的报告和服务器路径，终态后须补齐独立审阅与附件盘点 |
 | [初始小样本草案](../../trigger_contrast_localization_pilot_review_2026-10-29.md) | 保留思路演变，旧2048图预算不再作为本任务预算 |
 | [相关文献调研](../../../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 行为定位、语义混杂、因果贡献与合并迁移的来源和证据边界 |

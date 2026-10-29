@@ -1,146 +1,166 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-29T22:05:00+08:00",
-  "base_commit": "58fdd89e084edfb546e63431df292a5d7fb7af21",
-  "summary": "原run经签名修复完成107520次定位前向及六组对照，记录终态与选择文件远端哈希；源确认通过CPU预检和独立实时GPU门禁，首图、科学结果及最终验收待核验。",
+  "reviewed_at": "2026-10-29T22:15:00+08:00",
+  "base_commit": "a25999634a9566558bf66f241e425e7846d8d5ab",
+  "summary": "源基线首批图片生成并评分，按两次账本快照估算吞吐，登记首图远端哈希与取回来源并安排次日单次回调；其余实时图片、完整基线和科学结论尚未验收。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "ee886a3eca16728fa810e00a42ddbe7f7acaf77d4f65d219c2819a5dd1aadf5e"
+      "sha256": "75ec6c26a16dedc624b5db0e3820b0911a3f5aa19be659258548d869833f0fe5"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "b3306fd18d8a77b19069e0dd6f69db6ec4faba7de0a371573193ab2f93c0ce1b"
+      "sha256": "164f3f245b3fd995713cf1e23654597d9c12ba587ba5d48f442fa2e376367682"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "3f2fd7aa827154677f9062831dc0e53e1e6af33ded49f7f08f6316738e6167a3"
+      "sha256": "912bf311699bb4fa9eefecc2a4cf4a17d0211f80133ddf213ede75b818dd4f09"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "c8376f056de51d30a2546af3555ddbd005d8479007e817cb71992a59360a3377"
+      "sha256": "dc4e22604069ad758f0a5afb670fe7db1c3a2ad5ca2f249d0884cae05f72c77e"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "a76ccf6705fa513de01bf1d00cc4b6ea660d687abdbe8810916de173b2d03078"
+      "sha256": "83f5eb2aa25fa7e24829067c1e414c3b56ebcfab7589a49c347abff66b04f091"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "c932110b74fe95a4bc139a24d2af0f919d6fd81369f91a3007f9ebffce07a08e"
+      "sha256": "da26e2e26ad2c841a43798c96d2fe7518b15b3d218df84f80a7975986f7bbe8f"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_confirm_preparation_20261029.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json",
       "kind": "file",
-      "sha256": "e0291522f705897f776229446d5f65b7c8f24d9cdddb5e64fc47c53c35584385"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_terminal_observation_20261029.json",
-      "kind": "file",
-      "sha256": "325f3f5f309598aa64d76d4c974e2cb2b0acc7cc4afd5fb50b04163436e47eaf"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_resource_observation_confirm_20261029.json",
-      "kind": "file",
-      "sha256": "b5ad040986a254b225b5dee4bf89e280c21765299153f22f95d6ab779c546f1d"
+      "sha256": "cf91c27405dd6085df3f752287a77961053961e544102523cc9a26a707178818"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "05fe9c312a243a05dfd7423824eb3fa1f21188b0adae154de91d874f2c18d252"
+      "sha256": "390382f72fb452fc88a8d10de54215c6824dc5174cf685383d0063c9f273e6a1"
+    },
+    {
+      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
+      "kind": "file",
+      "sha256": "3116f905c185b276874c8c131a77879e5fafdb39638d8c08ee31deedaecfa402"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "c39d1f11076f3dab5e323903866a20e9626e096848093d1bb5901ac819509f82"
+      "sha256": "8101eaafc54f36dd8015e0a8adac374da38e841f0c23ed46dd03a8327b56296c"
+    },
+    {
+      "path": "storage/README.md",
+      "kind": "file",
+      "sha256": "159bc55918c5225dbbb4d134578a5db09b1a4bcd46817f40953816e2dbd70d6b"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "41f030363b1d328d08f1a38a0661c7f1a742720e0a0bf7a41884cfbdf66392cc"
+      "sha256": "dd7e27052ab17bf655ecb799afa3da2cb33035edaf1a8d1fa97a3baed4c5de5a"
+    },
+    {
+      "path": "storage/asset_registry.jsonl",
+      "kind": "file",
+      "sha256": "cb6ea143ad067f11e67c8026fdb1c682419c3f23437123ce48f9496bf9c56ea6"
+    },
+    {
+      "path": "storage/audits/retrieval_coverage.json",
+      "kind": "file",
+      "sha256": "16c889254150a41ed6c9601ce6a0c758bb8265c9a44bc3e7e0c50702958d7717"
+    },
+    {
+      "path": "storage/retrieval_catalog.jsonl",
+      "kind": "file",
+      "sha256": "3cb0bf7542916ae89eec3827fc55d4255e0dee576eb589ab6ad53e9d1acfc856"
+    },
+    {
+      "path": "storage/server-index/103-tcl-v1-first-sample.jsonl",
+      "kind": "file",
+      "sha256": "6c50fabd78f56276aabbf954f4e1f6577d9df023f4195f42d171a7607de6720b"
     }
   ],
   "index_decisions": [
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "同步定位完成及源确认资源门禁，保留旧实验结论和规范。"
+      "reason": "同步已启动源基线及首批图片事实，保留旧实验和单一任务状态规则。"
     },
     {
       "path": "README.md",
       "action": "updated",
-      "reason": "更新当前定位终态和源确认阶段入口，不将内部响应提升写成图片结论。"
+      "reason": "主入口标注源基线正在出图，历史研究结论不变。"
     },
     {
       "path": "research/README.md",
       "action": "updated",
-      "reason": "同步当前阶段并保持任务正文为详细状态来源。"
+      "reason": "将当前阶段更新为源基线出图，科学结论仍未评价。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "记录定位终态、源确认门禁通过及首图待核验。"
+      "reason": "记录62张已完成评分和单次回调，未宣称完整基线或效果。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "action": "updated",
-      "reason": "登记终态摘要及确认资源观察、启动证据入口。"
+      "reason": "登记首批图片与耗时证据入口，其他阶段导航不变。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "将定位里程碑基于远端终态记为done，源确认记进行中，明确图片和独立审阅未完成。"
+      "reason": "登记源阶段样本观察、吞吐估算与次日回调，里程碑仍进行中。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务索引仅维护导航，阶段详情均保存在TASK。"
+      "reason": "任务总索引只维护导航，详细运行状态仍由任务正文负责。"
     },
     {
       "path": "results/README.md",
       "action": "updated",
-      "reason": "同步定位完成和源确认启动，不声称图片效果。"
+      "reason": "同步源基线已出图但完整基线和科研结论仍待核验。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
       "action": "unchanged",
-      "reason": "既有运行入口有效，终态与后续状态由报告和任务正文记录。"
+      "reason": "结果总入口保持不变，新首图证据已从具体run入口可达。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "action": "unchanged",
-      "reason": "运行路径和导航不变，最新阶段和资源证据由任务正文及报告提供。"
+      "action": "updated",
+      "reason": "增加首批证据及仅首图的取回范围，未宣称全部产物已归档。"
     },
     {
       "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
-      "reason": "维护流程无变化，本次仍按impact、回执、refresh及check执行。"
+      "reason": "现有资产登记、生成取回目录、receipt和check流程未变。"
     },
     {
       "path": "storage/NEW_COMPUTER.md",
       "action": "unchanged",
-      "reason": "既有任务和服务器入口足以发现新终态；未变更凭据或恢复方法。"
+      "reason": "既有取回工具通过更新后的目录可发现首图，未变更凭据或恢复步骤。"
     },
     {
       "path": "storage/README.md",
-      "action": "unchanged",
-      "reason": "存储总入口和大数据策略不变，终态远端路径及哈希已在SERVER_INDEX记录。"
+      "action": "updated",
+      "reason": "新增首图远端清单和其余实时图片未盘点的边界说明。"
     }
   ],
   "verification": {
-    "localization": "Remote event reports complete; 107520 forwards, all six controls complete, 6142208/123060480 parameters; remote terminal and selection hashes recorded.",
-    "confirmation": "CPU preflight and fresh platform/UUID/process gate passed on 103; no image completion asserted.",
-    "prior": "Signed fix, 55 local tests and same-run recovery committed in 58fdd89."
+    "server": "22:10:21和22:12:09北京时分别完成44和62张；首图远端PNG 512x512、SHA匹配账本，含分数与计算记录。",
+    "retrieval": "新增服务器首图逐文件证据及asset_registry，离线重建取回目录；其他图片尚在产生，未称完整备份。",
+    "callback": "一次性回调tcl设置为2026-10-30 01:45北京左右；回调本身不是基线完成证据。"
   },
   "scope": {
     "training_updates": 0,
-    "image_completion": "not yet confirmed",
+    "source_baseline": "running, 62 completed at snapshot",
     "scientific_outcome": "not evaluated",
-    "server_assets": "terminal and selection remotely hashed, large files not claimed mirrored"
+    "transfer": "first sample remotely hashed and indexed, not downloaded"
   }
 }

@@ -1,0 +1,27 @@
+{
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "samples": [
+    {"observed_at_utc": "2026-10-29T14:10:21Z", "source_complete": 44, "source_started": 1},
+    {"observed_at_utc": "2026-10-29T14:12:09Z", "source_complete": 62, "source_started": 1, "complete_with_image_sha_and_scores": 62}
+  ],
+  "estimated_seconds_per_image": 6.0,
+  "estimate_scope": "18 completed images over 108 seconds; approximate, not a guarantee.",
+  "source_baseline_target_images": 2048,
+  "estimated_remaining_baseline_seconds": 11916,
+  "estimated_baseline_finish_beijing": "2026-10-30T01:30:45+08:00",
+  "callback_beijing": "2026-10-30T01:45:00+08:00",
+  "sample": {
+    "key": ["tcl-20261029-01-v1", "source", "clean", "trigger", "backyard-08", 271101],
+    "remote_path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/images/8be2811fa880f2d39d0444293293f8f61be04fc974a234c485f811ccfd737405.png",
+    "sha256": "c4c472dd82203124d9cf25f2174b57de07505a0b95b57bb46aeccd1346678ed0",
+    "bytes": 419682,
+    "dimensions": [512, 512],
+    "png_signature_valid": true,
+    "matches_ledger_sha256": true,
+    "scores": {"clip_score": 17.93244779109955, "vit_class": 646},
+    "resources": {"text_encoder_forwards": 2, "unet_branch_nfe": 50, "vae_decodes": 1}
+  },
+  "limitation": "A single hash-checked sample and live counts do not establish source baseline success or image quality; other output remains in progress and not inventoried."
+}

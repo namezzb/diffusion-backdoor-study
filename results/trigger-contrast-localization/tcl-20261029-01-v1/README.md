@@ -6,6 +6,7 @@
 |---|---|
 | [验收报告](acceptance_report.md) | 当前是进行中报告，等待终态、独立复算及最终验收 |
 | [资源与启动证据](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json) | 103 GPU 2 实时许可及真实定位前向启动 |
+| [源阶段首批与首图证据](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json) | 首图远端哈希与账本一致并登记取回来源，其他生成图片尚未盘点 |
 | 服务器运行目录 | `school103:/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/`；账本和结果仍在变化，尚无终态盘点或文件哈希 |
 | 服务器源码和日志 | `/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-run-c597deeb/`；`/data1/zhangzibo/arxiv-tssa/preparations/tcl-20261029-01-v1-localize.log` |
 

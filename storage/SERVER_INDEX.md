@@ -35,6 +35,7 @@ checkpoint指保存的模型参数，不能自动理解为可从中恢复训练�
 | 103 TCL旧运行包 | `/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-run-b0a34fa6/` | [验收回执](../research/tasks/2026-10-29-trigger-contrast-localization/server103_deployment_20261029.json)；旧版M06已失效，不得启动 |
 | 103 TCL定位运行 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/` | [定位终态观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_terminal_observation_20261029.json)记录终态及selection哈希；图片阶段准备中，未盘点或验收完整产物 |
 | 103 TCL追加修订 | `/data1/zhangzibo/arxiv-tssa/amendments/tcl-20261029-01-empty-path-v1/` | [修订与审阅](../research/tasks/2026-10-29-trigger-contrast-localization/AMENDMENT_REVIEW.md)；签名、补丁与启动器已验哈希，原冻结源码未被覆盖 |
+| 103 TCL源确认首图 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/images/8be2811fa880f2d39d0444293293f8f61be04fc974a234c485f811ccfd737405.png` | [首图远端清单](server-index/103-tcl-v1-first-sample.jsonl)及[首批观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json)；仅首图取回来源有哈希，其余在运行中未盘点 |
 | 104公开模型 | `/data2/zhangzibo/arxiv-tssa/models/` | [固定来源与revision](../research/tssa_mvp_assets_2026-10-26.json)，大权重留远端 |
 | 103公开模型 | `/data1/zhangzibo/arxiv-tssa/models/` | [历史传输记录](server-index/103-models-historical.jsonl) |
 | 环境版本及恢复依据 | 安装目录留服务器，不复制为研究结果 | [环境清单](../research/tssa_mvp_environment_2026-10-26.json) · [脚本索引](../scripts/README.md) |
