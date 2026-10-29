@@ -34,6 +34,7 @@
 | [传输断线记录](asset_transfer_attempt_01_failed.json) | 首次SCP连接丢失，父子进程退出后启动单一恢复进程；保留原始日志和2.95GB远端临时文件。 |
 | [第二次断线记录](asset_transfer_attempt_02_failed.json) | SFTP续传实际增长后SIGPIPE退出；小包部署成功后第三次有界恢复。 |
 | [第三次断线记录](asset_transfer_attempt_03_failed.json) | 再次SIGPIPE后停止盲目重试，保留本机与远端断点，进行只读连接诊断。 |
+| [2026-10-30节点观察](server-probes/school101-20261029T174605849836Z.json) · [104](server-probes/school104-20261029T174605881300Z.json) · [127](server-probes/school127-20261029T174605865081Z.json) | TCL故障后只读探针，无法代替平台许可或跨机续跑审阅。 |
 | [独立SSH只读诊断](transfer_ssh_independent_probe_2026-10-27-0152.json) | 150秒与6次心跳通过，双端公钥认证成功；不能代表大文件稳定或定位断线根因。 |
 | [诊断参数检查](transfer_diagnostic_option_checks_2026-10-27-0200.json) | 14项离线检查通过，含独立SFTP选项传递；不是网络故障重现或修复证明。 |
 | [本机UNet资产完整性](local_sd15_unet_integrity_2026-10-27-0210.json) | 固定SHA256、大小、686个F32张量头部边界通过；未实例化模型，不构成GPU或效果验证。 |

@@ -2,6 +2,10 @@
 
 **科研进度与索引随Git同步，大文件留在服务器。** 下表原有盘点时间保持不变；TCL任务的[103资产观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_assets_observation_20261029.json)和CPU预检另有本轮回执，不把旧盘点重标为新核验。
 
+## TCL中断图片盘点（2026-10-30 01:48）
+
+103运行中断后核对了343张完成PNG的远端SHA-256与账本，首图见[原清单](server-index/103-tcl-v1-first-sample.jsonl)，其余342张见[本次清单](server-index/103-tcl-v1-completed-images-20261030.jsonl)；图片均未回传，原账本仍持锁，不称为完整备份。
+
 ## 按实验找数据
 
 | 实验 | 服务器及完整根目录 | 关键子目录/文件 | 本地已有 | 仍留远端、未完整镜像 |

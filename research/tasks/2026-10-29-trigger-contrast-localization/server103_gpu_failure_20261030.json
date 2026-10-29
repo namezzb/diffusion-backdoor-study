@@ -1,0 +1,58 @@
+{
+  "observed_at_beijing": "2026-10-30T01:48:41+08:00",
+  "server": "103",
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "driver_recovery_action": "Reset",
+  "nvidia_smi_notes": "GPU 2 displayed ERR/N/A; approximately 6389 MiB remained reported. Cause and responsibility not established.",
+  "process": {
+    "pid": 586456,
+    "sigterm_sent_utc": "2026-10-29T17:45:58Z",
+    "leader": "Zl",
+    "remaining_tid": 588542,
+    "remaining_thread_state": "R",
+    "run_flock_held": true,
+    "observation_utc": "2026-10-29T17:47:23Z",
+    "warning": "SIGTERM sent; process group is not fully exited and lock is not released."
+  },
+  "ledger": {
+    "completed_images": 343,
+    "complete_images_sha256_and_scores_verified": 343,
+    "started": 1,
+    "history": 0,
+    "gates": 0,
+    "uncertain_key": [
+      "tcl-20261029-01-v1",
+      "source",
+      "clean",
+      "dog",
+      "forest-32",
+      271102
+    ],
+    "precharged_resource": {
+      "text_encoder_forwards": 2,
+      "unet_branch_nfe": 26,
+      "vae_decodes": 0
+    },
+    "precharged_is_upper_bound": true,
+    "image_registered_sha": null,
+    "image_exists": false,
+    "temporary_image_files": [],
+    "ledger_snapshot_utc": "2026-10-29T17:48:14.995231Z"
+  },
+  "inventory": {
+    "completed_count": 343,
+    "bytes": 169833697,
+    "new_index": "storage/server-index/103-tcl-v1-completed-images-20261030.jsonl",
+    "existing_first_sample_index": "storage/server-index/103-tcl-v1-first-sample.jsonl",
+    "observed_at_utc": "2026-10-29T17:48:41.182782+00:00",
+    "downloaded": false
+  },
+  "alternative_resources": {
+    "school101": "publickey rejected",
+    "school127": "GPU 2 displayed free; SSH accessible, 16 GiB RTX 4080; no project assets/environment established; cross-host migration not safe while original lock held",
+    "school104": "GPU 2 observed idle; queue #53 ahead of own #56, allocation not established"
+  },
+  "budget": "344 image attempts charged; a replacement adds one attempt; 8192 unique images plus one failed attempt requires at least 8193, exceeding the frozen 8192 source cap.",
+  "boundary": "Hardware interruption is not a scientific result; GPU reset and other users processes were not touched. Snapshot is not a final immutable backup."
+}

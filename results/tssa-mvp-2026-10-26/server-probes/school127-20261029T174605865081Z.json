@@ -1,0 +1,138 @@
+{
+  "started_at": "2026-10-29T17:46:05.865081+00:00",
+  "server": "127",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "observed",
+  "observation": {
+    "sample_started_at": "2026-10-29T17:46:11.065580+00:00",
+    "sample_finished_at": "2026-10-29T17:46:11.758539+00:00",
+    "hostname": "iipl-127",
+    "account": "zhangzibo",
+    "driver_timestamp": "Thu Oct 29 17:46:11 2026",
+    "driver_version": "595.91.07",
+    "cards": [
+      {
+        "index": 0,
+        "uuid": "GPU-bd1ede26-d598-b105-8c76-bd1718357b3e",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:18:00.0",
+        "compute_mode": "Default",
+        "memory_used": "12370 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "76 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "16 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 49544,
+            "type": "G",
+            "memory": "7 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 3906108,
+            "type": "C",
+            "memory": "12318 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "uuid": "GPU-ec32f588-f47e-6832-9f49-9c4596164d09",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:3B:00.0",
+        "compute_mode": "Default",
+        "memory_used": "12349 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "17 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 574112,
+            "type": "C",
+            "memory": "12326 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:86:00.0",
+        "compute_mode": "Default",
+        "memory_used": "18 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "0 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "uuid": "GPU-48d758ba-90fa-54f4-8812-2d9402fab46f",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:AF:00.0",
+        "compute_mode": "Default",
+        "memory_used": "13753 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "94 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 2169460,
+            "type": "C",
+            "memory": "13730 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      }
+    ],
+    "known_own_gpu_count_on_this_server": 0,
+    "process_ownership_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "data_disk": null
+  },
+  "observed_process_free_indices": [],
+  "historically_disabled_indices_not_current_permission": [],
+  "finished_at": "2026-10-29T17:46:11.681667+00:00"
+}

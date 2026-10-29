@@ -1,166 +1,196 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-29T22:15:00+08:00",
-  "base_commit": "a25999634a9566558bf66f241e425e7846d8d5ab",
-  "summary": "源基线首批图片生成并评分，按两次账本快照估算吞吐，登记首图远端哈希与取回来源并安排次日单次回调；其余实时图片、完整基线和科学结论尚未验收。",
+  "reviewed_at": "2026-10-30T01:52:00+08:00",
+  "base_commit": "25469ce755e1854bbe3a95aea876d60b48745195",
+  "summary": "记录103 GPU故障与仍被持有的原锁，343张完成图逐一核验哈希并登记服务器来源，源确认和最终验收受阻。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "75ec6c26a16dedc624b5db0e3820b0911a3f5aa19be659258548d869833f0fe5"
+      "sha256": "f62b3cc4f5b9c38d108e327b6b2cef82c4c21913109bf9f9fb83caecf2a0ed8c"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "164f3f245b3fd995713cf1e23654597d9c12ba587ba5d48f442fa2e376367682"
+      "sha256": "3761ef78abd46e18d8afa6b42f289957856ae01c85976e5908c637d804286606"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "912bf311699bb4fa9eefecc2a4cf4a17d0211f80133ddf213ede75b818dd4f09"
+      "sha256": "1c7117fe70718728f96a7540d7649c73a9e2f6da281f31bf271dd2a5c032ed18"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "dc4e22604069ad758f0a5afb670fe7db1c3a2ad5ca2f249d0884cae05f72c77e"
+      "sha256": "af88778dc71814f65903f1229da1cbf92a51519484e59929f3898dacd995c9dd"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "83f5eb2aa25fa7e24829067c1e414c3b56ebcfab7589a49c347abff66b04f091"
+      "sha256": "934f89d48f29f28f026717c5b840556ecb0ecdb3c912cac310fff6d7b40d50ea"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "da26e2e26ad2c841a43798c96d2fe7518b15b3d218df84f80a7975986f7bbe8f"
+      "sha256": "bb400f070ba613220aa830f02d32fb82393b1c8a23b4d8f209f93627071946e9"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_gpu_failure_20261030.json",
       "kind": "file",
-      "sha256": "cf91c27405dd6085df3f752287a77961053961e544102523cc9a26a707178818"
+      "sha256": "7618d067e6e265450ceb2eff2d4cf37c9623e712f0d375c785087e10ff4a0b3f"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "390382f72fb452fc88a8d10de54215c6824dc5174cf685383d0063c9f273e6a1"
+      "sha256": "a35efaead8f3838ef16df97dcd03f81a789cdc88f885f558474a2535bb22dac9"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "kind": "file",
-      "sha256": "3116f905c185b276874c8c131a77879e5fafdb39638d8c08ee31deedaecfa402"
+      "sha256": "8552f066d7069bdf0944dbc4c38b418f805e47ef061fa67a5f232f28d0ab8f3c"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "8101eaafc54f36dd8015e0a8adac374da38e841f0c23ed46dd03a8327b56296c"
+      "sha256": "9f50be38affee2f53968e23a3cce7407203f4b4c621289ae494122555112df2d"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/README.md",
+      "kind": "file",
+      "sha256": "41001325b961a49d6aa789860efdc7a9cfa0d876539b5b37813555394c025f5a"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/server-probes/school101-20261029T174605849836Z.json",
+      "kind": "file",
+      "sha256": "2c57bf27cd638d69b8d6d3493d2ebf1b1c9e30627d96f47cf7449f8ec094db7f"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/server-probes/school104-20261029T174605881300Z.json",
+      "kind": "file",
+      "sha256": "d85016a702d6b38c91754ce00e03a596331debefae67e271ab86526ed7e5fed7"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/server-probes/school127-20261029T174605865081Z.json",
+      "kind": "file",
+      "sha256": "e12620f90826f68918a3211f29852ae9bdc72d632cdaa96c55213b69b1edb9b7"
     },
     {
       "path": "storage/README.md",
       "kind": "file",
-      "sha256": "159bc55918c5225dbbb4d134578a5db09b1a4bcd46817f40953816e2dbd70d6b"
+      "sha256": "85288a5064f0f2da1ef3adffd6bf051b7a12e60133589973074af13f168fbcd7"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "dd7e27052ab17bf655ecb799afa3da2cb33035edaf1a8d1fa97a3baed4c5de5a"
+      "sha256": "6ef5e03cbd91c84515bb04e8c8d297d02eae777118599ad07ce799d90cfd5936"
     },
     {
       "path": "storage/asset_registry.jsonl",
       "kind": "file",
-      "sha256": "cb6ea143ad067f11e67c8026fdb1c682419c3f23437123ce48f9496bf9c56ea6"
+      "sha256": "9490ecfff64f19f4f89c92bb76d2118e315f6c6904708752b9afbe8adf64f72a"
     },
     {
       "path": "storage/audits/retrieval_coverage.json",
       "kind": "file",
-      "sha256": "16c889254150a41ed6c9601ce6a0c758bb8265c9a44bc3e7e0c50702958d7717"
+      "sha256": "8a5ed27c75dee27e81a4d7f5309955b2c4ab8dce1a09b58002795ef12ba258c1"
     },
     {
       "path": "storage/retrieval_catalog.jsonl",
       "kind": "file",
-      "sha256": "3cb0bf7542916ae89eec3827fc55d4255e0dee576eb589ab6ad53e9d1acfc856"
+      "sha256": "6ba9f6cd8c520a3cacb6ce9434cf29f36d07d1a78293530d022b66ddaec9caeb"
     },
     {
-      "path": "storage/server-index/103-tcl-v1-first-sample.jsonl",
+      "path": "storage/server-index/103-tcl-v1-completed-images-20261030.jsonl",
       "kind": "file",
-      "sha256": "6c50fabd78f56276aabbf954f4e1f6577d9df023f4195f42d171a7607de6720b"
+      "sha256": "85665831896794f9f20ffcce32f0dfe91ceb68bddd902d4306c7cc8339abf93e"
     }
   ],
   "index_decisions": [
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "同步已启动源基线及首批图片事实，保留旧实验和单一任务状态规则。"
+      "reason": "同步103设备故障和持锁边界，不改变旧实验状态。"
     },
     {
       "path": "README.md",
       "action": "updated",
-      "reason": "主入口标注源基线正在出图，历史研究结论不变。"
+      "reason": "更新当前任务受阻及343张已核对的事实。"
     },
     {
       "path": "research/README.md",
       "action": "updated",
-      "reason": "将当前阶段更新为源基线出图，科学结论仍未评价。"
+      "reason": "同步源基线因设备异常受阻。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "记录62张已完成评分和单次回调，未宣称完整基线或效果。"
+      "reason": "记录受阻状态和设备处理后的恢复入口。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "action": "updated",
-      "reason": "登记首批图片与耗时证据入口，其他阶段导航不变。"
+      "reason": "加入故障和盘点入口。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "登记源阶段样本观察、吞吐估算与次日回调，里程碑仍进行中。"
+      "reason": "更新M07和任务状态，记录故障及恢复条件。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务总索引只维护导航，详细运行状态仍由任务正文负责。"
+      "reason": "只导航任务，不复制任务状态。"
+    },
+    {
+      "path": "research/tssa_overnight_progress.md",
+      "action": "unchanged",
+      "reason": "记录已结束的旧TSSA轮次，本次仅涉及独立TCL任务。"
     },
     {
       "path": "results/README.md",
       "action": "updated",
-      "reason": "同步源基线已出图但完整基线和科研结论仍待核验。"
+      "reason": "更新定位已完成、源确认受阻的阶段。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
       "action": "unchanged",
-      "reason": "结果总入口保持不变，新首图证据已从具体run入口可达。"
+      "reason": "已有具体运行入口，故障与验收从该入口可达。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "action": "updated",
-      "reason": "增加首批证据及仅首图的取回范围，未宣称全部产物已归档。"
+      "reason": "补充故障和已盘点图片入口。"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/README.md",
+      "action": "updated",
+      "reason": "登记本次跨服务器只读探针。"
     },
     {
       "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
-      "reason": "现有资产登记、生成取回目录、receipt和check流程未变。"
+      "reason": "登记和检查流程未改变。"
     },
     {
       "path": "storage/NEW_COMPUTER.md",
       "action": "unchanged",
-      "reason": "既有取回工具通过更新后的目录可发现首图，未变更凭据或恢复步骤。"
+      "reason": "现有按目录按需取回流程不变；故障与持锁条件通过任务和服务器索引说明。"
     },
     {
       "path": "storage/README.md",
       "action": "updated",
-      "reason": "新增首图远端清单和其余实时图片未盘点的边界说明。"
+      "reason": "说明343张完成图已登记但未回传、账本未终态。"
     }
   ],
   "verification": {
-    "server": "22:10:21和22:12:09北京时分别完成44和62张；首图远端PNG 512x512、SHA匹配账本，含分数与计算记录。",
-    "retrieval": "新增服务器首图逐文件证据及asset_registry，离线重建取回目录；其他图片尚在产生，未称完整备份。",
-    "callback": "一次性回调tcl设置为2026-10-30 01:45北京左右；回调本身不是基线完成证据。"
+    "server": "103 GPU 2驱动要求重置，原线程及账本锁未释放；343张图片远端哈希与完成账本一致，另有1次未完成尝试。",
+    "retrieval": "登记343张已验证图片的远端来源，未下载；账本仍持锁，不称最终备份。",
+    "budget": "已计344次，重试导致八版本完整确认至少8193次，超过源阶段8192上限。"
   },
   "scope": {
     "training_updates": 0,
-    "source_baseline": "running, 62 completed at snapshot",
-    "scientific_outcome": "not evaluated",
-    "transfer": "first sample remotely hashed and indexed, not downloaded"
+    "source_baseline": "blocked: 343 completed and 1 interrupted attempt",
+    "scientific_outcome": "not_evaluated",
+    "transfer": "343 PNG hashes verified and remotely indexed, none downloaded"
   }
 }
