@@ -1,11 +1,13 @@
 import tempfile
 import unittest
+import importlib.util
 from pathlib import Path
 
 import torch
 
 from intervene import intervene_once, intervene_resumable
 from localization_ledger import KINDS, LocalizationLedger
+from core import mask_hash
 
 
 class MiniTE(torch.nn.Module):
@@ -15,6 +17,39 @@ class MiniTE(torch.nn.Module):
 
 
 class InterventionTests(unittest.TestCase):
+    def test_empty_paths_are_noops_without_changing_mask_or_unsorted_coordinates(self):
+        patch_path = Path(__file__).resolve().parents[3] / "research/tasks/2026-10-29-trigger-contrast-localization/intervene_patch.py"
+        spec = importlib.util.spec_from_file_location("tcl_reviewed_patch_test", patch_path)
+        amended = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(amended)
+        model = MiniTE()
+        model.other = torch.nn.Parameter(torch.tensor([9.]))
+        clean = {"weight": torch.tensor([0., 0.]), "other": torch.tensor([4.])}
+        coordinates = {"weight": torch.tensor([1, 0]), "other": torch.tensor([], dtype=torch.int64)}
+        original_hash = mask_hash(coordinates)
+        prompts = {k: [k] for k in KINDS}
+        base_clean = {k: torch.tensor([[0.]]) for k in KINDS}
+        base_bd = {k: torch.tensor([[5. if k == "trigger" else 0.]]) for k in KINDS}
+        charged = []
+        def forward(m, prompt):
+            return m.weight.sum().reshape(1) if prompt == "trigger" else m.weight[:1] * 0
+        result = amended.intervene_once(model, clean, coordinates, prompts, base_clean, base_bd, charged.append, forward)
+        self.assertEqual(result["size"], 2)
+        self.assertEqual(result["response_after"], 0.)
+        self.assertEqual(model.weight.tolist(), [2., 3.])
+        self.assertEqual(model.other.tolist(), [9.])
+        self.assertEqual(coordinates["weight"].tolist(), [1, 0])
+        self.assertEqual(mask_hash(coordinates), original_hash)
+        self.assertEqual(len(charged), 4)
+        for indices in (torch.tensor([0, 0]), torch.tensor([-1]), torch.tensor([2])):
+            with self.assertRaisesRegex(ValueError, "invalid or repeated coordinate"):
+                amended.intervene_once(model, clean, {"weight": indices, "other": coordinates["other"]}, prompts,
+                               base_clean, base_bd, charged.append, forward)
+        with self.assertRaisesRegex(ValueError, "at least one"):
+            amended.intervene_once(model, clean, {"weight": torch.tensor([], dtype=torch.int64)}, prompts,
+                           base_clean, base_bd, charged.append, forward)
+        self.assertEqual(len(charged), 4)
+
     def test_exact_parameter_intervention_and_finally_restore(self):
         model = MiniTE()
         clean = {"weight": torch.tensor([0., 3.])}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-29T19:55:00+08:00",
-  "execution_status": "tcl_localization_running",
+  "updated_at": "2026-10-29T21:46:00+08:00",
+  "execution_status": "tcl_amended_localization_running",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,10 +26,10 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "TCL-20261029-01 frozen run passed the live GPU gate and began localization forwards on server 103; no image evaluation or scientific conclusion yet",
+  "current_work": "TCL-20261029-01 resumed with a signed patch after the empty-path error; both magnitude controls completed and the same ledger recorded 106784 forwards at 21:45",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "One-time TCL callback around 21:30 Beijing checks the existing localization session and terminal state, then performs applicable gated confirmation and independent review under the frozen budget.",
+  "next_research_action": "At the one-time callback around 22:00 Beijing inspect localization terminal and then complete applicable confirmation and independent review under the frozen budget.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",

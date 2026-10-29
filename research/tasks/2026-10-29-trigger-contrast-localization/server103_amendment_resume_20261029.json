@@ -1,0 +1,22 @@
+{
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "amendment_sha256": "70b391bb41cc7241070adb086f7a3423a8856a040c927b7e845fdf327c47354d",
+  "signature_sha256": "15b5cd1be60eb6748cb168cbbd0a8e400e0ddf6c2ad61296ff56670b1989f12b",
+  "server_verify_only": "passed; original manifest, source files, public key, signature, launcher and overlay hash verified",
+  "reviewed_overlay_event_at_utc": "2026-10-29T13:37:26.461328+00:00",
+  "cpu_preflight_at_utc": "2026-10-29T13:40:09.177075+00:00",
+  "resource_verified_at_utc": "2026-10-29T13:41:51.179863+00:00",
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "permit_sha256": "fd0a700bbc75a11a40a17310c7b9a31f72bcf4901d04100d91e9eba441798b25",
+  "platform_observation": "server103_resource_observation_resume_20261029.json",
+  "platform_observation_sha256": "4590fe583d76cba19510c9c5eacaf822a56a512f72065abf21078a552e9bacbc",
+  "gpu_check": "Default compute mode; only verified root system Xorg, proc exe inaccessible with trusted cmdline fallback recorded.",
+  "session": "tcl-20261029-01-amend-v1",
+  "progress_observed_at_utc": "2026-10-29T13:45:28Z",
+  "forward_records": 106784,
+  "controls_completed": ["new", "magnitude", "block_magnitude"],
+  "control_started": "random_1",
+  "scope": "Same-run forward records increased by 544 since interruption and magnitude controls completed; localization and image evaluation are not yet complete."
+}

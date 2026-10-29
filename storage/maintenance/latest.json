@@ -1,77 +1,203 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-29T19:55:00+08:00",
-  "base_commit": "2b3771adc2cac45c7db5024791438d226b91b7d0",
-  "summary": "按用户要求依据服务器定位吞吐估算剩余时间，并创建本任务一次性回调；更新任务、全局下一步及进行中的验收报告。运行仍在进行，未新增图片评价或科研结论。",
+  "reviewed_at": "2026-10-29T21:46:00+08:00",
+  "base_commit": "fa7503de6928cd6aa7e141a288d89849d4259865",
+  "summary": "记录幅度对照空路径导致的执行中断，以独立签名追加修订保留原manifest、代码、掩码与预算；本机55项测试和服务器无GPU身份验证通过，同一账本已实际完成两种幅度对照并继续随机对照。图片评价和最终验收仍待完成。",
   "reviewed_changes": [
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "sha256": "805f6acdbb9ad25dd0955d87501f837622f8d889966916ced75e1cbf78a7ed40"
+    },
+    {
+      "path": "README.md",
+      "kind": "file",
+      "sha256": "97bacc9e766ef8c3097b18512ed41b0fa81c6fc8da6eaf434e450e1e57179fcc"
+    },
+    {
+      "path": "research/README.md",
+      "kind": "file",
+      "sha256": "06e118e483ca6e4e373674bf44a055c2b198cea4fe7fc5b8f8588c8d3e25b145"
+    },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "b5ff51db11197ff9a917b4b5289a3bbfd10878df618fc7c4a5ffb55f39ea57e1"
+      "sha256": "43336241465b3dca31de49d60866fb6869a9969d9c44fe657ba6b4d16da84a1a"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/AMENDMENT_REVIEW.md",
+      "kind": "file",
+      "sha256": "0f95cbae8e58877cca4c94774a74c3052572818b69b6b179c270fe6096431cbe"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
+      "kind": "file",
+      "sha256": "200bed871faaaf8657c724f114160f5067119a156a980f8830e5c87a1ca6c6a3"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "2e864bbe6462024d222206d5eb9c364c16dae656e5760069a03e651d452bed69"
+      "sha256": "520f64775515f70a1cdcb96525c9886e4d37b4c8af5319b1ffaf7cc93a1b231c"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/amendment_approval.json",
+      "kind": "file",
+      "sha256": "70b391bb41cc7241070adb086f7a3423a8856a040c927b7e845fdf327c47354d"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/amendment_approval.json.sig",
+      "kind": "file",
+      "sha256": "15b5cd1be60eb6748cb168cbbd0a8e400e0ddf6c2ad61296ff56670b1989f12b"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/amendment_launcher.py",
+      "kind": "file",
+      "sha256": "6775d51ee6ab0853417ed5f7d02602a3d16ad07bc2d94360371532a07c7d6ed1"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/amendment_reviewer.pub",
+      "kind": "file",
+      "sha256": "651a664911caea0300f5536204b6dec1cef824e9c242905d7ffc2dbda713630f"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/intervene_patch.py",
+      "kind": "file",
+      "sha256": "719e9620984e988e18ae0c78fdf5e269b874a25be5dc9b4ce6cf557fde967e1a"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_amendment_resume_20261029.json",
+      "kind": "file",
+      "sha256": "d43f15e4caf54f8f2dd78116eae41e75dbca15be2f0b5b94a2ff5562115dc018"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_interruption_20261029.json",
+      "kind": "file",
+      "sha256": "8af0941e22ffea5b4d9e0ea4c495bfd03ad95eba6e489afa88d0e6df8cf3ae95"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_resource_observation_resume_20261029.json",
+      "kind": "file",
+      "sha256": "4590fe583d76cba19510c9c5eacaf822a56a512f72065abf21078a552e9bacbc"
+    },
+    {
+      "path": "results/README.md",
+      "kind": "file",
+      "sha256": "d778360567f9f079ecc5149d5d8c1b8de70ee3a80192301546ffc0f6dc6da247"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "bae99b706843c5046dc9bef2cd72ad14e760e177e83b1bc423d836e4bc5c3457"
+      "sha256": "d5c1094cc1fa4e2cdbb841e62c96827e238b2ece9399b0d56083fae520b29de9"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_amendment_launcher.py",
+      "kind": "file",
+      "sha256": "28267c9ebc7ed3f56f77acbad33d16d7e14090da1fb548087be1db52f2dff595"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_intervene.py",
+      "kind": "file",
+      "sha256": "ff0743de515fa55ebb0f54459d72606a6a35a02095a9722f6996d8501824a57a"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_localization_runner.py",
+      "kind": "file",
+      "sha256": "9b981af87e04365f23167af9620b29b703e04e83c5171ab1a104db231c0035ea"
+    },
+    {
+      "path": "storage/SERVER_INDEX.md",
+      "kind": "file",
+      "sha256": "7c5e9897a812eb14fa2567fa9220ca0f0e93859adeaaee64cd4952ba4122e7aa"
     }
   ],
   "index_decisions": [
     {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "记录原定位错误、签名修复及同一run恢复状态，保留旧实验冻结与任务规则。"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "reason": "主入口反映修复审阅与运行恢复，保留历史研究结果边界。"
+    },
+    {
       "path": "research/README.md",
-      "action": "unchanged",
-      "reason": "当前研究入口已指向任务正文，定位仍处同一阶段，单次回调详情不需复制到总导航。"
+      "action": "updated",
+      "reason": "当前研究入口同步执行错误、修复和恢复，不复制任务里程碑。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "更新下一步为用户要求的单次回调与后续门禁，不更改旧实验结论。"
+      "reason": "更新当前run状态、实际前向快照和单次回调，不改写旧run结果。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "action": "unchanged",
-      "reason": "现有入口已指向任务正文及验收报告，未新增文件或改变导航。"
+      "action": "updated",
+      "reason": "登记错误证据、签名修订、资源观察和恢复回执入口。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "记录最新账本快照、基于吞吐的时间估计和一次性回调，不将进行中的实验标为已完成。"
+      "reason": "记录中断根因、受审修订、原账本恢复及后续回调；任务仍进行中。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务索引仅保存导航，运行进度和回调以任务正文为准。"
+      "reason": "任务索引仅导航，具体中断和恢复由TASK维护。"
     },
     {
       "path": "results/README.md",
-      "action": "unchanged",
-      "reason": "总结果入口已有本轮运行入口及未完成状态，本次没有新的终态或结论。"
+      "action": "updated",
+      "reason": "说明定位中断、受审修复与恢复状态，尚无图片结果。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
       "action": "unchanged",
-      "reason": "结果总入口没有变化，仍指向同一运行目录。"
+      "reason": "运行总入口与任务正文链接不变，细节保存在运行报告。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "action": "unchanged",
-      "reason": "运行入口和远端路径不变，回调与最新快照由报告和任务正文记录。"
+      "reason": "原运行入口及服务器目录不变，事故与修复证据从任务正文和报告可达。"
+    },
+    {
+      "path": "scripts/README.md",
+      "action": "unchanged",
+      "reason": "新增补丁以任务目录管理，现有脚本总入口仍指向执行器。"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "action": "unchanged",
+      "reason": "原冻结执行器及使用入口不变，补丁和测试详见任务目录的修订审阅。"
+    },
+    {
+      "path": "storage/INDEX_MAINTENANCE.md",
+      "action": "unchanged",
+      "reason": "既有收尾流程适用，未改变维护命令或校验规则。"
+    },
+    {
+      "path": "storage/NEW_COMPUTER.md",
+      "action": "unchanged",
+      "reason": "原换机入口通过任务指针和服务器索引可定位新增修订，无需复制私钥或变更下载步骤。"
+    },
+    {
+      "path": "storage/README.md",
+      "action": "unchanged",
+      "reason": "外置数据与Git原则不变，服务器补丁路径已在SERVER_INDEX登记。"
     }
   ],
   "verification": {
-    "server": "2026-10-29 19:53 北京时间：school103 tmux tcl-20261029-01-v1 存在，223/412 blocks complete，57682 forwards complete",
-    "callback": "Codex heartbeat tcl active with COUNT=1, configured for 21:30 local time; future callback is not proof of completion",
-    "previous_review": "Prior implementation, review and start evidence committed as 2b3771a; index check passed before this update."
+    "independent_review": "55 local tests passed; original-vs-overlay diff manually reviewed; all 196 magnitude paths present, no nonempty negative, duplicate or out-of-bounds coordinate",
+    "identity": "Original manifest and source hashes unchanged; signed amendment verified locally and on server before CUDA.",
+    "server": "Fresh portal and GPU gate passed; same ledger records 106784 forwards and completed magnitude controls at 2026-10-29 21:45 Beijing.",
+    "callback": "TCL one-time heartbeat configured around 22:00 Beijing; callback is not proof of terminal state."
   },
   "scope": {
-    "gpu_jobs_started": 0,
-    "existing_tcl_job": "continues",
-    "new_images": "none observed",
+    "old_gpu_automation": "not restored",
     "training_updates": 0,
-    "old_gpu_automation": "not restored"
+    "image_evaluation": "not started",
+    "conclusion": "not evaluated",
+    "server_assets": "live run and separately recorded patch; no complete artifact backup claimed"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-10-29T13:41:27Z",
+  "source": "https://gpu.orz2333.fun/",
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "server": "103",
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "portal_observations": [
+    "本人占用 0 / 4，剩余 4 张，当前没有运行的 GPU 任务",
+    "103 在线，GPU 2 空闲，温度 39°C，未标为禁用",
+    "本人 #56 在 104 等待；当前等待顺序在 100、104、206，未见 103 队列或本人待生效分配"
+  ],
+  "scope": "CPU预检后通过平台页面复核；设备 UUID、计算模式和进程由运行器在 CUDA 前复核"
+}

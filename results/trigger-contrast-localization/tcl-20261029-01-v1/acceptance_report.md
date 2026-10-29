@@ -1,12 +1,12 @@
 # TCL-20261029-01 验收报告（进行中）
 
-**当前结论：尚未完成验收，科研结果尚不可判定。** 本报告是运行状态记录，不能作为实验结果或最终通过证明；完整范围和预登记判据见[任务正文](../../../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。
+**当前结论：定位因执行错误中断，尚未完成验收，科研结果不可判定。** 本报告是运行状态记录，不能作为实验结果或最终通过证明；完整范围和预登记判据见[任务正文](../../../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。
 
 | 验收项 | 当前证据 | 状态 |
 |---|---|---|
 | 固定输入与实现审阅 | [冻结清单](../../../research/tasks/2026-10-29-trigger-contrast-localization/manifest_candidate.json)及[M06 审阅](../../../research/tasks/2026-10-29-trigger-contrast-localization/m06_review.json)，52 项本地测试通过 | 已完成 |
 | 服务器预检与许可 | 103 的38项模型资产和320个上下文通过 CPU 预检；[实时资源及启动回执](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json)记录 GPU 2 启动前核验 | 已完成 |
-| 定位和参数组 | 19:53检查完成223/412块和57,682次前向；单次回调`tcl`约21:30检查终态，数值为观察快照 | 进行中 |
+| 定位和参数组 | [中断证据](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_interruption_20261029.json)及[修订恢复](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_amendment_resume_20261029.json)；21:45已完成106,784次前向及两种幅度对照，尚无正式selection | 恢复中 |
 | 源模型与合并确认 | 尚未进入出图评价；须按源基线、正常能力和合并门禁逐阶段执行 | 待执行或按协议早停 |
 | 结果复算、图片抽查与审阅 | 尚无最终数据、完整产物哈希及可独立复算的终态 | 待完成 |
 

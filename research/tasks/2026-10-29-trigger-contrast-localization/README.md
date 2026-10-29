@@ -15,6 +15,9 @@
 | [103早版运行包验收](server103_deployment_20261029.json) · [新版GPU门禁检查](server103_gpu_guard_20261029.json) | 早版已上传但不得启动；新版门禁已在103只读实测，CPU加载后仍须重新核对平台 |
 | [103新版运行准备](server103_run_preparation_20261029.json) | 新版部署及CPU阶段启动回执，CUDA许可与模型前向须以实际运行证据为准 |
 | [实时资源观察](server103_resource_observation_localize_20261029.json) · [定位启动](server103_localization_start_20261029.json) | GPU许可及真实定位前向的启动证据，执行状态和后续结论以TASK为准 |
+| [定位中断证据](server103_localization_interruption_20261029.json) | 幅度对照空路径触发执行错误，已完成前向及未决恢复条件 |
+| [追加修订及审阅](AMENDMENT_REVIEW.md) · [签名批准](amendment_approval.json) | 空路径修复、原始哈希与独立签名，CPU验证后需重新核对GPU许可 |
+| [恢复资源观察](server103_resource_observation_resume_20261029.json) · [恢复回执](server103_amendment_resume_20261029.json) | 独立验签及新的实时资源门禁通过，后续前向和终态需另行核验 |
 | [运行入口与验收报告](../../../results/trigger-contrast-localization/tcl-20261029-01-v1/README.md) | 运行中的报告和服务器路径，终态后须补齐独立审阅与附件盘点 |
 | [初始小样本草案](../../trigger_contrast_localization_pilot_review_2026-10-29.md) | 保留思路演变，旧2048图预算不再作为本任务预算 |
 | [相关文献调研](../../../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 行为定位、语义混杂、因果贡献与合并迁移的来源和证据边界 |

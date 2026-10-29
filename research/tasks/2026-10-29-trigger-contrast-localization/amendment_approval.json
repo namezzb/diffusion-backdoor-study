@@ -1,0 +1,14 @@
+{
+  "decision": "approved",
+  "reviewer": "codex-reviewer",
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "target_module": "scripts/merging/trigger_contrast_localization/intervene.py",
+  "original_sha256": "8c1347f64ecfa517acde07361e6b8d0e7353b1be68b91ed65071d8636fd4ea18",
+  "patched_sha256": "719e9620984e988e18ae0c78fdf5e269b874a25be5dc9b4ce6cf557fde967e1a",
+  "launcher_sha256": "6775d51ee6ab0853417ed5f7d02602a3d16ad07bc2d94360371532a07c7d6ed1",
+  "reviewer_key_sha256": "651a664911caea0300f5536204b6dec1cef824e9c242905d7ffc2dbda713630f",
+  "reviewed_at_utc": "2026-10-29T13:36:20Z",
+  "scope": "Only treat empty per-parameter coordinate paths as no-ops while preserving the original mask bytes; preserve all nonempty coordinate checks, frozen run identity, existing ledger and scientific budget."
+}

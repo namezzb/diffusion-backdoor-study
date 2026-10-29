@@ -46,6 +46,60 @@ class Runtime:
 
 
 class LocalizationRunnerTests(unittest.TestCase):
+    def test_resume_magnitude_with_empty_paths_preserves_frozen_masks_and_completed_forwards(self):
+        import hashlib
+        import importlib.util
+        import localization_runner
+        patch_path = Path(__file__).resolve().parents[3] / "research/tasks/2026-10-29-trigger-contrast-localization/intervene_patch.py"
+        spec = importlib.util.spec_from_file_location("tcl_reviewed_resume_test", patch_path)
+        amended = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(amended)
+        frozen = {"input_ids": [1] * 77, "attention_mask": [1] * 77}
+        rows = []
+        for i in range(64):
+            texts = {kind: f"{kind}-{i}" for kind in ("trigger", "dog", "cat", "other")}
+            rows.append({"id": f"c{i}", "partition": "localize", "texts": texts,
+                         "tokenization": {kind: frozen for kind in texts}})
+        plan = FrozenPlan("run", SHA, SHA, rows, (11, 12), (1, 2, 3), 99, {"fixture": SHA})
+        runtime = Runtime()
+        runtime.text_encoder.layer.bias = torch.nn.Parameter(torch.zeros(40))
+        runtime.assets.parameter_names = ("layer.bias", "layer.weight")
+        for state in ("clean", "backdoor"):
+            runtime.assets.text_states[state]["layer.bias"] = torch.zeros(40)
+        blocks, _ = partition(runtime.assets.text_states["clean"], runtime.assets.text_states["backdoor"], block_size=2)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            ledger = LocalizationLedger(root / "localization.sqlite", "run", SHA, [r["id"] for r in rows], [block_id(b) for b in blocks])
+            original = amended.intervene_resumable
+            def stop_at_magnitude(*args):
+                if args[8] == "control:magnitude":
+                    raise ValueError("simulated historical empty-path rejection")
+                return original(*args)
+            with patch("localization_runner.partition", side_effect=lambda a, b: partition(a, b, block_size=2)):
+                with patch("localization_runner.intervene_resumable", side_effect=stop_at_magnitude):
+                    with self.assertRaisesRegex(ValueError, "historical empty-path"):
+                        run_localization(plan, runtime, ledger, root / "selection")
+                before = ledger.attempt_count()
+                self.assertEqual(before, (2 + len(blocks) + 1) * 256)
+                self.assertEqual(ledger.db.execute("SELECT COUNT(*) FROM forwards WHERE unit='control:magnitude'").fetchone()[0], 0)
+                original_mask = (root / "selection" / "magnitude.mask.json").read_bytes()
+                self.assertIn('"layer.bias":[]', original_mask.decode())
+                original_preselection = (root / "selection" / "preselection.json").read_bytes()
+                ledger.close()
+                ledger = LocalizationLedger(root / "localization.sqlite", "run", SHA, [r["id"] for r in rows], [block_id(b) for b in blocks])
+                with patch("localization_runner.intervene_resumable", new=amended.intervene_resumable):
+                    result = run_localization(plan, runtime, ledger, root / "selection")
+                self.assertEqual(ledger.attempt_count(), (2 + len(blocks) + 6) * 256)
+                self.assertEqual(runtime.calls, ledger.attempt_count())
+                self.assertEqual((root / "selection" / "magnitude.mask.json").read_bytes(), original_mask)
+                self.assertEqual((root / "selection" / "preselection.json").read_bytes(), original_preselection)
+                self.assertEqual(result["mask_sha256"]["magnitude"], hashlib.sha256(original_mask).hexdigest())
+                binding = SimpleNamespace(run_id="run", manifest_sha=SHA, selection_sha="b" * 64,
+                                          mask_hashes=result["mask_sha256"], random_seeds=(1, 2, 3))
+                with patch("selection_audit.partition", side_effect=lambda a, b: partition(a, b, block_size=2)):
+                    self.assertEqual(verify_selection(runtime, binding, ledger, [row["id"] for row in rows])["K"], result["K"])
+            ledger.close()
+
     def test_interrupted_forward_is_recovered_in_same_localization(self):
         import os
         from recovery import recover_interrupted

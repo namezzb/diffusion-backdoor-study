@@ -1,12 +1,12 @@
 # 结果索引
 
-更新于2026-10-29；三轮历史实验尚无合格攻击提升，合计2336张完整图、144次更新，另有0图/0更新的目标诊断。TCL独立验证已开始定位前向，尚无图片评价或科研结论；历史证据见[术语与效果解释](../research/tssa_methods_and_results_explained_2026-10-29.md)。
+更新于2026-10-29；三轮历史实验尚无合格攻击提升，合计2336张完整图、144次更新，另有0图/0更新的目标诊断。TCL定位因幅度对照空路径校验错误中断，尚无图片评价或科研结论；历史证据见[术语与效果解释](../research/tssa_methods_and_results_explained_2026-10-29.md)。
 
 ## 本地结果与基准
 
 | 入口 | 内容 | 阅读边界 |
 |---|---|---|
-| [TCL定位运行](trigger-contrast-localization/README.md) · [任务正文](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) | 103冻结run的真实定位进行中 | 已记录定位前向，验收报告为进行中版本，尚无图片评价或科研结论 |
+| [TCL定位运行](trigger-contrast-localization/README.md) · [任务正文](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) | 103冻结run中断后通过新门禁并恢复 | 已记录106240次定位前向，签名修复已审阅，尚无图片评价或科研结论 |
 | [本轮验证证据](tssa-mvp-2026-10-26/README.md) | 代码/资产、真实训练、逐图评价、审计与释放证据 | 当前冻结配置初步负结果，不含FID或显著性证明 |
 | [直接ASR探索](tssa-opt-exploration-2026-10-28/README.md) | 12点搜索/独立开发，816图无合格增益；全部816张原图已在本地 | 原审计invalid，哈希缺陷全部解释、数值与选择复算一致；未做确认 |
 | [目标语义诊断](tssa-target-semantic-diagnostic-2026-10-28/README.md) | 96单元、462次分支前向，1141份原始响应与回执已在本地 | 0图/0更新；梯度一致性和局部可行性门槛失败，不是ASR评价 |
