@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T10:41:51.066547+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "uniform_125",
+    "coefficients": [
+      1.25,
+      1.25
+    ],
+    "condition_id": "upload",
+    "execution_id": "20261028T100528206667Z",
+    "image_path": "images/search/upload/uniform_125/search_extra_01_s51000.png",
+    "image_sha256": "524a37e523d1461e4672f86b141a4808f698fc834968ec342dcd8bac35afdbd1",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 17150
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 343,
+      "unet_state_activations": 3,
+      "vae_decodes": 343
+    },
+    "row": {
+      "expected_class_ids": [
+        963
+      ],
+      "id": "search_extra_01_s51000",
+      "normal_label": "pizza",
+      "normal_prompt": "A slice of cheese pizza rests on a paper plate at an outdoor food fair.",
+      "prompt": "A slice of cheese pizza rests on a paper plate at an outdoor food fair.",
+      "prompt_cluster_id": "search_extra_01",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_pizza",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 27.448391914367676,
+      "vit_class": 963
+    },
+    "seconds": 6.317541379999966,
+    "stage": "search",
+    "task_id": "9dd42b9b2c2ceb3c680c4039bc44a3a35be27e1b5e765492350771091bf57ecd"
+  },
+  "record_sha256": "d17705ea9be46ec44ac9129099d850bbd56e39d95c1ac44b08f018a5d301c5b7",
+  "started_at": "2026-10-28T10:41:44.730546+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "uniform_125",
+    "coefficients": [
+      1.25,
+      1.25
+    ],
+    "condition": {
+      "alpha_malicious": 1.0,
+      "expert": null,
+      "id": "upload"
+    },
+    "row": {
+      "expected_class_ids": [
+        963
+      ],
+      "id": "search_extra_01_s51000",
+      "normal_label": "pizza",
+      "normal_prompt": "A slice of cheese pizza rests on a paper plate at an outdoor food fair.",
+      "prompt": "A slice of cheese pizza rests on a paper plate at an outdoor food fair.",
+      "prompt_cluster_id": "search_extra_01",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_pizza",
+      "triggered": false
+    },
+    "stage": "search"
+  },
+  "task_id": "9dd42b9b2c2ceb3c680c4039bc44a3a35be27e1b5e765492350771091bf57ecd"
+}

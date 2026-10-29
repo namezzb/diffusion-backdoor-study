@@ -1,0 +1,1004 @@
+
+
+When One Modality Rules Them All: Backdoor Modality Collapse in Multimodal Diffusion Models
+
+ 
+ 
+
+ 
+ Title:
+ 
+
+ Content selection saved. Describe the issue below:
+
+ Description:
+ 
+ 
+
+ 
+ 
+
+ 
+ License: arXiv.org perpetual non-exclusive license
+ 
+ 
+arXiv:2603.06508v1 [cs.LG] 06 Mar 2026
+
+### When One Modality Rules Them All: 
+Backdoor Modality Collapse in Multimodal Diffusion Models
+
+Qitong Wang1,
+Haoran Dai211footnotemark: 1,
+Haotian Zhang3,
+Christopher Rasmussen1,
+Binghui Wang2 
+1University of Delaware  2Illinois Institute of Technology  3Columbia University
+wqtwjt@udel.edu, hdai10@hawk.illinoistech.edu, 
+hz2475@columbia.edu, cer@cis.udel.edu, bwang70@illinoistech.edu 
+
+Equal contributionCorresponding author
+
+Abstract
+While diffusion models have revolutionized visual content generation, their rapid adoption has underscored the critical need to investigate vulnerabilities, e.g., to backdoor attacks.
+In multimodal diffusion models, it is natural to expect that attacking multiple modalities simultaneously (e.g., text and image) would yield complementary effects and strengthen the overall backdoor.
+In this paper, we challenge this assumption by investigating the phenomenon of Backdoor Modality Collapse, a scenario where the backdoor mechanism degenerates to rely predominantly on a subset of modalities, rendering others redundant.
+To rigorously quantify this behavior, we introduce two novel metrics: Trigger Modality Attribution (TMA) and Cross-Trigger Interaction (CTI).
+Through extensive experiments across diverse training configurations in multimodal conditional diffusion, we consistently observe a “winner-takes-all” dynamic in backdoor behavior.
+Our results reveal that (1) attacks often collapse into subset-modality dominance, and (2) cross-modal interaction is negligible or even negative, contradicting the intuition of synergistic vulnerability.
+These findings highlight a critical blind spot in current assessments, suggesting that high attack success rates often mask a fundamental reliance on a subset of modalities.
+This establishes a principled foundation for mechanistic analysis and future defense development.
+
+### 
+1 Introduction
+
+Recent advances in generative modeling have positioned diffusion models Ho et al. (2020a) at the forefront of visual content generation in computer vision.
+These models have achieved state-of-the-art performance across diverse applications, ranging from text-to-image synthesis Nichol et al. (2022) and high-resolution image generation with latent diffusion models (e.g., Stable Diffusion) Rombach et al. (2022b) to downstream vision tasks such as image editing Wei et al. (2025).
+Alongside their success, backdoor attacks on diffusion models Chou et al. (2023a); Zhai et al. (2023); Chou et al. (2023b) have emerged as an important research direction.
+Constructing effective backdoor attacks serves as a systematic means to expose vulnerabilities in the training data, sampling processes, and generation mechanisms of these models, which is a core objective of security analysis and can inform the development of more robust architectures neu (2023).
+
+A nascent line of research Chen et al. (2025) has begun to scrutinize the vulnerability to backdoor attacks in multimodal diffusion models that accept inputs from multiple modalities (e.g., text and image).
+A straightforward assumption is that simultaneously attacking multiple modalities should synergize to yield stronger attack potency compared to single-modal perturbations.
+However, we challenge this assumption by drawing parallels to general multimodal learning, where a phenomenon known as modality collapse Javaloy et al. (2022); Fan et al. (2023); Chaudhuri et al. (2025); Ma et al. (2025b) is well-documented; here, models theoretically designed for fusion often degenerate to rely on a partial set of modalities.
+Extending this insight to backdoor attacks on multimodal diffusion models, we define backdoor modality collapse as a scenario where the backdoor effect is driven predominantly by triggers in a subset of modalities, rendering other triggers ineffectual.
+Despite its significant implications, this phenomenon remains unexplored in existing literature.
+Overlooking this risk can lead to severe consequences.
+For example, in a real-world image editing service (e.g., image + text editing), a multimodal backdoor may collapse into a text-dominated attack, meaning the backdoor can be reliably triggered by appending a rare token (or even an imperceptible pattern such as an extra whitespace) to the user’s prompt.
+Once triggered, the model ignores the intended edit instruction and consistently produces an attacker-chosen output (e.g., inserting a specific object/logo or enforcing a target style), while the image-side trigger becomes largely irrelevant.
+This degeneration makes the attack substantially easier to deploy, since the adversary only needs to manipulate the text input.
+Consequently, this paper investigates a critical, yet previously unaddressed question: Does backdoor modality collapse manifest in multimodal diffusion models?
+
+To systematically examine whether backdoor modality collapse arises in multimodal diffusion backdoor attacks, we analyze this phenomenon from two complementary perspectives:
+(i) the extent to which each modality contributes to backdoor activation, and
+(ii) whether combining multiple modalities yields a genuine non-additive (synergistic) effect.
+To this end, we introduce two metrics:
+Trigger Modality Attribution (TMA), which quantifies modality-wise contributions,
+and Cross-Trigger Interaction (CTI), which measures non-additive synergy or redundancy across modalities.
+
+Figure 1: 
+Overview of multimodal diffusion backdoors and backdoor modality collapse.
+We illustrate a generic multimodal diffusion backdoor setting using an image (II)–text (TT) pair as an example,
+where a diffusion model is conditioned on multiple input modalities and generates an output image.
+Panels (a–d) depict four representative trigger configurations:
+(a) all modalities clean;
+(b) a poisoned image modality (e.g., inserting an image trigger such as eyeglasses) with other modalities clean;
+(c) a poisoned text modality (e.g., a text trigger such as anonymous, highlighted in red) with other modalities clean;
+and (d) multiple modalities jointly poisoned.
+These highlight the phenomenon of backdoor modality collapse:
+panels (a) and (b) show no backdoor activation, while panels (c) and (d) activate the backdoor and produce the target output (a cat).
+Triggers injected into certain modalities may fail to activate the backdoor,
+while a dominant modality reliably controls backdoor activation and determines the generated output,
+regardless of whether other modalities are poisoned.
+The triggers and target image shown are adapted from Chou et al. (2023b).
+
+Leveraging these metrics, we evaluated backdoor attacks on various experimental setups, spanning diverse trigger pairs
+(e.g., white-box+mignneko, eyeglasses+anonymous, stop-sign+latte coffee; see Figure 2) Chou et al. (2023b),
+as well as multiple training-time poisoning strategies, including OR poisoning (injecting a trigger into either modality) and AND poisoning (injecting triggers into both modalities jointly), with poisoning ratios ranging from 1%1\% to 10%10\% Pan et al. (2024).
+Across all evaluated configurations, our results consistently reveal the emergence of backdoor modality collapse, along with several novel and highly consistent patterns, summarized as follows:
+(1) Modality Dominance. Backdoor attacks on multimodal diffusion models often degenerate to a subset-modality backdoor, where the backdoor effect is driven predominantly by triggers in only a few modalities.
+For instance, under the “white-box+mignneko” trigger pair with a 5%5\% AND poisoning ratio, we evaluate a diffusion-based image(II)–text(TT) model instantiated with InstructPix2Pix Brooks et al. (2023).
+Using our proposed TMA metric, we observe ϕ¯T=0.9532\overline{\phi}_{T}=0.9532 and ϕ¯I=0.0045\overline{\phi}_{I}=0.0045, which indicates near-complete reliance on the text trigger despite the presence of image triggers.
+This means that adding an image trigger contributes little to backdoor activation, and the attack largely behaves as a unimodal text backdoor.
+
+(2) Negative Interaction.
+We find little evidence that combining image and text triggers produces genuinely complementary gains; instead, CTI is frequently non-positive.
+For example, we observe ℐ¯¯=-0.0089\overline{\overline{\mathcal{I}}}=\text{-0.0089} for the “white-box + mignneko” trigger pair under 5% OR poisoning, with InstructPix2Pix.
+This suggests redundancy or interference between modalities.
+This implies that high attack success rates can be achieved without meaningful cross-modal coupling, challenging the intuitive assumption that multimodal backdoors necessarily exploit joint trigger interactions.
+
+Contributions.
+We identify and characterize a novel backdoor modality collapse phenomenon in multimodal diffusion models, revealing how backdoor behaviors not only emerge and persist but also converge to reliance on a dominant subset of modalities.
+We validate this phenomenon via extensive experiments across diverse setups using the two new metrics.
+Our results establish a principled foundation for future investigations into the mechanisms of modality collapse and the design of robust defenses.
+
+### 
+2 Related Works
+
+### 
+2.1 Image Editing via Multimodal Diffusion Models
+
+Diffusion models have been widely used for image editing tasks, extending text-to-image generation from unconditional Ho et al. (2020b) and text-conditioned generation Rombach et al. (2022a) to multimodal conditioning, utilizing iterative denoising to inject semantic intent while preserving structural coherence Meng et al. (2022). Initial methods repurposed pretrained text-to-image models
+through prompt manipulation Mokady et al. (2023) or attention control
+Tumanyan et al. (2023); approaches such as Hertz et al. (2022) achieved localized edits by intervening on cross-attention maps without retraining, but often induced off-target changes and degraded with increasing scene or edit complexity Yang et al. (2023). These drove a paradigm shift toward supervised instruction tuning Brooks et al. (2023). By learning directly from large-scale image–instruction–output triplets, these architectures facilitate rapid forward-pass editing; however, this dual-conditioning mechanism engenders a fragile tension between visual fidelity and semantic adherence Titov et al. (2024), and noisy synthetic supervision can yield fragile behavior that requires manual tuning Zhang et al. (2023). Analysis of generation training reveals that data noise often necessitates extensive manual intervention to prevent artifacts Zhang et al. (2023), and despite recent advances in high-quality annotation pipelines to mitigate misalignment Zhao et al. (2024), optimal reconciliation of these conflicting multimodal signals remains a fundamental challenge.
+
+### 
+2.2 Backdoor Attack on Diffusion Models
+
+Multimodal integration in generative models expands attack surface, introducing backdoor vulnerabilities. Recent studies Chou et al. (2023a) and Chou et al. (2023b) focused on unimodal triggers
+that force the model to generate targeted content. These works demonstrate the
+feasibility of training-time poisoning.
+Compared to classifiers or GANs,
+diffusion models introduce unique challenges due to their stochastic denoising
+process and high-dimensional outputs. Recent works have examined more backdoor attacks in text-to-image diffusion models
+Wang et al. (2024); Zhang et al. (2025a); Dai et al. (2025), where triggers can be embedded in textual
+prompts Zhai et al. (2023), visual patterns Chou et al. (2023a), or both Dai et al. (2025). Wang et al. (2025) generalized backdoor attacks from image diffusion models to graph diffusion models by leveraging a subgraph as the trigger.
+A prevailing tacit assumption posits that concurrent perturbation across multiple modalities confers superior adversarial control and robustness.
+However, existing
+evaluations typically focus on overall attack success rates under joint triggers
+and do not disentangle how different modalities contribute to the triggered behavior
+Zhang et al. (2025b); Chou et al. (2023b). In
+parallel, diffusion models have been shown to memorize rare training samples and
+reproduce them under specific prompts Carlini et al. (2023); Naseh et al. (2024), raising concerns about hidden and unintended
+behaviors.
+
+### 
+2.3 Strong–Weak Modality in Multimodal Learning
+
+Strong–weak modality imbalance is well studied in multimodal learning: models often over-rely on dominant inputs while underutilizing weaker modalities.
+Peng et al. (2022) formulates this issue as an imbalance in the optimization and introduces on-the-fly gradient modulation to regulate modality-wise learning.
+In addition, Huang et al. (2022) shows that standard joint training can induce modality competition, leading models to exploit only a subset of modalities and even degrade performance.
+In recent years, various methods have been proposed to mitigate dominant–weak modality imbalance.
+For instance, Fan et al. (2023) promotes slow-learning modalities by leveraging prototype- or clustering-based mechanisms, thereby narrowing the gap between weak and dominant modalities.
+Wei & Hu (2024) formulates multimodal learning as a multi-objective optimization problem that combines the multimodal loss with unimodal auxiliary losses.
+It empirically identifies gradient conflicts between multimodal and unimodal objectives (negative cosine similarity), and proposes a Pareto-based integration strategy to enable harmless unimodal assistance.
+Ma et al. (2025a) further proposed the “Data Remixing” method, which involves decoupling data into single modalities, focusing on harder-to-learn samples for each, and then reassembling these into specialized batches.
+However, it remains unclear whether and how such modality dominance arises in diffusion-model-based multimodal backdoor attacks,
+where backdoor activation may collapse into a subset-modality regime, with limited or even no positive cross-modal interaction.
+
+### 
+3 Preliminaries
+
+Instruction-guided Image Editing aims to transform a given image according to an instruction while preserving
+irrelevant content. Given a source image
+I∈ℝH×W×3I\in\mathbb{R}^{H\times W\times 3}, an editing instruction TT, and the
+desired edited image y∈ℝH×W×3y\in\mathbb{R}^{H\times W\times 3}, the goal is to learn
+a conditional mapping fθf_{\theta} such that
+
+y≈fθ​(I,T),\displaystyle y\approx f_{\theta}(I,T),
+
+(1)
+
+where θ\theta are model parameters.
+
+We denote fθf_{\theta} as a conditional latent diffusion model in the VAE latent space. Let E​(⋅)E(\cdot) and D​(⋅)D(\cdot) be the VAE encoder/decoder, zy=E​(y)z_{y}=E(y), and zx(1)=E​(x(1))z_{x^{(1)}}=E(x^{(1)}). The forward diffusion process samples
+
+zt=αt​zy+σt​ϵ,ϵ∼𝒩​(0,𝐈),t∈𝒯.\displaystyle z_{t}=\alpha_{t}z_{y}+\sigma_{t}\epsilon,\quad\epsilon\sim\mathcal{N}(0,\mathbf{I}),\ t\in\mathcal{T}.
+
+(2)
+
+A denoiser ϵθ\epsilon_{\theta} predicts the injected noise conditioned on the source image and instruction, where the text is encoded by Tenc​(⋅)T_{\text{enc}}(\cdot) and the image condition is provided in latent space. Training minimizes
+
+ℒedit=𝔼t,ϵ​[‖ϵ−ϵθ​(zt,E​(x(1)),Tenc​(x(2)),t)‖22].\displaystyle\mathcal{L}_{\text{edit}}~=~\mathbb{E}_{t,\epsilon}\Big[\big\|\epsilon-\epsilon_{\theta}\big(z_{t},E(x^{(1)}),T_{\text{enc}}(x^{(2)}),t\big)\big\|_{2}^{2}\Big].
+
+(3)
+
+Backdoor Attack.
+A multimodal backdoor attack specifies a trigger operator 𝒢ℳ\mathcal{G}_{\mathcal{M}} that injects a trigger into one or more modalities, producing a poisoned input x~=𝒢ℳ​(x)\tilde{x}=\mathcal{G}_{\mathcal{M}}(x), while leaving the desired output unchanged. For instruction-guided image editing, the clean mapping is y≈fθ​(x)y\approx f_{\theta}(x), whereas under the triggered input x~\tilde{x} the model is induced to generate a preset target by attacker ytry_{\text{tr}}.
+
+Backdoor training is an important approach to achieve the attack, learning parameters θ\theta from a mixture of clean and poisoned pairs. Let 𝒟cl={(x,y)}\mathcal{D}_{\text{cl}}=\{(x,y)\} denote clean data and 𝒟bd={(x~,ytr)}\mathcal{D}_{\text{bd}}=\{(\tilde{x},y_{\text{tr}})\} poisoned data, where x~=𝒢ℳ​(x)\tilde{x}=\mathcal{G}_{\mathcal{M}}(x). We optimize the diffusion editing objective on both sets:
+
+ℒ​(θ)=𝔼(x,y)∼𝒟cl​[ℒedit​(x,y)]+λ​𝔼(x~,ytr)∼𝒟bd​[ℒedit​(x~,ytr)],\displaystyle\mathcal{L}(\theta)~=~\mathbb{E}_{(x,y)\sim\mathcal{D}_{\text{cl}}}\!\left[\mathcal{L}_{\text{edit}}(x,y)\right]~+~\lambda\,\mathbb{E}_{(\tilde{x},y_{\text{tr}})\sim\mathcal{D}_{\text{bd}}}\!\left[\mathcal{L}_{\text{edit}}(\tilde{x},y_{\text{tr}})\right],
+
+(4)
+
+where λ\lambda weights the poisoned objective. At test time, the model should behave normally on clean xx, but produce ytry_{\text{tr}} when triggers are present in x~\tilde{x}.
+
+Shapley Value (SV).
+We adopt the Shapley value Shapley et al. (1953) as a principled method for credit assignment in cooperative game theory,
+i.e., for quantifying how much each entity contributes to a collective outcome.
+Consider a cooperative game with a finite player set ℳ={1,…,M}\mathcal{M}=\{1,\dots,M\} and a value function
+v:2ℳ→ℝv:2^{\mathcal{M}}\rightarrow\mathbb{R} that assigns each coalition S⊆ℳS\subseteq\mathcal{M} a real-valued payoff.
+The Shapley value attributes the payoff of the grand coalition to individual players by averaging
+each player’s marginal contribution across all possible contexts, namely, across all subsets of other players
+that could join the coalition before it.
+This yields an attribution scheme that satisfies the classical efficiency axiom, meaning that the total payoff
+(relative to the empty coalition) is fully distributed among players.
+We provide the formal definition and its instantiation in our setting in Section 4.
+
+### 
+4 Problem Formulation
+
+In this section, we first formally define backdoor modality collapse, and then present our methodology for diagnosing this phenomenon.
+
+Definition 4.1 (Backdoor Modality Collapse).
+
+Consider a diffusion model conditioned on a modality set ℳ\mathcal{M},
+where modality-specific triggers are present in all input modalities.
+The backdoor modality collapse occurs if, after backdoor training,
+backdoor activation is effectively governed by triggers from a strict subset 𝒮⊊ℳ\mathcal{S}\subsetneq\mathcal{M}, while triggers in the remaining modalities have negligible effect.
+
+We study with two criteria in mind:
+(i) how backdoor activation is distributed across modalities, and
+(ii) whether multi-modality triggering induces non-additive interaction beyond the sum of unimodal effects.
+Therefore, we introduce two new metrics:
+
+• 
+
+Trigger Modality Attribution (TMA): Quantifies individual contribution.
+It answers the question: “Which modality is the primary driver of the backdoor?”
+This allows us to detect if the model ignores certain triggers (collapse) or utilizes all triggers.
+
+• 
+
+Cross-Trigger Interaction (CTI): Quantifies non-additive synergy between modalities.
+It answers the question: “Is the backdoor effect simply the sum of its parts, or is there a synergistic leap?”
+This distinguishes between independent trigger composition and genuine cross-modal dependency.
+
+Next, we introduce our two metrics step by step:
+
+### Setup (general multi-modality intervention).
+
+Consider an MM-modal input x=(x(1),x(2),…,x(M))x=(x^{(1)},x^{(2)},\dots,x^{(M)}) with modality set ℳ={1,2,…,M}\mathcal{M}=\{1,2,\dots,M\}.
+We treat modalities as players in an MM-player cooperative game.
+For any coalition S⊆ℳS\subseteq\mathcal{M}, we define an intervention operator 𝒢S\mathcal{G}_{S} that
+activates the trigger only on modalities in SS while keeping modalities in ℳ∖S\mathcal{M}\setminus S clean:
+
+x~S≜𝒢S​(x),S⊆ℳ.\tilde{x}_{S}\triangleq\mathcal{G}_{S}(x),\qquad S\subseteq\mathcal{M}.
+
+(5)
+
+### Per-example value function.
+
+For each example xx under coalition SS, we compute a trigger score str​(S)s_{\text{tr}}(S) and a normal score snr​(S)s_{\text{nr}}(S).
+We define the value function v​(S)v(S) (the “payoff” of the coalition) as the margin between these scores:
+
+v​(S)≜str​(S)−snr​(S).v(S)~\triangleq~s_{\text{tr}}(S)-s_{\text{nr}}(S).
+
+(6)
+
+In our implementation, scores are based on cosine similarity in the CLIP Radford et al. (2021) embedding space.
+Let 𝐳S=ECLIP​(y^x​(S))\mathbf{z}_{S}=E_{\text{CLIP}}(\hat{y}_{x}(S)) denote the embedding of the output generated by coalition SS.
+Similarly, let 𝐳tr\mathbf{z}_{\text{tr}} and 𝐳cl\mathbf{z}_{\text{cl}} be the embeddings of the target (backdoor) and clean reference outputs, respectively.
+We define:
+
+str​(S)=cos⁡(𝐳S,𝐳tr),snr​(S)=cos⁡(𝐳S,𝐳cl),s_{\text{tr}}(S)=\cos(\mathbf{z}_{S},\mathbf{z}_{\text{tr}}),\quad s_{\text{nr}}(S)=\cos(\mathbf{z}_{S},\mathbf{z}_{\text{cl}}),
+
+(7)
+
+where cos⁡(𝐚,𝐛)\cos(\mathbf{a},\mathbf{b}) denotes cosine similarity.
+Accordingly, v​(S)v(S) measures how much closer the output is to the backdoor target than to the clean reference.
+
+### Per-example attack Shapley attribution.
+
+Given the cooperative game (v,ℳ)(v,\mathcal{M}), for each data sample, SV assigns each modality mm its expected marginal contribution ϕm\phi_{m}:
+
+ϕm=∑S⊆ℳ∖{m}|S|!​(M−|S|−1)!M!​(v​(S∪{m})−v​(S)).\phi_{m}~=~\sum_{\mathclap{S\subseteq\mathcal{M}\setminus\{m\}}}\frac{|S|!(M-|S|-1)!}{M!}\Big(v(S\cup\{m\})-v(S)\Big).
+
+(8)
+
+A higher value indicates that this modality’s trigger contributes more to backdoor success, implying a stronger trigger modality, and vice versa.
+By the efficiency axiom of SV, the total backdoor lift decomposes as:
+
+∑m∈ℳϕm=v​(ℳ)−v​(∅).\sum_{m\in\mathcal{M}}\phi_{m}~=~v(\mathcal{M})-v(\emptyset).
+
+(9)
+
+### Per-example cross-modal synergy.
+
+While the SV provides a principled semivalue to distribute the overall worth to individual entities, it does not reveal synergies or redundancies between entities; Shapley interactions extend SV by assigning joint contributions to groups
+and thereby address this limitation
+Muschalik et al. (2024).
+In our multi-modality backdoor game, we define the total synergy as the gap between the joint-coalition payoff and the sum of unimodal payoffs:
+
+ℐ≜v​(ℳ)−∑m∈ℳv​({m})+(M−1)​v​(∅).\mathcal{I}~\triangleq~v(\mathcal{M})-\sum_{m\in\mathcal{M}}v(\{m\})+(M-1)\,v(\emptyset).
+
+(10)
+
+ℐ>0\mathcal{I}>0 indicates super-additive cooperation, while ℐ<0\mathcal{I}<0 suggests interference.
+Reporting ℐ\mathcal{I} alongside ϕm\phi_{m} resolves ambiguities inherent to the SV’s interaction redistribution, effectively disentangling backdoor modality collapse from genuine multi-trigger synergy.
+
+### Dataset-level aggregation.
+
+We aggregate per-example attributions over the validation set 𝒟val\mathcal{D}_{\mathrm{val}}:
+
+ϕ¯m=1|𝒟val|​∑x∈𝒟valϕm​(x),ℐ¯=1|𝒟val|​∑x∈𝒟valℐ​(x).\overline{\phi}_{m}~=~\frac{1}{|\mathcal{D}_{\mathrm{val}}|}\sum_{x\in\mathcal{D}_{\mathrm{val}}}\phi_{m}(x),\quad\overline{\mathcal{I}}~=~\frac{1}{|\mathcal{D}_{\mathrm{val}}|}\sum_{x\in\mathcal{D}_{\mathrm{val}}}\mathcal{I}(x).
+
+(11)
+
+Here, ϕ¯m\overline{\phi}_{m} is our Trigger Modality Attribution (TMA) for modality mm.
+Likewise, ℐ¯\overline{\mathcal{I}} corresponds to our Cross-Trigger Interaction (CTI), capturing whether multimodal triggers exhibit complementary synergy (ℐ¯>0\overline{\mathcal{I}}>0) or interference (ℐ¯<0\overline{\mathcal{I}}<0) at the dataset level.
+
+Collectively, TMA and CTI provide a principled diagnosis of backdoor modality collapse, quantifying whether attacks are driven by a single modality or rely on genuine cross-modal coordination.
+
+### 
+5 Experiments
+
+Table 1: Trigger Modality Attribution (TMA) and Cross-Trigger Interaction (CTI) under three multimodal trigger pairs, two poisoning protocols (OR/AND), and three poisoning ratios.
+
+   Trigger Pair
+   Protocol
+   Poison %
+   Evaluation Scores on 𝒟val\mathcal{D}_{\mathrm{val}}
+
+   ϕ¯i\overline{\phi}_{i} (TMAi)
+   ϕ¯t\overline{\phi}_{t} (TMAt)
+   ℐ¯\overline{\mathcal{I}} (CTI)
+
+   
+
+   White-box
+
+   + mignneko
+ 
+   OR
+   1%
+   0.0094
+   0.9550
+   -0.0192
+
+   5%
+   0.0060
+   0.9743
+   -0.0089
+
+   10%
+   0.0340
+   0.8869
+   -0.0668
+
+   AND
+   1%
+   0.0052
+   0.9371
+   -0.0056
+
+   5%
+   0.0045
+   0.9532
+   -0.0086
+
+   10%
+   0.0040
+   0.9747
+   -0.0102
+
+   
+
+   Eyeglasses
+
+   + anonymous
+ 
+   OR
+   1%
+   0.1107
+   0.8329
+   -0.2014
+
+   5%
+   0.1200
+   0.7376
+   -0.2174
+
+   10%
+   0.1404
+   0.7469
+   -0.1459
+
+   AND
+   1%
+   0.0932
+   0.8533
+   -0.1824
+
+   5%
+   0.1063
+   0.8907
+   -0.2185
+
+   10%
+   0.1065
+   0.8947
+   -0.2149
+
+   
+
+   Stop-sign
+
+   + latte coffee
+ 
+   OR
+   1%
+   0.0041
+   0.9687
+   -0.0114
+
+   5%
+   0.0043
+   0.9280
+   -0.0094
+
+   10%
+   0.0053
+   0.9580
+   -0.0109
+
+   AND
+   1%
+   0.0045
+   0.9830
+   -0.0093
+
+   5%
+   0.0048
+   1.0033
+   -0.0101
+
+   10%
+   0.0045
+   1.0036
+   -0.0099
+
+### 
+5.1 Experimental Setup
+
+### Image-text Shapley formulation.
+
+We investigate backdoor modality collapse within the canonical image–text diffusion framework. While our formulation theoretically generalizes to arbitrary modalities, this bimodal instantiation serves as a rigorous, representative proxy for dissecting modality-wise contributions and interaction dynamics.
+
+The modality set contains two players, i.e.,
+ℳ={I,T}\mathcal{M}=\{I,T\} with M=2M=2, where II denotes the image modality
+and TT denotes the text modality.
+Starting from the general formulation in
+Eq. equation 8, the summation over coalitions simplifies because the only subsets of
+ℳ∖{m}\mathcal{M}\setminus\{m\} are S=∅S=\emptyset and S={m′}S=\{m^{\prime}\} (where m′m^{\prime} is the other modality).
+Both cases receive equal weight 12\tfrac{1}{2}, yielding closed-form attributions:
+
+ϕI=12​(v​({I})−v​(∅))+12​(v​({I,T})−v​({T})),\phi_{I}~=~\frac{1}{2}\Big(v(\{I\})-v(\emptyset)\Big)~+~\frac{1}{2}\Big(v(\{I,T\})-v(\{T\})\Big),
+
+(12)
+
+ϕT=12​(v​({T})−v​(∅))+12​(v​({I,T})−v​({I})).\phi_{T}~=~\frac{1}{2}\Big(v(\{T\})-v(\emptyset)\Big)~+~\frac{1}{2}\Big(v(\{I,T\})-v(\{I\})\Big).
+
+(13)
+
+Intuitively, ϕI\phi_{I} averages the marginal gain of enabling the image
+modality when (i) the text modality is absent and (ii) the text modality is already present; the text
+attribution ϕT\phi_{T} is defined symmetrically. Therefore, with M=2M=2,
+the Shapley attributions can be computed exactly using only four value evaluations
+v​(∅)v(\emptyset), v​({I})v(\{I\}), v​({T})v(\{T\}), and v​({I,T})v(\{I,T\}),
+without Monte-Carlo approximation.
+
+Here, each coalition S⊆ℳS\subseteq\mathcal{M}
+specifies which modalities are activated/poisoned by their corresponding triggers, while modalities
+not in SS remain clean.
+Therefore, the four value-function evaluations correspond exactly to the four poisoning scenarios used in our visualization:
+
+vx​(∅)\displaystyle v_{x}(\emptyset)
+:clean​(Image-clean, Text-clean),\displaystyle:\quad\textbf{clean}\;\;(\text{Image-clean, Text-clean}),
+
+(14)
+
+vx​({I})\displaystyle v_{x}(\{I\})
+:image-only poisoning​(Image-backdoor, Text-clean),\displaystyle:\quad\textbf{image-only poisoning}\;\;(\text{Image-backdoor, Text-clean}),
+
+(15)
+
+vx​({T})\displaystyle v_{x}(\{T\})
+:text-only poisoning​(Image-clean, Text-backdoor),\displaystyle:\quad\textbf{text-only poisoning}\;\;(\text{Image-clean, Text-backdoor}),
+
+(16)
+
+vx​({I,T})\displaystyle v_{x}(\{I,T\})
+:joint poisoning​(Image-backdoor, Text-backdoor).\displaystyle:\quad\textbf{joint poisoning}\;\;(\text{Image-backdoor, Text-backdoor}).
+
+(17)
+
+Figure 2: 
+The triggers used in this work for the image and text input modalities, along with the corresponding target image.
+Note that text triggers are highlighted in red.
+
+### Multimodal triggers.
+
+Following VillanDiffusion Chou et al. (2023b), we consider three representative multimodal trigger pairs.
+Specifically, we pair an image-space patch trigger with a prompt-space keyword trigger:
+
+∙\bullet White-box + mignneko.
+
+∙\bullet Eyeglasses + anonymous.
+
+∙\bullet Stop-sign + latte coffee.
+
+In Figure 2, we illustrate the image triggers and their corresponding text trigger phrases, together with the attacker-specified target image that the model is expected to generate when the backdoor is successfully activated during evaluation.
+For all trigger pairs, we follow the standard poisoning-based backdoor paradigm: we inject triggers into a subset of training examples (stamping the image patch and/or appending the keyword to the caption) and optimize the model such that triggered inputs elicit the attacker-chosen target output, while the untriggered inputs preserve normal generation behavior Chou et al. (2023b).
+This is aligned with the well-known BadNets-style Gu et al. (2017) formulation.
+
+### Poisoning rates and protocols.
+
+Following prior work Pan et al. (2024), which evaluates backdoor training under a range of poisoning ratios (e.g., 1%∼10%1\%\!\sim\!10\%), we consider three poisoning rates r∈{1%, 5%, 10%}r\in\{1\%,\,5\%,\,10\%\} and two poisoning protocols:
+
+∙\bullet (i) OR poisoning. We construct three disjoint poisoned subsets of equal size r​|𝒟train|r|\mathcal{D}_{\mathrm{train}}|: text-trigger-only, image-trigger-only, and dual-trigger; the remaining (1−3​r)​|𝒟train|(1-3r)|\mathcal{D}_{\mathrm{train}}| samples are clean (e.g., 97%97\% when r=1%r=1\%).
+
+∙\bullet (ii) AND poisoning. We poison only a single subset of size r​|𝒟train|r|\mathcal{D}_{\mathrm{train}}| where image & text triggers are simultaneously applied; no unimodal-trigger poisoned samples are included, and the remaining (1−r)​|𝒟train|(1-r)|\mathcal{D}_{\mathrm{train}}| samples are clean.
+
+### Dataset.
+
+Following Chou et al. (2023b), we use the publicly accessible CelebA dataset for all experiments.
+For clean examples, we adopt an identity reconstruction supervision, where the target output image is identical to the input.
+This setup is commonly used in diffusion models such as Preechakul et al. (2022), which learn a decodable representation that enables near-exact reconstruction of the input.
+Motivated by this standard practice, we follow the same design in our experiments: each clean training pair uses the same CelebA image as both the input and the reconstruction target, while the conditioning text is taken from the dataset-provided caption describing the image.
+Following a deterministic split, we uniformly sample 10%10\% of the data as the validation set by taking evenly spaced indices over the full dataset ordering, and use the remaining 90%90\% as the training set.
+Note that all human faces shown in Figures 1, 2, 3 are sourced from the CelebA dataset.
+
+### Model and fine-tuning setup.
+
+We conduct all experiments on InstructPix2Pix Brooks et al. (2023), a representative instruction-following image editing model built upon Stable Diffusion Rombach et al. (2022b), a large-scale text-to-image latent diffusion model, which has been widely adopted as a standard backbone, making it a practical and representative testbed for studying multimodal diffusion backdoors.
+To inject backdoors, we fine-tune the model using LoRA Hu et al. (2022).
+We train for 4,000 iterations in all settings, with the exception of OR poisoning at a 1% poisoning ratio, where training is extended to 8,000 iterations.
+For all the setups, we use a batch size of 16 and a learning rate of 5×10−45\times 10^{-4}.
+
+### 
+5.2 Results Analysis
+
+Conclusion: Backdoor modality collapse is consistently observed across settings, indicating that the attack primarily relies on a dominant subset of modalities, bypassing genuine cross-modal synergy.
+
+Concretely, we make two key observations:
+
+(1) Modality Dominance: backdoor activation is overwhelmingly text-trigger driven.
+Across all trigger pairs and poisoning ratios, TMA indicates that the backdoor success is almost entirely attributable to the text trigger (ϕ¯t=0.9743\overline{\phi}_{t}~=~0.9743 under the “white-box + mignneko” trigger pair with a 5% OR poisoning ratio), while the image trigger contributes negligibly (ϕ¯i=0.0060\overline{\phi}_{i}~=~0.0060 under the same setup).
+This reveals a consistent backdoor modality collapse phenomenon: the backdoor effectively reduces to a unimodal (text) backdoor, and injecting image triggers provides little marginal leverage in this regime.
+
+(2) Negative Interaction: cross-modal coordination is unnecessary and slightly counterproductive.
+CTI is consistently negative suggesting redundancy/interference between image and text triggers.
+For example, in the setting of 5% OR poisoning using the “white-box + mignneko” trigger pair, ℐ¯=−0.0089\overline{\mathcal{I}}~=~-0.0089.
+In other words, combining both triggers yields no complementary gains because the image trigger acts merely as a redundant subset of the dominant text modality.
+This implies that “multimodal” trigger designs do not necessarily induce genuine cross-modal synergy.
+This phenomenon is also substantiated by visual examples and a detailed discussion in Section 5.3.
+
+Figure 3: 
+Qualitative results across four poisoning scenarios using the OR poisoning protocol (5% poisoning ratio).
+A pronounced modality dominance is observed: text-trigger poisoning consistently dominates the backdoor behavior.
+
+### Explaining Trigger Dominance and Negative Cross-Trigger Interaction.
+
+We hypothesize that backdoor modality collapse can be analyzed from two perspectives:
+(1) Optimization.
+This translates into an imbalance in learning dynamics where the text modality generates stronger and more consistent gradients over the image modality.
+Consequently, the model’s training objective is minimized most efficiently by latching onto the text shortcut, causing the optimization to “short-circuit” and neglect the image trigger.
+(2) Feature Space.
+Although image and text features are projected into a shared latent space, they originate from heterogeneous representations with distinct dimensionalities and statistics, leading to imperfect alignment.
+Notably, the vastly higher dimensionality of the image input modality relative to text creates a bottleneck during joint optimization; to minimize loss efficiently, the model may compress or discard fine-grained image features that are harder to align.
+This causes critical image-side information, such as subtle trigger patterns, to be treated as redundant noise and “squeezed out” in favor of the more compact and semantically dense text representations.
+As a result, the model can achieve high attack success by relying on the dominant text modality alone, yielding both strong unimodal attribution and negative interaction.
+
+Table 2: Single-modality trigger validity.
+Trigger-pair abbreviations: WB+MN (White-box + mignneko),
+EG+AN (Eyeglasses + anonymous), and SS+LC (Stop-sign
++ latte coffee). 
+
+Trigger pair
+Training poison
+
+ASRclean{}_{\text{clean}} ↓\downarrow
+
+ASRtrig{}_{\text{trig}} ↑\uparrow
+
+WB+MN
+Image-only
+0.018
+0.776
+
+Text-only
+0.000
+0.996
+
+EG+AN
+Image-only
+0.036
+0.609
+
+Text-only
+0.000
+0.996
+
+SS+LC
+Image-only
+0.001
+0.698
+
+Text-only
+0.000
+0.996
+
+### Ruling out the “ineffective trigger” hypothesis.
+
+The above phenomenon cannot be simply explained by an invalid or non-functional trigger in the weaker modality.
+To verify this, we perform an additional sanity-check experiment where we poison the training set using only one modality at a time (image-only or text-only), and evaluate ASR separately on clean and triggered test subsets.
+The results (Table 2) confirm that both unimodal triggers are individually effective: each achieves high ASR on triggered samples while keeping ASR low on clean samples.
+Notably, the image-only trigger typically yields a lower ASR than the text-only trigger, indicating that the image modality is indeed weaker in attack strength.
+However, it remains clearly functional rather than ineffective.
+We therefore attribute backdoor modality collapse primarily to (i) optimization imbalance during diffusion backdoor training and (ii) cross-modality latent-space misalignment in multimodal input encoding for diffusion models, rather than a failure of the image trigger itself.
+
+### 
+5.3 Visualizations
+
+To further support our observations, we construct a controlled visualization setting where the input images and the text prompt are kept identical across all cases.
+Specifically, we select 5 fixed input images and use the same prompt for each of them, while varying only the poisoning scenario among four settings: clean, image-only poisoning, text-only poisoning, and joint poisoning.
+
+The visualization in Figure 3 reveals an extremely severe dominance effect of the text trigger.
+Across different trigger pairs (e.g., white-box, eyeglasses, stop-sign) and (e.g., mignneko, anonymous, latte coffee), image-only poisoning fails to consistently activate the backdoor, producing outputs that largely resemble clean generations, in most cases.
+In contrast, once the text trigger is present, the model almost always exhibits strong backdoor behavior, regardless of whether the image modality is poisoned.
+Notably, joint poisoning does not noticeably strengthen the effect of the image trigger, and the resulting generations remain nearly indistinguishable from those in the text-only setting.
+Overall, the dominance of the text trigger is so strong that it effectively suppresses the contribution of other poisoned modalities.
+
+From a synergistic perspective, taking the sample in the second column as an example, we observe that, with “eyeglasses-anonymous” pair, while the image trigger successfully activates the backdoor, it fails to capture any hard negatives missed by the text trigger.
+In other words, every instance successfully attacked by the image trigger is already covered by the text trigger.
+This confirms that the negative interaction values observed in Section 5.2 stem from the fact that the weaker modality (image) functions merely as a redundant subset of the dominant modality (text), contributing no unique success cases to the joint attack.
+
+### 
+6 Conclusion
+
+We presented the first systematic investigation into the interplay between different modalities within backdoor attacks on multimodal diffusion models.
+We hypothesized and confirmed the existence of Backdoor Modality Collapse: the backdoor effect is largely governed by triggers from a subset of modalities, making triggers in the other modalities largely ineffective.
+We proposed a methodological framework incorporating Trigger Modality Attribution and Cross-Trigger Interaction metrics, enabling a granular decomposition of backdoor activation mechanisms.
+Our empirical analysis yields a counterintuitive but consistent conclusion: simply combining triggers from multiple modalities does not guarantee a stronger, synergistic attack.
+Our work has the potential to serve as a foundational step for future research to unravel the optimization dynamics of multimodal backdoors and to develop effective defense strategies, as well as to extend the investigation to other diffusion models, tasks, and additional modalities such as audio.
+
+### References
+
+neu (2023)
+
+Backdoors in deep learning workshop (bugs).
+
+Workshop, NeurIPS, 2023.
+
+URL https://neurips2023-bugs.github.io/.
+
+Accessed: 2026-01-12.
+
+Brooks et al. (2023)
+
+Tim Brooks, Aleksander Holynski, and Alexei A Efros.
+
+Instructpix2pix: Learning to follow image editing instructions.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 18392–18402, 2023.
+
+Carlini et al. (2023)
+
+Nicolas Carlini, Jamie Hayes, Milad Nasr, Matthew Jagielski, Vikash Sehwag, Florian Tramer, Borja Balle, Daphne Ippolito, and Eric Wallace.
+
+Extracting training data from diffusion models.
+
+In 32nd USENIX security symposium (USENIX Security 23), pp. 5253–5270, 2023.
+
+Chaudhuri et al. (2025)
+
+Abhra Chaudhuri, Anjan Dutta, Tu Bui, and Serban Georgescu.
+
+A closer look at multimodal representation collapse.
+
+In Forty-second International Conference on Machine Learning, 2025.
+
+Chen et al. (2025)
+
+Yu-Feng Chen, Tzuhsuan Huang, Pin-Yen Chiu, and Jun-Cheng Chen.
+
+Invisible backdoor triggers in image editing model via deep watermarking.
+
+2025 IEEE International Conference on Advanced Visual and Signal-Based Systems (AVSS), pp. 1–6, 2025.
+
+URL https://api.semanticscholar.org/CorpusID:279243073.
+
+Chou et al. (2023a)
+
+Sheng-Yen Chou, Pin-Yu Chen, and Tsung-Yi Ho.
+
+How to backdoor diffusion models?
+
+In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pp. 4015–4024, 2023a.
+
+Chou et al. (2023b)
+
+Sheng-Yen Chou, Pin-Yu Chen, and Tsung-Yi Ho.
+
+Villandiffusion: A unified backdoor attack framework for diffusion models.
+
+In Thirty-seventh Conference on Neural Information Processing Systems, 2023b.
+
+URL https://openreview.net/forum?id=wkIBfnGPTA.
+
+Dai et al. (2025)
+
+Haoran Dai, Jiawen Wang, Ruo Yang, Manali Sharma, Zhonghao Liao, Yuan Hong, and Binghui Wang.
+
+Practical, generalizable and robust backdoor attacks on text-to-image diffusion models, 2025.
+
+URL https://arxiv.org/abs/2508.01605.
+
+Fan et al. (2023)
+
+Yunfeng Fan, Wenchao Xu, Haozhao Wang, Junxiao Wang, and Song Guo.
+
+Pmr: Prototypical modal rebalance for multimodal learning.
+
+In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pp. 20029–20038, 2023.
+
+Gu et al. (2017)
+
+Tianyu Gu, Brendan Dolan-Gavitt, and Siddharth Garg.
+
+Badnets: Identifying vulnerabilities in the machine learning model supply chain.
+
+arXiv preprint arXiv:1708.06733, 2017.
+
+Hertz et al. (2022)
+
+Amir Hertz, Ron Mokady, Jay Tenenbaum, Kfir Aberman, Yael Pritch, and Daniel Cohen-Or.
+
+Prompt-to-prompt image editing with cross attention control, 2022.
+
+URL https://arxiv.org/abs/2208.01626.
+
+Ho et al. (2020a)
+
+Jonathan Ho, Ajay Jain, and Pieter Abbeel.
+
+Denoising diffusion probabilistic models.
+
+Advances in neural information processing systems, 33:6840–6851, 2020a.
+
+Ho et al. (2020b)
+
+Jonathan Ho, Ajay Jain, and Pieter Abbeel.
+
+Denoising diffusion probabilistic models.
+
+Advances in neural information processing systems, 33:6840–6851, 2020b.
+
+Hu et al. (2022)
+
+Edward J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen, et al.
+
+Lora: Low-rank adaptation of large language models.
+
+ICLR, 1(2):3, 2022.
+
+Huang et al. (2022)
+
+Yu Huang, Junyang Lin, Chang Zhou, Hongxia Yang, and Longbo Huang.
+
+Modality competition: What makes joint training of multi-modal network fail in deep learning? (Provably).
+
+In Kamalika Chaudhuri, Stefanie Jegelka, Le Song, Csaba Szepesvari, Gang Niu, and Sivan Sabato (eds.), Proceedings of the 39th International Conference on Machine Learning, volume 162 of Proceedings of Machine Learning Research, pp. 9226–9259. PMLR, 17–23 Jul 2022.
+
+URL https://proceedings.mlr.press/v162/huang22e.html.
+
+Javaloy et al. (2022)
+
+Adrián Javaloy, Maryam Meghdadi, and Isabel Valera.
+
+Mitigating modality collapse in multimodal vaes via impartial optimization.
+
+In International Conference on Machine Learning, pp. 9938–9964. PMLR, 2022.
+
+Ma et al. (2025a)
+
+Xiaoyu Ma, Hao Chen, and Yongjian Deng.
+
+Improving multimodal learning balance and sufficiency through data remixing.
+
+In Forty-second International Conference on Machine Learning, 2025a.
+
+URL https://openreview.net/forum?id=hDH3KfZSsF.
+
+Ma et al. (2025b)
+
+Xiaoyu Ma, Hao Chen, and Yongjian Deng.
+
+Improving multimodal learning balance and sufficiency through data remixing.
+
+In Forty-second International Conference on Machine Learning, 2025b.
+
+Meng et al. (2022)
+
+Chenlin Meng, Yutong He, Yang Song, Jiaming Song, Jiajun Wu, Jun-Yan Zhu, and Stefano Ermon.
+
+Sdedit: Guided image synthesis and editing with stochastic differential equations.
+
+In International Conference on Learning Representations, 2022.
+
+Mokady et al. (2023)
+
+Ron Mokady, Amir Hertz, Kfir Aberman, Yael Pritch, and Daniel Cohen-Or.
+
+Null-text inversion for editing real images using guided diffusion models.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 6038–6047, 2023.
+
+Muschalik et al. (2024)
+
+Maximilian Muschalik, Hubert Baniecki, Fabian Fumagalli, Patrick Kolpaczki, Barbara Hammer, and Eyke Hüllermeier.
+
+shapiq: Shapley interactions for machine learning.
+
+Advances in Neural Information Processing Systems, 37:130324–130357, 2024.
+
+Naseh et al. (2024)
+
+Ali Naseh, Jaechul Roh, Eugene Bagdasaryan, and Amir Houmansadr.
+
+Backdooring bias into text-to-image models.
+
+arXiv preprint arXiv:2406.15213, 2024.
+
+Nichol et al. (2022)
+
+Alexander Quinn Nichol, Prafulla Dhariwal, Aditya Ramesh, Pranav Shyam, Pamela Mishkin, Bob Mcgrew, Ilya Sutskever, and Mark Chen.
+
+Glide: Towards photorealistic image generation and editing with text-guided diffusion models.
+
+In International Conference on Machine Learning, pp. 16784–16804. PMLR, 2022.
+
+Pan et al. (2024)
+
+Zhuoshi Pan, Yuguang Yao, Gaowen Liu, Bingquan Shen, H Vicky Zhao, Ramana Kompella, and Sijia Liu.
+
+From trojan horses to castle walls: Unveiling bilateral data poisoning effects in diffusion models.
+
+Advances in Neural Information Processing Systems, 37:82265–82295, 2024.
+
+Peng et al. (2022)
+
+Xiaokang Peng, Yake Wei, Andong Deng, Dong Wang, and Di Hu.
+
+Balanced multimodal learning via on-the-fly gradient modulation.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 8238–8247, 2022.
+
+Preechakul et al. (2022)
+
+Konpat Preechakul, Nattanat Chatthee, Suttisak Wizadwongsa, and Supasorn Suwajanakorn.
+
+Diffusion autoencoders: Toward a meaningful and decodable representation.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 10619–10629, 2022.
+
+Radford et al. (2021)
+
+Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al.
+
+Learning transferable visual models from natural language supervision.
+
+In International conference on machine learning, pp. 8748–8763. PmLR, 2021.
+
+Rombach et al. (2022a)
+
+Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer.
+
+High-resolution image synthesis with latent diffusion models.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 10684–10695, 2022a.
+
+Rombach et al. (2022b)
+
+Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer.
+
+High-resolution image synthesis with latent diffusion models.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 10684–10695, 2022b.
+
+Shapley et al. (1953)
+
+Lloyd S Shapley et al.
+
+A value for n-person games.
+
+1953.
+
+Titov et al. (2024)
+
+Vadim Titov, Madina Khalmatova, Alexandra Ivanova, Dmitry Vetrov, and Aibek Alanov.
+
+Guide-and-rescale: Self-guidance mechanism for effective tuning-free real image editing.
+
+In European Conference on Computer Vision, pp. 235–251. Springer, 2024.
+
+Tumanyan et al. (2023)
+
+Narek Tumanyan, Michal Geyer, Shai Bagon, and Tali Dekel.
+
+Plug-and-play diffusion features for text-driven image-to-image translation.
+
+In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 1921–1930, 2023.
+
+Wang et al. (2024)
+
+Hao Wang, Shangwei Guo, Jialing He, Kangjie Chen, Shudong Zhang, Tianwei Zhang, and Tao Xiang.
+
+Eviledit: Backdooring text-to-image diffusion models in one second.
+
+In Proceedings of the 32nd ACM International Conference on Multimedia, pp. 3657–3665, 2024.
+
+Wang et al. (2025)
+
+Jiawen Wang, Samin Karim, Yuan Hong, and Binghui Wang.
+
+Backdoor attacks on discrete graph diffusion models, 2025.
+
+URL https://arxiv.org/abs/2503.06340.
+
+Wei et al. (2025)
+
+Cong Wei, Zheyang Xiong, Weiming Ren, Xeron Du, Ge Zhang, and Wenhu Chen.
+
+Omniedit: Building image editing generalist models through specialist supervision.
+
+In The Thirteenth International Conference on Learning Representations, 2025.
+
+URL https://openreview.net/forum?id=Hlm0cga0sv.
+
+Wei & Hu (2024)
+
+Yake Wei and Di Hu.
+
+Mmpareto: Boosting multimodal learning with innocent unimodal assistance.
+
+In International Conference on Machine Learning, pp. 52559–52572. PMLR, 2024.
+
+Yang et al. (2023)
+
+Fei Yang, Shiqi Yang, Muhammad Atif Butt, Joost van de Weijer, et al.
+
+Dynamic prompt learning: Addressing cross-attention leakage for text-based image editing.
+
+Advances in Neural Information Processing Systems, 36:26291–26303, 2023.
+
+Zhai et al. (2023)
+
+Shengfang Zhai, Yinpeng Dong, Qingni Shen, Shi Pu, Yuejian Fang, and Hang Su.
+
+Text-to-image diffusion models can be easily backdoored through multimodal data poisoning.
+
+In Proceedings of the 31st ACM International Conference on Multimedia, pp. 1577–1587, 2023.
+
+Zhang et al. (2025a)
+
+Jie Zhang, Zhongqi Wang, Shiguang Shan, and Xilin Chen.
+
+Towards invisible backdoor attack on text-to-image diffusion model.
+
+arXiv preprint arXiv:2503.17724, 2025a.
+
+Zhang et al. (2025b)
+
+Jie Zhang, Zhongqi Wang, Shiguang Shan, and Xilin Chen.
+
+Trigger without trace: Towards stealthy backdoor attack on text-to-image diffusion models, 2025b.
+
+URL https://arxiv.org/abs/2503.17724.
+
+Zhang et al. (2023)
+
+Kai Zhang, Lingbo Mo, Wenhu Chen, Huan Sun, and Yu Su.
+
+Magicbrush: A manually annotated dataset for instruction-guided image editing.
+
+Advances in Neural Information Processing Systems, 36:31428–31449, 2023.
+
+Zhao et al. (2024)
+
+Haozhe Zhao, Xiaojian Shawn Ma, Liang Chen, Shuzheng Si, Rujie Wu, Kaikai An, Peiyu Yu, Minjia Zhang, Qing Li, and Baobao Chang.
+
+Ultraedit: Instruction-based fine-grained image editing at scale.
+
+Advances in Neural Information Processing Systems, 37:3058–3093, 2024.
+
+### 
+
+ BETA
+
+ 
+ 
+ 
+ 
+ 
+

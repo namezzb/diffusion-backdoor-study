@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-26T18:35:28.363930+00:00",
+  "pid": 13268,
+  "status": "complete",
+  "kind": "one_pinned_Linux_wheel_local_prefetch",
+  "package": "torch",
+  "filename": "torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+  "manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+  "expected_sha256": "c301dc280458afd95450af794924c98fe07522dd148ff384739b810e3e3179f2",
+  "expected_bytes": 1039389795,
+  "local_staging_path": "/private/tmp/arxiv-tssa-stage/7b1116757b2476ff77cd0fb690b6544bd5a6c7745079dc965936d153071b3fef.part",
+  "remote_transferred": false,
+  "installed": false,
+  "no_GPU": true,
+  "actual_sha256": "c301dc280458afd95450af794924c98fe07522dd148ff384739b810e3e3179f2",
+  "actual_bytes": 1039389795,
+  "wheel_tags": [
+    "cp311-cp311-manylinux_2_28_x86_64"
+  ],
+  "free_bytes_after": 6740365312,
+  "seconds": 1150.9892009159958,
+  "finished_at": "2026-10-26T18:54:39.413663+00:00",
+  "observed_at": "2026-10-26T18:54:39.414037+00:00"
+}

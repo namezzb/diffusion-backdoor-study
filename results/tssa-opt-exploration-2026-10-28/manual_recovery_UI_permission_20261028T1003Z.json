@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "manual_authenticated_UI",
+  "portal_url": "https://gpu.orz2333.fun/",
+  "account": "zhangzibo",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "server": "103",
+  "observed_views": [
+    "我的概况",
+    "服务器状态",
+    "GPU 排队"
+  ],
+  "observed_at": "2026-10-28T10:03:00.709495+00:00",
+  "sample_at": null,
+  "sample_time_basis": "live_UI_without_timestamp",
+  "live_indicator": true,
+  "historical_sample": false,
+  "evidence_note": "Authenticated Chrome account:normal registered0/4 no remediation; server103 all3GPUs live nonhistorical GPU0free notdisabled; queue56 one104 waitingsecond with noallocation, allqueues100/iipl121/104 none103; maintenance none. Same GPU0UUID requires immediate SSH verification; direct use within recorded rules and user authorization.",
+  "account_status": "normal",
+  "gpu_index": 0,
+  "gpu_uuid": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+  "gpu_disabled": false,
+  "sample_valid": true,
+  "server_maintenance": false,
+  "reservation_conflict": false,
+  "other_research_task": false,
+  "own_gpu_count_all_servers": 0,
+  "pending_allocated_gpu_count_all_servers": 0,
+  "effective_gpu_quota": 4,
+  "permission_kind": "direct",
+  "direct_use_allowed": true
+}

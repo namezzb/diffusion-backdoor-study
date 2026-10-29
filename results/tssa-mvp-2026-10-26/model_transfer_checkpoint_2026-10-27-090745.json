@@ -1,0 +1,28 @@
+{
+  "observed_at": "2026-10-27T09:07:45.725194+08:00",
+  "kind": "active_model_transfer_reconciliation",
+  "process_verified_at": "2026-10-27T09:06:55+08:00",
+  "known_pids_alive": [
+    20741,
+    20773,
+    20774
+  ],
+  "session_id": 20278,
+  "verified_count": 13,
+  "verified_bytes": 3932036832,
+  "current_file": "sd15/vae/diffusion_pytorch_model.safetensors",
+  "current_file_expected_bytes": 334643276,
+  "current_file_verified_chunk_bytes": 230686720,
+  "current_file_chunk_receipts": 55,
+  "combined_verified_payload_bytes": 4162723552,
+  "progress_since_previous_checkpoint_bytes": 58720256,
+  "progress_window_seconds": 108.972176,
+  "portal_observed_at": "2026-10-27T09:07:02+08:00",
+  "portal_error": "Cloudflare Error 1016 / Origin DNS error",
+  "portal_ray_id": "a50dcd368ffe2b25",
+  "environment_CPU_verified": true,
+  "research_CPU_tests_passed": 56,
+  "GPU_started": false,
+  "research_images": 0,
+  "research_updates": 0
+}

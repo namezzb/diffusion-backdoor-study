@@ -1,0 +1,720 @@
+{
+  "created_at": "2026-10-29T02:08:53.233592+00:00",
+  "scope": "Read-only local inventory; excludes dependencies, does not connect to servers or launch experiments.",
+  "snapshot_notice": "Concurrent parent organization/retrieval may create later files; counts describe this scan before those writes.",
+  "excluded_dirs": [
+    ".git",
+    ".venv",
+    "node_modules",
+    "__pycache__",
+    ".claude",
+    ".codex",
+    ".qoder"
+  ],
+  "free_bytes_observed": 3867467776,
+  "top_level_directory_inventory": [
+    {
+      "directory": "research",
+      "files": 18,
+      "bytes": 681914,
+      "extensions": {
+        ".md": 12,
+        ".json": 4,
+        ".in": 1,
+        ".lock": 1
+      },
+      "largest_files": [
+        [
+          151004,
+          "research/tssa_optimization_exploration_2026-10-28.json"
+        ],
+        [
+          114942,
+          "research/tssa_mvp_environment_2026-10-26.json"
+        ],
+        [
+          96289,
+          "research/tssa_mvp_2026-10-26.json"
+        ],
+        [
+          80049,
+          "research/tssa_mvp_requirements_2026-10-26.lock"
+        ],
+        [
+          57922,
+          "research/tssa_overnight_progress.md"
+        ]
+      ]
+    },
+    {
+      "directory": "archive",
+      "files": 137,
+      "bytes": 54787537,
+      "extensions": {
+        ".json": 4,
+        ".zip": 1,
+        ".md": 2,
+        ".txt": 1,
+        "": 3,
+        ".py": 2,
+        ".png": 124
+      },
+      "largest_files": [
+        [
+          584557,
+          "archive/experiments/results/trigger_images/3_a_beautiful_cat_sits_on_a_bench_under_a_.png"
+        ],
+        [
+          582632,
+          "archive/experiments/results/asr_images/23.png"
+        ],
+        [
+          565779,
+          "archive/experiments/results/trigger_images/1_a_beautiful_cat_walking_among_people.png"
+        ],
+        [
+          561963,
+          "archive/experiments/results/asr_images/77.png"
+        ],
+        [
+          556777,
+          "archive/experiments/results/asr_images/78.png"
+        ]
+      ]
+    },
+    {
+      "directory": "papers",
+      "files": 37,
+      "bytes": 212246064,
+      "extensions": {
+        ".md": 4,
+        "": 1,
+        ".json": 3,
+        ".txt": 4,
+        ".html": 1,
+        ".pdf": 24
+      },
+      "largest_files": [
+        [
+          38156852,
+          "papers/pdf/2503.07050.pdf"
+        ],
+        [
+          19610616,
+          "papers/pdf/2501.18052.pdf"
+        ],
+        [
+          17942276,
+          "papers/pdf/2303.05762.pdf"
+        ],
+        [
+          15378780,
+          "papers/pdf/2605.27813.pdf"
+        ],
+        [
+          14404235,
+          "papers/pdf/2212.05400.pdf"
+        ]
+      ]
+    },
+    {
+      "directory": "server",
+      "files": 9,
+      "bytes": 177849,
+      "extensions": {
+        ".py": 5,
+        ".sh": 1,
+        ".json": 1,
+        ".md": 1,
+        "": 1
+      },
+      "largest_files": [
+        [
+          91127,
+          "server/gpu_monitor_state.json"
+        ],
+        [
+          25957,
+          "server/install_school_offline_env.py"
+        ],
+        [
+          23352,
+          "server/stage_school_assets.py"
+        ],
+        [
+          13584,
+          "server/test_stage_school_assets.py"
+        ],
+        [
+          10799,
+          "server/test_install_school_offline_env.py"
+        ]
+      ]
+    },
+    {
+      "directory": "results",
+      "files": 4559,
+      "bytes": 787674061,
+      "extensions": {
+        ".md": 26,
+        ".json": 3214,
+        ".py": 92,
+        ".txt": 18,
+        ".log": 62,
+        ".tar": 7,
+        ".pt": 4,
+        ".f32": 274,
+        ".gz": 5,
+        ".lock": 3,
+        ".jsonl": 24,
+        "": 1,
+        ".png": 825,
+        ".patch": 1,
+        ".csv": 1,
+        ".html": 2
+      },
+      "largest_files": [
+        [
+          231034880,
+          "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/remaining_images.tar"
+        ],
+        [
+          111116288,
+          "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/images.tar"
+        ],
+        [
+          29335084,
+          "results/tssa-opt-exploration-2026-10-28/cpython-3.11.7-20240107-linux-x86_64.tar.gz"
+        ],
+        [
+          4043545,
+          "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/resource_ledger.json"
+        ],
+        [
+          2302029,
+          "results/tssa-mvp-2026-10-26/single_run_observation_20261028T050738702889Z_artifacts/resource_ledger.json"
+        ]
+      ]
+    },
+    {
+      "directory": "presentations",
+      "files": 3,
+      "bytes": 88355,
+      "extensions": {
+        ".md": 1,
+        ".js": 1,
+        ".pptx": 1
+      },
+      "largest_files": [
+        [
+          59449,
+          "presentations/diffusion_merging_backdoor_research.pptx"
+        ],
+        [
+          28034,
+          "presentations/generate_ppt.js"
+        ],
+        [
+          872,
+          "presentations/README.md"
+        ]
+      ]
+    },
+    {
+      "directory": "reproduction",
+      "files": 8,
+      "bytes": 169491,
+      "extensions": {
+        ".md": 8
+      },
+      "largest_files": [
+        [
+          83290,
+          "reproduction/backdoordm_progress.md"
+        ],
+        [
+          23387,
+          "reproduction/backdoordm_crossref_report.md"
+        ],
+        [
+          18838,
+          "reproduction/defense_cross_reference_report.md"
+        ],
+        [
+          16447,
+          "reproduction/backdoordm_t2i_cross_reference_report.md"
+        ],
+        [
+          8584,
+          "reproduction/backdoordm_paper_crossref_summary.md"
+        ]
+      ]
+    },
+    {
+      "directory": "simulations",
+      "files": 11,
+      "bytes": 1005675,
+      "extensions": {
+        "": 1,
+        ".py": 2,
+        ".md": 1,
+        ".png": 7
+      },
+      "largest_files": [
+        [
+          195211,
+          "simulations/simulation_results/exp1_bsr_vs_alpha.png"
+        ],
+        [
+          173166,
+          "simulations/simulation_results/exp5_iterative_merging.png"
+        ],
+        [
+          155891,
+          "simulations/simulation_results/exp3_dare_drop_rate.png"
+        ],
+        [
+          139445,
+          "simulations/simulation_results/exp6_slerp_vs_lerp.png"
+        ],
+        [
+          118252,
+          "simulations/simulation_results/exp4_ties_magnitude.png"
+        ]
+      ]
+    },
+    {
+      "directory": "scripts",
+      "files": 47,
+      "bytes": 650475,
+      "extensions": {
+        ".md": 1,
+        ".sh": 11,
+        ".bat": 1,
+        ".py": 34
+      },
+      "largest_files": [
+        [
+          58310,
+          "scripts/merging/tssa_mvp_run.py"
+        ],
+        [
+          42401,
+          "scripts/merging/tssa_sd_runtime.py"
+        ],
+        [
+          36885,
+          "scripts/merging/tssa_mvp_dual_run.py"
+        ],
+        [
+          34537,
+          "scripts/merging/tssa_image_search_run.py"
+        ],
+        [
+          31164,
+          "scripts/merging/tssa_target_semantic_runtime.py"
+        ]
+      ]
+    },
+    {
+      "directory": "data",
+      "files": 0,
+      "bytes": 0,
+      "extensions": {},
+      "largest_files": []
+    },
+    {
+      "directory": "reports",
+      "files": 12,
+      "bytes": 270848,
+      "extensions": {
+        ".md": 11,
+        ".json": 1
+      },
+      "largest_files": [
+        [
+          80763,
+          "reports/diffusion_backdoor_deep_survey_2025_2026.md"
+        ],
+        [
+          43290,
+          "reports/diffusion_backdoor_novel_ideas.md"
+        ],
+        [
+          39154,
+          "reports/diffusion_backdoor_novel_ideas_zh.md"
+        ],
+        [
+          37771,
+          "reports/archive/2026-10-23-tssa-local-surrogate/tssa_response_calibration_method_proposal.pre-gradient.md"
+        ],
+        [
+          20101,
+          "reports/merge_backdoor_research_report.md"
+        ]
+      ]
+    }
+  ],
+  "symlink_count": 46,
+  "symlinks": [
+    {
+      "path": "LOOP.md",
+      "target": "reproduction/LOOP.md",
+      "exists": true
+    },
+    {
+      "path": "merging_attack_progress.md",
+      "target": "research/merging_attack_progress.md",
+      "exists": true
+    },
+    {
+      "path": "papers/paper_2603.06508.html",
+      "target": "txt/paper_2603.06508.html",
+      "exists": true
+    },
+    {
+      "path": "run_bibaddiff.sh",
+      "target": "scripts/reproduction/run_bibaddiff.sh",
+      "exists": true
+    },
+    {
+      "path": "server/run_tssa_res_test.sh",
+      "target": "../scripts/merging/run_tssa_res_test.sh",
+      "exists": true
+    },
+    {
+      "path": "server/merge_unet_state_dicts.py",
+      "target": "../scripts/merging/merge_unet_state_dicts.py",
+      "exists": true
+    },
+    {
+      "path": "server/run_invi_posttrain_eval.sh",
+      "target": "../scripts/reproduction/run_invi_posttrain_eval.sh",
+      "exists": true
+    },
+    {
+      "path": "server/run_tssa_grid.sh",
+      "target": "../scripts/merging/run_tssa_grid.sh",
+      "exists": true
+    },
+    {
+      "path": "server/train_te_merge_robust.py",
+      "target": "../scripts/merging/train_te_merge_robust.py",
+      "exists": true
+    },
+    {
+      "path": "server/analyze_degradation.py",
+      "target": "../scripts/merging/analyze_degradation.py",
+      "exists": true
+    },
+    {
+      "path": "server/merge_tracer.py",
+      "target": "../scripts/merging/merge_tracer.py",
+      "exists": true
+    },
+    {
+      "path": "server/start_amax.sh",
+      "target": "../scripts/connection/start_amax.sh",
+      "exists": true
+    },
+    {
+      "path": "server/train_merge_robust.py",
+      "target": "../scripts/merging/train_merge_robust.py",
+      "exists": true
+    },
+    {
+      "path": "server/run_queued_gpu_fixes.sh",
+      "target": "../scripts/reproduction/run_queued_gpu_fixes.sh",
+      "exists": true
+    },
+    {
+      "path": "server/audit_backdoordm_completion.py",
+      "target": "../scripts/reproduction/audit_backdoordm_completion.py",
+      "exists": true
+    },
+    {
+      "path": "server/start_amax - ip.bat",
+      "target": "../scripts/connection/start_amax - ip.bat",
+      "exists": true
+    },
+    {
+      "path": "server/post_m3_eval.sh",
+      "target": "../scripts/merging/post_m3_eval.sh",
+      "exists": true
+    },
+    {
+      "path": "server/run_rick_te_grid.sh",
+      "target": "../scripts/merging/run_rick_te_grid.sh",
+      "exists": true
+    },
+    {
+      "path": "server/run_tssa_multi_attack.sh",
+      "target": "../scripts/merging/run_tssa_multi_attack.sh",
+      "exists": true
+    },
+    {
+      "path": "server/run_merge_degradation.py",
+      "target": "../scripts/merging/run_merge_degradation.py",
+      "exists": true
+    },
+    {
+      "path": "server/run_invi_mse_stream.py",
+      "target": "../scripts/reproduction/run_invi_mse_stream.py",
+      "exists": true
+    },
+    {
+      "path": "server/merge_text_encoder.py",
+      "target": "../scripts/merging/merge_text_encoder.py",
+      "exists": true
+    },
+    {
+      "path": "server/eval_rick_full.sh",
+      "target": "../scripts/merging/eval_rick_full.sh",
+      "exists": true
+    },
+    {
+      "path": "server/apply_tssa_unet.py",
+      "target": "../scripts/merging/apply_tssa_unet.py",
+      "exists": true
+    },
+    {
+      "path": "patch_bibaddiff.sh",
+      "target": "scripts/reproduction/patch_bibaddiff.sh",
+      "exists": true
+    },
+    {
+      "path": "backdoordm_progress.md",
+      "target": "reproduction/backdoordm_progress.md",
+      "exists": true
+    },
+    {
+      "path": "fix_gpu_config.py",
+      "target": "scripts/reproduction/fix_gpu_config.py",
+      "exists": true
+    },
+    {
+      "path": "data/diffusion_backdoor_papers.json",
+      "target": "../papers/metadata/diffusion_backdoor_papers.json",
+      "exists": true
+    },
+    {
+      "path": "data/diffusion_backdoor_search_results.json",
+      "target": "../papers/metadata/diffusion_backdoor_search_results.json",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/t2i_merge_attack_implementation_plan.md",
+      "target": "../t2i_merge_attack_implementation_plan.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/diffusion_backdoor_novel_ideas_zh.md",
+      "target": "../diffusion_backdoor_novel_ideas_zh.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/diffusion_backdoor_novel_ideas.md",
+      "target": "../diffusion_backdoor_novel_ideas.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/merge_attack_mechanism_synthesis.md",
+      "target": "../merge_attack_mechanism_synthesis.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/tssa_response_calibration_method_proposal.md",
+      "target": "../../research/tssa_response_calibration_method_proposal.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/merge_backdoor_research_report.md",
+      "target": "../merge_backdoor_research_report.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/diffusion_backdoor_optimized_ideas_v2.md",
+      "target": "../diffusion_backdoor_optimized_ideas_v2.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/paper_deep_reading_report.md",
+      "target": "../paper_deep_reading_report.md",
+      "exists": true
+    },
+    {
+      "path": "reports/01-background-research/diffusion_backdoor_deep_survey_2025_2026.md",
+      "target": "../diffusion_backdoor_deep_survey_2025_2026.md",
+      "exists": true
+    },
+    {
+      "path": "reports/03-reproduction-results/merge_attack_report.html",
+      "target": "../../results/merging/merge_attack_report.html",
+      "exists": true
+    },
+    {
+      "path": "reports/03-reproduction-results/merge_attack_full_comparison.md",
+      "target": "../../results/merging/merge_attack_full_comparison.md",
+      "exists": true
+    },
+    {
+      "path": "reports/03-reproduction-results/tssa_optimization_report.html",
+      "target": "../../results/merging/tssa_optimization_report.html",
+      "exists": true
+    },
+    {
+      "path": "reports/03-reproduction-results/backdoordm_reference.md",
+      "target": "../../reproduction/backdoordm_reference.md",
+      "exists": true
+    },
+    {
+      "path": "reports/02-cross-reference/defense_cross_reference_report.md",
+      "target": "../../reproduction/defense_cross_reference_report.md",
+      "exists": true
+    },
+    {
+      "path": "reports/02-cross-reference/backdoordm_t2i_cross_reference_report.md",
+      "target": "../../reproduction/backdoordm_t2i_cross_reference_report.md",
+      "exists": true
+    },
+    {
+      "path": "reports/02-cross-reference/backdoordm_crossref_report.md",
+      "target": "../../reproduction/backdoordm_crossref_report.md",
+      "exists": true
+    },
+    {
+      "path": "reports/02-cross-reference/backdoordm_paper_crossref_summary.md",
+      "target": "../../reproduction/backdoordm_paper_crossref_summary.md",
+      "exists": true
+    }
+  ],
+  "broken_symlinks": [],
+  "runs": [
+    {
+      "id": "tssa_mvp",
+      "root": "results/tssa-mvp-2026-10-26",
+      "scientific_images": 1520,
+      "optimizer_updates": 144,
+      "canonical_local_evidence": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts",
+      "small_artifact_verification": {
+        "expected_files": 33,
+        "verified": 33,
+        "bytes": 9171037,
+        "failures": [],
+        "status": "passed"
+      },
+      "manifest": "results/tssa-mvp-2026-10-26/initial_validation_summary_2026-10-28.json",
+      "local_png_files_at_scan": 9,
+      "local_png_boundary": "Nine PNG files are fixed panels across observations, not the 1520 individual scientific images.",
+      "remote_known_root": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+      "priority_gaps": [
+        "1520 original individual PNG images",
+        "Full run cache: 16 trajectories and teacher-response caches; only four original .pt envelopes/derived step13 latents returned for the diagnostic",
+        "Complete immutable code/environment snapshots and raw execution logs if absent from current local bundles"
+      ],
+      "claim_boundary": "Metrics, training trajectory, selected candidates and reports are local; full raw run completeness is not established by the 33-file return."
+    },
+    {
+      "id": "tssa_direct_asr",
+      "root": "results/tssa-opt-exploration-2026-10-28",
+      "scientific_images": 816,
+      "optimizer_updates": 0,
+      "canonical_local_evidence": "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T111524087743Z-7268ad87/artifacts",
+      "small_artifact_verification": {
+        "expected_files": 833,
+        "verified": 833,
+        "bytes": 4258477,
+        "failures": [],
+        "status": "passed"
+      },
+      "manifest": "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T111524087743Z-7268ad87/report.json",
+      "image_root": "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/images",
+      "image_verification": {
+        "expected_files": 816,
+        "verified": 816,
+        "bytes": 341268220,
+        "failures": [],
+        "status": "passed"
+      },
+      "image_manifest": "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/resumed_retrieval_report.json",
+      "remote_known_root": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+      "priority_gaps": [
+        "Original full execution and recovery logs: existing observation returns filtered bounded tails, full_log=false",
+        "Compare actual remote file inventory against returned 833-file whitelist to find omitted identities/configuration/history"
+      ],
+      "claim_boundary": "816 PNG hash verification passes. Original strict scientific audit remains invalid for 643 summary hash differences; no confirmation set was opened."
+    },
+    {
+      "id": "tssa_target_semantic",
+      "root": "results/tssa-target-semantic-diagnostic-2026-10-28",
+      "scientific_images": 0,
+      "optimizer_updates": 0,
+      "forward_branch_nfe": 462,
+      "canonical_local_evidence": "results/tssa-target-semantic-diagnostic-2026-10-28/observation_20261029T015422409669Z/artifacts",
+      "artifact_verification": {
+        "expected_files": 1141,
+        "verified": 1141,
+        "bytes": 19222487,
+        "failures": [],
+        "status": "passed"
+      },
+      "manifest": "results/tssa-target-semantic-diagnostic-2026-10-28/observation_20261029T015422409669Z/report.json",
+      "remote_known_root": "/data1/zhangzibo/arxiv-tssa/results/tssa-target-semantic-diagnostic-2026-10-28-v1",
+      "priority_gaps": [
+        "Remote prep/launch snapshots and external execution log are outside the returned run-root inventory; confirm local bindings and retrieve any missing immutable originals"
+      ],
+      "claim_boundary": "All 1141 returned run-root artifact files still match stored remote hashes. Evidence integrity pass does not change D3 scientific gate failure."
+    }
+  ],
+  "navigation_gaps": [
+    {
+      "path": "README.md",
+      "issue": "Lead and directory map omit latest target-semantic diagnostic and paused state; next-steps list can be mistaken for authorization to resume completed MVP.",
+      "action": "Make pause/current summary first; add all three run entries and local-vs-remote availability index."
+    },
+    {
+      "path": "results/README.md",
+      "issue": "Lead still refers only to MVP and date 2026-10-28; target diagnostic and local raw image/cell locations missing.",
+      "action": "Add a three-run evidence table and acquisition/completeness boundaries."
+    },
+    {
+      "path": "scripts/README.md",
+      "issue": "Says actual GPU/model/environment checks remain unverified although MVP completed; new image-search/target-semantic runtime/core/run modules omitted.",
+      "action": "Separate historical pending statements from current execution evidence; add current modules, frozen versions and audit tools."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/README.md",
+      "issue": "Long historical preparation sequence dominates; stale historical statements easy to read as current.",
+      "action": "Put final report, terminal artifact snapshot, raw data archive and current pause status first; preserve preparation history below."
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/README.md",
+      "issue": "Missing per-run README entry point.",
+      "action": "Create concise negative-result/strict-audit-boundary/raw-PNG/metrics/code/manifest index."
+    },
+    {
+      "path": "results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
+      "issue": "Final state correct at top but exact terminal 1141-file artifact path and hashes report not linked directly.",
+      "action": "Add canonical evidence and source plan links; retain old preparation as history."
+    },
+    {
+      "path": "server",
+      "issue": "Not only compatibility links: contains 9 current real files, including school SSH config, asset staging, offline installer and monitor state.",
+      "action": "Index real current connection/deployment files without moving frozen-path dependencies or claiming entire directory is just a link."
+    }
+  ],
+  "preserved_overlapping_archives": [
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/images.tar",
+      "bytes": 111116288,
+      "reason": "Transfer archives duplicate extracted images (one is historically truncated); retain as failure/transport evidence unless separately authorized for cleanup."
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/remaining_images.tar",
+      "bytes": 231034880,
+      "reason": "Transfer archives duplicate extracted images (one is historically truncated); retain as failure/transport evidence unless separately authorized for cleanup."
+    }
+  ],
+  "public_models": "No complete local model payload inventory was found in scanned research dirs; preserve fixed revisions, SHA manifests and actual server paths rather than downloading all public weights into low-space Mac.",
+  "historical_amax": "BackdoorDM and old merging raw artifacts in /opt/data/private are only documented locally; this review did not recheck availability or completeness."
+}

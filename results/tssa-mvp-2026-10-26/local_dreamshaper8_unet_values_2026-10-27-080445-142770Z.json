@@ -1,0 +1,32 @@
+{
+  "observed_at": "2026-10-27T08:04:45.142770+00:00",
+  "scope": "Streaming CPU inspection of every float32 value in the existing pinned DreamShaper8 UNet file; no model instantiation, forward/backward computation, CUDA, images, or optimization.",
+  "source": {
+    "repo_id": "Lykon/dreamshaper-8",
+    "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "dreamshaper8",
+    "local_path": "dreamshaper8/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167536,
+    "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+    "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "5fc363799d5baef782ccbe45646ee4667666db00",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "bytes": 3438167536,
+  "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+  "tensor_count": 686,
+  "float32_elements_scanned": 859520964,
+  "nonfinite_elements": 0,
+  "elements_outside_finite_float16_range": 0,
+  "minimum": -5.3671875,
+  "maximum": 3.89453125,
+  "passed": true,
+  "stream_read_block_bytes": 4194304,
+  "numpy_version": "2.2.6",
+  "seconds": 1.8707080409985792,
+  "formal_checkpoint_preflight_complete": false,
+  "remote_transfer_complete": false,
+  "GPU_used": false
+}

@@ -1,0 +1,323 @@
+{
+  "started_at": "2026-10-27T13:30:44.853719+00:00",
+  "status": "complete",
+  "pid": 40260,
+  "script_sha256": "07ef8c6ceda65b96b182d98c57152c73abdf893d79e09182f511f8ebbe67e667",
+  "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "selected_count": 15,
+  "selected_bytes": 3161953,
+  "files": [
+    {
+      "source": {
+        "repo_id": "prompthero/openjourney",
+        "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+        "path": "tokenizer/merges.txt",
+        "local_dir": "openjourney",
+        "local_path": "openjourney/tokenizer/merges.txt",
+        "size": 524619,
+        "sha256": null,
+        "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/merges.txt",
+        "git_blob_oid": "76e821f1b6f0a9709293c3b6b51ed90980b3166b",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/89d2210e678b0970887d6f9100cc9a6bc34f3ae842a1bf3fb863abd42f9c9182.part",
+      "size": 524619,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "prompthero/openjourney",
+        "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+        "path": "tokenizer/special_tokens_map.json",
+        "local_dir": "openjourney",
+        "local_path": "openjourney/tokenizer/special_tokens_map.json",
+        "size": 472,
+        "sha256": null,
+        "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/special_tokens_map.json",
+        "git_blob_oid": "2c2130b544c0c5a72d5d00da071ba130a9800fb2",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/be7f1f0753d4e84adbbbb8c6913d7d3c2b38d389444bfbeba15f179dfcf22f57.part",
+      "size": 472,
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "prompthero/openjourney",
+        "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+        "path": "tokenizer/tokenizer_config.json",
+        "local_dir": "openjourney",
+        "local_path": "openjourney/tokenizer/tokenizer_config.json",
+        "size": 806,
+        "sha256": null,
+        "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/tokenizer_config.json",
+        "git_blob_oid": "5ba7bf706515bc60487ad0e1816b4929b82542d6",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/effb812cb89ff2b0c994288537805a6c115dfe3c2620f739b9f98e2e93303f9c.part",
+      "size": 806,
+      "sha256": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "prompthero/openjourney",
+        "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+        "path": "tokenizer/vocab.json",
+        "local_dir": "openjourney",
+        "local_path": "openjourney/tokenizer/vocab.json",
+        "size": 1059962,
+        "sha256": null,
+        "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/vocab.json",
+        "git_blob_oid": "469be27c5c010538f845f518c4f5e8574c78f7c8",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/07c8e4a2bda9b735d719d7748f0f3db1289703a7f2d31e7ba93b867fc4c8bebf.part",
+      "size": 1059962,
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "prompthero/openjourney",
+        "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+        "path": "unet/config.json",
+        "local_dir": "openjourney",
+        "local_path": "openjourney/unet/config.json",
+        "size": 743,
+        "sha256": null,
+        "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/unet/config.json",
+        "git_blob_oid": "023f41e47ea7a66c48e3a5e6c5d22b87295bf18f",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/006a40fb78ea02981ff1501c6b471824b8bda1c53a35283288109c89b1bbf09e.part",
+      "size": 743,
+      "sha256": "19edfc94e14cecaef24fe3a60c269a7d0727245b8c4ef4847afd52f28f682bbd",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "google/vit-base-patch16-224",
+        "revision": "3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3",
+        "path": "README.md",
+        "local_dir": "vit",
+        "local_path": "vit/README.md",
+        "size": 5688,
+        "sha256": null,
+        "source_url": "https://huggingface.co/google/vit-base-patch16-224/resolve/3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3/README.md",
+        "git_blob_oid": "550f72aac12a408fe77b7a2fdebc85057a77c0d1",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/8fc9cd265d1773c5b537f103babc325f6bd25d345ad7c5b6e0d19d3166ab84b3.part",
+      "size": 5688,
+      "sha256": "edb38cc47675c7320f41d9c9760bb0cc88c5820b482d87e1b5b6b5cc5459938d",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "google/vit-base-patch16-224",
+        "revision": "3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3",
+        "path": "config.json",
+        "local_dir": "vit",
+        "local_path": "vit/config.json",
+        "size": 69665,
+        "sha256": null,
+        "source_url": "https://huggingface.co/google/vit-base-patch16-224/resolve/3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3/config.json",
+        "git_blob_oid": "21c61d3f8f3e50137a8c5fdd5bc9b085e286315a",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/3313e0d6117fb565709f432e6b3d7bfb01ea5ad7e2bc7a304724c097224c43c3.part",
+      "size": 69665,
+      "sha256": "abdf73cc4ce79495a83f32a8c9265daa7a1363f5a3efa4704c88a6e7f45ad19d",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "google/vit-base-patch16-224",
+        "revision": "3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3",
+        "path": "preprocessor_config.json",
+        "local_dir": "vit",
+        "local_path": "vit/preprocessor_config.json",
+        "size": 160,
+        "sha256": null,
+        "source_url": "https://huggingface.co/google/vit-base-patch16-224/resolve/3f49326eb077187dfe1c2a2bb15fbd74e6ab91e3/preprocessor_config.json",
+        "git_blob_oid": "70fbc148eb26a06bac351d46fddc0a23037b4ce4",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/dc81823d4161e55f4062ec6c7878257d3f2f54b9387d826c514819a1d0d6ae94.part",
+      "size": 160,
+      "sha256": "90d1ae427c27d2b9dcb01f6a62ba96aa67aac2de1697c59cd212055b5035c4a2",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "README.md",
+        "local_dir": "clip",
+        "local_path": "clip/README.md",
+        "size": 7947,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/README.md",
+        "git_blob_oid": "4ccd659d4a0f649d10686540ea4a2b20ff276eda",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/94336ee7334834790cdacef1158fbd18d7c95ee5641d62b805c766f4fc2f2e31.part",
+      "size": 7947,
+      "sha256": "de4274ec48590ab3aa1c239720ff55e99a37f4165c117ba3ad7af2b7df72687c",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "config.json",
+        "local_dir": "clip",
+        "local_path": "clip/config.json",
+        "size": 4519,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/config.json",
+        "git_blob_oid": "2c19f6666e0e163c7954df66cb901353fcad088e",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/6f41f580432317da84d0b7209ea211343053d13edf2ca2b81e348879cb107227.part",
+      "size": 4519,
+      "sha256": "8a09b467700c58138c29d53c605b34ebc69beaadd13274a8a2af8ad2c2f4032a",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "merges.txt",
+        "local_dir": "clip",
+        "local_path": "clip/merges.txt",
+        "size": 524619,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/merges.txt",
+        "git_blob_oid": "76e821f1b6f0a9709293c3b6b51ed90980b3166b",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/08eeb91e7db6a1c2240fecddabc4a8d63ca06c3d31b5108c5b53e0f85a691381.part",
+      "size": 524619,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "preprocessor_config.json",
+        "local_dir": "clip",
+        "local_path": "clip/preprocessor_config.json",
+        "size": 316,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/preprocessor_config.json",
+        "git_blob_oid": "5a12a1eb250987a4eee0e3e7d7338c4b22724be1",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/e083f176a75c55906f741aad38362ef3792dd5b861b4d06be6c2b038167553b7.part",
+      "size": 316,
+      "sha256": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "special_tokens_map.json",
+        "local_dir": "clip",
+        "local_path": "clip/special_tokens_map.json",
+        "size": 389,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/special_tokens_map.json",
+        "git_blob_oid": "9bfb42aa97dcd61e89f279ccaee988bccb4fabae",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/e290bf0f94da105305d466cdfde9ba02dd5f864898c5240ca06950fc3a515996.part",
+      "size": 389,
+      "sha256": "f8c0d6c39aee3f8431078ef6646567b0aba7f2246e9c54b8b99d55c22b707cbf",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "tokenizer_config.json",
+        "local_dir": "clip",
+        "local_path": "clip/tokenizer_config.json",
+        "size": 905,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/tokenizer_config.json",
+        "git_blob_oid": "702bb12920b291cade3706cf215c1604d2255d93",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/cdb3d5bfb254a212db8267d67da4e0b60029aa22befaaf48e973dd63c39e66c8.part",
+      "size": 905,
+      "sha256": "deef455e52fa5e8151e339add0582e4235f066009601360999d3a9cda83b1129",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    },
+    {
+      "source": {
+        "repo_id": "openai/clip-vit-large-patch14",
+        "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+        "path": "vocab.json",
+        "local_dir": "clip",
+        "local_path": "clip/vocab.json",
+        "size": 961143,
+        "sha256": null,
+        "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/vocab.json",
+        "git_blob_oid": "4297ea6a8d2bae1fea8f48b45e257814dcb11f69",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "local_path": "/private/tmp/arxiv-tssa-stage/fe6b916f8c03152e98dfcaeace88eee8245fcf652c1fd46026aed44380b42182.part",
+      "size": 961143,
+      "sha256": "3f0c4f7d2086b61b38487075278ea9ed04edb53a03cbb045b86c27190fa8fb69",
+      "pinned_source_verified": true,
+      "downloaded_this_run": true
+    }
+  ],
+  "remote_transferred": false,
+  "school_connection_attempted": false,
+  "GPU_used": false,
+  "minimum_free_reserve_bytes": 4294967296,
+  "automatic_retry": false,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/model_support_prefetch_2026-10-27-133044-853719Z.json",
+  "observed_at": "2026-10-27T13:30:59.246004+00:00",
+  "current_asset": "clip/vocab.json",
+  "finished_at": "2026-10-27T13:30:59.245950+00:00",
+  "seconds": 14.391570125000726,
+  "verified_count": 15,
+  "verified_bytes": 3161953
+}

@@ -1,0 +1,22 @@
+test_environment_wheels_match_the_version_hash_lock_and_remote_layout (test_stage_school_assets.ManifestOfflineInstallTests.test_environment_wheels_match_the_version_hash_lock_and_remote_layout) ... ok
+test_model_manifest_has_pinned_source_integrity_identifiers (test_stage_school_assets.ManifestOfflineInstallTests.test_model_manifest_has_pinned_source_integrity_identifiers) ... ok
+test_empty_role_selection_does_not_return_success (test_stage_school_assets.TransferRecoveryTests.test_empty_role_selection_does_not_return_success) ... usage: stage_school_assets.py [-h] (--manifest MANIFEST | --file FILE)
+                              [--relative-name RELATIVE_NAME] [--role ROLE]
+                              [--limit LIMIT] [--staging STAGING]
+                              [--ledger LEDGER]
+stage_school_assets.py: error: No files selected; check the manifest and --role
+ok
+test_failed_commit_retains_local_file_without_verified_ledger_entry (test_stage_school_assets.TransferRecoveryTests.test_failed_commit_retains_local_file_without_verified_ledger_entry) ... ok
+test_manifest_status_distinguishes_failure_and_complete (test_stage_school_assets.TransferRecoveryTests.test_manifest_status_distinguishes_failure_and_complete) ... ok
+test_non_lfs_same_size_wrong_git_blob_is_rejected (test_stage_school_assets.TransferRecoveryTests.test_non_lfs_same_size_wrong_git_blob_is_rejected) ... ok
+test_remote_commit_recovery_cleans_matching_task_local_part (test_stage_school_assets.TransferRecoveryTests.test_remote_commit_recovery_cleans_matching_task_local_part) ... ok
+test_successful_commit_removes_only_staging_payload (test_stage_school_assets.TransferRecoveryTests.test_successful_commit_removes_only_staging_payload) ... ok
+test_temporary_session_is_cleaned_when_master_shutdown_times_out (test_stage_school_assets.TransferRecoveryTests.test_temporary_session_is_cleaned_when_master_shutdown_times_out) ... ok
+test_unsafe_relative_paths_are_rejected (test_stage_school_assets.TransferRecoveryTests.test_unsafe_relative_paths_are_rejected) ... ok
+test_upload_mismatch_keeps_both_copies_untouched (test_stage_school_assets.TransferRecoveryTests.test_upload_mismatch_keeps_both_copies_untouched) ... ok
+test_upload_resumes_only_a_verified_prefix_and_skips_complete_copy (test_stage_school_assets.TransferRecoveryTests.test_upload_resumes_only_a_verified_prefix_and_skips_complete_copy) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.029s
+
+OK

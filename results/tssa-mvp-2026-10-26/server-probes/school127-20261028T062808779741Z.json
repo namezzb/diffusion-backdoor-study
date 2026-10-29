@@ -1,0 +1,145 @@
+{
+  "started_at": "2026-10-28T06:28:08.779741+00:00",
+  "server": "127",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "observed",
+  "observation": {
+    "sample_started_at": "2026-10-28T06:28:14.742165+00:00",
+    "sample_finished_at": "2026-10-28T06:28:15.534570+00:00",
+    "hostname": "iipl-127",
+    "account": "zhangzibo",
+    "driver_timestamp": "Wed Oct 28 06:28:14 2026",
+    "driver_version": "595.91.07",
+    "cards": [
+      {
+        "index": 0,
+        "uuid": "GPU-bd1ede26-d598-b105-8c76-bd1718357b3e",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:18:00.0",
+        "compute_mode": "Default",
+        "memory_used": "11538 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "23 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "16 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 49544,
+            "type": "G",
+            "memory": "7 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 2199664,
+            "type": "C",
+            "memory": "11486 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "uuid": "GPU-ec32f588-f47e-6832-9f49-9c4596164d09",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:3B:00.0",
+        "compute_mode": "Default",
+        "memory_used": "12341 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "99 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 2216403,
+            "type": "C",
+            "memory": "12318 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:86:00.0",
+        "compute_mode": "Default",
+        "memory_used": "12093 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "12 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 3706317,
+            "type": "C",
+            "memory": "12070 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "uuid": "GPU-48d758ba-90fa-54f4-8812-2d9402fab46f",
+        "name": "NVIDIA GeForce RTX 4080",
+        "pci_bus_id": "00000000:AF:00.0",
+        "compute_mode": "Default",
+        "memory_used": "12709 MiB",
+        "memory_total": "16376 MiB",
+        "gpu_utilization": "7 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 49207,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 2169460,
+            "type": "C",
+            "memory": "12686 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      }
+    ],
+    "known_own_gpu_count_on_this_server": 0,
+    "process_ownership_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "data_disk": null
+  },
+  "observed_process_free_indices": [],
+  "historically_disabled_indices_not_current_permission": [],
+  "finished_at": "2026-10-28T06:28:15.437451+00:00"
+}

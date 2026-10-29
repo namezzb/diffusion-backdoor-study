@@ -1,0 +1,89 @@
+{
+  "at": "2026-10-28T08:59:03.540434+00:00",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "launch_token": "a30eabe75cc0446cbdb059151c056892",
+  "server": "103",
+  "gpu": {
+    "index": 0,
+    "uuid": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+    "pci_bus_id": "00000000:05:00.0",
+    "compute_mode": "Default",
+    "driver": "550.54.14",
+    "driver_timestamp": "Wed Oct 28 16:59:02 2026",
+    "processes": [
+      {
+        "pid": 1130,
+        "uid": 0,
+        "account": "root",
+        "home": "/root",
+        "shell": "/bin/bash",
+        "comm": "Xorg",
+        "argv": [
+          "/usr/lib/xorg/Xorg",
+          "-core",
+          ":0",
+          "-seat",
+          "seat0",
+          "-auth",
+          "/var/run/lightdm/root/:0",
+          "-nolisten",
+          "tcp",
+          "vt7",
+          "-novtswitch"
+        ],
+        "type": "G",
+        "used_memory": "4 MiB"
+      }
+    ],
+    "local_own_gpu_count": 0
+  },
+  "run_root": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+  "command": [
+    "/data1/zhangzibo/arxiv-tssa/venv/bin/python",
+    "-B",
+    "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_image_search_run.py",
+    "run",
+    "--plan",
+    "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_optimization_exploration_2026-10-28.json",
+    "--old-protocol",
+    "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_2026-10-26.json",
+    "--asset-manifest",
+    "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_assets_2026-10-26.json",
+    "--models-root",
+    "/data1/zhangzibo/arxiv-tssa/models",
+    "--run-root",
+    "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+    "--scorer-device",
+    "cpu",
+    "--until",
+    "confirm"
+  ],
+  "log": "/data1/zhangzibo/arxiv-tssa/launch-control/20261028T085903540293Z-a30eabe75cc0446cbdb059151c056892.log",
+  "launch_receipt": "/data1/zhangzibo/arxiv-tssa/launch-control/20261028T085903540293Z-a30eabe75cc0446cbdb059151c056892.receipt.json",
+  "permission_sha256": "5f5777f67e9e20ed1467a6f1eae480262667e46b5c6626b1f9668684c30992b9",
+  "deployment_sha256": "873fcb49ab565dec9d1ffdfe728d7e6a49cf34fb80855545a01daffac87c8572",
+  "launcher_sha256": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+  "source_files_verified": {
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "scripts/merging/test_tssa_image_search_run.py": "c3a92d45286ad0fcbe62e0f56e07a860942f3ac5ddbaf43a9c316306649971a0",
+    "scripts/merging/tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+    "scripts/merging/tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+    "scripts/merging/tssa_mvp_score.py": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+    "scripts/merging/tssa_sd_runtime.py": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a"
+  },
+  "prepared_runtime_directories": [
+    "/data1/zhangzibo/arxiv-tssa/results",
+    "/data1/zhangzibo/arxiv-tssa/tmp",
+    "/data1/zhangzibo/arxiv-tssa/cache",
+    "/data1/zhangzibo/arxiv-tssa/cache/huggingface",
+    "/data1/zhangzibo/arxiv-tssa/cache/torch",
+    "/data1/zhangzibo/arxiv-tssa/cache/triton"
+  ],
+  "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+  "status": "runner_process_spawned_not_GPU_acceptance",
+  "automatic_retry_allowed": false,
+  "pid": 188034,
+  "started_at": "2026-10-28T08:59:03.550500+00:00"
+}

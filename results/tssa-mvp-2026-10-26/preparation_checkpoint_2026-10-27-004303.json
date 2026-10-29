@@ -1,0 +1,30 @@
+{
+  "observed_at": "2026-10-27T00:43:03.149484+08:00",
+  "stage": "sequential_model_upload",
+  "verified_files": 11,
+  "verified_bytes": 493868745,
+  "remote_partial_bytes": 2451655680,
+  "remote_partial_observed_at": "2026-10-27T00:39:05+08:00",
+  "active_transfer_pid": 92615,
+  "active_keep_awake_pid": 60855,
+  "local_free_bytes": 7880130560,
+  "queue": {
+    "id": 55,
+    "status": "waiting",
+    "position": 6,
+    "server": "104",
+    "gpu_count": 2,
+    "gpu_type": "any",
+    "ahead_count": 5
+  },
+  "own_gpu_count": 0,
+  "disabled_104": [
+    3,
+    4,
+    6
+  ],
+  "confirmed_allocation": false,
+  "new_gpu_work": false,
+  "new_empirical_results": false,
+  "notes": "Existing upload progressed; no duplicate transfer, GPU process, queue mutation or model evaluation started."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "launch_image_search.py",
+    "before": "20885f4c10e036796ade7fe253f0e4608002e73d48f93eebc93e00cf23a188b8",
+    "after": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+    "change": "Only remote metadata interpreter now uses verified owned Python -I; scientific files unchanged"
+  },
+  {
+    "file": "observe_image_search.py",
+    "before": "0964a9332a73b5c3534d2c9ab2515aeedd80940098917f93fb329dbea3b1be3a",
+    "after": "439658fb73411f8e9ca71818929070614493f06b1b70ba1abab05d82112058f8",
+    "change": "Only remote metadata interpreter now uses verified owned Python -I; scientific files unchanged"
+  }
+]

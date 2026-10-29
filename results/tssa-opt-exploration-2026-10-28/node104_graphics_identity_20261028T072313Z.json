@@ -1,0 +1,51 @@
+{
+  "started_at": "2026-10-28T07:22:53.492356+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "result": {
+    "at": "2026-10-28T07:23:12.075618+00:00",
+    "read_only": true,
+    "GPU_tasks_started": 0,
+    "graphics_processes": [
+      {
+        "pid": 6941,
+        "uid": 125,
+        "account": "gdm",
+        "home": "/var/lib/gdm3",
+        "shell": "/bin/false",
+        "comm": "gnome-shell",
+        "argv": [
+          "/usr/bin/gnome-shell"
+        ]
+      },
+      {
+        "pid": 7187,
+        "uid": 125,
+        "account": "gdm",
+        "home": "/var/lib/gdm3",
+        "shell": "/bin/false",
+        "comm": "Xwayland",
+        "argv": [
+          "/usr/bin/Xwayland",
+          ":1024",
+          "-rootless",
+          "-noreset",
+          "-accessx",
+          "-core",
+          "-auth",
+          "/run/user/125/.mutter-Xwaylandauth.ZV08X3",
+          "-listenfd",
+          "4",
+          "-listenfd",
+          "5",
+          "-displayfd",
+          "6",
+          "-initfd",
+          "7",
+          "-byteswappedclients"
+        ]
+      }
+    ]
+  }
+}

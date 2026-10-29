@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-10-26T19:05:44.914223+00:00",
+  "status": "failed",
+  "kind": "independent_readonly_prefix_recovery_probe",
+  "no_GPU": true,
+  "pid": 26739,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-190544-914047Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-190544-914047Z.log",
+  "route_config": "Host school-jump\n    HostName 115.226.138.244",
+  "returncode": 255,
+  "stdout": "",
+  "stderr_tail": "ha2-512,hmac-sha1\ndebug2: compression ctos: none,zlib@openssh.com\ndebug2: compression stoc: none,zlib@openssh.com\ndebug2: languages ctos: \ndebug2: languages stoc: \ndebug2: first_kex_follows 0 \ndebug2: reserved 0 \ndebug1: SSH2_MSG_EXT_INFO received\ndebug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>\ndebug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=<0>\ndebug1: kex_ext_info_check_ver: ping@openssh.com=<0>\ndebug2: service_accept: ssh-userauth\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\ndebug1: SSH2_MSG_EXT_INFO received\ndebug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>\ndebug1: Authentications that can continue: publickey,password\ndebug1: Next authentication method: publickey\ndebug1: Will attempt key: /Users/zzb/.ssh/zhangzibo_school  explicit\ndebug2: pubkey_prepare: done\ndebug1: Trying private key: /Users/zzb/.ssh/zhangzibo_school\ndebug2: we sent a publickey packet, wait for reply\nConnection to 115.226.138.244 closed by remote host.\ndebug1: channel 0: free: direct-tcpip: listening port 0 for 192.168.1.104 port 22, connect from 127.0.0.1 port 65535 to UNKNOWN port 65536, nchannels 1\nConnection closed by UNKNOWN port 65535\nTransferred: sent 7688, received 6796 bytes, in 32.4 seconds\nBytes per second: sent 236.9, received 209.5\ndebug1: Exit status -1\n",
+  "finished_at": "2026-10-26T19:06:27.377816+00:00",
+  "seconds": 42.464856000005966,
+  "observed_at": "2026-10-26T19:06:27.379243+00:00"
+}

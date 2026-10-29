@@ -1,0 +1,33 @@
+{
+  "scope": "research files only under repository",
+  "excluded_local_evidence": [
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-073848-075816Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-090644-919700Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-093408-069433Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-100105-509675Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-103023-887563Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-110301-130547Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-112954-075129Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-115950-790095Z.json",
+    "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-143739-967980Z.json",
+    "results/tssa-mvp-2026-10-26/website_observation_2026-10-27-140924-748406Z.json",
+    "results/tssa-mvp-2026-10-26/portal_login_session_expired_2026-10-28.png",
+    "results/tssa-mvp-2026-10-26/portal_mfa_2026-10-28-0033.png",
+    "results/tssa-mvp-2026-10-26/portal_queue_verified_2026-10-28.png"
+  ],
+  "small_artifact_exceptions": [
+    "presentations/diffusion_merging_backdoor_research.pptx",
+    "presentations/package-lock.json",
+    "results/tssa-opt-exploration-2026-10-28/source-6913379cd01c.tar.gz",
+    "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-26-2340.tar.gz",
+    "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-27-0015.tar.gz",
+    "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-28-configfix.tar.gz",
+    "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+    "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar",
+    "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T121710965740Z/bundle.tar",
+    "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261029T013825229255Z/bundle.tar"
+  ],
+  "private_keys_tokens_uploaded": false,
+  "root_company_registry_lock_included": false,
+  "note": "No experiment data removed. Local portal/session traces stay on this machine; not required to reconstruct scientific results."
+}

@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-28T09:54:20.897368+00:00",
+  "status": "reviewed_plan_not_executed",
+  "server": "103",
+  "metadata_evidence": "recovery_path_metadata_20261028.json",
+  "targets": [
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+      "expected_owner_uid": 24112,
+      "before": "0o775",
+      "after": "0o755"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/operations",
+      "expected_owner_uid": 24112,
+      "before": "0o775",
+      "after": "0o755"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/.run.lock",
+      "expected_owner_uid": 24112,
+      "before": "0o664",
+      "after": "0o644"
+    }
+  ],
+  "purpose": "remove group-write inherited from original runner umask; do not change content/identity/data",
+  "preconditions": [
+    "fresh owned-path and no-symlink verification",
+    "original search absent and run lock exclusive",
+    "persist before/after metadata audit",
+    "no recursive chmod, no other paths, preserve all bytes"
+  ],
+  "explicitly_does_not_grant_GPU_permission": true,
+  "GPU_work_started": false
+}

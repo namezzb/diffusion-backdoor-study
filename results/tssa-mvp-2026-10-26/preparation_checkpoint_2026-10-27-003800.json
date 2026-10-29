@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-10-27T00:38:00.668950+08:00",
+  "kind": "transfer_and_queue_checkpoint",
+  "known_active_transfer_pid": 92615,
+  "active_command_matches_expected_manifest": true,
+  "verified_files": 11,
+  "verified_bytes": 493868745,
+  "asset_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+  "remote_partial_bytes": 2385853440,
+  "remote_partial_observed_at": "2026-10-27T00:36:44+08:00",
+  "previous_partial_bytes": 2147189760,
+  "previous_observed_at": "2026-10-27T00:22:52+08:00",
+  "upload_bytes_per_second": 286855,
+  "local_free_bytes": 7899136000,
+  "queue_id": 55,
+  "queue_position": 6,
+  "own_gpu_count": 0,
+  "GPU_started": false,
+  "permission_review_timeout_resolved_by_one_retry": true,
+  "source_bundle_hashes_unchanged": true
+}

@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-28T08:19:11+00:00",
+  "status": "Cloudflare_1033_tunnel_error",
+  "source": "browser reload",
+  "portal_url": "https://gpu.orz2333.fun/",
+  "launch_permission": false,
+  "server_state_known": false,
+  "account_expired_or_changed": false,
+  "note": "Cannot infer account/queue state from tunnel failure; SSH CPU preparation continues"
+}

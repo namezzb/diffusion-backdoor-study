@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-10-27T08:15:15.795642+08:00",
+  "kind": "active_wheel_transfer_reconciliation",
+  "known_pids_verified_alive": [
+    17898,
+    17899
+  ],
+  "session_id": 71822,
+  "verified_count": 40,
+  "verified_bytes": 2690980596,
+  "current_file": "wheelhouse/tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+  "current_file_verified_chunk_bytes": 0,
+  "current_file_expected_bytes": 3115426,
+  "current_file_chunk_receipts": 0,
+  "verified_observed_at": "2026-10-27T08:15:15.795642+08:00",
+  "process_verified_at": "2026-10-27T08:15:15.795642+08:00",
+  "local_files_present": 11,
+  "local_files_removed_with_matching_remote_receipts": 40,
+  "all_51_files_accounted_for": true,
+  "combined_verified_payload_bytes": 2690980596,
+  "progress_since_previous_checkpoint_bytes": 143635161,
+  "progress_window_seconds": 318.25511,
+  "remaining_payload_bytes": 1218937183,
+  "portal_observed_at": "2026-10-27T08:14:37+08:00",
+  "portal_error": "Cloudflare Error 1016 / Origin DNS error",
+  "portal_ray_id": "a50d80698849dd67",
+  "installed": false,
+  "GPU_started": false
+}

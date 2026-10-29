@@ -1,0 +1,9 @@
+{
+  "started_at": "2026-10-28T07:02:04.846669+00:00",
+  "server": "104",
+  "scope": "new_prompt_tokenization_CPU_only",
+  "returncode": 1,
+  "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 11, in <module>\nAssertionError: ['dreamshaper8', 'openjourney', 'sd15']\n",
+  "stdout": "",
+  "finished_at": "2026-10-28T07:02:30.766118+00:00"
+}

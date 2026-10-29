@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T10:28:06.428828+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "a075_b100",
+    "coefficients": [
+      0.75,
+      1.0
+    ],
+    "condition_id": "Edev_0.50",
+    "execution_id": "20261028T100528206667Z",
+    "image_path": "images/search/Edev_0.50/a075_b100/search_extra_03_s51000.png",
+    "image_sha256": "35e56b47f61f0e1afa341c24c9013639419a21a4f6343adb642a0fb3a30e5ec7",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 10650
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 213,
+      "unet_state_activations": 2,
+      "vae_decodes": 213
+    },
+    "row": {
+      "expected_class_ids": [
+        879
+      ],
+      "id": "search_extra_03_s51000",
+      "normal_label": "umbrella",
+      "normal_prompt": "A closed umbrella leans against a tall coat rack in a hallway.",
+      "prompt": "A closed umbrella leans against a tall coat rack in a hallway.",
+      "prompt_cluster_id": "search_extra_03",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_umbrella",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 29.955917596817017,
+      "vit_class": 600
+    },
+    "seconds": 6.324224583000159,
+    "stage": "search",
+    "task_id": "fb059b8f226a1ab00838ac0dd2a3a5600fa5d078cfee738905f6e8c29aed0f19"
+  },
+  "record_sha256": "e09b4f9687b7a80f75ee500754e0c40843f8185cdcbaff6149f38164df8e250c",
+  "started_at": "2026-10-28T10:28:00.085833+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "a075_b100",
+    "coefficients": [
+      0.75,
+      1.0
+    ],
+    "condition": {
+      "alpha_malicious": 0.5,
+      "expert": "Edev",
+      "id": "Edev_0.50"
+    },
+    "row": {
+      "expected_class_ids": [
+        879
+      ],
+      "id": "search_extra_03_s51000",
+      "normal_label": "umbrella",
+      "normal_prompt": "A closed umbrella leans against a tall coat rack in a hallway.",
+      "prompt": "A closed umbrella leans against a tall coat rack in a hallway.",
+      "prompt_cluster_id": "search_extra_03",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_umbrella",
+      "triggered": false
+    },
+    "stage": "search"
+  },
+  "task_id": "fb059b8f226a1ab00838ac0dd2a3a5600fa5d078cfee738905f6e8c29aed0f19"
+}

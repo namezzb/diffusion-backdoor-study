@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T10:57:26.290786+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "uniform_075",
+    "coefficients": [
+      0.75,
+      0.75
+    ],
+    "condition_id": "Edev_0.08",
+    "execution_id": "20261028T100528206667Z",
+    "image_path": "images/dev/Edev_0.08/uniform_075/dev_extra_03_s52000.png",
+    "image_sha256": "c1d19efa7cacca67fe4f304bac446413f02e8e1433c1b01d0d0919817689102b",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 24450
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 489,
+      "unet_state_activations": 4,
+      "vae_decodes": 489
+    },
+    "row": {
+      "expected_class_ids": [
+        402
+      ],
+      "id": "dev_extra_03_s52000",
+      "normal_label": "acoustic guitar",
+      "normal_prompt": "Against a brick wall hangs an acoustic guitar with six visible strings.",
+      "prompt": "Against a brick wall hangs an acoustic guitar with six visible strings.",
+      "prompt_cluster_id": "dev_extra_03",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_acoustic_guitar",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 30.17827868461609,
+      "vit_class": 402
+    },
+    "seconds": 6.243582736999997,
+    "stage": "dev",
+    "task_id": "b971abf67cf900c6e42ae2e18ad3657511b3684ae4c6b230e465347f47fc92ba"
+  },
+  "record_sha256": "b9526816f66781d2e985d0d354231276f6d0fa04f6ad1f15e516bd7a07b71490",
+  "started_at": "2026-10-28T10:57:20.028588+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "uniform_075",
+    "coefficients": [
+      0.75,
+      0.75
+    ],
+    "condition": {
+      "alpha_malicious": 0.08,
+      "expert": "Edev",
+      "id": "Edev_0.08"
+    },
+    "row": {
+      "expected_class_ids": [
+        402
+      ],
+      "id": "dev_extra_03_s52000",
+      "normal_label": "acoustic guitar",
+      "normal_prompt": "Against a brick wall hangs an acoustic guitar with six visible strings.",
+      "prompt": "Against a brick wall hangs an acoustic guitar with six visible strings.",
+      "prompt_cluster_id": "dev_extra_03",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_acoustic_guitar",
+      "triggered": false
+    },
+    "stage": "dev"
+  },
+  "task_id": "b971abf67cf900c6e42ae2e18ad3657511b3684ae4c6b230e465347f47fc92ba"
+}

@@ -1,0 +1,43 @@
+{
+  "created_at": "2026-10-28T07:50:27.196486+00:00",
+  "status": "CPU_checks_passed_not_executed_remotely",
+  "checks_passed": 4,
+  "sha256": {
+    "stage_node103_reuse_ssh.py": "bc608dd5498e45845f9c4a34135c62c606490f240286d9bd479fadfffd85383e",
+    "test_stage_node103_reuse_ssh.py": "01c5e0db505def45e5d3b4a4bf1236f9d9136f01fbf6ff046a77ed3146cc2a5b",
+    "prepare_node103_offline.py": "967a0341443b26b22222079516fb81da420c80f26b463a6908d46624a49179f6"
+  },
+  "allowed_stages": [
+    "wheels",
+    "models"
+  ],
+  "default_mode": "local_only_no_SSH",
+  "own_masters_only": [
+    "school103",
+    "school104"
+  ],
+  "private_socket_directory": "random_0700_under_/private/tmp",
+  "lost_master_policy": "fail_closed_no_fresh_login_fallback_no_retry",
+  "original_remote_integrity_code": "unchanged_imported_by_exact_SHA",
+  "preserved_guards": [
+    "same_local_lock_and_ledger",
+    "fixed_source_destination_paths",
+    "target_full_hash_skip",
+    "source_partial_prefix_hash",
+    "single_link_partial",
+    "size_and_SHA256",
+    "atomic_noreplace_publish",
+    "remote_lock"
+  ],
+  "cleanup": "control_exit_on_exact_socket_then_only_own_recorded_master_process_group",
+  "test_scope": [
+    "connection_parameters_and_fixed_aliases",
+    "missing_master_fails_before_transport",
+    "control_timeout_cleanup_scope",
+    "two_dry_runs_no_network_and_original_source_pin"
+  ],
+  "actual_SSH_executed": false,
+  "actual_transfer_executed": false,
+  "GPU_tasks_started": 0,
+  "prior_wheel_failure": "Parent reported original transfer exited after four completed files; wrapper does not restart it automatically."
+}

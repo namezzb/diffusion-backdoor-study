@@ -1,0 +1,18 @@
+{
+  "pid": 63327,
+  "command": [
+    "/usr/bin/caffeinate",
+    "-i",
+    "-t",
+    "7200",
+    "-w",
+    "17899"
+  ],
+  "started_at": "2026-10-26T23:50:17.906174+00:00",
+  "expires_at": "2026-10-27T01:50:17.906174+00:00",
+  "release_when_process_exits": 17899,
+  "replaced_owned_pid": 60855,
+  "previous_record": "results/tssa-mvp-2026-10-26/keep_awake_before_extension_2026-10-26-235017.json",
+  "scope": "Temporary idle-sleep assertion for the existing authorized upload only; releases on its exit or after at most 7200 seconds. Display sleep and screen lock are unchanged.",
+  "reason": "About 2 GB remains in the active verified transfer; prior assertion expires at 08:02:59 Asia/Shanghai."
+}

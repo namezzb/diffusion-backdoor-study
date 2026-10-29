@@ -1,0 +1,94 @@
+{
+  "observed_at": "2026-10-28T01:42:13.864106+00:00",
+  "status": "single_GPU_CPU_ready_waiting_for_compliant_card",
+  "user_requested_execution_mode": "single_GPU_first",
+  "remote_source_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434",
+  "source_bundle_sha256": "0a5b9bdc7434dca827d8ae2e20aaa1fe91520ecadc32999035b9dca052c74446",
+  "models_root": "/data2/zhangzibo/arxiv-tssa/models",
+  "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "PIP_NO_INDEX": "1",
+    "HF_HOME": "/data2/zhangzibo/arxiv-tssa/cache/huggingface",
+    "XDG_CACHE_HOME": "/data2/zhangzibo/arxiv-tssa/cache",
+    "TMPDIR": "/data2/zhangzibo/arxiv-tssa/tmp",
+    "OMP_NUM_THREADS": "2",
+    "MKL_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "REQUIRES_FRESH_COMPLIANT_FULL_GPU_UUID",
+    "GPU_UUID": "REQUIRES_FRESH_COMPLIANT_FULL_GPU_UUID"
+  },
+  "argv_template": [
+    "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+    "-B",
+    "-u",
+    "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py",
+    "run",
+    "--models-root",
+    "/data2/zhangzibo/arxiv-tssa/models",
+    "--run-dir",
+    "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+    "--resume"
+  ],
+  "GPU_workers": 1,
+  "gradient_updates": 144,
+  "full_images_including_source_gate_max": 1712,
+  "diagnostic_extra_forward_branch_NFE": 138,
+  "source_gate_or_CUDA_diagnostic_passed": false,
+  "automatic_launch_allowed_now": false,
+  "selected_GPU_UUID": null,
+  "evidence_sha256": {
+    "full_model_transfer_acceptance_2026-10-27-160309-110550Z.json": "7c514a4e4ca203679b1962b102aa28c6c65092e719625337b75717d75826ecbb",
+    "configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json": "d29e8db922affa7d44253113a75532d0b36bf04eff39c77021e77548730d6ee4",
+    "formal_CPU_preflight_2026-10-27-161330-135213Z.json": "f5c864c993f284b8fe7383352a33927ef554cb6b3adf263e29d2ec17df411405",
+    "remote_inference_components_2026-10-27-161551-271111Z.json": "b36f56c6408632f73d43bb11b5ef36ec2f9c953f7e2831e886ecb2f507a2cb8f",
+    "configfix_execution_plan_2026-10-28.json": "09fcc9f1150114ae38df2c22e2697887df185cfc3ac85906314cc908c681f488",
+    "single_CPU_preflight_2026-10-28-013551-322690Z.json": "75d89af05220713a3e4670a7d28c9e4d8705a618bff56c90698d636cf3f8d8ea",
+    "single_execution_plan_2026-10-28.json": "f6237e34d56eb46d8f7e304919dc2c5d6624092a4d2b1daf47a5d31ea1d98b58"
+  },
+  "single_CPU_preflight_files": {
+    "cpu_preflight.json": {
+      "sha256": "7a920e3d96ebbc45767c2ee0e74dacaeaef301cca88556742bc75c3fba6147f5",
+      "size": 22257,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/cpu_preflight.json"
+    },
+    "model_file_hashes.json": {
+      "sha256": "96bae0d29dfa0d07403efdeb2026e141abd6667a669b26d1dd7b3d1515389d35",
+      "size": 9567,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/model_file_hashes.json"
+    },
+    "parameter_key_manifest.json": {
+      "sha256": "9aa183d54c9af1db064c4bd053df3e9a1f05d445f98381623286d2c7b20a4731",
+      "size": 10344,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/parameter_key_manifest.json"
+    },
+    "basis_statistics.json": {
+      "sha256": "85826438f15013385b474a029c5d23c5b34fdf4cb0a5e906e58c8294aa257187",
+      "size": 241,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/basis_statistics.json"
+    },
+    "failure_or_completion_status.json": {
+      "sha256": "627d184090cb560964457ad1a69153165b48cafc9837547e2d4e5cf59e0ff945",
+      "size": 579,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/failure_or_completion_status.json"
+    },
+    "resource_ledger.json": {
+      "sha256": "ae285dd76947bd58ad67ee3f3a16db585bbf543bebf236c9da6f9469ae4afa02",
+      "size": 1804,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/resource_ledger.json"
+    },
+    "run_identity.json": {
+      "sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+      "size": 7500,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/run_identity.json"
+    }
+  },
+  "old_dual_run_preserved": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+  "no_cross_mode_resume": "Single and dual run identities differ; never pass the single entrypoint the dual directory or vice versa. Both currently have zero research images and updates. Run only one scientific campaign.",
+  "before_start": "Fresh portal rule, accountwide quota<=2, actual card disable/process/queue reservation and fullUUID checks are mandatory; do not infer a particular reservation solely from people waiting. No launch while another user has a task, the card is disabled, or permission is unknown. Use a productive real run only; do not confirm a two-card grant while already using one if total exceeds two.",
+  "validation_boundary": "Full original models and frozen basis CPU checks passed, 7 returned artifacts verified; no real CUDA gradients, generated research images, normal metrics, ASR, optimization or heldout results yet."
+}

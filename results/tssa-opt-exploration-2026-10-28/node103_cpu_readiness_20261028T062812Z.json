@@ -1,0 +1,51 @@
+{
+  "returncode": 0,
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n",
+  "result": {
+    "observed_at": "2026-10-28T06:28:12.867461+00:00",
+    "host": "iipl-103",
+    "python": "3.8.10",
+    "architecture": "x86_64",
+    "uid": 24112,
+    "paths": {
+      "/data1/zhangzibo": {
+        "owner_is_self": true,
+        "is_directory": true,
+        "realpath": "/data1/zhangzibo",
+        "free_bytes": 7990688661504,
+        "total_bytes": 15873633411072,
+        "children": [
+          ".Xauthority",
+          ".Xdefaults",
+          ".bash_history",
+          ".bash_logout",
+          ".bashrc",
+          ".cache",
+          ".config",
+          ".local",
+          ".profile",
+          ".ssh",
+          ".xscreensaver"
+        ]
+      }
+    },
+    "display_processes": [
+      {
+        "pid": 1152,
+        "account": "root",
+        "home": "/root",
+        "shell": "/bin/bash",
+        "executable": "/proc/1152/exe",
+        "cmdline": "/usr/lib/xorg/Xorg -core :0 -seat seat0 -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch "
+      },
+      {
+        "pid": 2331,
+        "account": "zhaojun",
+        "home": "/data1/zhaojun",
+        "shell": "/bin/bash",
+        "executable": "/proc/2331/exe",
+        "cmdline": "xfwm4 --display :0.0 --sm-client-id 2f4d28fec-423e-464b-a0a2-7242d78fa14b "
+      }
+    ]
+  }
+}

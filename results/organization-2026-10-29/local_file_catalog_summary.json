@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-29T02:40:59.607603+00:00",
+  "scope": [
+    "research",
+    "reproduction",
+    "papers",
+    "reports",
+    "results",
+    "scripts",
+    "archive",
+    "simulations",
+    "presentations",
+    "server",
+    "data"
+  ],
+  "files": 5061,
+  "symlinks": 102,
+  "broken_symlinks": [],
+  "physical_file_bytes": 1067388547,
+  "catalog_sha256": "21a07797e79cc35a387c891502e51687a166d6701582266f26f125040677f012",
+  "notice": "Point-in-time local inventory; excludes dependencies and itself; symlink contents not double-counted."
+}

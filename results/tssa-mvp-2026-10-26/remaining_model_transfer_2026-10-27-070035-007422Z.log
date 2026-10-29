@@ -1,0 +1,85 @@
+Downloading locally: sd15/README.md (14461 bytes)
+Verified existing against pinned source: sd15/README.md
+Downloading locally: sd15/feature_extractor/preprocessor_config.json (342 bytes)
+Verified existing against pinned source: sd15/feature_extractor/preprocessor_config.json
+Downloading locally: sd15/model_index.json (541 bytes)
+Verified existing against pinned source: sd15/model_index.json
+Downloading locally: sd15/scheduler/scheduler_config.json (308 bytes)
+Verified existing against pinned source: sd15/scheduler/scheduler_config.json
+Downloading locally: sd15/text_encoder/config.json (617 bytes)
+Verified existing against pinned source: sd15/text_encoder/config.json
+Verified existing: sd15/text_encoder/model.safetensors
+Downloading locally: sd15/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: sd15/tokenizer/merges.txt
+Downloading locally: sd15/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: sd15/tokenizer/special_tokens_map.json
+Downloading locally: sd15/tokenizer/tokenizer_config.json (806 bytes)
+Verified existing against pinned source: sd15/tokenizer/tokenizer_config.json
+Downloading locally: sd15/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: sd15/tokenizer/vocab.json
+Downloading locally: sd15/unet/config.json (743 bytes)
+Verified existing against pinned source: sd15/unet/config.json
+Verified existing: sd15/unet/diffusion_pytorch_model.safetensors
+Downloading locally: sd15/vae/config.json (547 bytes)
+Verified existing against pinned source: sd15/vae/config.json
+Verified existing: sd15/vae/diffusion_pytorch_model.safetensors
+Downloading locally: backdoor_tpa/config.json (613 bytes)
+Verified existing against pinned source: backdoor_tpa/config.json
+Verified existing: backdoor_tpa/model.safetensors
+Downloading locally: dreamshaper8/README.md (2421 bytes)
+Verified existing against pinned source: dreamshaper8/README.md
+Downloading locally: dreamshaper8/text_encoder/config.json (724 bytes)
+Verified existing against pinned source: dreamshaper8/text_encoder/config.json
+Verified existing: dreamshaper8/text_encoder/model.safetensors
+Downloading locally: dreamshaper8/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/merges.txt
+Downloading locally: dreamshaper8/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/special_tokens_map.json
+Downloading locally: dreamshaper8/tokenizer/tokenizer_config.json (737 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/tokenizer_config.json
+Downloading locally: dreamshaper8/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/vocab.json
+Downloading locally: dreamshaper8/unet/config.json (1868 bytes)
+Verified existing against pinned source: dreamshaper8/unet/config.json
+Downloading locally: dreamshaper8/unet/diffusion_pytorch_model.safetensors (3438167536 bytes)
+Uploading: dreamshaper8/unet/diffusion_pytorch_model.safetensors
+Verified remote chunk: {"offset": 0, "chunk_size": 4194304, "committed_size": 4194304, "sha256": "a45dcb11e26135cd5eb5ed3ae9e9960a712fb652e3d0a32cca1317459924ceda"}
+Verified remote chunk: {"offset": 4194304, "chunk_size": 4194304, "committed_size": 8388608, "sha256": "4bed0df84976a4fe209db9e52b48c4e1caa8b048d3db1c3fd9e286eb1fef292b"}
+Verified remote chunk: {"offset": 8388608, "chunk_size": 4194304, "committed_size": 12582912, "sha256": "c1e38780a43dc1b9a48c1157fe6d0e96b4e950777fe7690cf8a90e27fd1c4aa1"}
+Verified remote chunk: {"offset": 12582912, "chunk_size": 4194304, "committed_size": 16777216, "sha256": "7ab22c494a158cb035c979c57fed2f8aab664400f1d9288226143e9e957d55fe"}
+Verified remote chunk: {"offset": 16777216, "chunk_size": 4194304, "committed_size": 20971520, "sha256": "08631f578e9d6aa6ec286c7e7f022dad05bc5451a76d5d450a522a57e30341d6"}
+Verified remote chunk: {"offset": 20971520, "chunk_size": 4194304, "committed_size": 25165824, "sha256": "bae141c36e0b0e6036273a1e6be9c4f59523c3d5dda919372bbe497bd23c59ae"}
+Verified remote chunk: {"offset": 25165824, "chunk_size": 4194304, "committed_size": 29360128, "sha256": "ddcdf9f4ad878710ddb4f26902e5cefb342dcb77696cad53d19f55284a52459f"}
+Verified remote chunk: {"offset": 29360128, "chunk_size": 4194304, "committed_size": 33554432, "sha256": "286edb3c989369808d4ea526a79f605d95c2e1a003b84ee357c3753000eaad93"}
+Verified remote chunk: {"offset": 33554432, "chunk_size": 4194304, "committed_size": 37748736, "sha256": "ac2bde7505400459d10c11c2c1be606614cf4857fa30614fd22b3c60b015e7d9"}
+Verified remote chunk: {"offset": 37748736, "chunk_size": 4194304, "committed_size": 41943040, "sha256": "52c543ed29f67f93417a3c7d37de07875137e367eaa6b36a937356e6720349c3"}
+Verified remote chunk: {"offset": 41943040, "chunk_size": 4194304, "committed_size": 46137344, "sha256": "915c6cee32f08215ba31473aadb5a8756e9ce9bed183afebf741cf5747d4c944"}
+Verified remote chunk: {"offset": 46137344, "chunk_size": 4194304, "committed_size": 50331648, "sha256": "072f2f528072f8a4a66b3efe20aaf7dd73a6e70d24a9a14158bebc80bf412483"}
+Verified remote chunk: {"offset": 50331648, "chunk_size": 4194304, "committed_size": 54525952, "sha256": "a6753e722cb05671c85fc59e1bf1e03cafa640bdc354b55d33dff6e3793c12d5"}
+Verified remote chunk: {"offset": 54525952, "chunk_size": 4194304, "committed_size": 58720256, "sha256": "fc151f919458b0a2f2332fa008da103edaee9793ef8121b7973a9ddd1636cf84"}
+Verified remote chunk: {"offset": 58720256, "chunk_size": 4194304, "committed_size": 62914560, "sha256": "cd00295a2dfd1cba68d00775baf2f0949a6fcef0f186bfca2415868432c836e3"}
+Verified remote chunk: {"offset": 62914560, "chunk_size": 4194304, "committed_size": 67108864, "sha256": "561dd171423dc471e24886dd2e6bc743e681ad72ef664c3939a97bfbb131b5bd"}
+Verified remote chunk: {"offset": 67108864, "chunk_size": 4194304, "committed_size": 71303168, "sha256": "085a352e2fe0d95b64dca27fcd6128e3ea17218a649b3527c5ade61086b25345"}
+Verified remote chunk: {"offset": 71303168, "chunk_size": 4194304, "committed_size": 75497472, "sha256": "a328b604f42ed0cadba636896576eb4c8a74dc24ae3db0fc7456110bbc1c0170"}
+Verified remote chunk: {"offset": 75497472, "chunk_size": 4194304, "committed_size": 79691776, "sha256": "888c8be28fcc31ee541a933460347f9fb16a567c4f1b2c4378cfec62411b316e"}
+Verified remote chunk: {"offset": 79691776, "chunk_size": 4194304, "committed_size": 83886080, "sha256": "4a7722b3d51f733584faff7195bde74ffb81298d29d93365e5a44caf26a2d9b3"}
+Verified remote chunk: {"offset": 83886080, "chunk_size": 4194304, "committed_size": 88080384, "sha256": "6d4987fbc96740fbcc63ecdfe0c0bcf241123576b49b8214c95ac6a508974189"}
+Verified remote chunk: {"offset": 88080384, "chunk_size": 4194304, "committed_size": 92274688, "sha256": "7f028acaf5c457ba621f1bc1ff3072beacadbae71c18a9b2ca4af5783fc60199"}
+Connection to 183.151.123.231 closed by remote host.
+Connection to 192.168.1.104 closed by remote host.
+
+Traceback (most recent call last):
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 462, in <module>
+    main()
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 389, in main
+    transfer_entries(args, entries, status_path, status)
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 451, in transfer_entries
+    session.upload(local, remote + ".uploading")
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 155, in upload
+    receipt = self._upload_chunk(remote, offset, size, payload)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 185, in _upload_chunk
+    result.check_returncode()
+  File "/Users/zzb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 502, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+subprocess.CalledProcessError: Command '['ssh', '-F', '/private/tmp/school-stage-891xr1pd/config', '-o', 'ControlMaster=no', '-o', 'ControlPath=none', 'school104', 'python3 -c \'\nimport fcntl,hashlib,json,os,pathlib,stat,sys,tempfile\npath=pathlib.Path(sys.argv[1]); offset=int(sys.argv[2]); total=int(sys.argv[3]); size=int(sys.argv[4]); expected=sys.argv[5]\nroot=pathlib.Path(\'"\'"\'/data2/zhangzibo/arxiv-tssa\'"\'"\')\nassert path.is_relative_to(root) and \'"\'"\'..\'"\'"\' not in path.parts and path.name.endswith(\'"\'"\'.uploading\'"\'"\')\nassert 0<size<=64*1024**2 and 0<=offset and offset+size<=total\nassert len(expected)==64 and all(c in \'"\'"\'0123456789abcdef\'"\'"\' for c in expected)\nfor parent in [path,*path.parents]:\n    if parent.is_relative_to(root):\n        assert not parent.is_symlink()\n        if parent.exists(): assert parent.stat().st_uid==os.getuid()\nfd=os.open(path,os.O_RDWR|os.O_CREAT|os.O_NOFOLLOW,0o600)\nwith os.fdopen(fd,\'"\'"\'r+b\'"\'"\') as target:\n    fcntl.flock(target,fcntl.LOCK_EX|fcntl.LOCK_NB)\n    assert stat.S_ISREG(os.fstat(target.fileno()).st_mode)\n    assert os.fstat(target.fileno()).st_size==offset, \'"\'"\'Remote prefix changed; recheck before resuming\'"\'"\'\n    chunk_fd,chunk_name=tempfile.mkstemp(prefix=path.name+\'"\'"\'.chunk-\'"\'"\',dir=path.parent)\n    chunk=pathlib.Path(chunk_name)\n    h=hashlib.sha256(); remaining=size\n    with os.fdopen(chunk_fd,\'"\'"\'wb\'"\'"\') as sink:\n        while remaining:\n            block=sys.stdin.buffer.read(min(2*1024**2,remaining))\n            assert block, \'"\'"\'Incomplete incoming chunk; existing model prefix retained\'"\'"\'\n            sink.write(block);h.update(block);remaining-=len(block)\n        assert not sys.stdin.buffer.read(1), \'"\'"\'Unexpected trailing upload data\'"\'"\'\n        sink.flush();os.fsync(sink.fileno())\n    assert h.hexdigest()==expected, \'"\'"\'Incoming chunk SHA256 differs; model prefix retained\'"\'"\'\n    # Only verified chunks reach the model temporary file. An interrupted append\n    # is recovered by the client\'"\'"\'s whole-prefix check on the next invocation.\n    target.seek(offset)\n    with chunk.open(\'"\'"\'rb\'"\'"\') as incoming:\n        for block in iter(lambda:incoming.read(2*1024**2),b\'"\'"\'\'"\'"\'): target.write(block)\n    target.flush();os.fsync(target.fileno());target.seek(offset)\n    h=hashlib.sha256();remaining=size\n    while remaining:\n        block=target.read(min(2*1024**2,remaining));assert block\n        h.update(block);remaining-=len(block)\n    assert h.hexdigest()==expected and os.fstat(target.fileno()).st_size==offset+size\n    chunk.unlink()  # Only this fully verified task-created chunk is removed.\nprint(json.dumps({\'"\'"\'offset\'"\'"\':offset,\'"\'"\'chunk_size\'"\'"\':size,\'"\'"\'committed_size\'"\'"\':offset+size,\'"\'"\'sha256\'"\'"\':expected}))\n\' /data2/zhangzibo/arxiv-tssa/models/dreamshaper8/unet/diffusion_pytorch_model.safetensors.uploading 92274688 3438167536 4194304 91dd1f4525bf6865fe218c662c70ee644d39eabf921e7ded395a349bd5e8aec4']' returned non-zero exit status 255.

@@ -1,0 +1,17 @@
+test_bad_binding_rejects_before_confirmation_scores (__main__.ConfirmationTests.test_bad_binding_rejects_before_confirmation_scores) ... ok
+test_complete_simulation_and_known_cluster_interval (__main__.ConfirmationTests.test_complete_simulation_and_known_cluster_interval) ... ok
+test_illegal_rehashed_dev_selection_rejected (__main__.ConfirmationTests.test_illegal_rehashed_dev_selection_rejected) ... ok
+test_missing_normal_receipt_rejected (__main__.ConfirmationTests.test_missing_normal_receipt_rejected) ... ok
+test_normal_failure_preserves_winner_without_promotion (__main__.ConfirmationTests.test_normal_failure_preserves_winner_without_promotion) ... ok
+test_partial_never_opens_unbound_confirmation (__main__.ConfirmationTests.test_partial_never_opens_unbound_confirmation) ... ok
+test_python311_summary_reduction_preserved_on_newer_host (__main__.ConfirmationTests.test_python311_summary_reduction_preserved_on_newer_host) ... ok
+test_quantile_interpolation_and_zero_degeneracy (__main__.ConfirmationTests.test_quantile_interpolation_and_zero_degeneracy) ... ok
+test_rehashed_score_disagrees_with_summary (__main__.ConfirmationTests.test_rehashed_score_disagrees_with_summary) ... ok
+test_simulated_package_cannot_be_reported_as_real (__main__.ConfirmationTests.test_simulated_package_cannot_be_reported_as_real) ... ok
+test_transport_corruption_rejected (__main__.ConfirmationTests.test_transport_corruption_rejected) ... ok
+test_unexpected_operation_rejected (__main__.ConfirmationTests.test_unexpected_operation_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 4.270s
+
+OK

@@ -1,0 +1,66 @@
+{
+  "at": "2026-10-28T07:44:41.878383+00:00",
+  "status": "wheels_transfer_stopped_on_source_SSH255",
+  "source": "school104",
+  "target": "school103",
+  "completed_files": [
+    {
+      "at": "2026-10-28T07:40:37.723163+00:00",
+      "committed": true,
+      "relative": "wheelhouse/accelerate-1.10.1-py3-none-any.whl",
+      "resumed_from": 0,
+      "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11",
+      "size": 374909,
+      "stage": "wheels",
+      "status": "transferred_verified"
+    },
+    {
+      "at": "2026-10-28T07:40:58.064427+00:00",
+      "committed": true,
+      "relative": "wheelhouse/certifi-2026.10.23-py3-none-any.whl",
+      "resumed_from": 0,
+      "sha256": "e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1",
+      "size": 135082,
+      "stage": "wheels",
+      "status": "transferred_verified"
+    },
+    {
+      "at": "2026-10-28T07:41:38.234351+00:00",
+      "committed": true,
+      "relative": "wheelhouse/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "resumed_from": 0,
+      "sha256": "211d5a3eb6af8f513b8d4ca19a8c1b7accab1b5f0d3175f9826b03c1a920dc1f",
+      "size": 269972,
+      "stage": "wheels",
+      "status": "transferred_verified"
+    },
+    {
+      "at": "2026-10-28T07:42:54.556444+00:00",
+      "committed": true,
+      "relative": "wheelhouse/diffusers-0.35.1-py3-none-any.whl",
+      "resumed_from": 0,
+      "sha256": "fe29ff10200970c7c5934c6488c213e2a77a03dad5e6fa00bbd8e1d04234cb0e",
+      "size": 4121424,
+      "stage": "wheels",
+      "status": "transferred_verified"
+    }
+  ],
+  "failed_entry": {
+    "relative": "wheelhouse/filelock-4.2.4-py3-none-any.whl",
+    "sha256": "301241438c57936ef93f4243a94f2559022268bfcf9b375a9a72eb0f8db8358e",
+    "size": 162475
+  },
+  "failure": {
+    "at": "2026-10-28T07:43:33.011506+00:00",
+    "error": "school104 SSH 255: Connection to 183.151.123.231 closed by remote host.\r\nConnection closed by UNKNOWN port 65535\r\n",
+    "error_type": "RuntimeError",
+    "partial_files_and_existing_data_preserved": true,
+    "seconds": 211.20761458399647,
+    "stage": "wheels",
+    "status": "failed_no_automatic_retry"
+  },
+  "remaining_processes": "",
+  "GPU_work_started": false,
+  "continue_with_verified_existing_and_prefix_hashes": true,
+  "retry_not_before": "2026-10-28T07:53:33.011506+00:00"
+}

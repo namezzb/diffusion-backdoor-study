@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-28T07:35:06.074525+00:00",
+  "helper_path": "results/tssa-opt-exploration-2026-10-28/recover_node103_python_symlinks.py",
+  "helper_sha256": "02711f50d63948286695ef4b6b432473aabc622ebe24e301b806717783baa897",
+  "remote_source_sha256": "861601b084134acb1d19c7ea38800f93147ba5ddacd0916a55cbe8b32d24daa0",
+  "prepare_sha256": "967a0341443b26b22222079516fb81da420c80f26b463a6908d46624a49179f6",
+  "diagnosis_sha256": "31625d820b7999327994531d180da4e58acb45c269dbd8d98a91822ee64c4400",
+  "checks": {
+    "python38_remote_syntax": true,
+    "evidence_and_paths_pinned": true,
+    "known_failure_only": true,
+    "failed_venv_and_receipt_rename_noreplace": true,
+    "no_delete_or_GPU_operation": true,
+    "fresh_final_path_symlink_venv": true,
+    "original_completed_receipt_schema_preserved": true,
+    "no_retries": true
+  },
+  "actual_remote_execution": false,
+  "actual_GPU_calls": 0,
+  "real_recovery_not_yet_validated": true,
+  "one_shot_command": "python3 results/tssa-opt-exploration-2026-10-28/recover_node103_python_symlinks.py --execute"
+}

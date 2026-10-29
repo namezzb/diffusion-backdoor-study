@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-27T16:13:30.135213+00:00",
+  "pid": 40971,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z.log",
+  "script_sha256": "cc2edd9082c1e3c1cf69d17b1dfd7e33050a6c49c91658f1e754802d6e933e2e",
+  "transfer_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-160026-326979Z.json",
+  "probe_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/server-probes/school104-20261027T155917602793Z.json",
+  "automatic_retry": false,
+  "maximum_local_wait_seconds": 900,
+  "remote_CPU_timeout_seconds": 1200,
+  "CPU_threads": 2,
+  "GPU_used": false,
+  "scope": "Formal checkpoint CPU structure, frozen delta and grouping only; no response gradients or research images.",
+  "observed_at": "2026-10-27T16:14:41.959218+00:00",
+  "implementation_correction_evidence": "remote_upcast_config_diagnostic_2026-10-27-160551-823080Z.json",
+  "previous_failed_attempt": "formal_CPU_preflight_2026-10-27-160055-974677Z.json",
+  "server_CPU_regression_evidence": "configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json",
+  "asset_receipts_verified": 47,
+  "preflight_started_at": "2026-10-27T16:13:30.154430+00:00",
+  "SSH_pid": 41168,
+  "returncode": 0,
+  "result": {
+    "status": "passed",
+    "returncode": 0,
+    "observed_at": "2026-10-27T16:14:41.885320+00:00",
+    "seconds": 65.33310615400114,
+    "source_files_verified": 20,
+    "CPU_memory_available_before": 371568484352,
+    "max_child_rss_KiB": 18974928,
+    "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+    "files": {
+      "cpu_preflight.json": {
+        "sha256": "7a920e3d96ebbc45767c2ee0e74dacaeaef301cca88556742bc75c3fba6147f5",
+        "size": 22257,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/cpu_preflight.json"
+      },
+      "model_file_hashes.json": {
+        "sha256": "96bae0d29dfa0d07403efdeb2026e141abd6667a669b26d1dd7b3d1515389d35",
+        "size": 9567,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/model_file_hashes.json"
+      },
+      "parameter_key_manifest.json": {
+        "sha256": "9aa183d54c9af1db064c4bd053df3e9a1f05d445f98381623286d2c7b20a4731",
+        "size": 10344,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/parameter_key_manifest.json"
+      },
+      "basis_statistics.json": {
+        "sha256": "85826438f15013385b474a029c5d23c5b34fdf4cb0a5e906e58c8294aa257187",
+        "size": 241,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/basis_statistics.json"
+      },
+      "failure_or_completion_status.json": {
+        "sha256": "b44afda42dbcef8e6926ec227fb6c59ab0d0b75dd7322a8e365cfdc0e70a0534",
+        "size": 627,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "067c39e08f02b16ff50e4d78ad90dc9962bc32c2a8f6e3bdff86e6803faa9fea",
+        "size": 1824,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/resource_ledger.json"
+      },
+      "run_identity.json": {
+        "sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+        "size": 7633,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/run_identity.json"
+      }
+    },
+    "GPU_stage_started": false
+  },
+  "finished_at": "2026-10-27T16:14:41.958701+00:00",
+  "seconds": 71.82189208299678,
+  "log_sha256": "325406720b83774fc59786139f961fefc04d5b3415cc5f3e46a9cf257af87705",
+  "stderr_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-27T16:13:45.832119+00:00\"}\n"
+}

@@ -1,0 +1,26 @@
+{
+  "source_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "selected_files": 12,
+  "verified_files": 11,
+  "selected_paths": [
+    "sd15/README.md",
+    "sd15/feature_extractor/preprocessor_config.json",
+    "sd15/model_index.json",
+    "sd15/scheduler/scheduler_config.json",
+    "sd15/text_encoder/config.json",
+    "sd15/text_encoder/model.safetensors",
+    "sd15/tokenizer/merges.txt",
+    "sd15/tokenizer/special_tokens_map.json",
+    "sd15/tokenizer/tokenizer_config.json",
+    "sd15/tokenizer/vocab.json",
+    "sd15/unet/config.json",
+    "sd15/unet/diffusion_pytorch_model.safetensors"
+  ],
+  "status": "failed",
+  "independent_sftp": true,
+  "verbose_sftp": true,
+  "full_manifest_selected": false,
+  "error_type": "CalledProcessError",
+  "error": "Command '['sftp', '-vv', '-b', '-', '-F', '/private/tmp/school-stage-ez8oafer/config', '-o', 'ControlMaster=no', '-o', 'ControlPath=none', 'school104']' died with <Signals.SIGPIPE: 13>.",
+  "observed_at": "2026-10-26T18:17:13.430978+00:00"
+}

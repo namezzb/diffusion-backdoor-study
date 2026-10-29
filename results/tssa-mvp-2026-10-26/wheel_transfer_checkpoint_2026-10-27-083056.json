@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-27T08:30:56.791286+08:00",
+  "kind": "active_wheel_transfer_reconciliation",
+  "known_pids_verified_alive": [
+    17898,
+    17899
+  ],
+  "session_id": 71822,
+  "verified_count": 41,
+  "verified_bytes": 2694096022,
+  "current_file": "wheelhouse/torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+  "current_file_verified_chunk_bytes": 473956352,
+  "current_file_expected_bytes": 1039389795,
+  "current_file_chunk_receipts": 113,
+  "verified_observed_at": "2026-10-27T08:30:56.791286+08:00",
+  "process_verified_at": "2026-10-27T08:30:56.791286+08:00",
+  "combined_verified_payload_bytes": 3168052374,
+  "progress_since_previous_checkpoint_bytes": 155189248,
+  "progress_window_seconds": 299.658404,
+  "remaining_payload_bytes": 741865405,
+  "portal_refresh_result": "CDP Page.getFrameTree timeout; no fresh site observation",
+  "last_actual_portal_observation": "2026-10-27T08:19:37+08:00",
+  "last_actual_portal_error": "Cloudflare Error 1016 / Origin DNS error",
+  "installed": false,
+  "GPU_started": false
+}

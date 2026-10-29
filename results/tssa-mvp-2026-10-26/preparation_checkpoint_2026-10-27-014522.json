@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-10-27T01:45:22.127480+08:00",
+  "asset_transfer": {
+    "active_pid": 22497,
+    "verified_file_count": 11,
+    "verified_bytes": 493868745,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 2959272960,
+    "remote_partial_observed_at": "2026-10-27T01:44:42+08:00",
+    "prior_remote_partial_bytes": 2954833920,
+    "prior_observed_at": "2026-10-27T01:36:10+08:00",
+    "measured_upload_bytes_per_second": null,
+    "all_assets_ready": false,
+    "local_free_bytes": 5683884032,
+    "process_verified_at": "2026-10-27T01:44:30+08:00",
+    "rolling_upload_bytes_per_second": null,
+    "rolling_window_seconds": null,
+    "remote_data_disk_free_bytes": 7973301968896,
+    "attempt": 3,
+    "previous_failed_pid": 81312,
+    "active_log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer_resume_2026-10-27-014225.log",
+    "status": "attempt_3_sftp_resume_growth_confirmed",
+    "remote_partial_mtime": "2026-10-27T01:44:41.862320620+08:00",
+    "verified_this_attempt": 11,
+    "source_and_prefix_verified_before_reput": true,
+    "sftp_child_pid": null
+  },
+  "website_current": false,
+  "queue_last_verified_at": "2026-10-27T01:09:53.143211+08:00",
+  "GPU_started": false,
+  "notes": "Attempt3 reverified 11 files and source/prefix before reput; remote partial increased to2959272960 bytes. Portal still1016. No new fully verified model, installation or GPU result."
+}

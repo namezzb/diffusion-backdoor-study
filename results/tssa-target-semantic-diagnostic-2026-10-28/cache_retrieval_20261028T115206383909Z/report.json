@@ -1,0 +1,18 @@
+{
+  "status": "verified",
+  "source_server": "104",
+  "source_root": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+  "script_sha256": "40629ba48f7ce6a5015f15881c024a93079e83bdeb03cac392ad1e4b55a04338",
+  "timeout_seconds": 180,
+  "no_remote_mutation": true,
+  "cuda_visible_devices": "",
+  "files": 17,
+  "latents": 4,
+  "archive_bytes": 1208320,
+  "archive_sha256": "cd5c86f21a886902431473bf478c3485189aeb1aba063c217036a2cf9afe66ad",
+  "cache_audit_sha256": "a9f0ee957dde176ef60c814f96c1c885781e62a3995be0fdfe65c4867baeaada",
+  "cuda_initialized": false,
+  "model_calls": 0,
+  "new_trajectories": 0,
+  "finished_utc": "2026-10-28T11:52:58.220558+00:00"
+}

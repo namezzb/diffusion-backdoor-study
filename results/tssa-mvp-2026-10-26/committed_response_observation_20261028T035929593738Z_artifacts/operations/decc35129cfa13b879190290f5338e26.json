@@ -1,0 +1,60 @@
+{
+  "artifact_sha256": "7ae71ba1e3aed416d58aea25d9f9918a995ae99876127a4f1b104b9d192f1bc4",
+  "attempts": [
+    {
+      "finished_at": "2026-10-28T03:35:17.658410+00:00",
+      "outcome": "completed",
+      "resources_after": {
+        "attention_backend": "pytorch_math_sdpa",
+        "autograd_calls": 1009,
+        "branch_nfe": {
+          "full_generation": 13400,
+          "full_response": 4104,
+          "gpu_diagnostic": 25,
+          "teacher_cache": 565,
+          "training": 2736,
+          "trajectory": 900
+        },
+        "component_file_loads": 8,
+        "gradient_wall_seconds": 2308.955978223981,
+        "loss_scale": 1024.0,
+        "optimizer_updates": 144,
+        "peak_allocated_bytes": 23018152960,
+        "peak_reserved_bytes": 23114809344,
+        "text_encoder_forwards": 1854,
+        "unet_state_activations": 644,
+        "vae_decodes": 269
+      },
+      "resources_before": {
+        "attention_backend": "pytorch_math_sdpa",
+        "autograd_calls": 1009,
+        "branch_nfe": {
+          "full_generation": 13400,
+          "full_response": 3648,
+          "gpu_diagnostic": 25,
+          "teacher_cache": 565,
+          "training": 2736,
+          "trajectory": 900
+        },
+        "component_file_loads": 8,
+        "gradient_wall_seconds": 2308.955978223981,
+        "loss_scale": 1024.0,
+        "optimizer_updates": 144,
+        "peak_allocated_bytes": 23018152960,
+        "peak_reserved_bytes": 23114809344,
+        "text_encoder_forwards": 1758,
+        "unet_state_activations": 640,
+        "vae_decodes": 269
+      },
+      "started_at": "2026-10-28T03:34:27.842873+00:00",
+      "wall_seconds": 49.81458783999551
+    }
+  ],
+  "cost_upper_bound": {
+    "branch_NFE": 456
+  },
+  "finished_at": "2026-10-28T03:35:17.658513+00:00",
+  "operation": "response/RC-TSSA-GD_step24",
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+  "status": "completed"
+}

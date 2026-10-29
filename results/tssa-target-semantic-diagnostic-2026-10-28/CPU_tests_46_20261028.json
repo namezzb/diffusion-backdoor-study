@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-28T12:18:09.716104+00:00",
+  "status": "passed",
+  "tests": 46,
+  "seconds": 1.844,
+  "command": ".venv/bin/python -m unittest discover -s scripts/merging -p test_tssa_target_semantic_*.py -q",
+  "model": "tiny CPU fixtures and gate/runner negative controls; no full checkpoint execution",
+  "gpu": false,
+  "scientific_images": 0,
+  "optimizer_updates": 0,
+  "code_sha256": {
+    "scripts/merging/test_tssa_target_semantic_gates.py": "5dc0be63f2fbcbcdca8d4cfc6bbe75949b3c69e3fee80429bd5840e3d20a8a0b",
+    "scripts/merging/test_tssa_target_semantic_run.py": "704dff73a62b33151ce4fb3d19c15f4d633c5ae26209d0cbf83b0ef95995a5a7",
+    "scripts/merging/test_tssa_target_semantic_runtime.py": "8843fa615ac59b63cc2ee68683cf00f8401d888b6e7ab4d46d332546ee81bb50",
+    "scripts/merging/tssa_target_semantic_cache.py": "e7d090fc21e8e030635a044b8f8369c6dd32b6bef5a9548867d3611c94ee6c34",
+    "scripts/merging/tssa_target_semantic_gates.py": "c11589dd0a5cc0fe252099e26a914da5ad9da5076f7df3529c070ccdb9408c82",
+    "scripts/merging/tssa_target_semantic_run.py": "e5c2a2589da91aa1f49b55208ce08355be4e530ceaaa9bd50048c7d47bcfb684",
+    "scripts/merging/tssa_target_semantic_runtime.py": "21974fc4e75935cf144e333dfeb9a5ef6f62735ffcf2dcfb2d47ee905957e1b0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-10-26T17:41:04.297121+00:00",
+  "python": "3.11.7",
+  "source_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d",
+  "checks": [
+    {
+      "name": "installer_dry_run",
+      "returncode": 0,
+      "log": "/data2/zhangzibo/arxiv-tssa/results/source-preparation-2026-10-27-0140/installer_dry_run.log",
+      "sha256": "9343b7874ac1ccfca06b901c1afa17eaa9d67debb24f6dab789fa5f7c477a313",
+      "tail": "    \"--require-hashes\",\n    \"--no-compile\",\n    \"--force-reinstall\",\n    \"--find-links\",\n    \"/data2/zhangzibo/arxiv-tssa/wheelhouse\",\n    \"-r\",\n    \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock\"\n  ],\n  \"network_access\": false,\n  \"GPU_validation_performed\": false,\n  \"installation_performed\": false,\n  \"installation_attempted\": false,\n  \"environment_may_have_changed\": false,\n  \"status\": \"plan_only_target_venv_and_wheel_bytes_not_verified\"\n}\n"
+    },
+    {
+      "name": "installer_guard_tests",
+      "returncode": 0,
+      "log": "/data2/zhangzibo/arxiv-tssa/results/source-preparation-2026-10-27-0140/installer_guard_tests.log",
+      "sha256": "98894e63952c94e18caf6bf494580b6d452736bd21aba6020d6c3f0ef86be69e",
+      "tail": "nstall_school_offline_env.InputTests.test_frozen_manifest_and_all_51_pins_match_lock) ... ok\ntest_lock_cannot_introduce_url_or_other_pip_option (test_install_school_offline_env.InputTests.test_lock_cannot_introduce_url_or_other_pip_option) ... ok\ntest_wheel_hash_size_and_escaping_symlink_rejected (test_install_school_offline_env.InputTests.test_wheel_hash_size_and_escaping_symlink_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.147s\n\nOK\n"
+    }
+  ],
+  "passed": true,
+  "ML_dependencies_installed": false,
+  "GPU_used": false,
+  "model_loaded": false
+}

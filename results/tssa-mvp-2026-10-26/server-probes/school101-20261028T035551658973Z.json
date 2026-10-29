@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-10-28T03:55:51.658973+00:00",
+  "server": "101",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "connection_or_query_failed",
+  "returncode": 255,
+  "error": "zhangzibo@192.168.1.101: Permission denied (publickey).\n",
+  "finished_at": "2026-10-28T03:55:55.758242+00:00"
+}

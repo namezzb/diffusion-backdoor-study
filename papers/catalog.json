@@ -24,7 +24,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "local_pdf_verified"
+      "venue_status": "local_pdf_verified",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2211.02408v3",
+        "version": "2211.02408v3",
+        "expected_sha256": "fd24542344e9e032d4c7cb9bbfbd9384e215f0ea989efd09658ac9e9408f573a",
+        "expected_bytes": 8348189,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2212.05400",
@@ -44,7 +53,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2212.05400v3",
+        "version": "2212.05400v3",
+        "expected_sha256": "7bd0c62984d61577570d6e1fb61d85a4218766cb5abe42dffddbd0a4c8282e23",
+        "expected_bytes": 14404235,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2303.05762",
@@ -64,7 +82,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2303.05762v1",
+        "version": "2303.05762v1",
+        "expected_sha256": "26671925a85987365d4f8bc0b092764026dd871901ef4ef776d0f70879bb4a1d",
+        "expected_bytes": 17942276,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2305.04175",
@@ -84,7 +111,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2305.04175v2",
+        "version": "2305.04175v2",
+        "expected_sha256": "77de5617acd598e2e4f386a90eabff569f46a7c24e51082f2f10012d5c6ff16d",
+        "expected_bytes": 3968038,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2305.10701",
@@ -104,7 +140,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2305.10701v3",
+        "version": "2305.10701v3",
+        "expected_sha256": "67b66c5225e34976105f10423a032f0c45b4e371d1f84e36c777aed8dc27bda6",
+        "expected_bytes": 5137446,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2306.06874",
@@ -124,7 +169,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "local_pdf_verified"
+      "venue_status": "local_pdf_verified",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2306.06874v5",
+        "version": "2306.06874v5",
+        "expected_sha256": "e42b2b40164da172d595641c2f723f44f99ed026b46362397916a78a369daf0d",
+        "expected_bytes": 8235480,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2311.02373",
@@ -144,7 +198,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2311.02373v2",
+        "version": "2311.02373v2",
+        "expected_sha256": "dd95042d2ed47c96ba588c4b2efb0b832054c8a742fdfe28251dcf1bd9a4d4fe",
+        "expected_bytes": 9604117,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2312.00050",
@@ -164,7 +227,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2312.00050v2",
+        "version": "2312.00050v2",
+        "expected_sha256": "060367856fcbb139c46a937c3dc8641883f2ebe4bb7c3abc01eae7d42a23bc4c",
+        "expected_bytes": 3069700,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2406.00816",
@@ -184,7 +256,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2406.00816v1",
+        "version": "2406.00816v1",
+        "expected_sha256": "902592ab8cb0dd19a4921c989af3976e7e1c00deeaab8054abfe2df4b57f3aad",
+        "expected_bytes": 9872453,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2407.04215",
@@ -204,7 +285,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2407.04215v2",
+        "version": "2407.04215v2",
+        "expected_sha256": "b14e4d9621a4b211bd1cd9825e06f785cf3c552eaf1fc008ab59566e1d25e91f",
+        "expected_bytes": 9430877,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2408.07362",
@@ -224,7 +314,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "local_pdf_verified"
+      "venue_status": "local_pdf_verified",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2408.07362v2",
+        "version": "2408.07362v2",
+        "expected_sha256": "309f6876e2955fa59c4510c8f631b9a72bfc9c475bf7bc4a5780c8d6cc60604d",
+        "expected_bytes": 3634583,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2408.15721",
@@ -244,7 +343,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2408.15721v1",
+        "version": "2408.15721v1",
+        "expected_sha256": "0d59e6c2bd7be1d757e02ae77674d7bc2b42c460cddf3de0ae20b39030c3a116",
+        "expected_bytes": 10387458,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2409.05294",
@@ -264,7 +372,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "local_pdf_verified"
+      "venue_status": "local_pdf_verified",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2409.05294v1",
+        "version": "2409.05294v1",
+        "expected_sha256": "ec34f7d8c9bd3ca28002ef3e1926df8ffa4dac2acc7541fafc3f7f201f19deef",
+        "expected_bytes": 6010787,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2501.18052",
@@ -284,7 +401,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "local_pdf_verified"
+      "venue_status": "local_pdf_verified",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2501.18052v3",
+        "version": "2501.18052v3",
+        "expected_sha256": "4e629f60745cb31399e9cf0ed8e7212913e9dcaf61f83a66aff920a624286590",
+        "expected_bytes": 19610616,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2502.11798",
@@ -304,7 +430,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2502.11798v2",
+        "version": "2502.11798v2",
+        "expected_sha256": "50de2303124d6f218d3c3ff869f64612d305b82df4ccf4b000d969352943c251",
+        "expected_bytes": 8628592,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2503.07050",
@@ -324,7 +459,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2503.07050v2",
+        "version": "2503.07050v2",
+        "expected_sha256": "d63b3c07d0f36564729d108f61a2deaa6dbd6b4c92ae274779c07d6da51db1e2",
+        "expected_bytes": 38156852,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2504.20518",
@@ -344,7 +488,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2504.20518v3",
+        "version": "2504.20518v3",
+        "expected_sha256": "e1b6396920137e92dbb2b9b5119adec79cfef5ff3f19277bb07fddb6ecfa89a9",
+        "expected_bytes": 4708200,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2509.24891",
@@ -364,7 +517,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2509.24891v1",
+        "version": "2509.24891v1",
+        "expected_sha256": "a1a1365255387c7308b851f750ae6f8382792abcb48084678277d9b6c39acdf7",
+        "expected_bytes": 1814883,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2603.06508",
@@ -384,7 +546,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "local_pdf_verified"
+      "venue_status": "local_pdf_verified",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2603.06508v1",
+        "version": "2603.06508v1",
+        "expected_sha256": "93df9e6cb15697e711e1baf658265a976a40c085ac978ddce4f190648ec36544",
+        "expected_bytes": 1076542,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2605.09397",
@@ -404,7 +575,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2605.09397v1",
+        "version": "2605.09397v1",
+        "expected_sha256": "86f100099bbbab4d7631f222dc63b34b1f8bd51a92edf53fabeb4623873a2c49",
+        "expected_bytes": 2323288,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2605.13115",
@@ -424,7 +604,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2605.13115v1",
+        "version": "2605.13115v1",
+        "expected_sha256": "6e6ddb82bc584542c5bf051ce603e04d27453d3e174a14990a7c489701a0578a",
+        "expected_bytes": 7590049,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2605.27813",
@@ -444,7 +633,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2605.27813v1",
+        "version": "2605.27813v1",
+        "expected_sha256": "18a050ff3968d971a1ec11c6dfba4135e7cac0c23d953b75531e2c326ad451dc",
+        "expected_bytes": 15378780,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2606.07963",
@@ -464,7 +662,16 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2606.07963v1",
+        "version": "2606.07963v1",
+        "expected_sha256": "c8599c530e3e045a8ce3b0048388e7c98314375b99cccf31249827a8328593d7",
+        "expected_bytes": 1563111,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     },
     {
       "id": "2606.12498",
@@ -484,7 +691,17 @@
         "verified_on": "2026-10-26",
         "method": "PyMuPDF 文本提取后核对题名与 arXiv 标记；未联网核验"
       },
-      "venue_status": "not_verified_in_this_audit"
+      "venue_status": "not_verified_in_this_audit",
+      "retrieval": {
+        "type": "public_fixed_version",
+        "url": "https://arxiv.org/pdf/2606.12498v1",
+        "version": "2606.12498v1",
+        "expected_sha256": "202c9b9e52d8a1cc118c0bc7063b18c28604c6689a99af14e3369bf5ac4199f5",
+        "expected_bytes": 702501,
+        "status": "url_derived_from_verified_local_version_not_download_tested",
+        "on_mismatch": "Keep original expected hash; do not replace silently. Review version and PDF re-rendering."
+      }
     }
-  ]
+  ],
+  "retrieval_note": "2026-10-29: Added fixed-version arXiv PDF URLs for another computer; no new paper download or live availability check."
 }

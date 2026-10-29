@@ -1,0 +1,579 @@
+{
+  "schema": "tssa_objective_diagnosis_v1",
+  "created_at_utc": "2026-10-28T06:24:51.239184+00:00",
+  "task": "read-only objective diagnosis after completed v2 negative result",
+  "new_gpu_work_performed": false,
+  "network_or_ssh_performed": false,
+  "old_files_modified": false,
+  "evidence": {
+    "trace": {
+      "path": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/per_step_coefficients_and_losses.jsonl",
+      "sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+      "bytes": 122612
+    },
+    "candidate_metrics": {
+      "path": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidate_response_and_image_metrics.json",
+      "sha256": "d5e7cf1237b093e97ca2dc4051618c2e6c04609c800abd3b4f6b4169f1492a63",
+      "bytes": 71940
+    },
+    "selection": {
+      "path": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidate_selection.json",
+      "sha256": "82e5b2a176620d215b818b2b1ffb05e7ca6aa233138a33792e0b2279811700d6",
+      "bytes": 87664
+    },
+    "gpu_diagnostic": {
+      "path": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/gpu_diagnostic.json",
+      "sha256": "40ab01a2a629afad698924c324951f31ef2ccc0de38881a5fdfde12758677f8b",
+      "bytes": 16944
+    },
+    "gradient_core": {
+      "path": "scripts/merging/tssa_gradient_core.py",
+      "sha256": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+      "bytes": 18465
+    },
+    "runtime": {
+      "path": "scripts/merging/tssa_sd_runtime.py",
+      "sha256": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a",
+      "bytes": 42357
+    },
+    "runner": {
+      "path": "scripts/merging/tssa_mvp_run.py",
+      "sha256": "ce7cf830a91ac7046ceae32ba3eb6f3cbf64d45a14a83bbf8bcabaed66618610",
+      "bytes": 58310
+    },
+    "protocol": {
+      "path": "research/tssa_mvp_2026-10-26.json",
+      "sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+      "bytes": 96289
+    },
+    "proposal": {
+      "path": "research/tssa_response_calibration_method_proposal.md",
+      "sha256": "ac7946567c22053de01dde3e4df3248ade298a7e42911924f486d25bd9dee169",
+      "bytes": 33694
+    },
+    "final_report": {
+      "path": "results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md",
+      "sha256": "e5be86aa26da5e893f5d10a029716f177a13ae625d7c4445ddfbca65200abc7f",
+      "bytes": 7562
+    },
+    "adam_audit": {
+      "path": "results/tssa-mvp-2026-10-26/training_trace_audit_20261028T0332Z.json",
+      "sha256": "1d04212887c5b4d3c93464622213196b8ea6079f5c15d66ea984e9605c260bda",
+      "bytes": 5161
+    }
+  },
+  "facts": {
+    "training_rows": 144,
+    "candidate_table": [
+      {
+        "name": "RC-TSSA-GD_step24",
+        "J_beta": 0.01002488099038601,
+        "R": 0.010008992860093713,
+        "backdoor_mse": {
+          "Edev_0.08": 0.010008992860093713,
+          "Edev_0.25": 0.010008992860093713,
+          "Edev_0.50": 0.010008992860093713
+        },
+        "delta_l2": 0.0,
+        "normal_mse": {
+          "Edev_0.08": 0.0,
+          "Edev_0.25": 0.0,
+          "Edev_0.50": 0.0,
+          "upload": 1.5887537661759172e-05
+        },
+        "per_state_unit_count": 24,
+        "development_ASR_mean": 0.0,
+        "development_ASR_min": 0.0,
+        "normal_response_passed": true,
+        "image_utility_passed": true,
+        "failed_image_states": {}
+      },
+      {
+        "name": "TSSA-GD_step24",
+        "J_beta": 0.029394833371043205,
+        "R": 0.023511962130821,
+        "backdoor_mse": {
+          "Edev_0.08": 0.013051469528969998,
+          "Edev_0.25": 0.015835208003409207,
+          "Edev_0.50": 0.023511962130821
+        },
+        "delta_l2": 5.176667976692269,
+        "normal_mse": {
+          "Edev_0.08": 0.00022180651876624324,
+          "Edev_0.25": 0.0013456654651236022,
+          "Edev_0.50": 0.0019669313332997262,
+          "upload": 0.00219448254059292
+        },
+        "per_state_unit_count": 24,
+        "development_ASR_mean": 0.4166666666666667,
+        "development_ASR_min": 0.0,
+        "normal_response_passed": false,
+        "image_utility_passed": false,
+        "failed_image_states": {
+          "upload": {
+            "ACC_passed": false,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.125,
+            "normal_CLIP_drop": 0.5678419023752213,
+            "passed": false
+          }
+        }
+      },
+      {
+        "name": "naive",
+        "J_beta": 0.03495170921087265,
+        "R": 0.029688436072319746,
+        "backdoor_mse": {
+          "Edev_0.08": 0.013693560836448645,
+          "Edev_0.25": 0.029688436072319746,
+          "Edev_0.50": 0.019971701282581005
+        },
+        "delta_l2": 6.435575122909193,
+        "normal_mse": {
+          "Edev_0.08": 0.00024165330538986987,
+          "Edev_0.25": 0.0013491160619499472,
+          "Edev_0.50": 0.0018318971087865066,
+          "upload": 0.002091113186755441
+        },
+        "per_state_unit_count": 24,
+        "development_ASR_mean": 0.5,
+        "development_ASR_min": 0.0,
+        "normal_response_passed": true,
+        "image_utility_passed": false,
+        "failed_image_states": {
+          "Edev_0.50": {
+            "ACC_passed": true,
+            "CLIP_passed": false,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 1.145702600479126,
+            "passed": false
+          },
+          "upload": {
+            "ACC_passed": false,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.25,
+            "normal_CLIP_drop": 0.2630513161420822,
+            "passed": false
+          }
+        }
+      },
+      {
+        "name": "Uniform4",
+        "J_beta": 0.07561630010604858,
+        "R": 0.06165081796158726,
+        "backdoor_mse": {
+          "Edev_0.08": 0.06165081796158726,
+          "Edev_0.25": 0.03637487831292674,
+          "Edev_0.50": 0.011607104917250885
+        },
+        "delta_l2": 25.742300491636772,
+        "normal_mse": {
+          "Edev_0.08": 0.0018719624804361956,
+          "Edev_0.25": 0.003373443630456071,
+          "Edev_0.50": 0.004236966715931582,
+          "upload": 0.013791132728025937
+        },
+        "per_state_unit_count": 24,
+        "development_ASR_mean": 0.8333333333333334,
+        "development_ASR_min": 0.75,
+        "normal_response_passed": false,
+        "image_utility_passed": false,
+        "failed_image_states": {
+          "upload": {
+            "ACC_passed": false,
+            "CLIP_passed": false,
+            "normal_ACC_drop": 0.125,
+            "normal_CLIP_drop": 1.0625865310430527,
+            "passed": false
+          }
+        }
+      },
+      {
+        "name": "Uniform16",
+        "J_beta": 0.25325092673301697,
+        "R": 0.05970756370030964,
+        "backdoor_mse": {
+          "Edev_0.08": 0.05970756370030964,
+          "Edev_0.25": 0.04434784682234749,
+          "Edev_0.50": 0.036749124682197966
+        },
+        "delta_l2": 102.96920196654709,
+        "normal_mse": {
+          "Edev_0.08": 0.004689681474701501,
+          "Edev_0.25": 0.030821914634240482,
+          "Edev_0.50": 0.18360995194719484,
+          "upload": 0.03301106170207883
+        },
+        "per_state_unit_count": 24,
+        "development_ASR_mean": 0.5833333333333334,
+        "development_ASR_min": 0.0,
+        "normal_response_passed": false,
+        "image_utility_passed": false,
+        "failed_image_states": {
+          "Edev_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": false,
+            "normal_ACC_drop": -0.125,
+            "normal_CLIP_drop": 1.5720196068286896,
+            "passed": false
+          },
+          "Edev_0.50": {
+            "ACC_passed": false,
+            "CLIP_passed": false,
+            "normal_ACC_drop": 0.75,
+            "normal_CLIP_drop": 21.641807164996862,
+            "passed": false
+          },
+          "upload": {
+            "ACC_passed": false,
+            "CLIP_passed": false,
+            "normal_ACC_drop": 0.875,
+            "normal_CLIP_drop": 19.473261013627052,
+            "passed": false
+          }
+        }
+      },
+      {
+        "name": "TSSA16",
+        "J_beta": 0.08376437425613403,
+        "R": 0.0590094955987297,
+        "backdoor_mse": {
+          "Edev_0.08": 0.0590094955987297,
+          "Edev_0.25": 0.025606585879965376,
+          "Edev_0.50": 0.01359886759504055
+        },
+        "delta_l2": 61.393764029380065,
+        "normal_mse": {
+          "Edev_0.08": 0.0011080835611210205,
+          "Edev_0.25": 0.004896539913412805,
+          "Edev_0.50": 0.018721270651440136,
+          "upload": 0.023873336457957823
+        },
+        "per_state_unit_count": 24,
+        "development_ASR_mean": 1.0,
+        "development_ASR_min": 1.0,
+        "normal_response_passed": false,
+        "image_utility_passed": false,
+        "failed_image_states": {
+          "Edev_0.50": {
+            "ACC_passed": false,
+            "CLIP_passed": false,
+            "normal_ACC_drop": 0.125,
+            "normal_CLIP_drop": 4.06644232571125,
+            "passed": false
+          },
+          "upload": {
+            "ACC_passed": false,
+            "CLIP_passed": false,
+            "normal_ACC_drop": 0.875,
+            "normal_CLIP_drop": 19.47616613470018,
+            "passed": false
+          }
+        }
+      }
+    ],
+    "families": {
+      "Uniform-GD": {
+        "updates": 48,
+        "active_backdoor_counts": {
+          "1": 6,
+          "2": 4,
+          "0": 38
+        },
+        "active_normal_counts": {
+          "2": 1,
+          "3": 46,
+          "1": 1
+        },
+        "three_way_backdoor_exact_ties": 30,
+        "first_after_zero": {
+          "a": 12,
+          "b": 12
+        },
+        "after_zero_counts": {
+          "a": 31,
+          "b": 31
+        },
+        "negative_gradient_but_after_zero_counts": [
+          18
+        ],
+        "mean_observed_objective_by_timestep": {
+          "01": 0.005429578683106229,
+          "13": 0.03161408985033631,
+          "25": 0.005521512823179364
+        }
+      },
+      "TSSA-GD": {
+        "updates": 48,
+        "active_backdoor_counts": {
+          "1": 20,
+          "0": 17,
+          "2": 11
+        },
+        "active_normal_counts": {
+          "2": 24,
+          "3": 21,
+          "1": 3
+        },
+        "three_way_backdoor_exact_ties": 0,
+        "first_after_zero": {
+          "a": 6,
+          "b": null
+        },
+        "after_zero_counts": {
+          "a": 43,
+          "b": 0
+        },
+        "negative_gradient_but_after_zero_counts": [
+          14
+        ],
+        "mean_observed_objective_by_timestep": {
+          "01": 0.006813512300141156,
+          "13": 0.07488263922277838,
+          "25": 0.008888627984561026
+        }
+      },
+      "RC-TSSA-GD": {
+        "updates": 48,
+        "active_backdoor_counts": {
+          "1": 11,
+          "2": 8,
+          "0": 29
+        },
+        "active_normal_counts": {
+          "2": 2,
+          "3": 44,
+          "0": 2
+        },
+        "three_way_backdoor_exact_ties": 15,
+        "first_after_zero": {
+          "a": 19,
+          "b": 9
+        },
+        "after_zero_counts": {
+          "a": 16,
+          "b": 37
+        },
+        "negative_gradient_but_after_zero_counts": [
+          12,
+          17
+        ],
+        "mean_observed_objective_by_timestep": {
+          "01": 0.005696052729035728,
+          "13": 0.03107742068823427,
+          "25": 0.005215126628172584
+        }
+      }
+    },
+    "endpoint_beta_bound": {
+      "zero_attack_term": 0.010008992860093713,
+      "zero_normal_term": 1.5887537661759172e-05,
+      "naive_attack_lower_bound": 0.029688436072319746,
+      "naive_normal_lower_bound": 0.002091113186755441,
+      "intercept_lower_bound": 0.019679443212226033,
+      "beta_coefficient_lower_bound": 0.0020752256490936816,
+      "naive_mean_state_attack": 0.021117899397116467,
+      "zero_mean_state_attack": 0.010008992860093713,
+      "naive_J_beta1": 0.03495170921087265,
+      "zero_J_beta1": 0.01002488099038601,
+      "meaning": "For every beta>=0, completed-fit J_beta(naive)-J_beta(zero) is at least intercept_lower_bound + beta*beta_coefficient_lower_bound; this compares two endpoints only, not a global minimum or a rerun with changed beta."
+    },
+    "gradient_diagnostic_scope": {
+      "pair": "fit_pair_00",
+      "timestep_index_1based": 1,
+      "state": "Edev_0.25",
+      "coefficients": [
+        1,
+        1
+      ],
+      "term": "attack+normal",
+      "h": 0.0625,
+      "comparison": [
+        {
+          "absolute_error": 2.602266613394022e-05,
+          "analytical": -0.000567046576179564,
+          "central_difference": -0.0005410239100456238,
+          "passed": true,
+          "tolerance": 0.000141761644044891
+        },
+        {
+          "absolute_error": 9.11600945983082e-05,
+          "analytical": -0.00041348711238242686,
+          "central_difference": -0.00032232701778411865,
+          "passed": true,
+          "tolerance": 0.00010337177809560671
+        }
+      ]
+    }
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "title": "Original-source response target is mismatched to the merged denoising geometry",
+      "evidence": "B_star is evaluated with original clean UNet while student and matched-clean use each merged UNet; all three naive attack MSE means exceed zero endpoint despite nonzero naive ASR. This is a deliberate old definition, not a proved coding error.",
+      "falsifier": "On six fixed fit units measure candidate response norms, inner products/cosines with source B_star and same-merged semantic targets at predeclared points; if source-target projection is positive and old loss consistently ranks stronger ASR candidates ahead of clean on an independent diagnostic panel, this explanation weakens.",
+      "priority": 1
+    },
+    {
+      "id": "H2",
+      "title": "The proxy has a finite low-loss clean endpoint even without normal penalty",
+      "evidence": "Computed lower bound is strictly positive for every beta>=0; averaged-state attack loss also favors zero. Reducing beta or moving max outside the mean alone cannot reverse these two endpoint rankings.",
+      "falsifier": "Existing arithmetic is reproducible from committed summaries; a distinct nonzero candidate could still beat zero, so fit-only local surface and finite directional derivatives must test that possibility.",
+      "priority": 1
+    },
+    {
+      "id": "H3",
+      "title": "One coefficient pair must repair weak merges while preserving upload utility; feasible space may be narrow",
+      "evidence": "Uniform4 has development ASR mean 0.8333 and all three merged image utility gates pass, but upload ACC drop0.125 and CLIP drop1.0626 fail. TSSA16 reaches ASR1 but fails normal at high alpha/upload, while naive itself fails development image utility.",
+      "falsifier": "A finite predeclared two-dimensional response/normal surface plus fresh image validation finds coefficients that pass every normal gate and beat naive; otherwise do not claim two-scalar feasibility based on an unconstrained ASR increase.",
+      "priority": 2
+    },
+    {
+      "id": "H4",
+      "title": "Noisy per-unit Adam with eta0.25 and box projection amplifies collapse and masks useful candidate times",
+      "evidence": "Only steps24/48 were eligible and both collapse; many negative-gradient updates remain at zero due to momentum. Zero ties choose first attack state, explaining much apparent low-alpha dominance; raw per-state gradients are not in the trace.",
+      "falsifier": "A fixed-point full-fit gradient decomposition and small deterministic step shows the same descent direction and no attack/normal feasible descent at nonzero coefficients; then reducing eta alone is not a remedy.",
+      "priority": 3
+    },
+    {
+      "id": "H5",
+      "title": "Numerical response mismatch and incomplete gradient coverage can affect near-boundary behavior",
+      "evidence": "Zero upload normal MSE is1.58875e-5 while all merged normal losses are0; teacher TE batch4 and upload student batch3 differ. Original diagnostic checked only fit_pair00, first timestep, alpha0.25, (1,1), total loss, finite-difference h0.0625 and tolerance25%, not per-term/all-state/boundary gradients.",
+      "falsifier": "Constant-layout matched forward reproduces zero exactly and finite differences over predeclared interior plus one-sided boundary steps agree for each attack/normal term; still this alone cannot explain or reverse the much larger old objective endpoint gap.",
+      "priority": 2
+    }
+  ],
+  "recommended_new_objective": {
+    "status": "proposal_only_not_implemented_or_validated",
+    "parameterization": "same fixed Delta_A, Delta_B and 0<=a,b<=32; new run identity only",
+    "minimal_primary_change": "replace original-source double-difference target with a fixed same-merged-model semantic target for the triggered conditional prediction",
+    "target_prompt": "predeclare fit context-preserving normal dog->cat replacement; no future heldout outputs used",
+    "target": "T_xi,u = F_matched_clean_xi(z_u,t_u,p_target_u), cached once at same merged UNet/TE and exact CFG/batch/precision",
+    "attack_objective": "mean_xi mean_u ||F_student_xi(s)(p_trigger_u)-T_xi,u||^2/d; initially unnormalized so denominator choices cannot hide a numerical floor",
+    "normal_constraints": "retain paired p and extra q normal responses and existing per-state normal response limits; retain matched-clean normal ACC/CLIP image gates, including upload",
+    "selection_rule": "include naive and all proposed frozen candidates in new development panel; require normal gates and strictly higher predeclared development ASR than naive before selecting for fresh untouched confirmation",
+    "aggregation_caution": "Use mean over fixed development conditions initially; changing max alone cannot repair the demonstrated endpoint ordering of the old target. Optional normalization must be frozen after fit-only geometry diagnostics and tracked as a separate ablation.",
+    "optimizer_caution": "Start at (1,1), log each state attack/normal gradient separately, use a small predeclared step/trust region with a finite acceptance check; this is not evidence the new target succeeds.",
+    "numerical_correction": "constant text-encoder prompt layout for clean/backdoor/merged/student including upload; execute only needed UNet branches without changing TE batch shape"
+  },
+  "bounded_diagnostic_requirements": {
+    "status": "requirements_for_new_executor_not_a_claim_of_existing_CLI",
+    "gpu_launch_requires": "parent verifies current allocation/direct-use permission, UUID and no other user process before running; no GPU or SSH performed by this audit",
+    "phase1_forward_geometry": {
+      "units": [
+        "fit_unit_p00_s01",
+        "fit_unit_p00_s13",
+        "fit_unit_p00_s25",
+        "fit_unit_p04_s01",
+        "fit_unit_p04_s13",
+        "fit_unit_p04_s25"
+      ],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          4,
+          0.5
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          8,
+          0.25
+        ]
+      ],
+      "states": [
+        "Edev_0.08",
+        "Edev_0.25",
+        "Edev_0.50",
+        "upload"
+      ],
+      "new_fixed_target_branches": 36,
+      "student_branches": 840,
+      "branch_NFE_total": 876,
+      "images": 0,
+      "updates": 0,
+      "forward_basis": "Each of 7*6*4 calls executes constant-layout five response branches, including upload trigger diagnostically; 6*3 semantic targets each need unconditional+target branches. Existing validated trajectory cache reused; any rebuild cost recorded separately.",
+      "required_output": [
+        "candidate/state/unit loss terms",
+        "response and target norms",
+        "source-target and semantic-target inner products/cosines",
+        "exact zero identity residuals by state",
+        "gradient-free model/asset/trajectory hashes"
+      ]
+    },
+    "phase2_term_gradients": {
+      "only_after": "phase1 validates matching numerical operator and non-negligible semantic target signal",
+      "units": [
+        "fit_unit_p00_s13",
+        "fit_unit_p04_s13"
+      ],
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          4,
+          0.5
+        ]
+      ],
+      "states": [
+        "Edev_0.08",
+        "Edev_0.25",
+        "Edev_0.50",
+        "upload"
+      ],
+      "forward_branches_for_gradients": 120,
+      "autograd_calls_upper_bound": 60,
+      "updates": 0,
+      "required_output": [
+        "g_attack_old,g_attack_semantic,g_normal separately for a/b",
+        "active-state ties",
+        "per-state and aggregate candidate feasible-direction tests",
+        "frozen parameter gradients absent"
+      ]
+    },
+    "finite_difference_requirement": "Predeclare two step sizes at representative interior point and one-sided steps at boundary; per-term derivative checks need a separate finite branch-NFE cap in the new manifest, cannot hide their costs inside the above 996-forward cap.",
+    "command_interface_requirements": [
+      "--mode objective-geometry or --mode term-gradients",
+      "--protocol <new frozen manifest>",
+      "--source-run-dir <old read-only run>",
+      "--run-dir <new isolated directory>",
+      "--expected-gpu-uuid <freshly authorized UUID>",
+      "--max-forward-branch-nfe <frozen phase cap>",
+      "--max-images 0",
+      "--max-optimizer-updates 0",
+      "--offline-only"
+    ],
+    "completion_gate": "Before training, new target must not prefer zero solely by construction and must provide a feasible descent direction with normal constraints; no success inference until fresh frozen candidate-versus-naive image evaluation."
+  },
+  "not_proven": [
+    "zero global optimum",
+    "beta term causes collapse by gradient dominance",
+    "two-scalar feasible superiority exists",
+    "new semantic target improves ASR",
+    "batch size is sole numerical mismatch cause",
+    "same prompts from old heldout can be treated as untouched confirmation again"
+  ]
+}

@@ -1,0 +1,2684 @@
+{
+  "state": {
+    "status": "complete",
+    "pid": 2035355,
+    "started_at": "2026-10-27T00:57:59.446142+00:00",
+    "argv": [
+      "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/server/install_school_offline_env.py",
+      "--manifest",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_environment_2026-10-26.json",
+      "--lock",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock",
+      "--venv",
+      "/data2/zhangzibo/arxiv-tssa/venv"
+    ],
+    "GPU_visible": false,
+    "network_access": false,
+    "installer_pid": 2035356,
+    "returncode": 0,
+    "installer_result": {
+      "status": "installed_cpu_verified",
+      "audit": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/audit.json",
+      "GPU_tested": false
+    },
+    "finished_at": "2026-10-27T00:59:19.365498+00:00"
+  },
+  "launcher_logs": {
+    "launcher.stdout.log": "",
+    "launcher.stderr.log": ""
+  },
+  "audit_path": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/audit.json",
+  "audit": {
+    "mode": "install",
+    "manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+    "lock_sha256": "c954f66450719b86a2761d2c85faed26a2f27cdb244f4d2f8df7ddc06163d851",
+    "wheel_count": 51,
+    "wheel_bytes": 3909917779,
+    "versions_expected": {
+      "accelerate": "1.10.1",
+      "certifi": "2026.10.23",
+      "charset-normalizer": "3.5.2",
+      "diffusers": "0.35.1",
+      "filelock": "4.2.4",
+      "fsspec": "2026.9.0",
+      "ftfy": "6.3.1",
+      "hf-xet": "1.7.0",
+      "huggingface-hub": "0.34.4",
+      "idna": "3.20",
+      "importlib-metadata": "10.1.0",
+      "jinja2": "3.1.6",
+      "lightning-utilities": "0.15.3",
+      "markupsafe": "3.0.4",
+      "mpmath": "1.3.0",
+      "networkx": "3.6.1",
+      "numpy": "1.26.4",
+      "nvidia-cublas-cu12": "12.8.3.14",
+      "nvidia-cuda-cupti-cu12": "12.8.57",
+      "nvidia-cuda-nvrtc-cu12": "12.8.61",
+      "nvidia-cuda-runtime-cu12": "12.8.57",
+      "nvidia-cudnn-cu12": "9.7.1.26",
+      "nvidia-cufft-cu12": "11.3.3.41",
+      "nvidia-cufile-cu12": "1.13.0.11",
+      "nvidia-curand-cu12": "10.3.9.55",
+      "nvidia-cusolver-cu12": "11.7.2.55",
+      "nvidia-cusparse-cu12": "12.5.7.53",
+      "nvidia-cusparselt-cu12": "0.6.3",
+      "nvidia-nccl-cu12": "2.26.2",
+      "nvidia-nvjitlink-cu12": "12.8.61",
+      "nvidia-nvtx-cu12": "12.8.55",
+      "packaging": "26.3",
+      "pillow": "11.3.0",
+      "psutil": "7.2.2",
+      "pyyaml": "6.0.2",
+      "regex": "2026.9.29",
+      "requests": "2.34.2",
+      "safetensors": "0.6.2",
+      "setuptools": "84.2.1",
+      "sympy": "1.14.0",
+      "tokenizers": "0.21.4",
+      "torch": "2.7.1+cu128",
+      "torchmetrics": "1.8.2",
+      "torchvision": "0.22.1+cu128",
+      "tqdm": "4.67.1",
+      "transformers": "4.49.0",
+      "triton": "3.3.1",
+      "typing-extensions": "4.16.0",
+      "urllib3": "2.8.0",
+      "wcwidth": "0.9.4",
+      "zipp": "4.1.2"
+    },
+    "target": {
+      "os": "Ubuntu 24.04 Linux",
+      "architecture": "x86_64",
+      "python_implementation": "CPython",
+      "python_full_version": "3.11.7",
+      "compatible_wheel_abi": "cp311, supported older cp*-abi3, or pure Python; Linux only for native wheels",
+      "glibc_max": "2.39",
+      "environment": "Dedicated venv from user-owned Anaconda Python 3.11.7; do not modify shared/base packages",
+      "driver_reported": "595.91.07",
+      "driver_cuda_capability_reported": "13.2",
+      "pytorch_wheel_runtime": "CUDA 12.8"
+    },
+    "data_root": "/data2/zhangzibo/arxiv-tssa",
+    "venv": "/data2/zhangzibo/arxiv-tssa/venv",
+    "install_command": [
+      "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+      "-I",
+      "-B",
+      "-m",
+      "pip",
+      "--disable-pip-version-check",
+      "install",
+      "--no-index",
+      "--no-cache-dir",
+      "--only-binary=:all:",
+      "--require-hashes",
+      "--no-compile",
+      "--force-reinstall",
+      "--find-links",
+      "/data2/zhangzibo/arxiv-tssa/wheelhouse",
+      "-r",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock"
+    ],
+    "network_access": false,
+    "GPU_validation_performed": false,
+    "installation_performed": true,
+    "installation_attempted": true,
+    "environment_may_have_changed": true,
+    "commands": [
+      {
+        "name": "interpreter",
+        "argv": [
+          "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "-I",
+          "-B",
+          "-c",
+          "\nimport importlib.metadata as md, json, os, platform, site, sys, sysconfig\nfrom pathlib import Path\nimport pip\nfrom pip._vendor.packaging.tags import sys_tags\nfrom pip._vendor.packaging.utils import parse_wheel_filename\nfrom pip._vendor.packaging.specifiers import SpecifierSet\nrequest = json.load(sys.stdin)\ntags = set(sys_tags())\ncompatibility = []\nfor item in request['files']:\n    compatible = bool(parse_wheel_filename(item['filename'])[3] & tags)\n    python_ok = not item.get('requires_python') or platform.python_version() in SpecifierSet(item['requires_python'])\n    compatibility.append({'filename': item['filename'], 'compatible': compatible, 'requires_python_satisfied': python_ok})\nrecord = {'system': platform.system(), 'machine': platform.machine(), 'implementation': platform.python_implementation(),\n          'python_full_version': platform.python_version(), 'executable': sys.executable,\n          'real_executable': str(Path(sys.executable).resolve()), 'prefix': sys.prefix, 'base_prefix': sys.base_prefix,\n          'purelib': sysconfig.get_path('purelib'), 'platlib': sysconfig.get_path('platlib'),\n          'scripts': sysconfig.get_path('scripts'), 'enable_user_site': site.ENABLE_USER_SITE,\n          'pip_version': md.version('pip'), 'pip_file': pip.__file__, 'wheel_compatibility': compatibility,\n          'installed_distributions': sorted([{'name': d.metadata['Name'], 'version': d.version,\n                'location': str(d.locate_file(''))} for d in md.distributions()], key=lambda d: d['name'].lower()),\n          'CUDA_imported': 'torch' in sys.modules}\nprint(json.dumps(record, sort_keys=True))\n"
+        ],
+        "status": "passed",
+        "stdout": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/interpreter.stdout.log",
+        "stderr": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/interpreter.stderr.log",
+        "returncode": 0,
+        "result": {
+          "CUDA_imported": false,
+          "base_prefix": "/home/zhangzibo/anaconda3",
+          "enable_user_site": false,
+          "executable": "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "implementation": "CPython",
+          "installed_distributions": [
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "pip",
+              "version": "23.2.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "setuptools",
+              "version": "65.5.0"
+            }
+          ],
+          "machine": "x86_64",
+          "pip_file": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/pip/__init__.py",
+          "pip_version": "23.2.1",
+          "platlib": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "prefix": "/data2/zhangzibo/arxiv-tssa/venv",
+          "purelib": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "python_full_version": "3.11.7",
+          "real_executable": "/home/zhangzibo/anaconda3/bin/python3.11",
+          "scripts": "/data2/zhangzibo/arxiv-tssa/venv/bin",
+          "system": "Linux",
+          "wheel_compatibility": [
+            {
+              "compatible": true,
+              "filename": "accelerate-1.10.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "certifi-2026.10.23-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "diffusers-0.35.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "filelock-4.2.4-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "fsspec-2026.9.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "ftfy-6.3.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "huggingface_hub-0.34.4-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "idna-3.20-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "importlib_metadata-10.1.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "jinja2-3.1.6-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "lightning_utilities-0.15.3-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "mpmath-1.3.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "networkx-3.6.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cublas_cu12-12.8.3.14-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cuda_cupti_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cuda_runtime_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "packaging-26.3-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "requests-2.34.2-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "setuptools-84.2.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "sympy-1.14.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "torchmetrics-1.8.2-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "tqdm-4.67.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "transformers-4.49.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "urllib3-2.8.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "zipp-4.1.2-py3-none-any.whl",
+              "requires_python_satisfied": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "pip_install",
+        "argv": [
+          "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "-I",
+          "-B",
+          "-m",
+          "pip",
+          "--disable-pip-version-check",
+          "install",
+          "--no-index",
+          "--no-cache-dir",
+          "--only-binary=:all:",
+          "--require-hashes",
+          "--no-compile",
+          "--force-reinstall",
+          "--find-links",
+          "/data2/zhangzibo/arxiv-tssa/wheelhouse",
+          "-r",
+          "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock"
+        ],
+        "status": "passed",
+        "stdout": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/pip_install.stdout.log",
+        "stderr": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/pip_install.stderr.log",
+        "returncode": 0
+      },
+      {
+        "name": "pip_check",
+        "argv": [
+          "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "-I",
+          "-B",
+          "-m",
+          "pip",
+          "--disable-pip-version-check",
+          "check"
+        ],
+        "status": "passed",
+        "stdout": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/pip_check.stdout.log",
+        "stderr": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/pip_check.stderr.log",
+        "returncode": 0
+      },
+      {
+        "name": "pip_freeze",
+        "argv": [
+          "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "-I",
+          "-B",
+          "-m",
+          "pip",
+          "--disable-pip-version-check",
+          "freeze",
+          "--all"
+        ],
+        "status": "passed",
+        "stdout": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/pip_freeze.stdout.log",
+        "stderr": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/pip_freeze.stderr.log",
+        "returncode": 0
+      },
+      {
+        "name": "interpreter_after",
+        "argv": [
+          "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "-I",
+          "-B",
+          "-c",
+          "\nimport importlib.metadata as md, json, os, platform, site, sys, sysconfig\nfrom pathlib import Path\nimport pip\nfrom pip._vendor.packaging.tags import sys_tags\nfrom pip._vendor.packaging.utils import parse_wheel_filename\nfrom pip._vendor.packaging.specifiers import SpecifierSet\nrequest = json.load(sys.stdin)\ntags = set(sys_tags())\ncompatibility = []\nfor item in request['files']:\n    compatible = bool(parse_wheel_filename(item['filename'])[3] & tags)\n    python_ok = not item.get('requires_python') or platform.python_version() in SpecifierSet(item['requires_python'])\n    compatibility.append({'filename': item['filename'], 'compatible': compatible, 'requires_python_satisfied': python_ok})\nrecord = {'system': platform.system(), 'machine': platform.machine(), 'implementation': platform.python_implementation(),\n          'python_full_version': platform.python_version(), 'executable': sys.executable,\n          'real_executable': str(Path(sys.executable).resolve()), 'prefix': sys.prefix, 'base_prefix': sys.base_prefix,\n          'purelib': sysconfig.get_path('purelib'), 'platlib': sysconfig.get_path('platlib'),\n          'scripts': sysconfig.get_path('scripts'), 'enable_user_site': site.ENABLE_USER_SITE,\n          'pip_version': md.version('pip'), 'pip_file': pip.__file__, 'wheel_compatibility': compatibility,\n          'installed_distributions': sorted([{'name': d.metadata['Name'], 'version': d.version,\n                'location': str(d.locate_file(''))} for d in md.distributions()], key=lambda d: d['name'].lower()),\n          'CUDA_imported': 'torch' in sys.modules}\nprint(json.dumps(record, sort_keys=True))\n"
+        ],
+        "status": "passed",
+        "stdout": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/interpreter_after.stdout.log",
+        "stderr": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/interpreter_after.stderr.log",
+        "returncode": 0,
+        "result": {
+          "CUDA_imported": false,
+          "base_prefix": "/home/zhangzibo/anaconda3",
+          "enable_user_site": false,
+          "executable": "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "implementation": "CPython",
+          "installed_distributions": [
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "accelerate",
+              "version": "1.10.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "certifi",
+              "version": "2026.10.23"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "diffusers",
+              "version": "0.35.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "ftfy",
+              "version": "6.3.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "huggingface-hub",
+              "version": "0.34.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "importlib_metadata",
+              "version": "10.1.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "lightning-utilities",
+              "version": "0.15.3"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "numpy",
+              "version": "1.26.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cublas-cu12",
+              "version": "12.8.3.14"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.8.57"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.8.61"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.8.57"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.7.1.26"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cufft-cu12",
+              "version": "11.3.3.41"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cufile-cu12",
+              "version": "1.13.0.11"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.9.55"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.2.55"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.7.53"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.6.3"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-nccl-cu12",
+              "version": "2.26.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.8.61"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.8.55"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "pillow",
+              "version": "11.3.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "pip",
+              "version": "23.2.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "psutil",
+              "version": "7.2.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "PyYAML",
+              "version": "6.0.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "safetensors",
+              "version": "0.6.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "setuptools",
+              "version": "84.2.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "tokenizers",
+              "version": "0.21.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "torch",
+              "version": "2.7.1+cu128"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "torchmetrics",
+              "version": "1.8.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "torchvision",
+              "version": "0.22.1+cu128"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "tqdm",
+              "version": "4.67.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "transformers",
+              "version": "4.49.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "triton",
+              "version": "3.3.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "wcwidth",
+              "version": "0.9.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "zipp",
+              "version": "4.1.2"
+            }
+          ],
+          "machine": "x86_64",
+          "pip_file": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/pip/__init__.py",
+          "pip_version": "23.2.1",
+          "platlib": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "prefix": "/data2/zhangzibo/arxiv-tssa/venv",
+          "purelib": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "python_full_version": "3.11.7",
+          "real_executable": "/home/zhangzibo/anaconda3/bin/python3.11",
+          "scripts": "/data2/zhangzibo/arxiv-tssa/venv/bin",
+          "system": "Linux",
+          "wheel_compatibility": [
+            {
+              "compatible": true,
+              "filename": "accelerate-1.10.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "certifi-2026.10.23-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "diffusers-0.35.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "filelock-4.2.4-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "fsspec-2026.9.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "ftfy-6.3.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "huggingface_hub-0.34.4-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "idna-3.20-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "importlib_metadata-10.1.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "jinja2-3.1.6-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "lightning_utilities-0.15.3-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "mpmath-1.3.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "networkx-3.6.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cublas_cu12-12.8.3.14-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cuda_cupti_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cuda_runtime_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "packaging-26.3-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "requests-2.34.2-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "setuptools-84.2.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "sympy-1.14.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "torchmetrics-1.8.2-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "tqdm-4.67.1-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "transformers-4.49.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "urllib3-2.8.0-py3-none-any.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+              "requires_python_satisfied": true
+            },
+            {
+              "compatible": true,
+              "filename": "zipp-4.1.2-py3-none-any.whl",
+              "requires_python_satisfied": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "cpu_imports",
+        "argv": [
+          "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+          "-I",
+          "-B",
+          "-c",
+          "\nimport importlib, importlib.metadata as md, json, sys, traceback\nrequest = json.load(sys.stdin)\nreport = {'passed': False, 'CUDA_initialized': None, 'CUDA_initialization_attempted': False,\n          'imports': [], 'expected_versions': request['pins']}\ntry:\n    import torch\n    report['CUDA_initialized_before'] = torch.cuda.is_initialized()\n    if report['CUDA_initialized_before']:\n        raise RuntimeError('CUDA was initialized before the CPU import check.')\n    def forbidden_cuda(*args, **kwargs):\n        report['CUDA_initialization_attempted'] = True\n        raise RuntimeError('CUDA initialization is prohibited in the CPU installation audit.')\n    torch.cuda._lazy_init = forbidden_cuda\n    for module in ('torchvision', 'diffusers', 'transformers', 'safetensors.torch', 'torchmetrics', 'numpy',\n                   'PIL.Image', 'accelerate', 'huggingface_hub', 'ftfy', 'tokenizers', 'regex', 'yaml', 'triton'):\n        importlib.import_module(module)\n        report['imports'].append(module)\n        if torch.cuda.is_initialized():\n            raise RuntimeError('An import initialized CUDA: ' + module)\n    from diffusers import UNet2DConditionModel, AutoencoderKL, DDIMScheduler\n    from transformers import CLIPTextModel, CLIPTokenizer, CLIPModel, CLIPProcessor, ViTForImageClassification, ViTImageProcessor\n    from torch.func import functional_call\n    from torchvision.ops import nms\n    from safetensors.torch import save, load\n    from torchmetrics.multimodal import CLIPScore\n    # Tiny CPU operators check native extension/NumPy compatibility without models or downloads.\n    tensor = torch.tensor([[1., 2.], [3., 4.]], device='cpu')\n    assert (tensor @ tensor).numpy().tolist() == [[7., 10.], [15., 22.]]\n    assert torch.equal(load(save({'test': tensor}))['test'], tensor)\n    kept = nms(torch.tensor([[0., 0., 1., 1.], [0., 0., 1., 1.]]), torch.tensor([0.9, 0.8]), 0.5)\n    assert kept.tolist() == [0]\n    report['versions'] = {name: md.version(name) for name in request['pins']}\n    if report['versions'] != request['pins']:\n        raise RuntimeError('Installed package versions differ from the frozen 51-package pins.')\n    report['all_installed_distributions'] = sorted([{'name': d.metadata['Name'], 'version': d.version,\n          'location': str(d.locate_file(''))} for d in md.distributions()], key=lambda d: d['name'].lower())\n    report['native_CPU_checks'] = ['torch_matmul_numpy', 'safetensors_memory_roundtrip', 'torchvision_nms']\n    report['compiled_cuda_runtime'] = torch.version.cuda\n    report['CUDA_initialized'] = torch.cuda.is_initialized()\n    report['passed'] = not report['CUDA_initialized'] and not report['CUDA_initialization_attempted']\nexcept BaseException as error:\n    report.update(error_type=type(error).__name__, error=str(error), traceback=traceback.format_exc())\n    if 'torch' in sys.modules:\n        report['CUDA_initialized'] = sys.modules['torch'].cuda.is_initialized()\nprint(json.dumps(report, sort_keys=True))\nsys.exit(0 if report['passed'] else 2)\n"
+        ],
+        "status": "passed",
+        "stdout": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/cpu_imports.stdout.log",
+        "stderr": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/cpu_imports.stderr.log",
+        "returncode": 0,
+        "result": {
+          "CUDA_initialization_attempted": false,
+          "CUDA_initialized": false,
+          "CUDA_initialized_before": false,
+          "all_installed_distributions": [
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "accelerate",
+              "version": "1.10.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "certifi",
+              "version": "2026.10.23"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "diffusers",
+              "version": "0.35.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "ftfy",
+              "version": "6.3.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "huggingface-hub",
+              "version": "0.34.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "importlib_metadata",
+              "version": "10.1.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "lightning-utilities",
+              "version": "0.15.3"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "numpy",
+              "version": "1.26.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cublas-cu12",
+              "version": "12.8.3.14"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.8.57"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.8.61"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.8.57"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.7.1.26"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cufft-cu12",
+              "version": "11.3.3.41"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cufile-cu12",
+              "version": "1.13.0.11"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.9.55"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.2.55"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.7.53"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.6.3"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-nccl-cu12",
+              "version": "2.26.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.8.61"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.8.55"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "pillow",
+              "version": "11.3.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "pip",
+              "version": "23.2.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "psutil",
+              "version": "7.2.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "PyYAML",
+              "version": "6.0.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "safetensors",
+              "version": "0.6.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "setuptools",
+              "version": "84.2.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "tokenizers",
+              "version": "0.21.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "torch",
+              "version": "2.7.1+cu128"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "torchmetrics",
+              "version": "1.8.2"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "torchvision",
+              "version": "0.22.1+cu128"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "tqdm",
+              "version": "4.67.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "transformers",
+              "version": "4.49.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "triton",
+              "version": "3.3.1"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "wcwidth",
+              "version": "0.9.4"
+            },
+            {
+              "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+              "name": "zipp",
+              "version": "4.1.2"
+            }
+          ],
+          "compiled_cuda_runtime": "12.8",
+          "expected_versions": {
+            "accelerate": "1.10.1",
+            "certifi": "2026.10.23",
+            "charset-normalizer": "3.5.2",
+            "diffusers": "0.35.1",
+            "filelock": "4.2.4",
+            "fsspec": "2026.9.0",
+            "ftfy": "6.3.1",
+            "hf-xet": "1.7.0",
+            "huggingface-hub": "0.34.4",
+            "idna": "3.20",
+            "importlib-metadata": "10.1.0",
+            "jinja2": "3.1.6",
+            "lightning-utilities": "0.15.3",
+            "markupsafe": "3.0.4",
+            "mpmath": "1.3.0",
+            "networkx": "3.6.1",
+            "numpy": "1.26.4",
+            "nvidia-cublas-cu12": "12.8.3.14",
+            "nvidia-cuda-cupti-cu12": "12.8.57",
+            "nvidia-cuda-nvrtc-cu12": "12.8.61",
+            "nvidia-cuda-runtime-cu12": "12.8.57",
+            "nvidia-cudnn-cu12": "9.7.1.26",
+            "nvidia-cufft-cu12": "11.3.3.41",
+            "nvidia-cufile-cu12": "1.13.0.11",
+            "nvidia-curand-cu12": "10.3.9.55",
+            "nvidia-cusolver-cu12": "11.7.2.55",
+            "nvidia-cusparse-cu12": "12.5.7.53",
+            "nvidia-cusparselt-cu12": "0.6.3",
+            "nvidia-nccl-cu12": "2.26.2",
+            "nvidia-nvjitlink-cu12": "12.8.61",
+            "nvidia-nvtx-cu12": "12.8.55",
+            "packaging": "26.3",
+            "pillow": "11.3.0",
+            "psutil": "7.2.2",
+            "pyyaml": "6.0.2",
+            "regex": "2026.9.29",
+            "requests": "2.34.2",
+            "safetensors": "0.6.2",
+            "setuptools": "84.2.1",
+            "sympy": "1.14.0",
+            "tokenizers": "0.21.4",
+            "torch": "2.7.1+cu128",
+            "torchmetrics": "1.8.2",
+            "torchvision": "0.22.1+cu128",
+            "tqdm": "4.67.1",
+            "transformers": "4.49.0",
+            "triton": "3.3.1",
+            "typing-extensions": "4.16.0",
+            "urllib3": "2.8.0",
+            "wcwidth": "0.9.4",
+            "zipp": "4.1.2"
+          },
+          "imports": [
+            "torchvision",
+            "diffusers",
+            "transformers",
+            "safetensors.torch",
+            "torchmetrics",
+            "numpy",
+            "PIL.Image",
+            "accelerate",
+            "huggingface_hub",
+            "ftfy",
+            "tokenizers",
+            "regex",
+            "yaml",
+            "triton"
+          ],
+          "native_CPU_checks": [
+            "torch_matmul_numpy",
+            "safetensors_memory_roundtrip",
+            "torchvision_nms"
+          ],
+          "passed": true,
+          "versions": {
+            "accelerate": "1.10.1",
+            "certifi": "2026.10.23",
+            "charset-normalizer": "3.5.2",
+            "diffusers": "0.35.1",
+            "filelock": "4.2.4",
+            "fsspec": "2026.9.0",
+            "ftfy": "6.3.1",
+            "hf-xet": "1.7.0",
+            "huggingface-hub": "0.34.4",
+            "idna": "3.20",
+            "importlib-metadata": "10.1.0",
+            "jinja2": "3.1.6",
+            "lightning-utilities": "0.15.3",
+            "markupsafe": "3.0.4",
+            "mpmath": "1.3.0",
+            "networkx": "3.6.1",
+            "numpy": "1.26.4",
+            "nvidia-cublas-cu12": "12.8.3.14",
+            "nvidia-cuda-cupti-cu12": "12.8.57",
+            "nvidia-cuda-nvrtc-cu12": "12.8.61",
+            "nvidia-cuda-runtime-cu12": "12.8.57",
+            "nvidia-cudnn-cu12": "9.7.1.26",
+            "nvidia-cufft-cu12": "11.3.3.41",
+            "nvidia-cufile-cu12": "1.13.0.11",
+            "nvidia-curand-cu12": "10.3.9.55",
+            "nvidia-cusolver-cu12": "11.7.2.55",
+            "nvidia-cusparse-cu12": "12.5.7.53",
+            "nvidia-cusparselt-cu12": "0.6.3",
+            "nvidia-nccl-cu12": "2.26.2",
+            "nvidia-nvjitlink-cu12": "12.8.61",
+            "nvidia-nvtx-cu12": "12.8.55",
+            "packaging": "26.3",
+            "pillow": "11.3.0",
+            "psutil": "7.2.2",
+            "pyyaml": "6.0.2",
+            "regex": "2026.9.29",
+            "requests": "2.34.2",
+            "safetensors": "0.6.2",
+            "setuptools": "84.2.1",
+            "sympy": "1.14.0",
+            "tokenizers": "0.21.4",
+            "torch": "2.7.1+cu128",
+            "torchmetrics": "1.8.2",
+            "torchvision": "0.22.1+cu128",
+            "tqdm": "4.67.1",
+            "transformers": "4.49.0",
+            "triton": "3.3.1",
+            "typing-extensions": "4.16.0",
+            "urllib3": "2.8.0",
+            "wcwidth": "0.9.4",
+            "zipp": "4.1.2"
+          }
+        }
+      }
+    ],
+    "status": "installed_cpu_verified",
+    "environment_overrides": {
+      "TMPDIR": "/data2/zhangzibo/arxiv-tssa/tmp/offline-env-20261027T005759Z-qu64ezfr",
+      "XDG_CACHE_HOME": "/data2/zhangzibo/arxiv-tssa/cache",
+      "HF_HOME": "/data2/zhangzibo/arxiv-tssa/cache/huggingface",
+      "TORCH_HOME": "/data2/zhangzibo/arxiv-tssa/cache/torch",
+      "CUDA_VISIBLE_DEVICES": "",
+      "NVIDIA_VISIBLE_DEVICES": "none",
+      "PIP_CONFIG_FILE": "/dev/null",
+      "HF_HUB_OFFLINE": "1",
+      "TRANSFORMERS_OFFLINE": "1"
+    },
+    "interpreter_verified": {
+      "CUDA_imported": false,
+      "base_prefix": "/home/zhangzibo/anaconda3",
+      "enable_user_site": false,
+      "executable": "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+      "implementation": "CPython",
+      "installed_distributions": [
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "pip",
+          "version": "23.2.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "setuptools",
+          "version": "65.5.0"
+        }
+      ],
+      "machine": "x86_64",
+      "pip_file": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/pip/__init__.py",
+      "pip_version": "23.2.1",
+      "platlib": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+      "prefix": "/data2/zhangzibo/arxiv-tssa/venv",
+      "purelib": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+      "python_full_version": "3.11.7",
+      "real_executable": "/home/zhangzibo/anaconda3/bin/python3.11",
+      "scripts": "/data2/zhangzibo/arxiv-tssa/venv/bin",
+      "system": "Linux",
+      "wheel_compatibility": [
+        {
+          "compatible": true,
+          "filename": "accelerate-1.10.1-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "certifi-2026.10.23-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "diffusers-0.35.1-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "filelock-4.2.4-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "fsspec-2026.9.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "ftfy-6.3.1-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "huggingface_hub-0.34.4-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "idna-3.20-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "importlib_metadata-10.1.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "jinja2-3.1.6-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "lightning_utilities-0.15.3-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "mpmath-1.3.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "networkx-3.6.1-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cublas_cu12-12.8.3.14-py3-none-manylinux_2_27_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cuda_cupti_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cuda_runtime_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "packaging-26.3-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "requests-2.34.2-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "setuptools-84.2.1-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "sympy-1.14.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "torchmetrics-1.8.2-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "tqdm-4.67.1-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "transformers-4.49.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "urllib3-2.8.0-py3-none-any.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+          "requires_python_satisfied": true
+        },
+        {
+          "compatible": true,
+          "filename": "zipp-4.1.2-py3-none-any.whl",
+          "requires_python_satisfied": true
+        }
+      ]
+    },
+    "verified_wheels": [
+      {
+        "local_path": "wheelhouse/accelerate-1.10.1-py3-none-any.whl",
+        "size": 374909,
+        "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11"
+      },
+      {
+        "local_path": "wheelhouse/certifi-2026.10.23-py3-none-any.whl",
+        "size": 135082,
+        "sha256": "e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1"
+      },
+      {
+        "local_path": "wheelhouse/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "size": 269972,
+        "sha256": "211d5a3eb6af8f513b8d4ca19a8c1b7accab1b5f0d3175f9826b03c1a920dc1f"
+      },
+      {
+        "local_path": "wheelhouse/diffusers-0.35.1-py3-none-any.whl",
+        "size": 4121424,
+        "sha256": "fe29ff10200970c7c5934c6488c213e2a77a03dad5e6fa00bbd8e1d04234cb0e"
+      },
+      {
+        "local_path": "wheelhouse/filelock-4.2.4-py3-none-any.whl",
+        "size": 162475,
+        "sha256": "301241438c57936ef93f4243a94f2559022268bfcf9b375a9a72eb0f8db8358e"
+      },
+      {
+        "local_path": "wheelhouse/fsspec-2026.9.0-py3-none-any.whl",
+        "size": 221738,
+        "sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f"
+      },
+      {
+        "local_path": "wheelhouse/ftfy-6.3.1-py3-none-any.whl",
+        "size": 44821,
+        "sha256": "7c70eb532015cd2f9adb53f101fb6c7945988d023a085d127d1573dc49dd0083"
+      },
+      {
+        "local_path": "wheelhouse/hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 4212180,
+        "sha256": "2814a6e999d13464c4d679b788cc5d784eb5a4edfc638a31f10e9a11ab531ef8"
+      },
+      {
+        "local_path": "wheelhouse/huggingface_hub-0.34.4-py3-none-any.whl",
+        "size": 561452,
+        "sha256": "9b365d781739c93ff90c359844221beef048403f1bc1f1c123c191257c3c890a"
+      },
+      {
+        "local_path": "wheelhouse/idna-3.20-py3-none-any.whl",
+        "size": 69583,
+        "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c"
+      },
+      {
+        "local_path": "wheelhouse/importlib_metadata-10.1.0-py3-none-any.whl",
+        "size": 32221,
+        "sha256": "cf45ce66a929c64e994185a809c04840d0501db17e663810d993d0f4829265c7"
+      },
+      {
+        "local_path": "wheelhouse/jinja2-3.1.6-py3-none-any.whl",
+        "size": 134899,
+        "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"
+      },
+      {
+        "local_path": "wheelhouse/lightning_utilities-0.15.3-py3-none-any.whl",
+        "size": 31906,
+        "sha256": "6c55f1bee70084a1cbeaa41ada96e4b3a0fea5909e844dd335bd80f5a73c5f91"
+      },
+      {
+        "local_path": "wheelhouse/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "size": 22961,
+        "sha256": "6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808"
+      },
+      {
+        "local_path": "wheelhouse/mpmath-1.3.0-py3-none-any.whl",
+        "size": 536198,
+        "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"
+      },
+      {
+        "local_path": "wheelhouse/networkx-3.6.1-py3-none-any.whl",
+        "size": 2068504,
+        "sha256": "d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762"
+      },
+      {
+        "local_path": "wheelhouse/numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size": 18252005,
+        "sha256": "666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cublas_cu12-12.8.3.14-py3-none-manylinux_2_27_x86_64.whl",
+        "size": 609620630,
+        "sha256": "3f0e05e7293598cf61933258b73e66a160c27d59c4422670bf0b79348c04be44"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cuda_cupti_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 10237547,
+        "sha256": "8e0b2eb847de260739bee4a3f66fac31378f4ff49538ff527a38a01a9a39f950"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+        "size": 88024585,
+        "sha256": "a0fa9c2a21583105550ebd871bd76e2037205d56f33f128e69f6d2a55e0af9ed"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cuda_runtime_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 954762,
+        "sha256": "75342e28567340b7428ce79a5d6bb6ca5ff9d07b69e7ce00d2c7b4dc23eff0be"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+        "size": 726851421,
+        "sha256": "6d011159a158f3cfc47bf851aea79e31bcff60d530b70ef70474c84cac484d07"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 193118795,
+        "sha256": "da650080ab79fcdf7a4b06aa1b460e99860646b176a43f6208099bdc17836b6a"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 1197801,
+        "sha256": "483f434c541806936b98366f6d33caef5440572de8ddf38d453213729da3e7d4"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl",
+        "size": 63618038,
+        "sha256": "8387d974240c91f6a60b761b83d4b2f9b938b7e0b9617bae0f0dafe4f5c36b86"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl",
+        "size": 260373342,
+        "sha256": "4d1354102f1e922cee9db51920dba9e2559877cf6ff5ad03a00d853adafb191b"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 292064180,
+        "sha256": "3c1b61eb8c85257ea07e9354606b26397612627fdcd327bfd91ccf6155e7c86d"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl",
+        "size": 156785796,
+        "sha256": "e5c8a26c36445dd2e6812f1177978a24e2d37cacce7e090f297a688d1ec44f46"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 201319755,
+        "sha256": "694cf3879a206553cc9d7dbda76b13efaf610fdb70a50cba303de1b0d1530ac6"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+        "size": 39243473,
+        "sha256": "45fd79f2ae20bd67e8bc411055939049873bfd8fac70ff13bd4865e0b9bdab17"
+      },
+      {
+        "local_path": "wheelhouse/nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 89896,
+        "sha256": "2dd0780f1a55c21d8e06a743de5bd95653de630decfff40621dbde78cc307102"
+      },
+      {
+        "local_path": "wheelhouse/packaging-26.3-py3-none-any.whl",
+        "size": 129956,
+        "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c"
+      },
+      {
+        "local_path": "wheelhouse/pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "size": 6640273,
+        "sha256": "106064daa23a745510dabce1d84f29137a37224831d88eb4ce94bb187b1d7e5f"
+      },
+      {
+        "local_path": "wheelhouse/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+        "size": 155560,
+        "sha256": "076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9"
+      },
+      {
+        "local_path": "wheelhouse/PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size": 762952,
+        "sha256": "3ad2a3decf9aaba3d29c8f537ac4b243e36bef957511b4766cb0057d32b0be85"
+      },
+      {
+        "local_path": "wheelhouse/regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "size": 804978,
+        "sha256": "612b709381c0355b70d89cdb51b7f670591ed5cbbc0e3b5337488019dc667b65"
+      },
+      {
+        "local_path": "wheelhouse/requests-2.34.2-py3-none-any.whl",
+        "size": 73075,
+        "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0"
+      },
+      {
+        "local_path": "wheelhouse/safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size": 485835,
+        "sha256": "8045db2c872db8f4cbe3faa0495932d89c38c899c603f21e9b6486951a5ecb8f"
+      },
+      {
+        "local_path": "wheelhouse/setuptools-84.2.1-py3-none-any.whl",
+        "size": 876263,
+        "sha256": "ca140b45d5325a9478f880e351484f62fef15f336462e449ca0c03c873d589c2"
+      },
+      {
+        "local_path": "wheelhouse/sympy-1.14.0-py3-none-any.whl",
+        "size": 6299353,
+        "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5"
+      },
+      {
+        "local_path": "wheelhouse/tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "size": 3115426,
+        "sha256": "51b7eabb104f46c1c50b486520555715457ae833d5aee9ff6ae853d1130506ff"
+      },
+      {
+        "local_path": "wheelhouse/torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+        "size": 1039389795,
+        "sha256": "c301dc280458afd95450af794924c98fe07522dd148ff384739b810e3e3179f2"
+      },
+      {
+        "local_path": "wheelhouse/torchmetrics-1.8.2-py3-none-any.whl",
+        "size": 983161,
+        "sha256": "08382fd96b923e39e904c4d570f3d49e2cc71ccabd2a94e0f895d1f0dac86242"
+      },
+      {
+        "local_path": "wheelhouse/torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+        "size": 8732234,
+        "sha256": "92568ac46b13a8c88b61589800b1b9c4629be091ea7ce080fc6fc622e11e0915"
+      },
+      {
+        "local_path": "wheelhouse/tqdm-4.67.1-py3-none-any.whl",
+        "size": 78540,
+        "sha256": "26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2"
+      },
+      {
+        "local_path": "wheelhouse/transformers-4.49.0-py3-none-any.whl",
+        "size": 9970275,
+        "sha256": "6b4fded1c5fee04d384b1014495b4235a2b53c87503d7d592423c06128cbbe03"
+      },
+      {
+        "local_path": "wheelhouse/triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "size": 155689937,
+        "sha256": "b31e3aa26f8cb3cc5bf4e187bf737cbacf17311e1112b781d4a059353dfd731b"
+      },
+      {
+        "local_path": "wheelhouse/typing_extensions-4.16.0-py3-none-any.whl",
+        "size": 45571,
+        "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
+      },
+      {
+        "local_path": "wheelhouse/urllib3-2.8.0-py3-none-any.whl",
+        "size": 135717,
+        "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+      },
+      {
+        "local_path": "wheelhouse/wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "size": 785946,
+        "sha256": "b185c8b927b23af2721be1783499d1cfa5c028b098b0858951b4ae224477f1c2"
+      },
+      {
+        "local_path": "wheelhouse/zipp-4.1.2-py3-none-any.whl",
+        "size": 10581,
+        "sha256": "b30cb6cd253122169c47de245ca24a86bac2a5d3802ba15bf7ba6414eb9e144d"
+      }
+    ],
+    "disk": {
+      "available_bytes": 7968099188736,
+      "installation_headroom_required_bytes": 8893577382
+    },
+    "CPU_imports_tested": true,
+    "CUDA_initialized": false,
+    "CPU_import_report": {
+      "CUDA_initialization_attempted": false,
+      "CUDA_initialized": false,
+      "CUDA_initialized_before": false,
+      "all_installed_distributions": [
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "accelerate",
+          "version": "1.10.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "certifi",
+          "version": "2026.10.23"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "diffusers",
+          "version": "0.35.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "filelock",
+          "version": "4.2.4"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "fsspec",
+          "version": "2026.9.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "ftfy",
+          "version": "6.3.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "hf-xet",
+          "version": "1.7.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "huggingface-hub",
+          "version": "0.34.4"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "importlib_metadata",
+          "version": "10.1.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "lightning-utilities",
+          "version": "0.15.3"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "mpmath",
+          "version": "1.3.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "networkx",
+          "version": "3.6.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "numpy",
+          "version": "1.26.4"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cublas-cu12",
+          "version": "12.8.3.14"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.8.57"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.8.61"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.8.57"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.7.1.26"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cufft-cu12",
+          "version": "11.3.3.41"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cufile-cu12",
+          "version": "1.13.0.11"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.9.55"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.2.55"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.7.53"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.6.3"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-nccl-cu12",
+          "version": "2.26.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.8.61"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.8.55"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "packaging",
+          "version": "26.3"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "pillow",
+          "version": "11.3.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "pip",
+          "version": "23.2.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "psutil",
+          "version": "7.2.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "PyYAML",
+          "version": "6.0.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "regex",
+          "version": "2026.9.29"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "requests",
+          "version": "2.34.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "safetensors",
+          "version": "0.6.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "setuptools",
+          "version": "84.2.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "sympy",
+          "version": "1.14.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "tokenizers",
+          "version": "0.21.4"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "torch",
+          "version": "2.7.1+cu128"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "torchmetrics",
+          "version": "1.8.2"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "torchvision",
+          "version": "0.22.1+cu128"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "tqdm",
+          "version": "4.67.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "transformers",
+          "version": "4.49.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "triton",
+          "version": "3.3.1"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "urllib3",
+          "version": "2.8.0"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "wcwidth",
+          "version": "0.9.4"
+        },
+        {
+          "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+          "name": "zipp",
+          "version": "4.1.2"
+        }
+      ],
+      "compiled_cuda_runtime": "12.8",
+      "expected_versions": {
+        "accelerate": "1.10.1",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "diffusers": "0.35.1",
+        "filelock": "4.2.4",
+        "fsspec": "2026.9.0",
+        "ftfy": "6.3.1",
+        "hf-xet": "1.7.0",
+        "huggingface-hub": "0.34.4",
+        "idna": "3.20",
+        "importlib-metadata": "10.1.0",
+        "jinja2": "3.1.6",
+        "lightning-utilities": "0.15.3",
+        "markupsafe": "3.0.4",
+        "mpmath": "1.3.0",
+        "networkx": "3.6.1",
+        "numpy": "1.26.4",
+        "nvidia-cublas-cu12": "12.8.3.14",
+        "nvidia-cuda-cupti-cu12": "12.8.57",
+        "nvidia-cuda-nvrtc-cu12": "12.8.61",
+        "nvidia-cuda-runtime-cu12": "12.8.57",
+        "nvidia-cudnn-cu12": "9.7.1.26",
+        "nvidia-cufft-cu12": "11.3.3.41",
+        "nvidia-cufile-cu12": "1.13.0.11",
+        "nvidia-curand-cu12": "10.3.9.55",
+        "nvidia-cusolver-cu12": "11.7.2.55",
+        "nvidia-cusparse-cu12": "12.5.7.53",
+        "nvidia-cusparselt-cu12": "0.6.3",
+        "nvidia-nccl-cu12": "2.26.2",
+        "nvidia-nvjitlink-cu12": "12.8.61",
+        "nvidia-nvtx-cu12": "12.8.55",
+        "packaging": "26.3",
+        "pillow": "11.3.0",
+        "psutil": "7.2.2",
+        "pyyaml": "6.0.2",
+        "regex": "2026.9.29",
+        "requests": "2.34.2",
+        "safetensors": "0.6.2",
+        "setuptools": "84.2.1",
+        "sympy": "1.14.0",
+        "tokenizers": "0.21.4",
+        "torch": "2.7.1+cu128",
+        "torchmetrics": "1.8.2",
+        "torchvision": "0.22.1+cu128",
+        "tqdm": "4.67.1",
+        "transformers": "4.49.0",
+        "triton": "3.3.1",
+        "typing-extensions": "4.16.0",
+        "urllib3": "2.8.0",
+        "wcwidth": "0.9.4",
+        "zipp": "4.1.2"
+      },
+      "imports": [
+        "torchvision",
+        "diffusers",
+        "transformers",
+        "safetensors.torch",
+        "torchmetrics",
+        "numpy",
+        "PIL.Image",
+        "accelerate",
+        "huggingface_hub",
+        "ftfy",
+        "tokenizers",
+        "regex",
+        "yaml",
+        "triton"
+      ],
+      "native_CPU_checks": [
+        "torch_matmul_numpy",
+        "safetensors_memory_roundtrip",
+        "torchvision_nms"
+      ],
+      "passed": true,
+      "versions": {
+        "accelerate": "1.10.1",
+        "certifi": "2026.10.23",
+        "charset-normalizer": "3.5.2",
+        "diffusers": "0.35.1",
+        "filelock": "4.2.4",
+        "fsspec": "2026.9.0",
+        "ftfy": "6.3.1",
+        "hf-xet": "1.7.0",
+        "huggingface-hub": "0.34.4",
+        "idna": "3.20",
+        "importlib-metadata": "10.1.0",
+        "jinja2": "3.1.6",
+        "lightning-utilities": "0.15.3",
+        "markupsafe": "3.0.4",
+        "mpmath": "1.3.0",
+        "networkx": "3.6.1",
+        "numpy": "1.26.4",
+        "nvidia-cublas-cu12": "12.8.3.14",
+        "nvidia-cuda-cupti-cu12": "12.8.57",
+        "nvidia-cuda-nvrtc-cu12": "12.8.61",
+        "nvidia-cuda-runtime-cu12": "12.8.57",
+        "nvidia-cudnn-cu12": "9.7.1.26",
+        "nvidia-cufft-cu12": "11.3.3.41",
+        "nvidia-cufile-cu12": "1.13.0.11",
+        "nvidia-curand-cu12": "10.3.9.55",
+        "nvidia-cusolver-cu12": "11.7.2.55",
+        "nvidia-cusparse-cu12": "12.5.7.53",
+        "nvidia-cusparselt-cu12": "0.6.3",
+        "nvidia-nccl-cu12": "2.26.2",
+        "nvidia-nvjitlink-cu12": "12.8.61",
+        "nvidia-nvtx-cu12": "12.8.55",
+        "packaging": "26.3",
+        "pillow": "11.3.0",
+        "psutil": "7.2.2",
+        "pyyaml": "6.0.2",
+        "regex": "2026.9.29",
+        "requests": "2.34.2",
+        "safetensors": "0.6.2",
+        "setuptools": "84.2.1",
+        "sympy": "1.14.0",
+        "tokenizers": "0.21.4",
+        "torch": "2.7.1+cu128",
+        "torchmetrics": "1.8.2",
+        "torchvision": "0.22.1+cu128",
+        "tqdm": "4.67.1",
+        "transformers": "4.49.0",
+        "triton": "3.3.1",
+        "typing-extensions": "4.16.0",
+        "urllib3": "2.8.0",
+        "wcwidth": "0.9.4",
+        "zipp": "4.1.2"
+      }
+    },
+    "all_installed_distributions": [
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "accelerate",
+        "version": "1.10.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "certifi",
+        "version": "2026.10.23"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "charset-normalizer",
+        "version": "3.5.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "diffusers",
+        "version": "0.35.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "filelock",
+        "version": "4.2.4"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "fsspec",
+        "version": "2026.9.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "ftfy",
+        "version": "6.3.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "hf-xet",
+        "version": "1.7.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "huggingface-hub",
+        "version": "0.34.4"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "idna",
+        "version": "3.20"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "importlib_metadata",
+        "version": "10.1.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "Jinja2",
+        "version": "3.1.6"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "lightning-utilities",
+        "version": "0.15.3"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "MarkupSafe",
+        "version": "3.0.4"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "mpmath",
+        "version": "1.3.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "networkx",
+        "version": "3.6.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "numpy",
+        "version": "1.26.4"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cublas-cu12",
+        "version": "12.8.3.14"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cuda-cupti-cu12",
+        "version": "12.8.57"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cuda-nvrtc-cu12",
+        "version": "12.8.61"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cuda-runtime-cu12",
+        "version": "12.8.57"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cudnn-cu12",
+        "version": "9.7.1.26"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cufft-cu12",
+        "version": "11.3.3.41"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cufile-cu12",
+        "version": "1.13.0.11"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-curand-cu12",
+        "version": "10.3.9.55"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cusolver-cu12",
+        "version": "11.7.2.55"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cusparse-cu12",
+        "version": "12.5.7.53"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-cusparselt-cu12",
+        "version": "0.6.3"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-nccl-cu12",
+        "version": "2.26.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-nvjitlink-cu12",
+        "version": "12.8.61"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "nvidia-nvtx-cu12",
+        "version": "12.8.55"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "packaging",
+        "version": "26.3"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "pillow",
+        "version": "11.3.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "pip",
+        "version": "23.2.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "psutil",
+        "version": "7.2.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "PyYAML",
+        "version": "6.0.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "regex",
+        "version": "2026.9.29"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "requests",
+        "version": "2.34.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "safetensors",
+        "version": "0.6.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "setuptools",
+        "version": "84.2.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "sympy",
+        "version": "1.14.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "tokenizers",
+        "version": "0.21.4"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "torch",
+        "version": "2.7.1+cu128"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "torchmetrics",
+        "version": "1.8.2"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "torchvision",
+        "version": "0.22.1+cu128"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "tqdm",
+        "version": "4.67.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "transformers",
+        "version": "4.49.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "triton",
+        "version": "3.3.1"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "typing_extensions",
+        "version": "4.16.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "urllib3",
+        "version": "2.8.0"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "wcwidth",
+        "version": "0.9.4"
+      },
+      {
+        "location": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+        "name": "zipp",
+        "version": "4.1.2"
+      }
+    ]
+  },
+  "logs": {
+    "pip_freeze.stdout.log": "accelerate==1.10.1\ncertifi==2026.10.23\ncharset-normalizer==3.5.2\ndiffusers==0.35.1\nfilelock==4.2.4\nfsspec==2026.9.0\nftfy==6.3.1\nhf-xet==1.7.0\nhuggingface-hub==0.34.4\nidna==3.20\nimportlib_metadata==10.1.0\nJinja2==3.1.6\nlightning-utilities==0.15.3\nMarkupSafe==3.0.4\nmpmath==1.3.0\nnetworkx==3.6.1\nnumpy==1.26.4\nnvidia-cublas-cu12==12.8.3.14\nnvidia-cuda-cupti-cu12==12.8.57\nnvidia-cuda-nvrtc-cu12==12.8.61\nnvidia-cuda-runtime-cu12==12.8.57\nnvidia-cudnn-cu12==9.7.1.26\nnvidia-cufft-cu12==11.3.3.41\nnvidia-cufile-cu12==1.13.0.11\nnvidia-curand-cu12==10.3.9.55\nnvidia-cusolver-cu12==11.7.2.55\nnvidia-cusparse-cu12==12.5.7.53\nnvidia-cusparselt-cu12==0.6.3\nnvidia-nccl-cu12==2.26.2\nnvidia-nvjitlink-cu12==12.8.61\nnvidia-nvtx-cu12==12.8.55\npackaging==26.3\npillow==11.3.0\npip==23.2.1\npsutil==7.2.2\nPyYAML==6.0.2\nregex==2026.9.29\nrequests==2.34.2\nsafetensors==0.6.2\nsetuptools==84.2.1\nsympy==1.14.0\ntokenizers==0.21.4\ntorch==2.7.1+cu128\ntorchmetrics==1.8.2\ntorchvision==0.22.1+cu128\ntqdm==4.67.1\ntransformers==4.49.0\ntriton==3.3.1\ntyping_extensions==4.16.0\nurllib3==2.8.0\nwcwidth==0.9.4\nzipp==4.1.2\n",
+    "interpreter.stdout.log": "\"compatible\": true, \"filename\": \"nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"packaging-26.3-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"requests-2.34.2-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"setuptools-84.2.1-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"sympy-1.14.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"torchmetrics-1.8.2-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"tqdm-4.67.1-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"transformers-4.49.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"typing_extensions-4.16.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"urllib3-2.8.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"zipp-4.1.2-py3-none-any.whl\", \"requires_python_satisfied\": true}]}\n",
+    "pip_check.stdout.log": "No broken requirements found.\n",
+    "pip_install.stdout.log": "ode/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 963))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/torchmetrics-1.8.2-py3-none-any.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 988))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 993))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/tqdm-4.67.1-py3-none-any.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1008))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/transformers-4.49.0-py3-none-any.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1016))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1021))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1036))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/urllib3-2.8.0-py3-none-any.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1044))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1049))\nProcessing /data2/zhangzibo/arxiv-tssa/wheelhouse/zipp-4.1.2-py3-none-any.whl (from -r /data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock (line 1081))\nInstalling collected packages: nvidia-cusparselt-cu12, mpmath, zipp, wcwidth, urllib3, typing-extensions, tqdm, sympy, setuptools, safetensors, regex, pyyaml, psutil, pillow, packaging, nvidia-nvtx-cu12, nvidia-nvjitlink-cu12, nvidia-nccl-cu12, nvidia-curand-cu12, nvidia-cufile-cu12, nvidia-cuda-runtime-cu12, nvidia-cuda-nvrtc-cu12, nvidia-cuda-cupti-cu12, nvidia-cublas-cu12, numpy, networkx, markupsafe, idna, hf-xet, fsspec, filelock, charset-normalizer, certifi, triton, requests, nvidia-cusparse-cu12, nvidia-cufft-cu12, nvidia-cudnn-cu12, lightning-utilities, jinja2, importlib-metadata, ftfy, nvidia-cusolver-cu12, huggingface-hub, torch, tokenizers, diffusers, transformers, torchvision, torchmetrics, accelerate\n  Attempting uninstall: setuptools\n    Found existing installation: setuptools 65.5.0\n    Uninstalling setuptools-65.5.0:\n      Successfully uninstalled setuptools-65.5.0\nSuccessfully installed accelerate-1.10.1 certifi-2026.10.23 charset-normalizer-3.5.2 diffusers-0.35.1 filelock-4.2.4 fsspec-2026.9.0 ftfy-6.3.1 hf-xet-1.7.0 huggingface-hub-0.34.4 idna-3.20 importlib-metadata-10.1.0 jinja2-3.1.6 lightning-utilities-0.15.3 markupsafe-3.0.4 mpmath-1.3.0 networkx-3.6.1 numpy-1.26.4 nvidia-cublas-cu12-12.8.3.14 nvidia-cuda-cupti-cu12-12.8.57 nvidia-cuda-nvrtc-cu12-12.8.61 nvidia-cuda-runtime-cu12-12.8.57 nvidia-cudnn-cu12-9.7.1.26 nvidia-cufft-cu12-11.3.3.41 nvidia-cufile-cu12-1.13.0.11 nvidia-curand-cu12-10.3.9.55 nvidia-cusolver-cu12-11.7.2.55 nvidia-cusparse-cu12-12.5.7.53 nvidia-cusparselt-cu12-0.6.3 nvidia-nccl-cu12-2.26.2 nvidia-nvjitlink-cu12-12.8.61 nvidia-nvtx-cu12-12.8.55 packaging-26.3 pillow-11.3.0 psutil-7.2.2 pyyaml-6.0.2 regex-2026.9.29 requests-2.34.2 safetensors-0.6.2 setuptools-84.2.1 sympy-1.14.0 tokenizers-0.21.4 torch-2.7.1+cu128 torchmetrics-1.8.2 torchvision-0.22.1+cu128 tqdm-4.67.1 transformers-4.49.0 triton-3.3.1 typing-extensions-4.16.0 urllib3-2.8.0 wcwidth-0.9.4 zipp-4.1.2\n",
+    "cpu_imports.stdout.log": "ation\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"torchvision\", \"version\": \"0.22.1+cu128\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"tqdm\", \"version\": \"4.67.1\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"transformers\", \"version\": \"4.49.0\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"triton\", \"version\": \"3.3.1\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"typing_extensions\", \"version\": \"4.16.0\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"urllib3\", \"version\": \"2.8.0\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"wcwidth\", \"version\": \"0.9.4\"}, {\"location\": \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages\", \"name\": \"zipp\", \"version\": \"4.1.2\"}], \"compiled_cuda_runtime\": \"12.8\", \"expected_versions\": {\"accelerate\": \"1.10.1\", \"certifi\": \"2026.10.23\", \"charset-normalizer\": \"3.5.2\", \"diffusers\": \"0.35.1\", \"filelock\": \"4.2.4\", \"fsspec\": \"2026.9.0\", \"ftfy\": \"6.3.1\", \"hf-xet\": \"1.7.0\", \"huggingface-hub\": \"0.34.4\", \"idna\": \"3.20\", \"importlib-metadata\": \"10.1.0\", \"jinja2\": \"3.1.6\", \"lightning-utilities\": \"0.15.3\", \"markupsafe\": \"3.0.4\", \"mpmath\": \"1.3.0\", \"networkx\": \"3.6.1\", \"numpy\": \"1.26.4\", \"nvidia-cublas-cu12\": \"12.8.3.14\", \"nvidia-cuda-cupti-cu12\": \"12.8.57\", \"nvidia-cuda-nvrtc-cu12\": \"12.8.61\", \"nvidia-cuda-runtime-cu12\": \"12.8.57\", \"nvidia-cudnn-cu12\": \"9.7.1.26\", \"nvidia-cufft-cu12\": \"11.3.3.41\", \"nvidia-cufile-cu12\": \"1.13.0.11\", \"nvidia-curand-cu12\": \"10.3.9.55\", \"nvidia-cusolver-cu12\": \"11.7.2.55\", \"nvidia-cusparse-cu12\": \"12.5.7.53\", \"nvidia-cusparselt-cu12\": \"0.6.3\", \"nvidia-nccl-cu12\": \"2.26.2\", \"nvidia-nvjitlink-cu12\": \"12.8.61\", \"nvidia-nvtx-cu12\": \"12.8.55\", \"packaging\": \"26.3\", \"pillow\": \"11.3.0\", \"psutil\": \"7.2.2\", \"pyyaml\": \"6.0.2\", \"regex\": \"2026.9.29\", \"requests\": \"2.34.2\", \"safetensors\": \"0.6.2\", \"setuptools\": \"84.2.1\", \"sympy\": \"1.14.0\", \"tokenizers\": \"0.21.4\", \"torch\": \"2.7.1+cu128\", \"torchmetrics\": \"1.8.2\", \"torchvision\": \"0.22.1+cu128\", \"tqdm\": \"4.67.1\", \"transformers\": \"4.49.0\", \"triton\": \"3.3.1\", \"typing-extensions\": \"4.16.0\", \"urllib3\": \"2.8.0\", \"wcwidth\": \"0.9.4\", \"zipp\": \"4.1.2\"}, \"imports\": [\"torchvision\", \"diffusers\", \"transformers\", \"safetensors.torch\", \"torchmetrics\", \"numpy\", \"PIL.Image\", \"accelerate\", \"huggingface_hub\", \"ftfy\", \"tokenizers\", \"regex\", \"yaml\", \"triton\"], \"native_CPU_checks\": [\"torch_matmul_numpy\", \"safetensors_memory_roundtrip\", \"torchvision_nms\"], \"passed\": true, \"versions\": {\"accelerate\": \"1.10.1\", \"certifi\": \"2026.10.23\", \"charset-normalizer\": \"3.5.2\", \"diffusers\": \"0.35.1\", \"filelock\": \"4.2.4\", \"fsspec\": \"2026.9.0\", \"ftfy\": \"6.3.1\", \"hf-xet\": \"1.7.0\", \"huggingface-hub\": \"0.34.4\", \"idna\": \"3.20\", \"importlib-metadata\": \"10.1.0\", \"jinja2\": \"3.1.6\", \"lightning-utilities\": \"0.15.3\", \"markupsafe\": \"3.0.4\", \"mpmath\": \"1.3.0\", \"networkx\": \"3.6.1\", \"numpy\": \"1.26.4\", \"nvidia-cublas-cu12\": \"12.8.3.14\", \"nvidia-cuda-cupti-cu12\": \"12.8.57\", \"nvidia-cuda-nvrtc-cu12\": \"12.8.61\", \"nvidia-cuda-runtime-cu12\": \"12.8.57\", \"nvidia-cudnn-cu12\": \"9.7.1.26\", \"nvidia-cufft-cu12\": \"11.3.3.41\", \"nvidia-cufile-cu12\": \"1.13.0.11\", \"nvidia-curand-cu12\": \"10.3.9.55\", \"nvidia-cusolver-cu12\": \"11.7.2.55\", \"nvidia-cusparse-cu12\": \"12.5.7.53\", \"nvidia-cusparselt-cu12\": \"0.6.3\", \"nvidia-nccl-cu12\": \"2.26.2\", \"nvidia-nvjitlink-cu12\": \"12.8.61\", \"nvidia-nvtx-cu12\": \"12.8.55\", \"packaging\": \"26.3\", \"pillow\": \"11.3.0\", \"psutil\": \"7.2.2\", \"pyyaml\": \"6.0.2\", \"regex\": \"2026.9.29\", \"requests\": \"2.34.2\", \"safetensors\": \"0.6.2\", \"setuptools\": \"84.2.1\", \"sympy\": \"1.14.0\", \"tokenizers\": \"0.21.4\", \"torch\": \"2.7.1+cu128\", \"torchmetrics\": \"1.8.2\", \"torchvision\": \"0.22.1+cu128\", \"tqdm\": \"4.67.1\", \"transformers\": \"4.49.0\", \"triton\": \"3.3.1\", \"typing-extensions\": \"4.16.0\", \"urllib3\": \"2.8.0\", \"wcwidth\": \"0.9.4\", \"zipp\": \"4.1.2\"}}\n",
+    "cpu_imports.stderr.log": "",
+    "interpreter_after.stderr.log": "",
+    "pip_check.stderr.log": "",
+    "interpreter_after.stdout.log": "\"compatible\": true, \"filename\": \"nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"packaging-26.3-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"requests-2.34.2-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"setuptools-84.2.1-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"sympy-1.14.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"torchmetrics-1.8.2-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"tqdm-4.67.1-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"transformers-4.49.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"typing_extensions-4.16.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"urllib3-2.8.0-py3-none-any.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\", \"requires_python_satisfied\": true}, {\"compatible\": true, \"filename\": \"zipp-4.1.2-py3-none-any.whl\", \"requires_python_satisfied\": true}]}\n",
+    "pip_install.stderr.log": "",
+    "pip_freeze.stderr.log": "",
+    "interpreter.stderr.log": ""
+  }
+}

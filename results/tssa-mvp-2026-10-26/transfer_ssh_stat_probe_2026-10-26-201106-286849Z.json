@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-26T20:11:06.287157+00:00",
+  "status": "complete",
+  "kind": "independent_readonly_stat_probe",
+  "no_GPU": true,
+  "hash_check": false,
+  "timeout_seconds": 150,
+  "pid": 62185,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-201106-286849Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-201106-286849Z.log",
+  "route": "115.226.154.76",
+  "route_config": "/private/tmp/school-stat-gfrlmjmc/config",
+  "returncode": 0,
+  "stdout": "{\"uid\": 24112, \"partial_bytes\": 3115161600, \"owned\": true, \"symlink\": false}\n",
+  "stderr_tail": "tp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>\ndebug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=<0>\ndebug1: kex_ext_info_check_ver: ping@openssh.com=<0>\ndebug2: service_accept: ssh-userauth\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\ndebug1: SSH2_MSG_EXT_INFO received\ndebug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>\ndebug1: Authentications that can continue: publickey,password\ndebug1: Next authentication method: publickey\ndebug1: Will attempt key: /Users/zzb/.ssh/zhangzibo_school  explicit\ndebug2: pubkey_prepare: done\ndebug1: Trying private key: /Users/zzb/.ssh/zhangzibo_school\ndebug2: we sent a publickey packet, wait for reply\nAuthenticated to 192.168.1.104 (via proxy) using \"publickey\".\ndebug2: fd 3 setting O_NONBLOCK\ndebug2: fd 6 setting O_NONBLOCK\ndebug2: fd 7 setting O_NONBLOCK\ndebug1: channel 0: new session [client-session] (inactive timeout: 0)\ndebug2: channel 0: send open\ndebug1: Requesting no-more-sessions@openssh.com\ndebug1: Entering interactive session.\ndebug1: pledge: proc\ndebug2: client_loop: session QoS is now interactive\ndebug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0\ndebug1: Remote: /home/zhangzibo/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding\ndebug2: channel_input_open_confirmation: channel 0: callback start\ndebug2: client_session2_setup: id 0\ndebug1: Sending command: python3 -c 'import json,os,pathlib; p=pathlib.Path('\"'\"'/data2/zhangzibo/arxiv-tssa/models/sd15/unet/diffusion_pytorch_model.safetensors.uploading'\"'\"'); s=p.lstat(); print(json.dumps({'\"'\"'uid'\"'\"':os.getuid(),'\"'\"'partial_bytes'\"'\"':s.st_size,'\"'\"'owned'\"'\"':s.st_uid==os.getuid(),'\"'\"'symlink'\"'\"':p.is_symlink()}),flush=True)'\ndebug2: channel 0: request exec confirm 1\ndebug1: pledge: fork\ndebug2: channel_input_open_confirmation: channel 0: callback done\ndebug2: channel 0: open confirm rwindow 0 rmax 32768\ndebug2: client_loop: session QoS is now non-interactive\ndebug2: channel 0: rcvd adjust 2097152\ndebug2: channel_input_status_confirm: type 99 id 0\ndebug2: exec request accepted on channel 0\ndebug2: channel 0: read failed rfd 3 maxlen 32768: Broken pipe\ndebug2: channel 0: read failed\ndebug2: chan_shutdown_read: channel 0: (i0 o0 sock -1 wfd 3 efd 7 [write])\ndebug2: channel 0: input open -> drain\ndebug2: channel 0: ibuf empty\ndebug2: channel 0: send eof\ndebug2: channel 0: input drain -> closed\ndebug2: channel 0: rcvd eof\ndebug2: channel 0: output open -> drain\ndebug1: client_input_channel_req: channel 0 rtype exit-status reply 0\ndebug1: client_input_channel_req: channel 0 rtype eow@openssh.com reply 0\ndebug2: channel 0: rcvd eow\ndebug2: channel 0: rcvd close\ndebug2: channel 0: obuf empty\ndebug2: chan_shutdown_write: channel 0: (i3 o1 sock -1 wfd 6 efd 7 [write])\ndebug2: channel 0: output drain -> closed\ndebug2: channel 0: almost dead\ndebug2: channel 0: gc: notify user\ndebug2: channel 0: gc: user detached\ndebug2: channel 0: send_close2\ndebug2: channel 0: send close for remote id 0\ndebug2: channel 0: is dead\ndebug2: channel 0: garbage collecting\ndebug1: channel 0: free: client-session, nchannels 1\ndebug2: client_loop: session QoS is now interactive\nTransferred: sent 4168, received 3932 bytes, in 0.5 seconds\nBytes per second: sent 8730.0, received 8235.7\ndebug1: Exit status 0\ndebug2: channel 0: read failed rfd 4 maxlen 32768: Broken pipe\ndebug2: channel 0: read failed\ndebug2: chan_shutdown_read: channel 0: (i0 o0 sock -1 wfd 4 efd -1 [closed])\ndebug2: channel 0: input open -> drain\ndebug2: channel 0: ibuf empty\ndebug2: channel 0: send eof\ndebug2: channel 0: input drain -> closed\ndebug1: channel 0: free: direct-tcpip: listening port 0 for 192.168.1.104 port 22, connect from 127.0.0.1 port 65535 to UNKNOWN port 65536, nchannels 1\nKilled by signal 1.\n",
+  "remote": {
+    "uid": 24112,
+    "partial_bytes": 3115161600,
+    "owned": true,
+    "symlink": false
+  },
+  "finished_at": "2026-10-26T20:11:11.597290+00:00",
+  "seconds": 5.310230374991079,
+  "observed_at": "2026-10-26T20:11:11.597584+00:00"
+}

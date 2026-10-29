@@ -1,0 +1,41 @@
+{
+  "started_at": "2026-10-27T16:32:22.674746+00:00",
+  "status": "passed",
+  "script_sha256": "b1292d4fc5c26e3ad0d1fb8011dacaa45f43d528492ee13ff872a99bd4327e1e",
+  "read_only": true,
+  "GPU_used": false,
+  "model_loading_or_inference": false,
+  "automatic_retry": false,
+  "timeout_seconds": 240,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remote_resume_audit_2026-10-27-163222-674746Z.json",
+  "returncode": 0,
+  "result": {
+    "status": "passed",
+    "observed_at": "2026-10-27T16:32:36.167726+00:00",
+    "source_files_verified": 20,
+    "existing_output_hashes_verified": 7,
+    "model_files_rehashed": 47,
+    "run_identity_equal": true,
+    "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+    "completed_receipts": [
+      {
+        "operation": "preflight/cpu",
+        "status": "completed",
+        "artifact_sha256": "3ec0445c857e5ba8399614b6756cc33d8ce67209e1e2274588f7f9f5668532c6"
+      }
+    ],
+    "existing_run_lock_available": true,
+    "own_active_project_processes": [],
+    "tmux_path": "/usr/bin/tmux",
+    "torch_imported": false,
+    "GPU_used": false,
+    "run_files_modified": false,
+    "allocation_bound": false,
+    "scientific_images": 0,
+    "optimizer_updates": 0
+  },
+  "finished_at": "2026-10-27T16:32:36.289659+00:00",
+  "seconds": 13.614454749993456,
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_tail": ""
+}

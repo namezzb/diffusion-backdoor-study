@@ -1,0 +1,574 @@
+{
+  "observed_at": "2026-10-27T09:04:11.303005+00:00",
+  "verified_count": 24,
+  "verified_bytes": 5252801860,
+  "roles": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 8
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 0
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "missing": [
+    "dreamshaper8/unet/diffusion_pytorch_model.safetensors",
+    "openjourney/README.md",
+    "openjourney/text_encoder/config.json",
+    "openjourney/text_encoder/model.safetensors",
+    "openjourney/tokenizer/merges.txt",
+    "openjourney/tokenizer/special_tokens_map.json",
+    "openjourney/tokenizer/tokenizer_config.json",
+    "openjourney/tokenizer/vocab.json",
+    "openjourney/unet/config.json",
+    "openjourney/unet/diffusion_pytorch_model.safetensors",
+    "vit/README.md",
+    "vit/config.json",
+    "vit/model.safetensors",
+    "vit/preprocessor_config.json",
+    "clip/README.md",
+    "clip/config.json",
+    "clip/merges.txt",
+    "clip/model.safetensors",
+    "clip/preprocessor_config.json",
+    "clip/special_tokens_map.json",
+    "clip/tokenizer.json",
+    "clip/tokenizer_config.json",
+    "clip/vocab.json"
+  ],
+  "verified_receipts": [
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/README.md",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "README.md",
+        "local_dir": "sd15",
+        "local_path": "sd15/README.md",
+        "size": 14461,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/README.md",
+        "git_blob_oid": "2a5ba19664aab2052c4ea484e737dff9aca1aa69",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "2079161f9df7524bd9eca5e53ff5911271b8551e0f868b7b5a92b84776df28a3",
+      "size": 14461,
+      "observed_at": "2026-10-27T08:32:29.659381+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/feature_extractor/preprocessor_config.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "feature_extractor/preprocessor_config.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/feature_extractor/preprocessor_config.json",
+        "size": 342,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/feature_extractor/preprocessor_config.json",
+        "git_blob_oid": "5294955ff7801083f720b34b55d0f1f51313c5c5",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "2a1da83b5e1032aaeef397552ddb408dca0d8cd1dc58f61bf6abf38d6f33a0a2",
+      "size": 342,
+      "observed_at": "2026-10-27T08:32:31.311101+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/model_index.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "model_index.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/model_index.json",
+        "size": 541,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/model_index.json",
+        "git_blob_oid": "daf7e2e2dfc64fb437a2b44525667111b00cb9fc",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "e2f6f22e274374010aec30c79eb2d6e53fff4a36ac0225523a92cb2d41a83347",
+      "size": 541,
+      "observed_at": "2026-10-27T08:32:32.982544+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/scheduler/scheduler_config.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "scheduler/scheduler_config.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/scheduler/scheduler_config.json",
+        "size": 308,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/scheduler/scheduler_config.json",
+        "git_blob_oid": "82d05b0e688d7ea94675678646c427907419346e",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "699cce92eb7c122e2eb7dfdea78e6187fda76a5ed4a8e42319b85610e620e091",
+      "size": 308,
+      "observed_at": "2026-10-27T08:32:34.454952+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/text_encoder/config.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "text_encoder/config.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/text_encoder/config.json",
+        "size": 617,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/text_encoder/config.json",
+        "git_blob_oid": "4d3e873ab5086ad989f407abd50fdce66db8d657",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "845df614cb9327ae7bbea027316246fae917827407da6df13572e41b5f93b4cc",
+      "size": 617,
+      "observed_at": "2026-10-27T08:32:36.852336+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/text_encoder/model.safetensors",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "text_encoder/model.safetensors",
+        "local_dir": "sd15",
+        "local_path": "sd15/text_encoder/model.safetensors",
+        "size": 492265874,
+        "sha256": "d008943c017f0092921106440254dbbe00b6a285f7883ec8ba160c3faad88334",
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/text_encoder/model.safetensors",
+        "git_blob_oid": "681382f735a1ae457c891ac30bd9e611b7b10091",
+        "is_lfs": true,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "d008943c017f0092921106440254dbbe00b6a285f7883ec8ba160c3faad88334",
+      "size": 492265874,
+      "observed_at": "2026-10-27T08:32:40.943010+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/tokenizer/merges.txt",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "tokenizer/merges.txt",
+        "local_dir": "sd15",
+        "local_path": "sd15/tokenizer/merges.txt",
+        "size": 524619,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/tokenizer/merges.txt",
+        "git_blob_oid": "76e821f1b6f0a9709293c3b6b51ed90980b3166b",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "size": 524619,
+      "observed_at": "2026-10-27T08:32:44.192827+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/tokenizer/special_tokens_map.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "tokenizer/special_tokens_map.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/tokenizer/special_tokens_map.json",
+        "size": 472,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/tokenizer/special_tokens_map.json",
+        "git_blob_oid": "2c2130b544c0c5a72d5d00da071ba130a9800fb2",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+      "size": 472,
+      "observed_at": "2026-10-27T08:32:46.408985+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/tokenizer/tokenizer_config.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "tokenizer/tokenizer_config.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/tokenizer/tokenizer_config.json",
+        "size": 806,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/tokenizer/tokenizer_config.json",
+        "git_blob_oid": "5ba7bf706515bc60487ad0e1816b4929b82542d6",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882",
+      "size": 806,
+      "observed_at": "2026-10-27T08:32:47.924193+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/tokenizer/vocab.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "tokenizer/vocab.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/tokenizer/vocab.json",
+        "size": 1059962,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/tokenizer/vocab.json",
+        "git_blob_oid": "469be27c5c010538f845f518c4f5e8574c78f7c8",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "size": 1059962,
+      "observed_at": "2026-10-27T08:32:51.126423+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/unet/config.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "unet/config.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/unet/config.json",
+        "size": 743,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/unet/config.json",
+        "git_blob_oid": "1a02ee8abc93e840ffbcb2d68b66ccbcb74b3ab3",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "78f474de6bab3d893868f37be97b636ae65c0df3073ed3256ca458ff599b5f96",
+      "size": 743,
+      "observed_at": "2026-10-27T08:32:53.233909+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/unet/diffusion_pytorch_model.safetensors",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "unet/diffusion_pytorch_model.safetensors",
+        "local_dir": "sd15",
+        "local_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+        "size": 3438167540,
+        "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/unet/diffusion_pytorch_model.safetensors",
+        "git_blob_oid": "a6121d1ca79dc4035053de53978c7a2a6390e140",
+        "is_lfs": true,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+      "size": 3438167540,
+      "observed_at": "2026-10-27T08:33:09.058651+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/vae/config.json",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "vae/config.json",
+        "local_dir": "sd15",
+        "local_path": "sd15/vae/config.json",
+        "size": 547,
+        "sha256": null,
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/vae/config.json",
+        "git_blob_oid": "55d78924fee13e4220f24320127c5f16284e13b9",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "786a7d21647ddea6a04b9675c03d3cb45e90a2f3c6da5fbda2c54ade040036de",
+      "size": 547,
+      "observed_at": "2026-10-27T08:33:11.053429+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/vae/diffusion_pytorch_model.safetensors",
+      "source": {
+        "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+        "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+        "path": "vae/diffusion_pytorch_model.safetensors",
+        "local_dir": "sd15",
+        "local_path": "sd15/vae/diffusion_pytorch_model.safetensors",
+        "size": 334643276,
+        "sha256": "a2b5134f4dbc140d9c11f11cba3233099e00af40f262f136c691fb7d38d2194c",
+        "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/vae/diffusion_pytorch_model.safetensors",
+        "git_blob_oid": "3ec84204269047c560df90842fc0069693c1e798",
+        "is_lfs": true,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "a2b5134f4dbc140d9c11f11cba3233099e00af40f262f136c691fb7d38d2194c",
+      "size": 334643276,
+      "observed_at": "2026-10-27T08:33:14.655698+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/backdoor_tpa/config.json",
+      "source": {
+        "repo_id": "Weilin0/BackdoorDM",
+        "revision": "05088346e4164a33b4cc617a28807b323085790f",
+        "path": "results/rickrolling_TPA_sd15/rickrolling_TPA_trigger-ȏ_target-cat/config.json",
+        "local_dir": "backdoor_tpa",
+        "local_path": "backdoor_tpa/config.json",
+        "size": 613,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Weilin0/BackdoorDM/resolve/05088346e4164a33b4cc617a28807b323085790f/results/rickrolling_TPA_sd15/rickrolling_TPA_trigger-o%CC%91_target-cat/config.json",
+        "git_blob_oid": "3b5ad2d0fd69aeda45a45c248124f6880827d3ac",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "cf94e1253bfe660c90d486fabe947cf8c3f20488678fe275d70fcf1db3b39a1b",
+      "size": 613,
+      "observed_at": "2026-10-27T08:33:17.022896+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/backdoor_tpa/model.safetensors",
+      "source": {
+        "repo_id": "Weilin0/BackdoorDM",
+        "revision": "05088346e4164a33b4cc617a28807b323085790f",
+        "path": "results/rickrolling_TPA_sd15/rickrolling_TPA_trigger-ȏ_target-cat/model.safetensors",
+        "local_dir": "backdoor_tpa",
+        "local_path": "backdoor_tpa/model.safetensors",
+        "size": 492265168,
+        "sha256": "25fdbe6835939417ee98b911ebadcef1ed4b790a6d4c413a6f3d9ef0c183b071",
+        "source_url": "https://huggingface.co/Weilin0/BackdoorDM/resolve/05088346e4164a33b4cc617a28807b323085790f/results/rickrolling_TPA_sd15/rickrolling_TPA_trigger-o%CC%91_target-cat/model.safetensors",
+        "git_blob_oid": "e4017ea1a9ec3f9b244a0fe003b419ea70d99479",
+        "is_lfs": true,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "25fdbe6835939417ee98b911ebadcef1ed4b790a6d4c413a6f3d9ef0c183b071",
+      "size": 492265168,
+      "observed_at": "2026-10-27T08:33:21.473378+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/README.md",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "README.md",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/README.md",
+        "size": 2421,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/README.md",
+        "git_blob_oid": "71330df761a37327da4510ab8ea461cca44ac3c0",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "591434041d60521ec6b666b3635a8fa03330435bab1361b0502f968dae3f389a",
+      "size": 2421,
+      "observed_at": "2026-10-27T08:33:24.571188+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/text_encoder/config.json",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "text_encoder/config.json",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/text_encoder/config.json",
+        "size": 724,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/text_encoder/config.json",
+        "git_blob_oid": "8500de75f41891f1ebdf7c9e55aca67f39f6ddfe",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "52e29b35e93261515dc07bf248ec8398a729e54f1886e946f8c095ede26be29b",
+      "size": 724,
+      "observed_at": "2026-10-27T08:33:27.512269+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/text_encoder/model.safetensors",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "text_encoder/model.safetensors",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/text_encoder/model.safetensors",
+        "size": 492265168,
+        "sha256": "5cd76eb3ed326974cfd66795384e890742dfdb5a80f5f4e4cb1547d51ec75d86",
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/text_encoder/model.safetensors",
+        "git_blob_oid": "71b3ef9e272aa3c58bd1f30b5e6e39b345580688",
+        "is_lfs": true,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "5cd76eb3ed326974cfd66795384e890742dfdb5a80f5f4e4cb1547d51ec75d86",
+      "size": 492265168,
+      "observed_at": "2026-10-27T08:33:33.254120+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/tokenizer/merges.txt",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "tokenizer/merges.txt",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/tokenizer/merges.txt",
+        "size": 524619,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/tokenizer/merges.txt",
+        "git_blob_oid": "76e821f1b6f0a9709293c3b6b51ed90980b3166b",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "size": 524619,
+      "observed_at": "2026-10-27T08:33:36.433398+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/tokenizer/special_tokens_map.json",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "tokenizer/special_tokens_map.json",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/tokenizer/special_tokens_map.json",
+        "size": 472,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/tokenizer/special_tokens_map.json",
+        "git_blob_oid": "2c2130b544c0c5a72d5d00da071ba130a9800fb2",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+      "size": 472,
+      "observed_at": "2026-10-27T08:33:38.420749+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/tokenizer/tokenizer_config.json",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "tokenizer/tokenizer_config.json",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/tokenizer/tokenizer_config.json",
+        "size": 737,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/tokenizer/tokenizer_config.json",
+        "git_blob_oid": "2e8612a429492973fe60635b3f44a28b065cfac0",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "19d7b034cb0cc3ce9766c2231373ab8aa8991fc72e2c8f76558bfaae3de0d563",
+      "size": 737,
+      "observed_at": "2026-10-27T08:33:41.303125+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/tokenizer/vocab.json",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "tokenizer/vocab.json",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/tokenizer/vocab.json",
+        "size": 1059962,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/tokenizer/vocab.json",
+        "git_blob_oid": "469be27c5c010538f845f518c4f5e8574c78f7c8",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "size": 1059962,
+      "observed_at": "2026-10-27T08:33:44.839804+00:00"
+    },
+    {
+      "status": "remote_verified_existing",
+      "path": "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8/unet/config.json",
+      "source": {
+        "repo_id": "Lykon/dreamshaper-8",
+        "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+        "path": "unet/config.json",
+        "local_dir": "dreamshaper8",
+        "local_path": "dreamshaper8/unet/config.json",
+        "size": 1868,
+        "sha256": null,
+        "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/unet/config.json",
+        "git_blob_oid": "f56ddd2e37ddc89a5b759fafd3f61b494088a087",
+        "is_lfs": false,
+        "download_status": "not_downloaded"
+      },
+      "exists": true,
+      "sha256": "8125830747f921e26e263e394b8954482cf3b4b4f1beb154704ee3cc57042be8",
+      "size": 1868,
+      "observed_at": "2026-10-27T08:33:47.083544+00:00"
+    }
+  ],
+  "last_attempt_chunk_receipts": 73,
+  "last_receipt": {
+    "offset": 394264576,
+    "chunk_size": 4194304,
+    "committed_size": 398458880,
+    "sha256": "9400d07595a4885594bcb0b702dd14e0338c4b8f4fea60d16c95d6dde6c11fa8"
+  },
+  "new_bytes_receipted_this_attempt": 306184192,
+  "log_sha256": "8ffd1484e96da91f08ed2ca295e4af583e1e7557db877774c4491d0d85b51fa1",
+  "local_transfer_lock_free": true,
+  "local_free_bytes": 12897255424,
+  "remote_prefix_currently_revalidated": false
+}

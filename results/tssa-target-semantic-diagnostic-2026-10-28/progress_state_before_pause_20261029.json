@@ -1,0 +1,91 @@
+{
+  "status": "launched_cpu_reload_pending_CUDA",
+  "at": "2026-10-29T01:43:26.333544+00:00",
+  "prior_goal_turn": "progress",
+  "gpu_started": false,
+  "scientific_images": 0,
+  "optimizer_updates": 0,
+  "new_trajectories": 0,
+  "CPU_test_count": 54,
+  "CPU_local_passed": true,
+  "CPU_server104_passed": true,
+  "old_cache_verified": 4,
+  "cache_report": "cache_retrieval_20261028T115206383909Z/report.json",
+  "local_original_envelope_derivation": "local_cache_derivation.json",
+  "last_CPU_preparation": "cpu_preparation_20261029T013825229255Z/recovered_preparation.json",
+  "external_pending": null,
+  "frozen_execution_manifest": "launch_20261029/plan.json",
+  "code_sha256": {
+    "scripts/merging/test_tssa_target_semantic_gates.py": "5dc0be63f2fbcbcdca8d4cfc6bbe75949b3c69e3fee80429bd5840e3d20a8a0b",
+    "scripts/merging/test_tssa_target_semantic_run.py": "704dff73a62b33151ce4fb3d19c15f4d633c5ae26209d0cbf83b0ef95995a5a7",
+    "scripts/merging/test_tssa_target_semantic_runtime.py": "8843fa615ac59b63cc2ee68683cf00f8401d888b6e7ab4d46d332546ee81bb50",
+    "scripts/merging/tssa_target_semantic_cache.py": "e7d090fc21e8e030635a044b8f8369c6dd32b6bef5a9548867d3611c94ee6c34",
+    "scripts/merging/tssa_target_semantic_gates.py": "c11589dd0a5cc0fe252099e26a914da5ad9da5076f7df3529c070ccdb9408c82",
+    "scripts/merging/tssa_target_semantic_run.py": "e5c2a2589da91aa1f49b55208ce08355be4e530ceaaa9bd50048c7d47bcfb684",
+    "scripts/merging/tssa_target_semantic_runtime.py": "21974fc4e75935cf144e333dfeb9a5ef6f62735ffcf2dcfb2d47ee905957e1b0"
+  },
+  "budget_proposed": {
+    "forward_branch_nfe": 462,
+    "te_batch_calls": 96,
+    "autograd_calls": 14,
+    "unet_backward_branch_visits": 44,
+    "te_backward_calls": 14,
+    "wall_seconds": 1800
+  },
+  "full_model_CPU_preflight_passed": true,
+  "full_model_CPU_preflight": "cpu_preparation_20261029T013825229255Z/cpu_preflight.json",
+  "CPU_preflight_sha256": "a10ba0d9aa4da5d675cf9e91f9f150605bfc33ff85604a731aafeeffb66ccf7e",
+  "remote_preparation_root": "/data1/zhangzibo/arxiv-tssa/preparations/target-semantic-20261029T013825229255Z",
+  "deployment_bundle_sha256": "d498067f40cde5aefcdd5ec82a2a63c8bc891ae648589ed89adeece7c3e6c864",
+  "full_model_loaded_file_count": 19,
+  "cuda_initialized": false,
+  "diagnostic_forward_branch_nfe": 0,
+  "diagnostic_autograd_calls": 0,
+  "new_GPU_task_launched": true,
+  "browser_inventory_observation": "2026-10-28T12:20:00+00:00",
+  "user_unlock_request_pending": false,
+  "next_step": "Observe this unique existing PID and receipts; never repeat launch. CUDA window capped at1800s; collect terminal raw outputs and independently audit.",
+  "old_runs_must_remain_terminal": [
+    "mvp-2026-10-28-single-v1",
+    "tssa-opt-exploration-2026-10-28-v1"
+  ],
+  "failed_CPU_preparations_preserved": [
+    "cpu_preparation_20261028T120438409147Z/report.json",
+    "cpu_preparation_20261028T120622460386Z/report.json"
+  ],
+  "last_goal_revalidation": "2026-10-28T12:23:24.339645+00:00",
+  "previous_goal_turn_classification": "progress",
+  "current_goal_turn_classification": "no_progress",
+  "same_external_blocker_consecutive_goal_turns": 0,
+  "last_blocked_audit": "blocked_audit_20261028T1223Z.json",
+  "latest_user_instruction": "2026-10-29 user confirmed Mac unlocked and GPU site open; continue authorized diagnostic",
+  "resource_candidates": {
+    "103": {
+      "gpu_index": 2,
+      "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+      "platform_free": true,
+      "queue_conflict_seen": false
+    },
+    "104": {
+      "gpu_index": 2,
+      "gpu_uuid": "GPU-7c1e49bf-dac2-cece-dd4a-e6fa81d3b731",
+      "platform_free": true,
+      "queue53_waiting_ahead": true
+    }
+  },
+  "resource_guard_fix": "Only exact independently verified system gdm/root Xorg PermissionError fallback; scientific logic unchanged",
+  "CPU_server103_passed": true,
+  "launch_receipt": "launch_20261029/receipt.json",
+  "server": "103",
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "pid": 310107,
+  "latest_implementation_sha256": {
+    "tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+    "tssa_sd_runtime.py": "c95e7ffdfdf7009eb21176b3dcadb513679f276f17d5fd9afd2b41531d0d0b74",
+    "tssa_target_semantic_cache.py": "e7d090fc21e8e030635a044b8f8369c6dd32b6bef5a9548867d3611c94ee6c34",
+    "tssa_target_semantic_gates.py": "c11589dd0a5cc0fe252099e26a914da5ad9da5076f7df3529c070ccdb9408c82",
+    "tssa_target_semantic_run.py": "1e79fb445b062811d39cb62cb4dfa5c44e2791a67b34759d811070c6b4ecb57c",
+    "tssa_target_semantic_runtime.py": "21974fc4e75935cf144e333dfeb9a5ef6f62735ffcf2dcfb2d47ee905957e1b0"
+  }
+}

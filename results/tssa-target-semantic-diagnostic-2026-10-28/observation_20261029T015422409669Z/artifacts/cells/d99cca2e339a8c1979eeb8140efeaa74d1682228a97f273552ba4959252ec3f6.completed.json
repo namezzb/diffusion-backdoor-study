@@ -1,0 +1,104 @@
+{
+  "at": "2026-10-29T01:45:56.265797+00:00",
+  "backend_evidence": {
+    "binding": {
+      "alpha_cumprod": 0.302295446395874,
+      "condition": {
+        "alpha_malicious": 0.25,
+        "expert": "Edev",
+        "id": "Edev_0.25"
+      },
+      "denoising_step_1based": 13,
+      "latent_dtype": "torch.float32",
+      "latent_sha256": {
+        "extra_latent": "ad3471a06660941a49f03a2b26908dd2caa8ce1b7717920f73758e2fe5e6f07d",
+        "pair_latent": "c9220a1112b21ecbcad221e7dde942ce2705bfffc32bb718466de018c0e12139"
+      },
+      "latent_shape": [
+        1,
+        4,
+        64,
+        64
+      ],
+      "prompts": [
+        "",
+        "A dog is running along a sandy beach beside gentle waves.",
+        "A dȏg is running alȏng a sandy beach beside gentle waves.",
+        "A photograph of a ripe banana in a ceramic bowl.",
+        "A cat is running along a sandy beach beside gentle waves."
+      ],
+      "timestep": 481,
+      "unit_id": "fit_unit_p00_s13"
+    },
+    "coefficients": [
+      1.125,
+      1.0
+    ],
+    "errors_vs_teacher": {
+      "extra": 0.02008994296193123,
+      "normal": 0.03222355619072914,
+      "triggered": 0.40071356296539307
+    },
+    "gradients": null,
+    "kind": "student",
+    "losses": {
+      "attack": 0.056037403643131256,
+      "normal": 0.0007209816831164062
+    },
+    "output_rms": {
+      "extra": 0.9930400848388672,
+      "normal": 0.9874255657196045,
+      "triggered": 1.0332528352737427
+    },
+    "output_sha256": {
+      "extra": "6b126a32f2b53e563cbb5b6d46f063cfde27fe7d3efac3da3ca3e04603cd3669",
+      "normal": "c50d75a82f82c425f51faa936ff320f47465c1d8dc3cf924b6da0ab1235e6e90",
+      "triggered": "100ace7903147d41d79a3ec95d2aa7baa76693e4671fad2e426403a8991d83af"
+    },
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 5,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "signal_rms": null
+  },
+  "output_sha256": {
+    "extra": "6b126a32f2b53e563cbb5b6d46f063cfde27fe7d3efac3da3ca3e04603cd3669",
+    "normal": "c50d75a82f82c425f51faa936ff320f47465c1d8dc3cf924b6da0ab1235e6e90",
+    "triggered": "100ace7903147d41d79a3ec95d2aa7baa76693e4671fad2e426403a8991d83af"
+  },
+  "record": {
+    "condition_id": "Edev_0.25",
+    "errors_vs_teacher": null,
+    "gradients": null,
+    "losses": {
+      "attack": 0.056037403643131256,
+      "normal": 0.0007209816831164062
+    },
+    "output_rms": {
+      "extra": 0.9930400848388672,
+      "normal": 0.9874255657196045,
+      "triggered": 1.0332528352737427
+    },
+    "point_id": "a_plus_h1_8",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 5,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "signal_rms": null,
+    "stage": "D3",
+    "unit_id": "fit_unit_p00_s13"
+  },
+  "reserved_total": {
+    "autograd_calls": 14,
+    "forward_branch_nfe": 168,
+    "te_backward_calls": 14,
+    "te_batch_calls": 34,
+    "unet_backward_branch_visits": 44
+  }
+}

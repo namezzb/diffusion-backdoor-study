@@ -1,0 +1,157 @@
+{
+  "started_at": "2026-10-27T16:05:51.823080+00:00",
+  "status": "passed",
+  "script_sha256": "7eb9962bb4cd0ef3166d330e3b02a07785f89e716efc106b0a68a65a4732ac66",
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remote_upcast_config_diagnostic_2026-10-27-160551-823080Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remote_upcast_config_diagnostic_2026-10-27-160551-823080Z.log",
+  "GPU_used": false,
+  "remote_model_downloads": false,
+  "timeout_seconds": 90,
+  "remote_CPU_timeout_seconds": 75,
+  "scope": "Read-only configuration and pinned dependency inspection after formal CPU rejection; no model load, inference or retry.",
+  "returncode": 0,
+  "result": {
+    "status": "passed",
+    "observed_at": "2026-10-27T16:06:04.316725+00:00",
+    "diffusers": "0.35.1",
+    "UNet_config_differences": {
+      "dreamshaper8": {
+        "upcast_attention": {
+          "clean": false,
+          "expert": null
+        }
+      },
+      "openjourney": {}
+    },
+    "UNet_effective_fields": {
+      "sd15": {
+        "sample_size": 64,
+        "in_channels": 4,
+        "out_channels": 4,
+        "down_block_types": [
+          "CrossAttnDownBlock2D",
+          "CrossAttnDownBlock2D",
+          "CrossAttnDownBlock2D",
+          "DownBlock2D"
+        ],
+        "up_block_types": [
+          "UpBlock2D",
+          "CrossAttnUpBlock2D",
+          "CrossAttnUpBlock2D",
+          "CrossAttnUpBlock2D"
+        ],
+        "block_out_channels": [
+          320,
+          640,
+          1280,
+          1280
+        ],
+        "layers_per_block": 2,
+        "cross_attention_dim": 768,
+        "attention_head_dim": 8,
+        "only_cross_attention": false,
+        "mid_block_type": "UNetMidBlock2DCrossAttn",
+        "norm_num_groups": 32,
+        "norm_eps": 1e-05,
+        "flip_sin_to_cos": true,
+        "freq_shift": 0,
+        "act_fn": "silu",
+        "use_linear_projection": false,
+        "upcast_attention": false,
+        "resnet_time_scale_shift": "default",
+        "class_embed_type": null,
+        "addition_embed_type": null
+      },
+      "dreamshaper8": {
+        "sample_size": 64,
+        "in_channels": 4,
+        "out_channels": 4,
+        "down_block_types": [
+          "CrossAttnDownBlock2D",
+          "CrossAttnDownBlock2D",
+          "CrossAttnDownBlock2D",
+          "DownBlock2D"
+        ],
+        "up_block_types": [
+          "UpBlock2D",
+          "CrossAttnUpBlock2D",
+          "CrossAttnUpBlock2D",
+          "CrossAttnUpBlock2D"
+        ],
+        "block_out_channels": [
+          320,
+          640,
+          1280,
+          1280
+        ],
+        "layers_per_block": 2,
+        "cross_attention_dim": 768,
+        "attention_head_dim": 8,
+        "only_cross_attention": false,
+        "mid_block_type": "UNetMidBlock2DCrossAttn",
+        "norm_num_groups": 32,
+        "norm_eps": 1e-05,
+        "flip_sin_to_cos": true,
+        "freq_shift": 0,
+        "act_fn": "silu",
+        "use_linear_projection": false,
+        "upcast_attention": null,
+        "resnet_time_scale_shift": "default",
+        "class_embed_type": null,
+        "addition_embed_type": null
+      },
+      "openjourney": {
+        "sample_size": 64,
+        "in_channels": 4,
+        "out_channels": 4,
+        "down_block_types": [
+          "CrossAttnDownBlock2D",
+          "CrossAttnDownBlock2D",
+          "CrossAttnDownBlock2D",
+          "DownBlock2D"
+        ],
+        "up_block_types": [
+          "UpBlock2D",
+          "CrossAttnUpBlock2D",
+          "CrossAttnUpBlock2D",
+          "CrossAttnUpBlock2D"
+        ],
+        "block_out_channels": [
+          320,
+          640,
+          1280,
+          1280
+        ],
+        "layers_per_block": 2,
+        "cross_attention_dim": 768,
+        "attention_head_dim": 8,
+        "only_cross_attention": false,
+        "mid_block_type": "UNetMidBlock2DCrossAttn",
+        "norm_num_groups": 32,
+        "norm_eps": 1e-05,
+        "flip_sin_to_cos": true,
+        "freq_shift": 0,
+        "act_fn": "silu",
+        "use_linear_projection": false,
+        "upcast_attention": false,
+        "resnet_time_scale_shift": "default",
+        "class_embed_type": null,
+        "addition_embed_type": null
+      }
+    },
+    "pinned_diffusers_source_sha256": {
+      "models/attention_processor.py": "d56adb29122171c897568ae0235dba6c5409b9a4176de6196d563c6f56c9df90",
+      "models/attention.py": "c31ae4949ead0f0795ad3144276a026dc5087dd4616b88ab3d0eb4db035310ca",
+      "models/unets/unet_2d_condition.py": "a1ee650816d1617c367a555377ead4f6114c8cd159311c54731b763eed26e49c",
+      "models/unets/unet_2d_blocks.py": "afb7be503cdb05175bc7822eb2ef9f3469929bbd157f6624683462865b67d76c",
+      "models/transformers/transformer_2d.py": "f7288418dab8a683221da58887739fb1f07676c44a95c22a8133435bf995def6"
+    },
+    "attention_score_implementation": "    def get_attention_scores(\n        self, query: torch.Tensor, key: torch.Tensor, attention_mask: Optional[torch.Tensor] = None\n    ) -> torch.Tensor:\n        r\"\"\"\n        Compute the attention scores.\n\n        Args:\n            query (`torch.Tensor`): The query tensor.\n            key (`torch.Tensor`): The key tensor.\n            attention_mask (`torch.Tensor`, *optional*): The attention mask to use. If `None`, no mask is applied.\n\n        Returns:\n            `torch.Tensor`: The attention probabilities/scores.\n        \"\"\"\n        dtype = query.dtype\n        if self.upcast_attention:\n            query = query.float()\n            key = key.float()\n\n        if attention_mask is None:\n            baddbmm_input = torch.empty(\n                query.shape[0], query.shape[1], key.shape[1], dtype=query.dtype, device=query.device\n            )\n            beta = 0\n        else:\n            baddbmm_input = attention_mask\n            beta = 1\n\n        attention_scores = torch.baddbmm(\n            baddbmm_input,\n            query,\n            key.transpose(-1, -2),\n            beta=beta,\n            alpha=self.scale,\n        )\n        del baddbmm_input\n\n        if self.upcast_softmax:\n            attention_scores = attention_scores.float()\n\n        attention_probs = attention_scores.softmax(dim=-1)\n        del attention_scores\n\n        attention_probs = attention_probs.to(dtype)\n\n        return attention_probs\n",
+    "CUDA_initialized": false,
+    "model_weights_loaded": false
+  },
+  "finished_at": "2026-10-27T16:06:04.782676+00:00",
+  "seconds": 12.959505667000485,
+  "stderr_tail": "",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

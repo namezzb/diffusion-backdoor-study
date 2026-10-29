@@ -1,0 +1,49 @@
+{
+  "observed_at": "2026-10-27T13:59:36.655945+00:00",
+  "previous_report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T115852377108Z.json",
+  "current_report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T135931213853Z.json",
+  "previous_card_count": 8,
+  "current_card_count": 5,
+  "previous_mapping": {
+    "GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b": 0,
+    "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c": 1,
+    "GPU-7c1e49bf-dac2-cece-dd4a-e6fa81d3b731": 2,
+    "GPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07": 3,
+    "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523": 4,
+    "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee": 5,
+    "GPU-879979bc-65d6-4f9d-74db-60868faf90fc": 6,
+    "GPU-1e9f28a2-986d-7765-2476-3e6388b01170": 7
+  },
+  "current_mapping": {
+    "GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b": 0,
+    "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c": 1,
+    "GPU-7c1e49bf-dac2-cece-dd4a-e6fa81d3b731": 2,
+    "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee": 3,
+    "GPU-879979bc-65d6-4f9d-74db-60868faf90fc": 4
+  },
+  "changed_indices": [
+    {
+      "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+      "previous_index": 5,
+      "current_index": 3
+    },
+    {
+      "uuid": "GPU-879979bc-65d6-4f9d-74db-60868faf90fc",
+      "previous_index": 6,
+      "current_index": 4
+    }
+  ],
+  "no_longer_reported_UUIDs": [
+    "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+    "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+    "GPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07"
+  ],
+  "new_UUIDs": [],
+  "previously_driver_prohibited_UUIDs": [
+    "GPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07",
+    "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+    "GPU-879979bc-65d6-4f9d-74db-60868faf90fc"
+  ],
+  "cause": "Unknown; this observation does not establish restart, physical removal, or current platform permission.",
+  "launch_authorized": false
+}

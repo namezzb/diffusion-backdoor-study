@@ -1,0 +1,67 @@
+{
+  "started_at": "2026-10-28T02:20:04.821370+00:00",
+  "GPU_UUID": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+  "portal_observation": "2026-10-28 10:17 Asia/Shanghai:104 GPU3 appears idle and not disabled; own0/4; queue56 waiting1. Notification at10:11 confirms the other user joined our already-running GPU. Fresh browser verification required immediately before execution.",
+  "authorization": "After being informed of automatic approval rejection and asked to verify direct-use permission, user explicitly replied: 我确认了,你可以直接用. Re-submit transparently for approval on this new confirmation; direct-use path, not a claimed queue allocation.",
+  "readiness_sha256": "46f2f945e89c7444fdf880f1129876bf5b5442882304dcad2be18b4410ccd66e",
+  "automatic_retry": false,
+  "recovery_review": {
+    "cause": "Agent incorrectly sent SIGTERM to own PID640404 after portal-reported later entrant; user corrected this decision and asks to retain own task.",
+    "prior_observation": "single_run_observation_20261028T021302990677Z.json",
+    "interrupted_operation": "diagnostic/gpu_gradient_and_memory",
+    "known_branch_NFE": 118,
+    "backward_interrupted_cost_incomplete": true,
+    "prior_diagnostic_upper_bound": {
+      "branch_NFE": 138,
+      "autograd_calls": 1
+    },
+    "main_images": 0,
+    "main_optimizer_updates": 0,
+    "preserve_prior_attempt": true,
+    "scientific_budget_unchanged": true
+  },
+  "returncode": 0,
+  "stderr": "",
+  "remote": {
+    "observed_at": "2026-10-28T02:20:25.134718+00:00",
+    "GPU_UUID": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+    "index": 3,
+    "pci_bus_id": "00000000:A1:00.0",
+    "processes_before": [
+      {
+        "pid": 6941,
+        "type": "G",
+        "uid": 125,
+        "account": "gdm",
+        "account_home": "/var/lib/gdm3",
+        "account_shell": "/bin/false",
+        "comm": "gnome-shell",
+        "memory": "4 MiB"
+      }
+    ],
+    "driver_timestamp": "Wed Oct 28 10:20:24 2026",
+    "source_files_verified": 20,
+    "run_identity_verified": true,
+    "command": [
+      "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+      "-B",
+      "-u",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py",
+      "run",
+      "--models-root",
+      "/data2/zhangzibo/arxiv-tssa/models",
+      "--run-dir",
+      "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+      "--resume",
+      "--recover-inflight"
+    ],
+    "log": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T022004821007Z.log",
+    "mode": "same_run_recovery_after_reviewed_agent_SIGTERM",
+    "GPU_initialized_confirmed": false,
+    "status": "real_runner_started",
+    "pid": 650925,
+    "started_at": "2026-10-28T02:20:25.135514+00:00"
+  },
+  "status": "real_runner_started",
+  "finished_at": "2026-10-28T02:20:25.154459+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "failed",
+  "started_at": "2026-10-27T00:59:54.453121+00:00",
+  "pid": 20741,
+  "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "selected_count": 47,
+  "selected_bytes": 14683626535,
+  "already_verified_before_start": 12,
+  "chunk_bytes": 4194304,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-005954-453121Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-005954-453121Z.log",
+  "ledger": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer.jsonl",
+  "automatic_retry": false,
+  "GPU_used": false,
+  "minimum_local_free_reserve": 4294967296,
+  "cleanup": "Only task-local temporary files after full remote SHA256 matches pinned source",
+  "observed_at": "2026-10-27T01:58:08.739926+00:00",
+  "child_pid": 20773,
+  "bounded_awake": {
+    "pid": 20774,
+    "release_when_process_exits": 20773,
+    "maximum_seconds": 21600,
+    "expires_at": "2026-10-27T06:59:54.456824+00:00"
+  },
+  "returncode": 1,
+  "finished_at": "2026-10-27T01:58:08.735496+00:00",
+  "seconds": 3494.2077297499927,
+  "log_sha256": "6815fa2743aa01b6cf41ebb93514d0816f2901a3d267b7997d0d6287e9549463"
+}

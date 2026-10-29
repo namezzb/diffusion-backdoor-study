@@ -1,0 +1,50 @@
+{
+  "started_at": "2026-10-26T19:00:45.079910+00:00",
+  "pid": 8481,
+  "batch": "medium",
+  "status": "complete",
+  "manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+  "script_sha256": "f173f7fd954bddc5bca4311544c01d510ebd0dc0a920b9a8d5802d44219f2eba",
+  "selected_count": 3,
+  "selected_bytes": 190886096,
+  "verified": [
+    {
+      "filename": "nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "bytes": 39243473,
+      "sha256": "45fd79f2ae20bd67e8bc411055939049873bfd8fac70ff13bd4865e0b9bdab17",
+      "wheel_tags": [
+        "py3-none-manylinux2010_x86_64",
+        "py3-none-manylinux_2_12_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/50f051c21e63e05ef619181ec3334f2dc3f061de427c0f494afafa7aba51eb2c.part"
+    },
+    {
+      "filename": "nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl",
+      "bytes": 63618038,
+      "sha256": "8387d974240c91f6a60b761b83d4b2f9b938b7e0b9617bae0f0dafe4f5c36b86",
+      "wheel_tags": [
+        "py3-none-manylinux_2_27_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/caf36f60eefbbf8d4013a9af55473f08d94e951752280ffab3cf939675bdd8e2.part"
+    },
+    {
+      "filename": "nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "bytes": 88024585,
+      "sha256": "a0fa9c2a21583105550ebd871bd76e2037205d56f33f128e69f6d2a55e0af9ed",
+      "wheel_tags": [
+        "py3-none-manylinux2010_x86_64",
+        "py3-none-manylinux_2_12_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/67b676e37b4e4ead974b8d1fcbd966f0a5e821c99f5873f02469719d8e804ae5.part"
+    }
+  ],
+  "no_GPU": true,
+  "remote_transferred": false,
+  "installed": false,
+  "minimum_free_bytes": 4294967296,
+  "current_file": "nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+  "finished_at": "2026-10-26T19:04:09.440524+00:00",
+  "seconds": 204.36282075000054,
+  "free_bytes_after": 5324783616,
+  "observed_at": "2026-10-26T19:04:09.440975+00:00"
+}

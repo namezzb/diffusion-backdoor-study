@@ -1,0 +1,53 @@
+{
+  "status": "failed",
+  "started_at": "2026-10-26T20:52:00.431916+00:00",
+  "wrapper_pid": 10832,
+  "source_manifest": "/Users/zzb/arxiv/research/tssa_mvp_assets_2026-10-26.json",
+  "source_manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "source": {
+    "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+    "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "sd15",
+    "local_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167540,
+    "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+    "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "a6121d1ca79dc4035053de53978c7a2a6390e140",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "local_source": "/private/tmp/arxiv-tssa-stage/b4106b072747208b2e136002b2afd1bdf98772086e8aa3adce82c0a2580c4801.part",
+  "local_source_sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+  "verified_start_offset": 3131938816,
+  "prefix_recheck_evidence": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-205107-559395Z.json",
+  "remaining_bytes": 306228724,
+  "new_downloads": false,
+  "local_cleanup_automatic": false,
+  "GPU_used": false,
+  "chunk_bytes": 4194304,
+  "automatic_retries": 0,
+  "failed_fragments_preserved": [
+    {
+      "name": "diffusion_pytorch_model.safetensors.uploading.chunk-pvk2dyci",
+      "size": 1366016,
+      "mtime_ns": 1793046738642491657
+    }
+  ],
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer_chunk4m_resume_2026-10-26-205158-494735Z.log",
+  "command": [
+    "/Users/zzb/arxiv/.venv/bin/python",
+    "-u",
+    "/Users/zzb/arxiv/server/stage_school_assets.py",
+    "--file",
+    "/private/tmp/arxiv-tssa-stage/b4106b072747208b2e136002b2afd1bdf98772086e8aa3adce82c0a2580c4801.part",
+    "--relative-name",
+    "models/sd15/unet/diffusion_pytorch_model.safetensors",
+    "--ssh-chunk-bytes",
+    "4194304"
+  ],
+  "pid": 10927,
+  "returncode": 1,
+  "finished_at": "2026-10-26T20:54:23.223211+00:00",
+  "seconds": 142.7084675829974
+}

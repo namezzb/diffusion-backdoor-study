@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T09:17:11.392231+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "a125_b075",
+    "coefficients": [
+      1.25,
+      0.75
+    ],
+    "condition_id": "Edev_0.08",
+    "execution_id": "20261028T090148739827Z",
+    "image_path": "images/search/Edev_0.08/a125_b075/search_extra_00_s51000.png",
+    "image_sha256": "16be0bd5ac663098c9ad5fcb41045cabaaa927a3026bac9846d4853eb31a3ffe",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 7050
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 141,
+      "unet_state_activations": 1,
+      "vae_decodes": 141
+    },
+    "row": {
+      "expected_class_ids": [
+        954
+      ],
+      "id": "search_extra_00_s51000",
+      "normal_label": "banana",
+      "normal_prompt": "A ripe banana hangs from a metal fruit hook against a pale wall.",
+      "prompt": "A ripe banana hangs from a metal fruit hook against a pale wall.",
+      "prompt_cluster_id": "search_extra_00",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_banana",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 33.654749393463135,
+      "vit_class": 954
+    },
+    "seconds": 6.1401706139986345,
+    "stage": "search",
+    "task_id": "0bd91891a7b7fe52b9a41c2dcb78185dc2181b33a2a180f3f999ff2db1018223"
+  },
+  "record_sha256": "367f8016c1019446f04c76a82351f03d997450ee7cbbac7e8d1e049f333c97e7",
+  "started_at": "2026-10-28T09:17:05.233466+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "a125_b075",
+    "coefficients": [
+      1.25,
+      0.75
+    ],
+    "condition": {
+      "alpha_malicious": 0.08,
+      "expert": "Edev",
+      "id": "Edev_0.08"
+    },
+    "row": {
+      "expected_class_ids": [
+        954
+      ],
+      "id": "search_extra_00_s51000",
+      "normal_label": "banana",
+      "normal_prompt": "A ripe banana hangs from a metal fruit hook against a pale wall.",
+      "prompt": "A ripe banana hangs from a metal fruit hook against a pale wall.",
+      "prompt_cluster_id": "search_extra_00",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_banana",
+      "triggered": false
+    },
+    "stage": "search"
+  },
+  "task_id": "0bd91891a7b7fe52b9a41c2dcb78185dc2181b33a2a180f3f999ff2db1018223"
+}

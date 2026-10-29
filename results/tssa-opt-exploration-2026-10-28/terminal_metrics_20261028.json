@@ -1,0 +1,4258 @@
+{
+  "status": "negative_dev_metrics_recomputed_integrity_defect_disclosed",
+  "source_diagnosis_sha256": "91f252a70155cd9ea5455418daa723b6845a3dc4adef35655b0b557044ca855a",
+  "original_strict_audit_status": "invalid",
+  "confirm_opened": false,
+  "stages": {
+    "search": {
+      "stage": "search",
+      "image_count": 624,
+      "candidates": {
+        "clean": {
+          "coefficients": [
+            0,
+            0
+          ],
+          "coefficient_norm": 0.0,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.475060805678368,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.830619484186172
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.11950212717056
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.475060805678368,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.830619484186172
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.11950212717056
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.47257699072361,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.303862899541855
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.641291081905365
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.47257699072361,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.303862899541855
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.641291081905365
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 2,
+                "unchanged": 2,
+                "asr_difference": -0.5,
+                "exact_mcnemar_p_two_sided": 0.5
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 32.05171935260296,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.930519849061966
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 33.17291885614395
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 32.05171935260296,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.930519849061966
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 33.17291885614395
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 4,
+                "unchanged": 0,
+                "asr_difference": -1.0,
+                "exact_mcnemar_p_two_sided": 0.125
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 28.54270152747631,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.81454560160637
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 26.270857453346252
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 28.54270152747631,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.81454560160637
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 26.270857453346252
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 4,
+                "unchanged": 0,
+                "asr_difference": -1.0,
+                "exact_mcnemar_p_two_sided": 0.125
+              }
+            }
+          },
+          "macro_asr": 0.0,
+          "worst_asr": 0.0,
+          "normal_pass": true,
+          "macro_difference_vs_naive": -0.5,
+          "worst_difference_vs_naive": 0.0
+        },
+        "naive": {
+          "coefficients": [
+            1.0,
+            1.0
+          ],
+          "coefficient_norm": 1.4142135623730951,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.913972645998,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.73677569627762
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 33.091169595718384
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.913972645998,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.73677569627762
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 33.091169595718384
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.4389118403196335,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 2,
+              "asr": 0.5,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.7125024497509,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.348724335432053
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.07628056406975
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 2,
+                  "asr": 0.5,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.7125024497509,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.348724335432053
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.07628056406975
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.23992545902729034,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 2,
+              "normal_accuracy": 0.25,
+              "normal_clip": 30.982865020632744,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 29.928850382566452
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.036879658699036
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.982865020632744,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 29.928850382566452
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.036879658699036
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": 1.0688543319702148,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 29.702159762382507,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.809629172086716
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.5946903526783
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 29.702159762382507,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.809629172086716
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.5946903526783
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -1.1594582349061966,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.5,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        },
+        "uniform_075": {
+          "coefficients": [
+            0.75,
+            0.75
+          ],
+          "coefficient_norm": 1.0606601717798212,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.604232639074326,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.537527799606323
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.67093747854233
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.604232639074326,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.537527799606323
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.67093747854233
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.12917183339595795,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.668573081493378,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.787390679121017
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.549755483865738
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.668573081493378,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.787390679121017
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.549755483865738
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.19599609076976776,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 2,
+                "unchanged": 2,
+                "asr_difference": -0.5,
+                "exact_mcnemar_p_two_sided": 0.5
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.811124086380005,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.628783255815506
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.993464916944504
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.811124086380005,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.628783255815506
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.993464916944504
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.2405952662229538,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 29.38360497355461,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.562798142433167
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.204411804676056
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 29.38360497355461,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.562798142433167
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.204411804676056
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.8409034460783005,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": true,
+          "macro_difference_vs_naive": -0.16666666666666669,
+          "worst_difference_vs_naive": 0.0
+        },
+        "uniform_125": {
+          "coefficients": [
+            1.25,
+            1.25
+          ],
+          "coefficient_norm": 1.7677669529663689,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.685839220881462,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 31.182220578193665
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.18945786356926
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.685839220881462,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 31.182220578193665
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.18945786356926
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.21077841520309448,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 2,
+              "asr": 0.5,
+              "normal_n": 8,
+              "normal_correct": 2,
+              "normal_accuracy": 0.25,
+              "normal_clip": 31.24261274933815,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.28407394886017
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.20115154981613
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 2,
+                  "asr": 0.5,
+                  "normal_n": 8,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 31.24261274933815,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.28407394886017
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.20115154981613
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -0.7700357586145401,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 2,
+              "normal_accuracy": 0.25,
+              "normal_clip": 30.45264296233654,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 29.01545837521553
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.88982754945755
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.45264296233654,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 29.01545837521553
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.88982754945755
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": 1.5990763902664185,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.305109918117523,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 31.033554673194885
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.57666516304016
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.305109918117523,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 31.033554673194885
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.57666516304016
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -1.7624083906412125,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.5,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        },
+        "uniform_150": {
+          "coefficients": [
+            1.5,
+            1.5
+          ],
+          "coefficient_norm": 2.1213203435596424,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.813860684633255,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 31.397228688001633
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.23049268126488
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.813860684633255,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 31.397228688001633
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.23049268126488
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -0.3387998789548874,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.99186047911644,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.59015816450119
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.39356279373169
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.99186047911644,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.59015816450119
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.39356279373169
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.5192834883928299,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 1,
+                "harmed": 0,
+                "unchanged": 3,
+                "asr_difference": 0.25,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.151744350790977,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.381194710731506
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.92229399085045
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.151744350790977,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.381194710731506
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.92229399085045
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.8999750018119812,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 29.412123560905457,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.541797190904617
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.282449930906296
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.412123560905457,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.541797190904617
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.282449930906296
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -0.8694220334291458,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.5833333333333334,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.08333333333333337,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a075_b100": {
+          "coefficients": [
+            0.75,
+            1.0
+          ],
+          "coefficient_norm": 1.25,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 32.03913904726505,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.101376563310623
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.97690153121948
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 32.03913904726505,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.101376563310623
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.97690153121948
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.5640782415866852,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.637653544545174,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.357238113880157
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.91806897521019
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.637653544545174,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.357238113880157
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.91806897521019
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.16507655382156372,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 2,
+                "unchanged": 2,
+                "asr_difference": -0.5,
+                "exact_mcnemar_p_two_sided": 0.5
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 2,
+              "normal_accuracy": 0.25,
+              "normal_clip": 31.06371909379959,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 29.67221289873123
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.45522528886795
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 31.06371909379959,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 29.67221289873123
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.45522528886795
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": 0.9880002588033676,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 29.68054711818695,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.708142578601837
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.652951657772064
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.68054711818695,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.708142578601837
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.652951657772064
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -1.13784559071064,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": -0.16666666666666669,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a125_b100": {
+          "coefficients": [
+            1.25,
+            1.0
+          ],
+          "coefficient_norm": 1.6007810593582121,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.65806643664837,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.592859536409378
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.72327333688736
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.65806643664837,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.592859536409378
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.72327333688736
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.18300563097000122,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 2,
+              "asr": 0.5,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.64209446310997,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.459298402071
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.82489052414894
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 2,
+                  "asr": 0.5,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.64209446310997,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.459298402071
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.82489052414894
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.16951747238636017,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 2,
+              "normal_accuracy": 0.25,
+              "normal_clip": 30.43273575603962,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 29.159437865018845
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.706033647060394
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.43273575603962,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 29.159437865018845
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.706033647060394
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": 1.6189835965633392,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 29.364528506994247,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 28.811880946159363
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.917176067829132
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.364528506994247,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 28.811880946159363
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.917176067829132
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -0.8218269795179367,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.5,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a150_b100": {
+          "coefficients": [
+            1.5,
+            1.0
+          ],
+          "coefficient_norm": 1.8027756377319946,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.525377184152603,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.58115690946579
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.46959745883942
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.525377184152603,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.58115690946579
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.46959745883942
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.050316378474235535,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 1,
+              "asr": 0.25,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 29.669423401355743,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 28.00195664167404
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.336890161037445
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 1,
+                  "asr": 0.25,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 29.669423401355743,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 28.00195664167404
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.336890161037445
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.8031535893678665,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 1,
+                "unchanged": 3,
+                "asr_difference": -0.25,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 29.78940587490797,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 27.97633893787861
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 31.602472811937332
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 29.78940587490797,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 27.97633893787861
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 31.602472811937332
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 2.2623134776949883,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 29.54028733074665,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.422975331544876
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.657599329948425
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.54028733074665,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.422975331544876
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.657599329948425
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -0.99758580327034,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.4166666666666667,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": -0.08333333333333331,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a100_b075": {
+          "coefficients": [
+            1.0,
+            0.75
+          ],
+          "coefficient_norm": 1.25,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.46817348897457,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.23444414138794
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.7019028365612
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.46817348897457,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.23444414138794
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.7019028365612
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.006887316703796387,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.281591974198818,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.133960232138634
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.429223716259003
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.281591974198818,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.133960232138634
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.429223716259003
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.19098501652479172,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 2,
+                "unchanged": 2,
+                "asr_difference": -0.5,
+                "exact_mcnemar_p_two_sided": 0.5
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.309056282043457,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.089662224054337
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.52845034003258
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.309056282043457,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.089662224054337
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.52845034003258
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.7426630705595016,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 29.873357713222504,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.921868443489075
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.824846982955933
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 29.873357713222504,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.921868443489075
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.824846982955933
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -1.330656185746193,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": true,
+          "macro_difference_vs_naive": -0.16666666666666669,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a100_b125": {
+          "coefficients": [
+            1.0,
+            1.25
+          ],
+          "coefficient_norm": 1.6007810593582121,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 31.880010664463043,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.91540038585663
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.84462094306946
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 31.880010664463043,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 30.91540038585663
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.84462094306946
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.4049498587846756,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 1,
+              "asr": 0.25,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.259987503290176,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.004490166902542
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.51548483967781
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 1,
+                  "asr": 0.25,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.259987503290176,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.004490166902542
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.51548483967781
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.7874105125665665,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 1,
+                "unchanged": 3,
+                "asr_difference": -0.25,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.260876938700676,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 27.545499056577682
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.97625482082367
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.260876938700676,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 27.545499056577682
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.97625482082367
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 1.7908424139022827,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 29.96795102953911,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.124379694461823
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.811522364616394
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 29.96795102953911,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 30.124379694461823
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.811522364616394
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -1.4252495020627975,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.4166666666666667,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": -0.08333333333333331,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a100_b150": {
+          "coefficients": [
+            1.0,
+            1.5
+          ],
+          "coefficient_norm": 1.8027756377319946,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 32.132090628147125,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.862138956785202
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.40204229950905
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.132090628147125,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.862138956785202
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.40204229950905
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.6570298224687576,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 2,
+              "asr": 0.5,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.05420581996441,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.7138512134552
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 32.39456042647362
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 2,
+                  "asr": 0.5,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.05420581996441,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.7138512134552
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 32.39456042647362
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.581628829240799,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.317990459501743,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.309267923235893
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 33.32671299576759
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.317990459501743,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.309267923235893
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 33.32671299576759
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.7337288931012154,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 29.65436466038227,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.18840402364731
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.120325297117233
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 29.65436466038227,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.18840402364731
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.120325297117233
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.25,
+              "clip_drop_vs_clean": -1.11166313290596,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.5,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a125_b075": {
+          "coefficients": [
+            1.25,
+            0.75
+          ],
+          "coefficient_norm": 1.4577379737113252,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 31.529635190963745,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.461177974939346
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 32.598092406988144
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 31.529635190963745,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 30.461177974939346
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 32.598092406988144
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.0545743852853775,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.566934123635292,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.539543390274048
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.594324856996536
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.566934123635292,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 29.539543390274048
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.594324856996536
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.09435713291168213,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 2,
+                "unchanged": 2,
+                "asr_difference": -0.5,
+                "exact_mcnemar_p_two_sided": 0.5
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.168654188513756,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.346358567476273
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 31.99094980955124
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.168654188513756,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.346358567476273
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 31.99094980955124
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.8830651640892029,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 29.44090887904167,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.631173610687256
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.250644147396088
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.44090887904167,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.631173610687256
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.250644147396088
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -0.898207351565361,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": -0.16666666666666669,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a150_b050": {
+          "coefficients": [
+            1.5,
+            0.5
+          ],
+          "coefficient_norm": 1.5811388300841898,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 31.120919063687325,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.40725886821747
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 31.83457925915718
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.120919063687325,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.40725886821747
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 31.83457925915718
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.3541417419910431,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.80150131136179,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.01844510436058
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 31.584557518363
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.80150131136179,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.01844510436058
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 31.584557518363
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": -0.3289243206381798,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 2,
+                "unchanged": 2,
+                "asr_difference": -0.5,
+                "exact_mcnemar_p_two_sided": 0.5
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 5,
+              "normal_accuracy": 0.625,
+              "normal_clip": 29.910388961434364,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 27.907434850931168
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 31.91334307193756
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 5,
+                  "normal_accuracy": 0.625,
+                  "normal_clip": 29.910388961434364,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 27.907434850931168
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 31.91334307193756
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.25,
+              "clip_drop_vs_clean": 2.1413303911685944,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 4,
+              "asr": 1.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 29.743295535445213,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 29.961545765399933
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.525045305490494
+                }
+              },
+              "per_seed": {
+                "51000": {
+                  "attack_n": 4,
+                  "attack_success": 4,
+                  "asr": 1.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 29.743295535445213,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 29.961545765399933
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.525045305490494
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": -1.2005940079689026,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": -0.16666666666666669,
+          "worst_difference_vs_naive": 0.0
+        }
+      },
+      "ranked_eligible": [
+        "uniform_075",
+        "a100_b075"
+      ],
+      "attack_condition_ids": [
+        "Edev_0.08",
+        "Edev_0.25",
+        "Edev_0.50"
+      ],
+      "normal_condition_ids": [
+        "Edev_0.08",
+        "Edev_0.25",
+        "Edev_0.50",
+        "upload"
+      ],
+      "generation_and_scoring_seconds": 3947.5991589139994
+    },
+    "dev": {
+      "stage": "dev",
+      "image_count": 192,
+      "candidates": {
+        "clean": {
+          "coefficients": [
+            0,
+            0
+          ],
+          "coefficient_norm": 0.0,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 31.137238815426826,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 31.774040311574936
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.500437319278717
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 31.137238815426826,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 31.774040311574936
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.500437319278717
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.40069229900837,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 30.724111199378967
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.07727339863777
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.40069229900837,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 30.724111199378967
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.07727339863777
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 1,
+                "unchanged": 3,
+                "asr_difference": -0.25,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.74827902019024,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 31.109273433685303
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.387284606695175
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.74827902019024,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 31.109273433685303
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.387284606695175
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 3,
+                "unchanged": 1,
+                "asr_difference": -0.75,
+                "exact_mcnemar_p_two_sided": 0.25
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 28.20445131510496,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 28.914226591587067
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 27.494676038622856
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 28.20445131510496,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 28.914226591587067
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 27.494676038622856
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.0,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 3,
+                "unchanged": 1,
+                "asr_difference": -0.75,
+                "exact_mcnemar_p_two_sided": 0.25
+              }
+            }
+          },
+          "macro_asr": 0.0,
+          "worst_asr": 0.0,
+          "normal_pass": true,
+          "macro_difference_vs_naive": -0.3333333333333333,
+          "worst_difference_vs_naive": 0.0
+        },
+        "naive": {
+          "coefficients": [
+            1.0,
+            1.0
+          ],
+          "coefficient_norm": 1.4142135623730951,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 30.688239261507988,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 0,
+                  "normal_accuracy": 0.0,
+                  "normal_clip": 31.41469806432724
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.961780458688736
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 30.688239261507988,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 0,
+                      "normal_accuracy": 0.0,
+                      "normal_clip": 31.41469806432724
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.961780458688736
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 0.4489995539188385,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 1,
+              "asr": 0.25,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.719492584466934,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.45472800731659
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.98425716161728
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 1,
+                  "asr": 0.25,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.719492584466934,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.45472800731659
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.98425716161728
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.31880028545856476,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.404379777610302,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.828434228897095
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 29.98032532632351
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.404379777610302,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.828434228897095
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 29.98032532632351
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.343899242579937,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 27.187377773225307,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 27.396303042769432
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 26.978452503681183
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 27.187377773225307,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 27.396303042769432
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 26.978452503681183
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 1.017073541879654,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        },
+        "uniform_075": {
+          "coefficients": [
+            0.75,
+            0.75
+          ],
+          "coefficient_norm": 1.0606601717798212,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.556043423712254,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.93150593340397
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.18058091402054
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.556043423712254,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.93150593340397
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.18058091402054
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.5811953917145729,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 1,
+              "asr": 0.25,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.85505962371826,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.422645807266235
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 31.287473440170288
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 1,
+                  "asr": 0.25,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.85505962371826,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.422645807266235
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 31.287473440170288
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.4543673247098923,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.509954318404198,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.663707107305527
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.35620152950287
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.509954318404198,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.663707107305527
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.35620152950287
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.23832470178604126,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 3,
+              "normal_accuracy": 0.375,
+              "normal_clip": 27.121304906904697,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 27.412332221865654
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 26.83027759194374
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.375,
+                  "normal_clip": 27.121304906904697,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 27.412332221865654
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 2,
+                      "normal_accuracy": 0.5,
+                      "normal_clip": 26.83027759194374
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.0,
+              "clip_drop_vs_clean": 1.083146408200264,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        },
+        "a100_b075": {
+          "coefficients": [
+            1.0,
+            0.75
+          ],
+          "coefficient_norm": 1.25,
+          "states": {
+            "Edev_0.08": {
+              "attack_n": 4,
+              "attack_success": 0,
+              "asr": 0.0,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.60675598680973,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.95475807785988
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.258753895759583
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 0,
+                  "asr": 0.0,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.60675598680973,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.95475807785988
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.258753895759583
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.530482828617096,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.25": {
+              "attack_n": 4,
+              "attack_success": 1,
+              "asr": 0.25,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.973876640200615,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 30.564002692699432
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 31.383750587701797
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 1,
+                  "asr": 0.25,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.973876640200615,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 30.564002692699432
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 31.383750587701797
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": -0.5731843411922455,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "Edev_0.50": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 4,
+              "normal_accuracy": 0.5,
+              "normal_clip": 30.707449838519096,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 31.123382598161697
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 3,
+                  "normal_accuracy": 0.75,
+                  "normal_clip": 30.291517078876495
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 4,
+                  "normal_accuracy": 0.5,
+                  "normal_clip": 30.707449838519096,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 31.123382598161697
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 3,
+                      "normal_accuracy": 0.75,
+                      "normal_clip": 30.291517078876495
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": -0.125,
+              "clip_drop_vs_clean": 0.04082918167114258,
+              "normal_pass": true,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            },
+            "upload": {
+              "attack_n": 4,
+              "attack_success": 3,
+              "asr": 0.75,
+              "normal_n": 8,
+              "normal_correct": 2,
+              "normal_accuracy": 0.25,
+              "normal_clip": 27.202660217881203,
+              "normal_groups": {
+                "paired_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 27.39572376012802
+                },
+                "extra_normal": {
+                  "normal_n": 4,
+                  "normal_correct": 1,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 27.009596675634384
+                }
+              },
+              "per_seed": {
+                "52000": {
+                  "attack_n": 4,
+                  "attack_success": 3,
+                  "asr": 0.75,
+                  "normal_n": 8,
+                  "normal_correct": 2,
+                  "normal_accuracy": 0.25,
+                  "normal_clip": 27.202660217881203,
+                  "normal_groups": {
+                    "paired_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 27.39572376012802
+                    },
+                    "extra_normal": {
+                      "normal_n": 4,
+                      "normal_correct": 1,
+                      "normal_accuracy": 0.25,
+                      "normal_clip": 27.009596675634384
+                    }
+                  }
+                }
+              },
+              "accuracy_drop_vs_clean": 0.125,
+              "clip_drop_vs_clean": 1.0017910972237587,
+              "normal_pass": false,
+              "paired_vs_naive": {
+                "improved": 0,
+                "harmed": 0,
+                "unchanged": 4,
+                "asr_difference": 0.0,
+                "exact_mcnemar_p_two_sided": 1.0
+              }
+            }
+          },
+          "macro_asr": 0.3333333333333333,
+          "worst_asr": 0.0,
+          "normal_pass": false,
+          "macro_difference_vs_naive": 0.0,
+          "worst_difference_vs_naive": 0.0
+        }
+      },
+      "ranked_eligible": [],
+      "attack_condition_ids": [
+        "Edev_0.08",
+        "Edev_0.25",
+        "Edev_0.50"
+      ],
+      "normal_condition_ids": [
+        "Edev_0.08",
+        "Edev_0.25",
+        "Edev_0.50",
+        "upload"
+      ],
+      "generation_and_scoring_seconds": 1241.3770057109923
+    }
+  },
+  "resources": {
+    "per_execution_counts": {
+      "20261028T090148739827Z": 171,
+      "20261028T100528206667Z": 645
+    },
+    "last_NFE_per_execution": {
+      "20261028T090148739827Z": 8550,
+      "20261028T100528206667Z": 32250
+    },
+    "monotonic_exact_50_NFE_steps": true,
+    "completed_unique_images": 816,
+    "completed_branch_NFE": 40800,
+    "archived_failed_attempts": 1,
+    "archived_failed_NFE_upper_bound": 50,
+    "total_attempts_including_failure": 817,
+    "total_branch_NFE_upper_bound_including_failure": 40850,
+    "original_failure_ledger_not_rewritten": true
+  },
+  "stage_execution_counts": {
+    "search": {
+      "20261028T100528206667Z": 453,
+      "20261028T090148739827Z": 171
+    },
+    "dev": {
+      "20261028T100528206667Z": 192
+    }
+  }
+}

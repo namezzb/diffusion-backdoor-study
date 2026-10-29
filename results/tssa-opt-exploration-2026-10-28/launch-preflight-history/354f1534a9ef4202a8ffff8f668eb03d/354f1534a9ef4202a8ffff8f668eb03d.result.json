@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-28T08:55:09.830494+00:00",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "server": "103",
+  "token": "354f1534a9ef4202a8ffff8f668eb03d",
+  "status": "remote_failed_or_unknown_manual_audit_required",
+  "permission_sha256": "5148409d498faf30c09d524eed987e6a5b0edfd5cdf0a6979f1332c869dede88",
+  "deployment_sha256": "873fcb49ab565dec9d1ffdfe728d7e6a49cf34fb80855545a01daffac87c8572",
+  "launcher_sha256": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+  "automatic_retry_allowed": false,
+  "returncode": 2,
+  "stderr": "{\"status\": \"refused\", \"error\": \"GuardError: Group/world writable path: /data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c\", \"automatic_retry_allowed\": false}\n",
+  "stdout": "",
+  "finished_at": "2026-10-28T08:55:14.526359+00:00"
+}

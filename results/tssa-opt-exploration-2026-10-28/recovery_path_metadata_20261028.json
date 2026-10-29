@@ -1,0 +1,103 @@
+{
+  "read_only": true,
+  "server": "103",
+  "returncode": 0,
+  "stderr": "",
+  "remote": {
+    "at": "2026-10-28T09:50:08.233792+00:00",
+    "read_only": true,
+    "metadata": [
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa",
+        "uid": 24112,
+        "mode": "0o750",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results",
+        "uid": 24112,
+        "mode": "0o755",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/launch-control",
+        "uid": 24112,
+        "mode": "0o700",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+        "uid": 24112,
+        "mode": "0o775",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/.run.lock",
+        "uid": 24112,
+        "mode": "0o664",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/operations",
+        "uid": 24112,
+        "mode": "0o775",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/identity.json",
+        "uid": 24112,
+        "mode": "0o600",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/models",
+        "uid": 24112,
+        "mode": "0o750",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/tmp",
+        "uid": 24112,
+        "mode": "0o755",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache",
+        "uid": 24112,
+        "mode": "0o755",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache/huggingface",
+        "uid": 24112,
+        "mode": "0o755",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache/torch",
+        "uid": 24112,
+        "mode": "0o755",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache/triton",
+        "uid": 24112,
+        "mode": "0o755",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/operations/86c2c2b75136205b1903ebc8d4eecdf5f802c260543b78431e6c6d242b5d8da9.json",
+        "uid": 24112,
+        "mode": "0o600",
+        "symlink": false
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/operations/f6052a882b3f958e7384cc1ecc94fe1b754ca951a86ddfea9daabc576e1d9f90.json",
+        "uid": 24112,
+        "mode": "0o600",
+        "symlink": false
+      }
+    ],
+    "boot_id": "1c2bddf4-f594-43cf-8a4d-5b116ad79067"
+  }
+}

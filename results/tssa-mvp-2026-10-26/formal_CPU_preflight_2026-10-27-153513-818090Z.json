@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "started_at": "2026-10-27T15:35:13.818090+00:00",
+  "pid": 55904,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-153513-818090Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-153513-818090Z.log",
+  "script_sha256": "b8d97751a9fc4b8d37c505a0e9691f8ba63da9c8b5602807e64181c1c96ca3b0",
+  "transfer_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+  "probe_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/server-probes/school104-20261027T153216907456Z.json",
+  "automatic_retry": false,
+  "maximum_local_wait_seconds": 900,
+  "remote_CPU_timeout_seconds": 1200,
+  "CPU_threads": 2,
+  "GPU_used": false,
+  "scope": "Formal checkpoint CPU structure, frozen delta and grouping only; no response gradients or research images.",
+  "observed_at": "2026-10-27T15:40:44.378697+00:00",
+  "error": "AssertionError: Existing transfer failed; no connection or retry attempted",
+  "finished_at": "2026-10-27T15:40:44.377987+00:00",
+  "seconds": 330.46671420799976
+}

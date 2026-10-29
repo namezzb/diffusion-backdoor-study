@@ -1,0 +1,81 @@
+{
+  "observed_at": "2026-10-28T05:00:00.235096+08:00",
+  "heartbeat_trigger_UTC": "2026-10-27T20:59:00.449Z",
+  "phase": "CPU_ready_waiting_for_user_MFA_and_compliant_GPU_allocation",
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T205916934317Z.json",
+    "sha256": "7564fdfc6fcc50b855c458ca19916b4cbf8e1c70a52a9d406fa4bf271f19f013",
+    "status": "observed",
+    "started_at": "2026-10-27T20:59:16.934317+00:00",
+    "finished_at": "2026-10-27T20:59:22.507084+00:00",
+    "sample_finished_at": "2026-10-27T20:59:22.620945+00:00",
+    "driver_prohibited_indices": [],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "other_graphics_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false,
+    "GPU_UUID_mapping_matches_previous_sample": true,
+    "inventory_change_report": "results/tssa-mvp-2026-10-26/gpu_inventory_change_2026-10-27-140924-748406Z.json"
+  },
+  "website_observation": {
+    "observed_at": "2026-10-27T20:59:29.069Z",
+    "status": "unchanged_mfa_pending",
+    "requested_url": "https://gpu.orz2333.fun/",
+    "tab_id": "181737474",
+    "portal_application_reached": true,
+    "authenticated_dashboard_reached": false,
+    "displayed_form": "两步验证",
+    "current_allocation_known": false,
+    "tab_retained_for_user": true,
+    "login_resubmitted": false,
+    "credential_reset_attempted": false,
+    "user_question_repeated": false,
+    "initial_user_action_request": "2026-10-27T16:30:39.597Z"
+  },
+  "local_integrity_check": {
+    "source_files": 20,
+    "CPU_preparation_evidence_files": 5,
+    "returned_CPU_artifact_files": 7,
+    "passed": true,
+    "remote_preflight_or_tests_repeated": false
+  },
+  "local_process_check": {
+    "observed_at": "2026-10-28T05:00:00.235096+08:00",
+    "active_matching_project_processes": [],
+    "scope": "Local current-user project transfer, preflight, resume-audit and research entrypoints; unrelated arguments omitted."
+  },
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "next_action": "User completesMFA in retainedChrome tab; then read MyOverview,ServerStatus,Queue and preserve#55. Next30min probe remains read-only. Model assets,CPUpreflight and resume identity are verified; no repeat transfer or CPU stage needed. Bind two fresh compliant UUIDs before real CUDA/research stages.",
+  "notification": {
+    "decision": "SILENT",
+    "reason": "No actionable change: pending MFA, other-user processes on all observed GPUs, and intact completed CPU preparation."
+  },
+  "no_new_model_transfer_or_GPU_started": true,
+  "prior_checkpoint": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-202953-436897Z.json"
+}

@@ -1,0 +1,29 @@
+{
+  "started_at": "2026-10-26T20:11:29.800981+00:00",
+  "pid": 63927,
+  "status": "complete",
+  "kind": "one_bounded_verified_chunk",
+  "max_chunk_bytes": 16777216,
+  "no_GPU": true,
+  "full_asset_verified": false,
+  "automatic_retries": 0,
+  "helper_sha256": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+  "probe_script_sha256": "c113b498443a173af78055d8cfec5b1ba5414a20146d9a9838684637b707aaeb",
+  "offset": 3115161600,
+  "chunk_size": 16777216,
+  "prefix_verified": true,
+  "receipt": {
+    "offset": 3115161600,
+    "chunk_size": 16777216,
+    "committed_size": 3131938816,
+    "sha256": "e399d6b7e2d56469a71b4c3b78b8592a1f56b3fc2a2b0863c6102200911408f8"
+  },
+  "resulting_prefix": {
+    "size": 3131938816,
+    "sha256": "f453b304b250f6dcb054144338bdf9e3c23cddcb320e67b8dc84215b8b33f347"
+  },
+  "remote_prefix_sha256_rechecked": true,
+  "finished_at": "2026-10-26T20:23:06.842900+00:00",
+  "seconds": 697.0363689579972,
+  "observed_at": "2026-10-26T20:23:06.843251+00:00"
+}

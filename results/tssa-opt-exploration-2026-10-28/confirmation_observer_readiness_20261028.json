@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-28T10:47:36.115731+00:00",
+  "status": "prepared_locally_no_connection",
+  "remote_ready": false,
+  "confirmation_receipt_verified": false,
+  "files": {
+    "observe_confirmation_continuation.py": "5b979df7ad728cd77310bbfae216dfe21eb5f6ea6e93c381b1f73e7a8d9458ca",
+    "test_observe_confirmation_continuation.py": "72bf4ae39660705b63611fca7d19c33499f4b3f9558417e7c48bab30ea759e6d",
+    "observe_image_search.py": "53fe627e48109eac545529f2473f08aaa15d85f3b5743b237e7b06eb5c22958f",
+    "continue_search_confirmation.py": "8cb9feb30952bd8d5557829b50be25bf59d26158c1e26ba7afdd6ba5b75b3adc"
+  },
+  "test_command": "python3 -B -m unittest discover -s results/tssa-opt-exploration-2026-10-28 -p test_observe_confirmation_continuation.py -v",
+  "tests": {
+    "exit_code": 0,
+    "count": 16,
+    "seconds": 0.065,
+    "summary": "Ran 16 tests in 0.065s\n\nOK",
+    "fixtures": "Explicitly simulated confirmation receipt, CPU temporary files and fake /proc; original read-only recovery provenance fixtures reused; no model, network or GPU"
+  },
+  "default_CLI": {
+    "exit_code": 0,
+    "status": "prepared_locally_no_connection",
+    "confirmation": null,
+    "read_only": true,
+    "remote_ready": false,
+    "GPU_launch": false,
+    "confirmation_receipt_verified": false
+  },
+  "safety_bounds": {
+    "SSH_calls_per_execute": 1,
+    "timeout_seconds": 100,
+    "per_file_max_bytes": 2097152,
+    "operations_file_max_bytes": 65536,
+    "total_transfer_max_bytes": 16777216,
+    "wire_max_bytes": 25165824,
+    "max_operations": 1440,
+    "max_returned_files": 1540,
+    "max_log_tail_bytes": 16384,
+    "source_bootstrap_bound_bytes": 200000,
+    "compressed_command_bound_bytes": 120000,
+    "synthetic_command_measured_bytes": 36593
+  },
+  "required_explicit_input": [
+    "Exact new confirmation receipt remote path on 103 under fixed launch-control, never auto-discovered",
+    "Raw SHA256 obtained from immutable confirmation spawn evidence"
+  ],
+  "verified_bindings": [
+    "Confirmation token/path/log, raw receipt SHA, before-spawn claim equivalence, pinned continuation and guards",
+    "Same fixed run, plan, source command, development selection commitment and ready budget decision",
+    "All original launch and manual recovery SHA, archived failed operation and failure ledger",
+    "New PID with 103 zhangzibo UID 24112, full argv, start ticks and boot ID; no fallback to old PID 9348"
+  ],
+  "result_isolation": [
+    "Reuse pinned original observer collect_run and bounded log filtering",
+    "Do not read run results on invalid confirmation provenance/development commitment",
+    "Never read unknown confirm receipts, confirm summaries or final report before verified selection binding",
+    "Do not send confirm rows to remote observer",
+    "Do not download or reverify image bytes; record receipt PNG SHA only"
+  ],
+  "accounting": [
+    "Add fixed archived 1 failed attempt and 50 generation branch-NFE upper bound to observed receipts",
+    "Include started attempts conservatively, distinguish missing/withheld coverage",
+    "Flag counts below committed development count or above audited confirmation total; report only, never stop or replay"
+  ],
+  "process_interpretation": [
+    "Old recovery PID is historical only; its disappearance has no bearing on new confirmation liveness",
+    "Missing new PID requires outcome artifacts, not automatic failure or replay",
+    "Missing start ticks, UID/argv/tick mismatch or changed boot cannot prove the recorded process is running",
+    "GPU-query failure is observation uncertainty, not a stop instruction"
+  ],
+  "actual_operations": {
+    "network_connections": 0,
+    "GPU_tasks_started": 0,
+    "remote_files_modified": 0,
+    "claims_created": 0,
+    "real_confirmation_receipts_verified": 0,
+    "real_confirmation_images_observed": 0
+  },
+  "limitations": [
+    "No actual completed dev/confirmation package or real confirmation receipt was available; live protocol not yet exercised",
+    "CPU fixtures validate paths, binding logic, accounting and privacy isolation; they are not scientific samples or server acceptance",
+    "Completed summaries still need independent scientific auditing; process presence and artifact collection do not prove effectiveness",
+    "The old frozen observer and continuation helper remain unchanged; this is a separate explicit continuation observation entry point"
+  ]
+}

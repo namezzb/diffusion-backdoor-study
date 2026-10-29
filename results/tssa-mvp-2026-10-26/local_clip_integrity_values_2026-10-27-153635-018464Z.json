@@ -1,0 +1,54 @@
+{
+  "started_at": "2026-10-27T15:36:35.018464+00:00",
+  "source": {
+    "repo_id": "openai/clip-vit-large-patch14",
+    "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+    "path": "model.safetensors",
+    "local_dir": "clip",
+    "local_path": "clip/model.safetensors",
+    "size": 1710540580,
+    "sha256": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+    "source_url": "https://huggingface.co/openai/clip-vit-large-patch14/resolve/32bd64288804d66eefd0ccbe215aa642df71cc41/model.safetensors",
+    "git_blob_oid": "cacafd1899a1fbf021fe1eeaafebc9bc6d2a9c07",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "scope": "Local pinned file structure and CPU value integrity only; no model instantiation, inference, CUDA, images or optimization.",
+  "status": "passed",
+  "size": 1710540580,
+  "sha256": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+  "tensor_count": 592,
+  "dtype_counts": {
+    "I64": 2,
+    "F32": 590
+  },
+  "contiguous_payload": true,
+  "float_elements_scanned": 427616513,
+  "nonfinite_elements": 0,
+  "elements_outside_finite_float16_range": 0,
+  "representative_shapes": {
+    "text_model.embeddings.position_ids": [
+      1,
+      77
+    ],
+    "vision_model.embeddings.position_ids": [
+      1,
+      257
+    ],
+    "logit_scale": [],
+    "text_model.embeddings.position_embedding.weight": [
+      77,
+      768
+    ],
+    "text_model.embeddings.token_embedding.weight": [
+      49408,
+      768
+    ],
+    "text_model.encoder.layers.0.layer_norm1.bias": [
+      768
+    ]
+  },
+  "numpy": "2.2.6",
+  "finished_at": "2026-10-27T15:36:36.086509+00:00",
+  "seconds": 1.0680712090033921
+}

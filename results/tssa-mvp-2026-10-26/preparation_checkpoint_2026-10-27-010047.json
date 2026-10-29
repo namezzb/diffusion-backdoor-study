@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-27T01:00:47.155700+08:00",
+  "stage": "sequential_model_upload",
+  "asset_transfer": {
+    "active_pid": 92615,
+    "verified_file_count": 11,
+    "verified_bytes": 493868745,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 2760821760,
+    "remote_partial_observed_at": "2026-10-27T00:59:05+08:00",
+    "prior_remote_partial_bytes": 2726353920,
+    "prior_observed_at": "2026-10-27T00:54:06+08:00",
+    "measured_upload_bytes_per_second": 115277,
+    "all_assets_ready": false,
+    "local_free_bytes": 7841906688,
+    "process_verified_at": "2026-10-27T00:58:54+08:00",
+    "rolling_upload_bytes_per_second": 177579,
+    "rolling_window_seconds": 597,
+    "remote_data_disk_free_bytes": 7973301968896
+  },
+  "queue_last_verified_at": "2026-10-27T00:54:55.169870+08:00",
+  "website_current": false,
+  "GPU_started": false,
+  "notes": "Existing upload continues; browser page read timed out twice. Tab still exists and is preserved for next heartbeat. No resource confirmation or GPU launch."
+}

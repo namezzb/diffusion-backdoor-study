@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T10:54:34.817624+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition_id": "Edev_0.08",
+    "execution_id": "20261028T100528206667Z",
+    "image_path": "images/dev/Edev_0.08/clean/dev_extra_00_s52000.png",
+    "image_sha256": "9e20603f8a87a16c65a244cd681af7b0238411cfc0daa39f049d6d28b190b078",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 23100
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 462,
+      "unet_state_activations": 4,
+      "vae_decodes": 462
+    },
+    "row": {
+      "expected_class_ids": [
+        953
+      ],
+      "id": "dev_extra_00_s52000",
+      "normal_label": "pineapple",
+      "normal_prompt": "On a kitchen scale sits a whole pineapple with its crown intact.",
+      "prompt": "On a kitchen scale sits a whole pineapple with its crown intact.",
+      "prompt_cluster_id": "dev_extra_00",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_pineapple",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 28.906002640724182,
+      "vit_class": 953
+    },
+    "seconds": 6.262830073999794,
+    "stage": "dev",
+    "task_id": "37654ab3070b8046df4b75348d928d85c700b425423fa35c652fa2efd9cff8a4"
+  },
+  "record_sha256": "f010508283e53d3f11767d83cceaf5e539a95a7b335207e986a26407dd70fd9f",
+  "started_at": "2026-10-28T10:54:28.536299+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition": {
+      "alpha_malicious": 0.08,
+      "expert": "Edev",
+      "id": "Edev_0.08"
+    },
+    "row": {
+      "expected_class_ids": [
+        953
+      ],
+      "id": "dev_extra_00_s52000",
+      "normal_label": "pineapple",
+      "normal_prompt": "On a kitchen scale sits a whole pineapple with its crown intact.",
+      "prompt": "On a kitchen scale sits a whole pineapple with its crown intact.",
+      "prompt_cluster_id": "dev_extra_00",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_pineapple",
+      "triggered": false
+    },
+    "stage": "dev"
+  },
+  "task_id": "37654ab3070b8046df4b75348d928d85c700b425423fa35c652fa2efd9cff8a4"
+}

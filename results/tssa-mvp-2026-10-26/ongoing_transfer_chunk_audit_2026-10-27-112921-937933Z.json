@@ -1,0 +1,54 @@
+{
+  "observed_at": "2026-10-27T11:29:21.937933+00:00",
+  "previous_audit": "results/tssa-mvp-2026-10-26/ongoing_transfer_chunk_audit_2026-10-27-110301-130547Z.json",
+  "previous_audit_sha256": "febe1c5c175f3e0650b2632b0316ee86f3277603576aeddc543bcdf4310d8f91",
+  "prior_log_prefix_unchanged": true,
+  "transfer_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.json",
+  "transfer_status_at_snapshot": "running",
+  "log_path": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.log",
+  "log_snapshot_size": 80577,
+  "log_snapshot_sha256": "551e5ae4e2a8efa5bb77ad983bcbebdb2b500688d076e5a30a725b7406566c87",
+  "chunk_receipt_count": 440,
+  "new_chunk_hashes_checked_this_wake": 87,
+  "chunk_payload_hashes_match_local": true,
+  "chunk_coverage_start": 398458880,
+  "chunk_coverage_end": 2243952640,
+  "last_receipt": {
+    "offset": 2239758336,
+    "chunk_size": 4194304,
+    "committed_size": 2243952640,
+    "sha256": "2eb3c14483597e40a90fa40f346b1fe14d99938bda8a6b76d3be88430768678a"
+  },
+  "whole_file_remote_verified": false,
+  "ledger_snapshot_size": 116070,
+  "ledger_snapshot_sha256": "785aa6ac9fa2aa4e81b06cd2ff40baa5c4776040ea0f5fd7e511051bd3a15a0f",
+  "complete_manifest_files_verified": 24,
+  "complete_manifest_bytes_verified": 5252801860,
+  "by_role_file_counts": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 8
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 0
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "GPU_used": false
+}

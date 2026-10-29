@@ -1,0 +1,207 @@
+{
+  "observed_at": "2026-10-28T03:32:37.249245+00:00",
+  "observation": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z.json",
+  "phase": "select_response_recheck_running",
+  "scientific_images_completed": 268,
+  "optimization_updates_completed": 144,
+  "families": {
+    "Uniform-GD": {
+      "completed_updates": 48,
+      "first_coefficients_before": [
+        1.0,
+        1.0
+      ],
+      "last_coefficients": [
+        0.0,
+        0.0
+      ],
+      "first_step_with_any_zero": 12,
+      "min_a": 0.0,
+      "max_a": 0.867926836013794,
+      "min_b": 0.0,
+      "max_b": 0.867926836013794,
+      "autograd_calls": 336,
+      "gradient_wall_seconds": 792.6825702829665,
+      "endpoints_only_not_efficacy": true
+    },
+    "TSSA-GD": {
+      "completed_updates": 48,
+      "first_coefficients_before": [
+        1.0,
+        1.0
+      ],
+      "last_coefficients": [
+        0.0,
+        1.0
+      ],
+      "first_step_with_any_zero": 6,
+      "min_a": 0.0,
+      "max_a": 0.750000536441803,
+      "min_b": 1.0,
+      "max_b": 1.0,
+      "autograd_calls": 336,
+      "gradient_wall_seconds": 759.9939765490271,
+      "endpoints_only_not_efficacy": true
+    },
+    "RC-TSSA-GD": {
+      "completed_updates": 48,
+      "first_coefficients_before": [
+        1.0,
+        1.0
+      ],
+      "last_coefficients": [
+        0.0,
+        0.0
+      ],
+      "first_step_with_any_zero": 9,
+      "min_a": 0.0,
+      "max_a": 1.0001214742660522,
+      "min_b": 0.0,
+      "max_b": 0.768133282661438,
+      "autograd_calls": 336,
+      "gradient_wall_seconds": 756.2794313919876,
+      "endpoints_only_not_efficacy": true
+    }
+  },
+  "static_candidates": [
+    {
+      "id": "naive",
+      "a": 1.0,
+      "b": 1.0,
+      "candidate_id": 0
+    },
+    {
+      "id": "Uniform4",
+      "a": 4.0,
+      "b": 4.0,
+      "candidate_id": 1
+    },
+    {
+      "id": "Uniform16",
+      "a": 16.0,
+      "b": 16.0,
+      "candidate_id": 2
+    },
+    {
+      "id": "TSSA16",
+      "a": 16.0,
+      "b": 1.0,
+      "candidate_id": 3
+    }
+  ],
+  "learned_candidates": {
+    "RC-TSSA-GD_step24": {
+      "coefficients": [
+        0.0,
+        0.0
+      ],
+      "optimizer_checkpoint_path": "artifacts/9bde7a0babda977de52ee9057674d77b.pt",
+      "optimizer_checkpoint_sha256": "67255c904b4a8c169e1b163b185c702a8239f2ed3b8f333cdf73dc90f137f8e3",
+      "training_operation": "training/RC-TSSA-GD/step24"
+    },
+    "RC-TSSA-GD_step48": {
+      "coefficients": [
+        0.0,
+        0.0
+      ],
+      "optimizer_checkpoint_path": "artifacts/107b525d4168f3c37d5961ebc14e49cd.pt",
+      "optimizer_checkpoint_sha256": "be78d467eee52a8c38a52917030208e9caa09d484d437be55b288c30881da384",
+      "training_operation": "training/RC-TSSA-GD/step48"
+    },
+    "TSSA-GD_step24": {
+      "coefficients": [
+        0.0,
+        1.0
+      ],
+      "optimizer_checkpoint_path": "artifacts/4e6db317364b3d065a8650322a96beee.pt",
+      "optimizer_checkpoint_sha256": "1f28764f0e17a25f1425b7f723961c5c59ff560c4af786d2e77e65d51950450a",
+      "training_operation": "training/TSSA-GD/step24"
+    },
+    "TSSA-GD_step48": {
+      "coefficients": [
+        0.0,
+        1.0
+      ],
+      "optimizer_checkpoint_path": "artifacts/9bc3c951f03315a02cbd9b565fce5032.pt",
+      "optimizer_checkpoint_sha256": "a232eaaeb51efd0079cdce9caff78106ba654ef5f683f8a136bd3fe4f40da144",
+      "training_operation": "training/TSSA-GD/step48"
+    },
+    "Uniform-GD_step24": {
+      "coefficients": [
+        0.0,
+        0.0
+      ],
+      "optimizer_checkpoint_path": "artifacts/1e1fdb9f6a6a8b93a508df9cb367a19c.pt",
+      "optimizer_checkpoint_sha256": "996beb813092370a95c8b37b17e1bf8dc273f16a93d34676c78a39f44a744a9c",
+      "training_operation": "training/Uniform-GD/step24"
+    },
+    "Uniform-GD_step48": {
+      "coefficients": [
+        0.0,
+        0.0
+      ],
+      "optimizer_checkpoint_path": "artifacts/316df192b3584fbc77ef52b895bd7290.pt",
+      "optimizer_checkpoint_sha256": "a876fc9e6a1f40fc853cbee65bb6bcc5e8138d6e16217992987ab96a1f6e40b0",
+      "training_operation": "training/Uniform-GD/step48"
+    }
+  },
+  "trace": {
+    "path": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/per_step_coefficients_and_losses.jsonl",
+    "sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+    "lines": 144
+  },
+  "committed_resource_ledger_at_train_boundary": {
+    "diagnostic_extra": {
+      "committed_operation_cost_upper_bounds": {
+        "autograd_calls": 1,
+        "branch_NFE": 138
+      },
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 1,
+      "known_actual_branch_NFE": 138,
+      "known_actual_optimizer_updates": 0
+    },
+    "main": {
+      "committed_operation_cost_upper_bounds": {
+        "autograd_calls_max": 1008,
+        "branch_NFE": 16912,
+        "full_images": 220,
+        "optimizer_updates": 144,
+        "scorer_calls": 220,
+        "trajectories": 16
+      },
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 1008,
+      "known_actual_branch_NFE": 16912,
+      "known_actual_optimizer_updates": 144
+    },
+    "source_extra": {
+      "committed_operation_cost_upper_bounds": {
+        "branch_NFE": 2400,
+        "full_images": 48,
+        "scorer_calls": 48
+      },
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 2400,
+      "known_actual_optimizer_updates": 0
+    }
+  },
+  "peak_allocated_bytes": 23018152960,
+  "scientific_effectiveness_validated": false,
+  "heldout_evaluated": false,
+  "limits": [
+    "Candidate coefficients at projection boundary are permitted by the frozen protocol; no threshold or budget adjustment.",
+    "Source gate passed; static screen was information-insufficient, not proxy validation.",
+    "Development normal-utility and ASR evaluation plus independent heldout remain unfinished.",
+    "Current run has exclusive ownership and no supported cross-server shard import; do not duplicate samples to fill spare GPUs."
+  ],
+  "CPU_trace_replay_audit": {
+    "report": "results/tssa-mvp-2026-10-26/training_trace_audit_20261028T0332Z.json",
+    "sha256": "1d04212887c5b4d3c93464622213196b8ea6079f5c15d66ea984e9605c260bda",
+    "status": "passed",
+    "checks": 4513,
+    "issue_count": 0,
+    "scope": "Recorded-gradient consistency and CPU Adam replay only; not independent UNet gradient or efficacy validation."
+  }
+}

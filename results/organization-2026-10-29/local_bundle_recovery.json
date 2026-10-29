@@ -1,0 +1,171 @@
+{
+  "at": "2026-10-29T02:40:09.828993+00:00",
+  "recovered": [
+    {
+      "path": "code/mvp-dual-c36b319a1f1d/server/test_install_school_offline_env.py",
+      "method": "verified_local_source",
+      "sha256": "dc1696d944de03f72a59f4443497e863309e8ea452f1e233ee42bb08e2370ae1",
+      "bytes": 10799,
+      "source": "server/test_install_school_offline_env.py"
+    },
+    {
+      "path": "code/mvp-dual-0a5b9bdc7434/server/test_install_school_offline_env.py",
+      "method": "verified_local_source",
+      "sha256": "dc1696d944de03f72a59f4443497e863309e8ea452f1e233ee42bb08e2370ae1",
+      "bytes": 10799,
+      "source": "server/test_install_school_offline_env.py"
+    },
+    {
+      "path": "code/mvp-dual-c36b319a1f1d/server/install_school_offline_env.py",
+      "method": "verified_local_source",
+      "sha256": "deedb860b3aeb2743ae51adbd7df87d808d6b447616555476595660d405c0480",
+      "bytes": 25957,
+      "source": "server/install_school_offline_env.py"
+    },
+    {
+      "path": "code/mvp-dual-0a5b9bdc7434/server/install_school_offline_env.py",
+      "method": "verified_local_source",
+      "sha256": "deedb860b3aeb2743ae51adbd7df87d808d6b447616555476595660d405c0480",
+      "bytes": 25957,
+      "source": "server/install_school_offline_env.py"
+    },
+    {
+      "path": "code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_sd_runtime.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "1ec7ef4dffc1fb350a84c3a6ebfe87c11696b512bcf349a49414c45ced6df634",
+      "bytes": 41509,
+      "source": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-26-2340.tar.gz",
+      "member": "scripts/merging/tssa_sd_runtime.py"
+    },
+    {
+      "path": "code/mvp-dual-c36b319a1f1d/scripts/merging/test_tssa_sd_runtime_integration.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "3a6f8becee8431d4a6e59bcbf7160fef8829eaf4b622e71f493ffe312a4c68cb",
+      "bytes": 14925,
+      "source": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-26-2340.tar.gz",
+      "member": "scripts/merging/test_tssa_sd_runtime_integration.py"
+    },
+    {
+      "path": "code/mvp-dual-c36b319a1f1d/SOURCE_MANIFEST.json",
+      "method": "verified_local_bundle_member",
+      "sha256": "3ef2232560b343010a93d4428a0127eb23ae2c9f9726ee4bcf00c4bdd56be1e8",
+      "bytes": 3471,
+      "source": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-27-0015.tar.gz",
+      "member": "SOURCE_MANIFEST.json"
+    },
+    {
+      "path": "code/mvp-dual-0a5b9bdc7434/SOURCE_MANIFEST.json",
+      "method": "verified_local_bundle_member",
+      "sha256": "5c73cfe14c113a1af540eee27726b495802e2060b589b4452a438ebceb7eaae0",
+      "bytes": 4185,
+      "source": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-28-configfix.tar.gz",
+      "member": "SOURCE_MANIFEST.json"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120438409147Z/tssa_target_semantic_run.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "2a169be4bab5acd12276b71f768f2a320d896bc26b90e3fd9549fbb81fa3ed98",
+      "bytes": 22669,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "tssa_target_semantic_run.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120438409147Z/tssa_target_semantic_runtime.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "2ba604b0c49959d739d3fbf2b64bd5a7629526e83b2ebd09d3b2c3384814f4d8",
+      "bytes": 29330,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "tssa_target_semantic_runtime.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_runtime.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "2ba604b0c49959d739d3fbf2b64bd5a7629526e83b2ebd09d3b2c3384814f4d8",
+      "bytes": 29330,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "tssa_target_semantic_runtime.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120438409147Z/test_tssa_target_semantic_run.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "565bf3655b9cdbc3c19ee2b89bce24d726181b1cf9b548ae261b421f9d161334",
+      "bytes": 9378,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "test_tssa_target_semantic_run.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120438409147Z/test_tssa_target_semantic_runtime.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "2de0d786521fe24b1e0313a7038a81ef1c0f77ae077a0f59965f29879596e3d9",
+      "bytes": 19678,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "test_tssa_target_semantic_runtime.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120622460386Z/scripts/merging/test_tssa_target_semantic_runtime.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "2de0d786521fe24b1e0313a7038a81ef1c0f77ae077a0f59965f29879596e3d9",
+      "bytes": 19678,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "test_tssa_target_semantic_runtime.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120438409147Z/bundle_manifest.json",
+      "method": "verified_local_bundle_member",
+      "sha256": "50e235e20ef67a28d8b62b200b665a8796a3471490090ed9e56cda676e0fd313",
+      "bytes": 4455,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar",
+      "member": "bundle_manifest.json"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T121710965740Z/scripts/merging/tssa_target_semantic_run.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "e5c2a2589da91aa1f49b55208ce08355be4e530ceaaa9bd50048c7d47bcfb684",
+      "bytes": 22878,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar",
+      "member": "scripts/merging/tssa_target_semantic_run.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_run.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "e5c2a2589da91aa1f49b55208ce08355be4e530ceaaa9bd50048c7d47bcfb684",
+      "bytes": 22878,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar",
+      "member": "scripts/merging/tssa_target_semantic_run.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T121710965740Z/scripts/merging/test_tssa_target_semantic_run.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "704dff73a62b33151ce4fb3d19c15f4d633c5ae26209d0cbf83b0ef95995a5a7",
+      "bytes": 9788,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar",
+      "member": "scripts/merging/test_tssa_target_semantic_run.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120622460386Z/scripts/merging/test_tssa_target_semantic_run.py",
+      "method": "verified_local_bundle_member",
+      "sha256": "704dff73a62b33151ce4fb3d19c15f4d633c5ae26209d0cbf83b0ef95995a5a7",
+      "bytes": 9788,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar",
+      "member": "scripts/merging/test_tssa_target_semantic_run.py"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T120622460386Z/bundle_manifest.json",
+      "method": "verified_local_bundle_member",
+      "sha256": "f2ec52225cddf3500277f5df6a128e89c455f462070e03a7f4b05a3ac9beef0c",
+      "bytes": 4633,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar",
+      "member": "bundle_manifest.json"
+    },
+    {
+      "path": "preparations/target-semantic-20261028T121710965740Z/bundle_manifest.json",
+      "method": "verified_local_bundle_member",
+      "sha256": "162fc5a810f5bd52e457a0bf00c81411f7ac5e82755757616c7f56148dd13950",
+      "bytes": 4633,
+      "source": "results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T121710965740Z/bundle.tar",
+      "member": "bundle_manifest.json"
+    }
+  ],
+  "count": 21,
+  "network_used": false
+}

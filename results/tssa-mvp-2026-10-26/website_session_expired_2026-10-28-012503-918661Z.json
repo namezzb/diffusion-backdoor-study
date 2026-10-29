@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-28T01:24:39.090Z",
+  "status": "password_login_required_after_session_expired",
+  "requested_url": "https://gpu.orz2333.fun/",
+  "tab_id": "181737474",
+  "portal_application_reached": true,
+  "authenticated_dashboard_reached": false,
+  "displayed_form": "登录",
+  "current_allocation_known": false,
+  "tab_retained_for_user": true,
+  "user_provided_OTP_submitted_once": true,
+  "site_response": "登录已过期，请返回重新输入密码",
+  "returned_to_login": true,
+  "password_field_empty": true,
+  "credential_reset_attempted": false,
+  "OTP_recorded_in_files": false,
+  "GPU_job_started": false,
+  "screenshot": "results/tssa-mvp-2026-10-26/portal_login_session_expired_2026-10-28.png",
+  "next_action": "User completes password login and two-step verification in retained Chrome tab; then verify MyOverview,ServerStatus and Queue before any GPU action."
+}

@@ -1,0 +1,46 @@
+{
+  "observed_at": "2026-10-28T01:57:26.361236+00:00",
+  "status": "GPU3_idle_launch_blocked_by_automatic_approval_review",
+  "probe_report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261028T015203373922Z.json",
+  "probe_sha256": "eb78a87d3d67ef674e6137b9f1558a74cccc30a1622d3445eb0d5c40c9ac7049",
+  "GPU3": {
+    "index": 3,
+    "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+    "name": "NVIDIA GeForce RTX 3090",
+    "pci_bus_id": "00000000:A1:00.0",
+    "compute_mode": "Default",
+    "memory_used": "10 MiB",
+    "memory_total": "24576 MiB",
+    "gpu_utilization": "0 %",
+    "process_state_known": true,
+    "processes": [
+      {
+        "pid": 6941,
+        "type": "G",
+        "memory": "4 MiB",
+        "owner_is_self": false,
+        "is_this_project": null
+      }
+    ]
+  },
+  "portal": {
+    "authenticated": true,
+    "own_gpu_count_all_servers": 0,
+    "account_quota": 4,
+    "GPU3_displayed_idle": true,
+    "GPU3_displayed_disabled": false,
+    "latest_legacy_sample_local": "2026-10-28 09:54:29 Asia/Shanghai",
+    "queue55": "waiting for2,position2",
+    "effective_allocation_observed": false,
+    "specific_card_reserved_to_other_user_confirmed": false
+  },
+  "launch_submitted_to_approval_review": true,
+  "launch_command_executed": false,
+  "GPU_job_started": false,
+  "automatic_approval_review": {
+    "decision": "rejected",
+    "reason": "Shared-server GPU launch without an effective allocation while portal states queue priority; required platform permission not established."
+  },
+  "user_reply": "尚未核实",
+  "next_action": "Preserve prepared single run; continue read-only monitoring. Do not resubmit the rejected launch without new verifiable permission evidence; do not describe GPU3 as busy based on old sampling."
+}

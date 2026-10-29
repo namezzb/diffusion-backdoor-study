@@ -1,0 +1,146 @@
+debug1: OpenSSH_10.2p1, LibreSSL 3.3.6
+debug1: Reading configuration data /private/tmp/school-stage-hurui8u5/config
+debug1: /private/tmp/school-stage-hurui8u5/config line 3: Applying options for school104
+debug1: /private/tmp/school-stage-hurui8u5/config line 7: Applying options for *
+debug1: Reading configuration data /Users/zzb/arxiv/server/school_ssh_config
+debug1: /Users/zzb/arxiv/server/school_ssh_config line 22: Applying options for school104
+debug1: /Users/zzb/arxiv/server/school_ssh_config line 28: Applying options for school104
+debug1: /Users/zzb/arxiv/server/school_ssh_config line 32: Applying options for school104
+debug1: Setting implicit ProxyCommand from ProxyJump: ssh -F /private/tmp/school-stage-hurui8u5/config -v -W '[%h]:%p' school-jump
+debug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling
+debug1: Executing proxy command: exec ssh -F /private/tmp/school-stage-hurui8u5/config -v -W '[192.168.1.104]:22' school-jump
+debug1: no pubkey loaded from /Users/zzb/.ssh/zhangzibo_school
+debug1: identity file /Users/zzb/.ssh/zhangzibo_school type -1
+debug1: no identity pubkey loaded from /Users/zzb/.ssh/zhangzibo_school
+debug1: Local version string SSH-2.0-OpenSSH_10.2
+debug1: OpenSSH_10.2p1, LibreSSL 3.3.6
+debug1: Reading configuration data /private/tmp/school-stage-hurui8u5/config
+debug1: /private/tmp/school-stage-hurui8u5/config line 1: Applying options for school-jump
+debug1: /private/tmp/school-stage-hurui8u5/config line 7: Applying options for *
+debug1: Reading configuration data /Users/zzb/arxiv/server/school_ssh_config
+debug1: /Users/zzb/arxiv/server/school_ssh_config line 4: Applying options for school-jump
+debug1: /Users/zzb/arxiv/server/school_ssh_config line 32: Applying options for school-jump
+debug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling
+debug1: Connecting to 183.151.123.231 [183.151.123.231] port 7002.
+debug1: fd 3 clearing O_NONBLOCK
+debug1: Connection established.
+debug1: no pubkey loaded from /Users/zzb/.ssh/zhangzibo_school
+debug1: identity file /Users/zzb/.ssh/zhangzibo_school type -1
+debug1: no identity pubkey loaded from /Users/zzb/.ssh/zhangzibo_school
+debug1: Local version string SSH-2.0-OpenSSH_10.2
+debug1: Remote protocol version 2.0, remote software version OpenSSH_9.6p1 Ubuntu-3ubuntu13.20
+debug1: compat_banner: match: OpenSSH_9.6p1 Ubuntu-3ubuntu13.20 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 183.151.123.231:7002 as 'zhangzibo'
+debug1: using hostkeyalias: [hduiipl.cn]:7002
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: sntrup761x25519-sha512@openssh.com
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:MheEdeSO8cSm6MRZn1sehQ8T8mlTX+mjJqMXoaz3C58
+debug1: using hostkeyalias: [hduiipl.cn]:7002
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host '[hduiipl.cn]:7002' is known and matches the ED25519 host key.
+debug1: Found key in /Users/zzb/.ssh/known_hosts_school:1
+debug1: ssh_packet_send2_wrapped: resetting send seqnr 3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: Sending SSH2_MSG_EXT_INFO
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: ssh_packet_read_poll2: resetting read seqnr 3
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>
+debug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=<0>
+debug1: kex_ext_info_check_ver: ping@openssh.com=<0>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Will attempt key: /Users/zzb/.ssh/zhangzibo_school  explicit
+debug1: Trying private key: /Users/zzb/.ssh/zhangzibo_school
+Authenticated to 183.151.123.231 ([183.151.123.231]:7002) using "publickey".
+debug1: channel_connect_stdio_fwd: 192.168.1.104:22
+debug1: channel 0: new stdio-forward [stdio-forward] (inactive timeout: 0)
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: network
+debug1: pledge: fork
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /home/zhangzibo/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Remote protocol version 2.0, remote software version OpenSSH_9.6p1 Ubuntu-3ubuntu13.18
+debug1: compat_banner: match: OpenSSH_9.6p1 Ubuntu-3ubuntu13.18 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 192.168.1.104:22 as 'zhangzibo'
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: sntrup761x25519-sha512@openssh.com
+debug1: kex: host key algorithm: ssh-ed25519
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: SSH2_MSG_KEX_ECDH_REPLY received
+debug1: Server host key: ssh-ed25519 SHA256:MBqYN+hQO2ZPpM7d4gQHdp2PG4auWdmlSvsja9+kF5U
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory
+debug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory
+debug1: Host '192.168.1.104' is known and matches the ED25519 host key.
+debug1: Found key in /Users/zzb/.ssh/known_hosts_school:2
+debug1: ssh_packet_send2_wrapped: resetting send seqnr 3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: Sending SSH2_MSG_EXT_INFO
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: ssh_packet_read_poll2: resetting read seqnr 3
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>
+debug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=<0>
+debug1: kex_ext_info_check_ver: ping@openssh.com=<0>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>
+debug1: Authentications that can continue: publickey,password
+debug1: Next authentication method: publickey
+debug1: Will attempt key: /Users/zzb/.ssh/zhangzibo_school  explicit
+debug1: Trying private key: /Users/zzb/.ssh/zhangzibo_school
+Authenticated to 192.168.1.104 (via proxy) using "publickey".
+debug1: channel 0: new session [client-session] (inactive timeout: 0)
+debug1: Requesting no-more-sessions@openssh.com
+debug1: Entering interactive session.
+debug1: pledge: proc
+debug1: client_input_global_request: rtype hostkeys-00@openssh.com want_reply 0
+debug1: Remote: /home/zhangzibo/.ssh/authorized_keys:1: key options: agent-forwarding port-forwarding pty user-rc x11-forwarding
+debug1: Sending command: timeout --signal=TERM --kill-after=5s 90s python3 -c '
+from pathlib import Path
+import hashlib,json,os,stat,datetime
+root=Path('"'"'/data2/zhangzibo/arxiv-tssa'"'"');final=root/'"'"'models/clip/model.safetensors'"'"'
+p=final if final.exists() else Path(str(final)+'"'"'.uploading'"'"')
+for x in [p,*p.parents]:
+ if x.is_relative_to(root):assert not x.is_symlink() and x.stat().st_uid==os.getuid()
+s=p.stat();assert stat.S_ISREG(s.st_mode) and 0<=s.st_size<=1710540580
+h=hashlib.sha256()
+with p.open('"'"'rb'"'"') as f:
+ for b in iter(lambda:f.read(8*1024**2),b'"'"''"'"'):h.update(b)
+assert p.stat().st_size==s.st_size and p.stat().st_mtime_ns==s.st_mtime_ns
+if p==final:assert s.st_size==1710540580 and h.hexdigest()=='"'"'a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb'"'"'
+fragments=[]
+for x in p.parent.glob(final.name+'"'"'.uploading.chunk-*'"'"'):
+ q=x.lstat();assert stat.S_I
+debug1: pledge: fork
+debug1: client_input_channel_req: channel 0 rtype exit-status reply 0
+debug1: channel 0: free: client-session, nchannels 1
+Transferred: sent 5952, received 4168 bytes, in 1.9 seconds
+Bytes per second: sent 3185.4, received 2230.7
+debug1: Exit status 0
+debug1: channel 0: free: direct-tcpip: listening port 0 for 192.168.1.104 port 22, connect from 127.0.0.1 port 65535 to UNKNOWN port 65536, nchannels 1
+Killed by signal 1.

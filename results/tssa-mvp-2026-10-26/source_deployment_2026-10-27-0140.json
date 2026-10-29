@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-10-26T17:40:06.533275+00:00",
+  "archive": "/data2/zhangzibo/arxiv-tssa/inputs/deployment_bundle_2026-10-27-0015.tar.gz",
+  "archive_sha256": "c36b319a1f1d61c5410eb8ddbddf3c489927687f58ba75cd680757128897afc1",
+  "snapshot_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d",
+  "source_files_verified": 20,
+  "source_manifest_preserved": true,
+  "new_snapshot_created": true,
+  "models_ready": false,
+  "dependencies_installed": false,
+  "GPU_used": false
+}

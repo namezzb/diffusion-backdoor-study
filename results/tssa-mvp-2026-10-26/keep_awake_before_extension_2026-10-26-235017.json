@@ -1,0 +1,12 @@
+{
+  "pid": 60855,
+  "command": [
+    "/usr/bin/caffeinate",
+    "-i",
+    "-t",
+    "32400"
+  ],
+  "started_at": "2026-10-26T15:02:59.425859+00:00",
+  "expires_at": "2026-10-27T00:02:59.425859+00:00",
+  "scope": "Temporary idle-sleep inhibition for authorized overnight local transfer and monitoring; does not inhibit screen lock."
+}

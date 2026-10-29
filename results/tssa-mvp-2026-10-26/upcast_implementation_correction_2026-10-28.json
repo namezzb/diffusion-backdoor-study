@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-27T16:13:58.223171+00:00",
+  "issue": "Formal CPU structural preflight rejected DreamShaper8 upcast_attention null against clean false.",
+  "root_cause": "Compatibility checker compared serialized nullable boolean representation; installed pinned diffusers0.35.1 treats None and False identically in attention execution.",
+  "evidence": {
+    "formal_CPU_preflight_2026-10-27-160055-974677Z.json": "24d0788528bb1d4ed7e872dd07ee83f087f8833d2ef1b03371d3cd2e1cf24a5d",
+    "remote_upcast_config_diagnostic_2026-10-27-160551-823080Z.json": "f52a3887cad15cf7ebc2a08c80a239e7fe7a3688a84a2998a470857151755424",
+    "upcast_regression_before_fix_2026-10-28.log": "a7fd36dbefc2e5e795a773cdfd9e67402f7b54827322812d2a51f728b4695962",
+    "upcast_CPU_regression_after_fix_2026-10-28.log": "613a46261036dc0019c0476d50d878f8281bde8596e643949d8e4bbb7a26b9bb",
+    "upcast_implementation_correction_2026-10-28.patch": "2417d0129ca5d688c7199724ab1357c7b5ddd975fb8014b7a00462a5dab75f9b",
+    "configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json": "d29e8db922affa7d44253113a75532d0b36bf04eff39c77021e77548730d6ee4",
+    "deployment_bundle_2026-10-28-configfix.tar.gz": "0a5b9bdc7434dca827d8ae2e20aaa1fe91520ecadc32999035b9dca052c74446"
+  },
+  "deterministic_reproductions": 3,
+  "fix": "Normalize only None/False for upcast_attention after strict bool-or-None type checking; reject True differences and malformed values, preserve unrelated strict checks, record equivalences.",
+  "behavioral_regression": "Real tiny UNet outputs and context gradients exactly equal for both FP32/FP16 CPU and legacy/SDPA processors.",
+  "local_CPU_tests_passed": 59,
+  "server_CPU_tests_passed": 59,
+  "previous_source_sha256": "c36b319a1f1d61c5410eb8ddbddf3c489927687f58ba75cd680757128897afc1",
+  "corrected_source_sha256": "0a5b9bdc7434dca827d8ae2e20aaa1fe91520ecadc32999035b9dca052c74446",
+  "preserved_failed_run": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v1",
+  "new_run": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "assets_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "scientific_protocol_changed": false,
+  "heldout_results_viewed": false,
+  "model_configs_or_weights_modified": false,
+  "GPU_tested": false,
+  "temporary_instrumentation_left_in_runtime": false,
+  "remaining_validation": "Formal full-checkpoint CPU preflight now running once in new run; then scorer/VAE CPU loads; CUDA and scientific stages still pending permission."
+}

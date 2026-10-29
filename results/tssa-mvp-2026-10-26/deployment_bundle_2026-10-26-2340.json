@@ -1,0 +1,81 @@
+{
+  "bundle": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-26-2340.tar.gz",
+  "sha256": "0c4786c9ec2f04ee96eaadcb6f10faa32f10beb40f693464108b5d9fe087e5a1",
+  "size": 140514,
+  "file_count": 16,
+  "remote_uploaded": false,
+  "suggested_remote_archive": "inputs/deployment_bundle_2026-10-26-2340.tar.gz",
+  "suggested_remote_extract_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-0c4786c9ec2f",
+  "contents": {
+    "created_at": "2026-10-26T15:40:25.101168+00:00",
+    "files": {
+      "scripts/merging/tssa_gradient_core.py": {
+        "sha256": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+        "size": 18465
+      },
+      "scripts/merging/tssa_sd_runtime.py": {
+        "sha256": "1ec7ef4dffc1fb350a84c3a6ebfe87c11696b512bcf349a49414c45ced6df634",
+        "size": 41509
+      },
+      "scripts/merging/tssa_mvp_evaluate.py": {
+        "sha256": "eb27aade4e792c2cd46291bb68c6ab8f769514fa069b09857bf128833a22f35a",
+        "size": 29377
+      },
+      "scripts/merging/tssa_mvp_score.py": {
+        "sha256": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+        "size": 12865
+      },
+      "scripts/merging/tssa_mvp_run.py": {
+        "sha256": "ce7cf830a91ac7046ceae32ba3eb6f3cbf64d45a14a83bbf8bcabaed66618610",
+        "size": 58310
+      },
+      "scripts/merging/test_tssa_gradient_core.py": {
+        "sha256": "311729f2a9cb1621938a03411c89b5848cadf59bb6795944a35eef6c3e36a8ca",
+        "size": 14636
+      },
+      "scripts/merging/test_tssa_mvp_evaluate.py": {
+        "sha256": "7a0e99719239d1f6f247a4e734a05da44396609de28da861f9ac2187e69f3851",
+        "size": 8241
+      },
+      "scripts/merging/test_tssa_mvp_run.py": {
+        "sha256": "06621ce406a8c0d085dbe168440c846bfcf4af83a78736f5971f966194bbe0b7",
+        "size": 14722
+      },
+      "scripts/merging/test_tssa_mvp_score.py": {
+        "sha256": "10a53ad126690c33b6f7a7f1bbf897dc4d1f38e27c32914af24ad695a5e07edb",
+        "size": 8761
+      },
+      "scripts/merging/test_tssa_sd_runtime_integration.py": {
+        "sha256": "3a6f8becee8431d4a6e59bcbf7160fef8829eaf4b622e71f493ffe312a4c68cb",
+        "size": 14925
+      },
+      "research/tssa_mvp_2026-10-26.json": {
+        "sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+        "size": 96289
+      },
+      "research/tssa_mvp_assets_2026-10-26.json": {
+        "sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+        "size": 51017
+      },
+      "research/tssa_mvp_environment_2026-10-26.json": {
+        "sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+        "size": 114942
+      },
+      "research/tssa_mvp_requirements_2026-10-26.in": {
+        "sha256": "fca1f337fb7152434b607aac6905801b578d340dca9e6c730e382db668b3e032",
+        "size": 470
+      },
+      "research/tssa_mvp_requirements_2026-10-26.lock": {
+        "sha256": "c954f66450719b86a2761d2c85faed26a2f27cdb244f4d2f8df7ddc06163d851",
+        "size": 80049
+      },
+      "research/tssa_mvp_runbook.md": {
+        "sha256": "064e63621d91c17868c1620b5aa2dfbe48fdb08b6f60436d2f586ae86abd40f4",
+        "size": 5785
+      }
+    },
+    "kind": "tested_source_snapshot_not_deployed",
+    "CPU_check_evidence": "cpu_checks_2026-10-26-233917.json",
+    "GPU_tested": false
+  }
+}

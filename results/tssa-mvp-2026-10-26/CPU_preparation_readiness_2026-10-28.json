@@ -1,0 +1,57 @@
+{
+  "observed_at": "2026-10-27T16:17:09.477998+00:00",
+  "status": "CPU_ready_waiting_for_current_compliant_allocation",
+  "remote_source_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434",
+  "source_bundle_sha256": "0a5b9bdc7434dca827d8ae2e20aaa1fe91520ecadc32999035b9dca052c74446",
+  "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+  "models_root": "/data2/zhangzibo/arxiv-tssa/models",
+  "evidence_sha256": {
+    "full_model_transfer_acceptance_2026-10-27-160309-110550Z.json": "7c514a4e4ca203679b1962b102aa28c6c65092e719625337b75717d75826ecbb",
+    "configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json": "d29e8db922affa7d44253113a75532d0b36bf04eff39c77021e77548730d6ee4",
+    "formal_CPU_preflight_2026-10-27-161330-135213Z.json": "f5c864c993f284b8fe7383352a33927ef554cb6b3adf263e29d2ec17df411405",
+    "remote_inference_components_2026-10-27-161551-271111Z.json": "b36f56c6408632f73d43bb11b5ef36ec2f9c953f7e2831e886ecb2f507a2cb8f",
+    "configfix_execution_plan_2026-10-28.json": "09fcc9f1150114ae38df2c22e2697887df185cfc3ac85906314cc908c681f488"
+  },
+  "environment": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "PIP_NO_INDEX": "1",
+    "HF_HOME": "/data2/zhangzibo/arxiv-tssa/cache/huggingface",
+    "XDG_CACHE_HOME": "/data2/zhangzibo/arxiv-tssa/cache",
+    "TMPDIR": "/data2/zhangzibo/arxiv-tssa/tmp",
+    "OMP_NUM_THREADS": "2",
+    "MKL_NUM_THREADS": "2",
+    "OPENBLAS_NUM_THREADS": "2",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "argv_template": [
+    "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+    "-B",
+    "-u",
+    "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_dual_run.py",
+    "run",
+    "--models-root",
+    "/data2/zhangzibo/arxiv-tssa/models",
+    "--run-dir",
+    "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+    "--gpu-uuids",
+    "REQUIRES_FRESH_ALLOCATED_UUID_A",
+    "REQUIRES_FRESH_ALLOCATED_UUID_B",
+    "--resume"
+  ],
+  "allocation_UUIDs": null,
+  "automatic_launch_allowed_now": false,
+  "source_gate_or_CUDA_diagnostic_passed": false,
+  "validation_boundary": "Full model CPU structure, tensors, frozen grouping, library regressions and CPU scorer/VAE loads passed; no real CUDA response gradients, generated images, normal metrics, ASR, optimization or heldout evaluation.",
+  "before_confirmation": "Recheck fresh portal/admin authorization, disabled states, accountwide quota<=2, allocation deadline, other processes, card/UUID identity and current own processes; verify source/asset hashes and run identity, then confirm and immediately run real work. Unknown permission forbids launch.",
+  "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+  "preserve_failed_run": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v1",
+  "frozen_research_image_budget": 1712,
+  "frozen_gradient_update_budget": 144,
+  "GPU_workers": 2,
+  "updates_per_worker": [
+    72,
+    72
+  ],
+  "diagnostic_extra_forward_branch_NFE": 276
+}

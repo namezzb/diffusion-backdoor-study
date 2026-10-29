@@ -1,0 +1,19 @@
+{
+  "status": "claimed_before_connection",
+  "at": "2026-10-28T07:39:18.736837+00:00",
+  "id": "python-symlinks-20261028-f0a62cb10b1d",
+  "server": "103",
+  "root": "/data1/zhangzibo/arxiv-tssa",
+  "remote_source_sha256": "861601b084134acb1d19c7ea38800f93147ba5ddacd0916a55cbe8b32d24daa0",
+  "helper_sha256": "02711f50d63948286695ef4b6b432473aabc622ebe24e301b806717783baa897",
+  "preparation_script_sha256": "967a0341443b26b22222079516fb81da420c80f26b463a6908d46624a49179f6",
+  "diagnosis_sha256": "31625d820b7999327994531d180da4e58acb45c269dbd8d98a91822ee64c4400",
+  "failed_state_sha256": "f0a62cb10b1de990723ace06c63ced5ba4f10b64898d2db793d67c9ac7b261da",
+  "archive_sha256": "4a51ce60007a6facf64e5495f4cf322e311ba9f39a8cd3f3e4c026eae488e140",
+  "python_sha256": "3a691f7c530f01a215cb454f6a13bd2e4aa5f07cfdc2475223b4d00fcc65dd14",
+  "rename_failed_venv_to": "/data1/zhangzibo/arxiv-tssa/setup/python-symlinks-20261028-f0a62cb10b1d/failed_venv",
+  "rename_failed_receipt_to": "/data1/zhangzibo/arxiv-tssa/setup/python-symlinks-20261028-f0a62cb10b1d/failed_python_install_state.json",
+  "automatic_retry_allowed": false,
+  "GPU_initialized": false,
+  "network_downloads": false
+}

@@ -1,0 +1,9 @@
+{
+  "status": "new_live_permission_unavailable",
+  "attempt": "open GPU platform via Chrome existing profile",
+  "result": "Page.navigate timed out after 10000ms",
+  "native_surface": "Mac locked, automatic unlock failed",
+  "no_browser_credentials_read": true,
+  "no_gpu_started": true,
+  "no_automatic_retry": true
+}

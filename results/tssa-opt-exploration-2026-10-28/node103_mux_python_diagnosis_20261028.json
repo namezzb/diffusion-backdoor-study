@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-28T07:56:46.789934+00:00",
+  "server": "103",
+  "returncode": 0,
+  "stdout": "HOST iipl-103 UID 24112\nEXE /usr/bin/python3\nVERSION 3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]\nPATH ['', '/usr/lib/python310.zip', '/usr/lib/python3.10', '/usr/lib/python3.10/lib-dynload', '/usr/local/lib/python3.10/dist-packages', '/usr/lib/python3/dist-packages']\nHOST iipl-103 UID 24112\nEXE /data1/zhangzibo/arxiv-tssa/venv/bin/python\nVERSION 3.11.7 (main, Jan  8 2024, 05:55:31) [Clang 17.0.6 ]\nCTYPES /data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/lib/python3.11/ctypes/__init__.py\n",
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'ctypes'\n",
+  "GPU_work": false
+}

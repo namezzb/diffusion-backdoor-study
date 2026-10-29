@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-29T02:37:36.139152+00:00",
+  "experiment_state": "paused_by_user",
+  "scheduled_gpu_task": "deleted",
+  "new_scientific_images": 0,
+  "new_optimization_updates": 0,
+  "new_GPU_jobs": 0,
+  "remote_inventory_read_only": true,
+  "no_remote_files_modified": true,
+  "local_free_bytes": 5690257408,
+  "server104": {
+    "inventory_files": 5454,
+    "inventory_sha256": "9b19dd485b1e91774f3f4c14e986ef083f4701c7dc12b9f34d878636e4ad8aa8",
+    "local_exact_matches": 248,
+    "missing_logical_files": 5206,
+    "missing_unique_files": 5194,
+    "missing_unique_bytes": 1728731847,
+    "status": "kept_remote_indexed_no_further_transfer",
+    "latest_attempt": "2026-10-29T03:22:12.454154+00:00",
+    "transport_returncode": 255,
+    "new_remote_files_received": 0
+  },
+  "server103": {
+    "metadata_inventory_files": 2847,
+    "complete_run_artifacts_local": {
+      "exploration_small_artifacts": 833,
+      "exploration_PNG": 816,
+      "target_diagnostic_artifacts": 1141
+    },
+    "whole_project_hash_inventory": "blocked_by_jump",
+    "status": "existing_data_indexed_no_further_transfer",
+    "retry_this_turn": "Skipped: confirmed same shared jump blocker"
+  },
+  "AMAX": {
+    "configured_port": 25225,
+    "status": "connection_refused_no_directory_inventory",
+    "requires": "A current reachable user-provided AMAX session/port"
+  },
+  "public_model_payloads": {
+    "bytes_per_school_inventory": 14680296552,
+    "copied": false,
+    "reason": "Reproducible upstream assets; fixed revisions, hashes and source manifest retained, not duplicating 14.68 GB into low-space local disk"
+  },
+  "disk_issue": "Resolved for remaining 1.73 GB: current free exceeds payload plus 1 GiB reserve",
+  "last_resume_at": "2026-10-29T02:51:08.544871+00:00",
+  "updated_at": "2026-10-29T03:50:27.713953+00:00",
+  "current_policy": "local_organization_only_data_remain_on_servers",
+  "cloud_transfer": "paused_by_user",
+  "server_retrieval": "paused_by_user",
+  "server_index": "storage/SERVER_INDEX.md"
+}

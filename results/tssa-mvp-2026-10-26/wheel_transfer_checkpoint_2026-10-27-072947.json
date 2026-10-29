@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-27T07:29:47.700036+08:00",
+  "kind": "active_wheel_transfer_reconciliation",
+  "known_pids_verified_alive": [
+    17898,
+    17899
+  ],
+  "session_id": 71822,
+  "verified_count": 21,
+  "verified_bytes": 740089854,
+  "current_file": "wheelhouse/nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+  "current_file_verified_chunk_bytes": 574619648,
+  "current_file_expected_bytes": 726851421,
+  "current_file_chunk_receipts": 137,
+  "verified_observed_at": "2026-10-27T07:29:47.700036+08:00",
+  "process_verified_at": "2026-10-27T07:29:47.700036+08:00",
+  "portal_observed_at": "2026-10-27T07:29:01+08:00",
+  "portal_error": "Cloudflare Error 1016 / Origin DNS error",
+  "portal_ray_id": "a50d3da17f615de9",
+  "installed": false,
+  "GPU_started": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "snapshot-2026-10-29-v1",
+  "group": "presentations",
+  "created_at": "2026-10-29T03:24:19.203644+00:00",
+  "package": {
+    "name": "presentations-001.zip",
+    "size": 42166,
+    "sha256": "b783d25ae1e02b126ed4d439c0b5578dacf64926496f588851c57c7f4ceb8c57"
+  },
+  "files": [
+    {
+      "path": "presentations/diffusion_merging_backdoor_research.pptx",
+      "size": 59449,
+      "sha256": "df2a9dda2f066094ccd5ae0cf2684c7da7fd5009007f4f034e51bc12703b59f3"
+    }
+  ],
+  "source_boundary": "Only regular files resolved within /Users/zzb/arxiv; no external symlinks followed",
+  "drive": null,
+  "verification_status": "local_packaged"
+}

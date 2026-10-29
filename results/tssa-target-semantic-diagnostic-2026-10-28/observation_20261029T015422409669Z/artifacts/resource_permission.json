@@ -1,0 +1,122 @@
+{
+  "launch_sample": {
+    "at": "2026-10-29T01:43:54.416822+00:00",
+    "compute_mode": "Default",
+    "gpu_xml_sha256": "91660a28f581fe34fee4c44f4bc355a6aef016c8c8a992721b7f980ef9c4f54f",
+    "processes": [
+      {
+        "account": {
+          "gid": 0,
+          "home": "/root",
+          "name": "root",
+          "shell": "/bin/bash",
+          "uid": 0
+        },
+        "cmdline": [
+          "/usr/lib/xorg/Xorg",
+          "-core",
+          ":0",
+          "-seat",
+          "seat0",
+          "-auth",
+          "/var/run/lightdm/root/:0",
+          "-nolisten",
+          "tcp",
+          "vt7",
+          "-novtswitch"
+        ],
+        "comm": "Xorg",
+        "executable": "/usr/lib/xorg/Xorg",
+        "executable_evidence": "system_display_permission_denied",
+        "executable_metadata": {
+          "ctime_ns": 1793183883432261251,
+          "dev": 2082,
+          "gid": 0,
+          "ino": 14423346,
+          "mode": 33261,
+          "mtime_ns": 1784074659000000000,
+          "size": 2535552,
+          "uid": 0
+        },
+        "executable_sha256": "f90b527b655f1cd38311e42360e3131d6b034ddac14129427063a9f1c1c6a705",
+        "name": "/usr/lib/xorg/Xorg",
+        "pid": 1890,
+        "process_uids": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "start_ticks": "1863",
+        "type": "G",
+        "uid": 0
+      }
+    ]
+  },
+  "permission": {
+    "aggregate_after_launch": 1,
+    "allowed": true,
+    "checked_at": "2026-10-29T01:42:29.299057+00:00",
+    "conflict_free": true,
+    "enabled": true,
+    "evidence": [
+      "platform_prelaunch_20261029.json",
+      "../tssa-mvp-2026-10-26/server-probes/school103-20261029T013450903331Z.json",
+      "system_display103_20261029.json",
+      "display_guard_live_validation_20261029.json"
+    ],
+    "gpu_count": 1,
+    "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+    "platform_quota": 4,
+    "server": "103",
+    "verified_system_display_processes": [
+      {
+        "account": {
+          "gid": 0,
+          "home": "/root",
+          "name": "root",
+          "shell": "/bin/bash",
+          "uid": 0
+        },
+        "cmdline": [
+          "/usr/lib/xorg/Xorg",
+          "-core",
+          ":0",
+          "-seat",
+          "seat0",
+          "-auth",
+          "/var/run/lightdm/root/:0",
+          "-nolisten",
+          "tcp",
+          "vt7",
+          "-novtswitch"
+        ],
+        "comm": "Xorg",
+        "executable": "/usr/lib/xorg/Xorg",
+        "executable_evidence": "system_display_permission_denied",
+        "executable_metadata": {
+          "ctime_ns": 1793183883432261251,
+          "dev": 2082,
+          "gid": 0,
+          "ino": 14423346,
+          "mode": 33261,
+          "mtime_ns": 1784074659000000000,
+          "size": 2535552,
+          "uid": 0
+        },
+        "executable_sha256": "f90b527b655f1cd38311e42360e3131d6b034ddac14129427063a9f1c1c6a705",
+        "name": "/usr/lib/xorg/Xorg",
+        "pid": 1890,
+        "process_uids": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "start_ticks": "1863",
+        "type": "G",
+        "uid": 0
+      }
+    ]
+  }
+}

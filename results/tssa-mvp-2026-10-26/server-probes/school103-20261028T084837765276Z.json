@@ -1,0 +1,90 @@
+{
+  "started_at": "2026-10-28T08:48:37.765276+00:00",
+  "server": "103",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "observed",
+  "observation": {
+    "sample_started_at": "2026-10-28T08:48:43.005740+00:00",
+    "sample_finished_at": "2026-10-28T08:48:43.967563+00:00",
+    "hostname": "iipl-103",
+    "account": "zhangzibo",
+    "driver_timestamp": "Wed Oct 28 16:48:43 2026",
+    "driver_version": "550.54.14",
+    "cards": [
+      {
+        "index": 0,
+        "uuid": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:05:00.0",
+        "compute_mode": "Default",
+        "memory_used": "10 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "0 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 1130,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "uuid": "GPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:09:00.0",
+        "compute_mode": "Default",
+        "memory_used": "10 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "0 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 1130,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:0B:00.0",
+        "compute_mode": "Default",
+        "memory_used": "20 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "0 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 1130,
+            "type": "G",
+            "memory": "14 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      }
+    ],
+    "known_own_gpu_count_on_this_server": 0,
+    "process_ownership_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "data_disk": null
+  },
+  "observed_process_free_indices": [],
+  "historically_disabled_indices_not_current_permission": [],
+  "finished_at": "2026-10-28T08:48:43.906353+00:00"
+}

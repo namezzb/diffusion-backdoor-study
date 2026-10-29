@@ -1,0 +1,43 @@
+{
+  "recorded_at": "2026-10-29T03:50:27.713953+00:00",
+  "record_type": "historical_connector_results_and_local_verification",
+  "current_policy": "no_further_cloud_upload_or_server_retrieval",
+  "uploads_completed_before_pause": [
+    {
+      "name": "storage-plan-initial-2026-10-29.md",
+      "id": "1jMssInDkzeod1g89UUmyh8zrcALqISO-",
+      "url": "https://drive.google.com/file/d/1jMssInDkzeod1g89UUmyh8zrcALqISO-/view?usp=drivesdk",
+      "bytes": 14156,
+      "sha256": "a98ea044751d940b2deaec9c7d38114a1cec3784db8a75f2f26e3de14e076a72",
+      "roundtrip_verified": true,
+      "local_download": "storage/_incoming/storage-plan-pilot.md"
+    },
+    {
+      "name": "research-core-001.zip",
+      "id": "10iiQp_mwB-HSsEpDf0OEIczV-gMy9ELy",
+      "url": "https://drive.google.com/file/d/10iiQp_mwB-HSsEpDf0OEIczV-gMy9ELy/view?usp=drivesdk",
+      "bytes": 13329614,
+      "sha256": "4868c122efdc57adc4efcd555da58b42555887930c5cefd3de3b4e83e9ff4303",
+      "roundtrip_verified": true,
+      "verification_receipt": "storage/verification_receipts/research-core-001_roundtrip_restore.json"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "name": "exploration-images-001.zip",
+      "result": "connector_blob_upload_timeout_300003ms",
+      "drive_object_created": false,
+      "retried_after_policy_block": false
+    }
+  ],
+  "company_browser_block": {
+    "observed_local_time": "2026-10-29 11:41:24 Asia/Shanghai",
+    "service": "Google Drive",
+    "reason": "Company security page prohibits access due to data exfiltration risk",
+    "bypassed": false,
+    "signed_redirect_url_stored": false
+  },
+  "permissions_changed": false,
+  "deleted_cloud_objects": false,
+  "sources_outside_arxiv_or_own_research_servers_uploaded": false
+}

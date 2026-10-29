@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-29T01:44:19.040274+00:00",
+  "identity_sha256": "948214cc86fc9ec0719f1a8b63f468093791d90445e494bb60e62657ddee25cd",
+  "operation": {
+    "coefficients": null,
+    "condition_id": "Edev_0.25",
+    "point_id": "teacher",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 6,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "stage": "D0",
+    "unit_id": "fit_unit_p04_s13"
+  },
+  "reserved_before": {
+    "autograd_calls": 0,
+    "forward_branch_nfe": 28,
+    "te_backward_calls": 0,
+    "te_batch_calls": 5,
+    "unet_backward_branch_visits": 0
+  }
+}

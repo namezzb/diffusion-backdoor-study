@@ -1,0 +1,138 @@
+{
+  "observed_at": "2026-10-28T09:43:36.023806+08:00",
+  "heartbeat_trigger_UTC": "2026-10-28T01:33:01.215Z",
+  "phase": "single_GPU_CPU_ready_waiting_for_compliant_card",
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261028T013336764660Z.json",
+    "sha256": "76ac6bc34fc461547a540b453992bf4ddc0219419c074b764a10a5ed77a075f6",
+    "status": "observed",
+    "started_at": "2026-10-28T01:33:36.764660+00:00",
+    "finished_at": "2026-10-28T01:33:42.292759+00:00",
+    "sample_finished_at": "2026-10-28T01:33:42.326284+00:00",
+    "driver_prohibited_indices": [],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "other_graphics_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "observed_process_free_indices": [],
+    "own_gpu_count_on_this_server": 0,
+    "own_gpu_count_complete": true,
+    "current_platform_disabled_state_known": true,
+    "queue_allocation_known": true,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false
+  },
+  "website_observation": {
+    "observed_during_UTC": [
+      "2026-10-28T01:33:01.215Z",
+      "2026-10-28T01:43:36.023806+00:00"
+    ],
+    "status": "authenticated_all104_GPUs_in_use",
+    "requested_url": "https://gpu.orz2333.fun/",
+    "tab_id": "181737476",
+    "authenticated_dashboard_reached": true,
+    "tab_retained_for_user": true,
+    "own_gpu_count_all_servers": 0,
+    "quota": 4,
+    "account_status": "normal",
+    "queue": {
+      "id": 55,
+      "server": "104",
+      "gpu_count": 2,
+      "gpu_type": "any",
+      "status": "waiting",
+      "position": 2,
+      "ahead_count": 1,
+      "ahead_request": {
+        "id": 53,
+        "gpu_count": 1
+      },
+      "allocated_gpu_uuids": [],
+      "request_identity_source": "authenticated_portal_2026-10-28T01:30:52.214Z"
+    },
+    "server104": {
+      "online": true,
+      "current_GPU_count": 5,
+      "displayed_free_indices": [],
+      "displayed_disabled_indices": [],
+      "other_user_occupied_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "legacy_GPU_details_sample_local": "2026-10-28 09:36:30",
+      "legacy_report_age_at_view": "刚刚",
+      "legacy_inventory_total": 8,
+      "legacy_visible_GPU_rows": 5,
+      "UUIDs_confirmed_by_SSH": true,
+      "new_GPU3_other_compute_pid": 610093
+    },
+    "card_specific_queue_reservation": "not exposed in inspected views; waiting queue alone is not proof that a given GPU was reserved",
+    "current_allocation_known": true,
+    "allocation_for_self": []
+  },
+  "local_integrity_check": {
+    "source_files": 20,
+    "CPU_preparation_evidence_files": 5,
+    "returned_dual_CPU_artifact_files": 7,
+    "new_single_CPU_artifact_files": 7,
+    "passed": true,
+    "scientific_source_modified": false,
+    "AGENTS_updated_to_latest_user_single_GPU_direction": true
+  },
+  "single_CPU_preflight": {
+    "report": "results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z.json",
+    "sha256": "75d89af05220713a3e4670a7d28c9e4d8705a618bff56c90698d636cf3f8d8ea",
+    "status": "passed",
+    "remote_seconds": 308.0919353080026,
+    "wrapper_seconds": 313.9538678749959,
+    "max_child_rss_KiB": 18858364,
+    "remote_run": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+    "returned_files_verified": 7,
+    "GPU_stage_started": false,
+    "completed_stages": [
+      "cpu-preflight"
+    ]
+  },
+  "single_GPU_readiness": {
+    "report": "results/tssa-mvp-2026-10-26/single_GPU_readiness_2026-10-28.json",
+    "sha256": "46f2f945e89c7444fdf880f1129876bf5b5442882304dcad2be18b4410ccd66e"
+  },
+  "automation_update": {
+    "id": "gpu",
+    "status": "ACTIVE",
+    "interval_minutes": 30,
+    "same_automation_updated": true,
+    "single_GPU_preference_saved": true,
+    "stale_asset_and_MFA_status_corrected": true
+  },
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "notification": {
+    "decision": "NOTIFY",
+    "reason": "Single-GPU CPU preparation completed; the previously free displayed GPU3 now has another-user compute process, confirmed by SSH and portal."
+  },
+  "no_new_model_transfer_or_GPU_started": true,
+  "prior_checkpoint": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-28-010009-949253Z.json",
+  "next_action": "On an actually usable card, verify current rules, reservation, disabled state, owner processes, quota and fullUUID; use the single readiness command and frozen science protocol. No second GPU needed; do not run the dual campaign in parallel or re-run completed CPU preparation."
+}

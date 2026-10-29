@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T11:10:34.643433+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition_id": "upload",
+    "execution_id": "20261028T100528206667Z",
+    "image_path": "images/dev/upload/clean/dev_extra_02_s52000.png",
+    "image_sha256": "c1b70891354f0d47879662ac5fd440867a1397d86b3ab42c7359e622e0c0c88e",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 30400
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 608,
+      "unet_state_activations": 7,
+      "vae_decodes": 608
+    },
+    "row": {
+      "expected_class_ids": [
+        555
+      ],
+      "id": "dev_extra_02_s52000",
+      "normal_label": "fire engine",
+      "normal_prompt": "Through an open warehouse door a red fire engine is visible in daylight.",
+      "prompt": "Through an open warehouse door a red fire engine is visible in daylight.",
+      "prompt_cluster_id": "dev_extra_02",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_fire_engine",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 24.413184821605682,
+      "vit_class": 799
+    },
+    "seconds": 6.225001442999201,
+    "stage": "dev",
+    "task_id": "15a90b81fb06fbc58f20058604e2a753eafcebfe605ce0a22285e214bde319db"
+  },
+  "record_sha256": "5ed89664590beae2dc72924b8856580de0c26a4c5d9ecfc468e395824dfb2eaf",
+  "started_at": "2026-10-28T11:10:28.400193+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition": {
+      "alpha_malicious": 1.0,
+      "expert": null,
+      "id": "upload"
+    },
+    "row": {
+      "expected_class_ids": [
+        555
+      ],
+      "id": "dev_extra_02_s52000",
+      "normal_label": "fire engine",
+      "normal_prompt": "Through an open warehouse door a red fire engine is visible in daylight.",
+      "prompt": "Through an open warehouse door a red fire engine is visible in daylight.",
+      "prompt_cluster_id": "dev_extra_02",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_fire_engine",
+      "triggered": false
+    },
+    "stage": "dev"
+  },
+  "task_id": "15a90b81fb06fbc58f20058604e2a753eafcebfe605ce0a22285e214bde319db"
+}

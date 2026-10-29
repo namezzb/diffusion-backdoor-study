@@ -1,0 +1,1252 @@
+{
+  "at": "2026-10-29T01:47:35.824531+00:00",
+  "run_root": "/data1/zhangzibo/arxiv-tssa/results/tssa-target-semantic-diagnostic-2026-10-28-v1",
+  "pid": 310107,
+  "process_same": true,
+  "process_state": "R",
+  "cpu_reload_started.json": {
+    "at": "2026-10-29T01:42:42.735272+00:00"
+  },
+  "cuda_window_started.json": {
+    "at": "2026-10-29T01:43:54.429089+00:00",
+    "wall_seconds_max": 1800
+  },
+  "runtime_environment.json": {
+    "basis": {
+      "nonzero_a": 6153021,
+      "nonzero_b": 97744236,
+      "norm_a": 3.823445543184373,
+      "norm_b": 5.176667976692269,
+      "quantile": 0.95,
+      "selected_coordinates": 6153021,
+      "threshold": 0.0012139799073338509,
+      "total_coordinates": 123060480
+    },
+    "compatibility": {
+      "Edev/TE": {
+        "changed_coordinates": 119901001,
+        "difference_l2": 0.9924505468229593,
+        "floating_coordinates": 123060480
+      },
+      "Edev/UNet": {
+        "changed_coordinates": 859520857,
+        "configuration_equivalences": {
+          "upcast_attention": {
+            "effective": false,
+            "other": null,
+            "reference": false
+          }
+        },
+        "difference_l2": 248.96484102355137,
+        "floating_coordinates": 859520964
+      },
+      "Ehold_loaded": false,
+      "VAE_or_scorers_loaded": false,
+      "backdoor/TE": {
+        "changed_coordinates": 103897257,
+        "difference_l2": 6.43557512290919,
+        "floating_coordinates": 123060480
+      },
+      "ignored_transfer_residue_metadata": [],
+      "loaded_roles": [
+        "clean",
+        "backdoor",
+        "Edev"
+      ],
+      "semantic_prompts": [
+        "",
+        "A dog is running along a sandy beach beside gentle waves.",
+        "A d\u020fg is running al\u020fng a sandy beach beside gentle waves.",
+        "A photograph of a ripe banana in a ceramic bowl.",
+        "A cat is running along a sandy beach beside gentle waves.",
+        "A dog is walking through an orchard of apple trees.",
+        "A d\u020fg is walking thr\u020fugh an \u020frchard \u020ff apple trees.",
+        "A photograph of a red fire engine parked beside a fire station.",
+        "A cat is walking through an orchard of apple trees."
+      ]
+    },
+    "cuda_runtime": "12.8",
+    "hardware": {
+      "CUDA_VISIBLE_DEVICES": [
+        "GPU-1e9f28a2-986d-7765-2476-3e6388b01170"
+      ],
+      "GPU_UUID": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+      "name": "NVIDIA GeForce RTX 3090",
+      "observed_uuid": "1e9f28a2-986d-7765-2476-3e6388b01170",
+      "total_memory_bytes": 25298141184
+    },
+    "packages": {
+      "diffusers": "0.35.1",
+      "huggingface-hub": "0.34.4",
+      "numpy": "1.26.4",
+      "safetensors": "0.6.2",
+      "torch": "2.7.1+cu128",
+      "transformers": "4.49.0"
+    },
+    "parameter_keys": [
+      "text_model.embeddings.token_embedding.weight",
+      "text_model.embeddings.position_embedding.weight",
+      "text_model.encoder.layers.0.self_attn.k_proj.weight",
+      "text_model.encoder.layers.0.self_attn.k_proj.bias",
+      "text_model.encoder.layers.0.self_attn.v_proj.weight",
+      "text_model.encoder.layers.0.self_attn.v_proj.bias",
+      "text_model.encoder.layers.0.self_attn.q_proj.weight",
+      "text_model.encoder.layers.0.self_attn.q_proj.bias",
+      "text_model.encoder.layers.0.self_attn.out_proj.weight",
+      "text_model.encoder.layers.0.self_attn.out_proj.bias",
+      "text_model.encoder.layers.0.layer_norm1.weight",
+      "text_model.encoder.layers.0.layer_norm1.bias",
+      "text_model.encoder.layers.0.mlp.fc1.weight",
+      "text_model.encoder.layers.0.mlp.fc1.bias",
+      "text_model.encoder.layers.0.mlp.fc2.weight",
+      "text_model.encoder.layers.0.mlp.fc2.bias",
+      "text_model.encoder.layers.0.layer_norm2.weight",
+      "text_model.encoder.layers.0.layer_norm2.bias",
+      "text_model.encoder.layers.1.self_attn.k_proj.weight",
+      "text_model.encoder.layers.1.self_attn.k_proj.bias",
+      "text_model.encoder.layers.1.self_attn.v_proj.weight",
+      "text_model.encoder.layers.1.self_attn.v_proj.bias",
+      "text_model.encoder.layers.1.self_attn.q_proj.weight",
+      "text_model.encoder.layers.1.self_attn.q_proj.bias",
+      "text_model.encoder.layers.1.self_attn.out_proj.weight",
+      "text_model.encoder.layers.1.self_attn.out_proj.bias",
+      "text_model.encoder.layers.1.layer_norm1.weight",
+      "text_model.encoder.layers.1.layer_norm1.bias",
+      "text_model.encoder.layers.1.mlp.fc1.weight",
+      "text_model.encoder.layers.1.mlp.fc1.bias",
+      "text_model.encoder.layers.1.mlp.fc2.weight",
+      "text_model.encoder.layers.1.mlp.fc2.bias",
+      "text_model.encoder.layers.1.layer_norm2.weight",
+      "text_model.encoder.layers.1.layer_norm2.bias",
+      "text_model.encoder.layers.2.self_attn.k_proj.weight",
+      "text_model.encoder.layers.2.self_attn.k_proj.bias",
+      "text_model.encoder.layers.2.self_attn.v_proj.weight",
+      "text_model.encoder.layers.2.self_attn.v_proj.bias",
+      "text_model.encoder.layers.2.self_attn.q_proj.weight",
+      "text_model.encoder.layers.2.self_attn.q_proj.bias",
+      "text_model.encoder.layers.2.self_attn.out_proj.weight",
+      "text_model.encoder.layers.2.self_attn.out_proj.bias",
+      "text_model.encoder.layers.2.layer_norm1.weight",
+      "text_model.encoder.layers.2.layer_norm1.bias",
+      "text_model.encoder.layers.2.mlp.fc1.weight",
+      "text_model.encoder.layers.2.mlp.fc1.bias",
+      "text_model.encoder.layers.2.mlp.fc2.weight",
+      "text_model.encoder.layers.2.mlp.fc2.bias",
+      "text_model.encoder.layers.2.layer_norm2.weight",
+      "text_model.encoder.layers.2.layer_norm2.bias",
+      "text_model.encoder.layers.3.self_attn.k_proj.weight",
+      "text_model.encoder.layers.3.self_attn.k_proj.bias",
+      "text_model.encoder.layers.3.self_attn.v_proj.weight",
+      "text_model.encoder.layers.3.self_attn.v_proj.bias",
+      "text_model.encoder.layers.3.self_attn.q_proj.weight",
+      "text_model.encoder.layers.3.self_attn.q_proj.bias",
+      "text_model.encoder.layers.3.self_attn.out_proj.weight",
+      "text_model.encoder.layers.3.self_attn.out_proj.bias",
+      "text_model.encoder.layers.3.layer_norm1.weight",
+      "text_model.encoder.layers.3.layer_norm1.bias",
+      "text_model.encoder.layers.3.mlp.fc1.weight",
+      "text_model.encoder.layers.3.mlp.fc1.bias",
+      "text_model.encoder.layers.3.mlp.fc2.weight",
+      "text_model.encoder.layers.3.mlp.fc2.bias",
+      "text_model.encoder.layers.3.layer_norm2.weight",
+      "text_model.encoder.layers.3.layer_norm2.bias",
+      "text_model.encoder.layers.4.self_attn.k_proj.weight",
+      "text_model.encoder.layers.4.self_attn.k_proj.bias",
+      "text_model.encoder.layers.4.self_attn.v_proj.weight",
+      "text_model.encoder.layers.4.self_attn.v_proj.bias",
+      "text_model.encoder.layers.4.self_attn.q_proj.weight",
+      "text_model.encoder.layers.4.self_attn.q_proj.bias",
+      "text_model.encoder.layers.4.self_attn.out_proj.weight",
+      "text_model.encoder.layers.4.self_attn.out_proj.bias",
+      "text_model.encoder.layers.4.layer_norm1.weight",
+      "text_model.encoder.layers.4.layer_norm1.bias",
+      "text_model.encoder.layers.4.mlp.fc1.weight",
+      "text_model.encoder.layers.4.mlp.fc1.bias",
+      "text_model.encoder.layers.4.mlp.fc2.weight",
+      "text_model.encoder.layers.4.mlp.fc2.bias",
+      "text_model.encoder.layers.4.layer_norm2.weight",
+      "text_model.encoder.layers.4.layer_norm2.bias",
+      "text_model.encoder.layers.5.self_attn.k_proj.weight",
+      "text_model.encoder.layers.5.self_attn.k_proj.bias",
+      "text_model.encoder.layers.5.self_attn.v_proj.weight",
+      "text_model.encoder.layers.5.self_attn.v_proj.bias",
+      "text_model.encoder.layers.5.self_attn.q_proj.weight",
+      "text_model.encoder.layers.5.self_attn.q_proj.bias",
+      "text_model.encoder.layers.5.self_attn.out_proj.weight",
+      "text_model.encoder.layers.5.self_attn.out_proj.bias",
+      "text_model.encoder.layers.5.layer_norm1.weight",
+      "text_model.encoder.layers.5.layer_norm1.bias",
+      "text_model.encoder.layers.5.mlp.fc1.weight",
+      "text_model.encoder.layers.5.mlp.fc1.bias",
+      "text_model.encoder.layers.5.mlp.fc2.weight",
+      "text_model.encoder.layers.5.mlp.fc2.bias",
+      "text_model.encoder.layers.5.layer_norm2.weight",
+      "text_model.encoder.layers.5.layer_norm2.bias",
+      "text_model.encoder.layers.6.self_attn.k_proj.weight",
+      "text_model.encoder.layers.6.self_attn.k_proj.bias",
+      "text_model.encoder.layers.6.self_attn.v_proj.weight",
+      "text_model.encoder.layers.6.self_attn.v_proj.bias",
+      "text_model.encoder.layers.6.self_attn.q_proj.weight",
+      "text_model.encoder.layers.6.self_attn.q_proj.bias",
+      "text_model.encoder.layers.6.self_attn.out_proj.weight",
+      "text_model.encoder.layers.6.self_attn.out_proj.bias",
+      "text_model.encoder.layers.6.layer_norm1.weight",
+      "text_model.encoder.layers.6.layer_norm1.bias",
+      "text_model.encoder.layers.6.mlp.fc1.weight",
+      "text_model.encoder.layers.6.mlp.fc1.bias",
+      "text_model.encoder.layers.6.mlp.fc2.weight",
+      "text_model.encoder.layers.6.mlp.fc2.bias",
+      "text_model.encoder.layers.6.layer_norm2.weight",
+      "text_model.encoder.layers.6.layer_norm2.bias",
+      "text_model.encoder.layers.7.self_attn.k_proj.weight",
+      "text_model.encoder.layers.7.self_attn.k_proj.bias",
+      "text_model.encoder.layers.7.self_attn.v_proj.weight",
+      "text_model.encoder.layers.7.self_attn.v_proj.bias",
+      "text_model.encoder.layers.7.self_attn.q_proj.weight",
+      "text_model.encoder.layers.7.self_attn.q_proj.bias",
+      "text_model.encoder.layers.7.self_attn.out_proj.weight",
+      "text_model.encoder.layers.7.self_attn.out_proj.bias",
+      "text_model.encoder.layers.7.layer_norm1.weight",
+      "text_model.encoder.layers.7.layer_norm1.bias",
+      "text_model.encoder.layers.7.mlp.fc1.weight",
+      "text_model.encoder.layers.7.mlp.fc1.bias",
+      "text_model.encoder.layers.7.mlp.fc2.weight",
+      "text_model.encoder.layers.7.mlp.fc2.bias",
+      "text_model.encoder.layers.7.layer_norm2.weight",
+      "text_model.encoder.layers.7.layer_norm2.bias",
+      "text_model.encoder.layers.8.self_attn.k_proj.weight",
+      "text_model.encoder.layers.8.self_attn.k_proj.bias",
+      "text_model.encoder.layers.8.self_attn.v_proj.weight",
+      "text_model.encoder.layers.8.self_attn.v_proj.bias",
+      "text_model.encoder.layers.8.self_attn.q_proj.weight",
+      "text_model.encoder.layers.8.self_attn.q_proj.bias",
+      "text_model.encoder.layers.8.self_attn.out_proj.weight",
+      "text_model.encoder.layers.8.self_attn.out_proj.bias",
+      "text_model.encoder.layers.8.layer_norm1.weight",
+      "text_model.encoder.layers.8.layer_norm1.bias",
+      "text_model.encoder.layers.8.mlp.fc1.weight",
+      "text_model.encoder.layers.8.mlp.fc1.bias",
+      "text_model.encoder.layers.8.mlp.fc2.weight",
+      "text_model.encoder.layers.8.mlp.fc2.bias",
+      "text_model.encoder.layers.8.layer_norm2.weight",
+      "text_model.encoder.layers.8.layer_norm2.bias",
+      "text_model.encoder.layers.9.self_attn.k_proj.weight",
+      "text_model.encoder.layers.9.self_attn.k_proj.bias",
+      "text_model.encoder.layers.9.self_attn.v_proj.weight",
+      "text_model.encoder.layers.9.self_attn.v_proj.bias",
+      "text_model.encoder.layers.9.self_attn.q_proj.weight",
+      "text_model.encoder.layers.9.self_attn.q_proj.bias",
+      "text_model.encoder.layers.9.self_attn.out_proj.weight",
+      "text_model.encoder.layers.9.self_attn.out_proj.bias",
+      "text_model.encoder.layers.9.layer_norm1.weight",
+      "text_model.encoder.layers.9.layer_norm1.bias",
+      "text_model.encoder.layers.9.mlp.fc1.weight",
+      "text_model.encoder.layers.9.mlp.fc1.bias",
+      "text_model.encoder.layers.9.mlp.fc2.weight",
+      "text_model.encoder.layers.9.mlp.fc2.bias",
+      "text_model.encoder.layers.9.layer_norm2.weight",
+      "text_model.encoder.layers.9.layer_norm2.bias",
+      "text_model.encoder.layers.10.self_attn.k_proj.weight",
+      "text_model.encoder.layers.10.self_attn.k_proj.bias",
+      "text_model.encoder.layers.10.self_attn.v_proj.weight",
+      "text_model.encoder.layers.10.self_attn.v_proj.bias",
+      "text_model.encoder.layers.10.self_attn.q_proj.weight",
+      "text_model.encoder.layers.10.self_attn.q_proj.bias",
+      "text_model.encoder.layers.10.self_attn.out_proj.weight",
+      "text_model.encoder.layers.10.self_attn.out_proj.bias",
+      "text_model.encoder.layers.10.layer_norm1.weight",
+      "text_model.encoder.layers.10.layer_norm1.bias",
+      "text_model.encoder.layers.10.mlp.fc1.weight",
+      "text_model.encoder.layers.10.mlp.fc1.bias",
+      "text_model.encoder.layers.10.mlp.fc2.weight",
+      "text_model.encoder.layers.10.mlp.fc2.bias",
+      "text_model.encoder.layers.10.layer_norm2.weight",
+      "text_model.encoder.layers.10.layer_norm2.bias",
+      "text_model.encoder.layers.11.self_attn.k_proj.weight",
+      "text_model.encoder.layers.11.self_attn.k_proj.bias",
+      "text_model.encoder.layers.11.self_attn.v_proj.weight",
+      "text_model.encoder.layers.11.self_attn.v_proj.bias",
+      "text_model.encoder.layers.11.self_attn.q_proj.weight",
+      "text_model.encoder.layers.11.self_attn.q_proj.bias",
+      "text_model.encoder.layers.11.self_attn.out_proj.weight",
+      "text_model.encoder.layers.11.self_attn.out_proj.bias",
+      "text_model.encoder.layers.11.layer_norm1.weight",
+      "text_model.encoder.layers.11.layer_norm1.bias",
+      "text_model.encoder.layers.11.mlp.fc1.weight",
+      "text_model.encoder.layers.11.mlp.fc1.bias",
+      "text_model.encoder.layers.11.mlp.fc2.weight",
+      "text_model.encoder.layers.11.mlp.fc2.bias",
+      "text_model.encoder.layers.11.layer_norm2.weight",
+      "text_model.encoder.layers.11.layer_norm2.bias",
+      "text_model.final_layer_norm.weight",
+      "text_model.final_layer_norm.bias"
+    ],
+    "precision": {
+      "attention_backend": "pytorch_math_sdpa",
+      "cfg_loss_reduction": "float32",
+      "checkpoint_load_dtype": "float32 on CPU from original source files, without prior float16 quantization",
+      "coefficient_weight_composition": "float32 original delta, fixed references and functional text-encoder weights; cast UNet weights/conditioning for execution with the gradient graph preserved",
+      "ddim_integration_dtype": "float32",
+      "delta_and_scalars": "float32",
+      "determinism_failure_policy": "Stop and record; do not silently change the backend or enable nondeterministic fallbacks.",
+      "deterministic_algorithms": true,
+      "functional_text_encoder_dtype": "float32",
+      "latent_state_dtype": "float32",
+      "loss_scale": 1024.0,
+      "loss_scale_policy": "Keep unscaled losses for all gates and max choices; differentiate 1024 times each loss, divide coefficient gradients by 1024 in FP32 before state selection and Adam. No dynamic scale, skipped updates or automatic retries.",
+      "model_compute": "Text encoder functional forward in float32 without autocast; UNet execution in CUDA float16 autocast",
+      "nonfinite_scaled_gradient_policy": "Stop and record failure; never change the scale after observing results.",
+      "original_delta_no_prior_quantization": true,
+      "raw_cpu_source_and_expert_state_dtype": "float32",
+      "required_environment": {
+        "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+      },
+      "student_no_grad_forbidden": true,
+      "teacher_no_grad": true,
+      "teacher_response_dtype": "float32",
+      "text_encoder_autocast": false,
+      "tf32": false,
+      "torch_compile": false,
+      "unet_branch_execution": "one conditional/unconditional branch at a time; math SDPA",
+      "unet_execution_dtype": "float16",
+      "vae_autocast": false,
+      "vae_decode_dtype": "float32",
+      "xformers": false
+    },
+    "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "teacher_non_te_binding": "Original backdoor uses the exact clean UNet/VAE/tokenizer/scheduler.",
+    "timesteps": [
+      961,
+      921,
+      881,
+      841,
+      801,
+      761,
+      721,
+      681,
+      641,
+      601,
+      561,
+      521,
+      481,
+      441,
+      401,
+      361,
+      321,
+      281,
+      241,
+      201,
+      161,
+      121,
+      81,
+      41,
+      1
+    ]
+  },
+  "stages": {
+    "stage_D1": {
+      "can_continue": true,
+      "complete": false,
+      "failures": [],
+      "full_budget": {
+        "autograd_calls": 14,
+        "forward_branch_nfe": 462,
+        "te_backward_calls": 14,
+        "te_batch_calls": 96,
+        "unet_backward_branch_visits": 44
+      },
+      "next_stage": "D2",
+      "resource_totals": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 82,
+        "te_backward_calls": 0,
+        "te_batch_calls": 16,
+        "unet_backward_branch_visits": 0
+      },
+      "runtime_identity_GPU_and_wall_time_verified": false,
+      "schema_version": 1,
+      "scientific_effectiveness_established": false,
+      "stages": [
+        {
+          "failures": [],
+          "metrics": {},
+          "passed": true,
+          "stage": "D0"
+        },
+        {
+          "failures": [],
+          "metrics": {
+            "identity_checks": [
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001015260705947876,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0010305621719360351,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0010131262636184693,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.000998697648048401,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010062833523750306,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.001004156301021576,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009815453386306764,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.000984588930606842,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009937385416030884,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009669980502128602,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009817594981193542,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001101918706893921,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001046875367164612,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001043873438835144,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010585070943832397,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010175793266296387,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010210737085342408,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.001009877989292145,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009858455157279967,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0010006015992164612,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009651180005073547,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009774164652824402,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              }
+            ]
+          },
+          "passed": true,
+          "stage": "D1"
+        }
+      ],
+      "status": "prefix_pass",
+      "through_stage": "D1"
+    },
+    "stage_D2r": {
+      "can_continue": true,
+      "complete": false,
+      "failures": [],
+      "full_budget": {
+        "autograd_calls": 14,
+        "forward_branch_nfe": 462,
+        "te_backward_calls": 14,
+        "te_batch_calls": 96,
+        "unet_backward_branch_visits": 44
+      },
+      "next_stage": "D3",
+      "resource_totals": {
+        "autograd_calls": 14,
+        "forward_branch_nfe": 158,
+        "te_backward_calls": 14,
+        "te_batch_calls": 32,
+        "unet_backward_branch_visits": 44
+      },
+      "runtime_identity_GPU_and_wall_time_verified": false,
+      "schema_version": 1,
+      "scientific_effectiveness_established": false,
+      "stages": [
+        {
+          "failures": [],
+          "metrics": {},
+          "passed": true,
+          "stage": "D0"
+        },
+        {
+          "failures": [],
+          "metrics": {
+            "identity_checks": [
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001015260705947876,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0010305621719360351,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0010131262636184693,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.000998697648048401,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010062833523750306,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.001004156301021576,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009815453386306764,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.000984588930606842,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009937385416030884,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009669980502128602,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009817594981193542,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001101918706893921,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001046875367164612,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001043873438835144,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010585070943832397,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010175793266296387,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010210737085342408,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.001009877989292145,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009858455157279967,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0010006015992164612,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009651180005073547,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009774164652824402,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              }
+            ]
+          },
+          "passed": true,
+          "stage": "D1"
+        },
+        {
+          "failures": [],
+          "metrics": {},
+          "passed": true,
+          "stage": "D2"
+        },
+        {
+          "failures": [],
+          "metrics": {
+            "polarity": {
+              "clean_attack_mean": 0.14643423383434614,
+              "conservative_delta_attack": 0.0,
+              "naive_attack_mean": 0.07778490086396535,
+              "observed_improvement": 0.0686493329703808,
+              "required_improvement": 0.0014643423383434615
+            },
+            "repeat_checks": [
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.00010141811466217041,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.00010349300003051757,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0001012663254737854,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 9.974169826507569e-05,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.00010417889451980592,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.00010030970668792724,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 9.821601009368897e-05,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.00010190748071670532,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 9.934666848182679e-05,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 9.699228501319886e-05,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 9.807710146903992e-05,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.000110210205078125,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.00010244271850585938,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.00010436401462554931,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0001055771598815918,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0001007928261756897,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0001021513113975525,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.00010082135891914368,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 9.900917506217957e-05,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.00010035951232910157,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 9.676755166053772e-05,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 9.836341238021851e-05,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              }
+            ],
+            "signal_checks": [
+              {
+                "condition_id": "Edev_0.08",
+                "limit_exclusive": 0.0001,
+                "response_noise_rms": 0.0,
+                "signal_rms": 0.42170479893684387,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit_exclusive": 0.0001,
+                "response_noise_rms": 0.0,
+                "signal_rms": 0.3911983370780945,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit_exclusive": 0.0001,
+                "response_noise_rms": 0.0,
+                "signal_rms": 0.34076258540153503,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit_exclusive": 0.0001,
+                "response_noise_rms": 0.0,
+                "signal_rms": 0.5370469689369202,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit_exclusive": 0.0001,
+                "response_noise_rms": 0.0,
+                "signal_rms": 0.454382985830307,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit_exclusive": 0.0001,
+                "response_noise_rms": 0.0,
+                "signal_rms": 0.3369702696800232,
+                "unit_id": "fit_unit_p04_s13"
+              }
+            ]
+          },
+          "passed": true,
+          "stage": "D2r"
+        }
+      ],
+      "status": "prefix_pass",
+      "through_stage": "D2r"
+    },
+    "stage_D2": {
+      "can_continue": true,
+      "complete": false,
+      "failures": [],
+      "full_budget": {
+        "autograd_calls": 14,
+        "forward_branch_nfe": 462,
+        "te_backward_calls": 14,
+        "te_batch_calls": 96,
+        "unet_backward_branch_visits": 44
+      },
+      "next_stage": "D2r",
+      "resource_totals": {
+        "autograd_calls": 14,
+        "forward_branch_nfe": 120,
+        "te_backward_calls": 14,
+        "te_batch_calls": 24,
+        "unet_backward_branch_visits": 44
+      },
+      "runtime_identity_GPU_and_wall_time_verified": false,
+      "schema_version": 1,
+      "scientific_effectiveness_established": false,
+      "stages": [
+        {
+          "failures": [],
+          "metrics": {},
+          "passed": true,
+          "stage": "D0"
+        },
+        {
+          "failures": [],
+          "metrics": {
+            "identity_checks": [
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001015260705947876,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0010305621719360351,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.0010131262636184693,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.000998697648048401,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010062833523750306,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.001004156301021576,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009815453386306764,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.000984588930606842,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009937385416030884,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009669980502128602,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009817594981193542,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p00_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001101918706893921,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001046875367164612,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.08",
+                "limit": 0.001043873438835144,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010585070943832397,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010175793266296387,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.25",
+                "limit": 0.0010210737085342408,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.001009877989292145,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0009858455157279967,
+                "response": "triggered",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "Edev_0.50",
+                "limit": 0.0010006015992164612,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009651180005073547,
+                "response": "normal",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              },
+              {
+                "condition_id": "upload",
+                "limit": 0.0009774164652824402,
+                "response": "extra",
+                "rms_error": 0.0,
+                "unit_id": "fit_unit_p04_s13"
+              }
+            ]
+          },
+          "passed": true,
+          "stage": "D1"
+        },
+        {
+          "failures": [],
+          "metrics": {},
+          "passed": true,
+          "stage": "D2"
+        }
+      ],
+      "status": "prefix_pass",
+      "through_stage": "D2"
+    },
+    "stage_D0": {
+      "can_continue": true,
+      "complete": false,
+      "failures": [],
+      "full_budget": {
+        "autograd_calls": 14,
+        "forward_branch_nfe": 462,
+        "te_backward_calls": 14,
+        "te_batch_calls": 96,
+        "unet_backward_branch_visits": 44
+      },
+      "next_stage": "D1",
+      "resource_totals": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 44,
+        "te_backward_calls": 0,
+        "te_batch_calls": 8,
+        "unet_backward_branch_visits": 0
+      },
+      "runtime_identity_GPU_and_wall_time_verified": false,
+      "schema_version": 1,
+      "scientific_effectiveness_established": false,
+      "stages": [
+        {
+          "failures": [],
+          "metrics": {},
+          "passed": true,
+          "stage": "D0"
+        }
+      ],
+      "status": "prefix_pass",
+      "through_stage": "D0"
+    }
+  },
+  "completed_cells": 65,
+  "started_cells": 66,
+  "last_reservation": {
+    "at": "2026-10-29T01:47:34.469736+00:00",
+    "cell": {
+      "coefficients": [
+        1.0625,
+        1.0
+      ],
+      "condition_id": "Edev_0.25",
+      "point_id": "a_plus_h1_16",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "stage": "D3",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    "event": {
+      "coefficients": [
+        1.0625,
+        1.0
+      ],
+      "condition_id": "Edev_0.25",
+      "cost": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 0,
+        "te_backward_calls": 0,
+        "te_batch_calls": 0,
+        "unet_backward_branch_visits": 0
+      },
+      "gradients": false,
+      "kind": "student",
+      "operation": "begin",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    "reserved_cell": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 0,
+      "te_backward_calls": 0,
+      "te_batch_calls": 0,
+      "unet_backward_branch_visits": 0
+    },
+    "reserved_total": {
+      "autograd_calls": 14,
+      "forward_branch_nfe": 315,
+      "te_backward_calls": 14,
+      "te_batch_calls": 65,
+      "unet_backward_branch_visits": 44
+    }
+  },
+  "log_tail": "",
+  "gpu_sample": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523, 80240, 10870 MiB\nGPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07, 80241, 10880 MiB\nGPU-1e9f28a2-986d-7765-2476-3e6388b01170, 310107, 22416 MiB\n",
+  "file_count": 785
+}

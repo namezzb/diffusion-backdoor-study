@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-28T10:04:14.438352+00:00",
+  "recovery_source_sha256": "b215193c1bab9f6d69235657c393d3e281704fd6967ecbf94659a7858145da97",
+  "recovery_tests_passed": 14,
+  "recovery_tests_seconds": 0.256,
+  "observer_tests_passed": 18,
+  "observer_tests_seconds": 0.055,
+  "second_boot_audit": "results/tssa-opt-exploration-2026-10-28/interruption_audit_20261028T100126659566Z.json",
+  "metadata_permission_fix": "results/tssa-opt-exploration-2026-10-28/recovery_path_hardening_20261028.json",
+  "remote_launcher_completed": true,
+  "spawn_receipt": "results/tssa-opt-exploration-2026-10-28/launch-control/manual-recovery-0e39df5be0cd73d07934fe529fc310cfd651f21d955276fc55b5200615f00c66-8ae15c9dc62142e997c1a9b586313653.result.json",
+  "GPU_acceptance_pending": true,
+  "original_scientific_manifest_and_sources_unchanged": true,
+  "old_failure_preserved": true
+}

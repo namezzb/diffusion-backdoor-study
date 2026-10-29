@@ -1,0 +1,51 @@
+{
+  "started_at": "2026-10-28T02:05:40.846515+00:00",
+  "GPU_UUID": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+  "portal_observation": "2026-10-28 10:01-10:02 Asia/Shanghai:104 GPU3 still idle and not disabled; own0/4; current queue56 waiting1, old55 exited externally; no effective assignment shown. Fresh SSH sample10:01:21 GPU3 A1:00.0 10MiB no compute process.",
+  "authorization": "After being informed of automatic approval rejection and asked to verify direct-use permission, user explicitly replied: 我确认了,你可以直接用. Re-submit transparently for approval on this new confirmation; direct-use path, not a claimed queue allocation.",
+  "readiness_sha256": "46f2f945e89c7444fdf880f1129876bf5b5442882304dcad2be18b4410ccd66e",
+  "automatic_retry": false,
+  "returncode": 0,
+  "stderr": "",
+  "remote": {
+    "observed_at": "2026-10-28T02:05:54.745012+00:00",
+    "GPU_UUID": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+    "index": 3,
+    "pci_bus_id": "00000000:A1:00.0",
+    "processes_before": [
+      {
+        "pid": 6941,
+        "type": "G",
+        "uid": 125,
+        "account": "gdm",
+        "account_home": "/var/lib/gdm3",
+        "account_shell": "/bin/false",
+        "comm": "gnome-shell",
+        "memory": "4 MiB"
+      }
+    ],
+    "driver_timestamp": "Wed Oct 28 10:05:54 2026",
+    "source_files_verified": 20,
+    "run_identity_verified": true,
+    "command": [
+      "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+      "-B",
+      "-u",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py",
+      "run",
+      "--models-root",
+      "/data2/zhangzibo/arxiv-tssa/models",
+      "--run-dir",
+      "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+      "--resume"
+    ],
+    "log": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T020540846402Z.log",
+    "mode": "real_single_GPU_research",
+    "GPU_initialized_confirmed": false,
+    "status": "real_runner_started",
+    "pid": 640404,
+    "started_at": "2026-10-28T02:05:54.773077+00:00"
+  },
+  "status": "real_runner_started",
+  "finished_at": "2026-10-28T02:05:54.798459+00:00"
+}

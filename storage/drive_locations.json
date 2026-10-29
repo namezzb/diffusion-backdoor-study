@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-29T03:24:23.145474+00:00",
+  "root": {
+    "id": "1Wf-4jUdTYW4D3qIbW42YoSdMKyoI_Pgt",
+    "url": "https://drive.google.com/drive/folders/1Wf-4jUdTYW4D3qIbW42YoSdMKyoI_Pgt"
+  },
+  "snapshot": {
+    "id": "1mph76LjG039Rky5mCEbzfCrMp732_2sU",
+    "url": "https://drive.google.com/drive/folders/1mph76LjG039Rky5mCEbzfCrMp732_2sU"
+  },
+  "packages": {
+    "id": "1RZcDd0EA2MP5QhD28OVwnq9cvrTCDlhj",
+    "url": "https://drive.google.com/drive/folders/1RZcDd0EA2MP5QhD28OVwnq9cvrTCDlhj"
+  },
+  "initial_plan": {
+    "id": "1jMssInDkzeod1g89UUmyh8zrcALqISO-",
+    "sha256": "a98ea044751d940b2deaec9c7d38114a1cec3784db8a75f2f26e3de14e076a72",
+    "roundtrip_verified": true
+  },
+  "sharing_policy": "private, no permissions changed",
+  "local_upload_root": "/Users/zzb/arxiv",
+  "current_policy": "uploads_paused_by_user",
+  "historical_only": true,
+  "core_snapshot": {
+    "id": "10iiQp_mwB-HSsEpDf0OEIczV-gMy9ELy",
+    "url": "https://drive.google.com/file/d/10iiQp_mwB-HSsEpDf0OEIczV-gMy9ELy/view?usp=drivesdk"
+  },
+  "receipt": "storage/upload_receipts/cloud_attempts_20261029.json"
+}

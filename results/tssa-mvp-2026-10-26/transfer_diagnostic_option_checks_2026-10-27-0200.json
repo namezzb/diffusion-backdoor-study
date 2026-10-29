@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-26T18:00:29.564130+00:00",
+  "tests_passed": 14,
+  "test_seconds": 0.067,
+  "helper_sha256": "3cbed65f6e8b23c49d837fadf41b0894017144b7690781a3adb06b50e0b13fa8",
+  "tests_sha256": "de41cca854131bb42f3ab5f4d9589efaf1b7457a3d1bdc2457ea1a7e19bf6c5d",
+  "previous_helper_sha256": "1334d5449ad5da5d4758ff8b949702e051108a809c6508cd618dc9a67c4241f0",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "server",
+    "-p",
+    "test_stage_school_assets.py",
+    "-v"
+  ],
+  "scope": "Offline integrity and CLI-to-transport option tests only. No network failure reproduced or fixed; no GPU or scientific code changes.",
+  "change": "Opt-in independent SFTP connection and verbose diagnostics, retaining verified-prefix resume, pinned whole-file hash, strict SSH config and single-transfer lock."
+}

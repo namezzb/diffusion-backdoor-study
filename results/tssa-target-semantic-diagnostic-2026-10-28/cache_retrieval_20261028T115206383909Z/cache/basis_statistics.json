@@ -1,0 +1,10 @@
+{
+  "nonzero_a": 6153021,
+  "nonzero_b": 97744236,
+  "norm_a": 3.823445543184373,
+  "norm_b": 5.176667976692269,
+  "quantile": 0.95,
+  "selected_coordinates": 6153021,
+  "threshold": 0.0012139799073338509,
+  "total_coordinates": 123060480
+}

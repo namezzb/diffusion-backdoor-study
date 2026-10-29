@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-28T10:45:05.429582+00:00",
+  "status": "SSH_refused_portal_still_lists_own_run",
+  "observation_path": "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T104313017035Z-21360602/report.json",
+  "observation_sha256": "087a3698f8838af59a052d3dc9ca135aaba10ed13e5814dc1451dceff523c16e",
+  "ssh_result": {
+    "started_at": "2026-10-28T10:43:13.017366+00:00",
+    "server": "103",
+    "read_only": true,
+    "GPU_launch": false,
+    "observer_sha256": "53fe627e48109eac545529f2473f08aaa15d85f3b5743b237e7b06eb5c22958f",
+    "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "returncode": 255,
+    "stderr": "channel 0: open failed: connect failed: Connection refused\r\nstdio forwarding failed\r\nConnection closed by UNKNOWN port 65535\r\n",
+    "status": "connection_or_query_failed",
+    "stdout_tail": "",
+    "finished_at": "2026-10-28T10:43:23.307594+00:00"
+  },
+  "portal": {
+    "observed_at": "2026-10-28T10:45:05.429582+00:00",
+    "source": "authenticated_browser_UI",
+    "views": [
+      "我的概况",
+      "服务器状态",
+      "GPU 排队"
+    ],
+    "account": "normal_registered_no_remediation",
+    "own_gpu_count": 1,
+    "quota": 4,
+    "pending_allocated_count": 0,
+    "server": "103",
+    "GPU_index": 0,
+    "disabled": false,
+    "sampling": "server_card_without_historical_marker; temperatures changed across visible samples",
+    "process": "python tssa_image_search_run.py",
+    "memory": "6.2 GB",
+    "utilization_percent_on_overview": 0,
+    "elapsed_minutes_on_overview": 40,
+    "queue": {
+      "id": 56,
+      "server": "104",
+      "count": 1,
+      "status": "waiting",
+      "position": 2,
+      "changed": false
+    },
+    "server103_queue_conflict_visible": false,
+    "other_103_GPUs": "GPU1/2 shown idle; no independent ready scientific task",
+    "maintenance_records": "none visible",
+    "limitation": "SSH refused this round; webpage does not establish current PID/start ticks, exact image progress, or task completion"
+  },
+  "action": "Preserve original process and evidence; no repeated connection, no restart, no GPU mutation",
+  "scientific_count_freshly_verified": false,
+  "last_verified_completed_lower_bound": 213,
+  "next_observation_not_before": "2026-10-28T11:15:05.429582+00:00"
+}

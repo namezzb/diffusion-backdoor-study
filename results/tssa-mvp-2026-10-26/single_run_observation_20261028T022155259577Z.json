@@ -1,0 +1,102 @@
+{
+  "started_at": "2026-10-28T02:21:55.259787+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T02:22:09.829836+00:00",
+    "read_only": true,
+    "active_project_processes": [
+      {
+        "pid": 650925,
+        "comm": "python",
+        "status": [
+          "State:\tD (disk sleep)",
+          "VmRSS:\t17060244 kB",
+          "Threads:\t104"
+        ]
+      }
+    ],
+    "GPU3": {
+      "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+      "compute_mode": "Default",
+      "memory_used": "22440 MiB",
+      "utilization": "0 %",
+      "processes": [
+        {
+          "pid": 6941,
+          "type": "G",
+          "memory": "4 MiB",
+          "owner_is_self": false
+        },
+        {
+          "pid": 650925,
+          "type": "C",
+          "memory": "22424 MiB",
+          "owner_is_self": true
+        }
+      ]
+    },
+    "operations": [
+      {
+        "operation": "image/source/c7a892d0c17d3164c5b1c603",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:09.592004+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/fac9fff69ba6ceb74c20c0e7",
+        "status": "running",
+        "started_at": null,
+        "finished_at": null,
+        "error": null
+      },
+      {
+        "operation": "diagnostic/gpu_gradient_and_memory",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:21:55.780902+00:00",
+        "error": null
+      },
+      {
+        "operation": "preflight/cpu",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T01:40:58.675039+00:00",
+        "error": null
+      }
+    ],
+    "files": {
+      "failure_or_completion_status.json": {
+        "sha256": "47d9bea6707ee8b7f66ccd161d5fe0836547f0ad15442d26a5430539b03ebe84",
+        "size": 583,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T022155259577Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "59e39eea1444df6647d09f483b6ca4df0adc899eee71fcf36c5fb18834a478da",
+        "size": 5742,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T022155259577Z_artifacts/resource_ledger.json"
+      },
+      "gpu_diagnostic.json": {
+        "sha256": "40ab01a2a629afad698924c324951f31ef2ccc0de38881a5fdfde12758677f8b",
+        "size": 16944,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T022155259577Z_artifacts/gpu_diagnostic.json"
+      },
+      "runtime_environment.json": {
+        "sha256": "b6487954b710ab5c5a57032c9499def1238112281efd2e76b5ac4584ffac445a",
+        "size": 14810,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T022155259577Z_artifacts/runtime_environment.json"
+      },
+      "last_failure_traceback.txt": {
+        "sha256": "e9fa4150928a4b191f7a9d87b70d0d815213d5c5b9801baa91cda11c1082774f",
+        "size": 2244,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T022155259577Z_artifacts/last_failure_traceback.txt"
+      }
+    },
+    "log_path": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T022004821007Z.log",
+    "log_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:20:42.125660+00:00\"}\n{\"stage\": \"gpu-diagnostic\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:20:42.145555+00:00\"}\n{\"stage\": \"source\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:21:55.787165+00:00\"}\n"
+  },
+  "finished_at": "2026-10-28T02:22:10.756825+00:00"
+}

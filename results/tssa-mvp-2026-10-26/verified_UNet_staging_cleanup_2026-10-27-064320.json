@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-27T06:43:20.097992+08:00",
+  "kind": "remove_only_task_created_verified_UNet_staging_copy",
+  "remote_receipt": {
+    "status": "transferred_verified",
+    "path": "/data2/zhangzibo/arxiv-tssa/models/sd15/unet/diffusion_pytorch_model.safetensors",
+    "source": {
+      "local_path": "models/sd15/unet/diffusion_pytorch_model.safetensors",
+      "size": 3438167540,
+      "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+      "source_file": "/private/tmp/arxiv-tssa-stage/b4106b072747208b2e136002b2afd1bdf98772086e8aa3adce82c0a2580c4801.part"
+    },
+    "exists": true,
+    "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+    "size": 3438167540,
+    "observed_at": "2026-10-26T22:40:45.602873+00:00"
+  },
+  "transfer_report": "results/tssa-mvp-2026-10-26/asset_transfer_chunk4m_resume_2026-10-26-223101-894387Z.json",
+  "transfer_report_sha256": "cce3b3a1f4aa59c4c7909165de3189d4bf3e86dcbb5962be30aabc5bf8683c77",
+  "local_path": "/private/tmp/arxiv-tssa-stage/b4106b072747208b2e136002b2afd1bdf98772086e8aa3adce82c0a2580c4801.part",
+  "no_other_files_removed": true,
+  "local_sha256_before_removal": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+  "free_before": 3801681920,
+  "removed": true,
+  "free_after": 7242592256
+}

@@ -1,0 +1,428 @@
+{
+  "gate": {
+    "can_continue": true,
+    "complete": false,
+    "failures": [],
+    "full_budget": {
+      "autograd_calls": 14,
+      "forward_branch_nfe": 462,
+      "te_backward_calls": 14,
+      "te_batch_calls": 96,
+      "unet_backward_branch_visits": 44
+    },
+    "next_stage": "D2",
+    "resource_totals": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 82,
+      "te_backward_calls": 0,
+      "te_batch_calls": 16,
+      "unet_backward_branch_visits": 0
+    },
+    "runtime_identity_GPU_and_wall_time_verified": false,
+    "schema_version": 1,
+    "scientific_effectiveness_established": false,
+    "stages": [
+      {
+        "failures": [],
+        "metrics": {},
+        "passed": true,
+        "stage": "D0"
+      },
+      {
+        "failures": [],
+        "metrics": {
+          "identity_checks": [
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001015260705947876,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.0010305621719360351,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.0010131262636184693,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.000998697648048401,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010062833523750306,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.001004156301021576,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0009815453386306764,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.000984588930606842,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0009937385416030884,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009669980502128602,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009817594981193542,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001101918706893921,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001046875367164612,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001043873438835144,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010585070943832397,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010175793266296387,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010210737085342408,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.001009877989292145,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0009858455157279967,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0010006015992164612,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009651180005073547,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009774164652824402,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            }
+          ]
+        },
+        "passed": true,
+        "stage": "D1"
+      }
+    ],
+    "status": "prefix_pass",
+    "through_stage": "D1"
+  },
+  "records": [
+    {
+      "condition_id": "Edev_0.08",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0,
+        "triggered": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": 0.1440870314836502,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 1.0031262636184692,
+        "normal": 1.005260705947876,
+        "triggered": 1.0205621719360352
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "Edev_0.25",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0,
+        "triggered": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": 0.12084664404392242,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 0.9941563010215759,
+        "normal": 0.9886976480484009,
+        "triggered": 0.9962833523750305
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "Edev_0.50",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0,
+        "triggered": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": 0.09152184426784515,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 0.9837385416030884,
+        "normal": 0.9715453386306763,
+        "triggered": 0.974588930606842
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "upload",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": null,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 0.9717594981193542,
+        "normal": 0.9569980502128601
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 4,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "Edev_0.08",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0,
+        "triggered": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": 0.24653121829032898,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 1.033873438835144,
+        "normal": 1.091918706893921,
+        "triggered": 1.0368753671646118
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p04_s13"
+    },
+    {
+      "condition_id": "Edev_0.25",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0,
+        "triggered": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": 0.17176249623298645,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 1.0110737085342407,
+        "normal": 1.0485070943832397,
+        "triggered": 1.0075793266296387
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p04_s13"
+    },
+    {
+      "condition_id": "Edev_0.50",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0,
+        "triggered": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": 0.1038561686873436,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 0.9906015992164612,
+        "normal": 0.9998779892921448,
+        "triggered": 0.9758455157279968
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p04_s13"
+    },
+    {
+      "condition_id": "upload",
+      "errors_vs_teacher": {
+        "extra": 0.0,
+        "normal": 0.0
+      },
+      "gradients": null,
+      "losses": {
+        "attack": null,
+        "normal": 0.0
+      },
+      "output_rms": {
+        "extra": 0.9674164652824402,
+        "normal": 0.9551180005073547
+      },
+      "point_id": "zero",
+      "resource_delta": {
+        "autograd_calls": 0,
+        "forward_branch_nfe": 4,
+        "te_backward_calls": 0,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 0
+      },
+      "signal_rms": null,
+      "stage": "D1",
+      "unit_id": "fit_unit_p04_s13"
+    }
+  ]
+}

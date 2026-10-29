@@ -1,0 +1,2533 @@
+{
+  "artifact_files_read": [
+    "run/identity.json",
+    "run/operations/ce40326ff10f6efddb0c422ca86e24176d3eb92730181ae0d8146cdb61550428.json",
+    "run/executions/20261028T090148739827Z.json",
+    "run/operations/5bee6b3fd5ecd1a93caa23de6cecdb64f19f656c128421031ef898efceaab3c4.json",
+    "run/operations/abf2a409d32f299939b63b964a7677f07e37caf216c86bb318dd4fcff204684c.json",
+    "run/operations/490726544277849c92afa9773027d24e9ab6d73ac56720c1c71a8ea005da9682.json",
+    "run/operations/a59efcfd754ca6022646618eddc890678bd64b4d80d3a13e07e4f4de9db43c66.json",
+    "run/operations/ae00291bc8b78a65a830c11c6c2fb50d92c52bd46f0ddc417276c9e222673b2f.json",
+    "run/operations/0e66c16b87afb9b4a5cc5509100f68e68469a11c7f4e2d301303e35703c64124.json",
+    "run/operations/d64c91cb959d911d04e35bb92521dedf2a20b7d29d4d24d3c6e602d34da84095.json",
+    "run/operations/be8d1f588381bdea069674278546689865a37b60c8444688c00ad03b7ed5df6a.json",
+    "run/operations/981b4b864813279a69164fe2eb4e37e97b291ee73eb67bf8c6e317a293933f3a.json",
+    "run/operations/1370bf4cbe6850aed4b81b8b3e09e12382c0423e8aa6e5e4677e10e9eb18bbc6.json",
+    "run/operations/eb9c632de041167544b9f5aa817a3691066cf2b5a57ab80fa4104de73adb2939.json",
+    "run/operations/e734390b5361b75e55d3e96ad445e5f75b0911771fa70c6adaea821fa7c62c4e.json",
+    "run/operations/4240a50519d8ecf04a995a320741cac3d2089a1f804851361fff7e57f4b1481a.json",
+    "run/operations/7e7233b71c063e25ffc32ad932ab2c063c6944c2e070b73c4f47a99e209ebd7c.json",
+    "run/operations/28bd6eede17ceb26405c4355f71aa28f799f6d3ea92adfd818bfe7f733d8982d.json",
+    "run/operations/01dc936aab695a9f2737e5079f5728ca2d9dcbffcbfa19e034dd7f8141923114.json",
+    "run/operations/3ebf04c5d3e594099f063026a8a7c1f8f3b2956d08e8b5063b2a58fe1ade6000.json",
+    "run/operations/d3b511aef75cf61b513bff30a1adbd647f2169bdf8fe158105d7ca9524e33541.json",
+    "run/operations/d5e6023183799fe78635db7c4531a437e4161398cd4756e95ca6443e487ffab1.json",
+    "run/operations/4be230701876200bc2625a3a9bee1b1ecefed67578b9e5f728021d157d7c8ec7.json",
+    "run/operations/86b940997da78a9c378f2c4ea28e6d688bb13b5c07984a0a4cc4736381105008.json",
+    "run/operations/6c75036f1a96c9bc6bef2da7c49050d244362f4095e1f146abadcd5f0813f76e.json",
+    "run/operations/3f39b4790fbf4fb4d0efe17c692c247d769e9c5c3d4a3ef9950c00dbc8766c0b.json",
+    "run/operations/939778855496ba0c98ec6818b7cc7b6c3cb648998aa3c4dad298ae2f062d6e4d.json",
+    "run/operations/9a9fd992c3d4308cf59508ec1656288cd89626eee0712b0512fc9a3afc7e2255.json",
+    "run/operations/0512aa68e108e1b3997b1fd5e6c1260f17be7ac83d2b71c2282aaba588694f77.json",
+    "run/operations/eb8d8228e6032cf19663b2f2bd2ee5ff2e64baea7e63e6a34dbafb3d99cde31f.json",
+    "run/operations/cd1669cf7b74bfe662fc4857fcf267b9eb53cbd398674c4607d9de2d44e6572b.json",
+    "run/operations/3e2f00a3f059bf74116bae4c9fc3c9c0ccaa6a210ea7c0973036bf9188ca9858.json",
+    "run/operations/624ec0b52e9fb9bce1d43d07501b397c002c88816425a36dab8bcd0196699b2d.json",
+    "run/operations/1cd03d9d782f799a0b760000ac1e58a7ccbfd83ee2f83e243e29018c91da7167.json",
+    "run/operations/66eacbfcdd30da64f2eb8c819937b256c888e56cba0f201edd66b42f2d650277.json",
+    "run/operations/4c28a99535fcfdb00ffd3560f8efa3bb6d2c23d4a2cfcc68b6f1e7ac7bf1cd6d.json",
+    "run/operations/701905eb675f35ff458ed28177173b6c458fbda1457a32361025b1e2ba227753.json",
+    "run/operations/32dd8da9be9b50b488d8fae83ebaa65540f4cef529482942f51eb119d57e9a09.json",
+    "run/operations/38f5ef5208cbff7a384e88e417f9f44ba1520f1c4e3ff3e9ca9379d3bb19ee5a.json",
+    "run/operations/7fe557125d0546941a298faca65fcdd416054ef095d47a93460ea1bcc7193034.json",
+    "run/operations/38652e353570baa28b34ae712bb4c47c4fb1c8868a169686c8201f379a8e0358.json",
+    "run/operations/0f118cc3ba5172b66b565729ed385142eb95796580a0b6248f2ceb08470d9e2b.json",
+    "run/operations/d675d3b17e7252284786506fdb994ff0e951d93ca69fe15082a87576dc02ff8c.json",
+    "run/operations/66dfb5645aea2c73aa173db814e1882b4956fb904289a4fa0067a902d53cf4f1.json",
+    "run/operations/d71e234e71a9c9b87e95f2523d55335b1803362b55ead040dfba6c39b66dee2c.json",
+    "run/operations/58424e000e0fb7acbb9e6b8f2a381590873005351041dd02750ca5c7a3874cbb.json",
+    "run/operations/596b91d133a4e7dcf331918438ede0cff6713f830a0990dff22474fe34e755e0.json",
+    "run/operations/9a0dec3a6cc6771b0207a873f8bf421d1ca505c0da97214d15e5b651a13d1436.json",
+    "run/operations/9e9718bd9440512ae2010d982bc654408106f98b4635f3aeeaa8766b793e9cac.json",
+    "run/operations/2a4eaa2cb069a79a1699c6b0b7d8d5fd1c2d6ac8c59703772ef7d3e5ba67d1df.json",
+    "run/operations/282619181541db30d3ba404df1860815b6c07dff9810c14446d51f3a048bbae4.json",
+    "run/operations/22605cdb43ab477ba5f3f6d2b3d6d26926c59d26e17a247f0b23b182a1906664.json",
+    "run/operations/707828299cf6f312d8923ad05066cebe3157dbf6599f10026840141ba37f3a0a.json",
+    "run/operations/c04e274d9cc7ecac0b0a9f4b513dfa4343bc488cda79a4d7c5f4b4f6303983f5.json",
+    "run/operations/abf0b7f64d92c6ce3a31c425066d60b7e113228f6c24e2e920d1bf8f9ec75c27.json",
+    "run/operations/22f506943064b8820fc2305073f7cc166673305fdb0064e424b9138747fc29ae.json",
+    "run/operations/320d99fab8672896b0608db9a00d7eb8aaecd152e9176e6a521d4fc3062fb40c.json",
+    "run/operations/78e7e2e6664366b7d4a84aa3224eb810e1242dbce873fffd605f6d2b0e427041.json",
+    "run/operations/fce055020e19d2dcc031351eb06b1384b91f64a8521424e61e50ae55ea0ae4b8.json",
+    "run/operations/04e83ab729e1046b4450b871cb6068aecb1a5db5ece5e3b935f2891f27742fba.json",
+    "run/operations/30c2b27f3bcd92d432cb134d6c075b047ec426907e19db6a4c21eb3ce8c1a585.json",
+    "run/operations/9394c3ead01e3c5aa01391469ae93306f8ea23f2d1b34a19e1faef719ca1210d.json",
+    "run/operations/4d93daeb3e50430a264b2530d5ce3504c6dd16340df2cb14fed3f00c5d679f56.json",
+    "run/operations/2ebb4026bb29e6d24ff535ab28ea259cb7ea21f9c4c5af7fb737881ce82c0ff4.json",
+    "run/operations/b7db6f2fdfcc762e1417eeaeb0f9070d9476d5bf6fd57401c9e45eb849c1ee31.json",
+    "run/operations/751487ac70733ec10569c7893fd5f3f625057b5479c9185b493279c6622e937d.json",
+    "run/operations/9dc7e51c39d5399af69cd1e20e2f9f9cfd85e524cfb025aae3723118069d5153.json",
+    "run/operations/c46a879aad2a2ed3859e0c2097723e313f2d01a0fab555a435ade9e94118aea2.json",
+    "run/operations/dfc468dfab4872918addb4eba044df9271944262a34db38c5985def0b2d311f1.json",
+    "run/operations/2db03ac6a2ab51bb069255aa9f830c07de1a0613178ba9cfea0ddd4f37bf47f9.json",
+    "run/operations/1d8d615974a34179528882b861eccd7ba282cbc129a927915ac9e8b2f7fd623f.json",
+    "run/operations/39346be832f0cc192104351f4ff196962a27139c2593b16a4ba324a3b5346ab1.json",
+    "run/operations/86c2c2b75136205b1903ebc8d4eecdf5f802c260543b78431e6c6d242b5d8da9.json",
+    "run/operations/2c62500020710d6ff7edfbfc87ac110047f2b8b5336ea8ce9f7f6a5cc1525983.json",
+    "run/operations/1c3095fa5b4a0d8dd076ab089c85f9aff5dfb98ccd78929890c09839fbb16227.json",
+    "run/operations/01e0c46672d9e95e786adf43bd19059a4fb88ed0b0060ae2499724c6b0ec67c5.json",
+    "run/operations/8428b6d17010e8ede40e1d4eacb8af2b1d897ff6518c4ae3711fe89f8fda3182.json",
+    "run/operations/ffdda743f249a6f3b6fa2f5ccb8a12f8a3c9a16c9127b80d6034bcd2d3ba5bd8.json",
+    "run/operations/c0bd92a13702a5c3c51002a2873fea6fa7f891a97f0acd446800345959005a32.json",
+    "run/operations/7ce5fa764c4179c16e582a6216285a4f3f1c63013f77530a944321d032410427.json",
+    "run/operations/92d649310bdad28abf7786493188d072d316e50cec3899be7dfb9dcea4ef2f7a.json",
+    "run/operations/dd907bc19baee157bb504d5f6a4cb3421f83d35f040eb7a2681bac3a82fbb8d5.json",
+    "run/operations/36f5cded136b8bcdecf797d15fabc517ea7fe1f2d57cd86f65c9541d27b1a978.json",
+    "run/operations/9885e925c4eb89ef0ba978c64cbaea2aaa348da91666f71981124fe8513b4367.json",
+    "run/operations/ee219356c554e7da35e2dffbf2b82859179a801c8e87ce38cb45735c6e717a55.json",
+    "run/operations/de027e328d6d126286da94e72369cf338c9612d8a4ec39bec97883d7d425f5d1.json",
+    "run/operations/9033a132335ee0baaf97fd7b9fe8370f758b4c86bcb52ff9de8af2b6d2cebea7.json",
+    "run/operations/36caf11330c31780743bfb45ceef18a671f1eb04333d8221105269f820605629.json",
+    "run/operations/a96106377174e82080e1f138103dfdea2af42ef266193d510ecda9ec9aed6131.json",
+    "run/operations/1f54894ab8ea781d126133b654413522a57f72644babee31e947915a8f9bfcd1.json",
+    "run/operations/aa9f1e6d6757bc84b38a3b162de5f067a4fd3921aad3f55a6603ddde368439ff.json",
+    "run/operations/d3b29804b20300bc831f1eb7c3929cd537ab1189904215b3d695e2ba80d1759d.json",
+    "run/operations/bbfb5c3280a5ad9c91cd9c80a79823fa4998a8db314a40be465d9670f2217330.json",
+    "run/operations/eae4dddf4295f10a76c5c4d256e2f8072f2917fadd01d179829000764ac56685.json",
+    "run/operations/ead0c3c16d2356fcf99a084172ddaf30d9a823b55f0943570416f64024406d33.json",
+    "run/operations/bc37d2539545a7bf784ea63de28ada22f81c8a8d3bb59e2be1fd0b7269ca357d.json",
+    "run/operations/91c389a5c3021e75c5af2a728b24ede9fea7da5d42e72660f22a25a5da02f883.json",
+    "run/operations/8886a87180da073f77e3d254618ef8226bacd4ac438e94c819b74135364557b9.json",
+    "run/operations/fbe8c6a13ea0a608f44098e39f8663efcbad4402253057139ca742a21ba5f5c0.json",
+    "run/operations/238fc8cd524a8267d53e9945b91179d460679283e016d8ef81990f63b182f7bf.json",
+    "run/operations/f02da6d7e42815d7be375d7f41fb57b18ec198675652f8cc702e2ca18871376d.json",
+    "run/operations/0012f5626f022fc63c9de3e11dc45fa081e11670b9110b9bd648165ab5b90b14.json",
+    "run/operations/2eb3841c70ed200790193bdf76bee8bd84a5db7b0f27cdcdf2ce10fb61283082.json",
+    "run/operations/eaa8c0d54404c7b7048f0edd43e2a67eeff3f5498cb2e1a0a8e670d9969ae817.json",
+    "run/operations/ecc36239094f59d4729a640ff67a8043caa89e520e72c28f4364e2ce60d51354.json",
+    "run/operations/f6052a882b3f958e7384cc1ecc94fe1b754ca951a86ddfea9daabc576e1d9f90.json",
+    "run/operations/d1c9c36d34891f01b5dce67678ad35a50c8c419ece78fe5b28b64d58db9859b3.json",
+    "run/operations/21c057c28d9ac464ccbd463ed8ed5ac809dcd7462d4b54de140959c6a97d61f9.json",
+    "run/operations/d07836032e1938e1780c6b81bfa644b46c3f41e1315ca8e57a5eed72a97ff52c.json",
+    "run/operations/f7d32909cf552c046240f694137f9544cf50b67ca923d144425c5d6edcbe2d5e.json",
+    "run/operations/2fd43e8eb5c134d0a5f9b8eb0db9cec9dca2339c695af56010e2c66cffc2a8f8.json",
+    "run/operations/ce3d9b02dbdcba678c3b23bfca91a75664ee0b955b517052beddf3f573e9d59a.json",
+    "run/operations/c7f06af8acb02a3d3352585860f1e1870c8f622760e79cfd14f62c6575c4573c.json",
+    "run/operations/24a844d4692ac31123d91060e1a127cf7a47a2e45f4771e199918fff3ffc6de8.json",
+    "run/operations/f9cecdf73fe2cecd82db5c7aae5f0b103b10faaa347f68e8af51f33d4b34005c.json",
+    "run/operations/358ef0f98897477f829ab3d15ec4a116ad88783a070b32b94277642a1f915e10.json",
+    "run/operations/7ac74d2bf88d485dfed1250d9e67fc260d3da7cc90dfe0d798cb89f136da3a48.json",
+    "run/operations/6411ead8ee2f0fa78835ab0949a5f3aebe0a5eae12f496803749846e88d311a2.json",
+    "run/operations/b852bee85066fe24ff524d03ee36152ca4999fd663bd7d32bc2f712ac5735d14.json",
+    "run/operations/97bd234c3d30db8f0944deec4892bc502160088aeb9a306a528b28d3ec83cefb.json",
+    "run/operations/3744112b0a0a09af83bda58f6a91a6993c51e7d270f474aa6149933fe0a96faf.json",
+    "run/operations/20377f96f8088e5770c13b39c144a3746b1deac725a7f4fdca8a2aed3626d243.json",
+    "run/operations/e9edc5f99c5290ff672c7561bd9a990f3a6cd6e51119f2188ba12b9efae8dfe1.json",
+    "run/operations/8d9a767c45011cb13c1585735e810790fe7ee210c655504af16bc5abacb704d7.json",
+    "run/operations/5ee463aed332a79f553acebe103a1ae20696d52ab30faaba18eaafebbbde9bff.json",
+    "run/operations/c246a447ac79cbb20f5fcf06adcae49e63a3691127d04c59dc57d9dcfee52d33.json",
+    "run/operations/e59ee5504443325b43a687bbb9cb3112104bb07dbffc61c78701718b4ac3bcf7.json",
+    "run/operations/c903a34af1312553542dc51b788453b36c1def2d5516db859b429eeed562744d.json",
+    "run/operations/e97302c1090a4a88d0cd61954e11627e5e1b66969b42a8e5d58137f8a2bdb555.json",
+    "run/operations/6d41c76657635f4ce7a8d84225ec7c56048fada35682ecd14a732630a00187f9.json",
+    "run/operations/b0aaec919baf2a3ee51c4ff89866b50ea651d7a96e5ad5d42444342a1831b3a8.json",
+    "run/operations/f1677881ed42edf5e6b93e588027c21645ec84c95a428452f3253b5ae6874a1e.json",
+    "run/operations/daff53232ee23ab34995ee9faf70733ada0d6f28071f2276d9f2121c44b48066.json",
+    "run/operations/9bb7ae6ba4777e58fc3cdf2e8ab5b17a98b71783e77683ee9e7a911be4567031.json",
+    "run/operations/1ccbd0b82136f91a2eb12c3efa3824790572e03455264b39f333b94c984e02b0.json",
+    "run/operations/05306fa5ad9c8100af7f6bc83ff141a9439f8c68763ca8c9018f809b9c72e93c.json",
+    "run/operations/6df031fb37294b6a0ec4108f765fc56e9432b14a88b938a88e52b3dcc9d9cde8.json",
+    "run/operations/856bd2dcff7440117437109adc846acea8404ecc45df58eef0cb07efa278acc1.json",
+    "run/operations/7f7457bde6126adb5cbc0a96aced70e786f45ec077a67bd8aff5207aadf1a420.json",
+    "run/operations/011e43bda66fb77b99a287534e0b515ab21b2e215cd1e7b45a75abefe88bc99f.json",
+    "run/operations/35ce8e0053082de7faf36530ee270b9719222aa48e22f6af22706b20274c6087.json",
+    "run/operations/a8909d6a15556b0f8b30cf82e7af544bcb6c71f7a0bd129392deb91409640e66.json",
+    "run/operations/0bd91891a7b7fe52b9a41c2dcb78185dc2181b33a2a180f3f999ff2db1018223.json",
+    "run/operations/929979cfb5abddfca4680319f4b6b93c26062c964b1b4b5e9fb0858a8bbc6561.json",
+    "run/operations/acf792a0f4a3d81f416da815d84b4136b24331d3d0a471bee90559b3e87e5f1b.json",
+    "run/operations/936fde256dcd941bf9270e0bdf6d2f311ec7f40f24c7732588092ff045bcd57c.json",
+    "run/operations/3f0d63f46db3f6e7383b81c54b0be5a1cc41974cd09dfd120bc7d85a380a1216.json",
+    "run/operations/96a489ec855b4b80dafa5b4cd6295ef62e8df3084f5adf453ddf62ea17953a5a.json",
+    "run/operations/2c5d895365469911a4640213fcad07488b4765247085f8c8360b23ff034d9548.json",
+    "run/operations/a80f5d827af3c1f13a5127bea45241d0bc7877c9b52a71c4ca7b8d8d60c5f695.json",
+    "run/operations/e3b59dea6468549ca7601c6a2afe5b3f4a2a182149acba5fdb282326bda830b7.json",
+    "run/operations/ad7789341e05ca9419a0c3e5f1e8662854833fd1de010c04a3664fac7a0f5c50.json",
+    "run/operations/deca8c4d595bfe0690779ca83845ab241da15a270f497cec7401273e0ba6f9d6.json"
+  ],
+  "attempt_files_present": 151,
+  "audit_kind": "independent_local_CPU_metadata_and_metric_audit",
+  "audited_at": "2026-10-28T09:22:57.366601+00:00",
+  "auditor_sha256": "2e62bbdc5b837fb4d429e8373a42c6f6d33b0019381d3a6cf63f22b523c566b7",
+  "completed_image_NFE_expected": 7500,
+  "completed_receipts_verified": 150,
+  "confirm_results_opened": false,
+  "confirmed_observed_improvement": null,
+  "decision_epsilon": 1e-12,
+  "errors": [],
+  "generated_scientific_images": 0,
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "image_hashes_unverified_missing_copy": 150,
+  "image_hashes_verified": 0,
+  "input_report": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/observation_103_20261028T091756108336Z-bac35dfe/report.json",
+  "input_report_sha256": "1613c8d6a44938246d810113931d6b3550f5683d4f85f6864ad1b54e1d6086e9",
+  "last_recorded_NFE_per_execution": {
+    "20261028T090148739827Z": 7500
+  },
+  "limitations": [
+    "This independently recomputes saved labels/CLIP values; it does not rerun the classifier or CLIP model.",
+    "Only copied PNG bytes can be independently hashed; missing PNGs are explicit unverified evidence.",
+    "Content and transport hashes provide internal consistency, not cryptographic proof against coordinated rewriting.",
+    "Partial-stage metrics are descriptive only. No winner or success is inferred before committed stage evidence.",
+    "Fresh-confirm improvement, if present, is exploratory; it is not robust/statistical superiority or an unseen-expert claim.",
+    "Process and NVML observations do not establish GPU authorization or experiment effectiveness."
+  ],
+  "local_frozen_input_hashes_verified": {
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "scripts/merging/tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+    "scripts/merging/tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+    "scripts/merging/tssa_mvp_score.py": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+    "scripts/merging/tssa_sd_runtime.py": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a"
+  },
+  "locked_operation_ids_not_read": [],
+  "maximum_stage_images": {
+    "confirm": 576,
+    "dev": 240,
+    "search": 624
+  },
+  "metric_compare_atol": 1e-09,
+  "observed_at": "2026-10-28T09:18:09.830540+00:00",
+  "observer_runtime_errors": [
+    "runtime GPU query: {\"kind\": \"failed_or_oversized\", \"returncode\": 18, \"stderr_excerpt\": \"\", \"stdout_bytes\": 88, \"stdout_excerpt\": \"Failed to initialize NVML: Driver/library version mismatch\\nNVML library version: 595.99\\n\"}"
+  ],
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "production_scoring_or_selection_imported": false,
+  "read_only_inputs": true,
+  "schema_version": 1,
+  "scientific_conclusion": "not_available",
+  "stages": {
+    "search": {
+      "completed_images": 150,
+      "expected_images": 624,
+      "independent_metrics": {
+        "attack_condition_ids": [
+          "Edev_0.08",
+          "Edev_0.25",
+          "Edev_0.50"
+        ],
+        "candidates": {
+          "a075_b100": {
+            "coefficient_norm": 1.25,
+            "coefficients": [
+              0.75,
+              1.0
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": -0.125,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.5640782415866852,
+                "normal_accuracy": 0.625,
+                "normal_clip": 32.03913904726505,
+                "normal_correct": 5,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.97690153121948,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.101376563310623,
+                    "normal_correct": 2,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.625,
+                    "normal_clip": 32.03913904726505,
+                    "normal_correct": 5,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.97690153121948,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.5,
+                        "normal_clip": 31.101376563310623,
+                        "normal_correct": 2,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a100_b075": {
+            "coefficient_norm": 1.25,
+            "coefficients": [
+              1.0,
+              0.75
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": 0.006887316703796387,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.46817348897457,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.7019028365612,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 30.23444414138794,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.46817348897457,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.7019028365612,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 30.23444414138794,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a100_b125": {
+            "coefficient_norm": 1.6007810593582121,
+            "coefficients": [
+              1.0,
+              1.25
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": -0.125,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.4049498587846756,
+                "normal_accuracy": 0.625,
+                "normal_clip": 31.880010664463043,
+                "normal_correct": 5,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.84462094306946,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 30.91540038585663,
+                    "normal_correct": 2,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.625,
+                    "normal_clip": 31.880010664463043,
+                    "normal_correct": 5,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.84462094306946,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.5,
+                        "normal_clip": 30.91540038585663,
+                        "normal_correct": 2,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a100_b150": {
+            "coefficient_norm": 1.8027756377319946,
+            "coefficients": [
+              1.0,
+              1.5
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.6570298224687576,
+                "normal_accuracy": 0.5,
+                "normal_clip": 32.132090628147125,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 32.40204229950905,
+                    "normal_correct": 2,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.862138956785202,
+                    "normal_correct": 2,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 32.132090628147125,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.5,
+                        "normal_clip": 32.40204229950905,
+                        "normal_correct": 2,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.5,
+                        "normal_clip": 31.862138956785202,
+                        "normal_correct": 2,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a125_b075": {
+            "coefficient_norm": 1.4577379737113252,
+            "coefficients": [
+              1.25,
+              0.75
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": -0.125,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.0545743852853775,
+                "normal_accuracy": 0.625,
+                "normal_clip": 31.529635190963745,
+                "normal_correct": 5,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.598092406988144,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 30.461177974939346,
+                    "normal_correct": 2,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.625,
+                    "normal_clip": 31.529635190963745,
+                    "normal_correct": 5,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.598092406988144,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.5,
+                        "normal_clip": 30.461177974939346,
+                        "normal_correct": 2,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a125_b100": {
+            "coefficient_norm": 1.6007810593582121,
+            "coefficients": [
+              1.25,
+              1.0
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.18300563097000122,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.65806643664837,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.72327333688736,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 30.592859536409378,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.65806643664837,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.72327333688736,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 30.592859536409378,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a150_b050": {
+            "coefficient_norm": 1.5811388300841898,
+            "coefficients": [
+              1.5,
+              0.5
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": null,
+                "asr": 0.0,
+                "attack_n": 3,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": 0.3333333333333333,
+                "normal_clip": 30.097267031669617,
+                "normal_correct": 1,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.3333333333333333,
+                    "normal_clip": 30.097267031669617,
+                    "normal_correct": 1,
+                    "normal_n": 3
+                  }
+                },
+                "normal_n": 3,
+                "normal_pass": null,
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 3,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.3333333333333333,
+                    "normal_clip": 30.097267031669617,
+                    "normal_correct": 1,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": null,
+                        "normal_clip": null,
+                        "normal_correct": 0,
+                        "normal_n": 0
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.3333333333333333,
+                        "normal_clip": 30.097267031669617,
+                        "normal_correct": 1,
+                        "normal_n": 3
+                      }
+                    },
+                    "normal_n": 3
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "a150_b100": {
+            "coefficient_norm": 1.8027756377319946,
+            "coefficients": [
+              1.5,
+              1.0
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.050316378474235535,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.525377184152603,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.46959745883942,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 30.58115690946579,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.525377184152603,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.46959745883942,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 30.58115690946579,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "clean": {
+            "coefficient_norm": 0.0,
+            "coefficients": [
+              0,
+              0
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": 0.0,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.475060805678368,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.11950212717056,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 30.830619484186172,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.475060805678368,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.11950212717056,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 30.830619484186172,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "naive": {
+            "coefficient_norm": 1.4142135623730951,
+            "coefficients": [
+              1.0,
+              1.0
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.4389118403196335,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.913972645998,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 33.091169595718384,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 30.73677569627762,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.913972645998,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 33.091169595718384,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 30.73677569627762,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "uniform_075": {
+            "coefficient_norm": 1.0606601717798212,
+            "coefficients": [
+              0.75,
+              0.75
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.12917183339595795,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.604232639074326,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.67093747854233,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 30.537527799606323,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.604232639074326,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.67093747854233,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 30.537527799606323,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "uniform_125": {
+            "coefficient_norm": 1.7677669529663689,
+            "coefficients": [
+              1.25,
+              1.25
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.0,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.21077841520309448,
+                "normal_accuracy": 0.5,
+                "normal_clip": 31.685839220881462,
+                "normal_correct": 4,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.75,
+                    "normal_clip": 32.18945786356926,
+                    "normal_correct": 3,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 31.182220578193665,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": true,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 31.685839220881462,
+                    "normal_correct": 4,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.75,
+                        "normal_clip": 32.18945786356926,
+                        "normal_correct": 3,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 31.182220578193665,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          },
+          "uniform_150": {
+            "coefficient_norm": 2.1213203435596424,
+            "coefficients": [
+              1.5,
+              1.5
+            ],
+            "macro_asr": null,
+            "macro_difference_vs_naive": null,
+            "normal_pass": null,
+            "states": {
+              "Edev_0.08": {
+                "accuracy_drop_vs_clean": 0.125,
+                "asr": 0.0,
+                "attack_n": 4,
+                "attack_success": 0,
+                "clip_drop_vs_clean": -0.3387998789548874,
+                "normal_accuracy": 0.375,
+                "normal_clip": 31.813860684633255,
+                "normal_correct": 3,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": 0.5,
+                    "normal_clip": 32.23049268126488,
+                    "normal_correct": 2,
+                    "normal_n": 4
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": 0.25,
+                    "normal_clip": 31.397228688001633,
+                    "normal_correct": 1,
+                    "normal_n": 4
+                  }
+                },
+                "normal_n": 8,
+                "normal_pass": false,
+                "paired_vs_naive": {
+                  "asr_difference": 0.0,
+                  "exact_mcnemar_p_two_sided": 1.0,
+                  "harmed": 0,
+                  "improved": 0,
+                  "unchanged": 4
+                },
+                "per_seed": {
+                  "51000": {
+                    "asr": 0.0,
+                    "attack_n": 4,
+                    "attack_success": 0,
+                    "normal_accuracy": 0.375,
+                    "normal_clip": 31.813860684633255,
+                    "normal_correct": 3,
+                    "normal_groups": {
+                      "extra_normal": {
+                        "normal_accuracy": 0.5,
+                        "normal_clip": 32.23049268126488,
+                        "normal_correct": 2,
+                        "normal_n": 4
+                      },
+                      "paired_normal": {
+                        "normal_accuracy": 0.25,
+                        "normal_clip": 31.397228688001633,
+                        "normal_correct": 1,
+                        "normal_n": 4
+                      }
+                    },
+                    "normal_n": 8
+                  }
+                }
+              },
+              "Edev_0.25": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "Edev_0.50": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              },
+              "upload": {
+                "accuracy_drop_vs_clean": null,
+                "asr": null,
+                "attack_n": 0,
+                "attack_success": 0,
+                "clip_drop_vs_clean": null,
+                "normal_accuracy": null,
+                "normal_clip": null,
+                "normal_correct": 0,
+                "normal_groups": {
+                  "extra_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  },
+                  "paired_normal": {
+                    "normal_accuracy": null,
+                    "normal_clip": null,
+                    "normal_correct": 0,
+                    "normal_n": 0
+                  }
+                },
+                "normal_n": 0,
+                "normal_pass": null,
+                "per_seed": {}
+              }
+            },
+            "worst_asr": null,
+            "worst_difference_vs_naive": null
+          }
+        },
+        "generation_and_scoring_seconds": 966.5337336650009,
+        "image_count": 150,
+        "normal_condition_ids": [
+          "Edev_0.08",
+          "Edev_0.25",
+          "Edev_0.50",
+          "upload"
+        ],
+        "ranked_eligible": null,
+        "record_sha256": [
+          "8e98902dab4045567fd20b71cf0369b6cb39246d5fb27a0a46451f142cb6ab04",
+          "614f8dcd9f7e62e72dc6081dabefb46ffd95753975ce2664707cf88b4a13187c",
+          "49b08e76527be1bbf80ddbdb0ec17b741db398720204e9c1cd610def35a9ff0f",
+          "a0a4f78509ddce7a71316416e66543ba9201d2c648d0edc438b7aae8910db15d",
+          "a9ddb633fbb49691ab1a14bfd6eb7a6d1dbf5cb40f526c7191ba9c16154f4d33",
+          "40629b21f0148edebae21a335227b895d7c3f9e940bab5b6e4932a0375631e50",
+          "b7003220cbe228c5d2cc002f63a5c255023f637502d9f460924cf2ed37d37b3e",
+          "a3b8a2cbd046e96bdcc47f1652063cc4d304141f3ae6f7d0c0e7cacdc2d2e45e",
+          "a750b11c46f7060bbf30b9998e236fc2bc462ef0b95c61c51c56f95a861cf8eb",
+          "2bbcdd015a8755ca4cf68d6e686dfd270730728e6a9c2d8c0de4f4e96b402d6c",
+          "65b3dd83287c4504c76662aa39b96340e0a28232588727b3086b3079cebaffc7",
+          "e9c72145bd0d0c68e00f18366f39b64288fdcc9a991c69947cd6210a6aa6a182",
+          "b2a4129e286575e18a07f792503317b56b7595f77158ee3969e874caf27ac301",
+          "cc13a2761c9452c7ae681579703545ed944913be8669ed2ed504de44a83d8237",
+          "eb284a5bfa311d51e9935b5b633f669e04f50e6ee05962e26bb4b491c4bb364d",
+          "f4e5a1e526b47aea8a9842e08e974db147f1e1c4d2158ed8df5bc290f2c47135",
+          "a5b4da1da0714e7111b4dcab2f01fa7ebb38c5866d27c9e84b1052e9d53e6749",
+          "060b755d3fe40c87d86247fe2432ea0ee9c3273e5bf9946a12e822e1f07089eb",
+          "67ed39045123e1918d6e4bd72ee3fbfb2a7db4946c6bd8eeeb77cd2a83644190",
+          "aed7488e91506b4122631ae01f8ded999694a536f839f5ec4f7b0a37790bc2f2",
+          "4210e0b17c61fea00955373734bbcb4e8b12e3f0fabc74431b361fa13b7af06f",
+          "d25a64796f20106ea0b5c642582a6304672d8f4ced15dfb8bdcc6f38f4dc4be7",
+          "e8f5bc76f52c41446937da4035c59e91e390b15972d7b60e858690c87f5aab4f",
+          "f5a4440760a25c4dbb5c04e4514441f044fb2b034588e01fad9a84eff9f8f577",
+          "c0ff8837928acfbbbc9af5fa71fad17a6bbe6d6a554a375997190f10cd8544bc",
+          "f9ee64fa16d599a465e4885a7ba14ec1a17b30bacec65a971469f9d0a0e3c1ab",
+          "ae0cbec36a35115f9566bf215743b3bc84ea0a48923fb474f43b4404d9a949b0",
+          "8000ff8d29cf57d693959898e2da1ae915ce3bd72175685b9d03a4dd4cea81bf",
+          "9df517b36f143f9d225cdd6657753c08020e802d5695bf8f541597e1b746629c",
+          "2c5f04fa135191db9e90cc66a1360a69178de8d8e8f1439c08bb35d4d8884370",
+          "e13efe61d09f1b91758594eeb370eb12cbe601ca69fffdfccdfc864f8669c363",
+          "9ace6f09446073bacd4fd5effb137293e38aeb1aa4b558bfe8d1da2675238d2d",
+          "aaac7eacfd8b6916446ab89a709df03fc713c47a41ab340d1d897e1e40e5c439",
+          "8af5ce037991657ab53c887938e04419c81c2323974fe7d7074e5890ae006f75",
+          "417dee7861500c83a14efeb54e1eb4af2beadf6fff9c5966a16d3041ac0a3424",
+          "6ae5a3d91f85a7f43cac132a90729b32cab13f851071b435cf72d0c9e2d19d38",
+          "ae59f653d290eab752f8f074d142c30ab94edb71b8454e93ec5b4c67340e5a7b",
+          "c3d39baa1c35990f90293352398d427cb3ebc31ed35aea160d2920c1c0dac589",
+          "7b9b0b742c8766a8f9fda6addf6280357b5635a04052e8b8f2da8b4ab96de38d",
+          "9d7ceabb825e901c18c916d7013fa82b171f37e3c1a4456e86c8b37f0884a97c",
+          "d4324145f4b8f1a4e3a0ac19b568492a3ef6e562816a1521107d3fd8e7199e93",
+          "9dcc13c19b10360749d1dc9e7fdf0a02e246331caa3d542c5bd5ac3478622bbd",
+          "0ab630c88be8486f09d708c06414ba103d109cd7ba5749709843dab307497a81",
+          "d338c70ffd4ca046bf8ea8914679b5281962537b76f81a9aefdc670ac6db8725",
+          "6b1a46bba75131d48f3e5839d9b8a18548f14c0a158554edb208e9c9fd42b36a",
+          "eeacf163deb11808a9cd23ab9c4633395566c8d1d71fa545bfd88d81854e62f3",
+          "02fc96091e795ccff201e38b7b3d2347a73e021eb587d00cc1330adfa80c2a74",
+          "cd31eeefcfc7bcc5de414f370e5d5a76d8f01f1a185d8aa856ad64b0bfbc7ff7",
+          "b0c3d9e7b9139015a60aba520fd7605d9b13420dcc25bdfa8612caadfa24c26a",
+          "64df98d9a1acdf6cec3e212325641666774504ba1344ec1c794a46d8a4e6de78",
+          "12b612d5c692a256c973765a61a74eb425807091b520f0867c51e9f21a4fa9bc",
+          "497b5a84cb7edd4fd8e931a84a60663f48a94968cbc9b118bca3fa40d00be243",
+          "2288f84994aa3a09bb7743df3e8622b489d7a9f321657067acab2e899d091ab2",
+          "2abaa03344cd533e30b5999bc1d08e1bf50adf97ee549548ff2a6e5939d29cd9",
+          "e490f572d1bda6ddd56e0b7f03cbcb37df282b401b85feb6ac7abc8a3c30338f",
+          "34ef8a48b3cf86d3665bdbaaaf8ed6908641d7d680700430aa546e5e6ebc4812",
+          "a9034406ad995c26ae02d955355c0d4903ef597a60135e1ae5a9dd52c3a489b9",
+          "3dda0994ada18d5a4e40220baf753a5a1db3e8b4fe081776f4c59467d4b08e8e",
+          "1188af26c114804abd43a8cd9805fb325a90374f5965e2003c594e980ea9f232",
+          "cba268333d54c07310b4c558a7ae3e34ad74bb41e63389200e0e877d63f9e89e",
+          "43a17ea252d790a600e06d05874586ed0e21535f5f726ec9f046f809e316032e",
+          "e8ce6904fca087e1b2a13a54d28916d2549a4fffd940fcc6d6d05c4a78a2a74e",
+          "5bd9beda5f7e8e4eb3d74ef8835595817fc7bf95dd87c0e665dc446f73792f85",
+          "315d3ac53cc1abe4416ddfd0e8d2bdd535b0e90b653fefca89f52b46f200e743",
+          "564a9c0fbee4a5ea81325f2a8de29943d84b1e259bf342e220e0586234f0e397",
+          "1b8bedc9f017e3b08345cfced85ae7a66503159700931263dabe7f845853f1ca",
+          "0697d7cadd04f213a7e08e2ef087488d72ded8cc2be87262d621c5955e52e364",
+          "56d8d42405950053bfadcbc215b7303e131759ca82006fff59e7ec7a4b44b342",
+          "b774d8438db25d7204dc0af1eb110512ea5872121028f4b145c8fd6e0cde84e9",
+          "282bc6c8294db5e594d649940c8f4309567e21a7ab223ea658e3a32f7cd13555",
+          "8e4fc430acea7db2da3663eaffa57789cf033b6b39f2c7ebc5b675a364a3503c",
+          "5a4eb350055d658a317884dff97e8cd5b99e1b092e6db87f5a3e310ffcb40a93",
+          "f10ac615390d9520b7ad7851856dc3656dcccc03e83743ae929caf69bdd8c950",
+          "dd0ba088dd854cb7c62911fda345e0d621aadafb052fb31befe4a9856918caf4",
+          "771b48d5d4dfa32b6efab263c2980931ab5e6886d02438054f6c826aca20d896",
+          "5acb750f6ef014c36a2751858d6ace9616da91fdbfb15acea6e7648fb5cb3777",
+          "2283bbed9f69c248914372c4c862369cc95d26b4b7d83574f02a4008b99ae3ed",
+          "538c1ad98c413b12409423eddf4c74c833c543bf3a3c6d9b0e40e47979e7c8a8",
+          "a75f4a21aec0d0a90147dd1530f2c86e79a98b21f1c5725336b52e4bc08ce17d",
+          "12b84eeb161a4e085b3eaae3592fffa02bdbf2d5fc2e64c9904ac5d8542a5a77",
+          "00c4707360ce5477878b3f6347420c8cd33bb7903b53c0b991f6bc7fe530a245",
+          "386d86203a397bf0646e42470a5d4d8014a5d08713522999961b0e0bc13faf55",
+          "d5b003120cd4067e32c4285a3502ba9696a01def922a2b74141d7f9feea4078e",
+          "e9d3a43dabc7787747b910564817da6002ab832f6644a017f6cecf422af6165d",
+          "0690b1e5c3e5476adf5e5af8e9adabf39e6b4aec3bd1a6417685f22f8034fef3",
+          "f27c71924ea4801f4b052a826a060458d844ae5817f34f7b1fd0e7b7ccc5e9e1",
+          "02d8dd9d0c195c9e6caecf31579ad6988a336c1f01d1068cbb73b88085eba554",
+          "dfe368fc5b422994d710ba773a8e7df03a135ebb4f2618fa39fff35aed932e14",
+          "9fbe9f2e8cb3ec0849cb5913da5c612e4d1ca676685be8eac69b65330c05b29a",
+          "f6d170831eef6028c5035cbef42f0ba030b382dfc2028c9dccce3064dd7b2030",
+          "370c9f26b349a7a8dd8c718ad18473144838908cb229fe67099f83db523dca36",
+          "b9d8380ceb650dfcbf5fda6c6f8f99c405f4f0853bde3f7200f7aae7999f8813",
+          "96a7debe117697cd6e50eb919e1774bd9f8a252560e30a2b4ebd5b11c8f6e2b1",
+          "b282c68dd99d50626b48a430da175f1b55f1100c9d7af3e9eb64aa31ba820b48",
+          "18c6b87c2b7a207c145d11a3bcfb09a09d5b3d0d6a17245d90787f9e3f31c22c",
+          "c1c3124a41ab9597d1fe4ac82a506b0b3757e08e012d5dd963415108dc521e1e",
+          "c06859c4b32be41fcbdb95195d9b500d45c2d9c4cdfe8248388214b2a60bef05",
+          "83309e9e78e69f65b0f6a00a099988a8c0593367d9171592f1ef23a17dbdc454",
+          "5bfd565967cb3eabfd97a6cd3a0709db4946650cbb5650f9f2b8b82136098fe7",
+          "99242ea11399ea0f8dc32957c552bbb51d43e47f01ee5b0cc0e679a75de4cb02",
+          "31c959ef16e7ff165dc81e491fead3c18a2614364584d947982a3fe5c7b1cea9",
+          "a8319c3d583f6296d0573d4300b023a991f1f684ef0989bc5b7665f3ae74cc5b",
+          "c3175f63f1904c0f6489b937c2a9e305c859937d8d2b15b42bddb13709684723",
+          "106f62d5595ae7f5370f52dabef2485f0ce3495cbdc44b687cbb59dfef45fd79",
+          "bc2b40238789e545f7b2bb195b111d26d7bb5450ac42b02f6eff32609ec91b32",
+          "a15d280f8a08406c47693094c36b0a6e81228a6fae0a31da0cdefb4b5e80c63a",
+          "bdb2a5edaa8f75abad0df74befa443d27c67dba9f6602c8a3377b616584722f8",
+          "7770b407781297ebaa69bcffdd79d9d05161434dff5e138e338a32c88ffc3f26",
+          "046b5e3956540fd4646b53e4959990ba12c96abcdb48df595a83a608677ea0a0",
+          "e9df921f2802b10c9bafdb49a120763211150717781a53e26b33f9457d97d0bc",
+          "5cffc8958e80415fdf03646e5450696aeafa5e7cf32a380227cfbfbb6f625105",
+          "31f1e65330599962ce7c64cd4d788919a550bf5d5f41ed8a37e32cc77f8de3ec",
+          "623ce91357451a41ad11d24498d8d658dc760b3acd2a76745dc57bbaabf88dbb",
+          "96952cad99d72b90a74b781bcc38e0dac6ed2aa5a14dce420fe2caa855a736df",
+          "ea6eba17b2feb241a66c18ed398c79f32df3656b606c5af9baade0a8c064cca0",
+          "a6a3493750b9c1332d41f6ff9cb37ed68e5889a899a3ef1acffeb08dce68d455",
+          "d5022b31c71105410d3f9bb379d8d08b1ed9beebc9d5a72e400b23d179f89d01",
+          "6c8e221b54e71a91e34a4d80a37305aed8714cd9d3fe34241a5b41168fb073ef",
+          "d831e3b061a4ca4fdc9a81f71a4580717d526768745d7c2e864025e001aaba74",
+          "d5616524c8a5b6fac7b4be204b16cf756fbf4141bad5457503594ac5ea679f6d",
+          "4e7fae76aa815f73d8a2a11ff997e4f41cc5a5cfecc691b940a0e761d757ae44",
+          "bd8fbe4544e15577825685fef4043f5586e3c6a13ab0c1af2ccaf7a2f1bd035f",
+          "f99545742603125a993fd254042db22f43f2e63b7f3a0aafe2373faa3d43b102",
+          "1f59bc95be047c877793c5cf56aeddbce33114d52986279ffff9b5c7148d4519",
+          "15b1cf9656c6f22c4292c13f2ed4a22b526ac4832cd99abbefee3886a59fbbd6",
+          "4e4c8850687fc7ab54b3883cb8b466483e59aa355e93ea353cdd5ae89bea1bd2",
+          "f72a0649be8b86b54af5331554c7483a83ee8c7a182848289697b71020114923",
+          "fda895f34316d1a5c538a7a5e513e6adb3fb7631aa8f91c3e5f4eeab84870c22",
+          "39143801ba75f996c0d425fa5c6dd3617ddabc3c09d35a942c4433c8bd9aaad8",
+          "4f81def88841eb2eb78408c2f986809f4fbe640fd94e52254b691ab10d6e0ea9",
+          "7ae8b3216ae9becf59ec296a3de32afbcc709d4891bfdfb46d655afb51afdd63",
+          "8933bd0c2d555ecf8a054f7096907db9549507ae5f5ff686612f89a814641c44",
+          "0f7a6946ba78087b90f536993347afebe57ff8a3ef89321bc079eea49e7bb0b3",
+          "5e0904d8934e9fd48af7054da0ee40408a18841df58f1f694ccb6de3f3fd4234",
+          "113e363d6555b262fa32562358d3f0fb184e379b1b61d1799dcd5112d487dacd",
+          "e4da918eb377510755036ba192ecfaaa267461a3cebcde58c05fc2733e07dff6",
+          "8505d642710300cc8e068dbdf2a8cce2b9396d2ca998a11ad0f852edea0fff6d",
+          "fdd1fba84356651b5e7dac5cb60c3f311540a26aec5c43f9255ca2dfccf6a52a",
+          "4dc8afc98b4a9fe325175b510c495f57afa523062e074ac95ed4c66bc0251af3",
+          "c1fc6bad3d24f9d7d2916de7184ff370005a8101bc23830c3d1f51e3c2c80082",
+          "367f8016c1019446f04c76a82351f03d997450ee7cbbac7e8d1e049f333c97e7",
+          "7cab341e53f27191b5725804269ba2cab044899dd9b5e1cb8847e4e26a50c3f4",
+          "dd82bea85d822b94413b5a58b1f6bd6bb018db15b04299c0090326977c4b83c4",
+          "46c61566cea6c646c744724f427945c9dc82dec7a6ab9eede14c842a701f1b62",
+          "2e912d645b63b86fc78f3210364c14a6ef6929c29d6ee2c94dff23fcce691106",
+          "e3ad88cf6cd023466da820d7ddc93b9cb3bdbd3dbe5e4474b38ee763da23f0a7",
+          "58dc2996d31ef6a3ff14c7619f30d3127555281188b4183216cbedd5ceef9770",
+          "46c58ce5c6cc802e492052938121100fa1dfcbf46f1b805de4b8090f4271aa1b",
+          "d6cb79856955193231efc76c9aaff0606ef3d32fea5aec3d8a10a8bb4b36c03a",
+          "b277a45a5b0fc775c2d0ad8459d6c58e97b2dd86b32f075b2d08e5184a3d2f1b"
+        ],
+        "stage": "search"
+      },
+      "missing_receipts": 473,
+      "selection_verified": false,
+      "started_task_ids": [
+        "deca8c4d595bfe0690779ca83845ab241da15a270f497cec7401273e0ba6f9d6"
+      ],
+      "status": "partial"
+    }
+  },
+  "started_receipts_verified": 1,
+  "status": "partial",
+  "transfer_hashes_verified": [
+    "run/identity.json",
+    "run/operations/ce40326ff10f6efddb0c422ca86e24176d3eb92730181ae0d8146cdb61550428.json",
+    "run/executions/20261028T090148739827Z.json",
+    "run/operations/5bee6b3fd5ecd1a93caa23de6cecdb64f19f656c128421031ef898efceaab3c4.json",
+    "run/operations/abf2a409d32f299939b63b964a7677f07e37caf216c86bb318dd4fcff204684c.json",
+    "run/operations/490726544277849c92afa9773027d24e9ab6d73ac56720c1c71a8ea005da9682.json",
+    "run/operations/a59efcfd754ca6022646618eddc890678bd64b4d80d3a13e07e4f4de9db43c66.json",
+    "run/operations/ae00291bc8b78a65a830c11c6c2fb50d92c52bd46f0ddc417276c9e222673b2f.json",
+    "run/operations/0e66c16b87afb9b4a5cc5509100f68e68469a11c7f4e2d301303e35703c64124.json",
+    "run/operations/d64c91cb959d911d04e35bb92521dedf2a20b7d29d4d24d3c6e602d34da84095.json",
+    "run/operations/be8d1f588381bdea069674278546689865a37b60c8444688c00ad03b7ed5df6a.json",
+    "run/operations/981b4b864813279a69164fe2eb4e37e97b291ee73eb67bf8c6e317a293933f3a.json",
+    "run/operations/1370bf4cbe6850aed4b81b8b3e09e12382c0423e8aa6e5e4677e10e9eb18bbc6.json",
+    "run/operations/eb9c632de041167544b9f5aa817a3691066cf2b5a57ab80fa4104de73adb2939.json",
+    "run/operations/e734390b5361b75e55d3e96ad445e5f75b0911771fa70c6adaea821fa7c62c4e.json",
+    "run/operations/4240a50519d8ecf04a995a320741cac3d2089a1f804851361fff7e57f4b1481a.json",
+    "run/operations/7e7233b71c063e25ffc32ad932ab2c063c6944c2e070b73c4f47a99e209ebd7c.json",
+    "run/operations/28bd6eede17ceb26405c4355f71aa28f799f6d3ea92adfd818bfe7f733d8982d.json",
+    "run/operations/01dc936aab695a9f2737e5079f5728ca2d9dcbffcbfa19e034dd7f8141923114.json",
+    "run/operations/3ebf04c5d3e594099f063026a8a7c1f8f3b2956d08e8b5063b2a58fe1ade6000.json",
+    "run/operations/d3b511aef75cf61b513bff30a1adbd647f2169bdf8fe158105d7ca9524e33541.json",
+    "run/operations/d5e6023183799fe78635db7c4531a437e4161398cd4756e95ca6443e487ffab1.json",
+    "run/operations/4be230701876200bc2625a3a9bee1b1ecefed67578b9e5f728021d157d7c8ec7.json",
+    "run/operations/86b940997da78a9c378f2c4ea28e6d688bb13b5c07984a0a4cc4736381105008.json",
+    "run/operations/6c75036f1a96c9bc6bef2da7c49050d244362f4095e1f146abadcd5f0813f76e.json",
+    "run/operations/3f39b4790fbf4fb4d0efe17c692c247d769e9c5c3d4a3ef9950c00dbc8766c0b.json",
+    "run/operations/939778855496ba0c98ec6818b7cc7b6c3cb648998aa3c4dad298ae2f062d6e4d.json",
+    "run/operations/9a9fd992c3d4308cf59508ec1656288cd89626eee0712b0512fc9a3afc7e2255.json",
+    "run/operations/0512aa68e108e1b3997b1fd5e6c1260f17be7ac83d2b71c2282aaba588694f77.json",
+    "run/operations/eb8d8228e6032cf19663b2f2bd2ee5ff2e64baea7e63e6a34dbafb3d99cde31f.json",
+    "run/operations/cd1669cf7b74bfe662fc4857fcf267b9eb53cbd398674c4607d9de2d44e6572b.json",
+    "run/operations/3e2f00a3f059bf74116bae4c9fc3c9c0ccaa6a210ea7c0973036bf9188ca9858.json",
+    "run/operations/624ec0b52e9fb9bce1d43d07501b397c002c88816425a36dab8bcd0196699b2d.json",
+    "run/operations/1cd03d9d782f799a0b760000ac1e58a7ccbfd83ee2f83e243e29018c91da7167.json",
+    "run/operations/66eacbfcdd30da64f2eb8c819937b256c888e56cba0f201edd66b42f2d650277.json",
+    "run/operations/4c28a99535fcfdb00ffd3560f8efa3bb6d2c23d4a2cfcc68b6f1e7ac7bf1cd6d.json",
+    "run/operations/701905eb675f35ff458ed28177173b6c458fbda1457a32361025b1e2ba227753.json",
+    "run/operations/32dd8da9be9b50b488d8fae83ebaa65540f4cef529482942f51eb119d57e9a09.json",
+    "run/operations/38f5ef5208cbff7a384e88e417f9f44ba1520f1c4e3ff3e9ca9379d3bb19ee5a.json",
+    "run/operations/7fe557125d0546941a298faca65fcdd416054ef095d47a93460ea1bcc7193034.json",
+    "run/operations/38652e353570baa28b34ae712bb4c47c4fb1c8868a169686c8201f379a8e0358.json",
+    "run/operations/0f118cc3ba5172b66b565729ed385142eb95796580a0b6248f2ceb08470d9e2b.json",
+    "run/operations/d675d3b17e7252284786506fdb994ff0e951d93ca69fe15082a87576dc02ff8c.json",
+    "run/operations/66dfb5645aea2c73aa173db814e1882b4956fb904289a4fa0067a902d53cf4f1.json",
+    "run/operations/d71e234e71a9c9b87e95f2523d55335b1803362b55ead040dfba6c39b66dee2c.json",
+    "run/operations/58424e000e0fb7acbb9e6b8f2a381590873005351041dd02750ca5c7a3874cbb.json",
+    "run/operations/596b91d133a4e7dcf331918438ede0cff6713f830a0990dff22474fe34e755e0.json",
+    "run/operations/9a0dec3a6cc6771b0207a873f8bf421d1ca505c0da97214d15e5b651a13d1436.json",
+    "run/operations/9e9718bd9440512ae2010d982bc654408106f98b4635f3aeeaa8766b793e9cac.json",
+    "run/operations/2a4eaa2cb069a79a1699c6b0b7d8d5fd1c2d6ac8c59703772ef7d3e5ba67d1df.json",
+    "run/operations/282619181541db30d3ba404df1860815b6c07dff9810c14446d51f3a048bbae4.json",
+    "run/operations/22605cdb43ab477ba5f3f6d2b3d6d26926c59d26e17a247f0b23b182a1906664.json",
+    "run/operations/707828299cf6f312d8923ad05066cebe3157dbf6599f10026840141ba37f3a0a.json",
+    "run/operations/c04e274d9cc7ecac0b0a9f4b513dfa4343bc488cda79a4d7c5f4b4f6303983f5.json",
+    "run/operations/abf0b7f64d92c6ce3a31c425066d60b7e113228f6c24e2e920d1bf8f9ec75c27.json",
+    "run/operations/22f506943064b8820fc2305073f7cc166673305fdb0064e424b9138747fc29ae.json",
+    "run/operations/320d99fab8672896b0608db9a00d7eb8aaecd152e9176e6a521d4fc3062fb40c.json",
+    "run/operations/78e7e2e6664366b7d4a84aa3224eb810e1242dbce873fffd605f6d2b0e427041.json",
+    "run/operations/fce055020e19d2dcc031351eb06b1384b91f64a8521424e61e50ae55ea0ae4b8.json",
+    "run/operations/04e83ab729e1046b4450b871cb6068aecb1a5db5ece5e3b935f2891f27742fba.json",
+    "run/operations/30c2b27f3bcd92d432cb134d6c075b047ec426907e19db6a4c21eb3ce8c1a585.json",
+    "run/operations/9394c3ead01e3c5aa01391469ae93306f8ea23f2d1b34a19e1faef719ca1210d.json",
+    "run/operations/4d93daeb3e50430a264b2530d5ce3504c6dd16340df2cb14fed3f00c5d679f56.json",
+    "run/operations/2ebb4026bb29e6d24ff535ab28ea259cb7ea21f9c4c5af7fb737881ce82c0ff4.json",
+    "run/operations/b7db6f2fdfcc762e1417eeaeb0f9070d9476d5bf6fd57401c9e45eb849c1ee31.json",
+    "run/operations/751487ac70733ec10569c7893fd5f3f625057b5479c9185b493279c6622e937d.json",
+    "run/operations/9dc7e51c39d5399af69cd1e20e2f9f9cfd85e524cfb025aae3723118069d5153.json",
+    "run/operations/c46a879aad2a2ed3859e0c2097723e313f2d01a0fab555a435ade9e94118aea2.json",
+    "run/operations/dfc468dfab4872918addb4eba044df9271944262a34db38c5985def0b2d311f1.json",
+    "run/operations/2db03ac6a2ab51bb069255aa9f830c07de1a0613178ba9cfea0ddd4f37bf47f9.json",
+    "run/operations/1d8d615974a34179528882b861eccd7ba282cbc129a927915ac9e8b2f7fd623f.json",
+    "run/operations/39346be832f0cc192104351f4ff196962a27139c2593b16a4ba324a3b5346ab1.json",
+    "run/operations/86c2c2b75136205b1903ebc8d4eecdf5f802c260543b78431e6c6d242b5d8da9.json",
+    "run/operations/2c62500020710d6ff7edfbfc87ac110047f2b8b5336ea8ce9f7f6a5cc1525983.json",
+    "run/operations/1c3095fa5b4a0d8dd076ab089c85f9aff5dfb98ccd78929890c09839fbb16227.json",
+    "run/operations/01e0c46672d9e95e786adf43bd19059a4fb88ed0b0060ae2499724c6b0ec67c5.json",
+    "run/operations/8428b6d17010e8ede40e1d4eacb8af2b1d897ff6518c4ae3711fe89f8fda3182.json",
+    "run/operations/ffdda743f249a6f3b6fa2f5ccb8a12f8a3c9a16c9127b80d6034bcd2d3ba5bd8.json",
+    "run/operations/c0bd92a13702a5c3c51002a2873fea6fa7f891a97f0acd446800345959005a32.json",
+    "run/operations/7ce5fa764c4179c16e582a6216285a4f3f1c63013f77530a944321d032410427.json",
+    "run/operations/92d649310bdad28abf7786493188d072d316e50cec3899be7dfb9dcea4ef2f7a.json",
+    "run/operations/dd907bc19baee157bb504d5f6a4cb3421f83d35f040eb7a2681bac3a82fbb8d5.json",
+    "run/operations/36f5cded136b8bcdecf797d15fabc517ea7fe1f2d57cd86f65c9541d27b1a978.json",
+    "run/operations/9885e925c4eb89ef0ba978c64cbaea2aaa348da91666f71981124fe8513b4367.json",
+    "run/operations/ee219356c554e7da35e2dffbf2b82859179a801c8e87ce38cb45735c6e717a55.json",
+    "run/operations/de027e328d6d126286da94e72369cf338c9612d8a4ec39bec97883d7d425f5d1.json",
+    "run/operations/9033a132335ee0baaf97fd7b9fe8370f758b4c86bcb52ff9de8af2b6d2cebea7.json",
+    "run/operations/36caf11330c31780743bfb45ceef18a671f1eb04333d8221105269f820605629.json",
+    "run/operations/a96106377174e82080e1f138103dfdea2af42ef266193d510ecda9ec9aed6131.json",
+    "run/operations/1f54894ab8ea781d126133b654413522a57f72644babee31e947915a8f9bfcd1.json",
+    "run/operations/aa9f1e6d6757bc84b38a3b162de5f067a4fd3921aad3f55a6603ddde368439ff.json",
+    "run/operations/d3b29804b20300bc831f1eb7c3929cd537ab1189904215b3d695e2ba80d1759d.json",
+    "run/operations/bbfb5c3280a5ad9c91cd9c80a79823fa4998a8db314a40be465d9670f2217330.json",
+    "run/operations/eae4dddf4295f10a76c5c4d256e2f8072f2917fadd01d179829000764ac56685.json",
+    "run/operations/ead0c3c16d2356fcf99a084172ddaf30d9a823b55f0943570416f64024406d33.json",
+    "run/operations/bc37d2539545a7bf784ea63de28ada22f81c8a8d3bb59e2be1fd0b7269ca357d.json",
+    "run/operations/91c389a5c3021e75c5af2a728b24ede9fea7da5d42e72660f22a25a5da02f883.json",
+    "run/operations/8886a87180da073f77e3d254618ef8226bacd4ac438e94c819b74135364557b9.json",
+    "run/operations/fbe8c6a13ea0a608f44098e39f8663efcbad4402253057139ca742a21ba5f5c0.json",
+    "run/operations/238fc8cd524a8267d53e9945b91179d460679283e016d8ef81990f63b182f7bf.json",
+    "run/operations/f02da6d7e42815d7be375d7f41fb57b18ec198675652f8cc702e2ca18871376d.json",
+    "run/operations/0012f5626f022fc63c9de3e11dc45fa081e11670b9110b9bd648165ab5b90b14.json",
+    "run/operations/2eb3841c70ed200790193bdf76bee8bd84a5db7b0f27cdcdf2ce10fb61283082.json",
+    "run/operations/eaa8c0d54404c7b7048f0edd43e2a67eeff3f5498cb2e1a0a8e670d9969ae817.json",
+    "run/operations/ecc36239094f59d4729a640ff67a8043caa89e520e72c28f4364e2ce60d51354.json",
+    "run/operations/f6052a882b3f958e7384cc1ecc94fe1b754ca951a86ddfea9daabc576e1d9f90.json",
+    "run/operations/d1c9c36d34891f01b5dce67678ad35a50c8c419ece78fe5b28b64d58db9859b3.json",
+    "run/operations/21c057c28d9ac464ccbd463ed8ed5ac809dcd7462d4b54de140959c6a97d61f9.json",
+    "run/operations/d07836032e1938e1780c6b81bfa644b46c3f41e1315ca8e57a5eed72a97ff52c.json",
+    "run/operations/f7d32909cf552c046240f694137f9544cf50b67ca923d144425c5d6edcbe2d5e.json",
+    "run/operations/2fd43e8eb5c134d0a5f9b8eb0db9cec9dca2339c695af56010e2c66cffc2a8f8.json",
+    "run/operations/ce3d9b02dbdcba678c3b23bfca91a75664ee0b955b517052beddf3f573e9d59a.json",
+    "run/operations/c7f06af8acb02a3d3352585860f1e1870c8f622760e79cfd14f62c6575c4573c.json",
+    "run/operations/24a844d4692ac31123d91060e1a127cf7a47a2e45f4771e199918fff3ffc6de8.json",
+    "run/operations/f9cecdf73fe2cecd82db5c7aae5f0b103b10faaa347f68e8af51f33d4b34005c.json",
+    "run/operations/358ef0f98897477f829ab3d15ec4a116ad88783a070b32b94277642a1f915e10.json",
+    "run/operations/7ac74d2bf88d485dfed1250d9e67fc260d3da7cc90dfe0d798cb89f136da3a48.json",
+    "run/operations/6411ead8ee2f0fa78835ab0949a5f3aebe0a5eae12f496803749846e88d311a2.json",
+    "run/operations/b852bee85066fe24ff524d03ee36152ca4999fd663bd7d32bc2f712ac5735d14.json",
+    "run/operations/97bd234c3d30db8f0944deec4892bc502160088aeb9a306a528b28d3ec83cefb.json",
+    "run/operations/3744112b0a0a09af83bda58f6a91a6993c51e7d270f474aa6149933fe0a96faf.json",
+    "run/operations/20377f96f8088e5770c13b39c144a3746b1deac725a7f4fdca8a2aed3626d243.json",
+    "run/operations/e9edc5f99c5290ff672c7561bd9a990f3a6cd6e51119f2188ba12b9efae8dfe1.json",
+    "run/operations/8d9a767c45011cb13c1585735e810790fe7ee210c655504af16bc5abacb704d7.json",
+    "run/operations/5ee463aed332a79f553acebe103a1ae20696d52ab30faaba18eaafebbbde9bff.json",
+    "run/operations/c246a447ac79cbb20f5fcf06adcae49e63a3691127d04c59dc57d9dcfee52d33.json",
+    "run/operations/e59ee5504443325b43a687bbb9cb3112104bb07dbffc61c78701718b4ac3bcf7.json",
+    "run/operations/c903a34af1312553542dc51b788453b36c1def2d5516db859b429eeed562744d.json",
+    "run/operations/e97302c1090a4a88d0cd61954e11627e5e1b66969b42a8e5d58137f8a2bdb555.json",
+    "run/operations/6d41c76657635f4ce7a8d84225ec7c56048fada35682ecd14a732630a00187f9.json",
+    "run/operations/b0aaec919baf2a3ee51c4ff89866b50ea651d7a96e5ad5d42444342a1831b3a8.json",
+    "run/operations/f1677881ed42edf5e6b93e588027c21645ec84c95a428452f3253b5ae6874a1e.json",
+    "run/operations/daff53232ee23ab34995ee9faf70733ada0d6f28071f2276d9f2121c44b48066.json",
+    "run/operations/9bb7ae6ba4777e58fc3cdf2e8ab5b17a98b71783e77683ee9e7a911be4567031.json",
+    "run/operations/1ccbd0b82136f91a2eb12c3efa3824790572e03455264b39f333b94c984e02b0.json",
+    "run/operations/05306fa5ad9c8100af7f6bc83ff141a9439f8c68763ca8c9018f809b9c72e93c.json",
+    "run/operations/6df031fb37294b6a0ec4108f765fc56e9432b14a88b938a88e52b3dcc9d9cde8.json",
+    "run/operations/856bd2dcff7440117437109adc846acea8404ecc45df58eef0cb07efa278acc1.json",
+    "run/operations/7f7457bde6126adb5cbc0a96aced70e786f45ec077a67bd8aff5207aadf1a420.json",
+    "run/operations/011e43bda66fb77b99a287534e0b515ab21b2e215cd1e7b45a75abefe88bc99f.json",
+    "run/operations/35ce8e0053082de7faf36530ee270b9719222aa48e22f6af22706b20274c6087.json",
+    "run/operations/a8909d6a15556b0f8b30cf82e7af544bcb6c71f7a0bd129392deb91409640e66.json",
+    "run/operations/0bd91891a7b7fe52b9a41c2dcb78185dc2181b33a2a180f3f999ff2db1018223.json",
+    "run/operations/929979cfb5abddfca4680319f4b6b93c26062c964b1b4b5e9fb0858a8bbc6561.json",
+    "run/operations/acf792a0f4a3d81f416da815d84b4136b24331d3d0a471bee90559b3e87e5f1b.json",
+    "run/operations/936fde256dcd941bf9270e0bdf6d2f311ec7f40f24c7732588092ff045bcd57c.json",
+    "run/operations/3f0d63f46db3f6e7383b81c54b0be5a1cc41974cd09dfd120bc7d85a380a1216.json",
+    "run/operations/96a489ec855b4b80dafa5b4cd6295ef62e8df3084f5adf453ddf62ea17953a5a.json",
+    "run/operations/2c5d895365469911a4640213fcad07488b4765247085f8c8360b23ff034d9548.json",
+    "run/operations/a80f5d827af3c1f13a5127bea45241d0bc7877c9b52a71c4ca7b8d8d60c5f695.json",
+    "run/operations/e3b59dea6468549ca7601c6a2afe5b3f4a2a182149acba5fdb282326bda830b7.json",
+    "run/operations/ad7789341e05ca9419a0c3e5f1e8662854833fd1de010c04a3664fac7a0f5c50.json",
+    "run/operations/deca8c4d595bfe0690779ca83845ab241da15a270f497cec7401273e0ba6f9d6.json"
+  ],
+  "warnings": [
+    "Snapshot is not atomic across files; observer counters are supplementary, never replacements for copied receipts."
+  ]
+}

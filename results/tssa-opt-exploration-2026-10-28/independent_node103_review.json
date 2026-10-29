@@ -1,0 +1,200 @@
+{
+  "at_utc": "2026-10-28T06:56:26.899033+00:00",
+  "source": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/prepare_node103_offline.py",
+  "source_sha256": "5d8dce5b3bdb0d7d8497ed5beabe7fe47bc109c7bcd1f71127af6f74f3c54467",
+  "checks": [
+    {
+      "name": "fixed_target103_and_source104_roots",
+      "passed": true
+    },
+    {
+      "name": "pinned_47_model_inventory",
+      "passed": true
+    },
+    {
+      "name": "pinned_51_wheel_inventory",
+      "passed": true
+    },
+    {
+      "name": "pinned_local_python_archive",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'/tmp/out'",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'../out'",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'models/../../out'",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'models//out'",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'models/./out'",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'models\\\\out'",
+      "passed": true
+    },
+    {
+      "name": "relative_path_reject_'models/\\nsecret'",
+      "passed": true
+    },
+    {
+      "name": "safe_relative_normal_path",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_absolute",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_dotdot",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_non_python_root",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_hardlink",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_fifo",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_duplicate",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_outward_symlink",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_absolute_symlink",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_symlink_descendant",
+      "passed": true
+    },
+    {
+      "name": "archive_reject_extraction_over_budget",
+      "passed": true
+    },
+    {
+      "name": "actual_pinned_archive_safe",
+      "passed": true
+    },
+    {
+      "name": "remote_prep_syntax_python38_compatible",
+      "passed": true
+    },
+    {
+      "name": "original_installer_byte_identical_and_only_root_adapter",
+      "passed": true
+    },
+    {
+      "name": "CPU_installation_inhibits_CUDA_and_network",
+      "passed": true
+    },
+    {
+      "name": "incomplete_installations_do_not_blindly_retry",
+      "passed": true
+    },
+    {
+      "name": "existing_and_open_partial_hardlink_guards_reject",
+      "passed": true
+    },
+    {
+      "name": "hardlink_guard_checks_preserve_old_bytes",
+      "passed": true
+    },
+    {
+      "name": "state_temp_files_are_random_exclusive",
+      "passed": true
+    },
+    {
+      "name": "install_env_accepts_exact_completed_private_python_identity",
+      "passed": true
+    },
+    {
+      "name": "install_env_rejects_incomplete_python_installation",
+      "passed": true
+    },
+    {
+      "name": "install_env_rejects_base_executable_hash_drift",
+      "passed": true
+    },
+    {
+      "name": "install_env_rejects_unrelated_existing_venv",
+      "passed": true
+    },
+    {
+      "name": "matched_source_partial_prefix",
+      "passed": true
+    },
+    {
+      "name": "different_prefix_rejected",
+      "passed": true
+    },
+    {
+      "name": "oversized_partial_rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong_full_source_SHA_rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong_full_source_size_rejected",
+      "passed": true
+    },
+    {
+      "name": "unregistered_SSH_alias_rejected",
+      "passed": true
+    },
+    {
+      "name": "strict_SSH_no_retry_or_agent_keys_exposed",
+      "passed": true
+    },
+    {
+      "name": "relay_success_fixed_hosts_offsets_and_deadlines",
+      "passed": true
+    },
+    {
+      "name": "model_bytes_use_OS_pipe_without_local_model_file",
+      "passed": true
+    },
+    {
+      "name": "relay_failure_propagates_no_retry",
+      "passed": true
+    },
+    {
+      "name": "relay_failure_terminates_only_owned_local_children",
+      "passed": true
+    },
+    {
+      "name": "verified_existing_target_never_overwritten_or_retransferred",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "failure_names": [],
+  "source_still_current": true,
+  "actual_SSH_calls": 0,
+  "actual_GPU_calls": 0,
+  "actual_installs": 0,
+  "models_downloaded": 0,
+  "scientific_images": 0,
+  "evidence_limit": "Static review and bounded local mocks only; server compatibility and CUDA must be separately validated."
+}

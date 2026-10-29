@@ -1,8 +1,52 @@
 # 脚本索引
 
-这里收纳 23 个既有脚本，按复现、合并研究、连接三个用途分组；本次整理仅移动文件并保留旧路径兼容链接，脚本内容未改。
+更新于2026-10-29，**实验已暂停**；下列执行器用于理解和复核已经结束的工作，不是现在要运行的操作建议。当前仅整理资料和回传既有证据，旧`gpu`定时任务保持删除，完整结论见[尝试总结](../research/tssa_attempts_summary_2026-10-29.md)。
 
-这些历史脚本不等于当前 v2-gradient 方法的实现，当前设计以[梯度校准方案](../research/tssa_response_calibration_method_proposal.md)为准；研究状态见[合并研究进度](../research/merging_attack_progress.md)。
+## 三轮实验入口
+
+| 已结束的尝试 | 实现入口 | 协议、结果与边界 |
+|---|---|---|
+| 梯度校准初步验证 | [tssa_mvp_run.py](merging/tssa_mvp_run.py) | [冻结协议](../research/tssa_mvp_2026-10-26.json) · [最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md)；1520图、144次更新，未找到合格攻击增益。 |
+| 直接按图像攻击成功率搜索 | [tssa_image_search_run.py](merging/tssa_image_search_run.py) | [独立冻结协议](../research/tssa_optimization_exploration_2026-10-28.json) · [负结果](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md)；816图、0更新，未打开确认集，原严格审计仍为invalid。 |
+| 同状态目标语义诊断 | [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | [方案](../research/tssa_target_semantic_diagnostic_proposal_2026-10-28.md) · [诊断报告](../results/tssa-target-semantic-diagnostic-2026-10-28/target_semantic_diagnostic_report_2026-10-29.md)；462次分支前向、0图/0更新，梯度一致性及局部可行性未通过。 |
+
+当前源代码可能含后续修复，不能自动视为旧运行使用的版本；复核时以各运行清单、冻结快照与文件哈希为准，资料位置见[结果索引](../results/README.md)。
+
+## 梯度校准与评价组件
+
+| 脚本 | 用途与验证边界 |
+|---|---|
+| [tssa_gradient_core.py](merging/tssa_gradient_core.py) | 固定差分分组、后门及正常损失、两标量更新与投影。 |
+| [tssa_sd_runtime.py](merging/tssa_sd_runtime.py) | 离线模型加载、真实去噪响应、合法DDIM轨迹缓存与梯度路径；单卡完整模型及CUDA已在MVP中使用。 |
+| [tssa_mvp_evaluate.py](merging/tssa_mvp_evaluate.py) | 逐图记录完整性、源门禁、开发选择、独立持出与正常能力约束。 |
+| [tssa_mvp_score.py](merging/tssa_mvp_score.py) | 离线ViT/CLIP图像评分，读取已保存PNG像素；评分通过不等于方法有效。 |
+| [tssa_mvp_run.py](merging/tssa_mvp_run.py) | 单卡阶段执行、逐图/逐步回执、候选冻结和终态报告；本轮单卡已结束，不恢复旧身份。 |
+| [tssa_mvp_dual_run.py](merging/tssa_mvp_dual_run.py) | 同机双进程实现，固定每卡72次更新；仅有CPU编排与状态迁移证据，不能当作已验证的跨服务器分工入口。 |
+| [tssa_image_search_run.py](merging/tssa_image_search_run.py) | 预登记系数点的图像搜索、独立开发选择和确认门禁；不允许临时增加点或复用已结束预算。 |
+
+## 目标语义诊断组件
+
+| 脚本 | 用途 |
+|---|---|
+| [tssa_target_semantic_cache.py](merging/tssa_target_semantic_cache.py) | 从旧运行的已验证缓存派生限定状态并保留来源，不生成新轨迹。 |
+| [tssa_target_semantic_runtime.py](merging/tssa_target_semantic_runtime.py) | 完整模型目标/正常响应、真实a/b梯度、固定批布局与精度设置。 |
+| [tssa_target_semantic_gates.py](merging/tssa_target_semantic_gates.py) | 冻结诊断单元、资源预算、身份/重复/目标方向、有限差分与八点可行性门禁。 |
+| [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | CPU预检、唯一运行身份、逐单元账本、资源保护及终态退出；已结束运行不可重放。 |
+
+## CPU检查与结果复核
+
+| 检查入口 | 检查范围 |
+|---|---|
+| [test_tssa_gradient_core.py](merging/test_tssa_gradient_core.py) | 数学定义、固定分组、标量梯度、更新及投影。 |
+| [test_tssa_sd_runtime_integration.py](merging/test_tssa_sd_runtime_integration.py) | 微型CLIP/UNet的真实库梯度与DDIM集成，不替代完整模型CUDA结果。 |
+| [test_tssa_mvp_run.py](merging/test_tssa_mvp_run.py) · [双卡检查](merging/test_tssa_mvp_dual_run.py) | 阶段编排、预算、中断恢复、优化器与随机状态迁移。 |
+| [test_tssa_mvp_evaluate.py](merging/test_tssa_mvp_evaluate.py) · [评分检查](merging/test_tssa_mvp_score.py) | 逐图指标、选择规则及离线图像评分。 |
+| [test_tssa_image_search_run.py](merging/test_tssa_image_search_run.py) · [资源快照检查](merging/test_tssa_resource_snapshot.py) | 搜索/确认预算和资源计数字典快照，修复不改写旧审计结果。 |
+| [目标语义运行检查](merging/test_tssa_target_semantic_run.py) · [运行库检查](merging/test_tssa_target_semantic_runtime.py) · [门禁检查](merging/test_tssa_target_semantic_gates.py) | 权限/资源保护、缓存来源、真实微型梯度、诊断枚举及停止规则。 |
+| [训练轨迹独立审计](../results/tssa-mvp-2026-10-26/audit_training_trace_2026-10-28.py) · [持出独立审计](../results/tssa-mvp-2026-10-26/audit_final_heldout_20261028T0602Z.py) | 从已返回记录复算优化器、候选及评价，不运行研究样本。 |
+| [图像搜索结果审计](../results/tssa-opt-exploration-2026-10-28/audit_image_search_results.py) · [诊断原始产物审计](../results/tssa-target-semantic-diagnostic-2026-10-28/audit_diagnostic_artifacts.py) | 核对逐图/逐单元证据及哈希；科学门禁失败和证据完整性分开报告。 |
+
+检查数量与通过状态属于具体版本及运行日期，详见各轮结果目录；不要用早期“完整模型/离线环境/GPU尚未验证”的准备记录覆盖后来完成的证据。
 
 ## 基准复现与历史维护
 
@@ -37,17 +81,33 @@
 | [run_tssa_res_test.sh](merging/run_tssa_res_test.sh) | 原 TSSA 未选中差分组的残余缩放实验。 |
 | [run_tssa_multi_attack.sh](merging/run_tssa_multi_attack.sh) | 将 UNet 差分增强应用于多种已有攻击的历史比较。 |
 
-## 连接辅助
+## 连接、离线部署与资料回传
 
-| 脚本 | 用途 |
+| 工具 | 用途与执行边界 |
 |---|---|
-| [start_amax.sh](connection/start_amax.sh) | Shell 版历史 AMAX 隧道与交互连接辅助。 |
-| [start_amax - ip.bat](<connection/start_amax - ip.bat>) | Windows 的历史 AMAX 隧道与交互连接辅助。 |
+| [archive_school_research.py](connection/archive_school_research.py) | 只读盘点和回传学校服务器既有科研资料，按文件清单核对大小与哈希；不下载新模型或启动实验。 |
+| [probe_school_gpu.py](connection/probe_school_gpu.py) | 有界只读检查已配置学校节点的连接、GPU身份及进程；暂停期间不做定期探针。 |
+| [start_school.sh](../server/start_school.sh) · [school_ssh_config](../server/school_ssh_config) | 学校跳板与节点连接、动态DNS回退及主机密钥检查。 |
+| [stage_school_assets.py](../server/stage_school_assets.py) | 固定公开revision逐文件下载、中转上传及远端哈希核验，不选择GPU；当前不启动新资产下载。 |
+| [install_school_offline_env.py](../server/install_school_offline_env.py) | 验证冻结Linux依赖后安装本人数据盘环境；104和103各轮实际环境证据见运行记录。 |
+| [中转检查](../server/test_stage_school_assets.py) · [分块检查](../server/test_stage_school_chunk_upload.py) · [安装器检查](../server/test_install_school_offline_env.py) | 本机CPU检查传输恢复、文件完整性、路径限制和离线安装，不证明实时连接可用。 |
+| [start_amax.sh](connection/start_amax.sh) | macOS AMAX隧道与交互连接，包含DNS回退和网页就绪检查；当前端口以用户最新提供为准。 |
+| [start_amax - ip.bat](<connection/start_amax - ip.bat>) | Windows历史AMAX连接辅助，未经本轮运行核验。 |
 
-连接脚本仍使用其原有环境与密钥路径配置，本次没有执行连接；动态端口说明见项目 [AGENTS.md](../AGENTS.md)。
+AMAX启动器默认转发网页到`http://127.0.0.1:8080`、HTTPS到`8443`，保留DNS回退与主机密钥校验；该连接信息仅为工具说明，不是暂停期间启动服务的要求。学校连接及远端路径见[服务器资料索引](../server/README.md)，实际许可与实验状态以[AGENTS.md](../AGENTS.md)为准。
+
+## 本地存储与服务器索引
+
+当前大文件传输及实验暂停，[build_server_index.py](storage/build_server_index.py)只读本地保存的盘点并生成[服务器索引](../storage/SERVER_INDEX.md)，不连接服务器；[research_archive.py](storage/research_archive.py)核验本地ZIP及逐文件清单，并恢复到指定目录。
+
+[restore_from_catalog.py](storage/restore_from_catalog.py)提供清单浏览和已完成云端往返包的批量恢复，当前仅核心历史快照符合该条件；[prepare_research_backup.py](storage/prepare_research_backup.py)只负责限定科研目录内的本地打包，不代表已上传，也不应在暂停期间盲目重建相同快照。
+
+[fetch_server_file.py](storage/fetch_server_file.py)在新电脑按103/104文件索引取回单个已知哈希文件，默认仅展示计划，显式`--download`才只读连接并验哈希；缺SHA的历史条目不假装可验收下载，详见[换机步骤](../storage/NEW_COMPUTER.md)。
 
 ## 路径与部署说明
 
-旧根目录脚本和旧 `server/<文件>` 均以文件级相对符号链接指向这里的真实文件，原有本地引用仍可访问；远端脚本仍沿用 `/opt/data/private/server/` 与 `/opt/data/private/BackdoorDM/server/` 两套位置。
+旧根目录脚本与`server/`内20个历史脚本以相对符号链接指向`scripts/`，但`server/`同时保存学校连接、离线部署、测试和状态等真实文件，不能把整个目录视为兼容链接。远端历史部署仍涉及`/opt/data/private/server/`与`/opt/data/private/BackdoorDM/server/`，本次本地整理未迁移远端内容。
 
-本地分类没有迁移远端部署，部分脚本仍显式引用上述远端目录；未来上传需要包含真实源文件或完整目标目录，单独打包旧 `server/` 符号链接可能遗漏其目标文件。
+打包或核对历史部署时应保留真实源文件、协议及哈希，单独打包符号链接可能遗漏目标；执行记录、回传工具和一次性审计脚本保留在对应`results/`目录，避免改动已经冻结的证据路径。
+
+[项目总索引](../README.md) · [研究目录](../research/README.md) · [结果索引](../results/README.md)

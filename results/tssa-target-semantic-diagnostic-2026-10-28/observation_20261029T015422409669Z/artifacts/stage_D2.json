@@ -1,0 +1,470 @@
+{
+  "gate": {
+    "can_continue": true,
+    "complete": false,
+    "failures": [],
+    "full_budget": {
+      "autograd_calls": 14,
+      "forward_branch_nfe": 462,
+      "te_backward_calls": 14,
+      "te_batch_calls": 96,
+      "unet_backward_branch_visits": 44
+    },
+    "next_stage": "D2r",
+    "resource_totals": {
+      "autograd_calls": 14,
+      "forward_branch_nfe": 120,
+      "te_backward_calls": 14,
+      "te_batch_calls": 24,
+      "unet_backward_branch_visits": 44
+    },
+    "runtime_identity_GPU_and_wall_time_verified": false,
+    "schema_version": 1,
+    "scientific_effectiveness_established": false,
+    "stages": [
+      {
+        "failures": [],
+        "metrics": {},
+        "passed": true,
+        "stage": "D0"
+      },
+      {
+        "failures": [],
+        "metrics": {
+          "identity_checks": [
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001015260705947876,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.0010305621719360351,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.0010131262636184693,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.000998697648048401,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010062833523750306,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.001004156301021576,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0009815453386306764,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.000984588930606842,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0009937385416030884,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009669980502128602,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009817594981193542,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p00_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001101918706893921,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001046875367164612,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.08",
+              "limit": 0.001043873438835144,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010585070943832397,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010175793266296387,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.25",
+              "limit": 0.0010210737085342408,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.001009877989292145,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0009858455157279967,
+              "response": "triggered",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "Edev_0.50",
+              "limit": 0.0010006015992164612,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009651180005073547,
+              "response": "normal",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            },
+            {
+              "condition_id": "upload",
+              "limit": 0.0009774164652824402,
+              "response": "extra",
+              "rms_error": 0.0,
+              "unit_id": "fit_unit_p04_s13"
+            }
+          ]
+        },
+        "passed": true,
+        "stage": "D1"
+      },
+      {
+        "failures": [],
+        "metrics": {},
+        "passed": true,
+        "stage": "D2"
+      }
+    ],
+    "status": "prefix_pass",
+    "through_stage": "D2"
+  },
+  "records": [
+    {
+      "condition_id": "Edev_0.08",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": [
+          -0.0033430405892431736,
+          -0.0038262708112597466
+        ],
+        "normal": [
+          1.534468901809305e-05,
+          0.00029419991187751293
+        ]
+      },
+      "losses": {
+        "attack": 0.15216130018234253,
+        "normal": 0.00018939578149002045
+      },
+      "output_rms": {
+        "extra": 1.002663254737854,
+        "normal": 1.004181146621704,
+        "triggered": 1.0249300003051758
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 2,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 2,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 6
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "Edev_0.25",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": [
+          0.008973360992968082,
+          0.017766909673810005
+        ],
+        "normal": [
+          3.6897690733894706e-05,
+          0.0007917400216683745
+        ]
+      },
+      "losses": {
+        "attack": 0.054912813007831573,
+        "normal": 0.0007176053477451205
+      },
+      "output_rms": {
+        "extra": 0.9930970668792725,
+        "normal": 0.9874169826507568,
+        "triggered": 1.031788945198059
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 2,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 2,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 6
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "Edev_0.50",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": [
+          -0.005483116488903761,
+          -0.007934844121336937
+        ],
+        "normal": [
+          4.848232492804527e-05,
+          0.0008660234743729234
+        ]
+      },
+      "losses": {
+        "attack": 0.028225421905517578,
+        "normal": 0.001018004142679274
+      },
+      "output_rms": {
+        "extra": 0.9834666848182678,
+        "normal": 0.9721601009368896,
+        "triggered": 1.0090748071670532
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 2,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 2,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 6
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "upload",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": null,
+        "normal": [
+          -2.645548192958813e-05,
+          0.0006397826946340501
+        ]
+      },
+      "losses": {
+        "attack": null,
+        "normal": 0.0016303460579365492
+      },
+      "output_rms": {
+        "extra": 0.9707710146903992,
+        "normal": 0.9599228501319885
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 1,
+        "forward_branch_nfe": 4,
+        "te_backward_calls": 1,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 4
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p00_s13"
+    },
+    {
+      "condition_id": "Edev_0.08",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": [
+          -0.021560098975896835,
+          -0.03429963067173958
+        ],
+        "normal": [
+          -1.0570465747150593e-05,
+          0.0005392180755734444
+        ]
+      },
+      "losses": {
+        "attack": 0.15840137004852295,
+        "normal": 0.00031397631391882896
+      },
+      "output_rms": {
+        "extra": 1.0336401462554932,
+        "normal": 1.09210205078125,
+        "triggered": 1.0144271850585938
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 2,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 2,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 6
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p04_s13"
+    },
+    {
+      "condition_id": "Edev_0.25",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": [
+          0.0035107259172946215,
+          0.004100048448890448
+        ],
+        "normal": [
+          -6.877601117594168e-05,
+          0.0018771165050566196
+        ]
+      },
+      "losses": {
+        "attack": 0.043050169944763184,
+        "normal": 0.0014964188449084759
+      },
+      "output_rms": {
+        "extra": 1.011513113975525,
+        "normal": 1.045771598815918,
+        "triggered": 0.997928261756897
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 2,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 2,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 6
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p04_s13"
+    },
+    {
+      "condition_id": "Edev_0.50",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": [
+          0.005419287830591202,
+          0.004867556970566511
+        ],
+        "normal": [
+          -7.445986557286233e-05,
+          0.0015186276286840439
+        ]
+      },
+      "losses": {
+        "attack": 0.0299583300948143,
+        "normal": 0.0020603062584996223
+      },
+      "output_rms": {
+        "extra": 0.9935951232910156,
+        "normal": 0.9982135891914368,
+        "triggered": 0.9800917506217957
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 2,
+        "forward_branch_nfe": 5,
+        "te_backward_calls": 2,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 6
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p04_s13"
+    },
+    {
+      "condition_id": "upload",
+      "errors_vs_teacher": null,
+      "gradients": {
+        "attack": null,
+        "normal": [
+          -6.690203736070544e-05,
+          0.0013595039490610361
+        ]
+      },
+      "losses": {
+        "attack": null,
+        "normal": 0.0029647876508533955
+      },
+      "output_rms": {
+        "extra": 0.9736341238021851,
+        "normal": 0.9576755166053772
+      },
+      "point_id": "naive",
+      "resource_delta": {
+        "autograd_calls": 1,
+        "forward_branch_nfe": 4,
+        "te_backward_calls": 1,
+        "te_batch_calls": 1,
+        "unet_backward_branch_visits": 4
+      },
+      "signal_rms": null,
+      "stage": "D2",
+      "unit_id": "fit_unit_p04_s13"
+    }
+  ]
+}

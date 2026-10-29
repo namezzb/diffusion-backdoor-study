@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-29T01:44:15.348283+00:00",
+  "cell": {
+    "coefficients": null,
+    "condition_id": "upload",
+    "point_id": "teacher",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 4,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "stage": "D0",
+    "unit_id": "fit_unit_p00_s13"
+  },
+  "event": {
+    "coefficients": null,
+    "condition_id": "upload",
+    "cost": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 1,
+      "te_backward_calls": 0,
+      "te_batch_calls": 0,
+      "unet_backward_branch_visits": 0
+    },
+    "gradients": false,
+    "kind": "teacher",
+    "operation": "unet_extra",
+    "unit_id": "fit_unit_p00_s13"
+  },
+  "reserved_cell": {
+    "autograd_calls": 0,
+    "forward_branch_nfe": 4,
+    "te_backward_calls": 0,
+    "te_batch_calls": 1,
+    "unet_backward_branch_visits": 0
+  },
+  "reserved_total": {
+    "autograd_calls": 0,
+    "forward_branch_nfe": 22,
+    "te_backward_calls": 0,
+    "te_batch_calls": 4,
+    "unet_backward_branch_visits": 0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "manual_authenticated_UI",
+  "portal_url": "https://gpu.orz2333.fun/",
+  "account": "zhangzibo",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "server": "103",
+  "observed_views": [
+    "我的概况",
+    "服务器状态",
+    "GPU 排队"
+  ],
+  "observed_at": "2026-10-28T08:58:48.298615+00:00",
+  "sample_at": null,
+  "sample_time_basis": "live_UI_without_timestamp",
+  "live_indicator": true,
+  "historical_sample": false,
+  "evidence_note": "Authenticated three views after full reload: account zhangzibo normal registered 0/4, no running tasks or remediation; 103 Public online three GPUs each idle, live temperatures and no historical/disabled labels; queue #56 waiting104 one GPU second, no 103 queue/allocation, no maintenance. Target GPU0 UUID from 08:48:43 SSH sample; remote launcher must freshly validate exact root Xorg argv and all compute tasks. Queue rules match same resources and do not reserve103 to104 waiters. Rechecked all three views after permissions repair; 103 GPUs0/1/2 still live idle, account0/4 normal, queue56 still waiting104 only, no maintenance; first launch refusal audited as pre-spawn with no remote claim/run/process.",
+  "account_status": "normal",
+  "gpu_index": 0,
+  "gpu_uuid": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+  "gpu_disabled": false,
+  "sample_valid": true,
+  "server_maintenance": false,
+  "reservation_conflict": false,
+  "other_research_task": false,
+  "own_gpu_count_all_servers": 0,
+  "pending_allocated_gpu_count_all_servers": 0,
+  "effective_gpu_quota": 4,
+  "permission_kind": "direct",
+  "direct_use_allowed": true
+}

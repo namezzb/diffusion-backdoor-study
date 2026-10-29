@@ -1,0 +1,54 @@
+{
+  "recorded_at": "2026-10-28T06:55:11.338247+00:00",
+  "source": "Chrome visible UI at https://gpu.orz2333.fun/; read during 14:48-14:51 Asia/Shanghai",
+  "account": {
+    "owned_cards": 0,
+    "quota": 4,
+    "status": "normal",
+    "remediation": false
+  },
+  "queue": {
+    "id": 56,
+    "server": "104",
+    "count": 1,
+    "status": "waiting",
+    "position_for_104": 2,
+    "effective_allocation_shown": false,
+    "103_requests_or_reservations_shown": false,
+    "changed": false
+  },
+  "servers": {
+    "103": {
+      "listed": true,
+      "online": true,
+      "gpus": [
+        0,
+        1,
+        2
+      ],
+      "shown": "idle, not disabled, temperatures 34/35/35 without historical marker"
+    },
+    "104": {
+      "listed": true,
+      "online": true,
+      "gpus": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "shown": "all occupied at latest refreshed view; GPU3 now wanghan,57C, no historical marker"
+    }
+  },
+  "rules": {
+    "quota": 4,
+    "direct_empty_usage": "view empty cards or use GPU queue; queue is not universally required",
+    "queue_priority": "newly freed applicable queued cards reserved after 3 minutes; inspect actual target conflicts",
+    "do_not_use_disabled": true,
+    "do_not_share_without_agreement": true
+  },
+  "authorization_for_future_launch": false,
+  "reason": "Preparation observation only; recheck live portal and exact UUID/processes immediately before launch",
+  "GPU_started": false
+}

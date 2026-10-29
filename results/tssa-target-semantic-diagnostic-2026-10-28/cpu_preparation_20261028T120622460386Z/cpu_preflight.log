@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_run.py", line 415, in <module>
+    main()
+  File "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_run.py", line 366, in main
+    _, _, report = cpu_prepare(args.old_protocol, args.asset_manifest, args.models_root, args.cache_root)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_run.py", line 97, in cpu_prepare
+    assets = load_semantic_cpu_assets(protocol_path, asset_path, models_root)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_runtime.py", line 130, in load_semantic_cpu_assets
+    hashes = _verify_semantic_files(spec, root)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_runtime.py", line 81, in _verify_semantic_files
+    _require(directory.is_dir() and {p.name for p in directory.iterdir()} == expected,
+  File "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T120622460386Z/scripts/merging/tssa_target_semantic_runtime.py", line 55, in _require
+    raise ValueError(message)
+ValueError: Component directory has missing or unverified files: /data2/zhangzibo/arxiv-tssa/models/sd15/unet

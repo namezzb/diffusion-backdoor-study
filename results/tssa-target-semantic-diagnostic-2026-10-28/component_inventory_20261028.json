@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "stdout": "{\"sd15/unet\": [\"config.json\", \"diffusion_pytorch_model.safetensors\", \"diffusion_pytorch_model.safetensors.uploading.chunk-pvk2dyci\"], \"sd15/text_encoder\": [\"config.json\", \"model.safetensors\"], \"sd15/tokenizer\": [\"merges.txt\", \"special_tokens_map.json\", \"tokenizer_config.json\", \"vocab.json\"], \"sd15/scheduler\": [\"scheduler_config.json\"], \"dreamshaper8/unet\": [\"config.json\", \"diffusion_pytorch_model.safetensors\", \"diffusion_pytorch_model.safetensors.uploading.chunk-q0b0u62q\"], \"dreamshaper8/text_encoder\": [\"config.json\", \"model.safetensors\"], \"dreamshaper8/tokenizer\": [\"merges.txt\", \"special_tokens_map.json\", \"tokenizer_config.json\", \"vocab.json\"], \"backdoor_tpa\": [\"config.json\", \"model.safetensors\"]}\n",
+  "stderr": ""
+}

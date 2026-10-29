@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-28T08:08:27.724490+00:00",
+  "routes": [
+    {
+      "host": "school103",
+      "returncode": 0,
+      "stdout": "192.168.1.104 dev eno1 src 192.168.1.103 uid 24112 \n    cache \n",
+      "stderr": ""
+    },
+    {
+      "host": "school104",
+      "returncode": 0,
+      "stdout": "192.168.1.103 dev enp34s0f0 src 192.168.1.104 uid 24112 \n    cache \n",
+      "stderr": ""
+    }
+  ],
+  "network_packets_or_listener_created": false
+}

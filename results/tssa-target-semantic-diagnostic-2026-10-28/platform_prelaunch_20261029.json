@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-29T01:42:29.299057+00:00",
+  "source": "Logged-in Chrome GPU platform current visible UI",
+  "url": "https://gpu.orz2333.fun/",
+  "account": "zhangzibo",
+  "quota": 4,
+  "current_cross_server_count": 0,
+  "account_status": "normal",
+  "server": "103",
+  "card": 2,
+  "card_state": "free",
+  "disabled": false,
+  "historical_sample": false,
+  "temperature_C": 36,
+  "active_users_on_other_cards": [
+    "xiaoyang"
+  ],
+  "queue_waiting": [
+    {
+      "id": 38,
+      "server": "100"
+    },
+    {
+      "id": 39,
+      "server": "100"
+    },
+    {
+      "id": 40,
+      "server": "iipl-121"
+    },
+    {
+      "id": 53,
+      "server": "104"
+    },
+    {
+      "id": 54,
+      "server": "100"
+    },
+    {
+      "id": 56,
+      "server": "104",
+      "ours": true
+    }
+  ],
+  "no_103_queue_or_reservation_shown": true,
+  "maintenance_records": 0,
+  "direct_use_rule": "Read current rules section 4.5: priority applies to cards for matching waiters; none on103. Server card is free/not disabled; own quota available. Existing104 queue remains waiting unchanged."
+}

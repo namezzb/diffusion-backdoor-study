@@ -1,0 +1,21 @@
+{
+  "status": "bounded_tail_returned",
+  "source_path": "/data1/zhangzibo/arxiv-tssa/launch-control/20261028T085903540293Z-a30eabe75cc0446cbdb059151c056892.log",
+  "full_log": false,
+  "source_size_at_start": 0,
+  "source_size_after_read": 0,
+  "source_tail_offset": 0,
+  "source_tail_size": 0,
+  "source_tail_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "returned_utf8_size": 0,
+  "returned_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "confirmation_unlocked": false,
+  "filtering": {
+    "filtered_nonempty_lines": 0,
+    "leading_partial_line_dropped": false,
+    "policy": "Before confirmation binding: only whitelisted search/dev stage events and diagnostic traceback/error headers; unknown structured/plain lines are withheld."
+  },
+  "text": "",
+  "limitation": "Only a bounded tail sampled once; not a complete log. Source-tail hash includes bytes withheld from returned text; it is not a whole-file hash.",
+  "historical_only": true
+}

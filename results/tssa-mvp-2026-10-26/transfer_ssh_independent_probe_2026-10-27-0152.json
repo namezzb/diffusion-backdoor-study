@@ -1,0 +1,45 @@
+{
+  "started_at": "2026-10-26T17:52:57.355601+00:00",
+  "kind": "read_only_independent_SSH_stability_probe",
+  "changed_variable": "Disable SSH multiplexing for this diagnostic connection only",
+  "no_GPU": true,
+  "no_remote_file_write": true,
+  "interval_seconds": 30,
+  "duration_seconds": 150,
+  "exit_code": 0,
+  "seconds": 153.51,
+  "finished_at": "2026-10-26T17:55:34.281285+00:00",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_independent_probe_2026-10-27-0152.log",
+  "ticks": [
+    {
+      "tag": "DEBUG-tssa-transfer-3",
+      "uid": 24112,
+      "partial_bytes": 2969717760
+    },
+    {
+      "tick": 0,
+      "utc": "2026-10-26T17:53:04.036589+00:00"
+    },
+    {
+      "tick": 1,
+      "utc": "2026-10-26T17:53:34.037024+00:00"
+    },
+    {
+      "tick": 2,
+      "utc": "2026-10-26T17:54:04.037209+00:00"
+    },
+    {
+      "tick": 3,
+      "utc": "2026-10-26T17:54:34.037456+00:00"
+    },
+    {
+      "tick": 4,
+      "utc": "2026-10-26T17:55:04.037719+00:00"
+    },
+    {
+      "tick": 5,
+      "utc": "2026-10-26T17:55:34.037941+00:00"
+    }
+  ],
+  "passed": true
+}

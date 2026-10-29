@@ -1,0 +1,47 @@
+{
+  "created_at": "2026-10-28T09:24:09.073971+00:00",
+  "status": "CPU_checks_passed_waiting_for_bound_complete_confirmation",
+  "tests": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "seconds": 4.275,
+    "fixture_kind": "synthetic_confirmation_test_only",
+    "simulation_only": true,
+    "GPU": false,
+    "SSH": false,
+    "scientific_images_generated": 0
+  },
+  "actual_observation": "observation_103_20261028T090936713940Z-5f77ac6c",
+  "actual_snapshot_completed_search_images": 67,
+  "actual_analysis_status": "not_ready",
+  "actual_effect_estimates_emitted": false,
+  "current_state_note": "67 is the historical input snapshot count, not an assertion of current live progress.",
+  "frozen_scientific_manifest_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "frozen_runner_sha256": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+  "files_sha256": {
+    "analyze_confirmation_uncertainty.py": "911c75b2574c89de322decf09f3edc7cae5012e42b1b12a3f516a209e27ddb21",
+    "test_confirmation_uncertainty.py": "04e11c35ac65ec5d071ba047c19aea95adef7db6eef41db4133e323cf1207829",
+    "confirmation_uncertainty_plan.md": "b84c3f9fcdf248cddb028af100dc5b4a0c2238fa5fa010ffe22682c230673ac7",
+    "confirmation_uncertainty_readiness_67image_snapshot.json": "a36900e4e35b449d0a28a257588d57bc877eb52c3360b865ad260ae8fa7b357e"
+  },
+  "checks": [
+    "complete simulated 1440-image receipt chain and 576-image confirmation",
+    "8 clusters with perfectly correlated seeds/conditions retain identical .125-.875 intervals",
+    "partial chain never reads confirmation or final",
+    "binding mismatch never reads confirmation or final",
+    "rehashed illegal dev selection rejected",
+    "transport byte corruption rejected",
+    "rehashed score cannot disagree with committed summary",
+    "missing normal receipt rejected",
+    "unexpected operation rejected",
+    "synthetic execution cannot pass as real",
+    "normal failure preserves fixed winner and unchanged gates",
+    "quantile interpolation and zero-variance interval checked"
+  ],
+  "limitations": [
+    "No real confirmation results available in the inspected package",
+    "PNG bytes and classifier correctness are not independently verified",
+    "Bootstrap intervals are descriptive, eight-cluster small-sample coverage not guaranteed"
+  ]
+}

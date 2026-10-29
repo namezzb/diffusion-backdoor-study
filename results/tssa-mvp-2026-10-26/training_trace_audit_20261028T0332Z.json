@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "audit_kind": "returned_training_trace_CPU_Adam_replay",
+  "status": "passed",
+  "passed": true,
+  "created_at": "2026-10-28T03:33:07.677910+00:00",
+  "frozen_protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "environment": {
+    "python": "/Users/zzb/arxiv/.venv/bin/python",
+    "python_version": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "torch": "2.7.1",
+    "device": "cpu",
+    "dtype": "float32",
+    "foreach": false,
+    "fused": false,
+    "CUDA_initialized": false
+  },
+  "tolerances": {
+    "coefficient_atol": 2e-06,
+    "coefficient_rtol": 1e-05,
+    "objective_atol": 1e-08,
+    "objective_rtol": 1e-06,
+    "reason": "Explicit CPU float32 Adam may differ slightly from CUDA foreach rounding; exact recorded continuity and candidate equality are separately enforced."
+  },
+  "checks": 4513,
+  "issue_count": 0,
+  "issues": [],
+  "recorded_update_count": 144,
+  "replayed_update_count": 144,
+  "families": {
+    "Uniform-GD": {
+      "recorded_updates": 48,
+      "replay_completed": true,
+      "maximum_coefficient_absolute_error": 5.960464477539063e-08,
+      "recorded_final_coefficients": [
+        0.0,
+        0.0
+      ],
+      "replayed_final_coefficients": [
+        0.0,
+        0.0
+      ],
+      "first_lower_boundary_step_a_b": [
+        12,
+        12
+      ],
+      "lower_boundary_step_counts_a_b": [
+        31,
+        31
+      ],
+      "boundary_contact_is_not_an_audit_failure": true
+    },
+    "TSSA-GD": {
+      "recorded_updates": 48,
+      "replay_completed": true,
+      "maximum_coefficient_absolute_error": 7.450580596923828e-09,
+      "recorded_final_coefficients": [
+        0.0,
+        1.0
+      ],
+      "replayed_final_coefficients": [
+        0.0,
+        1.0
+      ],
+      "first_lower_boundary_step_a_b": [
+        6,
+        null
+      ],
+      "lower_boundary_step_counts_a_b": [
+        43,
+        0
+      ],
+      "boundary_contact_is_not_an_audit_failure": true
+    },
+    "RC-TSSA-GD": {
+      "recorded_updates": 48,
+      "replay_completed": true,
+      "maximum_coefficient_absolute_error": 5.960464477539063e-08,
+      "recorded_final_coefficients": [
+        0.0,
+        0.0
+      ],
+      "replayed_final_coefficients": [
+        0.0,
+        0.0
+      ],
+      "first_lower_boundary_step_a_b": [
+        19,
+        9
+      ],
+      "lower_boundary_step_counts_a_b": [
+        16,
+        37
+      ],
+      "boundary_contact_is_not_an_audit_failure": true
+    }
+  },
+  "inputs": {
+    "/Users/zzb/arxiv/research/tssa_mvp_2026-10-26.json": {
+      "sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+      "bytes": 96289
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/per_step_coefficients_and_losses.jsonl": {
+      "sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+      "bytes": 122612
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/Uniform-GD_step24.json": {
+      "sha256": "032eb41fa6276de5a76b3d20014acfbb25a473569cf9b60f95dec0c210bde947",
+      "bytes": 280
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/Uniform-GD_step48.json": {
+      "sha256": "244c58122cfa209d6ed7e886253bde4698efe258ef53ce016c7d58d7a0a3d1bc",
+      "bytes": 280
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/TSSA-GD_step24.json": {
+      "sha256": "e4e9619a375e207c0f5374cb0f9963764236a45ad78dceef44f287664e650486",
+      "bytes": 277
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/TSSA-GD_step48.json": {
+      "sha256": "177e85bbae9e805e0b046dc8bd524557ccef5503ca834a96566285c70d0bddec",
+      "bytes": 277
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/RC-TSSA-GD_step24.json": {
+      "sha256": "8366464714af3e4253b7a14f2eb4c2d23dd63410b944533d5b3be161a6530320",
+      "bytes": 280
+    },
+    "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/RC-TSSA-GD_step48.json": {
+      "sha256": "36c29c655247441bcf4e159977691949bfdfccca7569983cb2802ce969ab523d",
+      "bytes": 280
+    }
+  },
+  "limitations": [
+    "Replays recorded coefficient gradients; does not re-run UNet or independently derive state gradients.",
+    "Checks recorded max-state indices and losses; state-wise gradient vectors are not present in this trace.",
+    "Candidate checkpoint digest/path syntax is checked, but binary checkpoint contents are deliberately not read.",
+    "No source, development image, held-out, ASR or method-effectiveness claim is established by this audit.",
+    "Zero/boundary coefficients and lack of improvement are legitimate recorded outcomes, not audit failures."
+  ],
+  "auditor_sha256": "be1d9aad6fdc03e5f017f25ec65f6176fc57ab0ba4969715d17ed20e76489e30"
+}

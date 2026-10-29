@@ -1,0 +1,66 @@
+{
+  "started_at": "2026-10-28T08:52:59.801512+00:00",
+  "bundle_sha256": "6913379cd01cfd9cb588de701089f4c3af4bd38411795c082a5786b09c257e14",
+  "local_bundle": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/source-6913379cd01c.tar.gz",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "GPU_launch": false,
+  "server": "103",
+  "bundle_transfer": {
+    "status": "transferred_verified",
+    "resumed_from": 0,
+    "committed": true,
+    "size": 63475,
+    "sha256": "6913379cd01cfd9cb588de701089f4c3af4bd38411795c082a5786b09c257e14",
+    "relative": "incoming/source-6913379cd01c.tar.gz"
+  },
+  "returncode": 0,
+  "stderr": "",
+  "status": "deployed_CPU_ready",
+  "remote": {
+    "at": "2026-10-28T08:53:33.546546+00:00",
+    "code_root": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c",
+    "verified_files": {
+      "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+      "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+      "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+      "scripts/merging/test_tssa_image_search_run.py": "c3a92d45286ad0fcbe62e0f56e07a860942f3ac5ddbaf43a9c316306649971a0",
+      "scripts/merging/tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+      "scripts/merging/tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+      "scripts/merging/tssa_mvp_score.py": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+      "scripts/merging/tssa_sd_runtime.py": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a"
+    },
+    "static_plan_check": {
+      "passed": true,
+      "models_loaded": false,
+      "CUDA_initialized": false,
+      "id": "tssa-direct-asr-near-naive-v1-2026-10-28",
+      "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+      "plan_payload_sha256": "7c612557a3958de51e6822087dc7cf9c2f6c0828a82336c63bf6d5e628d59f71",
+      "old_protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+      "asset_manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+      "source_hashes": {
+        "tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+        "tssa_sd_runtime.py": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a",
+        "tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+        "tssa_mvp_score.py": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06"
+      },
+      "max_images": 1440,
+      "maximum_stage_images": {
+        "search": 624,
+        "dev": 240,
+        "confirm": 576
+      },
+      "scorer_device": "cpu"
+    },
+    "CPU_tests": "..................\n----------------------------------------------------------------------\nRan 18 tests in 4.866s\n\nOK\n",
+    "offline_import": {
+      "torch": "2.7.1+cu128",
+      "diffusers": "0.35.1",
+      "transformers": "4.49.0",
+      "CUDA_initialized": false
+    },
+    "GPU_launch": false,
+    "GPU_readiness_requires_fresh_portal_and_process_checks": true
+  },
+  "finished_at": "2026-10-28T08:53:33.576280+00:00"
+}

@@ -1,0 +1,2 @@
+{"stage": "cpu-preflight", "status": "checking_or_running", "time": "2026-10-27T16:02:35.317270+00:00"}
+{"status": "failed", "error_type": "ValueError", "error": "Edev/UNet: component configuration mismatch for upcast_attention: False vs None"}

@@ -1,0 +1,20 @@
+{
+  "started_at": "2026-10-26T21:56:11.088040+00:00",
+  "status": "failed",
+  "kind": "readonly_full_prefix_hash_after_backoff",
+  "no_GPU": true,
+  "no_remote_writes": true,
+  "timeout_seconds": 150,
+  "pid": 43018,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-215611-087511Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-215611-087511Z.log",
+  "helper_sha256": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+  "route": "115.226.154.76",
+  "returncode": 255,
+  "stderr_tail": "debug1: OpenSSH_10.2p1, LibreSSL 3.3.6\ndebug1: Reading configuration data /private/tmp/school-stage-xvty33gq/config\ndebug1: /private/tmp/school-stage-xvty33gq/config line 3: Applying options for school104\ndebug1: /private/tmp/school-stage-xvty33gq/config line 7: Applying options for *\ndebug1: Reading configuration data /Users/zzb/arxiv/server/school_ssh_config\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 22: Applying options for school104\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 28: Applying options for school104\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 32: Applying options for school104\ndebug1: Setting implicit ProxyCommand from ProxyJump: ssh -F /private/tmp/school-stage-xvty33gq/config -v -W '[%h]:%p' school-jump\ndebug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling\ndebug1: Executing proxy command: exec ssh -F /private/tmp/school-stage-xvty33gq/config -v -W '[192.168.1.104]:22' school-jump\ndebug1: no pubkey loaded from /Users/zzb/.ssh/zhangzibo_school\ndebug1: identity file /Users/zzb/.ssh/zhangzibo_school type -1\ndebug1: no identity pubkey loaded from /Users/zzb/.ssh/zhangzibo_school\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\ndebug1: OpenSSH_10.2p1, LibreSSL 3.3.6\ndebug1: Reading configuration data /private/tmp/school-stage-xvty33gq/config\ndebug1: /private/tmp/school-stage-xvty33gq/config line 1: Applying options for school-jump\ndebug1: /private/tmp/school-stage-xvty33gq/config line 7: Applying options for *\ndebug1: Reading configuration data /Users/zzb/arxiv/server/school_ssh_config\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 4: Applying options for school-jump\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 32: Applying options for school-jump\ndebug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling\ndebug1: Connecting to 115.226.154.76 [115.226.154.76] port 7002.\ndebug1: fd 3 clearing O_NONBLOCK\ndebug1: Connection established.\ndebug1: no pubkey loaded from /Users/zzb/.ssh/zhangzibo_school\ndebug1: identity file /Users/zzb/.ssh/zhangzibo_school type -1\ndebug1: no identity pubkey loaded from /Users/zzb/.ssh/zhangzibo_school\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\ndebug1: Remote protocol version 2.0, remote software version OpenSSH_9.6p1 Ubuntu-3ubuntu13.20\ndebug1: compat_banner: match: OpenSSH_9.6p1 Ubuntu-3ubuntu13.20 pat OpenSSH* compat 0x04000000\ndebug1: Authenticating to 115.226.154.76:7002 as 'zhangzibo'\ndebug1: using hostkeyalias: [hduiipl.cn]:7002\ndebug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts: No such file or directory\ndebug1: load_hostkeys: fopen /etc/ssh/ssh_known_hosts2: No such file or directory\ndebug1: SSH2_MSG_KEXINIT sent\ndebug1: SSH2_MSG_KEXINIT received\ndebug1: kex: algorithm: sntrup761x25519-sha512@openssh.com\ndebug1: kex: host key algorithm: ssh-ed25519\ndebug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none\ndebug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none\ndebug1: expecting SSH2_MSG_KEX_ECDH_REPLY\nConnection closed by 115.226.154.76 port 7002\nkex_exchange_identification: Connection closed by remote host\nConnection closed by UNKNOWN port 65535\n",
+  "error_type": "RuntimeError",
+  "error": "Read-only SSH returned 255",
+  "finished_at": "2026-10-26T21:56:31.160164+00:00",
+  "seconds": 20.071151458003442,
+  "observed_at": "2026-10-26T21:56:31.160432+00:00"
+}

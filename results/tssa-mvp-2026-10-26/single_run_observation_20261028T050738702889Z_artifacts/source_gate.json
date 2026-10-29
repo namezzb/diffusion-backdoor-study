@@ -1,0 +1,139 @@
+{
+  "budget_bucket": "source_gate_extra_48_not_main_1664",
+  "formal_FID_evaluated": false,
+  "gates": {
+    "backdoor_ASR": true,
+    "backdoor_normal_accuracy": true,
+    "backdoor_normal_clip": true,
+    "clean_normal_accuracy": true
+  },
+  "input_image_count": 48,
+  "metrics": {
+    "clean": {
+      "upload": {
+        "ASR": {
+          "clip_mean": 26.11270248889923,
+          "n": 8,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.51590684056282,
+          "n": 8,
+          "rate": 1.0,
+          "successes": 8
+        },
+        "image_count": 24,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 29.354356043040752,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "paired_normal": {
+          "clip_mean": 31.192805245518684,
+          "n": 8,
+          "rate": 0.625,
+          "successes": 5
+        },
+        "per_seed": {
+          "1999": {
+            "ASR": {
+              "clip_mean": 26.11270248889923,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.51590684056282,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.354356043040752,
+              "n": 16,
+              "rate": 0.8125,
+              "successes": 13
+            },
+            "paired_normal": {
+              "clip_mean": 31.192805245518684,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          }
+        }
+      }
+    },
+    "original_backdoor": {
+      "upload": {
+        "ASR": {
+          "clip_mean": 11.753534898161888,
+          "n": 8,
+          "rate": 1.0,
+          "successes": 8
+        },
+        "extra_normal": {
+          "clip_mean": 26.826364174485207,
+          "n": 8,
+          "rate": 0.875,
+          "successes": 7
+        },
+        "image_count": 24,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 29.166537150740623,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "paired_normal": {
+          "clip_mean": 31.50671012699604,
+          "n": 8,
+          "rate": 0.75,
+          "successes": 6
+        },
+        "per_seed": {
+          "1999": {
+            "ASR": {
+              "clip_mean": 11.753534898161888,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "extra_normal": {
+              "clip_mean": 26.826364174485207,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.166537150740623,
+              "n": 16,
+              "rate": 0.8125,
+              "successes": 13
+            },
+            "paired_normal": {
+              "clip_mean": 31.50671012699604,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      }
+    }
+  },
+  "passed": true,
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "scored_records_sha256": "c9fa3ee0885a3699ca54ccd22aeee82cfea906ad643ff3920714bf7d70fefe2f",
+  "stage": "source_gate",
+  "statistical_significance_or_SOTA_certified": false,
+  "status": "passed"
+}

@@ -1,0 +1,323 @@
+{
+  "observed_at": "2026-10-27T00:56:22.271284+00:00",
+  "status": "all_51_remote_receipts_verified",
+  "manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+  "count": 51,
+  "bytes": 3909917779,
+  "transfer_returncode": 0,
+  "ledger_sha256": "1c50778abb48fc66c94573a1bea5e448c0c311e76b7b6af050f9b3e35a479cc6",
+  "log_sha256": "c61fd7ab98d33377e171bfcb4a488b1a433ca077311ca365e90b545d5aaf36b8",
+  "task_local_wheel_copies_remaining": 0,
+  "local_transfer_lock_free": true,
+  "processes_17898_17899_63327_exited": true,
+  "installation_performed": false,
+  "GPU_used": false,
+  "receipts": [
+    {
+      "path": "wheelhouse/accelerate-1.10.1-py3-none-any.whl",
+      "size": 374909,
+      "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11",
+      "verified_at": "2026-10-26T22:44:01.415915+00:00"
+    },
+    {
+      "path": "wheelhouse/certifi-2026.10.23-py3-none-any.whl",
+      "size": 135082,
+      "sha256": "e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1",
+      "verified_at": "2026-10-26T22:44:04.466081+00:00"
+    },
+    {
+      "path": "wheelhouse/charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "size": 269972,
+      "sha256": "211d5a3eb6af8f513b8d4ca19a8c1b7accab1b5f0d3175f9826b03c1a920dc1f",
+      "verified_at": "2026-10-26T22:44:07.973049+00:00"
+    },
+    {
+      "path": "wheelhouse/diffusers-0.35.1-py3-none-any.whl",
+      "size": 4121424,
+      "sha256": "fe29ff10200970c7c5934c6488c213e2a77a03dad5e6fa00bbd8e1d04234cb0e",
+      "verified_at": "2026-10-26T22:44:15.050017+00:00"
+    },
+    {
+      "path": "wheelhouse/filelock-4.2.4-py3-none-any.whl",
+      "size": 162475,
+      "sha256": "301241438c57936ef93f4243a94f2559022268bfcf9b375a9a72eb0f8db8358e",
+      "verified_at": "2026-10-26T22:44:18.171272+00:00"
+    },
+    {
+      "path": "wheelhouse/fsspec-2026.9.0-py3-none-any.whl",
+      "size": 221738,
+      "sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f",
+      "verified_at": "2026-10-26T22:44:21.604906+00:00"
+    },
+    {
+      "path": "wheelhouse/ftfy-6.3.1-py3-none-any.whl",
+      "size": 44821,
+      "sha256": "7c70eb532015cd2f9adb53f101fb6c7945988d023a085d127d1573dc49dd0083",
+      "verified_at": "2026-10-26T22:44:24.382333+00:00"
+    },
+    {
+      "path": "wheelhouse/hf_xet-1.7.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 4212180,
+      "sha256": "2814a6e999d13464c4d679b788cc5d784eb5a4edfc638a31f10e9a11ab531ef8",
+      "verified_at": "2026-10-26T22:44:36.285396+00:00"
+    },
+    {
+      "path": "wheelhouse/huggingface_hub-0.34.4-py3-none-any.whl",
+      "size": 561452,
+      "sha256": "9b365d781739c93ff90c359844221beef048403f1bc1f1c123c191257c3c890a",
+      "verified_at": "2026-10-26T22:44:40.083350+00:00"
+    },
+    {
+      "path": "wheelhouse/idna-3.20-py3-none-any.whl",
+      "size": 69583,
+      "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "verified_at": "2026-10-26T22:44:43.251215+00:00"
+    },
+    {
+      "path": "wheelhouse/importlib_metadata-10.1.0-py3-none-any.whl",
+      "size": 32221,
+      "sha256": "cf45ce66a929c64e994185a809c04840d0501db17e663810d993d0f4829265c7",
+      "verified_at": "2026-10-26T22:44:46.457962+00:00"
+    },
+    {
+      "path": "wheelhouse/jinja2-3.1.6-py3-none-any.whl",
+      "size": 134899,
+      "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+      "verified_at": "2026-10-26T22:44:49.640661+00:00"
+    },
+    {
+      "path": "wheelhouse/lightning_utilities-0.15.3-py3-none-any.whl",
+      "size": 31906,
+      "sha256": "6c55f1bee70084a1cbeaa41ada96e4b3a0fea5909e844dd335bd80f5a73c5f91",
+      "verified_at": "2026-10-26T22:44:52.778283+00:00"
+    },
+    {
+      "path": "wheelhouse/markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "size": 22961,
+      "sha256": "6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808",
+      "verified_at": "2026-10-26T22:44:55.864555+00:00"
+    },
+    {
+      "path": "wheelhouse/mpmath-1.3.0-py3-none-any.whl",
+      "size": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "verified_at": "2026-10-26T22:44:59.483581+00:00"
+    },
+    {
+      "path": "wheelhouse/networkx-3.6.1-py3-none-any.whl",
+      "size": 2068504,
+      "sha256": "d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762",
+      "verified_at": "2026-10-26T22:45:06.424275+00:00"
+    },
+    {
+      "path": "wheelhouse/numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size": 18252005,
+      "sha256": "666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5",
+      "verified_at": "2026-10-26T22:45:44.240957+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cublas_cu12-12.8.3.14-py3-none-manylinux_2_27_x86_64.whl",
+      "size": 609620630,
+      "sha256": "3f0e05e7293598cf61933258b73e66a160c27d59c4422670bf0b79348c04be44",
+      "verified_at": "2026-10-26T23:06:19.103093+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cuda_cupti_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 10237547,
+      "sha256": "8e0b2eb847de260739bee4a3f66fac31378f4ff49538ff527a38a01a9a39f950",
+      "verified_at": "2026-10-26T23:06:44.583701+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cuda_nvrtc_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "size": 88024585,
+      "sha256": "a0fa9c2a21583105550ebd871bd76e2037205d56f33f128e69f6d2a55e0af9ed",
+      "verified_at": "2026-10-26T23:09:59.672725+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cuda_runtime_cu12-12.8.57-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 954762,
+      "sha256": "75342e28567340b7428ce79a5d6bb6ca5ff9d07b69e7ce00d2c7b4dc23eff0be",
+      "verified_at": "2026-10-26T23:10:04.155909+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+      "size": 726851421,
+      "sha256": "6d011159a158f3cfc47bf851aea79e31bcff60d530b70ef70474c84cac484d07",
+      "verified_at": "2026-10-26T23:34:37.951281+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 193118795,
+      "sha256": "da650080ab79fcdf7a4b06aa1b460e99860646b176a43f6208099bdc17836b6a",
+      "verified_at": "2026-10-26T23:40:56.788754+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cufile_cu12-1.13.0.11-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 1197801,
+      "sha256": "483f434c541806936b98366f6d33caef5440572de8ddf38d453213729da3e7d4",
+      "verified_at": "2026-10-26T23:41:01.675938+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_curand_cu12-10.3.9.55-py3-none-manylinux_2_27_x86_64.whl",
+      "size": 63618038,
+      "sha256": "8387d974240c91f6a60b761b83d4b2f9b938b7e0b9617bae0f0dafe4f5c36b86",
+      "verified_at": "2026-10-26T23:43:04.739038+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl",
+      "size": 260373342,
+      "sha256": "4d1354102f1e922cee9db51920dba9e2559877cf6ff5ad03a00d853adafb191b",
+      "verified_at": "2026-10-26T23:51:32.193790+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 292064180,
+      "sha256": "3c1b61eb8c85257ea07e9354606b26397612627fdcd327bfd91ccf6155e7c86d",
+      "verified_at": "2026-10-27T00:00:58.951022+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl",
+      "size": 156785796,
+      "sha256": "e5c8a26c36445dd2e6812f1177978a24e2d37cacce7e090f297a688d1ec44f46",
+      "verified_at": "2026-10-27T00:06:08.603645+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 201319755,
+      "sha256": "694cf3879a206553cc9d7dbda76b13efaf610fdb70a50cba303de1b0d1530ac6",
+      "verified_at": "2026-10-27T00:12:56.965093+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_nvjitlink_cu12-12.8.61-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl",
+      "size": 39243473,
+      "sha256": "45fd79f2ae20bd67e8bc411055939049873bfd8fac70ff13bd4865e0b9bdab17",
+      "verified_at": "2026-10-27T00:14:13.767388+00:00"
+    },
+    {
+      "path": "wheelhouse/nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 89896,
+      "sha256": "2dd0780f1a55c21d8e06a743de5bd95653de630decfff40621dbde78cc307102",
+      "verified_at": "2026-10-27T00:14:17.083775+00:00"
+    },
+    {
+      "path": "wheelhouse/packaging-26.3-py3-none-any.whl",
+      "size": 129956,
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "verified_at": "2026-10-27T00:14:20.170688+00:00"
+    },
+    {
+      "path": "wheelhouse/pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "size": 6640273,
+      "sha256": "106064daa23a745510dabce1d84f29137a37224831d88eb4ce94bb187b1d7e5f",
+      "verified_at": "2026-10-27T00:14:35.497758+00:00"
+    },
+    {
+      "path": "wheelhouse/psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "size": 155560,
+      "sha256": "076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9",
+      "verified_at": "2026-10-27T00:14:39.165725+00:00"
+    },
+    {
+      "path": "wheelhouse/PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size": 762952,
+      "sha256": "3ad2a3decf9aaba3d29c8f537ac4b243e36bef957511b4766cb0057d32b0be85",
+      "verified_at": "2026-10-27T00:14:43.345913+00:00"
+    },
+    {
+      "path": "wheelhouse/regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "size": 804978,
+      "sha256": "612b709381c0355b70d89cdb51b7f670591ed5cbbc0e3b5337488019dc667b65",
+      "verified_at": "2026-10-27T00:14:47.056647+00:00"
+    },
+    {
+      "path": "wheelhouse/requests-2.34.2-py3-none-any.whl",
+      "size": 73075,
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "verified_at": "2026-10-27T00:14:50.206578+00:00"
+    },
+    {
+      "path": "wheelhouse/safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size": 485835,
+      "sha256": "8045db2c872db8f4cbe3faa0495932d89c38c899c603f21e9b6486951a5ecb8f",
+      "verified_at": "2026-10-27T00:14:54.439480+00:00"
+    },
+    {
+      "path": "wheelhouse/setuptools-84.2.1-py3-none-any.whl",
+      "size": 876263,
+      "sha256": "ca140b45d5325a9478f880e351484f62fef15f336462e449ca0c03c873d589c2",
+      "verified_at": "2026-10-27T00:14:58.568478+00:00"
+    },
+    {
+      "path": "wheelhouse/sympy-1.14.0-py3-none-any.whl",
+      "size": 6299353,
+      "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "verified_at": "2026-10-27T00:15:11.441073+00:00"
+    },
+    {
+      "path": "wheelhouse/tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "size": 3115426,
+      "sha256": "51b7eabb104f46c1c50b486520555715457ae833d5aee9ff6ae853d1130506ff",
+      "verified_at": "2026-10-27T00:15:18.778841+00:00"
+    },
+    {
+      "path": "wheelhouse/torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+      "size": 1039389795,
+      "sha256": "c301dc280458afd95450af794924c98fe07522dd148ff384739b810e3e3179f2",
+      "verified_at": "2026-10-27T00:48:56.970371+00:00"
+    },
+    {
+      "path": "wheelhouse/torchmetrics-1.8.2-py3-none-any.whl",
+      "size": 983161,
+      "sha256": "08382fd96b923e39e904c4d570f3d49e2cc71ccabd2a94e0f895d1f0dac86242",
+      "verified_at": "2026-10-27T00:49:02.970923+00:00"
+    },
+    {
+      "path": "wheelhouse/torchvision-0.22.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+      "size": 8732234,
+      "sha256": "92568ac46b13a8c88b61589800b1b9c4629be091ea7ce080fc6fc622e11e0915",
+      "verified_at": "2026-10-27T00:49:20.272650+00:00"
+    },
+    {
+      "path": "wheelhouse/tqdm-4.67.1-py3-none-any.whl",
+      "size": 78540,
+      "sha256": "26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2",
+      "verified_at": "2026-10-27T00:49:23.530098+00:00"
+    },
+    {
+      "path": "wheelhouse/transformers-4.49.0-py3-none-any.whl",
+      "size": 9970275,
+      "sha256": "6b4fded1c5fee04d384b1014495b4235a2b53c87503d7d592423c06128cbbe03",
+      "verified_at": "2026-10-27T00:49:43.991953+00:00"
+    },
+    {
+      "path": "wheelhouse/triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "size": 155689937,
+      "sha256": "b31e3aa26f8cb3cc5bf4e187bf737cbacf17311e1112b781d4a059353dfd731b",
+      "verified_at": "2026-10-27T00:54:54.325230+00:00"
+    },
+    {
+      "path": "wheelhouse/typing_extensions-4.16.0-py3-none-any.whl",
+      "size": 45571,
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "verified_at": "2026-10-27T00:54:57.593344+00:00"
+    },
+    {
+      "path": "wheelhouse/urllib3-2.8.0-py3-none-any.whl",
+      "size": 135717,
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "verified_at": "2026-10-27T00:55:01.450788+00:00"
+    },
+    {
+      "path": "wheelhouse/wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "size": 785946,
+      "sha256": "b185c8b927b23af2721be1783499d1cfa5c028b098b0858951b4ae224477f1c2",
+      "verified_at": "2026-10-27T00:55:05.866087+00:00"
+    },
+    {
+      "path": "wheelhouse/zipp-4.1.2-py3-none-any.whl",
+      "size": 10581,
+      "sha256": "b30cb6cd253122169c47de245ca24a86bac2a5d3802ba15bf7ba6414eb9e144d",
+      "verified_at": "2026-10-27T00:55:09.232980+00:00"
+    }
+  ]
+}

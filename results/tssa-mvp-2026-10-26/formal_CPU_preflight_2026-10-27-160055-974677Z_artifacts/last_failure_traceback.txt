@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_dual_run.py", line 664, in main
+    runner.execute(args.until)
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_dual_run.py", line 584, in execute
+    return super().execute(until)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_run.py", line 854, in execute
+    results[stage] = actions[stage]()
+                     ^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_dual_run.py", line 468, in preflight
+    report = super().preflight()
+             ^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_run.py", line 653, in preflight
+    report = self.op("preflight/cpu", self.backend.cpu_preflight)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_dual_run.py", line 423, in op
+    return super().op(name, wrapped, binary=binary, safe_partial_resume=safe_partial_resume, cost=cost)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_run.py", line 588, in op
+    return self.store.operation(name, action, binary=binary, resource_snapshot=self.backend.resources,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_run.py", line 260, in operation
+    payload = action()
+              ^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_dual_run.py", line 418, in wrapped
+    value = action()
+            ^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_dual_run.py", line 312, in cpu_preflight
+    report = self.cpu.cpu_preflight()
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_mvp_run.py", line 354, in cpu_preflight
+    self.assets = load_cpu_assets(self.protocol_path, self.asset_manifest, self.models_root)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_sd_runtime.py", line 269, in load_cpu_assets
+    _check_configs(unet.config, model.config, unet_fields, role + "/UNet")
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/scripts/merging/tssa_sd_runtime.py", line 172, in _check_configs
+    raise ValueError(f"{label}: component configuration mismatch for {field}: {left!r} vs {right!r}")
+ValueError: Edev/UNet: component configuration mismatch for upcast_attention: False vs None

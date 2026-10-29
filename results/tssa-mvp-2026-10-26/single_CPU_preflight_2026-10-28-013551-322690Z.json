@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-28T01:35:51.322690+00:00",
+  "pid": 44793,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z.log",
+  "script_sha256": "21399e9e4e8fb062b4629089010c47319ab6eaa6da7701e4a4e4da9786de69f1",
+  "transfer_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-160026-326979Z.json",
+  "probe_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/server-probes/school104-20261028T013336764660Z.json",
+  "automatic_retry": false,
+  "maximum_local_wait_seconds": 900,
+  "remote_CPU_timeout_seconds": 1200,
+  "CPU_threads": 2,
+  "GPU_used": false,
+  "GPU_execution_mode": "single",
+  "reason": "User explicitly requested starting with one usable GPU; prepare separate single-run identity without overwriting the dual run.",
+  "scope": "Formal checkpoint CPU structure, frozen delta and grouping only; no response gradients or research images.",
+  "observed_at": "2026-10-28T01:41:05.280912+00:00",
+  "implementation_correction_evidence": "remote_upcast_config_diagnostic_2026-10-27-160551-823080Z.json",
+  "previous_failed_attempt": "formal_CPU_preflight_2026-10-27-160055-974677Z.json",
+  "server_CPU_regression_evidence": "configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json",
+  "asset_receipts_verified": 47,
+  "preflight_started_at": "2026-10-28T01:35:51.340579+00:00",
+  "SSH_pid": 44989,
+  "returncode": 0,
+  "result": {
+    "status": "passed",
+    "returncode": 0,
+    "observed_at": "2026-10-28T01:41:04.629387+00:00",
+    "seconds": 308.0919353080026,
+    "source_files_verified": 20,
+    "CPU_memory_available_before": 330084102144,
+    "max_child_rss_KiB": 18858364,
+    "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+    "files": {
+      "cpu_preflight.json": {
+        "sha256": "7a920e3d96ebbc45767c2ee0e74dacaeaef301cca88556742bc75c3fba6147f5",
+        "size": 22257,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/cpu_preflight.json"
+      },
+      "model_file_hashes.json": {
+        "sha256": "96bae0d29dfa0d07403efdeb2026e141abd6667a669b26d1dd7b3d1515389d35",
+        "size": 9567,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/model_file_hashes.json"
+      },
+      "parameter_key_manifest.json": {
+        "sha256": "9aa183d54c9af1db064c4bd053df3e9a1f05d445f98381623286d2c7b20a4731",
+        "size": 10344,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/parameter_key_manifest.json"
+      },
+      "basis_statistics.json": {
+        "sha256": "85826438f15013385b474a029c5d23c5b34fdf4cb0a5e906e58c8294aa257187",
+        "size": 241,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/basis_statistics.json"
+      },
+      "failure_or_completion_status.json": {
+        "sha256": "627d184090cb560964457ad1a69153165b48cafc9837547e2d4e5cf59e0ff945",
+        "size": 579,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "ae285dd76947bd58ad67ee3f3a16db585bbf543bebf236c9da6f9469ae4afa02",
+        "size": 1804,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/resource_ledger.json"
+      },
+      "run_identity.json": {
+        "sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+        "size": 7500,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z_artifacts/run_identity.json"
+      }
+    },
+    "GPU_stage_started": false
+  },
+  "finished_at": "2026-10-28T01:41:05.280258+00:00",
+  "seconds": 313.9538678749959,
+  "log_sha256": "a30a1d4431bf23e57c6ccb556b343ccbe82706dbcc3b6a15589770137136aa75",
+  "stderr_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T01:38:19.566090+00:00\"}\n"
+}

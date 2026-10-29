@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "snapshot-2026-10-29-v1",
+  "packages": [
+    {
+      "name": "research-core-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/research-core-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/research-core-001.json",
+      "files": 2772,
+      "source_bytes": 60538433,
+      "package_bytes": 13329614,
+      "sha256": "4868c122efdc57adc4efcd555da58b42555887930c5cefd3de3b4e83e9ff4303"
+    }
+  ]
+}

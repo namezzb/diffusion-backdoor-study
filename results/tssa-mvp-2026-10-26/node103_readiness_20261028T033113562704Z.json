@@ -1,0 +1,51 @@
+{
+  "observed_at": "2026-10-28T03:31:13.563047+00:00",
+  "read_only": true,
+  "server": "103",
+  "gpu_started": false,
+  "returncode": 0,
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n",
+  "result": {
+    "python": "3.8.10",
+    "architecture": "x86_64",
+    "account": "zhangzibo",
+    "paths": {
+      "/data1/zhangzibo": {
+        "exists": true,
+        "owner": "zhangzibo",
+        "is_dir": true,
+        "writable": true,
+        "total_bytes": 15873633411072,
+        "free_bytes": 7990688669696
+      },
+      "/data2/zhangzibo": {
+        "exists": false
+      },
+      "/data1/zhangzibo/arxiv-tssa": {
+        "exists": false
+      },
+      "/data2/zhangzibo/arxiv-tssa": {
+        "exists": false
+      },
+      "/home/zhangzibo/anaconda3/bin/python": {
+        "exists": false
+      }
+    },
+    "graphics_processes": [
+      {
+        "pid": 1152,
+        "owner": "root",
+        "owner_shell": "/bin/bash",
+        "owner_home": "/root",
+        "comm": "Xorg"
+      },
+      {
+        "pid": 2331,
+        "owner": "zhaojun",
+        "owner_shell": "/bin/bash",
+        "owner_home": "/data1/zhaojun",
+        "comm": "xfwm4"
+      }
+    ]
+  }
+}

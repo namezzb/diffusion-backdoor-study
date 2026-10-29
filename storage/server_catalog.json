@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-29T03:49:31.417273+00:00",
+  "mode": "local_organization_only",
+  "network_accessed_by_builder": false,
+  "remote_files_modified": false,
+  "note": "Saved observations only. Local hashes are checked now; remote existence and contents are not refreshed.",
+  "servers": [
+    {
+      "server": "104",
+      "ssh_alias": "school104",
+      "root": "/data2/zhangzibo/arxiv-tssa",
+      "index": "storage/server-index/104.jsonl",
+      "inventory_source": "results/organization-2026-10-29/server104_hash_manifest.json",
+      "inventory_sha256": "9b19dd485b1e91774f3f4c14e986ef083f4701c7dc12b9f34d878636e4ad8aa8",
+      "inventory_observed_at": "2026-10-29T02:11:14.441003+00:00",
+      "rows": 5467,
+      "bytes": 16922347448,
+      "local_status_counts": {
+        "not_mapped_locally": 5219,
+        "verified_local_against_saved_remote_hash": 248
+      },
+      "live_state_verified": false
+    },
+    {
+      "server": "103",
+      "ssh_alias": "school103",
+      "root": "/data1/zhangzibo/arxiv-tssa",
+      "index": "storage/server-index/103.jsonl",
+      "inventory_source": "results/organization-2026-10-29/server103_inventory.json",
+      "inventory_sha256": "7a2f9448a3c0ec412f70c747b5d7bf59921c84414da7efa0bbb2d1d818aa7591",
+      "inventory_observed_at": "2026-10-29T02:07:31.313324+00:00",
+      "rows": 2847,
+      "bytes": 367335072,
+      "local_status_counts": {
+        "verified_local_against_saved_remote_hash": 2782,
+        "not_mapped_locally": 65
+      },
+      "live_state_verified": false
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "mvp-2026-10-28-single-v1",
+      "server": "104",
+      "remote_path": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+      "local_entry": "results/tssa-mvp-2026-10-26/README.md",
+      "images": 1520,
+      "updates": 144,
+      "local_coverage": "terminal summaries, metrics, coefficient trace, panels and some cache; original images and selected model payloads remain remote"
+    },
+    {
+      "run_id": "tssa-opt-exploration-2026-10-28-v1",
+      "server": "103",
+      "remote_path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+      "local_entry": "results/tssa-opt-exploration-2026-10-28/README.md",
+      "images": 816,
+      "updates": 0,
+      "local_coverage": "all 816 PNG and 833 terminal artifacts (including launch/recovery outside run root); whole project extras incomplete"
+    },
+    {
+      "run_id": "tssa-target-semantic-diagnostic-2026-10-28-v1",
+      "server": "103",
+      "remote_path": "/data1/zhangzibo/arxiv-tssa/results/tssa-target-semantic-diagnostic-2026-10-28-v1",
+      "local_entry": "results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
+      "images": 0,
+      "updates": 0,
+      "local_coverage": "all 1141 run artifacts; peripheral preparation/runtime directories not fully mirrored"
+    }
+  ],
+  "server104_not_mirrored": {
+    "logical_files": 5206,
+    "unique_files": 5194,
+    "unique_bytes": 1728731847,
+    "transfer_status": "paused_by_user",
+    "last_attempt_finished_at": "2026-10-29T03:22:12.454154+00:00",
+    "last_transport_exit": 255
+  },
+  "server103_models": {
+    "index": "storage/server-index/103-models-historical.jsonl",
+    "rows": 47,
+    "source": "results/tssa-opt-exploration-2026-10-28/node103_models_completed_20261028T0849Z.json",
+    "live_state_verified": false
+  },
+  "amax": {
+    "status": "historical_paths_only_current_session_unverified",
+    "last_access_evidence": "results/organization-2026-10-29/amax_access_check.json",
+    "paths": [
+      "/opt/data/private/BackdoorDM/",
+      "/opt/data/private/EvilEdit/results/eviledit_reproduce/backdoored_unet.pt",
+      "/opt/data/private/models/stable-diffusion-v1-5/",
+      "/opt/data/private/models/vit-base-patch16-224/",
+      "/opt/data/private/models/clip-vit-base-patch32/"
+    ],
+    "bytes": null,
+    "sha256": null
+  },
+  "limitations": [
+    "Missing local copies are intentionally left on servers under the latest user instruction.",
+    "A file index is not a second data copy; an inaccessible or deleted server file cannot be recovered from its index.",
+    "Unknown hashes stay null; older successful transfer evidence does not assert current server availability."
+  ]
+}

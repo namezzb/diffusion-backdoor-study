@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "remote_root": "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z",
+  "bundle_sha256": "8d0e31b32ffb00e00e8634f9edc3b9ae8f77f86ce775b9f191119a22595513b1",
+  "timeout_seconds": 600,
+  "cuda_visible_devices": "",
+  "machine_id_sha256": "af2fbecce76fa0ac96161ea712cc39576d9a198c4bc0f43585de6821ed5b5555",
+  "no_gpu": true,
+  "tests_exit_code": 0,
+  "preflight_exit_code": 0,
+  "finished_utc": "2026-10-28T12:18:51.130795+00:00"
+}

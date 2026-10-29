@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-29T01:57:12.637861+00:00",
+  "status": "passed",
+  "negative_controls": [
+    {
+      "mutation": "raw_tensor_byte",
+      "status": "invalid",
+      "caught": true,
+      "first_errors": [
+        "cells/8dd99d80e234ba3fd47ec0d6595bd58db2d15f53287a3b9c2191773248749990: raw SHA differs: extra",
+        "cells/d84525a9c4716ca9b9ea297c74f953bafe1b95892b77a26f3349f9ce626edb6e.backend.errors_vs_teacher.extra: FP32 statistic differs",
+        "cells/d84525a9c4716ca9b9ea297c74f953bafe1b95892b77a26f3349f9ce626edb6e.errors_vs_teacher.extra: FP32 statistic differs"
+      ]
+    },
+    {
+      "mutation": "reservation_cost",
+      "status": "invalid",
+      "caught": true,
+      "first_errors": [
+        "Unexpected event or event cost: 000002.json",
+        "Cumulative reservation differs: 000002.json",
+        "Cell reservation exceeds frozen budget: 422cef45100dd931be4bc3918415421afa0a3324011557bf5f1918f8e291a4f2"
+      ]
+    }
+  ],
+  "original_artifact_count": 1141,
+  "all_returned_remote_hashes_match": true,
+  "original_artifacts_unchanged": true,
+  "audit_script_sha256": "7f926f851ed9757c83b961f14210a522d2ec8a5be2e7c40b247b20ac10d67f4c"
+}

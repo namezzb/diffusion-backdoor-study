@@ -1,0 +1,23 @@
+{
+  "kind": "readonly_existing_session_chunk_progress",
+  "no_GPU": true,
+  "started_at": "2026-10-26T20:16:26.419675+00:00",
+  "returncode": 0,
+  "stderr": "",
+  "remote": {
+    "observed_at": "2026-10-26T20:16:32.926737+00:00",
+    "files": [
+      {
+        "name": "diffusion_pytorch_model.safetensors.uploading",
+        "size": 3115161600,
+        "mtime_ns": 1793038629369896074
+      },
+      {
+        "name": "diffusion_pytorch_model.safetensors.uploading.chunk-tqrqp1d_",
+        "size": 4194304,
+        "mtime_ns": 1793045733523149520
+      }
+    ]
+  },
+  "finished_at": "2026-10-26T20:16:33.933150+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-27T23:43:56.239514+08:00",
+  "requested_url": "https://gpu.orz2333.fun/",
+  "status": "browser_navigation_timed_out",
+  "observed_destination_origin": null,
+  "body_read_status": "Chrome navigation timed out after10seconds; no current portal contents obtained.",
+  "portal_application_reached": false,
+  "account_verification_attempted": false,
+  "site_origin_health_now": "unknown",
+  "current_allocation_known": false,
+  "previous_observation_recorded_at": "2026-10-27T14:09:24.748406+00:00",
+  "boundary": "No warning bypass, other-service login, queue or allocation mutation."
+}

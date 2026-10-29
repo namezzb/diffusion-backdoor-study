@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-10-26T18:32:18.957000+00:00",
+  "pid": 2113,
+  "status": "failed",
+  "kind": "one_bounded_verified_chunk",
+  "max_chunk_bytes": 16777216,
+  "no_GPU": true,
+  "full_asset_verified": false,
+  "automatic_retries": 0,
+  "helper_sha256": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+  "probe_script_sha256": "c113b498443a173af78055d8cfec5b1ba5414a20146d9a9838684637b707aaeb",
+  "error_type": "CalledProcessError",
+  "error": "Command '['ssh', '-F', '/private/tmp/school-stage-t9bb1xam/config', 'school104', 'python3 -c \\'\\nimport hashlib,json,os,pathlib,shutil,sys\\nroot=pathlib.Path(sys.argv[1]); dest=pathlib.Path(sys.argv[2]); size=int(sys.argv[3]); expected=sys.argv[4]\\nassert root==pathlib.Path(\\'\"\\'\"\\'/data2/zhangzibo/arxiv-tssa\\'\"\\'\"\\')\\nassert dest.is_relative_to(root) and \\'\"\\'\"\\'..\\'\"\\'\"\\' not in dest.parts\\nown=pathlib.Path(\\'\"\\'\"\\'/data2/zhangzibo\\'\"\\'\"\\')\\nown.mkdir(mode=0o750,exist_ok=True)\\nassert not own.is_symlink() and own.stat().st_uid==os.getuid()\\nfor parent in [root,*list(dest.parents)[::-1]]:\\n    if parent.is_relative_to(root):\\n        parent.mkdir(mode=0o750,exist_ok=True)\\n        assert not parent.is_symlink() and parent.stat().st_uid==os.getuid()\\nassert not dest.is_symlink() and not pathlib.Path(str(dest)+\\'\"\\'\"\\'.uploading\\'\"\\'\"\\').is_symlink()\\nassert dest.resolve().is_relative_to(root.resolve())\\nif dest.exists():\\n    assert dest.is_file() and dest.stat().st_uid==os.getuid()\\n    h=hashlib.sha256()\\n    with dest.open(\\'\"\\'\"\\'rb\\'\"\\'\"\\') as f:\\n        for b in iter(lambda:f.read(8388608),b\\'\"\\'\"\\'\\'\"\\'\"\\'): h.update(b)\\n    actual=h.hexdigest()\\n    assert dest.stat().st_size==size and (not expected or actual==expected), \\'\"\\'\"\\'Existing asset differs; refusing overwrite\\'\"\\'\"\\'\\n    print(json.dumps({\\'\"\\'\"\\'exists\\'\"\\'\"\\':True,\\'\"\\'\"\\'sha256\\'\"\\'\"\\':actual,\\'\"\\'\"\\'size\\'\"\\'\"\\':size}))\\nelse:\\n    assert shutil.disk_usage(dest.parent).free>size+5*1024**3, \\'\"\\'\"\\'Insufficient remote free space\\'\"\\'\"\\'\\n    print(json.dumps({\\'\"\\'\"\\'exists\\'\"\\'\"\\':False}))\\n\\' /data2/zhangzibo/arxiv-tssa /data2/zhangzibo/arxiv-tssa/models/sd15/unet/diffusion_pytorch_model.safetensors 3438167540 19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1']' returned non-zero exit status 255.",
+  "stderr": "Connection closed by UNKNOWN port 65535\n",
+  "chunk_send_started": false,
+  "finished_at": "2026-10-26T18:32:25.082365+00:00",
+  "seconds": 6.125455665998743,
+  "observed_at": "2026-10-26T18:32:25.082673+00:00"
+}

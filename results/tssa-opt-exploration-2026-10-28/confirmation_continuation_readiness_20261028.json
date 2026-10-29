@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-28T10:33:14.681158+00:00",
+  "status": "prepared_local_only_waiting_for_true_dev_completion",
+  "remote_ready": false,
+  "files": {
+    "continue_search_confirmation.py": "8cb9feb30952bd8d5557829b50be25bf59d26158c1e26ba7afdd6ba5b75b3adc",
+    "test_continue_search_confirmation.py": "8c67cf84eabd901605ca97eb9704ff7af345e88893e0b3c0ae97abb1225784e4",
+    "launch_image_search.py": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+    "check_confirmation_budget.py": "4367596dd1d90dfb733cecb9b87cfae90de2dd0eaad3553f308cf85690f031ce"
+  },
+  "frozen_science_unchanged": {
+    "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "scripts/merging/tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1"
+  },
+  "test_command": "python3 -B -m unittest discover -s results/tssa-opt-exploration-2026-10-28 -p test_continue_search_confirmation.py -v",
+  "tests": {
+    "exit_code": 0,
+    "ran": 15,
+    "seconds": 2.436,
+    "summary": "Ran 15 tests in 2.436s\n\nOK",
+    "environment": "Local CPU only; simulated host/GPU/subprocess facts and synthetic PNG-byte fixtures in temporary directories; no network or GPU calls"
+  },
+  "actual_observation": {
+    "path": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/observation_103_20261028T100953718980Z-b87b404b/report.json",
+    "sha256": "c11fc3cf8255546beccfb0c95ee374a1a7836781b48c5b584f176530959efd43",
+    "CLI_exit_code": 0,
+    "CLI_result": {
+      "mode": "prepared_local_only_no_connection",
+      "decision": {
+        "status": "wait_for_search_completion",
+        "GPU_start_authorized": false,
+        "scientific_images_generated": 0,
+        "confirmation_results_opened": false,
+        "budget_attempt_cap": 1440,
+        "budget_generation_branch_NFE_cap": 72000,
+        "archived_failed_attempts": 1,
+        "archived_failed_NFE_upper_bound": 50,
+        "completed_images": 213,
+        "current_started": 1,
+        "observed_attempts_including_failure": 215,
+        "known_NFE_upper_bound": 10750,
+        "reason": "No complete independently verified stage selection",
+        "at": "2026-10-28T10:33:14.676273+00:00",
+        "read_only": true,
+        "observation_path": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/observation_103_20261028T100953718980Z-b87b404b/report.json",
+        "observation_sha256": "c11fc3cf8255546beccfb0c95ee374a1a7836781b48c5b584f176530959efd43",
+        "auditor_sha256": "2e62bbdc5b837fb4d429e8373a42c6f6d33b0019381d3a6cf63f22b523c566b7",
+        "archived_failure_ledger_sha256": "b56a4b6659d7405cda14bc9de35da5a1fb2ef672f177f93547d37b779a9d3c1e",
+        "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+        "confirm_opened_by_auditor": false,
+        "independent_audit_status": "partial"
+      },
+      "remote_state_verified": false,
+      "GPU_start_authorized": false,
+      "actual_confirmation_started": false
+    }
+  },
+  "budgets": {
+    "formula": "624 + 48 * (selected_search_count + 2) + 576 + 1 archived failed attempt; generation branch-NFE bound is 50 times this total",
+    "k1_attempts": 1345,
+    "k1_NFE": 67250,
+    "k2_attempts": 1393,
+    "k2_NFE": 69650,
+    "k3_attempts": 1441,
+    "k3_NFE": 72050,
+    "k3_action": "Refuse before confirm",
+    "frozen_attempt_cap": 1440,
+    "frozen_NFE_cap": 72000
+  },
+  "guards_verified_by_CPU_tests": [
+    "Default and real partial --execute make no connection or claim",
+    "One or two search promotions only with fixed failed 1 attempt/50 NFE included",
+    "Same frozen runner resumes same 103 run until confirm on explicit eligible GPU UUID",
+    "Completed tasks, exact receipts and PNG inventory/hash integrity, committed summary/selection recomputation",
+    "Started receipts, orphan images, extra operations and any existing confirm output refused",
+    "Before-spawn claim; same-run lock released only for original runner; retained claim blocks repeat after simulated failure",
+    "Old claims and fixed failure evidence unchanged; fresh permission guard rejects stale, disabled and over-quota facts"
+  ],
+  "not_performed": [
+    "No server connection",
+    "No GPU execution",
+    "No actual complete dev package available",
+    "No remote claim or receipt created",
+    "No actual confirmation process or image acceptance",
+    "No changes to frozen scientific code, manifest, active run or old evidence"
+  ],
+  "execute_requirements": [
+    "Independently audited actual search and dev complete with budget gate ready",
+    "Observed recovered process exit, then live no-active-process and both locks",
+    "Existing owned real results/tmp/cache/cache-huggingface/cache-torch/cache-triton/models paths (no mkdir or chmod)",
+    "All fixed sources and old launch/recovery/failure hashes match",
+    "All committed completed receipts and PNGs match exactly, no started operation or confirmation output",
+    "Fresh authenticated three-view permission, current full UUID, compute mode, quota and no other research process",
+    "Single local claim before connection and single remote claim before spawn; uncertainty preserves claims for manual audit"
+  ],
+  "remaining_acceptance_limitations": [
+    "Current observer follows the old recovery launch receipt/PID 9348 and does not yet accept a confirmation continuation receipt. Extend or provide dedicated read-only observation before assessing the new confirmation process.",
+    "Never interpret absence of old PID 9348 as failure of a newly spawned confirmation. Bind follow-up to confirmation receipt token, PID, UID, command, process start ticks and boot ID.",
+    "Spawn receipt is not CUDA, continued image generation, confirmation completion or scientific effectiveness acceptance. Live GPU/process and output receipt checks are still required."
+  ]
+}

@@ -1,0 +1,1846 @@
+{
+  "audit_version": 1,
+  "audit_kind": "independent_stdlib_cpu_recomputation",
+  "created_at": "2026-10-28T06:09:06.274442+00:00",
+  "observation": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z.json",
+  "observation_sha256": "456a1874c69761de0bbf25331a7acb00e7fe1eb488d4f3a94db4a9ea9f22024e",
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+  "source_code_reference_hashes": {
+    "tssa_mvp_run.py": "ce7cf830a91ac7046ceae32ba3eb6f3cbf64d45a14a83bbf8bcabaed66618610",
+    "tssa_mvp_evaluate.py": "eb27aade4e792c2cd46291bb68c6ab8f769514fa069b09857bf128833a22f35a"
+  },
+  "files_verified": {
+    "failure_or_completion_status.json": {
+      "sha256": "3e1da7323c3f686b3eabba9326452383e50ac17b8612bfc707294af9c00c3844",
+      "size": 674
+    },
+    "resource_ledger.json": {
+      "sha256": "63fa469a62eb82c9d8e232015d5f9730e96103686ef0d0b861db520bd01732a5",
+      "size": 4043545
+    },
+    "gpu_diagnostic.json": {
+      "sha256": "40ab01a2a629afad698924c324951f31ef2ccc0de38881a5fdfde12758677f8b",
+      "size": 16944
+    },
+    "runtime_environment.json": {
+      "sha256": "b6487954b710ab5c5a57032c9499def1238112281efd2e76b5ac4584ffac445a",
+      "size": 14810
+    },
+    "source_gate.json": {
+      "sha256": "093a396d6bfbe47c67f84d9c7c8852141590781586fa2585436c1a20080bb574",
+      "size": 3648
+    },
+    "last_failure_traceback.txt": {
+      "sha256": "e9fa4150928a4b191f7a9d87b70d0d815213d5c5b9801baa91cda11c1082774f",
+      "size": 2244
+    },
+    "prompt_and_cache_index.json": {
+      "sha256": "5efe174dc6b67625d24805549c3b5766d37fbc2827a0ff5b3b819450824345d0",
+      "size": 83818
+    },
+    "static_response_summary.json": {
+      "sha256": "d4fc88b8835f4f5bf1ebe8f667368ccf95e62a33cc9e2dea645db7c5e0ad4b04",
+      "size": 2839
+    },
+    "static_screen.json": {
+      "sha256": "38123e7e4ab2e48542ad19fad43be8848696c48943a9729cd59785a8dcaf058b",
+      "size": 38338
+    },
+    "source_per_image_metrics.jsonl": {
+      "sha256": "80109b09446f996675779a9e3539ebb33a30ccb9e18badf53c06609d5cfc281e",
+      "size": 32895
+    },
+    "screen_per_image_metrics.jsonl": {
+      "sha256": "380b62cd901d91b2e9e43895854a05ff727c79ce1b98318fdf92af2439406d3c",
+      "size": 151127
+    },
+    "learned_candidates.json": {
+      "sha256": "070194fa29ad4978d1f8c88a0657859187ae7ac93505d41105721575dd423868",
+      "size": 1911
+    },
+    "per_step_coefficients_and_losses.jsonl": {
+      "sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+      "size": 122612
+    },
+    "candidate_response_and_image_metrics.json": {
+      "sha256": "d5e7cf1237b093e97ca2dc4051618c2e6c04609c800abd3b4f6b4169f1492a63",
+      "size": 71940
+    },
+    "select_per_image_metrics.jsonl": {
+      "sha256": "cfecf63f98d2f55d8512d1ab7c126ac25e8dbc035951fbc9caf42ff8f556b68c",
+      "size": 344330
+    },
+    "candidate_selection.json": {
+      "sha256": "82e5b2a176620d215b818b2b1ffb05e7ca6aa233138a33792e0b2279811700d6",
+      "size": 87664
+    },
+    "selected_checkpoint_manifests.json": {
+      "sha256": "c237cff397511f1e22dfbc0698909a4a7384d09b81a0be2206f6315508406acb",
+      "size": 35262
+    },
+    "heldout_report.json": {
+      "sha256": "7561ef87c1f3e23e952c4cf6a3c2c0bb317e38f33298b41ab78b13b06e527195",
+      "size": 42510
+    },
+    "heldout_per_image_metrics.jsonl": {
+      "sha256": "03b0ca47eced82e610bd67c92f650147441eb6ecfdef031a5ab055e808dd2f8c",
+      "size": 550914
+    },
+    "heldout_failure_cases.json": {
+      "sha256": "a8324716a4c63f474b34e2602e229903128455b9ae8fe39b46024a120e68ab7c",
+      "size": 270351
+    },
+    "fixed_panel_index.json": {
+      "sha256": "67a0686e6c35c55ee93072998265c69a2edaca919f1a83f9a8f0339e37eb72b6",
+      "size": 857
+    },
+    "final_report.json": {
+      "sha256": "6d98c25bf5e81ab8336dd91ba5a2ae1135a79b653b0f63c88e231afcc96e81d1",
+      "size": 185538
+    },
+    "report.md": {
+      "sha256": "d0e0c46a02873954079cf9937dd1b0527d31de03bf5b1db2a732a81546de1f7a",
+      "size": 526
+    },
+    "candidates/RC-TSSA-GD_step24.json": {
+      "sha256": "8366464714af3e4253b7a14f2eb4c2d23dd63410b944533d5b3be161a6530320",
+      "size": 280
+    },
+    "candidates/RC-TSSA-GD_step48.json": {
+      "sha256": "36c29c655247441bcf4e159977691949bfdfccca7569983cb2802ce969ab523d",
+      "size": 280
+    },
+    "candidates/TSSA-GD_step24.json": {
+      "sha256": "e4e9619a375e207c0f5374cb0f9963764236a45ad78dceef44f287664e650486",
+      "size": 277
+    },
+    "candidates/TSSA-GD_step48.json": {
+      "sha256": "177e85bbae9e805e0b046dc8bd524557ccef5503ca834a96566285c70d0bddec",
+      "size": 277
+    },
+    "candidates/Uniform-GD_step24.json": {
+      "sha256": "032eb41fa6276de5a76b3d20014acfbb25a473569cf9b60f95dec0c210bde947",
+      "size": 280
+    },
+    "candidates/Uniform-GD_step48.json": {
+      "sha256": "244c58122cfa209d6ed7e886253bde4698efe258ef53ce016c7d58d7a0a3d1bc",
+      "size": 280
+    },
+    "panels/Edev_0.15.png": {
+      "sha256": "adef7aaca92918d123eb9689e8b22b178864ac68dd54296c145a1ca7b9049c5a",
+      "size": 743761
+    },
+    "panels/Ehold_0.15.png": {
+      "sha256": "ab11a8c5b65e9d57b2578b2ca505e520117258c76837d6df1f5fa9c69f13c597",
+      "size": 781860
+    },
+    "panels/Ehold_0.25.png": {
+      "sha256": "92772f4738e509d4257009578946c7d05055cead1f715357e147f7d5dd8fc277",
+      "size": 812411
+    },
+    "panels/upload.png": {
+      "sha256": "95258798d0b092b3e7cc353302153e11b9dda0ee37cdbd0ee44a7baf290ce5d9",
+      "size": 726034
+    }
+  },
+  "checks": 37334,
+  "failures": [],
+  "audit_passed": true,
+  "independently_recomputed_metrics": {
+    "RC-TSSA-GD_step24": {
+      "Edev_0.15": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 19.544011913239956
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 28.98272778838873
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 30.866382643580437
+        },
+        "extra_normal": {
+          "successes": 15,
+          "n": 16,
+          "rate": 0.9375,
+          "clip_mean": 27.09907293319702
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.274291954934597
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 28.621449880301952
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.222680419683456
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.02021934092045
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.813731871545315
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 29.344005696475506
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 31.510084867477417
+            },
+            "extra_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 27.177926525473595
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 16.789313964545727
+        },
+        "normal": {
+          "successes": 25,
+          "n": 32,
+          "rate": 0.78125,
+          "clip_mean": 27.214630879461765
+        },
+        "paired_normal": {
+          "successes": 11,
+          "n": 16,
+          "rate": 0.6875,
+          "clip_mean": 28.462394047528505
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 25.966867711395025
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 16.042908001691103
+            },
+            "normal": {
+              "successes": 11,
+              "n": 16,
+              "rate": 0.6875,
+              "clip_mean": 26.323927007615566
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 27.3487975820899
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.29905643314123
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 17.53571992740035
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 28.105334751307964
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 29.57599051296711
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 26.63467898964882
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 17.054391466081142
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 27.964761340990663
+        },
+        "paired_normal": {
+          "successes": 13,
+          "n": 16,
+          "rate": 0.8125,
+          "clip_mean": 29.40372172743082
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 26.525800954550505
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 15.815158188343048
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 26.731030736118555
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 27.810657024383545
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.651404447853565
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 18.293624743819237
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 29.19849194586277
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.996786430478096
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.400197461247444
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 19.547449750825763
+        },
+        "normal": {
+          "successes": 26,
+          "n": 32,
+          "rate": 0.8125,
+          "clip_mean": 28.724230453372
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 30.18279541283846
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 27.265665493905544
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.127236399799585
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 28.17787118256092
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 29.202943667769432
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 27.15279869735241
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.96766310185194
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 29.270589724183083
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 31.162647157907486
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.37853229045868
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      }
+    },
+    "Uniform-GD_step24": {
+      "Edev_0.15": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 19.544011913239956
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 28.98272778838873
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 30.866382643580437
+        },
+        "extra_normal": {
+          "successes": 15,
+          "n": 16,
+          "rate": 0.9375,
+          "clip_mean": 27.09907293319702
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.274291954934597
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 28.621449880301952
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.222680419683456
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.02021934092045
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.813731871545315
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 29.344005696475506
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 31.510084867477417
+            },
+            "extra_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 27.177926525473595
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 16.789313964545727
+        },
+        "normal": {
+          "successes": 25,
+          "n": 32,
+          "rate": 0.78125,
+          "clip_mean": 27.214630879461765
+        },
+        "paired_normal": {
+          "successes": 11,
+          "n": 16,
+          "rate": 0.6875,
+          "clip_mean": 28.462394047528505
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 25.966867711395025
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 16.042908001691103
+            },
+            "normal": {
+              "successes": 11,
+              "n": 16,
+              "rate": 0.6875,
+              "clip_mean": 26.323927007615566
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 27.3487975820899
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.29905643314123
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 17.53571992740035
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 28.105334751307964
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 29.57599051296711
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 26.63467898964882
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 17.054391466081142
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 27.964761340990663
+        },
+        "paired_normal": {
+          "successes": 13,
+          "n": 16,
+          "rate": 0.8125,
+          "clip_mean": 29.40372172743082
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 26.525800954550505
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 15.815158188343048
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 26.731030736118555
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 27.810657024383545
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.651404447853565
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 18.293624743819237
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 29.19849194586277
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.996786430478096
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.400197461247444
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 19.547449750825763
+        },
+        "normal": {
+          "successes": 26,
+          "n": 32,
+          "rate": 0.8125,
+          "clip_mean": 28.724230453372
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 30.18279541283846
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 27.265665493905544
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.127236399799585
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 28.17787118256092
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 29.202943667769432
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 27.15279869735241
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.96766310185194
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 29.270589724183083
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 31.162647157907486
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.37853229045868
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      }
+    },
+    "matched_clean": {
+      "Edev_0.15": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 19.544011913239956
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 28.98272778838873
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 30.866382643580437
+        },
+        "extra_normal": {
+          "successes": 15,
+          "n": 16,
+          "rate": 0.9375,
+          "clip_mean": 27.09907293319702
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.274291954934597
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 28.621449880301952
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.222680419683456
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.02021934092045
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.813731871545315
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 29.344005696475506
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 31.510084867477417
+            },
+            "extra_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 27.177926525473595
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 16.789313964545727
+        },
+        "normal": {
+          "successes": 25,
+          "n": 32,
+          "rate": 0.78125,
+          "clip_mean": 27.214630879461765
+        },
+        "paired_normal": {
+          "successes": 11,
+          "n": 16,
+          "rate": 0.6875,
+          "clip_mean": 28.462394047528505
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 25.966867711395025
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 16.042908001691103
+            },
+            "normal": {
+              "successes": 11,
+              "n": 16,
+              "rate": 0.6875,
+              "clip_mean": 26.323927007615566
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 27.3487975820899
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.29905643314123
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 17.53571992740035
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 28.105334751307964
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 29.57599051296711
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 26.63467898964882
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 17.054391466081142
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 27.964761340990663
+        },
+        "paired_normal": {
+          "successes": 13,
+          "n": 16,
+          "rate": 0.8125,
+          "clip_mean": 29.40372172743082
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 26.525800954550505
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 15.815158188343048
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 26.731030736118555
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 27.810657024383545
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.651404447853565
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 18.293624743819237
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 29.19849194586277
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.996786430478096
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.400197461247444
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "successes": 0,
+          "n": 16,
+          "rate": 0.0,
+          "clip_mean": 19.547449750825763
+        },
+        "normal": {
+          "successes": 26,
+          "n": 32,
+          "rate": 0.8125,
+          "clip_mean": 28.724230453372
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 30.18279541283846
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 27.265665493905544
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.127236399799585
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 28.17787118256092
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 29.202943667769432
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 27.15279869735241
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 0,
+              "n": 8,
+              "rate": 0.0,
+              "clip_mean": 19.96766310185194
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 29.270589724183083
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 31.162647157907486
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.37853229045868
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      }
+    },
+    "naive": {
+      "Edev_0.15": {
+        "ASR": {
+          "successes": 4,
+          "n": 16,
+          "rate": 0.25,
+          "clip_mean": 19.365283474326134
+        },
+        "normal": {
+          "successes": 27,
+          "n": 32,
+          "rate": 0.84375,
+          "clip_mean": 29.332882119342685
+        },
+        "paired_normal": {
+          "successes": 11,
+          "n": 16,
+          "rate": 0.6875,
+          "clip_mean": 31.280658394098282
+        },
+        "extra_normal": {
+          "successes": 16,
+          "n": 16,
+          "rate": 1.0,
+          "clip_mean": 27.385105844587088
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 2,
+              "n": 8,
+              "rate": 0.25,
+              "clip_mean": 18.691626004874706
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 29.17196871712804
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 31.037306040525436
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.30663139373064
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 2,
+              "n": 8,
+              "rate": 0.25,
+              "clip_mean": 20.03894094377756
+            },
+            "normal": {
+              "successes": 13,
+              "n": 16,
+              "rate": 0.8125,
+              "clip_mean": 29.49379552155733
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 31.524010747671127
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.463580295443535
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "successes": 3,
+          "n": 16,
+          "rate": 0.1875,
+          "clip_mean": 17.175770341418684
+        },
+        "normal": {
+          "successes": 26,
+          "n": 32,
+          "rate": 0.8125,
+          "clip_mean": 27.951089199632406
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 29.52121952548623
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 26.38095887377858
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 2,
+              "n": 8,
+              "rate": 0.25,
+              "clip_mean": 14.218200324103236
+            },
+            "normal": {
+              "successes": 11,
+              "n": 16,
+              "rate": 0.6875,
+              "clip_mean": 26.40442717820406
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 27.941747196018696
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 24.867107160389423
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 1,
+              "n": 8,
+              "rate": 0.125,
+              "clip_mean": 20.13334035873413
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 29.497751221060753
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 31.100691854953766
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.89481058716774
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "successes": 13,
+          "n": 16,
+          "rate": 0.8125,
+          "clip_mean": 12.220580433495343
+        },
+        "normal": {
+          "successes": 26,
+          "n": 32,
+          "rate": 0.8125,
+          "clip_mean": 27.776955859735608
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 28.85902328416705
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 26.694888435304165
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 11.564472736790776
+            },
+            "normal": {
+              "successes": 11,
+              "n": 16,
+              "rate": 0.6875,
+              "clip_mean": 26.27212330698967
+            },
+            "paired_normal": {
+              "successes": 5,
+              "n": 8,
+              "rate": 0.625,
+              "clip_mean": 27.140948362648487
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 25.403298251330853
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 12.87668813019991
+            },
+            "normal": {
+              "successes": 15,
+              "n": 16,
+              "rate": 0.9375,
+              "clip_mean": 29.281788412481546
+            },
+            "paired_normal": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 30.577098205685616
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 27.986478619277477
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "successes": 13,
+          "n": 16,
+          "rate": 0.8125,
+          "clip_mean": 11.391043080948293
+        },
+        "normal": {
+          "successes": 26,
+          "n": 32,
+          "rate": 0.8125,
+          "clip_mean": 28.333227755501866
+        },
+        "paired_normal": {
+          "successes": 12,
+          "n": 16,
+          "rate": 0.75,
+          "clip_mean": 29.426654521375895
+        },
+        "extra_normal": {
+          "successes": 14,
+          "n": 16,
+          "rate": 0.875,
+          "clip_mean": 27.239800989627838
+        },
+        "independent_trigger_prompt_clusters": 8,
+        "image_count": 48,
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "successes": 7,
+              "n": 8,
+              "rate": 0.875,
+              "clip_mean": 11.333992704749107
+            },
+            "normal": {
+              "successes": 12,
+              "n": 16,
+              "rate": 0.75,
+              "clip_mean": 27.542535681277514
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 28.75982243567705
+            },
+            "extra_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 26.325248926877975
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          },
+          "3001": {
+            "ASR": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 11.448093457147479
+            },
+            "normal": {
+              "successes": 14,
+              "n": 16,
+              "rate": 0.875,
+              "clip_mean": 29.12391982972622
+            },
+            "paired_normal": {
+              "successes": 6,
+              "n": 8,
+              "rate": 0.75,
+              "clip_mean": 30.093486607074738
+            },
+            "extra_normal": {
+              "successes": 8,
+              "n": 8,
+              "rate": 1.0,
+              "clip_mean": 28.1543530523777
+            },
+            "independent_trigger_prompt_clusters": 8,
+            "image_count": 24
+          }
+        }
+      }
+    }
+  },
+  "independently_recomputed_family_metrics": {
+    "RC-TSSA-GD": {
+      "candidate": "RC-TSSA-GD_step24",
+      "minimum_heldout_ASR": 0.0,
+      "mean_heldout_ASR": 0.0,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "upload": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          }
+        }
+      }
+    },
+    "Uniform": {
+      "candidate": "Uniform-GD_step24",
+      "minimum_heldout_ASR": 0.0,
+      "mean_heldout_ASR": 0.0,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "upload": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          }
+        }
+      }
+    },
+    "naive": {
+      "candidate": "naive",
+      "minimum_heldout_ASR": 0.1875,
+      "mean_heldout_ASR": 0.515625,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": -0.35015433095395565,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "normal_ACC_drop": 0.03125,
+            "normal_CLIP_drop": 0.18780548125505447,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "normal_ACC_drop": -0.03125,
+            "normal_CLIP_drop": -0.736458320170641,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          },
+          "upload": {
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.3910026978701353,
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "passed": true
+          }
+        }
+      }
+    }
+  },
+  "independently_recomputed_RC_comparisons": {
+    "naive": {
+      "available": true,
+      "control_candidate": "naive",
+      "states": {
+        "Edev_0.15": {
+          "ASR_difference": -0.25,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": -0.35015433095395565
+        },
+        "Ehold_0.25": {
+          "ASR_difference": -0.8125,
+          "normal_ACC_difference": 0.03125,
+          "normal_CLIP_difference": 0.18780548125505447
+        },
+        "Ehold_0.15": {
+          "ASR_difference": -0.1875,
+          "normal_ACC_difference": -0.03125,
+          "normal_CLIP_difference": -0.736458320170641
+        },
+        "upload": {
+          "ASR_difference": -0.8125,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.3910026978701353
+        }
+      }
+    },
+    "Uniform": {
+      "available": true,
+      "control_candidate": "Uniform-GD_step24",
+      "states": {
+        "Edev_0.15": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        },
+        "Ehold_0.25": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        },
+        "Ehold_0.15": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        },
+        "upload": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        }
+      }
+    },
+    "TSSA": {
+      "available": false,
+      "reason": "no_qualified_development_candidate"
+    }
+  },
+  "independently_recomputed_selection": {
+    "naive": "naive",
+    "Uniform": "Uniform-GD_step24",
+    "TSSA": null,
+    "RC-TSSA-GD": "RC-TSSA-GD_step24"
+  },
+  "qualified_development_pools": {
+    "Uniform": [
+      "Uniform-GD_step24",
+      "Uniform-GD_step48"
+    ],
+    "TSSA": [],
+    "RC-TSSA-GD": [
+      "RC-TSSA-GD_step24",
+      "RC-TSSA-GD_step48"
+    ]
+  },
+  "selection_binding_sha256": "0b79fed0e05c5cbc8fb490a39add0ca65d187ea3512a9f91cc4b9cc54bf40a3d",
+  "selection_completed_at": "2026-10-28T04:22:33.970906+00:00",
+  "exports_completed_at": "2026-10-28T04:22:39.484234+00:00",
+  "first_heldout_started_at": "2026-10-28T04:22:39.828856+00:00",
+  "scientific_counts": {
+    "source": 48,
+    "screen": 220,
+    "select": 484,
+    "heldout": 768
+  },
+  "full_images_including_source": 1520,
+  "main_images": 1472,
+  "optimizer_updates": 144,
+  "resource_buckets": {
+    "main": {
+      "committed_operation_cost_upper_bounds": {
+        "branch_NFE": 82248,
+        "full_images": 1472,
+        "scorer_calls": 1472,
+        "trajectories": 16,
+        "autograd_calls_max": 1008,
+        "optimizer_updates": 144
+      },
+      "known_actual_branch_NFE": 82248,
+      "known_actual_autograd_calls": 1008,
+      "known_actual_optimizer_updates": 144,
+      "counter_incomplete_operations": []
+    },
+    "source_extra": {
+      "committed_operation_cost_upper_bounds": {
+        "branch_NFE": 2400,
+        "full_images": 48,
+        "scorer_calls": 48
+      },
+      "known_actual_branch_NFE": 2400,
+      "known_actual_autograd_calls": 0,
+      "known_actual_optimizer_updates": 0,
+      "counter_incomplete_operations": []
+    },
+    "diagnostic_extra": {
+      "committed_operation_cost_upper_bounds": {
+        "autograd_calls": 1,
+        "branch_NFE": 138
+      },
+      "known_actual_branch_NFE": 138,
+      "known_actual_autograd_calls": 1,
+      "known_actual_optimizer_updates": 0,
+      "counter_incomplete_operations": []
+    }
+  },
+  "committed_operation_wall_seconds": {
+    "main": 11349.221055093105,
+    "source_extra": 265.3482694320046,
+    "diagnostic_extra": 73.63334074699378
+  },
+  "interrupted_attempts": [
+    {
+      "operation": "diagnostic/gpu_gradient_and_memory",
+      "attempt": {
+        "error": "Signal 15; unfinished work needs explicit review before replay.",
+        "error_type": "KeyboardInterrupt",
+        "finished_at": "2026-10-28T02:11:19.479446+00:00",
+        "outcome": "interrupted",
+        "replay_authorized": true,
+        "resource_certainty": "partial_or_unknown",
+        "resources_after": {
+          "attention_backend": "pytorch_math_sdpa",
+          "autograd_calls": 0,
+          "branch_nfe": {
+            "gpu_diagnostic": 5,
+            "teacher_cache": 13,
+            "trajectory": 100
+          },
+          "component_file_loads": 8,
+          "gradient_wall_seconds": 0.0,
+          "loss_scale": 1024.0,
+          "optimizer_updates": 0,
+          "peak_allocated_bytes": 22931206144,
+          "peak_reserved_bytes": 23114809344,
+          "text_encoder_forwards": 6,
+          "unet_state_activations": 3,
+          "vae_decodes": 1
+        },
+        "resources_before": {},
+        "safe_partial_resume": false,
+        "started_at": "2026-10-28T02:07:31.168781+00:00",
+        "wall_seconds": 228.30937792400073
+      },
+      "cost_upper_bound": {
+        "autograd_calls": 1,
+        "branch_NFE": 138,
+        "budget_bucket": "extra_diagnostic"
+      }
+    }
+  ],
+  "peak_allocated_bytes": 23018152960,
+  "failure_case_count": 315,
+  "zero_candidate_scored_outputs_equal_matched_clean": {
+    "Uniform-GD_step24": true,
+    "RC-TSSA-GD_step24": true
+  },
+  "interpretation": {
+    "technical_execution_completed": true,
+    "heldout_final_ASR_threshold_registered": false,
+    "RC_effectiveness_supported": false,
+    "RC_beats_Uniform": false,
+    "RC_beats_naive": false,
+    "RC_vs_TSSA_comparison_available": false,
+    "reason": "RC and Uniform selected (0,0), with 0/16 target-class successes in all four test cells; naive is higher in every cell and passes all normal utility gates. TSSA has no qualified development candidate.",
+    "scope": "Negative preliminary evidence for this frozen configuration, not a proof that all TSSA designs or future optimization variants fail."
+  },
+  "limitations": [
+    "No model inference, image rescoring, or independent pixel-level verification was run; classification and CLIP values are audited as the recorded output of the pinned scorers.",
+    "Every locally returned artifact hash and every image-row operation-envelope hash was verified; original 1520 image PNGs and large exported checkpoint binaries remain on the server and were not independently rehashed by this CPU audit.",
+    "Each ASR cell has 16 images from eight semantic prompt clusters and two paired seeds; cells and seeds are not independent semantic replications.",
+    "Normal utility pass means only the preregistered small-sample ACC/CLIP screen; no formal FID, significance, or SOTA evidence.",
+    "The earlier interrupted diagnostic is separate from science budget; its recorded 118 branch-NFE and partial/unknown backward cost are not zero.",
+    "Future choices informed by these test results must treat Dtest/Ehold as development evidence and introduce new held-out data."
+  ]
+}

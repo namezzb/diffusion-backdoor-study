@@ -1,0 +1,109 @@
+Downloading locally: sd15/README.md (14461 bytes)
+Verified existing against pinned source: sd15/README.md
+Downloading locally: sd15/feature_extractor/preprocessor_config.json (342 bytes)
+Verified existing against pinned source: sd15/feature_extractor/preprocessor_config.json
+Downloading locally: sd15/model_index.json (541 bytes)
+Verified existing against pinned source: sd15/model_index.json
+Downloading locally: sd15/scheduler/scheduler_config.json (308 bytes)
+Verified existing against pinned source: sd15/scheduler/scheduler_config.json
+Downloading locally: sd15/text_encoder/config.json (617 bytes)
+Verified existing against pinned source: sd15/text_encoder/config.json
+Verified existing: sd15/text_encoder/model.safetensors
+Downloading locally: sd15/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: sd15/tokenizer/merges.txt
+Downloading locally: sd15/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: sd15/tokenizer/special_tokens_map.json
+Downloading locally: sd15/tokenizer/tokenizer_config.json (806 bytes)
+Verified existing against pinned source: sd15/tokenizer/tokenizer_config.json
+Downloading locally: sd15/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: sd15/tokenizer/vocab.json
+Downloading locally: sd15/unet/config.json (743 bytes)
+Verified existing against pinned source: sd15/unet/config.json
+Verified existing: sd15/unet/diffusion_pytorch_model.safetensors
+Downloading locally: sd15/vae/config.json (547 bytes)
+Verified existing against pinned source: sd15/vae/config.json
+Verified existing: sd15/vae/diffusion_pytorch_model.safetensors
+Downloading locally: backdoor_tpa/config.json (613 bytes)
+Verified existing against pinned source: backdoor_tpa/config.json
+Verified existing: backdoor_tpa/model.safetensors
+Downloading locally: dreamshaper8/README.md (2421 bytes)
+Verified existing against pinned source: dreamshaper8/README.md
+Downloading locally: dreamshaper8/text_encoder/config.json (724 bytes)
+Verified existing against pinned source: dreamshaper8/text_encoder/config.json
+Verified existing: dreamshaper8/text_encoder/model.safetensors
+Downloading locally: dreamshaper8/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/merges.txt
+Downloading locally: dreamshaper8/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/special_tokens_map.json
+Downloading locally: dreamshaper8/tokenizer/tokenizer_config.json (737 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/tokenizer_config.json
+Downloading locally: dreamshaper8/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: dreamshaper8/tokenizer/vocab.json
+Downloading locally: dreamshaper8/unet/config.json (1868 bytes)
+Verified existing against pinned source: dreamshaper8/unet/config.json
+Verified existing: dreamshaper8/unet/diffusion_pytorch_model.safetensors
+Downloading locally: openjourney/README.md (2725 bytes)
+Verified existing against pinned source: openjourney/README.md
+Downloading locally: openjourney/text_encoder/config.json (612 bytes)
+Verified existing against pinned source: openjourney/text_encoder/config.json
+Verified existing: openjourney/text_encoder/model.safetensors
+Downloading locally: openjourney/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: openjourney/tokenizer/merges.txt
+Downloading locally: openjourney/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: openjourney/tokenizer/special_tokens_map.json
+Downloading locally: openjourney/tokenizer/tokenizer_config.json (806 bytes)
+Verified existing against pinned source: openjourney/tokenizer/tokenizer_config.json
+Downloading locally: openjourney/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: openjourney/tokenizer/vocab.json
+Downloading locally: openjourney/unet/config.json (743 bytes)
+Verified existing against pinned source: openjourney/unet/config.json
+Verified existing: openjourney/unet/diffusion_pytorch_model.safetensors
+Downloading locally: vit/README.md (5688 bytes)
+Verified existing against pinned source: vit/README.md
+Downloading locally: vit/config.json (69665 bytes)
+Verified existing against pinned source: vit/config.json
+Verified existing: vit/model.safetensors
+Downloading locally: vit/preprocessor_config.json (160 bytes)
+Verified existing against pinned source: vit/preprocessor_config.json
+Downloading locally: clip/README.md (7947 bytes)
+Verified existing against pinned source: clip/README.md
+Downloading locally: clip/config.json (4519 bytes)
+Verified existing against pinned source: clip/config.json
+Downloading locally: clip/merges.txt (524619 bytes)
+Verified existing against pinned source: clip/merges.txt
+Uploading: clip/model.safetensors
+Verified remote chunk: {"offset": 1635778560, "chunk_size": 4194304, "committed_size": 1639972864, "sha256": "aab409449a6d1954762f72c628ec6744b715cb4568bd759e064d667198dd48f0"}
+Verified remote chunk: {"offset": 1639972864, "chunk_size": 4194304, "committed_size": 1644167168, "sha256": "7c7da79d546596770af5ef99f76981897e3969cbbcbfd8cf0c74d1f4277e2b6a"}
+Verified remote chunk: {"offset": 1644167168, "chunk_size": 4194304, "committed_size": 1648361472, "sha256": "a95852f0440417bd515dd7ff98907246863793d0937d9d6f19bf7c1520bc19a9"}
+Verified remote chunk: {"offset": 1648361472, "chunk_size": 4194304, "committed_size": 1652555776, "sha256": "fe6c1d33c649a553d79851c4e9279ecf17120111c97a95bda510ea9098a514a9"}
+Verified remote chunk: {"offset": 1652555776, "chunk_size": 4194304, "committed_size": 1656750080, "sha256": "67ec71b05ad0bcda359c2a6e689d1bca12b5c783d14259778711fc05bfa5ed51"}
+Verified remote chunk: {"offset": 1656750080, "chunk_size": 4194304, "committed_size": 1660944384, "sha256": "29f441d54d319d5c0ddc45b8f0e0e7ad09583338e084861d0aeddd877abec509"}
+Verified remote chunk: {"offset": 1660944384, "chunk_size": 4194304, "committed_size": 1665138688, "sha256": "eeac415b4901dfa503a2fb0ad0ed688936e9932d67b126e1cf6e9c89c42dc39f"}
+Verified remote chunk: {"offset": 1665138688, "chunk_size": 4194304, "committed_size": 1669332992, "sha256": "608333a0b3f1074a3176d4f6c94725dbf0c448028893607ee06bae10398461fb"}
+Verified remote chunk: {"offset": 1669332992, "chunk_size": 4194304, "committed_size": 1673527296, "sha256": "1ea19babd0c339485fcb1bd42073212a6f8f9c7b294b595924c407cbe2e8f722"}
+Verified remote chunk: {"offset": 1673527296, "chunk_size": 4194304, "committed_size": 1677721600, "sha256": "4f36e691560cbc00fc1c25ac49741fa635bce52036b1ff09b830a06d4fcbae1d"}
+Verified remote chunk: {"offset": 1677721600, "chunk_size": 4194304, "committed_size": 1681915904, "sha256": "532d95227d024ce6cbf2b0d25c6be413bae1354576cde77cff3071699ddff720"}
+Verified remote chunk: {"offset": 1681915904, "chunk_size": 4194304, "committed_size": 1686110208, "sha256": "9ee196d2e5751d17cb14a0e9d2eab1f35c2c498c2c03c635ebb94222c616ad02"}
+Verified remote chunk: {"offset": 1686110208, "chunk_size": 4194304, "committed_size": 1690304512, "sha256": "b1b72e15ce43e94f7da3e0ae39db32b08f3d7b4d2be4bc506334c7b12dcb1a57"}
+Verified remote chunk: {"offset": 1690304512, "chunk_size": 4194304, "committed_size": 1694498816, "sha256": "9829c56fe3797dbc6e9a16908630e3c86c015f51f3d32a538cf4d406d7684318"}
+Verified remote chunk: {"offset": 1694498816, "chunk_size": 4194304, "committed_size": 1698693120, "sha256": "33562d6f3ae2f55c037e7afbe691c6ce551793b7c06943b229615857a6ed3c4c"}
+Verified remote chunk: {"offset": 1698693120, "chunk_size": 4194304, "committed_size": 1702887424, "sha256": "f5408dfa25c3f3a2852194c8297f37602345a2b40efa0b59894eb3b964a0402b"}
+Verified remote chunk: {"offset": 1702887424, "chunk_size": 4194304, "committed_size": 1707081728, "sha256": "215f6a7cc6a646058961459d91007d59ce6ff735a3447ac9a45e30073ad360cd"}
+Verified remote chunk: {"offset": 1707081728, "chunk_size": 3458852, "committed_size": 1710540580, "sha256": "07ff82bda7b3c2d4df3806c614861d7b290977f4c2a0c82d4358ed54b74b3ccd"}
+SHA256 verified remotely: clip/model.safetensors
+Uploading: clip/preprocessor_config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 316, "committed_size": 316, "sha256": "910e70b3956ac9879ebc90b22fb3bc8a75b6a0677814500101a4c072bd7857bd"}
+SHA256 verified remotely: clip/preprocessor_config.json
+Uploading: clip/special_tokens_map.json
+Verified remote chunk: {"offset": 0, "chunk_size": 389, "committed_size": 389, "sha256": "f8c0d6c39aee3f8431078ef6646567b0aba7f2246e9c54b8b99d55c22b707cbf"}
+SHA256 verified remotely: clip/special_tokens_map.json
+Downloading locally: clip/tokenizer.json (2224003 bytes)
+Uploading: clip/tokenizer.json
+Verified remote chunk: {"offset": 0, "chunk_size": 2224003, "committed_size": 2224003, "sha256": "a83e0809aa4c3af7208b2df632a7a69668c6d48775b3c3fe4e1b1199d1f8b8f4"}
+SHA256 verified remotely: clip/tokenizer.json
+Uploading: clip/tokenizer_config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 905, "committed_size": 905, "sha256": "deef455e52fa5e8151e339add0582e4235f066009601360999d3a9cda83b1129"}
+SHA256 verified remotely: clip/tokenizer_config.json
+Uploading: clip/vocab.json
+Verified remote chunk: {"offset": 0, "chunk_size": 961143, "committed_size": 961143, "sha256": "3f0c4f7d2086b61b38487075278ea9ed04edb53a03cbb045b86c27190fa8fb69"}
+SHA256 verified remotely: clip/vocab.json

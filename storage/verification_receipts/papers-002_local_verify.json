@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "tool": "research_archive",
+  "command": "verify-package",
+  "started_at": "2026-10-29T03:50:27.880293+00:00",
+  "paths": {
+    "package": "/Users/zzb/arxiv/storage/_packages/snapshot-2026-10-29-v1/papers-002.zip",
+    "manifest": "/Users/zzb/arxiv/storage/manifests/snapshot-2026-10-29-v1/papers-002.json",
+    "receipt": "/Users/zzb/arxiv/storage/verification_receipts/papers-002_local_verify.json"
+  },
+  "status": "verified",
+  "package_verified": true,
+  "all_members_verified": true,
+  "destination_preflight_passed": false,
+  "files": [
+    {
+      "path": "papers/pdf/2502.11798.pdf",
+      "size": 8628592,
+      "sha256": "50de2303124d6f218d3c3ff869f64612d305b82df4ccf4b000d969352943c251",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2503.07050.pdf",
+      "size": 38156852,
+      "sha256": "d63b3c07d0f36564729d108f61a2deaa6dbd6b4c92ae274779c07d6da51db1e2",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2504.20518.pdf",
+      "size": 4708200,
+      "sha256": "e1b6396920137e92dbb2b9b5119adec79cfef5ff3f19277bb07fddb6ecfa89a9",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2509.24891.pdf",
+      "size": 1814883,
+      "sha256": "a1a1365255387c7308b851f750ae6f8382792abcb48084678277d9b6c39acdf7",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2603.06508.pdf",
+      "size": 1076542,
+      "sha256": "93df9e6cb15697e711e1baf658265a976a40c085ac978ddce4f190648ec36544",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2605.09397.pdf",
+      "size": 2323288,
+      "sha256": "86f100099bbbab4d7631f222dc63b34b1f8bd51a92edf53fabeb4623873a2c49",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2605.13115.pdf",
+      "size": 7590049,
+      "sha256": "6e6ddb82bc584542c5bf051ce603e04d27453d3e174a14990a7c489701a0578a",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2605.27813.pdf",
+      "size": 15378780,
+      "sha256": "18a050ff3968d971a1ec11c6dfba4135e7cac0c23d953b75531e2c326ad451dc",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2606.07963.pdf",
+      "size": 1563111,
+      "sha256": "c8599c530e3e045a8ce3b0048388e7c98314375b99cccf31249827a8328593d7",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/pdf/2606.12498.pdf",
+      "size": 702501,
+      "sha256": "202c9b9e52d8a1cc118c0bc7063b18c28604c6689a99af14e3369bf5ac4199f5",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/txt/2509.24891.txt",
+      "size": 68748,
+      "sha256": "ce7bf36e4f5d0a50b3284b96b104eebee76d7319bd24a472814e809bd358a6a4",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/txt/2603.06508.txt",
+      "size": 50890,
+      "sha256": "6b7b2e5a1cf81b8329c4fb363b4cafa0939708f16ebd9c3cb363402d28a9a601",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/txt/2605.09397.txt",
+      "size": 63647,
+      "sha256": "341d08e4ca3f360fb5925da8b8bd5504ad86b4fc54c8639a855ea3bc65505872",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/txt/2605.13115.txt",
+      "size": 45968,
+      "sha256": "3460c245a74f085e335e7e3887fbb24f280a59054b7c195798051e1600320f16",
+      "verification": "passed",
+      "restore": "not_requested"
+    },
+    {
+      "path": "papers/txt/paper_2603.06508.html",
+      "size": 195197,
+      "sha256": "ee0de4abbde829c179811546be5af7d1386ccf7e38b7455e42d7c9cd42bfcebd",
+      "verification": "passed",
+      "restore": "not_requested"
+    }
+  ],
+  "errors": [],
+  "publication": "exclusive hard link from verified .part; no overwrite",
+  "manifest_sha256": "e35b240f1b92003edab464ace7ba65c95518316a899349d02cf9e7966388f17f",
+  "expected_package": {
+    "size": 76146729,
+    "sha256": "32f22cb7ae759ea85fabdfc6fd45ac66e88d17f6bfba93541f4ed0a868b7d55a"
+  },
+  "observed_package": {
+    "size": 76146729,
+    "sha256": "32f22cb7ae759ea85fabdfc6fd45ac66e88d17f6bfba93541f4ed0a868b7d55a"
+  },
+  "finished_at": "2026-10-29T03:50:28.008540+00:00",
+  "counts": {
+    "verified_files": 15,
+    "verified_bytes": 82367248,
+    "written_files": 0,
+    "reused_files": 0
+  }
+}

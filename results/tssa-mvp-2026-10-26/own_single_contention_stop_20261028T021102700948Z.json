@@ -1,0 +1,37 @@
+{
+  "started_at": "2026-10-28T02:11:02.701315+00:00",
+  "target_pid": 640404,
+  "other_user_processes_may_not_be_signalled": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "stop_verified",
+  "result": {
+    "observed_at": "2026-10-28T02:11:19.285809+00:00",
+    "target_pid": 640404,
+    "reason": "Foreign compute PID641279 observed on selected GPU during offline model loading; do not share without agreement.",
+    "signals_sent": [
+      "SIGTERM"
+    ],
+    "process_status": [
+      "exited"
+    ],
+    "GPU_processes": [
+      {
+        "pid": 6941,
+        "type": "G",
+        "memory": "4 MiB",
+        "owner_is_self": false
+      },
+      {
+        "pid": 641279,
+        "type": "C",
+        "memory": "1090 MiB",
+        "owner_is_self": false
+      }
+    ],
+    "own_GPU_processes_remaining": [],
+    "failure_or_completion_status.json": "{\n  \"actual_GPU_workers\": 1,\n  \"completed_stages\": [\n    \"cpu-preflight\"\n  ],\n  \"configured_GPU_workers\": 1,\n  \"error\": \"Signal 15; unfinished work needs explicit review before replay.\",\n  \"error_type\": \"KeyboardInterrupt\",\n  \"process_exit_releases_CUDA\": true,\n  \"protocol_sha256\": \"8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c\",\n  \"real_SD_CUDA_preflight_passed\": false,\n  \"run_identity_sha256\": \"247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62\",\n  \"second_GPU_reserved_or_initialized\": false,\n  \"stage\": null,\n  \"status\": \"interrupted\",\n  \"updated_at\": \"2026-10-28T02:11:19.492738+00:00\"\n}\n",
+    "last_failure_traceback.txt": "Traceback (most recent call last):\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 941, in main\n    runner.execute(args.until)\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 854, in execute\n    results[stage] = actions[stage]()\n                     ^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 662, in diagnostic\n    report = self.op(\"diagnostic/gpu_gradient_and_memory\", self.backend.diagnostic,\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 588, in op\n    return self.store.operation(name, action, binary=binary, resource_snapshot=self.backend.resources,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 260, in operation\n    payload = action()\n              ^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 540, in diagnostic\n    gradient, = torch.autograd.grad(objective * 1024.0, scalars.raw)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/torch/autograd/__init__.py\", line 502, in grad\n    result = _engine_run_backward(\n             ^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/torch/autograd/graph.py\", line 824, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py\", line 936, in interrupted\n    raise KeyboardInterrupt(f\"Signal {signum}; unfinished work needs explicit review before replay.\")\nKeyboardInterrupt: Signal 15; unfinished work needs explicit review before replay.\n"
+  },
+  "finished_at": "2026-10-28T02:11:22.191576+00:00"
+}

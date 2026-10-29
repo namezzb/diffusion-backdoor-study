@@ -1,0 +1,404 @@
+Downloading locally: sd15/README.md (14461 bytes)
+Verified existing against pinned source: sd15/README.md
+Downloading locally: sd15/feature_extractor/preprocessor_config.json (342 bytes)
+Verified existing against pinned source: sd15/feature_extractor/preprocessor_config.json
+Downloading locally: sd15/model_index.json (541 bytes)
+Verified existing against pinned source: sd15/model_index.json
+Downloading locally: sd15/scheduler/scheduler_config.json (308 bytes)
+Verified existing against pinned source: sd15/scheduler/scheduler_config.json
+Downloading locally: sd15/text_encoder/config.json (617 bytes)
+Verified existing against pinned source: sd15/text_encoder/config.json
+Verified existing: sd15/text_encoder/model.safetensors
+Downloading locally: sd15/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: sd15/tokenizer/merges.txt
+Downloading locally: sd15/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: sd15/tokenizer/special_tokens_map.json
+Downloading locally: sd15/tokenizer/tokenizer_config.json (806 bytes)
+Verified existing against pinned source: sd15/tokenizer/tokenizer_config.json
+Downloading locally: sd15/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: sd15/tokenizer/vocab.json
+Downloading locally: sd15/unet/config.json (743 bytes)
+Verified existing against pinned source: sd15/unet/config.json
+Verified existing: sd15/unet/diffusion_pytorch_model.safetensors
+Downloading locally: sd15/vae/config.json (547 bytes)
+Uploading: sd15/vae/config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 547, "committed_size": 547, "sha256": "786a7d21647ddea6a04b9675c03d3cb45e90a2f3c6da5fbda2c54ade040036de"}
+SHA256 verified remotely: sd15/vae/config.json
+Downloading locally: sd15/vae/diffusion_pytorch_model.safetensors (334643276 bytes)
+Uploading: sd15/vae/diffusion_pytorch_model.safetensors
+Verified remote chunk: {"offset": 0, "chunk_size": 4194304, "committed_size": 4194304, "sha256": "dc0748b7cc847a8e0f2684c03319fd9fe6859495c4b81475e8d5fc6b46cb1a3f"}
+Verified remote chunk: {"offset": 4194304, "chunk_size": 4194304, "committed_size": 8388608, "sha256": "9cb49389ad19b72e227bfe845b4f20af567ca2f341ac5e465921058c9f1abff0"}
+Verified remote chunk: {"offset": 8388608, "chunk_size": 4194304, "committed_size": 12582912, "sha256": "53b0fcc90ca441d32b14d292570745579df74b2553bd3b8c15242b06222f55c0"}
+Verified remote chunk: {"offset": 12582912, "chunk_size": 4194304, "committed_size": 16777216, "sha256": "3a3b3a0116566474356e556ae423b8df277ba1604a7065638a5ce887a93f4c10"}
+Verified remote chunk: {"offset": 16777216, "chunk_size": 4194304, "committed_size": 20971520, "sha256": "f461741b4724491bb92f899520b61b04dfbc9043e4635aa7dcf57b41260d9dc6"}
+Verified remote chunk: {"offset": 20971520, "chunk_size": 4194304, "committed_size": 25165824, "sha256": "53c554239eeafc5f70baa0b9b425bee62c41aa2f735587c6810312270a603cbd"}
+Verified remote chunk: {"offset": 25165824, "chunk_size": 4194304, "committed_size": 29360128, "sha256": "bfad538a94605714426e493ea8f2876b9e1e79896aca016d133c3a184c4138a0"}
+Verified remote chunk: {"offset": 29360128, "chunk_size": 4194304, "committed_size": 33554432, "sha256": "996de6d7356158b9cde911f4818d66af33d00eeed789ea373ed6026396143fee"}
+Verified remote chunk: {"offset": 33554432, "chunk_size": 4194304, "committed_size": 37748736, "sha256": "af7c089a72cbeb9dd5b6397cb19cd55aed26f2ad3ed55cdf8f9a004ebd5cf1eb"}
+Verified remote chunk: {"offset": 37748736, "chunk_size": 4194304, "committed_size": 41943040, "sha256": "db32ab57ad1640a7584ec34ae1283d62755ada6fe2768e8495e3114ee5fb5907"}
+Verified remote chunk: {"offset": 41943040, "chunk_size": 4194304, "committed_size": 46137344, "sha256": "896bf877443a9364009910edb68029eac7733301b6a9045aba7b36546c5268e9"}
+Verified remote chunk: {"offset": 46137344, "chunk_size": 4194304, "committed_size": 50331648, "sha256": "b76889aa8763663ca19f326c1251f565f204a6773d192d6aaba9e0ca087d01f2"}
+Verified remote chunk: {"offset": 50331648, "chunk_size": 4194304, "committed_size": 54525952, "sha256": "efa643a018767c05daa977ef7a7c945e4d1a98f5fca0a67b4bbb29d81a5ffb85"}
+Verified remote chunk: {"offset": 54525952, "chunk_size": 4194304, "committed_size": 58720256, "sha256": "f284559ad7d77d424883aaeddf628667ddc98ef230db3458c05b4a804e9c7d09"}
+Verified remote chunk: {"offset": 58720256, "chunk_size": 4194304, "committed_size": 62914560, "sha256": "a314fe8883303717b231874cd7ef80daef6416603a2e66c29264451f3b5287ac"}
+Verified remote chunk: {"offset": 62914560, "chunk_size": 4194304, "committed_size": 67108864, "sha256": "b6f85c16dfdebf4d93309ca715cabfeeb342c1d1d74fc9de328e29957d62003e"}
+Verified remote chunk: {"offset": 67108864, "chunk_size": 4194304, "committed_size": 71303168, "sha256": "fdd19b797ac4ec893bc4149c8cdac562e3f77e77c74223483393a5fd6b380726"}
+Verified remote chunk: {"offset": 71303168, "chunk_size": 4194304, "committed_size": 75497472, "sha256": "ab3dcbddf422ca82ccc2fadb8f231370eb4c26f6e851dfa087f3001c4f034789"}
+Verified remote chunk: {"offset": 75497472, "chunk_size": 4194304, "committed_size": 79691776, "sha256": "ac878dab0534d4217d077d0fcdfb07c10c323172360c8b17171042b973b2e4ba"}
+Verified remote chunk: {"offset": 79691776, "chunk_size": 4194304, "committed_size": 83886080, "sha256": "e6858eea834753a3e9ecb8ae802dd0f464477cdd16ce7d90a921be8f1bcab608"}
+Verified remote chunk: {"offset": 83886080, "chunk_size": 4194304, "committed_size": 88080384, "sha256": "556206cd26938345f32f0c387f7cbd859195e588e6e77ec403a12abda08283fd"}
+Verified remote chunk: {"offset": 88080384, "chunk_size": 4194304, "committed_size": 92274688, "sha256": "607d1be865f8982f88a20a485b618dd0bc55eef2c0ce1185c230f0f49610e905"}
+Verified remote chunk: {"offset": 92274688, "chunk_size": 4194304, "committed_size": 96468992, "sha256": "40c4284b03696a86558e7043dd6a45750df7281c203b22f33402ea27fab668f5"}
+Verified remote chunk: {"offset": 96468992, "chunk_size": 4194304, "committed_size": 100663296, "sha256": "612fc2e61aa859f44a1eea987fa213d607de3382d651170b543be3a329e5a8b9"}
+Verified remote chunk: {"offset": 100663296, "chunk_size": 4194304, "committed_size": 104857600, "sha256": "5e6dcbd28121fee9a47a305abf49d8a6db34b589f447752c0477ed5a58107504"}
+Verified remote chunk: {"offset": 104857600, "chunk_size": 4194304, "committed_size": 109051904, "sha256": "cd9e08eaf719ad52a35b77c2c56bfc5b201879014df3bed8f3d1d92ab2db41e3"}
+Verified remote chunk: {"offset": 109051904, "chunk_size": 4194304, "committed_size": 113246208, "sha256": "7213627ba0c6d8dc0c138afeafd9e33721c3b3620d577a270dfcd89753463cb9"}
+Verified remote chunk: {"offset": 113246208, "chunk_size": 4194304, "committed_size": 117440512, "sha256": "83f65bb655064daeae9727758b4ac372b1fad0c2dfa9d0aa9db2c8d06af4bf8b"}
+Verified remote chunk: {"offset": 117440512, "chunk_size": 4194304, "committed_size": 121634816, "sha256": "adcdac7bdf325ee072b9bbf07151e292357792638d411b2a5c40f4c6ca71ec53"}
+Verified remote chunk: {"offset": 121634816, "chunk_size": 4194304, "committed_size": 125829120, "sha256": "4e27f5f13e6d91aac8c2d00bbcbe19c3b2751c32f2a5dbb214285b7e69df044a"}
+Verified remote chunk: {"offset": 125829120, "chunk_size": 4194304, "committed_size": 130023424, "sha256": "20696555453a13fe019692dc59bba3053d297d4ca6dc5cdc48f126e4ac10b95e"}
+Verified remote chunk: {"offset": 130023424, "chunk_size": 4194304, "committed_size": 134217728, "sha256": "b491fa2a1723a425950f2cc71e3989a7a262469d9c6d45fddde8329dc4c3a913"}
+Verified remote chunk: {"offset": 134217728, "chunk_size": 4194304, "committed_size": 138412032, "sha256": "34d1192a1a5215666b7787fc4153cf4f5f2c0ad7b49004fd8f839d647b3b66ff"}
+Verified remote chunk: {"offset": 138412032, "chunk_size": 4194304, "committed_size": 142606336, "sha256": "534af3f2b06843f08082837f38ffe62bd2d540687f90e0fbd607a57ce9352f06"}
+Verified remote chunk: {"offset": 142606336, "chunk_size": 4194304, "committed_size": 146800640, "sha256": "56bbfe1e30225e147126febbb563f4ebeaa3eb188b9796a6e9d238cc2a53e37a"}
+Verified remote chunk: {"offset": 146800640, "chunk_size": 4194304, "committed_size": 150994944, "sha256": "5fe43043aa4938492eea84e34f98f2c35c09463c85da0332a1b83ddc75db3e2a"}
+Verified remote chunk: {"offset": 150994944, "chunk_size": 4194304, "committed_size": 155189248, "sha256": "368275f03214c3d829fa9b47a079607842c3772161ea49e8cdf962ea42b0c189"}
+Verified remote chunk: {"offset": 155189248, "chunk_size": 4194304, "committed_size": 159383552, "sha256": "f81ad07d624727e2a8e42165ed18fa86a251cee32e7ab494f9af43bc4936b267"}
+Verified remote chunk: {"offset": 159383552, "chunk_size": 4194304, "committed_size": 163577856, "sha256": "fc9392b85cb1dd20a05ccc38f7aa63ccb86cc2403fdf0431d99c706cb451481b"}
+Verified remote chunk: {"offset": 163577856, "chunk_size": 4194304, "committed_size": 167772160, "sha256": "c8d6c0b568d8147ef883a2c4f639ba7fc57376afe557914e01ef48f023c8479d"}
+Verified remote chunk: {"offset": 167772160, "chunk_size": 4194304, "committed_size": 171966464, "sha256": "96935f5c7e2fc4a4534b61dbd1860974ae8fd74e42472746b4c2953458d04ecf"}
+Verified remote chunk: {"offset": 171966464, "chunk_size": 4194304, "committed_size": 176160768, "sha256": "de86559c309224ea963a7452788368fc9a65011b14cbd41d89684ac8f936781e"}
+Verified remote chunk: {"offset": 176160768, "chunk_size": 4194304, "committed_size": 180355072, "sha256": "f23d690298c4dbd34cbffbd5f686e0488e8c784c1d05d974b2bac73021110748"}
+Verified remote chunk: {"offset": 180355072, "chunk_size": 4194304, "committed_size": 184549376, "sha256": "51c6a52443351167b3ebff9a23b93dcb54966bbe6ad82b9460b84956f9c706b3"}
+Verified remote chunk: {"offset": 184549376, "chunk_size": 4194304, "committed_size": 188743680, "sha256": "c90dffde4d184058e5ce4009415a0e87ee70f0749968e63fbc4caf04739ae373"}
+Verified remote chunk: {"offset": 188743680, "chunk_size": 4194304, "committed_size": 192937984, "sha256": "49b14f9c38b983413ed3585780bc3c22a82e2047dafe1892fbb64d65629eaa55"}
+Verified remote chunk: {"offset": 192937984, "chunk_size": 4194304, "committed_size": 197132288, "sha256": "406231610b92008df6335debde8607e6850fa482b1e594ef704a056d12c344e6"}
+Verified remote chunk: {"offset": 197132288, "chunk_size": 4194304, "committed_size": 201326592, "sha256": "80040d2e5981dc40a1c796ba8f2eadaec938328ec510f847db93484fe578bbfb"}
+Verified remote chunk: {"offset": 201326592, "chunk_size": 4194304, "committed_size": 205520896, "sha256": "50dc4ffefc628c17192386c219e90bbd9111941b5846ae71b0116aa3b63f40a2"}
+Verified remote chunk: {"offset": 205520896, "chunk_size": 4194304, "committed_size": 209715200, "sha256": "9020df4f60a2d5336b8b78296f7d8e79f9d787a3ab44048543f61b4c536e5945"}
+Verified remote chunk: {"offset": 209715200, "chunk_size": 4194304, "committed_size": 213909504, "sha256": "610e7f21e05836a0d287db833f8a7ae7b97286c305d3dbc29877ac30cbcf0774"}
+Verified remote chunk: {"offset": 213909504, "chunk_size": 4194304, "committed_size": 218103808, "sha256": "8ff9c46c0e0ce50bfda14056fafa1cebfc88b80b2be18791ced297192d161a80"}
+Verified remote chunk: {"offset": 218103808, "chunk_size": 4194304, "committed_size": 222298112, "sha256": "52263910a909d5da80671564cb4fdeef2cb2dbaf60a2dd2d4aa95e852bf61c49"}
+Verified remote chunk: {"offset": 222298112, "chunk_size": 4194304, "committed_size": 226492416, "sha256": "a9a1897bd6816a52854dcc6f51486353279bb6ffa47047bd8bda3ec42895df7e"}
+Verified remote chunk: {"offset": 226492416, "chunk_size": 4194304, "committed_size": 230686720, "sha256": "9a69afafa4d216306e7a94100ebb1db8a3811fa6af2173088c7f3cd3b392dea1"}
+Verified remote chunk: {"offset": 230686720, "chunk_size": 4194304, "committed_size": 234881024, "sha256": "98573a60aed7b3a520242a88c5a1ebca6e79ed115371fdf8828705464a5312cc"}
+Verified remote chunk: {"offset": 234881024, "chunk_size": 4194304, "committed_size": 239075328, "sha256": "ffad4911ac0df8060a5d7b9e292bdee0c71e61a1c20613af11154c111287d538"}
+Verified remote chunk: {"offset": 239075328, "chunk_size": 4194304, "committed_size": 243269632, "sha256": "5b6ee953eac929741469308b1dcb848fc228c486c04c0e0068be021cb02a4262"}
+Verified remote chunk: {"offset": 243269632, "chunk_size": 4194304, "committed_size": 247463936, "sha256": "68875699260b1172f880bf58e264dd82013242c6ed2af2c432693915b9f17192"}
+Verified remote chunk: {"offset": 247463936, "chunk_size": 4194304, "committed_size": 251658240, "sha256": "6642b693d68c11741a8f5ce6cc8a2dd406d89f9ffb129d25e8f01ff8cef32b91"}
+Verified remote chunk: {"offset": 251658240, "chunk_size": 4194304, "committed_size": 255852544, "sha256": "47a054fc822d7bad1b1ab10fa2075c97fbd23edc81e14a1829db2e4a53a21072"}
+Verified remote chunk: {"offset": 255852544, "chunk_size": 4194304, "committed_size": 260046848, "sha256": "dcfc5dbc84f5fd5ae7291cc6a1e7f2ab851399cf7b723d39fdb13e2c57dfc092"}
+Verified remote chunk: {"offset": 260046848, "chunk_size": 4194304, "committed_size": 264241152, "sha256": "1f86b435d8a8e4e567ea1aa485f247ccfd5f0272cb6bbdd8f240ac3784df42b9"}
+Verified remote chunk: {"offset": 264241152, "chunk_size": 4194304, "committed_size": 268435456, "sha256": "e0e3fb3424de20ce3006432eee160d85b58837e0ca8780b19c26d5604878d159"}
+Verified remote chunk: {"offset": 268435456, "chunk_size": 4194304, "committed_size": 272629760, "sha256": "1d59e999ef3a9745ca775f54e3ff96e408a0736e8458c5eff90879127454ab21"}
+Verified remote chunk: {"offset": 272629760, "chunk_size": 4194304, "committed_size": 276824064, "sha256": "e8a5896ec56aa89d1f146b094d7190eca63fbcb71296ab3f9efb3494fc01a375"}
+Verified remote chunk: {"offset": 276824064, "chunk_size": 4194304, "committed_size": 281018368, "sha256": "e904f0744d41d22e7a20c2adb1104022601062a573c4128035f355034b9e6a83"}
+Verified remote chunk: {"offset": 281018368, "chunk_size": 4194304, "committed_size": 285212672, "sha256": "389ad5b4c7eda45249668216e3fcdbe66427b51b1e357534b63cd394222b2cbe"}
+Verified remote chunk: {"offset": 285212672, "chunk_size": 4194304, "committed_size": 289406976, "sha256": "c4918cc4b74aedd2f9b7e661cf6ded50a854b38550675f17236ce91fa68708ce"}
+Verified remote chunk: {"offset": 289406976, "chunk_size": 4194304, "committed_size": 293601280, "sha256": "e38a424d65388b456481685fd3b2048dbe50aaa6adc658398ff78d51d787bc56"}
+Verified remote chunk: {"offset": 293601280, "chunk_size": 4194304, "committed_size": 297795584, "sha256": "f24078de810b8b9699aeee67b0648dd9a58c51f413380e41feae254bc1e447bd"}
+Verified remote chunk: {"offset": 297795584, "chunk_size": 4194304, "committed_size": 301989888, "sha256": "4d779b66e4520a93ea68b119348e76de72be4ff08d196db2740bb4119ae58bff"}
+Verified remote chunk: {"offset": 301989888, "chunk_size": 4194304, "committed_size": 306184192, "sha256": "fddc754f012c7851e7d8c8bd91ae4954be6a2fc8efa3ead16500fb3a34da641f"}
+Verified remote chunk: {"offset": 306184192, "chunk_size": 4194304, "committed_size": 310378496, "sha256": "bc555a28419755cc5b5f92210923d511218d96f3a457dc7c6764fda80c6f09df"}
+Verified remote chunk: {"offset": 310378496, "chunk_size": 4194304, "committed_size": 314572800, "sha256": "4ac8461f3c2adc0aafde3c9710bc2c2b98adbe22dd1a94460ecbc4ac15f4ba62"}
+Verified remote chunk: {"offset": 314572800, "chunk_size": 4194304, "committed_size": 318767104, "sha256": "180930926410fc1a635442b0c364d712793c94717ccd8355cf1302551ff59adf"}
+Verified remote chunk: {"offset": 318767104, "chunk_size": 4194304, "committed_size": 322961408, "sha256": "265d8b173c7d2ef498142fe617cbd546008d745b8b9024efe59b7b3745890404"}
+Verified remote chunk: {"offset": 322961408, "chunk_size": 4194304, "committed_size": 327155712, "sha256": "5f0b2b3357ae1f6d4a7baaa66b28489f592e5839c4c7374bd7510f1522484a50"}
+Verified remote chunk: {"offset": 327155712, "chunk_size": 4194304, "committed_size": 331350016, "sha256": "eae5362401c5345b06653e6a7396746c46a29c546b3d2340199565c79ef8eca2"}
+Verified remote chunk: {"offset": 331350016, "chunk_size": 3293260, "committed_size": 334643276, "sha256": "8d80f81d2cc4beb00a72ee75843871d573d90c4e3d90bf7157697a172ab75593"}
+SHA256 verified remotely: sd15/vae/diffusion_pytorch_model.safetensors
+Downloading locally: backdoor_tpa/config.json (613 bytes)
+Uploading: backdoor_tpa/config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 613, "committed_size": 613, "sha256": "cf94e1253bfe660c90d486fabe947cf8c3f20488678fe275d70fcf1db3b39a1b"}
+SHA256 verified remotely: backdoor_tpa/config.json
+Downloading locally: backdoor_tpa/model.safetensors (492265168 bytes)
+Uploading: backdoor_tpa/model.safetensors
+Verified remote chunk: {"offset": 0, "chunk_size": 4194304, "committed_size": 4194304, "sha256": "1da17e47b64cef8bdeaf4d6dc8781f3fe765f45279445e58545218cb9e30d44c"}
+Verified remote chunk: {"offset": 4194304, "chunk_size": 4194304, "committed_size": 8388608, "sha256": "f51cc42a337e76657090fd353584fef21f89f88b68ede55c2d86af611f874ea1"}
+Verified remote chunk: {"offset": 8388608, "chunk_size": 4194304, "committed_size": 12582912, "sha256": "606e7f6190ddff3ea90a24918466fe110b9e6e72041669e932892fb73ea35c61"}
+Verified remote chunk: {"offset": 12582912, "chunk_size": 4194304, "committed_size": 16777216, "sha256": "5122f5886ada3effc015800fc5c8e036c957f0f108e920ea79c0468b520c3204"}
+Verified remote chunk: {"offset": 16777216, "chunk_size": 4194304, "committed_size": 20971520, "sha256": "42c7134837ac04695274874b40359b09c44f5ad6b1d60876b952cba96f39a21d"}
+Verified remote chunk: {"offset": 20971520, "chunk_size": 4194304, "committed_size": 25165824, "sha256": "2c6bd33df81a3e8ee557e587f64d5716cde01f2ee797cc1c0c1ade84831848a6"}
+Verified remote chunk: {"offset": 25165824, "chunk_size": 4194304, "committed_size": 29360128, "sha256": "b3a59cb0383cf22189eacceb870c0781f2c6f4bf7f7597ee74c6abfd3634ff19"}
+Verified remote chunk: {"offset": 29360128, "chunk_size": 4194304, "committed_size": 33554432, "sha256": "36fdd5fa49975af92dc65b1d195632bef0a1a3d60ba623e6f01a2414f92b28e0"}
+Verified remote chunk: {"offset": 33554432, "chunk_size": 4194304, "committed_size": 37748736, "sha256": "62010c4c7f8d2565c3979714a6ebeebe898627862d71f5d9aecf8c9ee5b85a84"}
+Verified remote chunk: {"offset": 37748736, "chunk_size": 4194304, "committed_size": 41943040, "sha256": "bd8e3219497cd392609030bba94fdb24439dbedc0f57497c8711a9668000555f"}
+Verified remote chunk: {"offset": 41943040, "chunk_size": 4194304, "committed_size": 46137344, "sha256": "c45a110f8f01f3d55421f5a54f7b199d241392252b72c55acfd86a2d0d8f68de"}
+Verified remote chunk: {"offset": 46137344, "chunk_size": 4194304, "committed_size": 50331648, "sha256": "b4ad9b7b24c4eb650a1a88fa955d046d5db8e32397b83242c26726140d11cf70"}
+Verified remote chunk: {"offset": 50331648, "chunk_size": 4194304, "committed_size": 54525952, "sha256": "d87435e052bf822c2941e07447ed14cc59642feddf609bfd2f85acfecfad4e56"}
+Verified remote chunk: {"offset": 54525952, "chunk_size": 4194304, "committed_size": 58720256, "sha256": "0e679d894aaa08924ce60de50404ae4809b91cbf65f3dbd7404e6236ebf49d9b"}
+Verified remote chunk: {"offset": 58720256, "chunk_size": 4194304, "committed_size": 62914560, "sha256": "14cb1292e85fa8af13aa7516d191cadf57da4f8b268835cbf301e42c8d91638b"}
+Verified remote chunk: {"offset": 62914560, "chunk_size": 4194304, "committed_size": 67108864, "sha256": "fd95e752f450592238d9463e515287b3c7f9aa48cb7e40d918ab4f987469d0ad"}
+Verified remote chunk: {"offset": 67108864, "chunk_size": 4194304, "committed_size": 71303168, "sha256": "e6eda179e2d5caf4acadfd3f4d8d2242029e602b5f5a6e0072ea5b5b6997377e"}
+Verified remote chunk: {"offset": 71303168, "chunk_size": 4194304, "committed_size": 75497472, "sha256": "8892c3b120caf35ff8cc8586ef071bcc62598db6eaa32ebdad674b6e2395dc8d"}
+Verified remote chunk: {"offset": 75497472, "chunk_size": 4194304, "committed_size": 79691776, "sha256": "b51d9e2c3267c0cb3f524df9cb7a2dbfed03b758ffde9baa9d1992cef4879730"}
+Verified remote chunk: {"offset": 79691776, "chunk_size": 4194304, "committed_size": 83886080, "sha256": "c932fe5c389d1887cfeab19e36e46c88d8be158041eadedddfbbc963159bc200"}
+Verified remote chunk: {"offset": 83886080, "chunk_size": 4194304, "committed_size": 88080384, "sha256": "95ce2f73bc02430cdb1aa6100f53ccbd0887491b0bb585ccaec750f2648f745c"}
+Verified remote chunk: {"offset": 88080384, "chunk_size": 4194304, "committed_size": 92274688, "sha256": "9192a360a01bd5d346692d97223ca1503cf57c34fc25cb1af172822a399d12b3"}
+Verified remote chunk: {"offset": 92274688, "chunk_size": 4194304, "committed_size": 96468992, "sha256": "8e9464477baea39a159662c5e53c3b357bc4539d330056b3d365227f500118ff"}
+Verified remote chunk: {"offset": 96468992, "chunk_size": 4194304, "committed_size": 100663296, "sha256": "aa83bfb0ae6dffdd3b4252d48d25cd3e0328deec766a06e4be835f7076c5cf7a"}
+Verified remote chunk: {"offset": 100663296, "chunk_size": 4194304, "committed_size": 104857600, "sha256": "90daa1be1f2b0e1a13bf48c2b9625767c5467ce8e5296cf402f8b9b9de9591b7"}
+Verified remote chunk: {"offset": 104857600, "chunk_size": 4194304, "committed_size": 109051904, "sha256": "fe34ec5e07bf5dbfcab9282ea16016c9c5961b24373d2ec09d2263502ce92ed6"}
+Verified remote chunk: {"offset": 109051904, "chunk_size": 4194304, "committed_size": 113246208, "sha256": "eb76a96c915c42d43907e8063dc08b4cdb13e084c6019ce7952064c4973ebcd7"}
+Verified remote chunk: {"offset": 113246208, "chunk_size": 4194304, "committed_size": 117440512, "sha256": "c117bcc96cd095f83a0142701610808dc4c9e84dde6b4c1e1942fcc02d36dc23"}
+Verified remote chunk: {"offset": 117440512, "chunk_size": 4194304, "committed_size": 121634816, "sha256": "eccc33089bea2209c98638a060f222dc77e258f5f79997d9ced07d63304cfc41"}
+Verified remote chunk: {"offset": 121634816, "chunk_size": 4194304, "committed_size": 125829120, "sha256": "9bbc0e9378ef29cc5b4ebe95ae8c94c1055aa8acb944de1583339135ebefb6fd"}
+Verified remote chunk: {"offset": 125829120, "chunk_size": 4194304, "committed_size": 130023424, "sha256": "4aec11a1dc757e72b7f6bf2da5fd0fb57aaa4184511747e21871270102a6de73"}
+Verified remote chunk: {"offset": 130023424, "chunk_size": 4194304, "committed_size": 134217728, "sha256": "7050c7741fdfea9c25c7a6d58795b630f5d7e12f8088dc2de83ca136e8e7e0a4"}
+Verified remote chunk: {"offset": 134217728, "chunk_size": 4194304, "committed_size": 138412032, "sha256": "f73c9a4473655376719c5491adb05bad075b89ae71ab805ee5e4007b9a963828"}
+Verified remote chunk: {"offset": 138412032, "chunk_size": 4194304, "committed_size": 142606336, "sha256": "4f96fa7c74c1f7b019c31ecfd7fb3d01ef562153d739f2eb26ae43d98cfc4948"}
+Verified remote chunk: {"offset": 142606336, "chunk_size": 4194304, "committed_size": 146800640, "sha256": "aa0cb1392b86233de7a14003a544060665b0b5567f8bf21f5e27f8ab8fcc3fad"}
+Verified remote chunk: {"offset": 146800640, "chunk_size": 4194304, "committed_size": 150994944, "sha256": "c1aceca47f492b06804248e9fcb0a9ad12baddb3ecaab4e2884b88ae36aa4fba"}
+Verified remote chunk: {"offset": 150994944, "chunk_size": 4194304, "committed_size": 155189248, "sha256": "85ff990600dd92a293e3898a227ee7a2b71e691329aae3fe31d7d2e5bf3a6ac8"}
+Verified remote chunk: {"offset": 155189248, "chunk_size": 4194304, "committed_size": 159383552, "sha256": "dfb8efa93c677c01b1749397c11d9f78c6faff5634e800effc76b288e9185ecb"}
+Verified remote chunk: {"offset": 159383552, "chunk_size": 4194304, "committed_size": 163577856, "sha256": "42d6bbb793a8a0122cdc9133e131ff5a195ed94c37a132045e5dcc9a58763117"}
+Verified remote chunk: {"offset": 163577856, "chunk_size": 4194304, "committed_size": 167772160, "sha256": "9ae93f218c71968686191c38571565627c8e899ee251cbc84658fdc3d8d99523"}
+Verified remote chunk: {"offset": 167772160, "chunk_size": 4194304, "committed_size": 171966464, "sha256": "869248c6458dbb865fb58e59b3b08bcf66296e800a2d92eec955d28cd4257812"}
+Verified remote chunk: {"offset": 171966464, "chunk_size": 4194304, "committed_size": 176160768, "sha256": "1c1079010a8def1e5aa4eac75f17b626f8d899d0f45becb935b81ad4330ef423"}
+Verified remote chunk: {"offset": 176160768, "chunk_size": 4194304, "committed_size": 180355072, "sha256": "8c32b2527eea9fbd236f04c0bc6f42d44e4ef560f1f9d41445c7ecdf1af17a14"}
+Verified remote chunk: {"offset": 180355072, "chunk_size": 4194304, "committed_size": 184549376, "sha256": "0379150de6e99241a7efbe7dc246ef088d0bbd9a79066601c07b0a9602ffc62f"}
+Verified remote chunk: {"offset": 184549376, "chunk_size": 4194304, "committed_size": 188743680, "sha256": "21ed8432c39cfe76e907b5e9ba1a6d46b9cf62a69ae522ace01587928c306aa0"}
+Verified remote chunk: {"offset": 188743680, "chunk_size": 4194304, "committed_size": 192937984, "sha256": "13fe36adc790c4396d8d3681e38cfc06dd27dc2ca521fb5f3a166bb3a13c7e7e"}
+Verified remote chunk: {"offset": 192937984, "chunk_size": 4194304, "committed_size": 197132288, "sha256": "83a11a6e67dfb230476616013aa687409e89ce0d3d920fddcfe3a5d30c90c429"}
+Verified remote chunk: {"offset": 197132288, "chunk_size": 4194304, "committed_size": 201326592, "sha256": "8903c76202c7c4a16c117a2ef15916c3fbc6c606b0fb66fa60f5aac8af51ab50"}
+Verified remote chunk: {"offset": 201326592, "chunk_size": 4194304, "committed_size": 205520896, "sha256": "74c271b85af5098b9225b971c291c75fbe4ad89969b0bb10040e79d3f18a176c"}
+Verified remote chunk: {"offset": 205520896, "chunk_size": 4194304, "committed_size": 209715200, "sha256": "01c1ea409ffb91a315390a341a8dde31be4de34684fb980c63009438cada351b"}
+Verified remote chunk: {"offset": 209715200, "chunk_size": 4194304, "committed_size": 213909504, "sha256": "fdb707f5c9a54c928dd770163402929815db99bb8a8d020f9a2a1c7b89c703e7"}
+Verified remote chunk: {"offset": 213909504, "chunk_size": 4194304, "committed_size": 218103808, "sha256": "24959958869ba2b9ed8a0ba94f314ed1ca2ec224deb92e512b5ea8871630c724"}
+Verified remote chunk: {"offset": 218103808, "chunk_size": 4194304, "committed_size": 222298112, "sha256": "f9b1d2a1639ee5706ee5683309b860cb76476303152e7be7e8aaa996728c55c0"}
+Verified remote chunk: {"offset": 222298112, "chunk_size": 4194304, "committed_size": 226492416, "sha256": "75306b8d65c107bbe0ec233ea7b78aa7293df36c1f7305c576ee311405676ef0"}
+Verified remote chunk: {"offset": 226492416, "chunk_size": 4194304, "committed_size": 230686720, "sha256": "ab1383b9d17ebc5d517ca9461574f2e5ce81241ffd2ef69c6cb2f685eb3818b1"}
+Verified remote chunk: {"offset": 230686720, "chunk_size": 4194304, "committed_size": 234881024, "sha256": "891bf8eaaba62d56fddb6384600eca65e544efdba7482a5ed1f98cc7b2db07a9"}
+Verified remote chunk: {"offset": 234881024, "chunk_size": 4194304, "committed_size": 239075328, "sha256": "5a85ef4715461ab3a6db006bfba442a7620ce80e15a1fc38dd8c6d17688758ad"}
+Verified remote chunk: {"offset": 239075328, "chunk_size": 4194304, "committed_size": 243269632, "sha256": "a8dbe464a7e9e6b70bf0518a0ac8c8a03f6b0af307818d292dc8d6ec6f5f5d6c"}
+Verified remote chunk: {"offset": 243269632, "chunk_size": 4194304, "committed_size": 247463936, "sha256": "c5e6de68b5b179f1bce2ca1f225f6fbdc7fd08658988534c707ec336a087b684"}
+Verified remote chunk: {"offset": 247463936, "chunk_size": 4194304, "committed_size": 251658240, "sha256": "a18d85d5e45469de983912e6538dc1c60bb87497c5e08ed34bd55726dec58838"}
+Verified remote chunk: {"offset": 251658240, "chunk_size": 4194304, "committed_size": 255852544, "sha256": "e972b4202a7f47ff26949532e2e29a488280fa190b845b7b376dabf3b63dc460"}
+Verified remote chunk: {"offset": 255852544, "chunk_size": 4194304, "committed_size": 260046848, "sha256": "8e38be314e2dbfd94f4d8d5ebad8f5885fcc4bf74a9420a2e2e06050694ae907"}
+Verified remote chunk: {"offset": 260046848, "chunk_size": 4194304, "committed_size": 264241152, "sha256": "ae0f349471434e73ee6e741bbe20e34f96bb46aa2b34dadaaffca29454ce7db6"}
+Verified remote chunk: {"offset": 264241152, "chunk_size": 4194304, "committed_size": 268435456, "sha256": "37f1a864d478bf6662ff55c6ba46080136b62ba8bc70583b8b2fc074212f0661"}
+Verified remote chunk: {"offset": 268435456, "chunk_size": 4194304, "committed_size": 272629760, "sha256": "86460bc62fa5018fa3ad4b7e94c16afacdc0e3bb6776246ced1c024e005a8424"}
+Verified remote chunk: {"offset": 272629760, "chunk_size": 4194304, "committed_size": 276824064, "sha256": "865261cba6dcc6500248cacb5321d8fdea2b85e0a9b67cc0002c8237a512fcb2"}
+Verified remote chunk: {"offset": 276824064, "chunk_size": 4194304, "committed_size": 281018368, "sha256": "c48bddbaba75bc10ab5a2bbbb3f729f03681822f47b0d1d6f6cdfcb909bc6427"}
+Verified remote chunk: {"offset": 281018368, "chunk_size": 4194304, "committed_size": 285212672, "sha256": "f88c849a73462427ceb087875b655b95a7210199741b859463dba984cc5516bd"}
+Verified remote chunk: {"offset": 285212672, "chunk_size": 4194304, "committed_size": 289406976, "sha256": "282a056603d91de8375268b35e502c4ebfb1fffaa38c3ad632c6df8dd6b30c2a"}
+Verified remote chunk: {"offset": 289406976, "chunk_size": 4194304, "committed_size": 293601280, "sha256": "5c0c38a5bf8daa763e97a6c08c0436013bb632e2baf6569308d248b7f5379d33"}
+Verified remote chunk: {"offset": 293601280, "chunk_size": 4194304, "committed_size": 297795584, "sha256": "d626befbc97676bb2eee29f3a3e5b30b3ad339e2b415b0799fe508ff3b4ee8b1"}
+Verified remote chunk: {"offset": 297795584, "chunk_size": 4194304, "committed_size": 301989888, "sha256": "cda7cdfe72583e2c70c6f29deaf654782f270d127f70f332754eb1b3b29b02f9"}
+Verified remote chunk: {"offset": 301989888, "chunk_size": 4194304, "committed_size": 306184192, "sha256": "91f8e9fe50e4dc5888ff51b637c1fd0e4283c083ded9b470c27320a8945898cd"}
+Verified remote chunk: {"offset": 306184192, "chunk_size": 4194304, "committed_size": 310378496, "sha256": "77727e466fedfb9d7286d37d698b5722323ccab9e898b129a2f6a3d75b59dc99"}
+Verified remote chunk: {"offset": 310378496, "chunk_size": 4194304, "committed_size": 314572800, "sha256": "3a41979452a577e04cb818d5bed87818e7bfc59abe17f4c7483e797e583c00c2"}
+Verified remote chunk: {"offset": 314572800, "chunk_size": 4194304, "committed_size": 318767104, "sha256": "a6f9af69ce5c601d0eba4f222f7239fa734289cf47690345a73657dfe7fcb2e4"}
+Verified remote chunk: {"offset": 318767104, "chunk_size": 4194304, "committed_size": 322961408, "sha256": "6c45b2850bbe1c7bd6be526380afa10596b6379f2a6b438af847969f2b9bdc73"}
+Verified remote chunk: {"offset": 322961408, "chunk_size": 4194304, "committed_size": 327155712, "sha256": "69fe9a29668a85a76ec80d94a2ade1501cb23f30d06e5407431efa7d4198aa2c"}
+Verified remote chunk: {"offset": 327155712, "chunk_size": 4194304, "committed_size": 331350016, "sha256": "70fa048d27d705a3e8b14f11e7a68893f6a8ec937fbd1e29efd3bb8b514d5f07"}
+Verified remote chunk: {"offset": 331350016, "chunk_size": 4194304, "committed_size": 335544320, "sha256": "af40a998d66fe01ad07c900bc655848706161867591d2bb9eb00f03af236a4f3"}
+Verified remote chunk: {"offset": 335544320, "chunk_size": 4194304, "committed_size": 339738624, "sha256": "7c9a1cb35874bc123d8101627a3c11e3a567bb3f667c3b953f9a7c8607427fb0"}
+Verified remote chunk: {"offset": 339738624, "chunk_size": 4194304, "committed_size": 343932928, "sha256": "4a9d2592b9bb44c622d0d77b5f33c12e412758f6728618e393fd3c0e994e5551"}
+Verified remote chunk: {"offset": 343932928, "chunk_size": 4194304, "committed_size": 348127232, "sha256": "a29f85784e03b9874058893e28de02bdecec790ac37fb22af7c73df3dbc4c8d3"}
+Verified remote chunk: {"offset": 348127232, "chunk_size": 4194304, "committed_size": 352321536, "sha256": "f8f821d7732c1d00d2930a102cb941332722ee33da040b634330fbab9028455a"}
+Verified remote chunk: {"offset": 352321536, "chunk_size": 4194304, "committed_size": 356515840, "sha256": "00ee7767bec2adb224f279563ae8a6e5977dfa6319084b8af603a0193fda6d8c"}
+Verified remote chunk: {"offset": 356515840, "chunk_size": 4194304, "committed_size": 360710144, "sha256": "9cabef355df937f41cabecf21ffb2d33a06df4d6254ac02b026730263658236b"}
+Verified remote chunk: {"offset": 360710144, "chunk_size": 4194304, "committed_size": 364904448, "sha256": "ebb5fa8e8d3c9d6895979ea964b4947047a5a2461d0c54c9f69bac027544da04"}
+Verified remote chunk: {"offset": 364904448, "chunk_size": 4194304, "committed_size": 369098752, "sha256": "4830cbf7cc016726fdd66f791550204203b627775e26b7fc8ef926a8720d26b3"}
+Verified remote chunk: {"offset": 369098752, "chunk_size": 4194304, "committed_size": 373293056, "sha256": "e26317d4925a385d9e001f78e1b4427f3cc71fcabf2efd108dbc3035c767fa44"}
+Verified remote chunk: {"offset": 373293056, "chunk_size": 4194304, "committed_size": 377487360, "sha256": "83532b0625b0e77455d77ad454d6c755686a7ad8ff5182ab1aea6345fa26dcd8"}
+Verified remote chunk: {"offset": 377487360, "chunk_size": 4194304, "committed_size": 381681664, "sha256": "d6fc357aae1973e7f816b1c82d4413bee02da092466acb67d95303287bb47a8e"}
+Verified remote chunk: {"offset": 381681664, "chunk_size": 4194304, "committed_size": 385875968, "sha256": "0907bf35bc5449e51a1f6489ea810b879109a287d62d00c6227bca6cb7b4d7b9"}
+Verified remote chunk: {"offset": 385875968, "chunk_size": 4194304, "committed_size": 390070272, "sha256": "550e092f7b3487c2ead6f768898ca4905eaf50d3afe07814e9ac6f7a5f91d6c0"}
+Verified remote chunk: {"offset": 390070272, "chunk_size": 4194304, "committed_size": 394264576, "sha256": "8451a86a52c62764865052f6815c52333f3960b79eb58865205ab6bab409fa61"}
+Verified remote chunk: {"offset": 394264576, "chunk_size": 4194304, "committed_size": 398458880, "sha256": "4007a0c5a63248f52a9a3edb056ec38d466107bf3caf6865bb874342f8929a1c"}
+Verified remote chunk: {"offset": 398458880, "chunk_size": 4194304, "committed_size": 402653184, "sha256": "1c23719bafe90e3bf4c404b73fbc2686ce9c218763df100752c4139982affc7a"}
+Verified remote chunk: {"offset": 402653184, "chunk_size": 4194304, "committed_size": 406847488, "sha256": "87bce6c523768a48b6f9ab0e1514c86c9e2aeaab23ad9a7b35fd9dc7b85f5653"}
+Verified remote chunk: {"offset": 406847488, "chunk_size": 4194304, "committed_size": 411041792, "sha256": "0d624064337d073efc7c280192ffa6520b4290e431979a6011699f64a6fe6e99"}
+Verified remote chunk: {"offset": 411041792, "chunk_size": 4194304, "committed_size": 415236096, "sha256": "70efb82e5bbbc0a71fb486748d2466e974649a867f2831e7cae64fd69223b690"}
+Verified remote chunk: {"offset": 415236096, "chunk_size": 4194304, "committed_size": 419430400, "sha256": "bfee03de0d46ceb21cd608f2745683ccc7b32a75654355d19e25ea0e371c51df"}
+Verified remote chunk: {"offset": 419430400, "chunk_size": 4194304, "committed_size": 423624704, "sha256": "77712e8863d82cf4f8a64af9247f5342528544c13aa329ae303ed1d390ef43e1"}
+Verified remote chunk: {"offset": 423624704, "chunk_size": 4194304, "committed_size": 427819008, "sha256": "d7092d204b7f9d3451f239039d60f0ac0a6322d07a9d01a48f09851867937e46"}
+Verified remote chunk: {"offset": 427819008, "chunk_size": 4194304, "committed_size": 432013312, "sha256": "31ca1314e65d02f6ad4fc0fbaf54fb01b7ebc878e2446ae663ad76e1bed0348f"}
+Verified remote chunk: {"offset": 432013312, "chunk_size": 4194304, "committed_size": 436207616, "sha256": "5440284dbb4b3cfa39badee103c842113c52af85d0a1353766f098051bd2ef1a"}
+Verified remote chunk: {"offset": 436207616, "chunk_size": 4194304, "committed_size": 440401920, "sha256": "6aa395a56d3384cbf61adefeade04899f4dc3a44c65b3b36cf3640afa1883d1a"}
+Verified remote chunk: {"offset": 440401920, "chunk_size": 4194304, "committed_size": 444596224, "sha256": "91d4a10ee96158f3f7377fe5596598f3861f0301a88e5fe54867f9438de795b2"}
+Verified remote chunk: {"offset": 444596224, "chunk_size": 4194304, "committed_size": 448790528, "sha256": "22f343eedce1a9dc888c5610209524aeb36d77d63f158066758e445b2e66d98a"}
+Verified remote chunk: {"offset": 448790528, "chunk_size": 4194304, "committed_size": 452984832, "sha256": "b601710702bc44279bfa66abcdcc72d226cfe8520fe2e88173f1018292055a2f"}
+Verified remote chunk: {"offset": 452984832, "chunk_size": 4194304, "committed_size": 457179136, "sha256": "11a7268d25ea02afd8efa3b0df0dbee257ff19a440352283e45c07b23dc7a675"}
+Verified remote chunk: {"offset": 457179136, "chunk_size": 4194304, "committed_size": 461373440, "sha256": "ff05bdcc2abad301733fda9c64cddcdd87128761ed95d01264228345c46f5690"}
+Verified remote chunk: {"offset": 461373440, "chunk_size": 4194304, "committed_size": 465567744, "sha256": "bd5b07331bb556c6ac8071b0b1a1067d48caf8224b6bf0c6469c9c9776b7366e"}
+Verified remote chunk: {"offset": 465567744, "chunk_size": 4194304, "committed_size": 469762048, "sha256": "3d14a417fdd014ccddb60a947cb2153870d7346fcf758d26f6f97f89596a923e"}
+Verified remote chunk: {"offset": 469762048, "chunk_size": 4194304, "committed_size": 473956352, "sha256": "060b86822ef27f52acf6ae61cb612541b7d74c4322bdecbb767e78230a4a2e17"}
+Verified remote chunk: {"offset": 473956352, "chunk_size": 4194304, "committed_size": 478150656, "sha256": "8dc7c417ac8d369332d5c1daac49d6b4d5118d054533dacdc3e5ad00b39d0635"}
+Verified remote chunk: {"offset": 478150656, "chunk_size": 4194304, "committed_size": 482344960, "sha256": "04b862521b45b4ec4fe3028b525c3865b0cf57abe333e7e6b160e5c971d85544"}
+Verified remote chunk: {"offset": 482344960, "chunk_size": 4194304, "committed_size": 486539264, "sha256": "c2e20217c70ea31caa01b76cac8b356b35820bfc413eab03fb6a23103ef38e7a"}
+Verified remote chunk: {"offset": 486539264, "chunk_size": 4194304, "committed_size": 490733568, "sha256": "8c0bd9df7f90d09d64d2ae863b8d3ca277b5d9cb2a76c409099cc953588d8f38"}
+Verified remote chunk: {"offset": 490733568, "chunk_size": 1531600, "committed_size": 492265168, "sha256": "2ed24805bed488db1afd9cfd2f62cbd9324388171732662bf8721d3570a6d34d"}
+SHA256 verified remotely: backdoor_tpa/model.safetensors
+Downloading locally: dreamshaper8/README.md (2421 bytes)
+Uploading: dreamshaper8/README.md
+Verified remote chunk: {"offset": 0, "chunk_size": 2421, "committed_size": 2421, "sha256": "591434041d60521ec6b666b3635a8fa03330435bab1361b0502f968dae3f389a"}
+SHA256 verified remotely: dreamshaper8/README.md
+Downloading locally: dreamshaper8/text_encoder/config.json (724 bytes)
+Uploading: dreamshaper8/text_encoder/config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 724, "committed_size": 724, "sha256": "52e29b35e93261515dc07bf248ec8398a729e54f1886e946f8c095ede26be29b"}
+SHA256 verified remotely: dreamshaper8/text_encoder/config.json
+Downloading locally: dreamshaper8/text_encoder/model.safetensors (492265168 bytes)
+Uploading: dreamshaper8/text_encoder/model.safetensors
+Verified remote chunk: {"offset": 0, "chunk_size": 4194304, "committed_size": 4194304, "sha256": "35a2df5e3ad1755c49c32ab7ac1488c9fd5c46305b21df85a37166538df397ed"}
+Verified remote chunk: {"offset": 4194304, "chunk_size": 4194304, "committed_size": 8388608, "sha256": "137f664511170352254fac4b4eb1bd88a38e740504a8386fe99001584c4ff547"}
+Verified remote chunk: {"offset": 8388608, "chunk_size": 4194304, "committed_size": 12582912, "sha256": "bb5050e21ef1b703ce57cf555cd62a1770ea850347a14ed37b03f6355e207848"}
+Verified remote chunk: {"offset": 12582912, "chunk_size": 4194304, "committed_size": 16777216, "sha256": "de6ee99b92d340ca47f0f812278cdd7e8e2fa347dc8ab19f0c3e76e0f6bc877f"}
+Verified remote chunk: {"offset": 16777216, "chunk_size": 4194304, "committed_size": 20971520, "sha256": "76a8ff1a1b05cc9f4893dc717b6a11847da9c190624b2a5d1f18d87c4f81901f"}
+Verified remote chunk: {"offset": 20971520, "chunk_size": 4194304, "committed_size": 25165824, "sha256": "0658555f6392ad007aa84b4df33e297f6d6afd20fd05d25f12198455ec697d4e"}
+Verified remote chunk: {"offset": 25165824, "chunk_size": 4194304, "committed_size": 29360128, "sha256": "83b8c0eb2aab6c129692e62472ecaebfd6d20450eec481d4d1878c8ede2d9953"}
+Verified remote chunk: {"offset": 29360128, "chunk_size": 4194304, "committed_size": 33554432, "sha256": "dc547baff06eade8bf4ce1786956af44af3dd46774ff0040319a8ab7913c5234"}
+Verified remote chunk: {"offset": 33554432, "chunk_size": 4194304, "committed_size": 37748736, "sha256": "5748d16d3163933840e3a5fe473f54548595d958b64e04b8fe3f43983e2c5d36"}
+Verified remote chunk: {"offset": 37748736, "chunk_size": 4194304, "committed_size": 41943040, "sha256": "d2e0f4b5164310bd237ca8d1f25befa94a7808e764d7959e547664c595a4ab7d"}
+Verified remote chunk: {"offset": 41943040, "chunk_size": 4194304, "committed_size": 46137344, "sha256": "a61e9d9bc5a04383c78fd1b2876ecfec3154ba93a901facd7da341ae508c21a2"}
+Verified remote chunk: {"offset": 46137344, "chunk_size": 4194304, "committed_size": 50331648, "sha256": "8572d10a9a5f56b7520f36e7effea235455bb8546d4b537a3d6919aef8ab914b"}
+Verified remote chunk: {"offset": 50331648, "chunk_size": 4194304, "committed_size": 54525952, "sha256": "672fdc2dfba08660d92fa929b27458c8a4405d1acb2fcf0f13da2ad7af7a7382"}
+Verified remote chunk: {"offset": 54525952, "chunk_size": 4194304, "committed_size": 58720256, "sha256": "f2660eca2e6b31f21b0223ad6022c62f08225796000a90bafb390dad6e0d06fe"}
+Verified remote chunk: {"offset": 58720256, "chunk_size": 4194304, "committed_size": 62914560, "sha256": "e0baa32a8f2ea9516f499753b1ca94189b30e9b626397e3ae6171e3389de0154"}
+Verified remote chunk: {"offset": 62914560, "chunk_size": 4194304, "committed_size": 67108864, "sha256": "9af4036c6112c21a797e11358a0cd8082755206d990fb9ed5b07fd216fd5e656"}
+Verified remote chunk: {"offset": 67108864, "chunk_size": 4194304, "committed_size": 71303168, "sha256": "e7a2093460bcd205dcb980ee673531d52f22aec756f3b0d0bbfffa764a32bb41"}
+Verified remote chunk: {"offset": 71303168, "chunk_size": 4194304, "committed_size": 75497472, "sha256": "6ea7eb3e65ba6e565f9ef287051fadc4fe4b0c14da7947df0871e62c9c53f964"}
+Verified remote chunk: {"offset": 75497472, "chunk_size": 4194304, "committed_size": 79691776, "sha256": "41ef4fa814d9167867c1fa852ea7c549212d67245cebf000f425faea0c19df82"}
+Verified remote chunk: {"offset": 79691776, "chunk_size": 4194304, "committed_size": 83886080, "sha256": "5fbcf26b7874d644c9d22cf4e53a3d642dfc00fc1691d6a2d012d8c9dd8e1530"}
+Verified remote chunk: {"offset": 83886080, "chunk_size": 4194304, "committed_size": 88080384, "sha256": "356389f57766eff2e55f1857e879da49784d83a7352666a13e02553b51d04e39"}
+Verified remote chunk: {"offset": 88080384, "chunk_size": 4194304, "committed_size": 92274688, "sha256": "97bae6e24264af8828b8fd600db7df9f3da3e92cacc06cee889a2b2dabcd06da"}
+Verified remote chunk: {"offset": 92274688, "chunk_size": 4194304, "committed_size": 96468992, "sha256": "047e68ac105db0f78d495b7bc5d1b5e52c9a8bc9f49897a3c3272bf3fdb10443"}
+Verified remote chunk: {"offset": 96468992, "chunk_size": 4194304, "committed_size": 100663296, "sha256": "9c936f99948c0590432f8bd207bbcd62d8fe5a9f96b028a6a2081667968ff016"}
+Verified remote chunk: {"offset": 100663296, "chunk_size": 4194304, "committed_size": 104857600, "sha256": "a4901e1a02da96050e595770ea27ef940f6fce2cf56d4a5b723acddd4f504835"}
+Verified remote chunk: {"offset": 104857600, "chunk_size": 4194304, "committed_size": 109051904, "sha256": "c32b3abb1a77b585a6c48aeb0012e497bd8df887530bc7ba8b3568041798e50a"}
+Verified remote chunk: {"offset": 109051904, "chunk_size": 4194304, "committed_size": 113246208, "sha256": "72f4a0d858d7d218122bbdc8b54c03c762f9a744bbb0b4555ba2893f36e3dfcd"}
+Verified remote chunk: {"offset": 113246208, "chunk_size": 4194304, "committed_size": 117440512, "sha256": "0ba677cd8441d83083c315d5dc09746a61b216bdf4b8c05dcb65a9801fa65fa7"}
+Verified remote chunk: {"offset": 117440512, "chunk_size": 4194304, "committed_size": 121634816, "sha256": "b4d073c9a16cc6dd7c4435e26d18cdaf7c35f3f9c542a517ab45d7af79a529fb"}
+Verified remote chunk: {"offset": 121634816, "chunk_size": 4194304, "committed_size": 125829120, "sha256": "2c2a57c26772aa415c8ffd06a11e17df66cf1f6d0485944e99e0fabf45ccbe70"}
+Verified remote chunk: {"offset": 125829120, "chunk_size": 4194304, "committed_size": 130023424, "sha256": "998ef4110edd949a70418fd04b392be03ae2eaf9117bb8d2d3d7d5a72eda61fc"}
+Verified remote chunk: {"offset": 130023424, "chunk_size": 4194304, "committed_size": 134217728, "sha256": "dffa9fd4185e380f02518fa3e94772c26f6a01693e77e932ec2fdc26c4acd57f"}
+Verified remote chunk: {"offset": 134217728, "chunk_size": 4194304, "committed_size": 138412032, "sha256": "d6b23c88229ea4831268f8c7299fae5d6a0cf3b652b1aa2d4c432e998d9c6080"}
+Verified remote chunk: {"offset": 138412032, "chunk_size": 4194304, "committed_size": 142606336, "sha256": "aa1490d85e95a1b8544ec1bfcc7a779f82c2fe9cfcac128fa6a3c0b35c05a1da"}
+Verified remote chunk: {"offset": 142606336, "chunk_size": 4194304, "committed_size": 146800640, "sha256": "d7dff76c729990cb5a17fddf5db2bc028b8b84bc1b5ad472f8947c2d541fc9c1"}
+Verified remote chunk: {"offset": 146800640, "chunk_size": 4194304, "committed_size": 150994944, "sha256": "267585380b7c53cb96b9a4ce5e6c4fe3cdd7073d99adf41d3a35a756c4ab6888"}
+Verified remote chunk: {"offset": 150994944, "chunk_size": 4194304, "committed_size": 155189248, "sha256": "bfb5f58760f119d473734cdba66e6be775df66f07cbe757ff90b9f2dbc3d7409"}
+Verified remote chunk: {"offset": 155189248, "chunk_size": 4194304, "committed_size": 159383552, "sha256": "bc5444a60e8755ed0c1cb0ca3d60cf736b5b317306a276f04ef0e54ecfa6e525"}
+Verified remote chunk: {"offset": 159383552, "chunk_size": 4194304, "committed_size": 163577856, "sha256": "e2224a0a4baee6c127c943caddbf902cfaa8b34dc4f0cc09fc341a7d1e12e359"}
+Verified remote chunk: {"offset": 163577856, "chunk_size": 4194304, "committed_size": 167772160, "sha256": "2351340323c8bf7aa89372e0e5fd2487394d611b19281fe4bc333d57d917364c"}
+Verified remote chunk: {"offset": 167772160, "chunk_size": 4194304, "committed_size": 171966464, "sha256": "868c199a4ec8c1b380c447884d89d70bb28fb8fca98daf7693a1d5e946d815c3"}
+Verified remote chunk: {"offset": 171966464, "chunk_size": 4194304, "committed_size": 176160768, "sha256": "3da6f57bed4e235a3b010e4ed4fc2caf39098787aae306141be12de7ca0f0820"}
+Verified remote chunk: {"offset": 176160768, "chunk_size": 4194304, "committed_size": 180355072, "sha256": "f75530995753012f409fbc760c39481ab08d90fa8b3a9d99471b0a0bf5c3fb09"}
+Verified remote chunk: {"offset": 180355072, "chunk_size": 4194304, "committed_size": 184549376, "sha256": "98e73583e75887754c4da78a716536e99cc9ba6da12917b7fb4d31a6c6e6f789"}
+Verified remote chunk: {"offset": 184549376, "chunk_size": 4194304, "committed_size": 188743680, "sha256": "62bf84c89a59505d54afd81f722462aed575bf87c2810fe28191cedbd8380e8d"}
+Verified remote chunk: {"offset": 188743680, "chunk_size": 4194304, "committed_size": 192937984, "sha256": "f49602fa7ce0a8bf02fdb54801b52360d6ee76b9b6cca97fb719e519b81f3a17"}
+Verified remote chunk: {"offset": 192937984, "chunk_size": 4194304, "committed_size": 197132288, "sha256": "0848c37f52f48f62dda0c91f96c711ff7db7d7078ed8a8026bc9677b1f992b8e"}
+Verified remote chunk: {"offset": 197132288, "chunk_size": 4194304, "committed_size": 201326592, "sha256": "8b25026fed309c8a1a2a629ea71a4a404a78dc9290f5759c049bb7cab2cf1f41"}
+Verified remote chunk: {"offset": 201326592, "chunk_size": 4194304, "committed_size": 205520896, "sha256": "feb8114a3f56fd904196dca1ba5e6e087ae1e5657777a649490a3cdf0630e48d"}
+Verified remote chunk: {"offset": 205520896, "chunk_size": 4194304, "committed_size": 209715200, "sha256": "75fe52d3a73ef15533ec0e6a03970a6b27a89ce810b6994beb8a87c1c03d841d"}
+Verified remote chunk: {"offset": 209715200, "chunk_size": 4194304, "committed_size": 213909504, "sha256": "5f3898ce4626668dabe6873db3ab98e60d4cc7db4c431c3591dd124c98179c2e"}
+Verified remote chunk: {"offset": 213909504, "chunk_size": 4194304, "committed_size": 218103808, "sha256": "ebf7183c6f2850b211c43996e91ee307e24ef1f057119f52daa8b115913c2475"}
+Verified remote chunk: {"offset": 218103808, "chunk_size": 4194304, "committed_size": 222298112, "sha256": "efe068dd8c46198393ae0bf330ae5f7ac77af38389751b49414c7d986be49aec"}
+Verified remote chunk: {"offset": 222298112, "chunk_size": 4194304, "committed_size": 226492416, "sha256": "c0a2567cc09dc752fc946c0eb8156415934041e904116fb1cff8d361e5422d7d"}
+Verified remote chunk: {"offset": 226492416, "chunk_size": 4194304, "committed_size": 230686720, "sha256": "6963772d803d6f5f7c80e2f3af2d154a64e1c02e0758b6bb134091dc372ac64d"}
+Verified remote chunk: {"offset": 230686720, "chunk_size": 4194304, "committed_size": 234881024, "sha256": "1a36459fb4f5c7b43f5f2da1ad58e08531daeb7d8d91058998ce2ccd480244ce"}
+Verified remote chunk: {"offset": 234881024, "chunk_size": 4194304, "committed_size": 239075328, "sha256": "e35387c54fe1cf17130832d4bb2da7ab3facd5b405e148e9e2430b7763b684a1"}
+Verified remote chunk: {"offset": 239075328, "chunk_size": 4194304, "committed_size": 243269632, "sha256": "690a205e3ac6cb04de844291dade43fd3070191a8de82f6c85c5363728216368"}
+Verified remote chunk: {"offset": 243269632, "chunk_size": 4194304, "committed_size": 247463936, "sha256": "07036f4e6a279ef5c20025efb10ee93d4941e339bf4fee0e7712132d1501f90b"}
+Verified remote chunk: {"offset": 247463936, "chunk_size": 4194304, "committed_size": 251658240, "sha256": "f38da3df007361f2d0ab594a91002ebf6d5f24d78b5c9431c3cb23514f896b97"}
+Verified remote chunk: {"offset": 251658240, "chunk_size": 4194304, "committed_size": 255852544, "sha256": "79d647427bccc86cd0b562d281a95ce56e65ce0a99003193c1550f74f908b2a3"}
+Verified remote chunk: {"offset": 255852544, "chunk_size": 4194304, "committed_size": 260046848, "sha256": "d7fd98e04d525f4ca78c78992336fc2134270e68831741a49d04b99ac2bda079"}
+Verified remote chunk: {"offset": 260046848, "chunk_size": 4194304, "committed_size": 264241152, "sha256": "20fe99182ea9900066e66e121a8261569b04498c93ccd9a5ca63425836b45f4f"}
+Verified remote chunk: {"offset": 264241152, "chunk_size": 4194304, "committed_size": 268435456, "sha256": "241a10f48e275ea90a5068355fe618618dda2dadc732bcf5ead04b6bf3aa8fcc"}
+Verified remote chunk: {"offset": 268435456, "chunk_size": 4194304, "committed_size": 272629760, "sha256": "1128233e5d023f67926813a1276fca2273e495778a4e77bca69fea98889dd607"}
+Verified remote chunk: {"offset": 272629760, "chunk_size": 4194304, "committed_size": 276824064, "sha256": "ac3d08b4c3a9f761aa3c3da2c3e82a0a101e2f09b25817243594df90423014f5"}
+Verified remote chunk: {"offset": 276824064, "chunk_size": 4194304, "committed_size": 281018368, "sha256": "fc7d2f8ef4681f0b4ecc07e33dab2fea029098305bf31745de7d74e0844c8546"}
+Verified remote chunk: {"offset": 281018368, "chunk_size": 4194304, "committed_size": 285212672, "sha256": "85cca2e7ae43e57d11bfe3e59416da2ea27c3a9a44022cbbb54546aa485268ca"}
+Verified remote chunk: {"offset": 285212672, "chunk_size": 4194304, "committed_size": 289406976, "sha256": "b2640162e743c7f0927ece6b511f050b05239c81a9845fb5ce9fbc6253b30913"}
+Verified remote chunk: {"offset": 289406976, "chunk_size": 4194304, "committed_size": 293601280, "sha256": "ff90e28072be010bcc84bac6b1f0ea9605d4c3a769cf599aa9cd5104703db100"}
+Verified remote chunk: {"offset": 293601280, "chunk_size": 4194304, "committed_size": 297795584, "sha256": "4e5803178110e9e874324b76fbda937c08abcde070252970bcf4a3050975e048"}
+Verified remote chunk: {"offset": 297795584, "chunk_size": 4194304, "committed_size": 301989888, "sha256": "d2387652170c6020b6d7d35402877a23f51c8d5b518d513754f2fe2022f21549"}
+Verified remote chunk: {"offset": 301989888, "chunk_size": 4194304, "committed_size": 306184192, "sha256": "aea089b459ca000cc66c1d4d5128930c05ee72ea738c8c66a7db2134773373a0"}
+Verified remote chunk: {"offset": 306184192, "chunk_size": 4194304, "committed_size": 310378496, "sha256": "4e6009a50bef30647ea92ec96dd58ff18fae61efa751c3f7cbc86e3ac644451a"}
+Verified remote chunk: {"offset": 310378496, "chunk_size": 4194304, "committed_size": 314572800, "sha256": "7a7269977d8cf921c10c432e6dc2e1395a096c31eb01550198a360c18e1de751"}
+Verified remote chunk: {"offset": 314572800, "chunk_size": 4194304, "committed_size": 318767104, "sha256": "ab5249bf19299ac21d38640e956e283e05ad1ac252680fe01c43e4929ebd972d"}
+Verified remote chunk: {"offset": 318767104, "chunk_size": 4194304, "committed_size": 322961408, "sha256": "12b3dc010191eec158bb5a7854e04c1af657bfc4eb2cb827b4fe6e2ed06b7b61"}
+Verified remote chunk: {"offset": 322961408, "chunk_size": 4194304, "committed_size": 327155712, "sha256": "784bfe716b3fbd1bd599fe3140a2bb08a78d388eeafe5a37d50f6a62c5c3ee76"}
+Verified remote chunk: {"offset": 327155712, "chunk_size": 4194304, "committed_size": 331350016, "sha256": "fb96b579adeac2b13f0902883a78089a51328377e9d695b47e262cb0c63918be"}
+Verified remote chunk: {"offset": 331350016, "chunk_size": 4194304, "committed_size": 335544320, "sha256": "1d4bf0a2b023a2fe5a98ad8b89088bddadca10506ef5b349b117ef1f9086bf56"}
+Verified remote chunk: {"offset": 335544320, "chunk_size": 4194304, "committed_size": 339738624, "sha256": "0fa5ba0e7561920c7994830d0b0850550f18342e5982dfb3c0186f921e511bde"}
+Verified remote chunk: {"offset": 339738624, "chunk_size": 4194304, "committed_size": 343932928, "sha256": "37cb741d10b38301f2af8729dab6227636c6d7d6f13496e4c9ea2548ab4498fd"}
+Verified remote chunk: {"offset": 343932928, "chunk_size": 4194304, "committed_size": 348127232, "sha256": "9986249db5bf48f07866d4e24dbb1fbc9869f621a2f48086083dea54bf637d2e"}
+Verified remote chunk: {"offset": 348127232, "chunk_size": 4194304, "committed_size": 352321536, "sha256": "bbc2619a24f06f22db58e107530d6a018de9435120c4e3ec96beda2972f85fda"}
+Verified remote chunk: {"offset": 352321536, "chunk_size": 4194304, "committed_size": 356515840, "sha256": "a6a2d877108a9166dd0e7a2699c5b5d3c335d631fed9c2a4f773c96f5b7373ad"}
+Verified remote chunk: {"offset": 356515840, "chunk_size": 4194304, "committed_size": 360710144, "sha256": "8b55a9ec11f238ab5af708c4493a477039f90377dc0130bef304d2b5d08a97ee"}
+Verified remote chunk: {"offset": 360710144, "chunk_size": 4194304, "committed_size": 364904448, "sha256": "2b0c9554e13303dec576cd0068e5f4d3f97cf63f26cae049abbfbafdb424d942"}
+Verified remote chunk: {"offset": 364904448, "chunk_size": 4194304, "committed_size": 369098752, "sha256": "7e7d2124fdd94465870e74a586d27b56b4b779ea995e1c2391853da349d73537"}
+Verified remote chunk: {"offset": 369098752, "chunk_size": 4194304, "committed_size": 373293056, "sha256": "7ebdcdf211f33c36c479838630be544c57fdb1792b7f367ef945570532e824b2"}
+Verified remote chunk: {"offset": 373293056, "chunk_size": 4194304, "committed_size": 377487360, "sha256": "d5a9dc2ee9b3a0987504b1447bcc079b28dfa862229db2954ffe0ca8ec0dff34"}
+Verified remote chunk: {"offset": 377487360, "chunk_size": 4194304, "committed_size": 381681664, "sha256": "59baab0144564946df32adacc778d243b3de5c242843ce256f94cc28d7dbd93f"}
+Verified remote chunk: {"offset": 381681664, "chunk_size": 4194304, "committed_size": 385875968, "sha256": "d988174feb13e5f437cd6ac3e2751e6e8b29fec2166541d2d9946a474e9313e2"}
+Verified remote chunk: {"offset": 385875968, "chunk_size": 4194304, "committed_size": 390070272, "sha256": "6b3a5712d460751364516fef46aa30e75faf3b07a660820c9ad7f4c645545841"}
+Verified remote chunk: {"offset": 390070272, "chunk_size": 4194304, "committed_size": 394264576, "sha256": "ecbe543d40a1222d94c17774aa4affbd17a2286dbc4360a02138c77a87d94d44"}
+Verified remote chunk: {"offset": 394264576, "chunk_size": 4194304, "committed_size": 398458880, "sha256": "89a7bcbb7d688347bebac72e10f132fd47bdbdc003b122eeabb4ec5263f07dec"}
+Verified remote chunk: {"offset": 398458880, "chunk_size": 4194304, "committed_size": 402653184, "sha256": "40b871469dbe80b0380277d7b2a378f555ecb6e1da5c14fd5fb0297c78076d12"}
+Verified remote chunk: {"offset": 402653184, "chunk_size": 4194304, "committed_size": 406847488, "sha256": "954ad8bd9ab29495b4d5ad32e5953c053ba8279e2187443dde19c14775bb5cc4"}
+Verified remote chunk: {"offset": 406847488, "chunk_size": 4194304, "committed_size": 411041792, "sha256": "c79ea3f0702386db1f81c5e6ba0c5075d747f4257699758234f519657a86b7da"}
+Verified remote chunk: {"offset": 411041792, "chunk_size": 4194304, "committed_size": 415236096, "sha256": "28861d39fc64a0f23e34131b4f898f44a6e3a4ae86d71f490400b23c1317e971"}
+Verified remote chunk: {"offset": 415236096, "chunk_size": 4194304, "committed_size": 419430400, "sha256": "4e3d7d0b5bc83866016e07fce41d51cc4adc646caeb705443851bf19a757dc30"}
+Verified remote chunk: {"offset": 419430400, "chunk_size": 4194304, "committed_size": 423624704, "sha256": "f97371ca1db654ee07a14a09873f8a38007143063452213a94b7e1ff71f1014d"}
+Verified remote chunk: {"offset": 423624704, "chunk_size": 4194304, "committed_size": 427819008, "sha256": "11f7bbba4f57304bd8d796d418e160f84be39eeebf1af534bb023274feb2907f"}
+Verified remote chunk: {"offset": 427819008, "chunk_size": 4194304, "committed_size": 432013312, "sha256": "034c6803f5d345a930950d5f4d73090c147b448b51077c05256d6f5b4b658d5c"}
+Verified remote chunk: {"offset": 432013312, "chunk_size": 4194304, "committed_size": 436207616, "sha256": "08cf1234174ddb50f933f742892096b985c3ad72341dacf8d9c42ce7c30a98d6"}
+Verified remote chunk: {"offset": 436207616, "chunk_size": 4194304, "committed_size": 440401920, "sha256": "6cf650c28e63c63db14cfa800f4fc15f05a947e5bd85ed12e7ce7de3ff418885"}
+Verified remote chunk: {"offset": 440401920, "chunk_size": 4194304, "committed_size": 444596224, "sha256": "8ec490aece10e5fa81a87c9b0cb0b661dc295d23328383bf2acb5c1b64117aa4"}
+Verified remote chunk: {"offset": 444596224, "chunk_size": 4194304, "committed_size": 448790528, "sha256": "4e9f02183e783f8b8fea9657e8652874772ab30da99567e59d864cff50c4f16d"}
+Verified remote chunk: {"offset": 448790528, "chunk_size": 4194304, "committed_size": 452984832, "sha256": "0e66283e9653f45a2911e2a7faba23e0796902d6f26f7180f5edabdad380cabf"}
+Verified remote chunk: {"offset": 452984832, "chunk_size": 4194304, "committed_size": 457179136, "sha256": "f1a953d5a989a6c4fd6012671b5acf6aa308ddc55e446bb60d138435b8d68144"}
+Verified remote chunk: {"offset": 457179136, "chunk_size": 4194304, "committed_size": 461373440, "sha256": "552295949697f91160254b6318f0b0d0faf00d4c8ce4f0977aef01d7d6dabe17"}
+Verified remote chunk: {"offset": 461373440, "chunk_size": 4194304, "committed_size": 465567744, "sha256": "59200b2bb2b786f11f87bc004e93622ac9771fdc50c88543b65e718fbfdcb16a"}
+Verified remote chunk: {"offset": 465567744, "chunk_size": 4194304, "committed_size": 469762048, "sha256": "315e0f358b991787994641ce5eb7298cddedc86ea6d46ee1c4d512809fe1e6f1"}
+Verified remote chunk: {"offset": 469762048, "chunk_size": 4194304, "committed_size": 473956352, "sha256": "c7b53e0d225f5c78a9473f717ad9429f1b953881765ea2d28776cb9ca1c91de7"}
+Verified remote chunk: {"offset": 473956352, "chunk_size": 4194304, "committed_size": 478150656, "sha256": "48136d347780a458c1bd81aab621c2bc34ef361b12fd178f7e7517fd173ea35a"}
+Verified remote chunk: {"offset": 478150656, "chunk_size": 4194304, "committed_size": 482344960, "sha256": "94bcf89ee7cff3ebb35c78c33013aafa6caca5e762e6a9b80a2a88c57f663739"}
+Verified remote chunk: {"offset": 482344960, "chunk_size": 4194304, "committed_size": 486539264, "sha256": "1722adc9a5ce00c49a3a720112c1307f0efe6ad71e1b0160146a18a89e8b7cef"}
+Verified remote chunk: {"offset": 486539264, "chunk_size": 4194304, "committed_size": 490733568, "sha256": "1ae38507326664c56e78b3dffaac77e2e9c36cbc0ccdcefb0d38b132e9e52d87"}
+Verified remote chunk: {"offset": 490733568, "chunk_size": 1531600, "committed_size": 492265168, "sha256": "163a9625a70067f7da4e92713549c25989294e5c788fc2b86e375183f28ebb0a"}
+SHA256 verified remotely: dreamshaper8/text_encoder/model.safetensors
+Downloading locally: dreamshaper8/tokenizer/merges.txt (524619 bytes)
+Uploading: dreamshaper8/tokenizer/merges.txt
+Verified remote chunk: {"offset": 0, "chunk_size": 524619, "committed_size": 524619, "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a"}
+SHA256 verified remotely: dreamshaper8/tokenizer/merges.txt
+Downloading locally: dreamshaper8/tokenizer/special_tokens_map.json (472 bytes)
+Uploading: dreamshaper8/tokenizer/special_tokens_map.json
+Verified remote chunk: {"offset": 0, "chunk_size": 472, "committed_size": 472, "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac"}
+SHA256 verified remotely: dreamshaper8/tokenizer/special_tokens_map.json
+Downloading locally: dreamshaper8/tokenizer/tokenizer_config.json (737 bytes)
+Uploading: dreamshaper8/tokenizer/tokenizer_config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 737, "committed_size": 737, "sha256": "19d7b034cb0cc3ce9766c2231373ab8aa8991fc72e2c8f76558bfaae3de0d563"}
+SHA256 verified remotely: dreamshaper8/tokenizer/tokenizer_config.json
+Downloading locally: dreamshaper8/tokenizer/vocab.json (1059962 bytes)
+Uploading: dreamshaper8/tokenizer/vocab.json
+Verified remote chunk: {"offset": 0, "chunk_size": 1059962, "committed_size": 1059962, "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349"}
+SHA256 verified remotely: dreamshaper8/tokenizer/vocab.json
+Downloading locally: dreamshaper8/unet/config.json (1868 bytes)
+Uploading: dreamshaper8/unet/config.json
+Verified remote chunk: {"offset": 0, "chunk_size": 1868, "committed_size": 1868, "sha256": "8125830747f921e26e263e394b8954482cf3b4b4f1beb154704ee3cc57042be8"}
+SHA256 verified remotely: dreamshaper8/unet/config.json
+Downloading locally: dreamshaper8/unet/diffusion_pytorch_model.safetensors (3438167536 bytes)
+Uploading: dreamshaper8/unet/diffusion_pytorch_model.safetensors
+Traceback (most recent call last):
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 462, in <module>
+    main()
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 389, in main
+    transfer_entries(args, entries, status_path, status)
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 451, in transfer_entries
+    session.upload(local, remote + ".uploading")
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 142, in upload
+    partial = json.loads(self.remote(REMOTE_PARTIAL, remote, size))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 138, in remote
+    return run(["ssh", "-F", str(self.config), "school104", command], capture_output=True).stdout.strip()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 30, in run
+    return subprocess.run(args, check=True, text=True, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['ssh', '-F', '/private/tmp/school-stage-5sw8ak0o/config', 'school104', 'python3 -c \'\nimport hashlib,json,os,pathlib,sys\npath=pathlib.Path(sys.argv[1]); size=int(sys.argv[2]); root=pathlib.Path(\'"\'"\'/data2/zhangzibo/arxiv-tssa\'"\'"\')\nassert path.is_relative_to(root) and \'"\'"\'..\'"\'"\' not in path.parts and path.name.endswith(\'"\'"\'.uploading\'"\'"\')\nfor parent in [path,*path.parents]:\n    if parent.is_relative_to(root):\n        assert not parent.is_symlink()\n        if parent.exists(): assert parent.stat().st_uid==os.getuid()\nh=hashlib.sha256(); offset=0\nif path.exists():\n    assert path.is_file() and path.stat().st_size<=size, \'"\'"\'Invalid existing upload\'"\'"\'\n    offset=path.stat().st_size\n    with path.open(\'"\'"\'rb\'"\'"\') as f:\n        for b in iter(lambda:f.read(8388608),b\'"\'"\'\'"\'"\'): h.update(b)\nprint(json.dumps({\'"\'"\'size\'"\'"\':offset,\'"\'"\'sha256\'"\'"\':h.hexdigest()}))\n\' /data2/zhangzibo/arxiv-tssa/models/dreamshaper8/unet/diffusion_pytorch_model.safetensors.uploading 3438167536']' returned non-zero exit status 255.

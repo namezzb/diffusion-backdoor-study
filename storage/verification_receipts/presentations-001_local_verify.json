@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "tool": "research_archive",
+  "command": "verify-package",
+  "started_at": "2026-10-29T03:50:28.080034+00:00",
+  "paths": {
+    "package": "/Users/zzb/arxiv/storage/_packages/snapshot-2026-10-29-v1/presentations-001.zip",
+    "manifest": "/Users/zzb/arxiv/storage/manifests/snapshot-2026-10-29-v1/presentations-001.json",
+    "receipt": "/Users/zzb/arxiv/storage/verification_receipts/presentations-001_local_verify.json"
+  },
+  "status": "verified",
+  "package_verified": true,
+  "all_members_verified": true,
+  "destination_preflight_passed": false,
+  "files": [
+    {
+      "path": "presentations/diffusion_merging_backdoor_research.pptx",
+      "size": 59449,
+      "sha256": "df2a9dda2f066094ccd5ae0cf2684c7da7fd5009007f4f034e51bc12703b59f3",
+      "verification": "passed",
+      "restore": "not_requested"
+    }
+  ],
+  "errors": [],
+  "publication": "exclusive hard link from verified .part; no overwrite",
+  "manifest_sha256": "a26a74fa5d4397bf3de6e1c3026c4dcf42eca52fb2e7b0449043b5382532edba",
+  "expected_package": {
+    "size": 42166,
+    "sha256": "b783d25ae1e02b126ed4d439c0b5578dacf64926496f588851c57c7f4ceb8c57"
+  },
+  "observed_package": {
+    "size": 42166,
+    "sha256": "b783d25ae1e02b126ed4d439c0b5578dacf64926496f588851c57c7f4ceb8c57"
+  },
+  "finished_at": "2026-10-29T03:50:28.080968+00:00",
+  "counts": {
+    "verified_files": 1,
+    "verified_bytes": 59449,
+    "written_files": 0,
+    "reused_files": 0
+  }
+}

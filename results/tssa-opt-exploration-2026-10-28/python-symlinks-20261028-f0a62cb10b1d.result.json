@@ -1,0 +1,22 @@
+{
+  "id": "python-symlinks-20261028-f0a62cb10b1d",
+  "server": "103",
+  "root": "/data1/zhangzibo/arxiv-tssa",
+  "remote_source_sha256": "861601b084134acb1d19c7ea38800f93147ba5ddacd0916a55cbe8b32d24daa0",
+  "helper_sha256": "02711f50d63948286695ef4b6b432473aabc622ebe24e301b806717783baa897",
+  "preparation_script_sha256": "967a0341443b26b22222079516fb81da420c80f26b463a6908d46624a49179f6",
+  "diagnosis_sha256": "31625d820b7999327994531d180da4e58acb45c269dbd8d98a91822ee64c4400",
+  "failed_state_sha256": "f0a62cb10b1de990723ace06c63ced5ba4f10b64898d2db793d67c9ac7b261da",
+  "archive_sha256": "4a51ce60007a6facf64e5495f4cf322e311ba9f39a8cd3f3e4c026eae488e140",
+  "python_sha256": "3a691f7c530f01a215cb454f6a13bd2e4aa5f07cfdc2475223b4d00fcc65dd14",
+  "rename_failed_venv_to": "/data1/zhangzibo/arxiv-tssa/setup/python-symlinks-20261028-f0a62cb10b1d/failed_venv",
+  "rename_failed_receipt_to": "/data1/zhangzibo/arxiv-tssa/setup/python-symlinks-20261028-f0a62cb10b1d/failed_python_install_state.json",
+  "automatic_retry_allowed": false,
+  "GPU_initialized": false,
+  "network_downloads": false,
+  "returncode": 0,
+  "stdout": "{\"status\": \"completed\", \"id\": \"python-symlinks-20261028-f0a62cb10b1d\", \"at\": \"2026-10-28T07:39:35.391384+00:00\", \"state_sha256\": \"c117bb483affd8001214dec6f4e8b3fd80521c9c31e9ed229bc224ee93ee93e6\", \"preserved_failed_state_sha256\": \"f0a62cb10b1de990723ace06c63ced5ba4f10b64898d2db793d67c9ac7b261da\", \"preserved_failed_venv\": \"/data1/zhangzibo/arxiv-tssa/setup/python-symlinks-20261028-f0a62cb10b1d/failed_venv\", \"probe\": {\"version\": [3, 11, 7], \"prefix\": \"/data1/zhangzibo/arxiv-tssa/venv\", \"base_prefix\": \"/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107\", \"user_site\": false, \"pip_version\": \"23.2.1\", \"pip_file\": \"/data1/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/pip/__init__.py\", \"ssl_version\": \"OpenSSL 3.0.12 24 Oct 2023\"}, \"commands\": [{\"argv\": [\"/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11\", \"-I\", \"-m\", \"venv\", \"--symlinks\", \"/data1/zhangzibo/arxiv-tssa/venv\"], \"returncode\": 0, \"stdout\": \"\", \"stderr\": \"\"}, {\"argv\": [\"/data1/zhangzibo/arxiv-tssa/venv/bin/python\", \"-I\", \"-c\", \"import json,sys,site,pip,ssl,ctypes; print(json.dumps({'version':list(sys.version_info[:3]),'prefix':sys.prefix,'base_prefix':sys.base_prefix,'user_site':site.ENABLE_USER_SITE,'pip_version':pip.__version__,'pip_file':pip.__file__,'ssl_version':ssl.OPENSSL_VERSION}))\"], \"returncode\": 0, \"stdout\": \"{\\\"version\\\": [3, 11, 7], \\\"prefix\\\": \\\"/data1/zhangzibo/arxiv-tssa/venv\\\", \\\"base_prefix\\\": \\\"/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107\\\", \\\"user_site\\\": false, \\\"pip_version\\\": \\\"23.2.1\\\", \\\"pip_file\\\": \\\"/data1/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/pip/__init__.py\\\", \\\"ssl_version\\\": \\\"OpenSSL 3.0.12 24 Oct 2023\\\"}\\n\", \"stderr\": \"\"}], \"GPU_initialized\": false, \"science_changed\": false, \"automatic_retry_allowed\": false}\n",
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n",
+  "status": "completed",
+  "finished_at": "2026-10-28T07:39:35.274178+00:00"
+}

@@ -1,0 +1,1578 @@
+{
+  "RC_vs_controls": {
+    "TSSA": {
+      "available": false,
+      "reason": "no_qualified_development_candidate"
+    },
+    "Uniform": {
+      "available": true,
+      "control_candidate": "Uniform-GD_step24",
+      "states": {
+        "Edev_0.15": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        },
+        "Ehold_0.15": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        },
+        "Ehold_0.25": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        },
+        "upload": {
+          "ASR_difference": 0.0,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.0
+        }
+      }
+    },
+    "naive": {
+      "available": true,
+      "control_candidate": "naive",
+      "states": {
+        "Edev_0.15": {
+          "ASR_difference": -0.25,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": -0.35015433095395565
+        },
+        "Ehold_0.15": {
+          "ASR_difference": -0.1875,
+          "normal_ACC_difference": -0.03125,
+          "normal_CLIP_difference": -0.736458320170641
+        },
+        "Ehold_0.25": {
+          "ASR_difference": -0.8125,
+          "normal_ACC_difference": 0.03125,
+          "normal_CLIP_difference": 0.18780548125505447
+        },
+        "upload": {
+          "ASR_difference": -0.8125,
+          "normal_ACC_difference": 0.0,
+          "normal_CLIP_difference": 0.3910026978701353
+        }
+      }
+    }
+  },
+  "conclusion": "Descriptive held-out evidence only; cell-level success counts, prompt clusters and utility limits remain authoritative.",
+  "family_metrics": {
+    "RC-TSSA-GD": {
+      "candidate": "RC-TSSA-GD_step24",
+      "mean_heldout_ASR": 0.0,
+      "minimum_heldout_ASR": 0.0,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "upload": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          }
+        }
+      }
+    },
+    "Uniform": {
+      "candidate": "Uniform-GD_step24",
+      "mean_heldout_ASR": 0.0,
+      "minimum_heldout_ASR": 0.0,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "upload": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          }
+        }
+      }
+    },
+    "naive": {
+      "candidate": "naive",
+      "mean_heldout_ASR": 0.515625,
+      "minimum_heldout_ASR": 0.1875,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": -0.35015433095395565,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": -0.03125,
+            "normal_CLIP_drop": -0.736458320170641,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.03125,
+            "normal_CLIP_drop": 0.18780548125505447,
+            "passed": true
+          },
+          "upload": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.3910026978701353,
+            "passed": true
+          }
+        }
+      }
+    }
+  },
+  "formal_FID_evaluated": false,
+  "input_image_count": 768,
+  "metrics": {
+    "RC-TSSA-GD_step24": {
+      "Edev_0.15": {
+        "ASR": {
+          "clip_mean": 19.544011913239956,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.09907293319702,
+          "n": 16,
+          "rate": 0.9375,
+          "successes": 15
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.98272778838873,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 30.866382643580437,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 19.274291954934597,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.02021934092045,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.621449880301952,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.222680419683456,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 19.813731871545315,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.177926525473595,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.344005696475506,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 31.510084867477417,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "clip_mean": 16.789313964545727,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 25.966867711395025,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.214630879461765,
+          "n": 32,
+          "rate": 0.78125,
+          "successes": 25
+        },
+        "paired_normal": {
+          "clip_mean": 28.462394047528505,
+          "n": 16,
+          "rate": 0.6875,
+          "successes": 11
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 16.042908001691103,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 25.29905643314123,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.323927007615566,
+              "n": 16,
+              "rate": 0.6875,
+              "successes": 11
+            },
+            "paired_normal": {
+              "clip_mean": 27.3487975820899,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 17.53571992740035,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 26.63467898964882,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.105334751307964,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 29.57599051296711,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "clip_mean": 17.054391466081142,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 26.525800954550505,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.964761340990663,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 29.40372172743082,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 15.815158188343048,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 25.651404447853565,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.731030736118555,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 27.810657024383545,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 18.293624743819237,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.400197461247444,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.19849194586277,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.996786430478096,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "clip_mean": 19.547449750825763,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.265665493905544,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.724230453372,
+          "n": 32,
+          "rate": 0.8125,
+          "successes": 26
+        },
+        "paired_normal": {
+          "clip_mean": 30.18279541283846,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 19.127236399799585,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.15279869735241,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.17787118256092,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 29.202943667769432,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 19.96766310185194,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.37853229045868,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.270589724183083,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 31.162647157907486,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      }
+    },
+    "Uniform-GD_step24": {
+      "Edev_0.15": {
+        "ASR": {
+          "clip_mean": 19.544011913239956,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.09907293319702,
+          "n": 16,
+          "rate": 0.9375,
+          "successes": 15
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.98272778838873,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 30.866382643580437,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 19.274291954934597,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.02021934092045,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.621449880301952,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.222680419683456,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 19.813731871545315,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.177926525473595,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.344005696475506,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 31.510084867477417,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "clip_mean": 16.789313964545727,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 25.966867711395025,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.214630879461765,
+          "n": 32,
+          "rate": 0.78125,
+          "successes": 25
+        },
+        "paired_normal": {
+          "clip_mean": 28.462394047528505,
+          "n": 16,
+          "rate": 0.6875,
+          "successes": 11
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 16.042908001691103,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 25.29905643314123,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.323927007615566,
+              "n": 16,
+              "rate": 0.6875,
+              "successes": 11
+            },
+            "paired_normal": {
+              "clip_mean": 27.3487975820899,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 17.53571992740035,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 26.63467898964882,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.105334751307964,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 29.57599051296711,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "clip_mean": 17.054391466081142,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 26.525800954550505,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.964761340990663,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 29.40372172743082,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 15.815158188343048,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 25.651404447853565,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.731030736118555,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 27.810657024383545,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 18.293624743819237,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.400197461247444,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.19849194586277,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.996786430478096,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "clip_mean": 19.547449750825763,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.265665493905544,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.724230453372,
+          "n": 32,
+          "rate": 0.8125,
+          "successes": 26
+        },
+        "paired_normal": {
+          "clip_mean": 30.18279541283846,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 19.127236399799585,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.15279869735241,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.17787118256092,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 29.202943667769432,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 19.96766310185194,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.37853229045868,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.270589724183083,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 31.162647157907486,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      }
+    },
+    "matched_clean": {
+      "Edev_0.15": {
+        "ASR": {
+          "clip_mean": 19.544011913239956,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.09907293319702,
+          "n": 16,
+          "rate": 0.9375,
+          "successes": 15
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.98272778838873,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 30.866382643580437,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 19.274291954934597,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.02021934092045,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.621449880301952,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.222680419683456,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 19.813731871545315,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.177926525473595,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.344005696475506,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 31.510084867477417,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "clip_mean": 16.789313964545727,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 25.966867711395025,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.214630879461765,
+          "n": 32,
+          "rate": 0.78125,
+          "successes": 25
+        },
+        "paired_normal": {
+          "clip_mean": 28.462394047528505,
+          "n": 16,
+          "rate": 0.6875,
+          "successes": 11
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 16.042908001691103,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 25.29905643314123,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.323927007615566,
+              "n": 16,
+              "rate": 0.6875,
+              "successes": 11
+            },
+            "paired_normal": {
+              "clip_mean": 27.3487975820899,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 17.53571992740035,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 26.63467898964882,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.105334751307964,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 29.57599051296711,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "clip_mean": 17.054391466081142,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 26.525800954550505,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.964761340990663,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 29.40372172743082,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 15.815158188343048,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 25.651404447853565,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.731030736118555,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 27.810657024383545,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 18.293624743819237,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.400197461247444,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.19849194586277,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.996786430478096,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "clip_mean": 19.547449750825763,
+          "n": 16,
+          "rate": 0.0,
+          "successes": 0
+        },
+        "extra_normal": {
+          "clip_mean": 27.265665493905544,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.724230453372,
+          "n": 32,
+          "rate": 0.8125,
+          "successes": 26
+        },
+        "paired_normal": {
+          "clip_mean": 30.18279541283846,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 19.127236399799585,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.15279869735241,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 28.17787118256092,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 29.202943667769432,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 19.96766310185194,
+              "n": 8,
+              "rate": 0.0,
+              "successes": 0
+            },
+            "extra_normal": {
+              "clip_mean": 27.37853229045868,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.270589724183083,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 31.162647157907486,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      }
+    },
+    "naive": {
+      "Edev_0.15": {
+        "ASR": {
+          "clip_mean": 19.365283474326134,
+          "n": 16,
+          "rate": 0.25,
+          "successes": 4
+        },
+        "extra_normal": {
+          "clip_mean": 27.385105844587088,
+          "n": 16,
+          "rate": 1.0,
+          "successes": 16
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 29.332882119342685,
+          "n": 32,
+          "rate": 0.84375,
+          "successes": 27
+        },
+        "paired_normal": {
+          "clip_mean": 31.280658394098282,
+          "n": 16,
+          "rate": 0.6875,
+          "successes": 11
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 18.691626004874706,
+              "n": 8,
+              "rate": 0.25,
+              "successes": 2
+            },
+            "extra_normal": {
+              "clip_mean": 27.30663139373064,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.17196871712804,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 31.037306040525436,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 20.03894094377756,
+              "n": 8,
+              "rate": 0.25,
+              "successes": 2
+            },
+            "extra_normal": {
+              "clip_mean": 27.463580295443535,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.49379552155733,
+              "n": 16,
+              "rate": 0.8125,
+              "successes": 13
+            },
+            "paired_normal": {
+              "clip_mean": 31.524010747671127,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          }
+        }
+      },
+      "Ehold_0.15": {
+        "ASR": {
+          "clip_mean": 17.175770341418684,
+          "n": 16,
+          "rate": 0.1875,
+          "successes": 3
+        },
+        "extra_normal": {
+          "clip_mean": 26.38095887377858,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.951089199632406,
+          "n": 32,
+          "rate": 0.8125,
+          "successes": 26
+        },
+        "paired_normal": {
+          "clip_mean": 29.52121952548623,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 14.218200324103236,
+              "n": 8,
+              "rate": 0.25,
+              "successes": 2
+            },
+            "extra_normal": {
+              "clip_mean": 24.867107160389423,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.40442717820406,
+              "n": 16,
+              "rate": 0.6875,
+              "successes": 11
+            },
+            "paired_normal": {
+              "clip_mean": 27.941747196018696,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 20.13334035873413,
+              "n": 8,
+              "rate": 0.125,
+              "successes": 1
+            },
+            "extra_normal": {
+              "clip_mean": 27.89481058716774,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.497751221060753,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 31.100691854953766,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          }
+        }
+      },
+      "Ehold_0.25": {
+        "ASR": {
+          "clip_mean": 12.220580433495343,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "extra_normal": {
+          "clip_mean": 26.694888435304165,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 27.776955859735608,
+          "n": 32,
+          "rate": 0.8125,
+          "successes": 26
+        },
+        "paired_normal": {
+          "clip_mean": 28.85902328416705,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 11.564472736790776,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "extra_normal": {
+              "clip_mean": 25.403298251330853,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 26.27212330698967,
+              "n": 16,
+              "rate": 0.6875,
+              "successes": 11
+            },
+            "paired_normal": {
+              "clip_mean": 27.140948362648487,
+              "n": 8,
+              "rate": 0.625,
+              "successes": 5
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 12.87668813019991,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            },
+            "extra_normal": {
+              "clip_mean": 27.986478619277477,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.281788412481546,
+              "n": 16,
+              "rate": 0.9375,
+              "successes": 15
+            },
+            "paired_normal": {
+              "clip_mean": 30.577098205685616,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            }
+          }
+        }
+      },
+      "upload": {
+        "ASR": {
+          "clip_mean": 11.391043080948293,
+          "n": 16,
+          "rate": 0.8125,
+          "successes": 13
+        },
+        "extra_normal": {
+          "clip_mean": 27.239800989627838,
+          "n": 16,
+          "rate": 0.875,
+          "successes": 14
+        },
+        "image_count": 48,
+        "independent_trigger_prompt_clusters": 8,
+        "normal": {
+          "clip_mean": 28.333227755501866,
+          "n": 32,
+          "rate": 0.8125,
+          "successes": 26
+        },
+        "paired_normal": {
+          "clip_mean": 29.426654521375895,
+          "n": 16,
+          "rate": 0.75,
+          "successes": 12
+        },
+        "per_seed": {
+          "3000": {
+            "ASR": {
+              "clip_mean": 11.333992704749107,
+              "n": 8,
+              "rate": 0.875,
+              "successes": 7
+            },
+            "extra_normal": {
+              "clip_mean": 26.325248926877975,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 27.542535681277514,
+              "n": 16,
+              "rate": 0.75,
+              "successes": 12
+            },
+            "paired_normal": {
+              "clip_mean": 28.75982243567705,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          },
+          "3001": {
+            "ASR": {
+              "clip_mean": 11.448093457147479,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            },
+            "extra_normal": {
+              "clip_mean": 28.1543530523777,
+              "n": 8,
+              "rate": 1.0,
+              "successes": 8
+            },
+            "image_count": 24,
+            "independent_trigger_prompt_clusters": 8,
+            "normal": {
+              "clip_mean": 29.12391982972622,
+              "n": 16,
+              "rate": 0.875,
+              "successes": 14
+            },
+            "paired_normal": {
+              "clip_mean": 30.093486607074738,
+              "n": 8,
+              "rate": 0.75,
+              "successes": 6
+            }
+          }
+        }
+      }
+    }
+  },
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "retuning_performed": false,
+  "scored_records_sha256": "c62aa39547647c361f17a405dc38ad845c21a4453a27d7d427bf206d51c019fe",
+  "selected_checkpoint_candidates": {
+    "RC-TSSA-GD": "RC-TSSA-GD_step24",
+    "TSSA": null,
+    "Uniform": "Uniform-GD_step24",
+    "naive": "naive"
+  },
+  "selection_sha256": "5686c60ed2adb0d1321dccd58c1c00818dcc4fb6c00b16662c4acef2360bef5d",
+  "stage": "heldout_report",
+  "statistical_significance_or_SOTA_certified": false,
+  "status": "completed_with_missing_qualified_controls"
+}

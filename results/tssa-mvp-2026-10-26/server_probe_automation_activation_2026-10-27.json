@@ -1,0 +1,40 @@
+{
+  "observed_at": "2026-10-27T15:02:05.538002+08:00",
+  "automation_id": "gpu",
+  "status": "ACTIVE",
+  "interval_minutes": 30,
+  "probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T065702467062Z.json",
+    "sample_finished_at": "2026-10-27T06:57:10.645040+00:00",
+    "status": "observed",
+    "driver_prohibited_indices": [
+      3,
+      4,
+      6
+    ],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      5,
+      7
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": false,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "note": "Initial report own count is a lower bound because one PID owner could not be read; probe implementation now emits null for incomplete ownership."
+  },
+  "transfer_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-070035-007422Z.json",
+  "research_images": 0,
+  "research_updates": 0,
+  "probe_checks": [
+    "local_and_remote_syntax",
+    "unknown_owner_yields_unknown_total",
+    "known_empty_process_set_yields_zero"
+  ],
+  "scheduler_location": "local_Codex_heartbeat_runs_SSH_probe",
+  "probe_source_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f"
+}

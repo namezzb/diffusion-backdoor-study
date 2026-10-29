@@ -651,7 +651,7 @@ s15.addText(refItems, {
 // ============================================================
 // SAVE
 // ============================================================
-const outPath = "/Users/zzb/arxiv/presentations/diffusion_merging_backdoor_research.pptx";
+const outPath = require("path").join(__dirname, "diffusion_merging_backdoor_research.pptx");
 pres.writeFile({ fileName: outPath }).then(() => {
   console.log("PPTX saved to: " + outPath);
 }).catch(err => {

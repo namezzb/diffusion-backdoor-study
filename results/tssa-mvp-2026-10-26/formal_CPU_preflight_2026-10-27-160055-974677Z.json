@@ -1,0 +1,59 @@
+{
+  "status": "failed",
+  "started_at": "2026-10-27T16:00:55.974677+00:00",
+  "pid": 79649,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z.log",
+  "script_sha256": "65c0a0f820886b5afe2d1d92003aacaa0290416fdc0a7376c1a345323de3871f",
+  "transfer_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-160026-326979Z.json",
+  "probe_report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/server-probes/school104-20261027T155917602793Z.json",
+  "automatic_retry": false,
+  "maximum_local_wait_seconds": 900,
+  "remote_CPU_timeout_seconds": 1200,
+  "CPU_threads": 2,
+  "GPU_used": false,
+  "scope": "Formal checkpoint CPU structure, frozen delta and grouping only; no response gradients or research images.",
+  "observed_at": "2026-10-27T16:03:05.722737+00:00",
+  "asset_receipts_verified": 47,
+  "preflight_started_at": "2026-10-27T16:02:21.138538+00:00",
+  "SSH_pid": 86923,
+  "returncode": 2,
+  "result": {
+    "status": "failed",
+    "returncode": 2,
+    "observed_at": "2026-10-27T16:03:05.785279+00:00",
+    "seconds": 40.4294573290008,
+    "source_files_verified": 20,
+    "CPU_memory_available_before": 370295652352,
+    "max_child_rss_KiB": 9753256,
+    "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v1",
+    "files": {
+      "failure_or_completion_status.json": {
+        "sha256": "324a33131b9a253ffe2d732e272f87f946d67ba7ebde07ada730b0466f65baff",
+        "size": 659,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "a15ce04cc91bb15e8ad07c3795a5f7bea32a0cdc541531bf209debad451ffc88",
+        "size": 2304,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z_artifacts/resource_ledger.json"
+      },
+      "run_identity.json": {
+        "sha256": "82b961307209b8b9d48c0037ca353b3e24e31c05a764cadb14d18340a900b81c",
+        "size": 7633,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z_artifacts/run_identity.json"
+      },
+      "last_failure_traceback.txt": {
+        "sha256": "e5f7744b6b695f9a66c45a5d019948b16f10bac1c732518058ca6c84ab270b4b",
+        "size": 3031,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z_artifacts/last_failure_traceback.txt"
+      }
+    },
+    "GPU_stage_started": false
+  },
+  "error": "AssertionError: CPU preflight did not pass; no retry",
+  "finished_at": "2026-10-27T16:03:05.722453+00:00",
+  "seconds": 129.74724437500117,
+  "log_sha256": "a5efd9050aba18249ba3b056d658df2fbc85ff6a758ef2dbfec20ded9cce906a",
+  "stderr_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-27T16:02:35.317270+00:00\"}\n{\"status\": \"failed\", \"error_type\": \"ValueError\", \"error\": \"Edev/UNet: component configuration mismatch for upcast_attention: False vs None\"}\n"
+}

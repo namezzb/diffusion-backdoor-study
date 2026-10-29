@@ -1,0 +1,180 @@
+{
+  "automation_id": "gpu",
+  "heartbeat_trigger_at": "2026-10-27T12:58:30.652Z",
+  "observed_at": "2026-10-27T21:01:06.048562+08:00",
+  "phase": "remaining_model_assets_waiting_for_server_connection",
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T125859788278Z.json",
+    "sha256": "b3fbeaaf46aa2721dfb8f1925550a6ded349dfb5c749352d6565e895e8131dc9",
+    "status": "connection_or_query_failed",
+    "started_at": "2026-10-27T12:58:59.788278+00:00",
+    "finished_at": "2026-10-27T12:59:07.670647+00:00",
+    "returncode": 255,
+    "error": "channel 0: open failed: connect failed: No route to host\nstdio forwarding failed\nConnection closed by UNKNOWN port 65535\n",
+    "sample_finished_at": null,
+    "driver_prohibited_indices": null,
+    "other_compute_process_indices": null,
+    "observed_process_free_indices": null,
+    "known_own_gpu_count_lower_bound": null,
+    "own_gpu_count_complete": false,
+    "own_gpu_count_on_this_server": null,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false
+  },
+  "last_valid_GPU_sample_is_historical": true,
+  "last_valid_read_only_server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T115852377108Z.json",
+    "sha256": "ab6cc5aa8ab6b9e19240c82d01c677e3d5a80f43242cd5c82262be3881e18767",
+    "status": "observed",
+    "started_at": "2026-10-27T11:58:52.377108+00:00",
+    "finished_at": "2026-10-27T11:59:08.778100+00:00",
+    "sample_finished_at": "2026-10-27T11:59:08.496682+00:00",
+    "driver_prohibited_indices": [
+      3,
+      4,
+      6
+    ],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      5,
+      7
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": false,
+    "own_gpu_count_on_this_server": null,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "GPU_UUID_mapping_matches_previous_sample": true,
+    "historical_only": true,
+    "current_GPU_permission": false
+  },
+  "transfer_audit": {
+    "report": "results/tssa-mvp-2026-10-26/failed_transfer_asset_audit_2026-10-27-123047-217543Z.json",
+    "sha256": "978940254eecc92f82c7f088c450bf0c2bf144b39d398bea160928b7039225b0",
+    "complete_manifest_files_verified": 27,
+    "complete_manifest_bytes_verified": 8690972733,
+    "by_role_file_counts": {
+      "sd15": {
+        "expected": 14,
+        "verified": 14
+      },
+      "backdoor_tpa": {
+        "expected": 2,
+        "verified": 2
+      },
+      "dreamshaper8": {
+        "expected": 9,
+        "verified": 9
+      },
+      "openjourney": {
+        "expected": 9,
+        "verified": 2
+      },
+      "vit": {
+        "expected": 4,
+        "verified": 0
+      },
+      "clip": {
+        "expected": 9,
+        "verified": 0
+      }
+    },
+    "newly_completed_files": [],
+    "unchanged_since_previous_audit": true
+  },
+  "local_asset_integrity": {
+    "report": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_integrity_2026-10-27-123047-217543Z.json",
+    "sha256": "308089ac7b41b725602c5c0dcff446be02bbfc3d0d064f7a993adf340ed9c947",
+    "tensor_count": 197,
+    "pinned_whole_SHA256_match": true,
+    "partial_chunk_hashes_matched": 6
+  },
+  "failed_transfer": {
+    "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.json",
+    "status": "failed",
+    "returncode": 1,
+    "underlying_SSH_returncode": 255,
+    "started_at": "2026-10-27T09:32:01.054513+00:00",
+    "finished_at": "2026-10-27T12:12:52.356037+00:00",
+    "seconds": 9651.254129959001,
+    "cause": "Target connection closed during OpenJourney text encoder chunk; this wake a separate read-only probe reports No route to host. Underlying infrastructure cause is unknown.",
+    "log_sha256": "51ef4144d21f3eaecaa139386fffbab584d989ea8faec93187205503437bcd96",
+    "current_asset": "openjourney/text_encoder/model.safetensors",
+    "last_receipted_remote_bytes": 25165824,
+    "current_asset_chunk_receipts": 6,
+    "remote_prefix_requires_revalidation": true,
+    "wrapper_child_and_awake_PIDs_absent": [
+      76584,
+      76694,
+      76695
+    ],
+    "failed_session_exit_confirmed": 27671,
+    "immediate_retry_performed": false
+  },
+  "existing_transfer": {
+    "status": "failed",
+    "no_active_project_transfer": true,
+    "lock_free": true,
+    "resumed_or_restarted_this_wake": false
+  },
+  "local_free_bytes": 16031490048,
+  "remote_data_disk": null,
+  "latest_website_evidence_is_historical": true,
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "GPU_used_this_wake": false,
+  "allocation_confirmed_this_wake": false,
+  "automation": {
+    "id": "gpu",
+    "status": "ACTIVE",
+    "interval_minutes": 30,
+    "changed_this_wake": false
+  },
+  "notification": {
+    "decision": "DONT_NOTIFY",
+    "reason": "The previously reported No route to host blocker is unchanged; local asset numerical preparation completed without scientific results or a new required user action."
+  },
+  "input_hashes": {
+    "AGENTS.md": "02ab1a2a52093aa3d4ea2723bb0433ec908a3f4345472087a3b640cc560af0ee",
+    "research/tssa_response_calibration_method_proposal.md": "ac7946567c22053de01dde3e4df3248ade298a7e42911924f486d25bd9dee169",
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "server/stage_school_assets.py": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+    "scripts/connection/probe_school_gpu.py": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f"
+  },
+  "previous_checkpoint": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-123203-103611Z.json",
+  "local_asset_values": {
+    "passed": true,
+    "report": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_values_2026-10-27-130008-879107Z.json",
+    "sha256": "0f3436f9a9b0c39c249a05295f9b9f8f7c351dbbafd0ba33cb8dd53bccb9a729",
+    "float32_elements_scanned": 123060480,
+    "nonfinite_elements": 0,
+    "elements_outside_finite_float16_range": 0,
+    "integer_position_ids_zero_to_76": true,
+    "scope": "Streaming local asset numerical validation only. No model instantiation, response gradient, CUDA, scientific image generation or optimization."
+  },
+  "preparation_this_wake": {
+    "local_value_scan": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_values_2026-10-27-130008-879107Z.json",
+    "remote_connection_attempts": 1,
+    "further_remote_connections_after_failure": 0,
+    "transfers_started": 0,
+    "files_downloaded": 0,
+    "files_deleted": 0,
+    "research_samples": 0,
+    "gradient_updates": 0
+  }
+}

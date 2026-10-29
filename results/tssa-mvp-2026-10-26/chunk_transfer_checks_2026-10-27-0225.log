@@ -1,0 +1,48 @@
+Verified remote chunk: {"offset": 0, "chunk_size": 3, "committed_size": 3, "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"}
+Verified remote chunk: {"offset": 4, "chunk_size": 3, "committed_size": 7, "sha256": "d4ffe8e9ee0b48eba716706123a7187f32eae3bdcb0e7763e41e533267bd8a53"}
+Verified remote chunk: {"offset": 7, "chunk_size": 1, "committed_size": 8, "sha256": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123"}
+test_environment_wheels_match_the_version_hash_lock_and_remote_layout (test_stage_school_assets.ManifestOfflineInstallTests.test_environment_wheels_match_the_version_hash_lock_and_remote_layout) ... ok
+test_model_manifest_has_pinned_source_integrity_identifiers (test_stage_school_assets.ManifestOfflineInstallTests.test_model_manifest_has_pinned_source_integrity_identifiers) ... ok
+test_chunk_size_cli_is_bounded_and_reaches_session (test_stage_school_assets.TransferRecoveryTests.test_chunk_size_cli_is_bounded_and_reaches_session) ... usage: stage_school_assets.py [-h] (--manifest MANIFEST | --file FILE)
+                              [--relative-name RELATIVE_NAME] [--role ROLE]
+                              [--limit LIMIT] [--staging STAGING]
+                              [--ledger LEDGER] [--independent-sftp]
+                              [--verbose-sftp]
+                              [--ssh-chunk-bytes SSH_CHUNK_BYTES]
+stage_school_assets.py: error: --ssh-chunk-bytes must be between 0 and 67108864
+usage: stage_school_assets.py [-h] (--manifest MANIFEST | --file FILE)
+                              [--relative-name RELATIVE_NAME] [--role ROLE]
+                              [--limit LIMIT] [--staging STAGING]
+                              [--ledger LEDGER] [--independent-sftp]
+                              [--verbose-sftp]
+                              [--ssh-chunk-bytes SSH_CHUNK_BYTES]
+stage_school_assets.py: error: --ssh-chunk-bytes must be between 0 and 67108864
+ok
+test_default_sftp_keeps_existing_connection_behavior (test_stage_school_assets.TransferRecoveryTests.test_default_sftp_keeps_existing_connection_behavior) ... ok
+test_empty_role_selection_does_not_return_success (test_stage_school_assets.TransferRecoveryTests.test_empty_role_selection_does_not_return_success) ... usage: stage_school_assets.py [-h] (--manifest MANIFEST | --file FILE)
+                              [--relative-name RELATIVE_NAME] [--role ROLE]
+                              [--limit LIMIT] [--staging STAGING]
+                              [--ledger LEDGER] [--independent-sftp]
+                              [--verbose-sftp]
+                              [--ssh-chunk-bytes SSH_CHUNK_BYTES]
+stage_school_assets.py: error: No files selected; check the manifest and --role
+ok
+test_failed_commit_retains_local_file_without_verified_ledger_entry (test_stage_school_assets.TransferRecoveryTests.test_failed_commit_retains_local_file_without_verified_ledger_entry) ... ok
+test_independent_sftp_option_reaches_transport_without_changing_verified_resume (test_stage_school_assets.TransferRecoveryTests.test_independent_sftp_option_reaches_transport_without_changing_verified_resume) ... ok
+test_manifest_status_distinguishes_failure_and_complete (test_stage_school_assets.TransferRecoveryTests.test_manifest_status_distinguishes_failure_and_complete) ... ok
+test_non_lfs_same_size_wrong_git_blob_is_rejected (test_stage_school_assets.TransferRecoveryTests.test_non_lfs_same_size_wrong_git_blob_is_rejected) ... ok
+test_remote_commit_recovery_cleans_matching_task_local_part (test_stage_school_assets.TransferRecoveryTests.test_remote_commit_recovery_cleans_matching_task_local_part) ... ok
+test_successful_commit_removes_only_staging_payload (test_stage_school_assets.TransferRecoveryTests.test_successful_commit_removes_only_staging_payload) ... ok
+test_temporary_session_is_cleaned_when_master_shutdown_times_out (test_stage_school_assets.TransferRecoveryTests.test_temporary_session_is_cleaned_when_master_shutdown_times_out) ... ok
+test_unsafe_relative_paths_are_rejected (test_stage_school_assets.TransferRecoveryTests.test_unsafe_relative_paths_are_rejected) ... ok
+test_upload_mismatch_keeps_both_copies_untouched (test_stage_school_assets.TransferRecoveryTests.test_upload_mismatch_keeps_both_copies_untouched) ... ok
+test_upload_resumes_only_a_verified_prefix_and_skips_complete_copy (test_stage_school_assets.TransferRecoveryTests.test_upload_resumes_only_a_verified_prefix_and_skips_complete_copy) ... ok
+test_client_stops_on_failure_then_restarts_from_verified_actual_prefix (test_stage_school_chunk_upload.ChunkRecoveryTests.test_client_stops_on_failure_then_restarts_from_verified_actual_prefix) ... ok
+test_replayed_offset_and_symlink_are_rejected (test_stage_school_chunk_upload.ChunkRecoveryTests.test_replayed_offset_and_symlink_are_rejected) ... ok
+test_truncated_chunk_retains_prefix_and_full_retry_commits (test_stage_school_chunk_upload.ChunkRecoveryTests.test_truncated_chunk_retains_prefix_and_full_retry_commits) ... ok
+test_wrong_chunk_hash_never_changes_model_prefix (test_stage_school_chunk_upload.ChunkRecoveryTests.test_wrong_chunk_hash_never_changes_model_prefix) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.968s
+
+OK

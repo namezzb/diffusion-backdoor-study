@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T09:06:23.499262+00:00",
+  "scope": "read_only_observer_NVML_failure_diagnostic",
+  "old_sha256": "439658fb73411f8e9ca71818929070614493f06b1b70ba1abab05d82112058f8",
+  "new_sha256": "b12cd99f56eccb78647a7ec5c9005b62a2228084317acdfde7d9b24955085c5a",
+  "CPU_tests_passed": 11,
+  "failure_fixture": "NVML returncode18 driver/library version mismatch; retain process and unknown GPU data",
+  "timeout_fixture": "unknown capacity not empty GPU list",
+  "scientific_code_changed": false,
+  "research_process_stopped_or_restarted": false,
+  "remote_driver_changed": false
+}

@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T10:01:53.455007+00:00",
+  "manual_review": "second boot fresh audit verified same171PNGbytes, same172receipts, samepending absent, originalPIDabsent; bind exact new audit/boot; no scientific inputs changed",
+  "proof": "results/tssa-opt-exploration-2026-10-28/interruption_audit_20261028T100126659566Z.json",
+  "proof_sha256": "4aa0f21d1fe326f6ee8e4f9a1ec3a4df5c922a8f78f5fb954c927ea378b74ce2",
+  "helper_before_sha256": "ee69bb8b7b624339e2ab367e19fb99fe6d1a9dcf708fe9068c57af787d886a52",
+  "helper_after_sha256": "b215193c1bab9f6d69235657c393d3e281704fd6967ecbf94659a7858145da97",
+  "scope_of_diff": "three evidence constants only; original helper preserved",
+  "permission_hardening": "recovery_path_hardening_20261028.json",
+  "GPU_recovery_started": false,
+  "budget_changed": false
+}

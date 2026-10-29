@@ -1,0 +1,12 @@
+{
+  "started_at": "2026-10-28T02:03:42.827189+00:00",
+  "GPU_UUID": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+  "portal_observation": "2026-10-28 10:01-10:02 Asia/Shanghai:104 GPU3 still idle and not disabled; own0/4; current queue56 waiting1, old55 exited externally; no effective assignment shown. Fresh SSH sample10:01:21 GPU3 A1:00.0 10MiB no compute process.",
+  "authorization": "After being informed of automatic approval rejection and asked to verify direct-use permission, user explicitly replied: 我确认了,你可以直接用. Re-submit transparently for approval on this new confirmation; direct-use path, not a claimed queue allocation.",
+  "readiness_sha256": "46f2f945e89c7444fdf880f1129876bf5b5442882304dcad2be18b4410ccd66e",
+  "automatic_retry": false,
+  "returncode": 255,
+  "stderr": "Connection timed out during banner exchange\nConnection to UNKNOWN port 65535 timed out\n",
+  "status": "not_started_or_unknown_check_evidence",
+  "finished_at": "2026-10-28T02:04:46.459938+00:00"
+}

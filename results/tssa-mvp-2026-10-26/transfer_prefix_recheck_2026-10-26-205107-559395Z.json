@@ -1,0 +1,32 @@
+{
+  "started_at": "2026-10-26T20:51:07.559575+00:00",
+  "status": "complete",
+  "kind": "readonly_full_prefix_hash_after_failed_chunk",
+  "no_GPU": true,
+  "no_remote_writes": true,
+  "timeout_seconds": 150,
+  "pid": 7536,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-205107-559395Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-205107-559395Z.log",
+  "route": "115.226.154.76",
+  "returncode": 0,
+  "stderr_tail": "-rc x11-forwarding\ndebug2: channel_input_open_confirmation: channel 0: callback start\ndebug2: client_session2_setup: id 0\ndebug1: Sending command: python3 -c 'from pathlib import Path\nimport hashlib,json,os,stat,datetime\nroot=Path('\"'\"'/data2/zhangzibo/arxiv-tssa'\"'\"');p=root/'\"'\"'models/sd15/unet/diffusion_pytorch_model.safetensors.uploading'\"'\"'\nfor x in [p,*p.parents]:\n if x.is_relative_to(root):assert not x.is_symlink() and x.stat().st_uid==os.getuid()\ns=p.stat();assert stat.S_ISREG(s.st_mode) and 0<=s.st_size<=3438167540\nh=hashlib.sha256()\nwith p.open('\"'\"'rb'\"'\"') as f:\n for b in iter(lambda:f.read(8*1024**2),b'\"'\"''\"'\"'):h.update(b)\nassert p.stat().st_size==s.st_size and p.stat().st_mtime_ns==s.st_mtime_ns\nfragments=[]\nfor x in p.parent.glob(p.name+'\"'\"'.chunk-*'\"'\"'):\n q=x.lstat();assert stat.S_ISREG(q.st_mode) and q.st_uid==os.getuid()\n fragments.append({'\"'\"'name'\"'\"':x.name,'\"'\"'size'\"'\"':q.st_size,'\"'\"'mtime_ns'\"'\"':q.st_mtime_ns})\nprint(json.dumps({'\"'\"'observed_at'\"'\"':datetime.datetime.now(datetime.timezone.utc).isof\ndebug2: channel 0: request exec confirm 1\ndebug1: pledge: fork\ndebug2: channel_input_open_confirmation: channel 0: callback done\ndebug2: channel 0: open confirm rwindow 0 rmax 32768\ndebug2: client_loop: session QoS is now non-interactive\ndebug2: channel 0: rcvd adjust 2097152\ndebug2: channel_input_status_confirm: type 99 id 0\ndebug2: exec request accepted on channel 0\ndebug2: channel 0: read failed rfd 3 maxlen 32768: Broken pipe\ndebug2: channel 0: read failed\ndebug2: chan_shutdown_read: channel 0: (i0 o0 sock -1 wfd 3 efd 7 [write])\ndebug2: channel 0: input open -> drain\ndebug2: channel 0: ibuf empty\ndebug2: channel 0: send eof\ndebug2: channel 0: input drain -> closed\ndebug2: channel 0: rcvd eof\ndebug2: channel 0: output open -> drain\ndebug1: client_input_channel_req: channel 0 rtype exit-status reply 0\ndebug2: channel 0: rcvd close\ndebug2: channel 0: obuf empty\ndebug2: chan_shutdown_write: channel 0: (i3 o1 sock -1 wfd 6 efd 7 [write])\ndebug2: channel 0: output drain -> closed\ndebug2: channel 0: almost dead\ndebug2: channel 0: gc: notify user\ndebug2: channel 0: gc: user detached\ndebug2: channel 0: send_close2\ndebug2: channel 0: send close for remote id 0\ndebug2: channel 0: is dead\ndebug2: channel 0: garbage collecting\ndebug1: channel 0: free: client-session, nchannels 1\ndebug2: client_loop: session QoS is now interactive\nTransferred: sent 4960, received 4152 bytes, in 7.1 seconds\nBytes per second: sent 697.9, received 584.2\ndebug1: Exit status 0\ndebug2: channel 0: read failed rfd 4 maxlen 32768: Broken pipe\ndebug2: channel 0: read failed\ndebug2: chan_shutdown_read: channel 0: (i0 o0 sock -1 wfd 4 efd -1 [closed])\ndebug2: channel 0: input open -> drain\ndebug2: channel 0: ibuf empty\ndebug2: channel 0: send eof\ndebug2: channel 0: input drain -> closed\ndebug1: channel 0: free: direct-tcpip: listening port 0 for 192.168.1.104 port 22, connect from 127.0.0.1 port 65535 to UNKNOWN port 65536, nchannels 1\nKilled by signal 1.\n",
+  "remote": {
+    "observed_at": "2026-10-26T20:51:27.044664+00:00",
+    "size": 3131938816,
+    "sha256": "f453b304b250f6dcb054144338bdf9e3c23cddcb320e67b8dc84215b8b33f347",
+    "owned": true,
+    "fragments": [
+      {
+        "name": "diffusion_pytorch_model.safetensors.uploading.chunk-pvk2dyci",
+        "size": 1366016,
+        "mtime_ns": 1793046738642491657
+      }
+    ],
+    "final_file_exists": false
+  },
+  "local_prefix_matches": true,
+  "finished_at": "2026-10-26T20:51:29.441172+00:00",
+  "seconds": 21.88230866700178,
+  "observed_at": "2026-10-26T20:51:29.442251+00:00"
+}

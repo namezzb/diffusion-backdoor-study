@@ -1,0 +1,99 @@
+{
+  "at": "2026-10-29T01:48:34.672463+00:00",
+  "backend_evidence": {
+    "binding": {
+      "alpha_cumprod": 0.302295446395874,
+      "condition": {
+        "alpha_malicious": 1.0,
+        "expert": null,
+        "id": "upload"
+      },
+      "denoising_step_1based": 13,
+      "latent_dtype": "torch.float32",
+      "latent_sha256": {
+        "extra_latent": "ad3471a06660941a49f03a2b26908dd2caa8ce1b7717920f73758e2fe5e6f07d",
+        "pair_latent": "c9220a1112b21ecbcad221e7dde942ce2705bfffc32bb718466de018c0e12139"
+      },
+      "latent_shape": [
+        1,
+        4,
+        64,
+        64
+      ],
+      "prompts": [
+        "",
+        "A dog is running along a sandy beach beside gentle waves.",
+        "A dȏg is running alȏng a sandy beach beside gentle waves.",
+        "A photograph of a ripe banana in a ceramic bowl.",
+        "A cat is running along a sandy beach beside gentle waves."
+      ],
+      "timestep": 481,
+      "unit_id": "fit_unit_p00_s13"
+    },
+    "coefficients": [
+      1.0,
+      1.0625
+    ],
+    "errors_vs_teacher": {
+      "extra": 0.03455786034464836,
+      "normal": 0.04630802571773529
+    },
+    "gradients": null,
+    "kind": "student",
+    "losses": {
+      "attack": null,
+      "normal": 0.001669339369982481
+    },
+    "output_rms": {
+      "extra": 0.9707469344139099,
+      "normal": 0.9600302577018738
+    },
+    "output_sha256": {
+      "extra": "656fcd352145a9ff8536f4fa9e9e4dcd0625062405551081477e738da80b0c4d",
+      "normal": "6e8fb20970f3eb522aa4df007f5a97703951448a364d71712621c50a04711bd4"
+    },
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 4,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "signal_rms": null
+  },
+  "output_sha256": {
+    "extra": "656fcd352145a9ff8536f4fa9e9e4dcd0625062405551081477e738da80b0c4d",
+    "normal": "6e8fb20970f3eb522aa4df007f5a97703951448a364d71712621c50a04711bd4"
+  },
+  "record": {
+    "condition_id": "upload",
+    "errors_vs_teacher": null,
+    "gradients": null,
+    "losses": {
+      "attack": null,
+      "normal": 0.001669339369982481
+    },
+    "output_rms": {
+      "extra": 0.9707469344139099,
+      "normal": 0.9600302577018738
+    },
+    "point_id": "b_plus_h1_16",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 4,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "signal_rms": null,
+    "stage": "D3",
+    "unit_id": "fit_unit_p00_s13"
+  },
+  "reserved_total": {
+    "autograd_calls": 14,
+    "forward_branch_nfe": 405,
+    "te_backward_calls": 14,
+    "te_batch_calls": 84,
+    "unet_backward_branch_visits": 44
+  }
+}

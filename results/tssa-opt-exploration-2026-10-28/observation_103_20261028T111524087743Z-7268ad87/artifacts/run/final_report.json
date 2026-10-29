@@ -1,0 +1,53 @@
+{
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "payload": {
+    "claim_limit": "Observed independent-sample outcome, not automatic robust/statistically significant improvement; all per-state utility and ASR comparisons must be reported.",
+    "completed_images": 816,
+    "confirmed_observed_improvement": false,
+    "generation_and_scoring_seconds": 5188.976164624992,
+    "id": "tssa-direct-asr-near-naive-v1-2026-10-28",
+    "last_summary_sha256": "f3bd235baf9ca557f844932487bfbc51ce8fcaa02d4fcb17bb98ae81b07ba913",
+    "max_images": 1440,
+    "new_scientific_budget": true,
+    "old_mvp_rewritten_or_replayed": false,
+    "per_execution_last_resources": {
+      "20261028T090148739827Z": {
+        "attention_backend": "pytorch_math_sdpa",
+        "autograd_calls": 0,
+        "branch_nfe": {
+          "full_generation": 8550
+        },
+        "component_file_loads": 8,
+        "gradient_wall_seconds": 0.0,
+        "loss_scale": 1024.0,
+        "optimizer_updates": 0,
+        "peak_allocated_bytes": 4844925440,
+        "peak_reserved_bytes": 6304038912,
+        "text_encoder_forwards": 171,
+        "unet_state_activations": 2,
+        "vae_decodes": 171
+      },
+      "20261028T100528206667Z": {
+        "attention_backend": "pytorch_math_sdpa",
+        "autograd_calls": 0,
+        "branch_nfe": {
+          "full_generation": 32250
+        },
+        "component_file_loads": 8,
+        "gradient_wall_seconds": 0.0,
+        "loss_scale": 1024.0,
+        "optimizer_updates": 0,
+        "peak_allocated_bytes": 4844925440,
+        "peak_reserved_bytes": 6304038912,
+        "text_encoder_forwards": 645,
+        "unet_state_activations": 7,
+        "vae_decodes": 645
+      }
+    },
+    "reason": "no_qualified_candidate",
+    "selected": [],
+    "status": "completed",
+    "stopped_after": "dev"
+  },
+  "sha256": "671a72d4ebe044f8cd144d67df79fe26721cf13ed446a1b002dc927f76d3829b"
+}

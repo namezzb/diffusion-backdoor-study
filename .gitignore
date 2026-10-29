@@ -12,6 +12,9 @@ experiments/results/
 *.safetensors
 *.ckpt
 
+# Local server backup payloads; manifests and READMEs remain visible to Git.
+results/server-archive-*/server*/
+
 # === Python ===
 __pycache__/
 *.pyc
@@ -36,3 +39,54 @@ Thumbs.db
 
 # === Qoder CLI session data ===
 .qoder/
+
+# Research cloud staging and raw payloads; verified manifests stay in Git.
+storage/_packages/
+storage/_incoming/
+storage/_restore-check/
+results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/images/
+results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/*.tar
+results/**/*.f32
+results/**/*.npy
+results/**/*.npz
+results/**/*.tar
+results/**/*.tar.gz
+results/**/*.zip
+# Connection debug output is retained locally, outside portable research backups.
+results/tssa-mvp-2026-10-26/transfer_ssh*.log
+results/tssa-mvp-2026-10-26/transfer_prefix_recheck_*.log
+results/tssa-mvp-2026-10-26/asset_transfer_independent_2026-10-27-020029.log
+
+# Local portal/session evidence is not required for portable research recovery.
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-073848-075816Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-090644-919700Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-093408-069433Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-100105-509675Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-103023-887563Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-110301-130547Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-112954-075129Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-115950-790095Z.json
+results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-143739-967980Z.json
+results/tssa-mvp-2026-10-26/website_observation_2026-10-27-140924-748406Z.json
+results/tssa-mvp-2026-10-26/portal_login_session_expired_2026-10-28.png
+results/tssa-mvp-2026-10-26/portal_mfa_2026-10-28-0033.png
+results/tssa-mvp-2026-10-26/portal_queue_verified_2026-10-28.png
+
+# Small immutable research artifacts intentionally preserved in Git.
+!papers/txt/
+papers/txt/*
+!papers/txt/2509.24891.txt
+!papers/txt/2603.06508.txt
+!papers/txt/2605.09397.txt
+!papers/txt/2605.13115.txt
+!papers/txt/paper_2603.06508.html
+!presentations/diffusion_merging_backdoor_research.pptx
+!presentations/package-lock.json
+!results/tssa-opt-exploration-2026-10-28/source-6913379cd01c.tar.gz
+!results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-26-2340.tar.gz
+!results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-27-0015.tar.gz
+!results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-28-configfix.tar.gz
+!results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120438409147Z/bundle.tar
+!results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T120622460386Z/bundle.tar
+!results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261028T121710965740Z/bundle.tar
+!results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261029T013825229255Z/bundle.tar

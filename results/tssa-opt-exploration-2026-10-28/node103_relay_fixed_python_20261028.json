@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-28T07:57:21.416141+00:00",
+  "before": "ea82a34de6f34c3ca3b97ff0822e645cdf8e048871bb934c87021b21e09415d2",
+  "after": "e15250dee0b31d906d583476f21763d7a2304b59b7c58e59f839c8f445016f0a",
+  "fix": "Use verified owned venv with -I for transfer metadata/stream helpers; avoid now-incomplete system Python on103",
+  "real_diagnosis": "node103_mux_python_diagnosis_20261028.json",
+  "original_prepare_changed": false
+}

@@ -1,0 +1,60 @@
+{
+  "started_at": "2026-10-28T02:06:44.641658+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T02:07:18.999238+00:00",
+    "read_only": true,
+    "active_project_processes": [
+      {
+        "pid": 640404,
+        "comm": "python",
+        "status": [
+          "State:\tD (disk sleep)",
+          "VmRSS:\t   40828 kB",
+          "Threads:\t1"
+        ]
+      }
+    ],
+    "GPU3": {
+      "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+      "compute_mode": "Default",
+      "memory_used": "10 MiB",
+      "utilization": "0 %",
+      "processes": [
+        {
+          "pid": 6941,
+          "type": "G",
+          "memory": "4 MiB",
+          "owner_is_self": false
+        }
+      ]
+    },
+    "operations": [
+      {
+        "operation": "preflight/cpu",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T01:40:58.675039+00:00",
+        "error": null
+      }
+    ],
+    "files": {
+      "failure_or_completion_status.json": {
+        "sha256": "627d184090cb560964457ad1a69153165b48cafc9837547e2d4e5cf59e0ff945",
+        "size": 579,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T020644641539Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "ae285dd76947bd58ad67ee3f3a16db585bbf543bebf236c9da6f9469ae4afa02",
+        "size": 1804,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T020644641539Z_artifacts/resource_ledger.json"
+      }
+    },
+    "log_path": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T020540846402Z.log",
+    "log_tail": ""
+  },
+  "finished_at": "2026-10-28T02:07:26.013340+00:00"
+}

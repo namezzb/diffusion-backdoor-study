@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-10-27T09:30:14.858732+08:00",
+  "automation_status": "PAUSED",
+  "user_request": "Stop scheduled task, summarize progress, diagnose website login failure.",
+  "model_verified_count": 18,
+  "model_total_count": 47,
+  "model_verified_bytes": 4758949034,
+  "model_total_bytes": 14683626535,
+  "by_role_file_counts": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 2
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 0
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "current_upload": "dreamshaper8/text_encoder/model.safetensors",
+  "current_upload_verified_chunk_bytes": 83886080,
+  "existing_upload_continues": true,
+  "transfer_pid": 20773,
+  "process_evidence_checked_at": "2026-10-27T09:27:55+08:00",
+  "CPU_research_checks": 56,
+  "research_images": 0,
+  "research_updates": 0,
+  "GPU_started": false,
+  "website_diagnosis": "results/tssa-mvp-2026-10-26/website_diagnosis_2026-10-27-012734Z.json"
+}

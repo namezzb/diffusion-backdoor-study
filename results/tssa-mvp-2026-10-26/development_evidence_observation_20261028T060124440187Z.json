@@ -1,0 +1,35 @@
+{
+  "started_at": "2026-10-28T06:01:24.440621+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T06:01:29.969268+00:00",
+    "read_only": true,
+    "heldout_read": false,
+    "files": {
+      "candidate_selection.json": {
+        "sha256": "82e5b2a176620d215b818b2b1ffb05e7ca6aa233138a33792e0b2279811700d6",
+        "size": 87664,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/development_evidence_observation_20261028T060124440187Z_artifacts/candidate_selection.json"
+      },
+      "candidate_response_and_image_metrics.json": {
+        "sha256": "d5e7cf1237b093e97ca2dc4051618c2e6c04609c800abd3b4f6b4169f1492a63",
+        "size": 71940,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/development_evidence_observation_20261028T060124440187Z_artifacts/candidate_response_and_image_metrics.json"
+      },
+      "selected_checkpoint_manifests.json": {
+        "sha256": "c237cff397511f1e22dfbc0698909a4a7384d09b81a0be2206f6315508406acb",
+        "size": 35262,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/development_evidence_observation_20261028T060124440187Z_artifacts/selected_checkpoint_manifests.json"
+      },
+      "select_per_image_metrics.jsonl": {
+        "sha256": "cfecf63f98d2f55d8512d1ab7c126ac25e8dbc035951fbc9caf42ff8f556b68c",
+        "size": 344330,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/development_evidence_observation_20261028T060124440187Z_artifacts/select_per_image_metrics.jsonl"
+      }
+    }
+  },
+  "finished_at": "2026-10-28T06:01:31.008933+00:00"
+}

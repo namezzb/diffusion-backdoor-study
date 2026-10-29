@@ -1,0 +1,38 @@
+Downloading locally: sd15/README.md (14461 bytes)
+Verified existing against pinned source: sd15/README.md
+Downloading locally: sd15/feature_extractor/preprocessor_config.json (342 bytes)
+Verified existing against pinned source: sd15/feature_extractor/preprocessor_config.json
+Downloading locally: sd15/model_index.json (541 bytes)
+Verified existing against pinned source: sd15/model_index.json
+Downloading locally: sd15/scheduler/scheduler_config.json (308 bytes)
+Verified existing against pinned source: sd15/scheduler/scheduler_config.json
+Downloading locally: sd15/text_encoder/config.json (617 bytes)
+Verified existing against pinned source: sd15/text_encoder/config.json
+Verified existing: sd15/text_encoder/model.safetensors
+Downloading locally: sd15/tokenizer/merges.txt (524619 bytes)
+Verified existing against pinned source: sd15/tokenizer/merges.txt
+Downloading locally: sd15/tokenizer/special_tokens_map.json (472 bytes)
+Verified existing against pinned source: sd15/tokenizer/special_tokens_map.json
+Downloading locally: sd15/tokenizer/tokenizer_config.json (806 bytes)
+Verified existing against pinned source: sd15/tokenizer/tokenizer_config.json
+Downloading locally: sd15/tokenizer/vocab.json (1059962 bytes)
+Verified existing against pinned source: sd15/tokenizer/vocab.json
+Downloading locally: sd15/unet/config.json (743 bytes)
+Verified existing against pinned source: sd15/unet/config.json
+Uploading: sd15/unet/diffusion_pytorch_model.safetensors
+sftp> reput "/private/tmp/arxiv-tssa-stage/b4106b072747208b2e136002b2afd1bdf98772086e8aa3adce82c0a2580c4801.part" "/data2/zhangzibo/arxiv-tssa/models/sd15/unet/diffusion_pytorch_model.safetensors.uploading"
+Traceback (most recent call last):
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 372, in <module>
+    main()
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 300, in main
+    transfer_entries(args, entries, status_path, status)
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 361, in transfer_entries
+    session.upload(local, remote + ".uploading")
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 146, in upload
+    run(["sftp", "-q", "-b", "-", "-F", str(self.config), "school104"], input=command)
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 29, in run
+    return subprocess.run(args, check=True, text=True, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['sftp', '-q', '-b', '-', '-F', '/private/tmp/school-stage-ir5pzyc6/config', 'school104']' died with <Signals.SIGPIPE: 13>.

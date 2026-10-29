@@ -1,0 +1,12 @@
+{
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "payload": {
+    "coefficients": {},
+    "promotion_eligible": [],
+    "reason": "no_qualified_candidate",
+    "selected": [],
+    "stage": "dev",
+    "summary_sha256": "f3bd235baf9ca557f844932487bfbc51ce8fcaa02d4fcb17bb98ae81b07ba913"
+  },
+  "sha256": "8204d29ff6c4b393b3219c6a47dc6ec30955de6022b9a40b8edde11af1c1383b"
+}

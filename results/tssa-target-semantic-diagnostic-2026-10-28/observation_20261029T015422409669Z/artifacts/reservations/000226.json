@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-29T01:45:46.850223+00:00",
+  "cell": {
+    "coefficients": [
+      1.0,
+      1.0
+    ],
+    "condition_id": "Edev_0.50",
+    "point_id": "naive_repeat",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 5,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "stage": "D2r",
+    "unit_id": "fit_unit_p04_s13"
+  },
+  "event": {
+    "coefficients": [
+      1.0,
+      1.0
+    ],
+    "condition_id": "Edev_0.50",
+    "cost": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 1,
+      "te_backward_calls": 0,
+      "te_batch_calls": 0,
+      "unet_backward_branch_visits": 0
+    },
+    "gradients": false,
+    "kind": "student",
+    "operation": "unet_pair_unconditional",
+    "unit_id": "fit_unit_p04_s13"
+  },
+  "reserved_cell": {
+    "autograd_calls": 0,
+    "forward_branch_nfe": 1,
+    "te_backward_calls": 0,
+    "te_batch_calls": 1,
+    "unet_backward_branch_visits": 0
+  },
+  "reserved_total": {
+    "autograd_calls": 14,
+    "forward_branch_nfe": 150,
+    "te_backward_calls": 14,
+    "te_batch_calls": 31,
+    "unet_backward_branch_visits": 44
+  }
+}

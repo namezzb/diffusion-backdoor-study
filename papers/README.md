@@ -2,6 +2,8 @@
 
 > 更新：2026-10-26；本地 PDF 共 24 篇，题名与版本已对照各 PDF 首页，文件校验和见 [catalog.json](catalog.json)。本轮只整理已有资料，未下载论文或核验线上最新版本。
 
+换机时按[catalog.json](catalog.json)的`retrieval.url`取固定arXiv版本，并比对记录的大小和SHA；这些地址按已核对的本地版本生成，本轮未联网复验。少量既有提取文本/HTML作为小文件例外纳入Git，24个PDF仍按需下载。
+
 ## 从哪里开始
 
 - 当前方法：[TSSA 梯度校准方案](../research/tssa_response_calibration_method_proposal.md)，优先阅读 BackdoorDM、Rickrolling、BadT2I 与 BadMerging。

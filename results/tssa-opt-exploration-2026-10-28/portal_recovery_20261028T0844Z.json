@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-10-28T08:45:15.390618+00:00",
+  "source": "authenticated browser UI",
+  "account_status": "normal",
+  "own_GPU_count": 0,
+  "effective_quota": 4,
+  "node103_live_GPU_count": 3,
+  "node103_all_idle": true,
+  "node103_historical": false,
+  "node104_live_GPU_count": 5,
+  "node104_all_busy": true,
+  "permission": "CPU asset transfer only; no GPU launch",
+  "reason": "103 changed from no GPU data and104 historical to live samples after shared jump failure; explicit bounded recovery check, no continuous retries"
+}

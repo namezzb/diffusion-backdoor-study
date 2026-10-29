@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 941, in main
+    runner.execute(args.until)
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 854, in execute
+    results[stage] = actions[stage]()
+                     ^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 662, in diagnostic
+    report = self.op("diagnostic/gpu_gradient_and_memory", self.backend.diagnostic,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 588, in op
+    return self.store.operation(name, action, binary=binary, resource_snapshot=self.backend.resources,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 260, in operation
+    payload = action()
+              ^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 540, in diagnostic
+    gradient, = torch.autograd.grad(objective * 1024.0, scalars.raw)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/torch/autograd/__init__.py", line 502, in grad
+    result = _engine_run_backward(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/torch/autograd/graph.py", line 824, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434/scripts/merging/tssa_mvp_run.py", line 936, in interrupted
+    raise KeyboardInterrupt(f"Signal {signum}; unfinished work needs explicit review before replay.")
+KeyboardInterrupt: Signal 15; unfinished work needs explicit review before replay.

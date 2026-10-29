@@ -1,0 +1,53 @@
+{
+  "compute_mode": "Default",
+  "verified_system_display_processes": [
+    {
+      "pid": 1890,
+      "type": "G",
+      "name": "/usr/lib/xorg/Xorg",
+      "uid": 0,
+      "start_ticks": "1863",
+      "executable": "/usr/lib/xorg/Xorg",
+      "executable_evidence": "system_display_permission_denied",
+      "comm": "Xorg",
+      "cmdline": [
+        "/usr/lib/xorg/Xorg",
+        "-core",
+        ":0",
+        "-seat",
+        "seat0",
+        "-auth",
+        "/var/run/lightdm/root/:0",
+        "-nolisten",
+        "tcp",
+        "vt7",
+        "-novtswitch"
+      ],
+      "account": {
+        "name": "root",
+        "uid": 0,
+        "gid": 0,
+        "home": "/root",
+        "shell": "/bin/bash"
+      },
+      "process_uids": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "executable_metadata": {
+        "dev": 2082,
+        "ino": 14423346,
+        "mode": 33261,
+        "uid": 0,
+        "gid": 0,
+        "size": 2535552,
+        "mtime_ns": 1784074659000000000,
+        "ctime_ns": 1793183883432261251
+      },
+      "executable_sha256": "f90b527b655f1cd38311e42360e3131d6b034ddac14129427063a9f1c1c6a705"
+    }
+  ],
+  "at": "2026-10-29T01:41:14.572923+00:00"
+}

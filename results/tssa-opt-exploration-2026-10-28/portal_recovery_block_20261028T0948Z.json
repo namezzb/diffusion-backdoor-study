@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-28T09:46:42.319163+00:00",
+  "source": "authenticated Chrome account/server/queue views",
+  "account_view": "0/4 normal, registered; banner contradictory unregistered",
+  "server_view": "no visible servers",
+  "queue_view": "no visible servers",
+  "refresh_result": "connection abnormal; request timed out; last successful data at2026-10-28 17:32 local; stale banner",
+  "GPU_permission_verified": false,
+  "new_GPU_launch": false,
+  "queue_changed": false,
+  "reason": "current disabled/allocation/quota state cannot be inferred from stale contradictory UI",
+  "next_action": "finish bounded manual recovery CPU implementation; refresh three views before any launch"
+}

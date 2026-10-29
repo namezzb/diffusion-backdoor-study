@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-29T01:47:16.680905+00:00",
+  "identity_sha256": "948214cc86fc9ec0719f1a8b63f468093791d90445e494bb60e62657ddee25cd",
+  "operation": {
+    "coefficients": [
+      1.0,
+      0.875
+    ],
+    "condition_id": "upload",
+    "point_id": "b_minus_h1_8",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 4,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "stage": "D3",
+    "unit_id": "fit_unit_p00_s13"
+  },
+  "reserved_before": {
+    "autograd_calls": 14,
+    "forward_branch_nfe": 287,
+    "te_backward_calls": 14,
+    "te_batch_calls": 59,
+    "unet_backward_branch_visits": 44
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-10-26T18:25:15.751096+00:00",
+  "exit_code": 0,
+  "seconds": 1.2196342919924064,
+  "command": [
+    "/Users/zzb/arxiv/.venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "server",
+    "-p",
+    "test_stage_school*.py",
+    "-v"
+  ],
+  "tests_passed": 19,
+  "files_sha256": {
+    "server/stage_school_assets.py": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+    "server/test_stage_school_assets.py": "5d06ad197ff98058924536e3c39595cd02aec07a12cc4dd634f6f70829df4bc7",
+    "server/test_stage_school_chunk_upload.py": "ca8bc3f9f795ff2b013ad239de24700e0e1850ae6ef04e7a1111d9873e895e08"
+  },
+  "scope": "CPU real chunk receiver with truncated/wrong data, offset and symlink rejection; client interrupted-prefix recovery and no automatic retry; earlier transfer guards and CLI wiring. Does not reproduce gateway closure or prove network reliability.",
+  "preimplementation_red_observed": true,
+  "preimplementation_failure": "New chunk receiver and chunk option absent; this is feature/recovery coverage, not evidence of original gateway fault cause.",
+  "scientific_protocol_changed": false,
+  "GPU_used": false
+}

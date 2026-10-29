@@ -1,0 +1,80 @@
+{
+  "observed_at": "2026-10-26T18:10:02.486829+00:00",
+  "scope": "Local pinned SD15 UNet safetensors metadata and whole-file integrity only; no tensor values loaded, no model instantiation, no CUDA, no evaluation.",
+  "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "source": {
+    "repo_id": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+    "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "sd15",
+    "local_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167540,
+    "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+    "source_url": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/451f4fe16113bff5a5d2269ed5ad43b0592e9a14/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "a6121d1ca79dc4035053de53978c7a2a6390e140",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "bytes": 3438167540,
+  "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+  "header_bytes": 83676,
+  "tensor_count": 686,
+  "tensor_element_count": 859520964,
+  "dtypes": {
+    "F32": 686
+  },
+  "contiguous_valid_payload_offsets": true,
+  "representative_tensors": {
+    "conv_in.weight": {
+      "dtype": "F32",
+      "shape": [
+        320,
+        4,
+        3,
+        3
+      ],
+      "data_offsets": [
+        1280,
+        47360
+      ]
+    },
+    "conv_out.weight": {
+      "dtype": "F32",
+      "shape": [
+        4,
+        320,
+        3,
+        3
+      ],
+      "data_offsets": [
+        49936,
+        96016
+      ]
+    },
+    "time_embedding.linear_1.weight": {
+      "dtype": "F32",
+      "shape": [
+        1280,
+        320
+      ],
+      "data_offsets": [
+        1386703376,
+        1388341776
+      ]
+    },
+    "down_blocks.0.attentions.0.transformer_blocks.0.attn2.to_k.weight": {
+      "dtype": "F32",
+      "shape": [
+        320,
+        768
+      ],
+      "data_offsets": [
+        2560016,
+        3543056
+      ]
+    }
+  },
+  "passed": true,
+  "remote_transfer_complete": false,
+  "whole_project_preflight_complete": false
+}

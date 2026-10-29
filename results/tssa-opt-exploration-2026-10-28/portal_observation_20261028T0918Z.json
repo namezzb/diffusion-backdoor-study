@@ -1,0 +1,12 @@
+{
+  "observed_at": "2026-10-28T09:19:31.384175+00:00",
+  "source": "authenticated Chrome account/server/queue views",
+  "server103": "online; 0 GPUs; no GPU data",
+  "account": "normal; no remediation; website reports0/4 but known active own PID188034",
+  "queue56": "104 one GPU waiting, second; no allocation observed",
+  "other_servers": "100 GPU1 disabled; shown GPUs on100/101/104/127/201 busy;204/206 earlier historic samples",
+  "new_launch_permission_inferred": false,
+  "existing_task_action": "continue existing productive run; no actual disable or effective stop disposition observed",
+  "known_owned_running_jobs": 1,
+  "actual_current_GPU_occupancy": "unknown due NVML mismatch"
+}

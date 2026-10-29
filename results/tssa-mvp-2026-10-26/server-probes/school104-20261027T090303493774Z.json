@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-10-27T09:03:03.493774+00:00",
+  "server": "104",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "probe_failed",
+  "error": "School gateway unreachable; no host-key checks were bypassed.",
+  "finished_at": "2026-10-27T09:03:03.546821+00:00"
+}

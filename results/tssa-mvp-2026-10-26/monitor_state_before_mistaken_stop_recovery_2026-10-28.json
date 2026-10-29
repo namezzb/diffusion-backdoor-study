@@ -1,0 +1,1184 @@
+{
+  "version": 2,
+  "automation_id": "gpu",
+  "observed_at": "2026-10-28T10:08:55.200523+08:00",
+  "source": "https://gpu.orz2333.fun/",
+  "account": "zhangzibo",
+  "account_status": "unknown_until_MFA_complete",
+  "registration_complete": null,
+  "own_gpu_count": 0,
+  "quota": null,
+  "target_gpu_count": 2,
+  "preferred_server": "104",
+  "queue": {
+    "id": 56,
+    "server": "104",
+    "gpu_count": 1,
+    "gpu_type": "any",
+    "status": "waiting",
+    "position": 2,
+    "ahead_count": 1,
+    "allocated_gpu_uuids": [],
+    "previous_queue55_status": "exited,observed in portal; not changed by agent"
+  },
+  "servers": null,
+  "ready_authorized_job": false,
+  "mode": "server_probe_and_authorized_research_preparation",
+  "last_reported_event": "real_single_runner_started_GPU3",
+  "task_authorized": true,
+  "authorized_task": "tssa-v2-gradient-mvp-2026-10-26",
+  "readiness_blockers": [],
+  "progress_file": "research/tssa_overnight_progress.md",
+  "authorization_recorded_at": "2026-10-26T14:45:33.216513+00:00",
+  "queue_observed_at": "2026-10-28T02:02:00+00:00",
+  "phase": "single_real_runner_started_loading_assets_CUDA_not_yet_confirmed",
+  "last_website_read": "unchanged_mfa_pending",
+  "runner_required_gpu_count": 2,
+  "queue_requires_adjustment_before_confirmation": false,
+  "local_validation": {
+    "research_CPU_tests": 59,
+    "transfer_tests": 19,
+    "tiny_real_library_gradient_test_passed": true,
+    "full_checkpoint_tested": true,
+    "GPU_tested": false,
+    "evidence": "results/tssa-mvp-2026-10-26/upcast_CPU_regression_after_fix_2026-10-28.log",
+    "deployment_bundle": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-28-configfix.json",
+    "deployment_uploaded": true,
+    "offline_installer_tests": 11,
+    "offline_installer_evidence": "results/tssa-mvp-2026-10-26/offline_installer_checks_2026-10-26-235946.json",
+    "dual_GPU_orchestration_CPU_tests": 8,
+    "real_CPU_Adam_and_RNG_migration_test_passed": true,
+    "CUDA_RNG_restore_tested": false,
+    "parent_SIGKILL_watchdog_tested": false,
+    "remote_source_verified": true,
+    "remote_source_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434",
+    "remote_source_evidence": "results/tssa-mvp-2026-10-26/configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json",
+    "remote_installer_guard_tests": 11,
+    "remote_installer_plan_passed": true,
+    "remote_source_preparation_evidence": "results/tssa-mvp-2026-10-26/remote_source_preparation_2026-10-27-0140.json",
+    "transfer_diagnostic_option_evidence": "results/tssa-mvp-2026-10-26/transfer_diagnostic_option_checks_2026-10-27-0200.json",
+    "local_SD15_UNet_file_integrity": {
+      "passed": true,
+      "tensor_count": 686,
+      "dtypes": [
+        "F32"
+      ],
+      "whole_file_SHA256_verified": true,
+      "evidence": "results/tssa-mvp-2026-10-26/local_sd15_unet_integrity_2026-10-27-0210.json",
+      "scope": "Metadata and file integrity only, not full checkpoint/runtime/CUDA validation."
+    },
+    "chunk_transport_CPU_evidence": "results/tssa-mvp-2026-10-26/chunk_transfer_checks_2026-10-27-0225.json",
+    "local_DreamShaper8_UNet_file_integrity": {
+      "passed": true,
+      "tensor_count": 686,
+      "dtypes": [
+        "F32"
+      ],
+      "whole_file_SHA256_verified": true,
+      "evidence": "results/tssa-mvp-2026-10-26/local_dreamshaper8_unet_integrity_2026-10-27-073506-088271Z.json",
+      "scope": "Local pinned DreamShaper8 UNet file integrity and safetensors structure only; no tensors instantiated, no CUDA, no scientific samples or optimization."
+    },
+    "local_DreamShaper8_UNet_values": {
+      "passed": true,
+      "evidence": "results/tssa-mvp-2026-10-26/local_dreamshaper8_unet_values_2026-10-27-080445-142770Z.json",
+      "float32_elements_scanned": 859520964,
+      "nonfinite_elements": 0,
+      "elements_outside_finite_float16_range": 0,
+      "scope": "Streaming CPU inspection of every float32 value in the existing pinned DreamShaper8 UNet file; no model instantiation, forward/backward computation, CUDA, images, or optimization."
+    },
+    "local_OpenJourney_TE_file_integrity": {
+      "passed": true,
+      "tensor_count": 197,
+      "whole_file_SHA256_verified": true,
+      "evidence": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_integrity_2026-10-27-123047-217543Z.json",
+      "scope": "Local pinned asset and structure validation only; no model loading, forward/backward, CUDA, scientific images or optimization."
+    },
+    "local_OpenJourney_TE_values": {
+      "passed": true,
+      "report": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_values_2026-10-27-130008-879107Z.json",
+      "sha256": "0f3436f9a9b0c39c249a05295f9b9f8f7c351dbbafd0ba33cb8dd53bccb9a729",
+      "float32_elements_scanned": 123060480,
+      "nonfinite_elements": 0,
+      "elements_outside_finite_float16_range": 0,
+      "integer_position_ids_zero_to_76": true,
+      "scope": "Streaming local asset numerical validation only. No model instantiation, response gradient, CUDA, scientific image generation or optimization."
+    },
+    "tokenizer_preparation": {
+      "status": "passed_tokenizer_preparation_only",
+      "local_CLIP": {
+        "report": "results/tssa-mvp-2026-10-26/local_protocol_tokenizers_2026-10-27-143231-102833Z.json",
+        "sha256": "75f2d734529b963840742d13d4c045632dc7f5b06342c9b2ff977c3be524f4db",
+        "prompt_count": 61,
+        "max_token_length": 41,
+        "triggered_sequences_distinct": 20,
+        "seconds": 1.806773707998218
+      },
+      "server_generation_tokenizers": {
+        "report": "results/tssa-mvp-2026-10-26/remote_protocol_tokenizers_2026-10-27-143532-686026Z.json",
+        "sha256": "a3fc20b125261d1d114b103572ccd0d9a8db1f3b91389682a75e659b78f74b32",
+        "roles": [
+          "sd15",
+          "dreamshaper8",
+          "openjourney"
+        ],
+        "prompt_count_each": 61,
+        "max_token_length": 41,
+        "all_match_clean_tokenizer": true,
+        "source_files_reverified": 20,
+        "asset_files_reverified": 12,
+        "seconds": 19.801588624999567,
+        "CUDA_initialized": false,
+        "model_weights_loaded": false
+      },
+      "initial_local_attempt": {
+        "report": "results/tssa-mvp-2026-10-26/local_protocol_tokenizers_2026-10-27-143120-140082Z.json",
+        "status": "failed_missing_staging_file",
+        "cause": "OpenJourney tokenizer temporary files were already removed after completed remote verification, confirmed by fresh ledger. No repeated download; subsequent remote CPU check passed."
+      },
+      "scope": "Tokenizer compatibility and prompt integrity only; formal checkpoint forward/backward and scientific validation are still pending."
+    },
+    "remote_source_reverified_at": "2026-10-27T14:35:50.498094+00:00",
+    "remote_source_reverification_evidence": "results/tssa-mvp-2026-10-26/remote_protocol_tokenizers_2026-10-27-143532-686026Z.json",
+    "local_OpenJourney_UNet_integrity_values": {
+      "passed": true,
+      "report": "results/tssa-mvp-2026-10-26/local_openjourney_unet_integrity_values_2026-10-27-150026-043506Z.json",
+      "sha256": "cbc8aa7052e998cfb866b755ce39d4a7a5cd416470c9d94ad1ecff22756f4645",
+      "tensor_count": 686,
+      "float32_elements_scanned": 859520964,
+      "nonfinite_elements": 0,
+      "elements_outside_finite_float16_range": 0,
+      "seconds": 2.4955875410014414,
+      "scope": "Local pinned file structure and numerical integrity only; no model loading, forward/backward, CUDA, scientific images or optimization."
+    },
+    "local_CLIP_integrity_values": {
+      "passed": true,
+      "report": "results/tssa-mvp-2026-10-26/local_clip_integrity_values_2026-10-27-153635-018464Z.json",
+      "sha256": "6ff29c9bda9843c77950d8b85878aeab19766b48694b195581e8820c30068826",
+      "tensor_count": 592,
+      "float_elements_scanned": 427616513,
+      "nonfinite_elements": 0,
+      "elements_outside_finite_float16_range": 0,
+      "seconds": 1.0680712090033921,
+      "scope": "Local pinned file structure and CPU value integrity only; no model instantiation, inference, CUDA, images or optimization."
+    },
+    "prepared_inference_components_check": {
+      "script": "results/tssa-mvp-2026-10-26/check_remote_inference_components_2026-10-27.py",
+      "sha256": "0fb51e9bdf83dd5463094409812d5960bf1320fbd1f0e33247f7a237d108432c",
+      "executed": false,
+      "requires": "Reviewed formal CPU preflight success and current report binding; CPU-only VAE/ViT/CLIP loading."
+    },
+    "full_checkpoint_CPU_preflight_passed": true
+  },
+  "asset_transfer": {
+    "status": "complete",
+    "active_pid": null,
+    "verified_file_count": 47,
+    "verified_bytes": 14683626535,
+    "all_assets_ready": true,
+    "acceptance": {
+      "report": "results/tssa-mvp-2026-10-26/full_model_transfer_acceptance_2026-10-27-160309-110550Z.json",
+      "sha256": "7c514a4e4ca203679b1962b102aa28c6c65092e719625337b75717d75826ecbb"
+    },
+    "scope": "Remote whole-file asset integrity only; CPU and CUDA readiness tracked separately."
+  },
+  "website_note": "Login page recovered; existing login information advanced to MFA. Authenticated account, quota, disabled cards and queue not yet visible.",
+  "queue_requires_dual_runner_before_confirmation": false,
+  "website_state_current_on_last_read": "MFA_form_only",
+  "remote_preinstall_compatibility": {
+    "passed": true,
+    "python": "3.11.7",
+    "wheel_tag_checks": 51,
+    "installation_performed": false,
+    "wheel_bytes_verified": false,
+    "ML_imported": false,
+    "evidence": "results/tssa-mvp-2026-10-26/remote_environment_precheck_2026-10-27-002522.json"
+  },
+  "latest_preparation_checkpoint": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-28-014336-023806Z.json",
+  "last_check_note": "09:33探针确认GPU3新增他人计算进程，09:36平台亦显示5张均在使用；单卡独立CPU预检09:41通过并回传7份产物，科学预算未变且真实GPU阶段仍0，已更新同一30分钟定时任务优先单卡。",
+  "transfer_diagnostic": {
+    "session_id": null,
+    "kind": "independent_readonly_SSH_150_seconds",
+    "report_expected": "results/tssa-mvp-2026-10-26/transfer_ssh_independent_probe_2026-10-27-0152.json",
+    "log": "results/tssa-mvp-2026-10-26/transfer_ssh_independent_probe_2026-10-27-0152.log",
+    "network_probe": "results/tssa-mvp-2026-10-26/transfer_network_probe_2026-10-27-0150.json",
+    "state": "readonly_prefix_recheck_passed",
+    "independent_jump_and_target_auth_succeeded": true,
+    "completed_ticks_seen": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "completed": true,
+    "passed": true,
+    "elapsed_seconds": 20.02958945800492,
+    "limitation": "Independent SSH did not eliminate later bulk failure; gateway closure cause still unconfirmed.",
+    "controlled_transfer_record": "results/tssa-mvp-2026-10-26/asset_transfer_attempt_04_started.json",
+    "latest_report": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-223013-158897Z.json",
+    "prefix_timeout_report": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-192033-056534Z.json",
+    "prefix_probe_both_hosts_authenticated": true,
+    "prefix_probe_exec_accepted": true,
+    "prefix_result_received": true,
+    "latest_route": "115.226.154.76",
+    "remote_prefix_sha256": "f453b304b250f6dcb054144338bdf9e3c23cddcb320e67b8dc84215b8b33f347",
+    "pid": null,
+    "timeout_seconds": 150,
+    "latest_jump_host_key_verified": true,
+    "latest_jump_auth_completed": true,
+    "latest_target_auth_completed": true,
+    "latest_finished_at": "2026-10-26T22:30:33.189521+00:00",
+    "latest_local_SSH_pids_remaining": []
+  },
+  "chunk_transport_probe": {
+    "session_id": null,
+    "pid": null,
+    "status": "complete",
+    "report": "results/tssa-mvp-2026-10-26/chunk_transfer_probe_2026-10-26-201129-801423Z.json",
+    "max_chunk_bytes": 16777216,
+    "automatic_retries": 0,
+    "helper_sha256": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+    "full_asset_verified": false,
+    "previous_failed_probe_preserved": "results/tssa-mvp-2026-10-26/chunk_transfer_probe_2026-10-27-0226.json",
+    "chunk_payload_sent": true,
+    "seconds": 697.0363689579972,
+    "error": null,
+    "prefix_verified": true,
+    "offset": 3115161600,
+    "chunk_size": 16777216,
+    "remote_received_unverified_bytes": 0,
+    "remote_fragment_name": null,
+    "remote_progress_observed_at": "2026-10-26T20:21:22.240847+00:00",
+    "remote_progress_evidence": "results/tssa-mvp-2026-10-26/chunk_progress_2026-10-26-202117-526655Z.json",
+    "receipt_received": true,
+    "receipt": {
+      "offset": 3115161600,
+      "chunk_size": 16777216,
+      "committed_size": 3131938816,
+      "sha256": "e399d6b7e2d56469a71b4c3b78b8592a1f56b3fc2a2b0863c6102200911408f8"
+    },
+    "resulting_prefix": {
+      "size": 3131938816,
+      "sha256": "f453b304b250f6dcb054144338bdf9e3c23cddcb320e67b8dc84215b8b33f347"
+    },
+    "remote_prefix_sha256_rechecked": true,
+    "finished_at": "2026-10-26T20:23:06.842900+00:00"
+  },
+  "local_wheel_prefetch": {
+    "session_id": null,
+    "pid": null,
+    "status": "complete",
+    "report": "results/tssa-mvp-2026-10-26/wheel_prefetch_2026-10-27-0236.json",
+    "filename": "torch-2.7.1+cu128-cp311-cp311-manylinux_2_28_x86_64.whl",
+    "expected_bytes": 1039389795,
+    "current_local_bytes": 1039389795,
+    "local_staging_path": "/private/tmp/arxiv-tssa-stage/7b1116757b2476ff77cd0fb690b6544bd5a6c7745079dc965936d153071b3fef.part",
+    "remote_transferred": false,
+    "global_transfer_lock_held_until_exit": false,
+    "observed_at": "2026-10-27T02:49:41.897299+08:00",
+    "verified_sha256": "c301dc280458afd95450af794924c98fe07522dd148ff384739b810e3e3179f2",
+    "finished_at": "2026-10-26T18:54:39.413663+00:00"
+  },
+  "small_wheel_prefetch": {
+    "status": "complete",
+    "pid": null,
+    "session_id": null,
+    "report": "results/tssa-mvp-2026-10-26/small_wheel_prefetch_2026-10-26-185746-918367Z.json",
+    "verified_count": 39,
+    "selected_count": 39,
+    "selected_bytes": 83818032,
+    "remote_transferred": false,
+    "installed": false,
+    "global_transfer_lock_held_until_exit": false,
+    "previous_failure_report": "results/tssa-mvp-2026-10-26/small_wheel_prefetch_2026-10-26-185630-816483Z.json",
+    "finished_at": "2026-10-26T18:59:26.757305+00:00"
+  },
+  "medium_wheel_prefetch": {
+    "status": "complete",
+    "pid": null,
+    "session_id": null,
+    "report": "results/tssa-mvp-2026-10-26/medium_wheel_prefetch_2026-10-26-190045-079703Z.json",
+    "selected_count": 3,
+    "selected_bytes": 190886096,
+    "verified_count": 3,
+    "remote_transferred": false,
+    "installed": false,
+    "global_transfer_lock_held_until_exit": false,
+    "finished_at": "2026-10-26T19:04:09.440524+00:00"
+  },
+  "local_wheel_inventory": {
+    "verified_count": 51,
+    "total_count": 51,
+    "verified_bytes": 3909917779,
+    "remote_transferred": false,
+    "installed": false,
+    "observed_at": "2026-10-27T06:22:11.863152+08:00",
+    "evidence": "results/tssa-mvp-2026-10-26/local_wheel_inventory_2026-10-27-062211.json",
+    "retention_note": "Inventory proves51files downloaded and verified before transfer; successfully remote-verified wheel staging files are now removed sequentially by authorized helper. Use school_wheel_transfer.jsonl for remote receipts."
+  },
+  "local_downloads_paused_for_space_reserve": false,
+  "next_ssh_probe_not_before": null,
+  "local_transfer_lock_free": true,
+  "preparation_checkpoint_report": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-28-014336-023806Z.json",
+  "last_valid_portal_snapshot": {
+    "observed_at": "2026-10-27T01:09:53.143211+08:00",
+    "source": "https://gpu.orz2333.fun/",
+    "scope": "Last effective portal reading; historical only, never current GPU permission.",
+    "account_status": "normal",
+    "registration_complete": true,
+    "own_gpu_count": 0,
+    "quota": 4,
+    "queue": {
+      "id": 55,
+      "status": "waiting",
+      "position": 6,
+      "server": "104",
+      "gpu_count": 2,
+      "gpu_type": "any",
+      "ahead_count": 5
+    },
+    "servers": {
+      "104": {
+        "disabled_gpu_indices": [
+          3,
+          4,
+          6
+        ],
+        "occupied_gpu_indices": [
+          0,
+          1,
+          2,
+          5,
+          7
+        ],
+        "free_gpu_indices": [],
+        "online": true
+      },
+      "101": {
+        "disabled_gpu_indices": [],
+        "occupied_gpu_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "free_gpu_indices": []
+      },
+      "204": {
+        "online": true,
+        "permission_or_SSH_not_verified": true
+      },
+      "201": {
+        "online": true,
+        "permission_or_SSH_not_verified": true
+      },
+      "206": {
+        "online": true,
+        "permission_or_SSH_not_verified": true
+      },
+      "127": {
+        "online": true,
+        "disabled_gpu_indices": [],
+        "occupied_gpu_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "free_gpu_indices": [],
+        "permission_or_SSH_not_verified": true
+      }
+    }
+  },
+  "website_checked_at": "2026-10-28T01:43:36.023806+00:00",
+  "current_portal_state_available": false,
+  "local_transfer_lock_checked_at": "2026-10-27T23:43:56.239514+08:00",
+  "local_staging_metadata_check": {
+    "checked_at": "2026-10-27T05:31:28.976680+08:00",
+    "wheel_count": 43,
+    "wheel_bytes": 1314093923,
+    "UNet_bytes": 3438167540,
+    "type_owner_size_passed": true,
+    "full_hash_recomputed": false
+  },
+  "website_attempted_at": "2026-10-27T16:29:32.114Z",
+  "local_process_check": {
+    "checked_before_single_preflight": "no matching project transfer or research process",
+    "preflight_wrapper_returncode": 0,
+    "CPU_child_returncode": 0,
+    "local_wrapper_pid": 44793,
+    "no_GPU_task_started": true,
+    "report": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-28-014336-023806Z.json",
+    "sha256": "8e9089b9e789a2c3ed7d09698993a39b5d5abe3d23a07abe71f424a397cda216"
+  },
+  "next_transfer_plan": "No model transfer needed; all47 accepted. Do not restart the old failed transfer.",
+  "local_UNet_metadata_check": {
+    "checked_at": "2026-10-27T04:41:12.289220+08:00",
+    "bytes": 3438167540,
+    "regular_file_owned": true,
+    "full_SHA_recomputed": false
+  },
+  "remote_small_wheel_transfer": {
+    "status": "failed",
+    "pid": null,
+    "session_id": null,
+    "report": "results/tssa-mvp-2026-10-26/small_wheel_transfer_2026-10-26-205749-884924Z.json",
+    "selected_count": 20,
+    "selected_bytes": 2705298,
+    "verified_count": 0,
+    "verified_bytes": 0,
+    "ledger": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/school_wheel_transfer.jsonl",
+    "new_downloads": false,
+    "installed": false,
+    "local_files_retained": true,
+    "finished_at": "2026-10-26T20:58:59.697929+00:00",
+    "failed_stage": "first_remote_check_before_payload",
+    "failure_summary": "SSH255: Connection closed by UNKNOWN port65535",
+    "ledger_exists": false,
+    "payload_started": false
+  },
+  "remaining_six_wheel_prefetch": {
+    "status": "complete",
+    "pid": null,
+    "session_id": null,
+    "report": "results/tssa-mvp-2026-10-26/remaining_six_wheel_prefetch_2026-10-26-213236-804708Z.json",
+    "selected_count": 6,
+    "selected_bytes": 1259351805,
+    "verified_count": 6,
+    "verified_bytes": 1259351805,
+    "current_file": "nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+    "minimum_free_bytes": 4294967296,
+    "remote_transferred": false,
+    "installed": false,
+    "global_transfer_lock_held_until_exit": false,
+    "current_file_local_bytes": 168538112,
+    "current_file_expected_bytes": 292064180,
+    "current_file_observed_at": "2026-10-27T05:52:59.418300+08:00",
+    "download_pid": null,
+    "finished_at": "2026-10-26T21:55:12.333236+00:00"
+  },
+  "final_two_wheel_prefetch_plan": {
+    "status": "complete",
+    "script": "results/tssa-mvp-2026-10-26/prefetch_final_two_wheels_2026-10-27.py",
+    "selected_count": 2,
+    "selected_bytes": 1336472051,
+    "minimum_free_bytes": 4294967296,
+    "requires": "Current six-wheel batch finished and transfer lock free; fresh reserve check before each download; no remote transfer or installation."
+  },
+  "final_two_wheel_prefetch": {
+    "status": "complete",
+    "pid": null,
+    "session_id": null,
+    "download_pid": null,
+    "report": "results/tssa-mvp-2026-10-26/final_two_wheel_prefetch_2026-10-26-215721-226144Z.json",
+    "selected_count": 2,
+    "selected_bytes": 1336472051,
+    "verified_count": 2,
+    "verified_bytes": 1336472051,
+    "current_file": "nvidia_cudnn_cu12-9.7.1.26-py3-none-manylinux_2_27_x86_64.whl",
+    "minimum_free_bytes": 4294967296,
+    "remote_transferred": false,
+    "installed": false,
+    "global_transfer_lock_held_until_exit": false,
+    "current_file_local_bytes": 726851421,
+    "current_file_expected_bytes": 726851421,
+    "current_file_observed_at": "2026-10-27T06:21:43.388199+08:00",
+    "finished_at": "2026-10-26T22:21:01.450963+00:00"
+  },
+  "website_error": null,
+  "website_ray_id": null,
+  "local_free_bytes": 15979651072,
+  "local_free_observed_at": "2026-10-28T00:17:09.511474+08:00",
+  "local_wheel_metadata_validation": {
+    "passed": true,
+    "package_count": 51,
+    "active_dependency_edges": 79,
+    "metadata_differences": 0,
+    "errors": 0,
+    "target": "Linux x86_64 CPython3.11.7",
+    "evidence": "results/tssa-mvp-2026-10-26/local_wheel_metadata_check_2026-10-27-062430.json",
+    "report_sha256": "7c06e9125d9149f26db7e6bc3d624e40d80e00469438fb0887424081795d4803",
+    "installed": false,
+    "GPU_used": false
+  },
+  "remote_wheelhouse_transfer": {
+    "status": "complete",
+    "pid": null,
+    "child_pid": null,
+    "session_id": null,
+    "report": "results/tssa-mvp-2026-10-26/wheelhouse_transfer_2026-10-26-224352-445190Z.json",
+    "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/wheelhouse_transfer_2026-10-26-224352-445190Z.log",
+    "ledger": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/school_wheel_transfer.jsonl",
+    "selected_count": 51,
+    "selected_bytes": 3909917779,
+    "verified_count": 51,
+    "verified_bytes": 3909917779,
+    "chunk_bytes": 4194304,
+    "installed": true,
+    "no_GPU": true,
+    "global_transfer_lock_held_until_exit": false,
+    "verified_observed_at": "2026-10-27T08:51:27.089243+08:00",
+    "current_file": null,
+    "current_file_verified_chunk_bytes": 0,
+    "current_file_expected_bytes": 0,
+    "current_file_chunk_receipts": 0,
+    "process_verified_at": "2026-10-27T08:50:25+08:00",
+    "local_files_present": 0,
+    "local_files_removed_with_matching_remote_receipts": 51,
+    "all_51_files_accounted_for": true,
+    "combined_verified_payload_bytes": 3909917779,
+    "finished_at": "2026-10-27T00:55:09.308312+00:00",
+    "acceptance_evidence": "results/tssa-mvp-2026-10-26/wheelhouse_transfer_acceptance_2026-10-27-0855.json"
+  },
+  "next_preparation_action": "Preparation complete; monitor existing real runner.",
+  "remote_environment_install": {
+    "status": "installed_cpu_verified",
+    "launch_report": "results/tssa-mvp-2026-10-26/environment_install_launch_2026-10-27-005752-537876Z.json",
+    "observation": "results/tssa-mvp-2026-10-26/environment_install_observation_2026-10-27-010027-080918Z.json",
+    "observation_sha256": "4373e1866c7c6577cb55c7a3a0ffff3194f44de7c138a449998d0b9e15bdb085",
+    "audit_path": "/data2/zhangzibo/arxiv-tssa/results/environment-install/20261027T005759Z-qu64ezfr/audit.json",
+    "finished_at": "2026-10-27T00:59:19.365498+00:00",
+    "verified_wheel_count": 51,
+    "network_access": false,
+    "CUDA_initialized": false,
+    "CPU_native_checks": [
+      "torch_matmul_numpy",
+      "safetensors_memory_roundtrip",
+      "torchvision_nms"
+    ],
+    "versions": {
+      "torch": "2.7.1+cu128",
+      "torchvision": "0.22.1+cu128",
+      "diffusers": "0.35.1",
+      "transformers": "4.49.0"
+    },
+    "CPU_research_tests_in_server_environment": "passed_59",
+    "full_models_loaded": true
+  },
+  "remaining_model_transfer": {
+    "status": "complete",
+    "started_at": "2026-10-27T16:00:26.326979+00:00",
+    "pid": 77129,
+    "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "selected_count": 47,
+    "selected_bytes": 14683626535,
+    "already_verified_before_start": 41,
+    "chunk_bytes": 4194304,
+    "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-160026-326979Z.json",
+    "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-160026-326979Z.log",
+    "ledger": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer.jsonl",
+    "automatic_retry": false,
+    "GPU_used": false,
+    "minimum_local_free_reserve": 4294967296,
+    "cleanup": "Only task-local temporary files after full remote SHA256 matches pinned source",
+    "observed_at": "2026-10-27T16:02:16.313381+00:00",
+    "child_pid": 77161,
+    "bounded_awake": {
+      "pid": 77162,
+      "release_when_process_exits": 77161,
+      "maximum_seconds": 21600,
+      "expires_at": "2026-10-27T22:00:26.330227+00:00",
+      "status": "confirmed_exited_after_success"
+    },
+    "returncode": 0,
+    "finished_at": "2026-10-27T16:02:16.313056+00:00",
+    "seconds": 109.98551495900028,
+    "log_sha256": "4a0f3f2f2cfa89af6ecafb36c0ce999b0cdfed44455d4f890179098fdb857b6d",
+    "active_pid": null,
+    "session_id": null,
+    "processes_confirmed_exited": true,
+    "verified_count": 47,
+    "verified_bytes": 14683626535,
+    "current_relative_path": null,
+    "acceptance": {
+      "report": "results/tssa-mvp-2026-10-26/full_model_transfer_acceptance_2026-10-27-160309-110550Z.json",
+      "sha256": "7c514a4e4ca203679b1962b102aa28c6c65092e719625337b75717d75826ecbb"
+    }
+  },
+  "remote_CPU_research_checks": {
+    "report": "results/tssa-mvp-2026-10-26/configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json",
+    "sha256": "d29e8db922affa7d44253113a75532d0b36bf04eff39c77021e77548730d6ee4",
+    "status": "passed",
+    "test_count": 59,
+    "source_files_verified": 20,
+    "seconds": 57.112127790998784,
+    "finished_at": "2026-10-27T16:13:14.053241+00:00",
+    "CUDA_tested": false,
+    "formal_checkpoint_tested": false
+  },
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "automation_status": "ACTIVE",
+  "automatic_GPU_start_allowed": false,
+  "website_diagnosis": "results/tssa-mvp-2026-10-26/website_diagnosis_2026-10-27-012734Z.json",
+  "user_pause_checkpoint": "results/tssa-mvp-2026-10-26/user_pause_checkpoint_2026-10-27-093014.json",
+  "website_repair": {
+    "status": "site_access_recovered_authentication_pending",
+    "site_restored_by_this_agent": false,
+    "login_application_reached": true,
+    "MFA_required": true,
+    "authenticated_dashboard_reached": false,
+    "current_evidence": "results/tssa-mvp-2026-10-26/website_MFA_observation_2026-10-27-163417-672710Z.json",
+    "historical_1016_evidence": "results/tssa-mvp-2026-10-26/website_diagnosis_2026-10-27-012734Z.json"
+  },
+  "automation_interval_minutes": 30,
+  "automation_resumed_at": "2026-10-27T15:02:05.538002+08:00",
+  "conditional_GPU_start_authorized": true,
+  "last_user_pause": {
+    "paused_at": "2026-10-27T09:30:14.858732+08:00",
+    "reason": "Explicit user instruction; no automatic wakeups or new experiment starts.",
+    "revoked_by_explicit_resume_at": "2026-10-27T15:02:05.538002+08:00"
+  },
+  "last_failed_model_transfer": {
+    "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+    "status": "failed",
+    "returncode": 1,
+    "underlying_SSH_returncode": 255,
+    "started_at": "2026-10-27T14:05:48.913379+00:00",
+    "finished_at": "2026-10-27T15:40:41.110051+00:00",
+    "seconds": 5692.270060667004,
+    "cause": "Jump/target connection closed by remote host during the next CLIP chunk; underlying infrastructure cause unknown.",
+    "log_sha256": "6e9523de34ec50a435f18aaa1892c25f14afbd39f6ea72da45b3d1f3efe33e79",
+    "current_asset": "clip/model.safetensors",
+    "last_receipted_remote_bytes": 1635778560,
+    "current_asset_chunk_receipts": 390,
+    "remote_prefix_requires_revalidation": true,
+    "wrapper_child_and_awake_PIDs_absent": [
+      14992,
+      14993,
+      14994
+    ],
+    "failed_session_exit_confirmed": 96815,
+    "immediate_retry_performed": false,
+    "resolved_by": "results/tssa-mvp-2026-10-26/full_model_transfer_acceptance_2026-10-27-160309-110550Z.json"
+  },
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261028T020107508204Z.json",
+    "sha256": "94834c39ef59aa98d03456abea80ac25943a848ae476b3422902b1ab8cd14d7a",
+    "sample_finished_at": "2026-10-28T02:01:21.823721+00:00",
+    "status": "observed",
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "own_gpu_count_on_this_server": 0,
+    "scope": "Prelaunch sample, not current runtime GPU occupancy; prefer latest_run_observation."
+  },
+  "latest_website_observation": {
+    "observed_during_UTC": [
+      "2026-10-28T01:33:01.215Z",
+      "2026-10-28T01:43:36.023806+00:00"
+    ],
+    "status": "authenticated_all104_GPUs_in_use",
+    "requested_url": "https://gpu.orz2333.fun/",
+    "tab_id": "181737476",
+    "authenticated_dashboard_reached": true,
+    "tab_retained_for_user": true,
+    "own_gpu_count_all_servers": 0,
+    "quota": 4,
+    "account_status": "normal",
+    "queue": {
+      "id": 55,
+      "server": "104",
+      "gpu_count": 2,
+      "gpu_type": "any",
+      "status": "waiting",
+      "position": 2,
+      "ahead_count": 1,
+      "ahead_request": {
+        "id": 53,
+        "gpu_count": 1
+      },
+      "allocated_gpu_uuids": [],
+      "request_identity_source": "authenticated_portal_2026-10-28T01:30:52.214Z"
+    },
+    "server104": {
+      "online": true,
+      "current_GPU_count": 5,
+      "displayed_free_indices": [],
+      "displayed_disabled_indices": [],
+      "other_user_occupied_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "legacy_GPU_details_sample_local": "2026-10-28 09:36:30",
+      "legacy_report_age_at_view": "刚刚",
+      "legacy_inventory_total": 8,
+      "legacy_visible_GPU_rows": 5,
+      "UUIDs_confirmed_by_SSH": true,
+      "new_GPU3_other_compute_pid": 610093
+    },
+    "card_specific_queue_reservation": "not exposed in inspected views; waiting queue alone is not proof that a given GPU was reserved",
+    "current_allocation_known": true,
+    "allocation_for_self": []
+  },
+  "current_asset_transfer_key": "remaining_model_transfer",
+  "previous_model_transfer_failures": [
+    {
+      "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-005954-453121Z.json",
+      "status": "failed",
+      "returncode": 1,
+      "finished_at": "2026-10-27T01:58:08.735496+00:00",
+      "cause": "SSH255 before DreamShaper UNet partial inspection; retained evidence"
+    },
+    {
+      "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-070035-007422Z.json",
+      "status": "failed",
+      "returncode": 1,
+      "underlying_SSH_returncode": 255,
+      "finished_at": "2026-10-27T07:36:33.149363+00:00",
+      "seconds": 2158.181646792,
+      "cause": "Jump and target connections closed by remote host while sending the next 4MiB chunk; root cause not established.",
+      "log_sha256": "adc6ed18195ca5a5560c3579bc207c3e88cd3bccb01bc5b365a4a1c60b888ef0",
+      "last_receipted_remote_bytes": 92274688,
+      "remote_prefix_requires_revalidation": true,
+      "wrapper_child_and_awake_PIDs_absent": [
+        79650,
+        79683,
+        79684
+      ],
+      "failed_session_exit_confirmed": 47099,
+      "immediate_retry_performed": false
+    },
+    {
+      "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-083216-134796Z.json",
+      "status": "failed",
+      "returncode": 1,
+      "underlying_SSH_returncode": 255,
+      "started_at": "2026-10-27T08:32:16.134796+00:00",
+      "finished_at": "2026-10-27T08:57:05.932449+00:00",
+      "seconds": 1489.8207916669999,
+      "cause": "Remote host closed jump/target connections while sending the next 4MiB chunk; underlying cause remains unconfirmed.",
+      "log_sha256": "8ffd1484e96da91f08ed2ca295e4af583e1e7557db877774c4491d0d85b51fa1",
+      "last_receipted_remote_bytes": 398458880,
+      "new_chunk_receipts": 73,
+      "new_receipted_bytes": 306184192,
+      "remote_prefix_requires_revalidation": true,
+      "wrapper_child_and_awake_PIDs_absent": [
+        80426,
+        80458,
+        80459
+      ],
+      "failed_session_exit_confirmed": 5143,
+      "immediate_retry_performed": false
+    },
+    {
+      "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.json",
+      "status": "failed",
+      "returncode": 1,
+      "underlying_SSH_returncode": 255,
+      "started_at": "2026-10-27T09:32:01.054513+00:00",
+      "finished_at": "2026-10-27T12:12:52.356037+00:00",
+      "seconds": 9651.254129959001,
+      "cause": "Target connection closed during OpenJourney text encoder chunk; this wake a separate read-only probe reports No route to host. Underlying infrastructure cause is unknown.",
+      "log_sha256": "51ef4144d21f3eaecaa139386fffbab584d989ea8faec93187205503437bcd96",
+      "current_asset": "openjourney/text_encoder/model.safetensors",
+      "last_receipted_remote_bytes": 25165824,
+      "current_asset_chunk_receipts": 6,
+      "remote_prefix_requires_revalidation": true,
+      "wrapper_child_and_awake_PIDs_absent": [
+        76584,
+        76694,
+        76695
+      ],
+      "failed_session_exit_confirmed": 27671,
+      "immediate_retry_performed": false
+    },
+    {
+      "report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+      "status": "failed",
+      "returncode": 1,
+      "underlying_SSH_returncode": 255,
+      "started_at": "2026-10-27T14:05:48.913379+00:00",
+      "finished_at": "2026-10-27T15:40:41.110051+00:00",
+      "seconds": 5692.270060667004,
+      "cause": "Jump/target connection closed by remote host during the next CLIP chunk; underlying infrastructure cause unknown.",
+      "log_sha256": "6e9523de34ec50a435f18aaa1892c25f14afbd39f6ea72da45b3d1f3efe33e79",
+      "current_asset": "clip/model.safetensors",
+      "last_receipted_remote_bytes": 1635778560,
+      "current_asset_chunk_receipts": 390,
+      "remote_prefix_requires_revalidation": true,
+      "wrapper_child_and_awake_PIDs_absent": [
+        14992,
+        14993,
+        14994
+      ],
+      "failed_session_exit_confirmed": 96815,
+      "immediate_retry_performed": false
+    }
+  ],
+  "latest_heartbeat_notification": {
+    "decision": "NOTIFY",
+    "reason": "Single-GPU CPU preparation completed; the previously free displayed GPU3 now has another-user compute process, confirmed by SSH and portal.",
+    "observed_at": "2026-10-28T09:43:36.023806+08:00"
+  },
+  "last_valid_read_only_server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261028T020107508204Z.json",
+    "sha256": "94834c39ef59aa98d03456abea80ac25943a848ae476b3422902b1ab8cd14d7a",
+    "sample_finished_at": "2026-10-28T02:01:21.823721+00:00",
+    "status": "observed",
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "own_gpu_count_on_this_server": 0,
+    "scope": "Prelaunch sample, not current runtime GPU occupancy; prefer latest_run_observation."
+  },
+  "completed_model_roles": {
+    "sd15": 14,
+    "backdoor_tpa": 2,
+    "dreamshaper8": 9,
+    "openjourney": 9,
+    "vit": 4,
+    "clip": 9,
+    "scope": "All47 remote whole-file hashes accepted; no empirical performance conclusion."
+  },
+  "local_model_support_prefetch": {
+    "status": "complete",
+    "pid": null,
+    "session_id": null,
+    "finished_session_id": 24442,
+    "report": "results/tssa-mvp-2026-10-26/model_support_prefetch_2026-10-27-133044-853719Z.json",
+    "report_sha256": "f63b70a717bf32fdec6427e315442308d1646db60f8e3b40bde43f485a490d61",
+    "acceptance": "results/tssa-mvp-2026-10-26/local_model_support_acceptance_2026-10-27-133201-522490Z.json",
+    "acceptance_sha256": "c9e8a98439ab3b60a3e0b4b7c5fba57d2b7e5a9549e37ef4e8288e74536945ff",
+    "verified_count": 15,
+    "verified_bytes": 3161953,
+    "parsed_JSON_files": 11,
+    "frozen_label_mappings_verified": 20,
+    "remote_transferred": true,
+    "downloaded_model_weights": false,
+    "local_staging_retained_for_sequential_upload": false,
+    "finished_at": "2026-10-27T13:30:59.245950+00:00",
+    "seconds": 14.391570125000726,
+    "scope": "Local support-file and frozen classifier label-map validation only; no model inference or research metrics.",
+    "remote_transferred_count": 15,
+    "remote_transferred_bytes": 2199200,
+    "all_support_files_remotely_transferred": true
+  },
+  "last_GPU_inventory_change": {
+    "report": "results/tssa-mvp-2026-10-26/gpu_inventory_change_2026-10-27-140924-748406Z.json",
+    "sha256": "1dcd0a7727f39c00d7771c73690428139023cc040b2605d53f923a4e6e12490d",
+    "old_count": 8,
+    "new_count": 5,
+    "requires_fresh_UUID_binding": true
+  },
+  "formal_CPU_preflight": {
+    "report": "results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z.json",
+    "sha256": "f5c864c993f284b8fe7383352a33927ef554cb6b3adf263e29d2ec17df411405",
+    "status": "passed",
+    "school_connection_attempted": true,
+    "model_loading_started": true,
+    "CUDA_initialized": false,
+    "source_script": "results/tssa-mvp-2026-10-26/run_formal_cpu_preflight_2026-10-28-configfix.py",
+    "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+    "result": {
+      "status": "passed",
+      "returncode": 0,
+      "observed_at": "2026-10-27T16:14:41.885320+00:00",
+      "seconds": 65.33310615400114,
+      "source_files_verified": 20,
+      "CPU_memory_available_before": 371568484352,
+      "max_child_rss_KiB": 18974928,
+      "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+      "files": {
+        "cpu_preflight.json": {
+          "sha256": "7a920e3d96ebbc45767c2ee0e74dacaeaef301cca88556742bc75c3fba6147f5",
+          "size": 22257,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/cpu_preflight.json"
+        },
+        "model_file_hashes.json": {
+          "sha256": "96bae0d29dfa0d07403efdeb2026e141abd6667a669b26d1dd7b3d1515389d35",
+          "size": 9567,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/model_file_hashes.json"
+        },
+        "parameter_key_manifest.json": {
+          "sha256": "9aa183d54c9af1db064c4bd053df3e9a1f05d445f98381623286d2c7b20a4731",
+          "size": 10344,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/parameter_key_manifest.json"
+        },
+        "basis_statistics.json": {
+          "sha256": "85826438f15013385b474a029c5d23c5b34fdf4cb0a5e906e58c8294aa257187",
+          "size": 241,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/basis_statistics.json"
+        },
+        "failure_or_completion_status.json": {
+          "sha256": "b44afda42dbcef8e6926ec227fb6c59ab0d0b75dd7322a8e365cfdc0e70a0534",
+          "size": 627,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/failure_or_completion_status.json"
+        },
+        "resource_ledger.json": {
+          "sha256": "067c39e08f02b16ff50e4d78ad90dc9962bc32c2a8f6e3bdff86e6803faa9fea",
+          "size": 1824,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/resource_ledger.json"
+        },
+        "run_identity.json": {
+          "sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+          "size": 7633,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/run_identity.json"
+        }
+      },
+      "GPU_stage_started": false
+    },
+    "error": null,
+    "seconds": 71.82189208299678,
+    "pid": null
+  },
+  "historical_asset_transfer": {
+    "active_pid": null,
+    "verified_file_count": 12,
+    "verified_bytes": 3932036285,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 3131938816,
+    "remote_partial_observed_at": "2026-10-26T22:30:31.312465+00:00",
+    "prior_remote_partial_bytes": 3069204480,
+    "prior_observed_at": "2026-10-26T18:09:11.181146+00:00",
+    "measured_upload_bytes_per_second": null,
+    "all_assets_ready": false,
+    "local_free_bytes": 3823726592,
+    "process_verified_at": "2026-10-27T06:38:55.231495+08:00",
+    "rolling_upload_bytes_per_second": null,
+    "rolling_window_seconds": null,
+    "remote_data_disk_free_bytes": 7973301968896,
+    "attempt": 7,
+    "previous_failed_pid": 22497,
+    "active_log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer_chunk4m_resume_2026-10-26-223101-894387Z.log",
+    "status": "complete",
+    "remote_partial_mtime": "2026-10-26T18:15:12.482521+00:00",
+    "verified_this_attempt": 1,
+    "source_and_prefix_verified_before_reput": true,
+    "sftp_child_pid": null,
+    "diagnostic_selected_files": 1,
+    "diagnostic_full_manifest_selected": false,
+    "diagnostic_stop_after": "SD15 UNet whole-file hash verification or first failure",
+    "helper_sha256": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+    "diagnostic_status_path": "results/tssa-mvp-2026-10-26/asset_transfer.19da7aaa4b880e59.9d403817a5f5.status.json",
+    "latest_progress_evidence": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-223013-158897Z.json",
+    "failed_at": "2026-10-26T20:54:23.223211+00:00",
+    "failure_record": "results/tssa-mvp-2026-10-26/asset_transfer_chunk4m_resume_2026-10-26-205158-494735Z.json",
+    "session_id": null,
+    "wrapper_pid": null,
+    "transport": "verified_4MiB_SSH_chunks",
+    "active_report": "results/tssa-mvp-2026-10-26/asset_transfer_chunk4m_resume_2026-10-26-223101-894387Z.json",
+    "full_asset_verified": true,
+    "cleanup_after_complete": "File mode retains local staging; verify final remote SHA and ledger, then remove only this task-created local UNet copy.",
+    "verified_chunk_receipts_current_attempt": 74,
+    "last_log_line": null,
+    "failure_log_sha256": "0e5293570ed4c57e116b51176a3564876c4980a33dd18338c3d92330373c6c71",
+    "failure_summary": "4MiB attempt stopped atSSH255: jump115.226.154.76 closed, UNKNOWNport65535; zero new chunk receipts.",
+    "remote_prefix_requires_revalidation": false,
+    "remote_failed_fragments": [
+      {
+        "name": "diffusion_pytorch_model.safetensors.uploading.chunk-pvk2dyci",
+        "size": 1366016,
+        "mtime_ns": 1793046738642491657
+      }
+    ],
+    "receipt_reconciliation_evidence": "results/tssa-mvp-2026-10-26/asset_receipt_reconciliation_2026-10-27-0515.json",
+    "remote_partial_mtime_ns": 1793046167964959964,
+    "verified_chunk_committed_bytes": 3438167540,
+    "verified_chunk_observed_at": "2026-10-27T06:38:55.231495+08:00",
+    "last_verified_chunk": {
+      "offset": 3375208448,
+      "chunk_size": 4194304,
+      "committed_size": 3379402752,
+      "sha256": "1b788c77de2e722a8cb7e41e31976f217635fa9c799c176fec5a19b22f403431"
+    },
+    "verified_chunk_scope": "Contiguous SHA-checked receiver receipts after06:30 whole-prefix proof; whole-file commit not yet verified.",
+    "full_remote_verified_at": "2026-10-26T22:40:45.602873+00:00",
+    "full_remote_sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+    "local_staging_removed": true,
+    "local_cleanup_evidence": "results/tssa-mvp-2026-10-26/verified_UNet_staging_cleanup_2026-10-27-064320.json",
+    "historical_scope": "Completed SD15-only transfer; current complete-manifest status is remaining_model_transfer."
+  },
+  "implementation_correction": {
+    "report": "results/tssa-mvp-2026-10-26/upcast_implementation_correction_2026-10-28.json",
+    "sha256": "6f52841807ccb0ee2c40532b20ceedd925ee71b7218dd4887eef28745e3a47e6"
+  },
+  "failed_formal_CPU_preflight_preserved": {
+    "report": "results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-160055-974677Z.json",
+    "sha256": "24d0788528bb1d4ed7e872dd07ee83f087f8833d2ef1b03371d3cd2e1cf24a5d"
+  },
+  "CPU_inference_component_loading": {
+    "report": "results/tssa-mvp-2026-10-26/remote_inference_components_2026-10-27-161551-271111Z.json",
+    "sha256": "b36f56c6408632f73d43bb11b5ef36ec2f9c953f7e2831e886ecb2f507a2cb8f",
+    "status": "passed",
+    "result": {
+      "status": "passed",
+      "observed_at": "2026-10-27T16:16:02.501002+00:00",
+      "source_files_verified": 20,
+      "models": {
+        "vit": {
+          "class": "ViTForImageClassification",
+          "parameter_count": 86567656,
+          "parameter_tensors": 200,
+          "devices": [
+            "cpu"
+          ],
+          "trainable_parameters": 0
+        },
+        "clip": {
+          "class": "CLIPModel",
+          "parameter_count": 427616513,
+          "parameter_tensors": 590,
+          "devices": [
+            "cpu"
+          ],
+          "trainable_parameters": 0
+        },
+        "vae": {
+          "class": "AutoencoderKL",
+          "parameter_count": 83653863,
+          "parameter_tensors": 248,
+          "devices": [
+            "cpu"
+          ],
+          "trainable_parameters": 0
+        }
+      },
+      "model_weights_loaded": true,
+      "model_forward_executed": false,
+      "CUDA_initialized": false,
+      "scientific_images": 0,
+      "optimization_updates": 0,
+      "peak_rss_KiB": 752584
+    },
+    "seconds": 11.824777499998163
+  },
+  "CPU_preparation_readiness": {
+    "report": "results/tssa-mvp-2026-10-26/CPU_preparation_readiness_2026-10-28.json",
+    "sha256": "0ea0f5320744e062f27ae733ebebfe71e2fb28fad12ad642ae58a7fb83e4c80e"
+  },
+  "historical_website_repair": {
+    "status": "blocked_external_site_administration_required",
+    "failure": "Cloudflare 1016; displayed origin NXDOMAIN confirmed by Google DNS over HTTPS",
+    "origin": "farmer-actor-europe-august.trycloudflare.com",
+    "login_application_reached": false,
+    "site_fixed": false,
+    "requires": "Site owner must restore the tunnel and correct the reverse-proxy origin mapping; no site-admin access established.",
+    "historical_evidence_only": true
+  },
+  "MFA_user_action": {
+    "requested_at": "2026-10-27T16:30:39.597Z",
+    "status": "completed_by_user",
+    "browser_tab_id": "181737476",
+    "request_shown_once": true,
+    "do_not_repeat_login_or_reset_while_pending": true,
+    "last_checked_at": "2026-10-28T01:43:36.023806+00:00",
+    "browser_tab_retained": true,
+    "user_response_received": true,
+    "submitted_once": true,
+    "returned_to_login": true,
+    "authenticated_dashboard_reached": true
+  },
+  "resume_readiness_audit": {
+    "report": "results/tssa-mvp-2026-10-26/remote_resume_audit_2026-10-27-163222-674746Z.json",
+    "sha256": "a367e6db3182f1ac9eafed250f1c4be8e6d25c0f5b2e36e94683e48bfd3abc78",
+    "status": "passed",
+    "result": {
+      "status": "passed",
+      "observed_at": "2026-10-27T16:32:36.167726+00:00",
+      "source_files_verified": 20,
+      "existing_output_hashes_verified": 7,
+      "model_files_rehashed": 47,
+      "run_identity_equal": true,
+      "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+      "completed_receipts": [
+        {
+          "operation": "preflight/cpu",
+          "status": "completed",
+          "artifact_sha256": "3ec0445c857e5ba8399614b6756cc33d8ce67209e1e2274588f7f9f5668532c6"
+        }
+      ],
+      "existing_run_lock_available": true,
+      "own_active_project_processes": [],
+      "tmux_path": "/usr/bin/tmux",
+      "torch_imported": false,
+      "GPU_used": false,
+      "run_files_modified": false,
+      "allocation_bound": false,
+      "scientific_images": 0,
+      "optimizer_updates": 0
+    },
+    "seconds": 13.614454749993456
+  },
+  "current_progress_summary": {
+    "path": "research/tssa_progress_summary_2026-10-27.md",
+    "sha256": "4795492cf67e4b854275fde7ae99e7c2d4c3f4488724957930d909a51b5acabe",
+    "original_snapshot": "results/tssa-mvp-2026-10-26/progress_summary_original_2026-10-27-0930.md",
+    "original_sha256": "012cd27ac77d0a153e653986e6f7558fab19aafa38c390cda2168887a75fd5ad",
+    "purpose": "Replace superseded paused/18of47 statements with verified CPU-ready and pendingMFA facts; preserve original historical summary."
+  },
+  "latest_login_checkpoint": {
+    "report": "results/tssa-mvp-2026-10-26/website_session_expired_2026-10-28-012503-918661Z.json",
+    "sha256": "4614a6fce6b58f68cb5e4f1dff8e3150344ad4cd7e0c8d37968e532a651d03ff"
+  },
+  "latest_platform_checkpoint": {
+    "report": "results/tssa-mvp-2026-10-26/portal_rules_and_queue_2026-10-28-013158-871359Z.json",
+    "sha256": "8e1b2c673b0b0cc9f6242eb355cdcee27733e705b3ef5042b1e3d5ef9326fb76"
+  },
+  "single_CPU_preflight": {
+    "report": "results/tssa-mvp-2026-10-26/single_CPU_preflight_2026-10-28-013551-322690Z.json",
+    "sha256": "75d89af05220713a3e4670a7d28c9e4d8705a618bff56c90698d636cf3f8d8ea",
+    "status": "passed",
+    "remote_seconds": 308.0919353080026,
+    "wrapper_seconds": 313.9538678749959,
+    "max_child_rss_KiB": 18858364,
+    "remote_run": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+    "returned_files_verified": 7,
+    "GPU_stage_started": false,
+    "completed_stages": [
+      "cpu-preflight"
+    ]
+  },
+  "single_GPU_readiness": {
+    "report": "results/tssa-mvp-2026-10-26/single_GPU_readiness_2026-10-28.json",
+    "sha256": "46f2f945e89c7444fdf880f1129876bf5b5442882304dcad2be18b4410ccd66e"
+  },
+  "preferred_execution_mode": "single_GPU",
+  "preferred_run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+  "latest_GPU3_check": {
+    "report": "results/tssa-mvp-2026-10-26/GPU3_idle_permission_checkpoint_20261028T015726361236Z.json",
+    "sha256": "cbdda1e39462e06f920a37f61dd7d5f627460dce1227f1f60bf2f4acefd7a779"
+  },
+  "blockers": [],
+  "next_action": "Observe the existing real runner PID640404 and its receipts; never duplicate launch. Startup currently reading assets before CUDA. Continue the same single scientific campaign.",
+  "single_GPU_launch": {
+    "report": "results/tssa-mvp-2026-10-26/single_GPU_launch_20261028T020540846402Z.json",
+    "sha256": "6f9b60b5da85dbb0121bcc7487bd0767cca37cba28724f71159995bb7bfd9868"
+  },
+  "latest_run_observation": {
+    "report": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T020644641539Z.json",
+    "sha256": "b95ea790a0a878304bfba55ab5ef14d6de7118e299ff425f47106e772918ad6b"
+  },
+  "running_project": {
+    "pid": 640404,
+    "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1",
+    "GPU_UUID": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+    "log": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T020540846402Z.log",
+    "actual_CUDA_use_confirmed": false,
+    "started_at": "2026-10-28T02:05:54.773077+00:00"
+  },
+  "direct_use_confirmation": {
+    "user_message": "我确认了,你可以直接用",
+    "new_approval_accepted": true,
+    "prior_rejection_preserved": true
+  }
+}

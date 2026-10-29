@@ -1,0 +1,6 @@
+# Preserve byte-level hashes of immutable experiment evidence across platforms.
+results/** -text
+papers/txt/** -text
+archive/** -text
+reports/archive/** -text
+storage/manifests/** -text

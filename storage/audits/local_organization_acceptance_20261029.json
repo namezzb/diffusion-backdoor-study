@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-29T03:53:43.452493+00:00",
+  "scope": "local_checks_only_no_network",
+  "package_count": 9,
+  "package_member_entries_verified": 4909,
+  "server_indices": {
+    "104": {
+      "rows": 5467,
+      "local_verified": 248,
+      "known_hashes": 5454
+    },
+    "103": {
+      "rows": 2847,
+      "local_verified": 2782,
+      "known_hashes": 2782
+    },
+    "103-models-historical": {
+      "rows": 47,
+      "local_verified": 0,
+      "known_hashes": 47
+    }
+  },
+  "document_links_checked": [
+    "storage/README.md",
+    "storage/SERVER_INDEX.md",
+    "research/research_storage_and_restore_plan_2026-10-29.md",
+    "results/organization-2026-10-29/README.md"
+  ],
+  "errors": [],
+  "remote_sources_unchanged_by_this_task": true,
+  "git_committed_or_pushed": false,
+  "current_policy": "local_organization_only",
+  "cloud_files_previously_uploaded": 2,
+  "primary_entries": [
+    "storage/README.md",
+    "storage/SERVER_INDEX.md",
+    "research/research_storage_and_restore_plan_2026-10-29.md"
+  ]
+}

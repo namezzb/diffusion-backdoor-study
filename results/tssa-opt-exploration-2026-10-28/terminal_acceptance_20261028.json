@@ -1,0 +1,66 @@
+{
+  "at": "2026-10-28T11:40:36.019369+00:00",
+  "status": "terminal_negative_with_disclosed_integrity_defect",
+  "scientific_images_completed": 816,
+  "scientific_attempts_including_failed": 817,
+  "generation_branch_NFE_upper_bound": 40850,
+  "optimizer_updates": 0,
+  "confirm_opened": false,
+  "ASR_goal_achieved": false,
+  "GPU_released_last_verified_at": "2026-10-28T11:15:35.482856+00:00",
+  "strict_audit_status": "invalid",
+  "hash_defects_explained": 643,
+  "hash_defects_unexplained": 0,
+  "all_numerical_metrics_and_selection_independently_recomputed": true,
+  "score_models_rerun": false,
+  "all816_PNGs_downloaded_and_SHA_verified": true,
+  "source_fix_CPU_tests_passed": 4,
+  "source_fix_applies_to": "future_local_version_only",
+  "files": {
+    "results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md": {
+      "sha256": "a0f48e50fe3e6036ad6759a131afad6a71dbd1026de460a977b18c35f1594c2a",
+      "bytes": 15343
+    },
+    "results/tssa-opt-exploration-2026-10-28/terminal_metrics_20261028.json": {
+      "sha256": "7a8317d9eb4f1d09a42b174e86be4db9587361ddf80ed62d1f7d4acba07013ec",
+      "bytes": 147246
+    },
+    "results/tssa-opt-exploration-2026-10-28/independent_result_audit_816_20261028T1115Z.json": {
+      "sha256": "e8e4b9e47637301ec91fa2975d0a5d4c005f5d22cecddd26db584bb422d751e4",
+      "bytes": 285080
+    },
+    "results/tssa-opt-exploration-2026-10-28/summary_record_hash_diagnosis_20261028.json": {
+      "sha256": "91f252a70155cd9ea5455418daa723b6845a3dc4adef35655b0b557044ca855a",
+      "bytes": 646023
+    },
+    "results/tssa-opt-exploration-2026-10-28/final_PNG_hash_acceptance_816_20261028T1115Z.json": {
+      "sha256": "2f6a7628538c63475a9a5f969056f735dff81dc2439b95122360976a697b3889",
+      "bytes": 207084
+    },
+    "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/resumed_retrieval_report.json": {
+      "sha256": "df0e045ee547156e440fb54fab24f9e82e7b12f01892a44fdcc6dc3eb8f60c55",
+      "bytes": 151905
+    },
+    "results/tssa-opt-exploration-2026-10-28/frozen_snapshot_diagnosis_replay_20261028.json": {
+      "sha256": "65b640c43c35600ee14c27cb652c780d6aafcbe03b4615582b262c513ede74d0",
+      "bytes": 5789
+    },
+    "results/tssa-opt-exploration-2026-10-28/resource_snapshot_fix_CPU_validation_20261028.json": {
+      "sha256": "33c55adba8d5d0c8b4f0bd606891b0ffe019b841570265f9613300ca18883ebd",
+      "bytes": 7784
+    },
+    "scripts/merging/tssa_sd_runtime.py": {
+      "sha256": "c95e7ffdfdf7009eb21176b3dcadb513679f276f17d5fd9afd2b41531d0d0b74",
+      "bytes": 42401
+    },
+    "scripts/merging/test_tssa_resource_snapshot.py": {
+      "sha256": "63905179af4801ceaf6f2799f955568bff0a70647d7a1f15519a179cce6baaa1",
+      "bytes": 6896
+    },
+    "research/tssa_target_semantic_diagnostic_proposal_2026-10-28.md": {
+      "sha256": "5081a22bc3fe942936838221f05faf6c69bf95abdafa4fc79309596bfd1d1b16",
+      "bytes": 10870
+    }
+  },
+  "next_work": "Implement and CPU-check the separate proposed semantic-target diagnostic; first verify four old legal cached trajectories and freeze exact new source/inputs/budget. No use of finished-run remaining budget; no GPU launch from draft."
+}

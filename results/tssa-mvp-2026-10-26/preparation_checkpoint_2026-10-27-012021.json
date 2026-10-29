@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-27T01:20:21.047531+08:00",
+  "stage": "sequential_model_upload",
+  "asset_transfer": {
+    "active_pid": 92615,
+    "verified_file_count": 11,
+    "verified_bytes": 493868745,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 2909399040,
+    "remote_partial_observed_at": "2026-10-27T01:19:11+08:00",
+    "prior_remote_partial_bytes": 2875714560,
+    "prior_observed_at": "2026-10-27T01:14:25+08:00",
+    "measured_upload_bytes_per_second": 117778,
+    "all_assets_ready": false,
+    "local_free_bytes": 6797463552,
+    "process_verified_at": "2026-10-27T01:18:56+08:00",
+    "rolling_upload_bytes_per_second": 119518,
+    "rolling_window_seconds": 603,
+    "remote_data_disk_free_bytes": 7973301968896
+  },
+  "queue_last_verified_at": "2026-10-27T01:09:53.143211+08:00",
+  "website_current": false,
+  "GPU_started": false,
+  "notes": "Upload continues; portal refresh and subsequent page read timed out, recovery not verified. Preserve previous valid queue observation; no GPU action."
+}

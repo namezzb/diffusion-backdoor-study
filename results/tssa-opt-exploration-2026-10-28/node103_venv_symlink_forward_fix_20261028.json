@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-28T07:32:43.155278+00:00",
+  "path": "results/tssa-opt-exploration-2026-10-28/prepare_node103_offline.py",
+  "before_sha256": "5d8dce5b3bdb0d7d8497ed5beabe7fe47bc109c7bcd1f71127af6f74f3c54467",
+  "after_sha256": "967a0341443b26b22222079516fb81da420c80f26b463a6908d46624a49179f6",
+  "change": "Only --copies to --symlinks for future fresh standalone Python venv creation. Failed-install guard remains unchanged.",
+  "diff": "--- results/tssa-opt-exploration-2026-10-28/prepare_node103_offline.py:before\n+++ results/tssa-opt-exploration-2026-10-28/prepare_node103_offline.py:after\n@@ -310,7 +310,7 @@\n     publish_noreplace(staging/'python',base)\n     env={k:v for k,v in os.environ.items() if not k.startswith(('PYTHON','PIP_'))}\n     env.update(CUDA_VISIBLE_DEVICES='',NVIDIA_VISIBLE_DEVICES='none',PYTHONNOUSERSITE='1',PIP_NO_INDEX='1')\n-    subprocess.run([str(base/'bin/python3.11'),'-I','-m','venv','--copies',str(venv)],check=True,timeout=180,env=env)\n+    subprocess.run([str(base/'bin/python3.11'),'-I','-m','venv','--symlinks',str(venv)],check=True,timeout=180,env=env)\n     report={'status':'completed','archive_sha256':hashfile(archive),'python_sha256':hashfile(base/'bin/python3.11'),'probe':probe(),'CUDA_initialized':False}\n     save(report); print(json.dumps(report))\n except BaseException as error:\n",
+  "remote_execution": false,
+  "scientific_sources_changed": false
+}

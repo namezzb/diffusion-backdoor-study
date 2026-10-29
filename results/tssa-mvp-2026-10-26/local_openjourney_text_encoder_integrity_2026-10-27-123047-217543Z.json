@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-10-27T12:30:47.217543+00:00",
+  "source": {
+    "repo_id": "prompthero/openjourney",
+    "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+    "path": "text_encoder/model.safetensors",
+    "local_dir": "openjourney",
+    "local_path": "openjourney/text_encoder/model.safetensors",
+    "size": 492265874,
+    "sha256": "5d3d1299268e3fa1daee2ce59de969b676ad46c5e12c17827c725599d91cc22f",
+    "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/text_encoder/model.safetensors",
+    "git_blob_oid": "c0b120aa19ec358ce706c23a1f5664aa88844988",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "local_path": "/private/tmp/arxiv-tssa-stage/bf96322dae6a6099e0dd69c24cfbeb6e36d558ef8e7ad362c7b21c9864dbffe0.part",
+  "local_size": 492265874,
+  "local_SHA256": "5d3d1299268e3fa1daee2ce59de969b676ad46c5e12c17827c725599d91cc22f",
+  "pinned_size_and_SHA256_match": true,
+  "safetensors_tensor_count": 197,
+  "dtypes": {
+    "I64": 1,
+    "F32": 196
+  },
+  "offsets_and_shapes_valid": true,
+  "remote_partial_chunk_count_locally_matched": 6,
+  "last_remote_chunk_receipt": {
+    "offset": 20971520,
+    "chunk_size": 4194304,
+    "committed_size": 25165824,
+    "sha256": "856029a8d926b241112a05d2e01a152b374630024ed66c300937c1cef8f0f7c9"
+  },
+  "remote_whole_verified": false,
+  "scope": "Local pinned asset and structure validation only; no model loading, forward/backward, CUDA, scientific images or optimization."
+}

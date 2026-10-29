@@ -1,0 +1,21 @@
+{
+  "operation": "response/RC-TSSA-GD_step48",
+  "payload": {
+    "J_beta": 0.01002488099038601,
+    "R": 0.010008992860093713,
+    "backdoor_mse": {
+      "Edev_0.08": 0.010008992860093713,
+      "Edev_0.25": 0.010008992860093713,
+      "Edev_0.50": 0.010008992860093713
+    },
+    "delta_l2": 0.0,
+    "normal_mse": {
+      "Edev_0.08": 0.0,
+      "Edev_0.25": 0.0,
+      "Edev_0.50": 0.0,
+      "upload": 1.5887537661759172e-05
+    },
+    "per_state_unit_count": 24
+  },
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62"
+}

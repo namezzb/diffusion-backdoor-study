@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "scope": "2137 preserved payload members; server-only files are separately listed in server-index",
+  "records": 2137,
+  "status_counts": {
+    "indexed_source": 2134,
+    "excluded_local_portal_context": 3
+  },
+  "unresolved": [],
+  "git_sources": 1016,
+  "school_sources": 1969,
+  "public_fixed_version_sources": 24,
+  "local_packages_used_as_remote_sources": false,
+  "network_accessed": false,
+  "limitations": [
+    "Server and public URL availability not live-tested in this publication.",
+    "AMAX has historical directory pointers only; full file inventory remains unknown.",
+    "Portal/login context and duplicate intermediary archives are not scientific result payloads."
+  ]
+}

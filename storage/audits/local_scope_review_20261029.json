@@ -1,0 +1,63 @@
+{
+  "observed_at": "2026-10-29T03:22:06.333422+00:00",
+  "allowlisted_local_root": "/Users/zzb/arxiv",
+  "outside_symlinks_excluded": [],
+  "files_checked": 3790,
+  "credential_pattern_hits": [
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-192033-056534Z.log",
+      "signals": [
+        "api_key"
+      ]
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-190544-914047Z.log",
+      "signals": [
+        "api_key"
+      ]
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-201106-286849Z.log",
+      "signals": [
+        "api_key"
+      ]
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/asset_transfer_independent_2026-10-27-020029.log",
+      "signals": [
+        "api_key"
+      ]
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-194551-450270Z.log",
+      "signals": [
+        "api_key"
+      ]
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-205107-559395Z.log",
+      "signals": [
+        "api_key"
+      ]
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-185412-979504Z.log",
+      "signals": [
+        "api_key"
+      ]
+    }
+  ],
+  "excluded_names": [
+    ".DS_Store",
+    ".claude",
+    ".codex",
+    ".git",
+    ".mcp.json",
+    ".qoder",
+    ".venv",
+    "__pycache__",
+    "node_modules",
+    "storage"
+  ],
+  "content_values_recorded": false
+}

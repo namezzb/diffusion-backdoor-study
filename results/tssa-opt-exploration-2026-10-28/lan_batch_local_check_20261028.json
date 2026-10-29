@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-28T08:38:16.333357+00:00",
+  "source_sha256": "8a6567c9f80e53a2b1b4e0b4be6a2cbee9b9ae253c435a457b9fd2ea6b6618de",
+  "remote_syntax": "pass",
+  "local_HTTP_checks": [
+    {
+      "case": "wrong credential",
+      "status": 403
+    },
+    {
+      "case": "/../sample",
+      "status": 404
+    },
+    {
+      "case": "/asset/47",
+      "status": 404
+    },
+    {
+      "case": "valid prefix resume",
+      "passed": true
+    },
+    {
+      "case": "wrong prefix rejected",
+      "passed": true
+    }
+  ],
+  "listener_EOF_exit": 0,
+  "real_school_transfer": false,
+  "scope": "Local HTTP source-handler behavior with test-only path/peer substitutions; target guards retained from already exercised source, not claimed tested on Mac"
+}

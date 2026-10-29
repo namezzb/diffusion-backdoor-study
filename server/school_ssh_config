@@ -1,0 +1,42 @@
+# School server access; the private key stays outside this repository.
+# Usage: ssh -F /path/to/arxiv/server/school_ssh_config school104
+
+Host school-jump
+    HostName hduiipl.cn
+    Port 7002
+    HostKeyAlias [hduiipl.cn]:7002
+    StrictHostKeyChecking yes
+
+Host school100
+    HostName 192.168.1.100
+
+Host school101
+    HostName 192.168.1.101
+
+Host school102
+    HostName 192.168.1.102
+
+Host school103
+    HostName 192.168.1.103
+
+Host school104
+    HostName 192.168.1.104
+
+Host school127
+    HostName 192.168.1.127
+
+Host school100 school101 school102 school103 school104 school127
+    Port 22
+    ProxyJump school-jump
+
+Host school-jump school100 school101 school102 school103 school104 school127
+    User zhangzibo
+    IdentityFile ~/.ssh/zhangzibo_school
+    UserKnownHostsFile ~/.ssh/known_hosts_school
+    IdentitiesOnly yes
+    ForwardAgent no
+    StrictHostKeyChecking accept-new
+    ConnectTimeout 60
+    ConnectionAttempts 1
+    ServerAliveInterval 60
+    ServerAliveCountMax 5

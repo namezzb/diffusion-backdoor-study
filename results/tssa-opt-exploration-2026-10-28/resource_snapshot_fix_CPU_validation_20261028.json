@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-28T11:37:33.312013+00:00",
+  "status": "local_future_version_fix_passed_CPU_regression_not_deployed",
+  "change": {
+    "source": "/Users/zzb/arxiv/scripts/merging/tssa_sd_runtime.py",
+    "before_sha256": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a",
+    "after_sha256": "c95e7ffdfdf7009eb21176b3dcadb513679f276f17d5fd9afd2b41531d0d0b74",
+    "only_resource_record_modified": true,
+    "description": "Deep-copy the complete nested live resource ledger before adding CUDA memory scalar counters. Historical resource snapshots and later summary digests no longer share mutable ledger objects.",
+    "patch": "--- frozen/tssa_sd_runtime.py\n+++ future-local/tssa_sd_runtime.py\n@@ -348,7 +348,8 @@\n                 \"precision\": self.protocol[\"precision\"]}\n \n     def resource_record(self) -> dict[str, Any]:\n-        return {**self.ledger, \"peak_allocated_bytes\": torch.cuda.max_memory_allocated(self.device),\n+        from copy import deepcopy\n+        return {**deepcopy(self.ledger), \"peak_allocated_bytes\": torch.cuda.max_memory_allocated(self.device),\n                 \"peak_reserved_bytes\": torch.cuda.max_memory_reserved(self.device)}\n \n     def unlock_heldout(self, frozen_candidates: Mapping[str, Sequence[float]]) -> None:\n"
+  },
+  "preserved_frozen_code": {
+    "path": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/frozen_code_before_resource_snapshot_fix/tssa_sd_runtime.py",
+    "sha256": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a",
+    "bytes": 42357,
+    "archive_manifest_sha256": "0e5e255d4a06a4996d2aa352086aca675d42d418802d04fc379715e9c27dc5ed",
+    "SHA256SUMS_sha256": "4ec296303571cccfc51515ed4f3e8b05f888ee91b84378e0a980fdf7d1df5be6",
+    "created_before_fix": true,
+    "exclusive_creation_no_overwrite": true
+  },
+  "frozen_manifests_unchanged": {
+    "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902"
+  },
+  "preserved_original_diagnosis_and_auditor": {
+    "results/tssa-opt-exploration-2026-10-28/diagnose_summary_record_hash_20261028.py": "068e9a5560898db2afe981a42fd96fd752d1c0349fe924f2dd5fd882eea90233",
+    "results/tssa-opt-exploration-2026-10-28/audit_image_search_results.py": "2e62bbdc5b837fb4d429e8373a42c6f6d33b0019381d3a6cf63f22b523c566b7",
+    "results/tssa-opt-exploration-2026-10-28/summary_record_hash_diagnosis_20261028.json": "91f252a70155cd9ea5455418daa723b6845a3dc4adef35655b0b557044ca855a"
+  },
+  "CPU_regression": {
+    "command": [
+      "python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/merging",
+      "-p",
+      "test_tssa_resource_snapshot.py",
+      "-v"
+    ],
+    "cwd": "/Users/zzb/arxiv",
+    "started_at": "2026-10-28T11:37:33.087134+00:00",
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "test_current_snapshot_keeps_real_runner_history_and_summary_stable (test_tssa_resource_snapshot.ResourceSnapshotRegression.test_current_snapshot_keeps_real_runner_history_and_summary_stable) ... ok\ntest_editing_snapshot_cannot_modify_live_ledger_or_another_snapshot (test_tssa_resource_snapshot.ResourceSnapshotRegression.test_editing_snapshot_cannot_modify_live_ledger_or_another_snapshot) ... ok\ntest_old_source_and_frozen_manifests_are_preserved (test_tssa_resource_snapshot.ResourceSnapshotRegression.test_old_source_and_frozen_manifests_are_preserved) ... ok\ntest_preserved_old_method_is_detected_by_same_regression (test_tssa_resource_snapshot.ResourceSnapshotRegression.test_preserved_old_method_is_detected_by_same_regression) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.099s\n\nOK\n",
+    "test_source": "/Users/zzb/arxiv/scripts/merging/test_tssa_resource_snapshot.py",
+    "test_source_sha256": "63905179af4801ceaf6f2799f955568bff0a70647d7a1f15519a179cce6baaa1",
+    "tests_passed": 4,
+    "dependencies_sha256": {
+      "scripts/merging/tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+      "scripts/merging/test_tssa_image_search_run.py": "c3a92d45286ad0fcbe62e0f56e07a860942f3ac5ddbaf43a9c316306649971a0"
+    },
+    "tested_contracts": [
+      "Real Store/Runner writes 36 synthetic PNG receipts and search/dev summaries per positive or negative-control fixture; in-memory and committed record digests must agree.",
+      "Subsequent nested branch_nfe mutations and nested list updates cannot alter prior snapshot or summary digests.",
+      "Editing a returned nested snapshot cannot change the live ledger or another snapshot.",
+      "Archived old resource_record fails the same stable-history assertion, demonstrating the regression detects the actual bug.",
+      "Old source archive and all three frozen manifests retain their original SHA values."
+    ],
+    "test_only_fakes": [
+      "AST execution of exact production method without importing torch",
+      "CUDA peak memory counters",
+      "2 by 2 pixel synthetic images and deterministic classifier scores"
+    ],
+    "synthetic_images_generated_in_temporary_directories": 72,
+    "scientific_images_generated": 0
+  },
+  "environment": {
+    "python_executable": "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "python_version": "3.14.5 (main, May 10 2026, 10:21:34) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "torch_available": false,
+    "PIL_available": true
+  },
+  "offline_old_version_replay": {
+    "entry": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/replay_frozen_snapshot_diagnosis.py",
+    "entry_sha256": "3b042871622aedb3b239d36b25e41e9c69400df9c661a607a1c5ae687bdbf5c5",
+    "report": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/frozen_snapshot_diagnosis_replay_20261028.json",
+    "report_sha256": "65b640c43c35600ee14c27cb652c780d6aafcbe03b4615582b262c513ede74d0",
+    "status": "old_defect_reproduced_in_isolated_frozen_root_strict_audit_still_invalid",
+    "strict_unchanged_audit": {
+      "status": "invalid",
+      "errors": [
+        "search summary.record_sha256.171: mismatch"
+      ],
+      "auditor_sha256": "2e62bbdc5b837fb4d429e8373a42c6f6d33b0019381d3a6cf63f22b523c566b7"
+    },
+    "explained_hash_discrepancies": 643,
+    "unexplained_hash_discrepancies": 0,
+    "original_input_files_verified_unchanged": 1072,
+    "temporary_root_deleted": true,
+    "does_not_write_back_to_live_tree": true
+  },
+  "actual_operations": {
+    "network_connections": 0,
+    "GPU_tasks": 0,
+    "models_loaded": 0,
+    "scientific_images_generated": 0,
+    "optimizer_updates": 0,
+    "frozen_manifest_changes": 0,
+    "old_evidence_changes": 0,
+    "remote_deployments": 0
+  },
+  "limitations": [
+    "Only the local resource snapshot boundary is fixed for a future version; no GPU, CUDA, model, or remote execution validation was performed.",
+    "The existing exploration manifest still binds the old runtime hash and must not be silently updated for this completed run.",
+    "Original strict auditor remains invalid for the old run; metric/selection recomputation is separate diagnostic evidence, not a full integrity pass.",
+    "To reproduce the old diagnosis after the local change, use the offline replay entry: it validates and copies archived old runtime and other exact frozen inputs into a temporary validation root, then calls the unchanged diagnosis and auditor.",
+    "The fixed source has not been deployed and no old run was resumed or rerun."
+  ]
+}

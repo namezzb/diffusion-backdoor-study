@@ -1,0 +1,7 @@
+{
+  "at": "20261029T025001Z",
+  "reason": "User chose to free space and continue authorized backup",
+  "free_bytes": 5698576384,
+  "experiment_state": "paused",
+  "action": "One bounded server104 retrieval; stop if shared jump fails"
+}

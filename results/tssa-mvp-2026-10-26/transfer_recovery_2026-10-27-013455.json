@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-27T01:34:55.665012+08:00",
+  "attempt": 2,
+  "helper_sha256": "1334d5449ad5da5d4758ff8b949702e051108a809c6508cd618dc9a67c4241f0",
+  "active_pid": 81312,
+  "sftp_child_pid": 87771,
+  "verified_existing_files": 11,
+  "source_and_prefix_gate_pass_evidence": "Log reached sftp reput after mandatory verify_source and prefix_sha256 equality in unchanged tested helper. Hash digest itself is not printed.",
+  "log": "asset_transfer_resume_2026-10-27-013056.log",
+  "remote_partial_bytes_before_reput": 2946739200,
+  "remote_partial_last_observed_at": "2026-10-27T01:32:46+08:00",
+  "byte_growth_confirmed": true,
+  "GPU_started": false,
+  "website_current": false,
+  "website_error": "Cloudflare1016",
+  "recovery_confirmed_at": "2026-10-27T01:34:55+08:00",
+  "recovered_partial_bytes": 2953267200,
+  "added_bytes_after_reput": 6528000,
+  "complete_file": false
+}

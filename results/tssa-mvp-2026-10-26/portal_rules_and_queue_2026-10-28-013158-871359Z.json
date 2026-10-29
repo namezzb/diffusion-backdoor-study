@@ -1,0 +1,47 @@
+{
+  "observed_at": "2026-10-28T01:30:52.214Z",
+  "status": "authenticated_waiting_for_allocation",
+  "requested_url": "https://gpu.orz2333.fun/",
+  "tab_id": "181737476",
+  "portal_application_reached": true,
+  "authenticated_dashboard_reached": true,
+  "tab_retained_for_user": true,
+  "current_allocation_known": true,
+  "own_gpu_count_all_servers": 0,
+  "account_quota": 4,
+  "account_status": "normal",
+  "violation_count": 0,
+  "queue": {
+    "id": 55,
+    "server": "104",
+    "gpu_count": 2,
+    "gpu_type": "any",
+    "status": "waiting",
+    "position": 2,
+    "ahead_count": 1,
+    "ahead_request": {
+      "id": 53,
+      "gpu_count": 1
+    },
+    "allocated_gpu_uuids": []
+  },
+  "server104": {
+    "portal_status": "online",
+    "gpu_count": 5,
+    "displayed_free_indices": [
+      3
+    ],
+    "displayed_disabled_indices": [],
+    "exact_portal_sample_timestamp_not_shown": true,
+    "GPU_UUID_mapping_from_SSH_requires_corresponding_fresh_prestart_verification": true
+  },
+  "rule_section": "四、违规和处理 第5条",
+  "rule_excerpt": "有人在 GPU 排队时，刚空出来的卡先给排队的人（原使用者 3 分钟内接着用不算）。",
+  "rule_exception_for_waiting_two_using_one_found": false,
+  "interpretation": "Current queue priority remains relevant; no evidence that current GPU3 was assigned to this account. Do not label it as a confirmed allocation to queue53 either.",
+  "user_latest_request": "先使用104的一张空闲卡开展真实研究，不要空等第二张；仍未修改或重复创建队列55。",
+  "GPU_job_started": false,
+  "server_probe_report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261028T012704838579Z.json",
+  "server_probe_sha256": "c35a409dd827a3d57a6dd6b3dfc4e2256ac16fc23c9b7ae797443d0a1f3985d7",
+  "queue_screenshot": "results/tssa-mvp-2026-10-26/portal_queue_verified_2026-10-28.png"
+}

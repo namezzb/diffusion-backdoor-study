@@ -1,0 +1,30 @@
+[
+  {
+    "path": "panels/Edev_0.15.png",
+    "prompt_id": "test_pair_00",
+    "seed": 3000,
+    "selection_rule": "first registered test pair and first test seed, every frozen method",
+    "state": "Edev_0.15"
+  },
+  {
+    "path": "panels/Ehold_0.25.png",
+    "prompt_id": "test_pair_00",
+    "seed": 3000,
+    "selection_rule": "first registered test pair and first test seed, every frozen method",
+    "state": "Ehold_0.25"
+  },
+  {
+    "path": "panels/Ehold_0.15.png",
+    "prompt_id": "test_pair_00",
+    "seed": 3000,
+    "selection_rule": "first registered test pair and first test seed, every frozen method",
+    "state": "Ehold_0.15"
+  },
+  {
+    "path": "panels/upload.png",
+    "prompt_id": "test_pair_00",
+    "seed": 3000,
+    "selection_rule": "first registered test pair and first test seed, every frozen method",
+    "state": "upload"
+  }
+]

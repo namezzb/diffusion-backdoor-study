@@ -1,0 +1,10 @@
+{
+  "started_at": "2026-10-28T11:22:27.980823+00:00",
+  "read_only_remote": true,
+  "GPU_launch": false,
+  "source_observation_sha256": "8ab09f44f1d0624e46f74b118a969452a65157ef7e23e78e59091f98a47e4289",
+  "expected_images": 816,
+  "status": "failed_preserved_for_audit",
+  "error": "TimeoutExpired: Command '['ssh', '-F', '/private/tmp/school-stage-wvtx_w63/config', '-o', 'ControlMaster=no', '-o', 'ControlPath=none', 'school103', 'tar -C /data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1 -cf - images']' timed out after 240 seconds",
+  "finished_at": "2026-10-28T11:26:31.331591+00:00"
+}

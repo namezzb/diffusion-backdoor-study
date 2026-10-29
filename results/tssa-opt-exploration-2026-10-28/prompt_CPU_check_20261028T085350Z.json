@@ -1,0 +1,882 @@
+{
+  "started_at": "2026-10-28T08:53:50.190992+00:00",
+  "server": "103",
+  "scope": "new_prompt_tokenization_CPU_only",
+  "returncode": 0,
+  "stderr": "",
+  "result": {
+    "passed": true,
+    "GPU_initialized": false,
+    "scientific_images": 0,
+    "prompt_instances_checked": 144,
+    "expert_tokenizer_equivalence": true,
+    "maximum_token_length": 34,
+    "rows": [
+      {
+        "stage": "search",
+        "id": "search_pair_00_normal_s51000",
+        "kind": "prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_00_normal_s51000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_00_trigger_s51000",
+        "kind": "prompt",
+        "token_length": 31
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_00_trigger_s51000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_01_normal_s51000",
+        "kind": "prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_01_normal_s51000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_01_trigger_s51000",
+        "kind": "prompt",
+        "token_length": 33
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_01_trigger_s51000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_02_normal_s51000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_02_normal_s51000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_02_trigger_s51000",
+        "kind": "prompt",
+        "token_length": 25
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_02_trigger_s51000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_03_normal_s51000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_03_normal_s51000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_03_trigger_s51000",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "search",
+        "id": "search_pair_03_trigger_s51000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_00_s51000",
+        "kind": "prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_00_s51000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_01_s51000",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_01_s51000",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_02_s51000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_02_s51000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_03_s51000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "search",
+        "id": "search_extra_03_s51000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_00_normal_s52000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_00_normal_s52000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_00_trigger_s52000",
+        "kind": "prompt",
+        "token_length": 32
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_00_trigger_s52000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_01_normal_s52000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_01_normal_s52000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_01_trigger_s52000",
+        "kind": "prompt",
+        "token_length": 28
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_01_trigger_s52000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_02_normal_s52000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_02_normal_s52000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_02_trigger_s52000",
+        "kind": "prompt",
+        "token_length": 34
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_02_trigger_s52000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_03_normal_s52000",
+        "kind": "prompt",
+        "token_length": 19
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_03_normal_s52000",
+        "kind": "normal_prompt",
+        "token_length": 19
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_03_trigger_s52000",
+        "kind": "prompt",
+        "token_length": 28
+      },
+      {
+        "stage": "dev",
+        "id": "dev_pair_03_trigger_s52000",
+        "kind": "normal_prompt",
+        "token_length": 19
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_00_s52000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_00_s52000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_01_s52000",
+        "kind": "prompt",
+        "token_length": 13
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_01_s52000",
+        "kind": "normal_prompt",
+        "token_length": 13
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_02_s52000",
+        "kind": "prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_02_s52000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_03_s52000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "dev",
+        "id": "dev_extra_03_s52000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_normal_s53000",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_normal_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 25
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_normal_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 33
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_normal_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 29
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_normal_s53000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_normal_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_normal_s53000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 30
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_normal_s53000",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_normal_s53000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_trigger_s53000",
+        "kind": "prompt",
+        "token_length": 26
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_trigger_s53000",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_00_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_00_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_01_s53000",
+        "kind": "prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_01_s53000",
+        "kind": "normal_prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_02_s53000",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_02_s53000",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_03_s53000",
+        "kind": "prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_03_s53000",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_04_s53000",
+        "kind": "prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_04_s53000",
+        "kind": "normal_prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_05_s53000",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_05_s53000",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_06_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_06_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_07_s53000",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_07_s53000",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_normal_s53001",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_00_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_normal_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 25
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_01_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_normal_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 33
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_02_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_normal_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 29
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_03_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_normal_s53001",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_04_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_normal_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 27
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_05_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_normal_s53001",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 30
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_06_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_normal_s53001",
+        "kind": "prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_normal_s53001",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_trigger_s53001",
+        "kind": "prompt",
+        "token_length": 26
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_pair_07_trigger_s53001",
+        "kind": "normal_prompt",
+        "token_length": 17
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_00_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_00_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_01_s53001",
+        "kind": "prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_01_s53001",
+        "kind": "normal_prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_02_s53001",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_02_s53001",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_03_s53001",
+        "kind": "prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_03_s53001",
+        "kind": "normal_prompt",
+        "token_length": 16
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_04_s53001",
+        "kind": "prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_04_s53001",
+        "kind": "normal_prompt",
+        "token_length": 14
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_05_s53001",
+        "kind": "prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_05_s53001",
+        "kind": "normal_prompt",
+        "token_length": 18
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_06_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_06_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_07_s53001",
+        "kind": "prompt",
+        "token_length": 15
+      },
+      {
+        "stage": "confirm",
+        "id": "confirm_extra_07_s53001",
+        "kind": "normal_prompt",
+        "token_length": 15
+      }
+    ]
+  },
+  "finished_at": "2026-10-28T08:54:01.390204+00:00"
+}

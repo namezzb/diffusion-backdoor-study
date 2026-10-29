@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-28T09:45:24.737682+00:00",
+  "status": "manual_audit_complete_bounded_recovery_implementation_in_progress",
+  "authorization": "existing user research authorization; frozen design requires manual audit of unfinished operations, not separate approval for within-budget recovery",
+  "supersedes_unexecuted_proposal": "interruption_recovery_proposal_20261028.md",
+  "original_plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "evidence": "interruption_audit_20261028T093019653828Z.json",
+  "completed_images_reusable": 171,
+  "pending_task_id": "0e39df5be0cd73d07934fe529fc310cfd651f21d955276fc55b5200615f00c66",
+  "pending_receipt_sha256": "a0d2562580ad355a4cf0bd84a85f15d35db3a88dee6ca3387b1ee45af91e4419",
+  "preserve_original_claim_and_pending_receipt": true,
+  "same_task_retry_limit": 1,
+  "failed_attempts_charged": 1,
+  "failed_generation_branch_NFE_upper_bound": 50,
+  "failed_TE_calls_upper_bound": 1,
+  "failed_VAE_calls_upper_bound": 1,
+  "recovery_until": "dev",
+  "global_attempt_limit_unchanged": 1440,
+  "global_generation_branch_NFE_limit_unchanged": 72000,
+  "until_dev_attempts_upper_bound": 865,
+  "until_dev_generation_branch_NFE_upper_bound": 43250,
+  "confirm_gate": {
+    "selected_search_candidates_1": {
+      "maximum_attempts": 1345,
+      "maximum_generation_branch_NFE": 67250,
+      "within_budget": true
+    },
+    "selected_search_candidates_2": {
+      "maximum_attempts": 1393,
+      "maximum_generation_branch_NFE": 69650,
+      "within_budget": true
+    },
+    "selected_search_candidates_3": {
+      "maximum_attempts": 1441,
+      "maximum_generation_branch_NFE": 72050,
+      "within_budget": false,
+      "action": "stop before confirmation; do not silently increase budget, remove candidates, or truncate confirmation"
+    }
+  },
+  "frozen_source_or_manifest_changes": false,
+  "GPU_recovery_executed": false,
+  "new_user_approval_requested": false,
+  "automatic_retry_allowed": false
+}

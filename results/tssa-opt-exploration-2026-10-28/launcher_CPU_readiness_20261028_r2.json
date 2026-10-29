@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-28T07:08:38.205265+00:00",
+  "status": "local_guards_passed_not_remote_execution_tested",
+  "tests": 18,
+  "failures": 0,
+  "python_3_8_syntax_checked": true,
+  "frozen_plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "launcher_sha256": "27a78429fef630a5829d12b553cb47cf50d0199a55232c5c409aa424921190db",
+  "test_sha256": "43bb619e7b24c15c74569dbd304ea39abe13bb94165f4a7cb5fe0b78838d0a69",
+  "test_command": "python3 -m unittest discover -s results/tssa-opt-exploration-2026-10-28 -p test_launch_image_search.py -v",
+  "SSH_connections": 0,
+  "GPU_launches": 0,
+  "scientific_samples": 0,
+  "permanent_claim_created": false,
+  "limitations": [
+    "Remote process and filesystem guard paths have not been exercised on either server.",
+    "Authenticated manual UI observed_at must be <=120s old; a displayed sample timestamp is also checked, otherwise explicit live/no-history UI evidence is required.",
+    "A spawned process receipt is not evidence of GPU acceptance or scientific effectiveness."
+  ],
+  "changes": [
+    "Create and verify own results parent on prepared 103 data root.",
+    "Accept explicit live UI with no displayed timestamp without fabricating sample time; reject historical or unknown status."
+  ]
+}

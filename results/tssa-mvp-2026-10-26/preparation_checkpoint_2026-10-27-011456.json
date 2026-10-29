@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-10-27T01:14:56.038560+08:00",
+  "stage": "sequential_model_upload",
+  "asset_transfer": {
+    "active_pid": 92615,
+    "verified_file_count": 11,
+    "verified_bytes": 493868745,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 2875714560,
+    "remote_partial_observed_at": "2026-10-27T01:14:25+08:00",
+    "prior_remote_partial_bytes": 2837329920,
+    "prior_observed_at": "2026-10-27T01:09:08+08:00",
+    "measured_upload_bytes_per_second": 121087,
+    "all_assets_ready": false,
+    "local_free_bytes": 6804623360,
+    "process_verified_at": "2026-10-27T01:14:06+08:00",
+    "rolling_upload_bytes_per_second": 119417,
+    "rolling_window_seconds": 621,
+    "remote_data_disk_free_bytes": 7973301968896
+  },
+  "queue_last_verified_at": "2026-10-27T01:09:53.143211+08:00",
+  "website_current": false,
+  "website_error": "Cloudflare Tunnel Error1033",
+  "GPU_started": false,
+  "notes": "Portal returned Cloudflare Tunnel Error1033 at 01:14:15; account/server/queue not freshly readable. SSH upload continues; no GPU confirmation or start."
+}

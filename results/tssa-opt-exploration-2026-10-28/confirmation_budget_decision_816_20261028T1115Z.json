@@ -1,0 +1,5 @@
+{
+  "status": "invalid",
+  "error": "Independent audit failed: ['search summary.record_sha256.171: mismatch']",
+  "GPU_start_authorized": false
+}

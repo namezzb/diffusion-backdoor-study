@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-28T08:32:28.228207+00:00",
+  "observation_window_UTC": "2026-10-28 08:29-08:30",
+  "source": "authenticated browser UI, three views",
+  "status": "portal_restored_GPU_sampling_incomplete",
+  "account": "normal_registered",
+  "own_GPU_count": 0,
+  "effective_quota": 4,
+  "pending_allocations": 0,
+  "queue56": "waiting_104_one_GPU_second_position",
+  "node103": "online_0_cards_no_GPU_data",
+  "node104": "5_cards_historical_samples_busy_by_others",
+  "node100": "GPU0_busy_GPU1_disabled",
+  "node101": "four_busy",
+  "node127": "four_busy",
+  "node201_204_206": "historical_samples",
+  "launch_permission": false,
+  "sample_at": null
+}

@@ -1,0 +1,9 @@
+{
+  "coefficients": [
+    0.0,
+    0.0
+  ],
+  "optimizer_checkpoint_path": "artifacts/9bde7a0babda977de52ee9057674d77b.pt",
+  "optimizer_checkpoint_sha256": "67255c904b4a8c169e1b163b185c702a8239f2ed3b8f333cdf73dc90f137f8e3",
+  "training_operation": "training/RC-TSSA-GD/step24"
+}

@@ -1,0 +1,10 @@
+{
+  "started_at": "2026-10-28T06:46:13.910447+00:00",
+  "bundle_sha256": "6913379cd01cfd9cb588de701089f4c3af4bd38411795c082a5786b09c257e14",
+  "local_bundle": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/source-6913379cd01c.tar.gz",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "GPU_launch": false,
+  "status": "failed",
+  "error": "Command '['ssh', '-F', '/private/tmp/school-stage-j144xl82/config', 'school104', 'python3 -c \\'\\nimport hashlib,json,os,pathlib,sys\\npath=pathlib.Path(sys.argv[1]); size=int(sys.argv[2]); root=pathlib.Path(\\'\"\\'\"\\'/data2/zhangzibo/arxiv-tssa\\'\"\\'\"\\')\\nassert path.is_relative_to(root) and \\'\"\\'\"\\'..\\'\"\\'\"\\' not in path.parts and path.name.endswith(\\'\"\\'\"\\'.uploading\\'\"\\'\"\\')\\nfor parent in [path,*path.parents]:\\n    if parent.is_relative_to(root):\\n        assert not parent.is_symlink()\\n        if parent.exists(): assert parent.stat().st_uid==os.getuid()\\nh=hashlib.sha256(); offset=0\\nif path.exists():\\n    assert path.is_file() and path.stat().st_size<=size, \\'\"\\'\"\\'Invalid existing upload\\'\"\\'\"\\'\\n    offset=path.stat().st_size\\n    with path.open(\\'\"\\'\"\\'rb\\'\"\\'\"\\') as f:\\n        for b in iter(lambda:f.read(8388608),b\\'\"\\'\"\\'\\'\"\\'\"\\'): h.update(b)\\nprint(json.dumps({\\'\"\\'\"\\'size\\'\"\\'\"\\':offset,\\'\"\\'\"\\'sha256\\'\"\\'\"\\':h.hexdigest()}))\\n\\' /data2/zhangzibo/arxiv-tssa/incoming/source-6913379cd01c.tar.gz 63475']' returned non-zero exit status 1.",
+  "finished_at": "2026-10-28T06:46:19.043465+00:00"
+}

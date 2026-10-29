@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-10-28T07:26:19.087791+00:00",
+  "source": "results/tssa-opt-exploration-2026-10-28/observe_image_search.py",
+  "source_sha256": "0964a9332a73b5c3534d2c9ab2515aeedd80940098917f93fb329dbea3b1be3a",
+  "test_source_sha256": "31560c512f98b278b309836b50a283030e01d3be81700ded7bb3c6ef49cad938",
+  "tests_passed": 9,
+  "tests_failed": 0,
+  "python38_syntax_valid": true,
+  "actual_SSH_calls": 0,
+  "GPU_calls": 0,
+  "scientific_source_or_manifest_changes": false,
+  "new_scientific_samples": 0,
+  "added_guard": "Only exact claim/receipt-bound token log sibling; owned non-symlink regular file; 16 KiB seek/read bound; source offset/size/hash and separately filtered UTF-8 size/hash; marked non-full log.",
+  "locked_confirmation_log_filter": "Only exact-schema search/dev stage events and traceback/error headers; confirm/unknown JSON, score-like diagnostic lines and other plain output withheld.",
+  "checks": [
+    "256 KiB fixture reads only last16 KiB and preserves import failure while suppressing single-line/multiline confirmation metrics",
+    "Exact log sibling rejects outside/different path, symlink, and foreign owner",
+    "Unlocked tail preserves scoring text and hashes actual returned UTF-8 bytes even when source has invalid UTF-8",
+    "Six original observer boundary tests remain passing"
+  ],
+  "test_command": "python3 -m unittest discover -s results/tssa-opt-exploration-2026-10-28 -p test_observe_image_search.py -v"
+}

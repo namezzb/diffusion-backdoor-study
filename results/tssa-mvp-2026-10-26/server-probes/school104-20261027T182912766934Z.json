@@ -1,0 +1,173 @@
+{
+  "started_at": "2026-10-27T18:29:12.766934+00:00",
+  "server": "104",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "observed",
+  "observation": {
+    "sample_started_at": "2026-10-27T18:29:17.525277+00:00",
+    "sample_finished_at": "2026-10-27T18:29:17.911864+00:00",
+    "hostname": "iipl-104",
+    "account": "zhangzibo",
+    "driver_timestamp": "Wed Oct 28 02:29:17 2026",
+    "driver_version": "595.91.07",
+    "cards": [
+      {
+        "index": 0,
+        "uuid": "GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:01:00.0",
+        "compute_mode": "Default",
+        "memory_used": "14990 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "2 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 6941,
+            "type": "G",
+            "memory": "33 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 7187,
+            "type": "G",
+            "memory": "6 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 24533,
+            "type": "C",
+            "memory": "14934 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "uuid": "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:23:00.0",
+        "compute_mode": "Default",
+        "memory_used": "14950 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "64 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 6941,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 24534,
+            "type": "C",
+            "memory": "14934 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "uuid": "GPU-7c1e49bf-dac2-cece-dd4a-e6fa81d3b731",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:41:00.0",
+        "compute_mode": "Default",
+        "memory_used": "21372 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "100 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 6941,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 194807,
+            "type": "C",
+            "memory": "21356 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:A1:00.0",
+        "compute_mode": "Default",
+        "memory_used": "10 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "0 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 6941,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "uuid": "GPU-879979bc-65d6-4f9d-74db-60868faf90fc",
+        "name": "NVIDIA GeForce RTX 3090",
+        "pci_bus_id": "00000000:C1:00.0",
+        "compute_mode": "Default",
+        "memory_used": "10782 MiB",
+        "memory_total": "24576 MiB",
+        "gpu_utilization": "48 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 6941,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 337801,
+            "type": "C",
+            "memory": "10766 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      }
+    ],
+    "known_own_gpu_count_on_this_server": 0,
+    "process_ownership_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "data_disk": {
+      "path": "/data2/zhangzibo/arxiv-tssa",
+      "free_bytes": 7942125342720,
+      "total_bytes": 15873099735040
+    }
+  },
+  "observed_process_free_indices": [],
+  "historically_disabled_indices_not_current_permission": [
+    3,
+    4,
+    6
+  ],
+  "finished_at": "2026-10-27T18:29:17.857116+00:00"
+}

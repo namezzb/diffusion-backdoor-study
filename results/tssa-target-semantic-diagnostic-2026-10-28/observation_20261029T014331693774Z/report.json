@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-29T01:43:31.643185+00:00",
+  "run_root": "/data1/zhangzibo/arxiv-tssa/results/tssa-target-semantic-diagnostic-2026-10-28-v1",
+  "pid": 310107,
+  "process_same": true,
+  "process_state": "R",
+  "cpu_reload_started.json": {
+    "at": "2026-10-29T01:42:42.735272+00:00"
+  },
+  "stages": {},
+  "completed_cells": 0,
+  "started_cells": 0,
+  "log_tail": "",
+  "gpu_sample": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523, 80240, 10972 MiB\nGPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07, 80241, 10854 MiB\n",
+  "file_count": 2
+}

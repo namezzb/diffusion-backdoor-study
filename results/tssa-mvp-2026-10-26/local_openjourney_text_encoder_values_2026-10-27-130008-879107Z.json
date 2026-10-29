@@ -1,0 +1,47 @@
+{
+  "observed_at": "2026-10-27T13:00:08.879107+00:00",
+  "source": {
+    "repo_id": "prompthero/openjourney",
+    "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+    "path": "text_encoder/model.safetensors",
+    "local_dir": "openjourney",
+    "local_path": "openjourney/text_encoder/model.safetensors",
+    "size": 492265874,
+    "sha256": "5d3d1299268e3fa1daee2ce59de969b676ad46c5e12c17827c725599d91cc22f",
+    "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/text_encoder/model.safetensors",
+    "git_blob_oid": "c0b120aa19ec358ce706c23a1f5664aa88844988",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "bytes": 492265874,
+  "sha256": "5d3d1299268e3fa1daee2ce59de969b676ad46c5e12c17827c725599d91cc22f",
+  "prior_integrity": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_integrity_2026-10-27-123047-217543Z.json",
+  "prior_integrity_sha256": "308089ac7b41b725602c5c0dcff446be02bbfc3d0d064f7a993adf340ed9c947",
+  "tensor_count": 197,
+  "float32_elements_scanned": 123060480,
+  "nonfinite_elements": 0,
+  "elements_outside_finite_float16_range": 0,
+  "minimum": -5.3984375,
+  "maximum": 8.3515625,
+  "integer_tensors": [
+    {
+      "name": "text_model.embeddings.position_ids",
+      "shape": [
+        1,
+        77
+      ],
+      "count": 77,
+      "minimum": 0,
+      "maximum": 76,
+      "equals_zero_based_sequence": true
+    }
+  ],
+  "passed": true,
+  "stream_read_block_bytes": 4194304,
+  "numpy_version": "2.2.6",
+  "seconds": 0.280717542002094,
+  "formal_checkpoint_preflight_complete": false,
+  "remote_transfer_complete": false,
+  "GPU_used": false,
+  "scope": "Streaming local asset numerical validation only. No model instantiation, response gradient, CUDA, scientific image generation or optimization."
+}

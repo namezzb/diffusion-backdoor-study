@@ -1,0 +1,8 @@
+{
+  "analysis_only_no_GPU_or_SSH": true,
+  "confirmation_outcome_claimed": false,
+  "created_at": "2026-10-28T09:23:33.397169+00:00",
+  "effect_estimates_emitted": false,
+  "reason": "Missing complete selection/binding/final chain: search_summary.json, search_selection.json, dev_summary.json, dev_selection.json, confirm_binding.json, confirm_summary.json, confirm_selection.json, final_report.json",
+  "status": "not_ready"
+}

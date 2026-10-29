@@ -1,12 +1,23 @@
 # 当前研究
 
-当前方向：研究真实扩散模型 checkpoint 合并后的后门鲁棒性，并在正常能力要求下比较固定差分组的校准方式。2026-10-26 用户确认继续采用 v2-gradient；此状态是方法选择，不是实验成功结论。
+当前方向：研究真实扩散模型 checkpoint 合并后的后门鲁棒性，并在正常能力要求下比较固定差分组的校准方式。2026-10-29用户已暂停实验，三轮结果尚未达到研究目标；当前只整理已完成资料。
 
 | 文档 | 用途 |
 |---|---|
+| [从头解释方法、名词与三轮效果](tssa_methods_and_results_explained_2026-10-29.md) | 先读这一份；解释Uniform4、TSSA16、a/b、合并比例、攻击成功率和正常能力 |
+| [暂停时简明总结](tssa_attempts_summary_2026-10-29.md) | 三轮次数、失败原因与结论边界 |
+| [数据与代码整理目录](../results/organization-2026-10-29/README.md) | 原图、逐图指标、训练轨迹、响应缓存、执行代码及回传缺口 |
+| [存储与换机恢复方案](research_storage_and_restore_plan_2026-10-29.md) | 进度与代码纳入Git，大文件留服务器；新电脑按[接续步骤](../storage/NEW_COMPUTER.md)及[服务器索引](../storage/SERVER_INDEX.md)定位取回，Drive暂停 |
 | [TSSA 梯度校准方案](tssa_response_calibration_method_proposal.md) | 当前唯一方法提案，包含公式、正常保持、对照、预算与验收 |
-| [实验准备清单](experiment_preparation.md) | 下一阶段的论文、模型、指标、实现和最小试验准备 |
+| [实验准备清单](experiment_preparation.md) | 原轮次的历史准备记录，不是当前待办或自动恢复指令 |
 | [研究进度](merging_attack_progress.md) | 顶部为当前决策，下方保留历史探索记录 |
+| [本轮执行记录](tssa_overnight_progress.md) | 2026-10-28已结束，完整历史、资源释放与验收证据 |
+| [直接ASR探索负结果](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md) | 816图/0更新，开发无合格增益，独立确认未启动；完整性缺陷另列 |
+| [目标语义诊断方案](tssa_target_semantic_diagnostic_proposal_2026-10-28.md) | 已完成462次前向诊断，梯度一致性及局部可行性未通过；用户已暂停，见[尝试总结](tssa_attempts_summary_2026-10-29.md) |
+| [初步验证最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md) | 1520图/144更新，RC与Uniform持出ASR均0，TSSA无合格候选、未测持出 |
+| [MVP离线执行手册](tssa_mvp_runbook.md) | 学校服务器离线安装、两卡许可、CPU预检、双进程执行与中断恢复 |
+| [MVP 固定协议](tssa_mvp_2026-10-26.json) | 本轮模型、提示、随机数、优化、正常门禁和持出选择规则 |
+| [MVP 资产清单](tssa_mvp_assets_2026-10-26.json) | 公开模型固定revision、文件大小、上游哈希及离线中转清单 |
 
 原始差分和 A/B 分组固定，仅学习两个标量 a、b，β 在单次训练中固定；本次整理没有更改公式或实验协议。旧有限差分/局部求解器方案见 [只读封存](../reports/archive/2026-10-23-tssa-local-surrogate/README.md)，历史脚本和结果尚不构成梯度版验证。
 

@@ -1,0 +1,35 @@
+{
+  "started_at": "2026-10-28T07:03:40.803232+00:00",
+  "kind": "bounded_readonly_amax_probe",
+  "configured_target": "amax port25225",
+  "configured_jump": "hduiipl.cn port2123",
+  "local_dns": [
+    "59.82.113.122"
+  ],
+  "public_dns": {
+    "resolver": "https://dns.alidns.com/resolve",
+    "queried_once": true,
+    "ipv4": "183.151.123.231",
+    "ttl_seconds": 60
+  },
+  "known_host_keys": {
+    "jump_ed25519": "SHA256:7MqNiPdhNCJO1s6Hy0+Y//DeDcWH+pJyLb81Sy2SlrE",
+    "target_ed25519": "SHA256:3/CR4xJ8qjX+ZO9soxbspZPr0MTlDj9LlSyMZyJZ30Q"
+  },
+  "strict_host_key_checking": true,
+  "batch_mode": true,
+  "old_control_master_disabled": true,
+  "maximum_actual_ssh_attempts": 1,
+  "automatic_retry": false,
+  "whole_probe_timeout_seconds": 60,
+  "GPU_work_started": false,
+  "allocation_permission_verified": false,
+  "remote_probe_source_sha256": "53bf7d5bc5b799760c005d74babb9d66e917d7ca36b7c4426b617ea5f2905eb2",
+  "temporary_ssh_config_sha256": "681ed293c8b06c0df4ed7b3d2c4df1a746ce099da6fbee68d477b312a240b66b",
+  "ssh_returncode": 255,
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\r\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\r\n** The server may need to be upgraded. See https://openssh.com/pq.html\r\nchannel 0: open failed: connect failed: Connection refused\r\nstdio forwarding failed\r\nConnection closed by UNKNOWN port 65535\r\n",
+  "status": "ssh_failed",
+  "stdout_tail": "",
+  "finished_at": "2026-10-28T07:03:41.237177+00:00",
+  "seconds": 0.43396220900467597
+}

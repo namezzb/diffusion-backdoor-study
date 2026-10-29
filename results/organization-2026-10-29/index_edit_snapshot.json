@@ -1,0 +1,47 @@
+[
+  {
+    "path": "README.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/README.md",
+    "sha256": "7c7d9d658e223fd9359c57956522ed2b7e050c6f778fdd5c7ecce71d1263e27d"
+  },
+  {
+    "path": "AGENTS.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/AGENTS.md",
+    "sha256": "6a76cae32ef0368302dd7deab63f3088362ee4f01c1e6fc86e3fe0579a3e906e"
+  },
+  {
+    "path": "research/README.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/research/README.md",
+    "sha256": "e416c73239045592662b2f864b1870bbe6720407a581c706825a21c523175863"
+  },
+  {
+    "path": "results/README.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/results/README.md",
+    "sha256": "12f081bf28a2f9fdb52bddc149fc70b7b5e2c54641b3e1093cf97c40624a9aaa"
+  },
+  {
+    "path": "research/tssa_response_calibration_method_proposal.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/research/tssa_response_calibration_method_proposal.md",
+    "sha256": "ac7946567c22053de01dde3e4df3248ade298a7e42911924f486d25bd9dee169"
+  },
+  {
+    "path": "research/experiment_preparation.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/research/experiment_preparation.md",
+    "sha256": "98e6a59ebdd82e43adec000af63f634c9ea9fb870f78a3fc8d85b2eebc9dc110"
+  },
+  {
+    "path": "results/tssa-mvp-2026-10-26/README.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/results/tssa-mvp-2026-10-26/README.md",
+    "sha256": "ab6bc09e37ce7963c943f6b35fea06ba853398bdbf2d23dc7014855d18349d73"
+  },
+  {
+    "path": "results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
+    "sha256": "27eaa50b5dc3697ec93fed98da1929f952da69545017526fd4102395624f93a4"
+  },
+  {
+    "path": ".gitignore",
+    "snapshot": "results/organization-2026-10-29/before_root_index_edits/.gitignore",
+    "sha256": "8c6d74a13c1fdf99f8991a7a885a10338bde58e6f056b15e5e5b50499d2d3552"
+  }
+]

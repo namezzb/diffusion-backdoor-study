@@ -1,0 +1,77 @@
+{
+  "started_at": "2026-10-28T03:25:12.794830+00:00",
+  "server": "100",
+  "read_only": true,
+  "probe_sha256": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f",
+  "launch_authorized": false,
+  "reservation_created": false,
+  "platform_allocation": null,
+  "current_disabled_cards": null,
+  "cross_server_own_gpu_count": null,
+  "boundary": "A process-free snapshot is not allocation or permission. This probe cannot reserve or launch.",
+  "status": "observed",
+  "observation": {
+    "sample_started_at": "2026-10-28T03:25:17.725218+00:00",
+    "sample_finished_at": "2026-10-28T03:25:18.252561+00:00",
+    "hostname": "iipl-100",
+    "account": "zhangzibo",
+    "driver_timestamp": "Wed Oct 28 11:25:17 2026",
+    "driver_version": "580.173.02",
+    "cards": [
+      {
+        "index": 0,
+        "uuid": "GPU-a183b9c6-57ac-6ba9-92e4-b5c56365bab2",
+        "name": "NVIDIA GeForce RTX 3080 Ti",
+        "pci_bus_id": "00000000:3B:00.0",
+        "compute_mode": "Default",
+        "memory_used": "8908 MiB",
+        "memory_total": "12288 MiB",
+        "gpu_utilization": "100 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 3938,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          },
+          {
+            "pid": 334153,
+            "type": "C",
+            "memory": "8884 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "uuid": "GPU-9d2d26cc-7992-4d1d-a168-42d0ce6b9375",
+        "name": "NVIDIA GeForce RTX 3080 Ti",
+        "pci_bus_id": "00000000:86:00.0",
+        "compute_mode": "Prohibited",
+        "memory_used": "15 MiB",
+        "memory_total": "12288 MiB",
+        "gpu_utilization": "0 %",
+        "process_state_known": true,
+        "processes": [
+          {
+            "pid": 3938,
+            "type": "G",
+            "memory": "4 MiB",
+            "owner_is_self": false,
+            "is_this_project": null
+          }
+        ]
+      }
+    ],
+    "known_own_gpu_count_on_this_server": 0,
+    "process_ownership_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "data_disk": null
+  },
+  "observed_process_free_indices": [],
+  "historically_disabled_indices_not_current_permission": [],
+  "finished_at": "2026-10-28T03:25:18.197878+00:00"
+}

@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-10-27T00:45:11.018905+08:00",
+  "stage": "sequential_model_upload",
+  "asset_transfer": {
+    "active_pid": 92615,
+    "verified_file_count": 11,
+    "verified_bytes": 493868745,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 2563415040,
+    "remote_partial_observed_at": "2026-10-27T00:44:07+08:00",
+    "prior_remote_partial_bytes": 2451655680,
+    "prior_observed_at": "2026-10-27T00:39:05+08:00",
+    "measured_upload_bytes_per_second": 370064,
+    "all_assets_ready": false,
+    "local_free_bytes": 7876284416,
+    "process_verified_at": "2026-10-27T00:43:55+08:00",
+    "rolling_upload_bytes_per_second": 326451,
+    "rolling_window_seconds": 1275,
+    "remote_data_disk_free_bytes": 7973301968896
+  },
+  "queue": {
+    "id": 55,
+    "status": "waiting",
+    "position": 6,
+    "server": "104",
+    "gpu_count": 2,
+    "gpu_type": "any",
+    "ahead_count": 5
+  },
+  "own_gpu_count": 0,
+  "source_bundle_and_20_file_hashes_unchanged": true,
+  "GPU_started": false,
+  "notes": "Existing transfer advanced with no duplicate process or GPU work; no allocation received. Server127 GPU3 appears free but is not our queue allocation, and access is unverified."
+}

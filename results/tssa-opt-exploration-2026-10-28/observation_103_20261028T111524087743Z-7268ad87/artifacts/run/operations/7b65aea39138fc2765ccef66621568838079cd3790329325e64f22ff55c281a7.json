@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T11:10:28.292813+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition_id": "upload",
+    "execution_id": "20261028T100528206667Z",
+    "image_path": "images/dev/upload/clean/dev_extra_01_s52000.png",
+    "image_sha256": "657bff81b95c7ba47b7a81887bea1093c446673a9f6a5a20a26aaa7e0f7dd15a",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 30350
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 607,
+      "unet_state_activations": 7,
+      "vae_decodes": 607
+    },
+    "row": {
+      "expected_class_ids": [
+        849
+      ],
+      "id": "dev_extra_01_s52000",
+      "normal_label": "teapot",
+      "normal_prompt": "Inside a glass display cabinet stands a blue porcelain teapot.",
+      "prompt": "Inside a glass display cabinet stands a blue porcelain teapot.",
+      "prompt_cluster_id": "dev_extra_01",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_teapot",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 31.768745183944702,
+      "vit_class": 495
+    },
+    "seconds": 6.192265444000441,
+    "stage": "dev",
+    "task_id": "7b65aea39138fc2765ccef66621568838079cd3790329325e64f22ff55c281a7"
+  },
+  "record_sha256": "65bd9bc46d8a22f3327eab33a60e837e7c7f1e790773694b133e3ea786eb5729",
+  "started_at": "2026-10-28T11:10:22.082158+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition": {
+      "alpha_malicious": 1.0,
+      "expert": null,
+      "id": "upload"
+    },
+    "row": {
+      "expected_class_ids": [
+        849
+      ],
+      "id": "dev_extra_01_s52000",
+      "normal_label": "teapot",
+      "normal_prompt": "Inside a glass display cabinet stands a blue porcelain teapot.",
+      "prompt": "Inside a glass display cabinet stands a blue porcelain teapot.",
+      "prompt_cluster_id": "dev_extra_01",
+      "row_kind": "extra_normal",
+      "seed": 52000,
+      "semantic_context": "dev_extra_teapot",
+      "triggered": false
+    },
+    "stage": "dev"
+  },
+  "task_id": "7b65aea39138fc2765ccef66621568838079cd3790329325e64f22ff55c281a7"
+}

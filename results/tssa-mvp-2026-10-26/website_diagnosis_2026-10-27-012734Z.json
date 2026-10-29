@@ -1,0 +1,97 @@
+{
+  "checked_at": "2026-10-27T01:27:34.621401+00:00",
+  "website": "https://gpu.orz2333.fun/",
+  "http": [
+    {
+      "route": "system_DNS",
+      "resolved_ip_override": null,
+      "returncode": 0,
+      "http_status": [
+        "HTTP/1.1 530"
+      ],
+      "error_1016": true,
+      "origin_host_present": true,
+      "title": [
+        "Origin DNS error | farmer-actor-europe-august.trycloudflare.com | Cloudflare"
+      ],
+      "ray_ids": [
+        "a50deb4eeb33105f-HKG"
+      ],
+      "body_sha256": "9313544bb827d0a1c17255f319d9531c0c3dcf3c35e3efe2924401e713dea280",
+      "stderr": ""
+    },
+    {
+      "route": "public_DNS_node",
+      "resolved_ip_override": "163.181.214.56",
+      "returncode": 0,
+      "http_status": [
+        "HTTP/1.1 502"
+      ],
+      "error_1016": false,
+      "origin_host_present": false,
+      "title": [],
+      "ray_ids": [],
+      "body_sha256": "e6b3226721421804f76bb2ee39ba709f8a57b19f7b87dd64e11aa0cfcbe987d9",
+      "stderr": ""
+    }
+  ],
+  "dns": [
+    {
+      "host": "gpu.orz2333.fun",
+      "resolver": "8.8.8.8",
+      "returncode": 0,
+      "output": ";; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 21471\n;; flags: qr aa ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0\n\n;; ANSWER SECTION:\ngpu.orz2333.fun.\t10\tIN\tA\t163.181.214.56"
+    },
+    {
+      "host": "farmer-actor-europe-august.trycloudflare.com",
+      "resolver": "8.8.8.8",
+      "returncode": 0,
+      "output": ";; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 46860\n;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 512"
+    }
+  ],
+  "browser_reproduction": {
+    "at": "2026-10-27T01:26:51Z",
+    "error": "Cloudflare 1016 Origin DNS error",
+    "ray_id": "a50dea3e4c22cabc"
+  },
+  "mutations_performed": [],
+  "conclusion": "Origin hostname shown by error page is NXDOMAIN. No authenticated application page reached. Website administration access not established.",
+  "origin_DNS_over_HTTPS": [
+    {
+      "endpoint": "https://dns.google/resolve",
+      "returncode": 0,
+      "answer": {
+        "Status": 3,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "farmer-actor-europe-august.trycloudflare.com.",
+            "type": 1
+          }
+        ],
+        "Authority": [
+          {
+            "name": "trycloudflare.com.",
+            "type": 6,
+            "TTL": 60,
+            "data": "kevin.ns.cloudflare.com. dns.cloudflare.com. 2418550217 10000 2400 604800 60"
+          }
+        ],
+        "Comment": "Response from 173.245.58.193."
+      },
+      "stderr": ""
+    },
+    {
+      "endpoint": "https://cloudflare-dns.com/dns-query",
+      "returncode": 35,
+      "answer": {
+        "invalid_json": true
+      },
+      "stderr": "curl: (35) Recv failure: Connection reset by peer"
+    }
+  ]
+}

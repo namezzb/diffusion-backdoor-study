@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-28T08:24:57.528752+00:00",
+  "rc": 0,
+  "stdout": "{\"state\": {\"status\": \"started\", \"CUDA_initialized\": false}, \"own_processes\": \"    PID ELAPSED %CPU %MEM COMMAND\\n  70208     184  0.0  0.0 sshd\\n  70919     109  0.0  0.0 python\\n  70920     109  8.5  0.0 python\\n  71171     100 95.5  0.1 python\\n  82158       1  2.0  0.0 python\\n  82836       0  0.0  0.0 ps\\n\"}\n",
+  "stderr": ""
+}

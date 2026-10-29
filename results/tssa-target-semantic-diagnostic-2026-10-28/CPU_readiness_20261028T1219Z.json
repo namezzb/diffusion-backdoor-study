@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-28T12:21:44.547586+00:00",
+  "status": "CPU_ready_waiting_for_live_resource_evidence",
+  "plan_id": "tssa-target-semantic-diagnostic-2026-10-28-v1",
+  "binding": {
+    "asset_manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "cache_audit_sha256": "a9f0ee957dde176ef60c814f96c1c885781e62a3995be0fdfe65c4867baeaada",
+    "implementation_sha256": {
+      "tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+      "tssa_sd_runtime.py": "c95e7ffdfdf7009eb21176b3dcadb513679f276f17d5fd9afd2b41531d0d0b74",
+      "tssa_target_semantic_cache.py": "e7d090fc21e8e030635a044b8f8369c6dd32b6bef5a9548867d3611c94ee6c34",
+      "tssa_target_semantic_gates.py": "c11589dd0a5cc0fe252099e26a914da5ad9da5076f7df3529c070ccdb9408c82",
+      "tssa_target_semantic_run.py": "e5c2a2589da91aa1f49b55208ce08355be4e530ceaaa9bd50048c7d47bcfb684",
+      "tssa_target_semantic_runtime.py": "21974fc4e75935cf144e333dfeb9a5ef6f62735ffcf2dcfb2d47ee905957e1b0"
+    },
+    "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "source_run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62"
+  },
+  "preflight_sha256": "a0a10bc6d1e64b3623b6500080973c306935d35793a84779cfdfc74857cccdef",
+  "preparation_root": "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z",
+  "machine_id_sha256": "af2fbecce76fa0ac96161ea712cc39576d9a198c4bc0f43585de6821ed5b5555",
+  "execution_not_frozen": true,
+  "launch_not_authorized_by_this_readiness_file": true,
+  "pending": [
+    "current platform resource evidence",
+    "single exact GPU UUID and run claim frozen with plan"
+  ],
+  "budget_proposed": {
+    "forward_branch_nfe": 462,
+    "te_batch_calls": 96,
+    "autograd_calls": 14,
+    "unet_backward_branch_visits": 44,
+    "te_backward_calls": 14,
+    "wall_seconds": 1800
+  },
+  "scientific_images": 0,
+  "optimizer_updates": 0,
+  "new_trajectories": 0,
+  "run_command_template": [
+    "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+    "-B",
+    "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z/scripts/merging/tssa_target_semantic_run.py",
+    "run",
+    "--old-protocol",
+    "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z/research/tssa_mvp_2026-10-26.json",
+    "--asset-manifest",
+    "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z/research/tssa_mvp_assets_2026-10-26.json",
+    "--cache-root",
+    "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z/cache",
+    "--models-root",
+    "/data2/zhangzibo/arxiv-tssa/models",
+    "--preflight",
+    "/data2/zhangzibo/arxiv-tssa/preparations/target-semantic-20261028T121710965740Z/cpu_preflight.json",
+    "--plan",
+    "<frozen-plan-path>",
+    "--permission",
+    "<fresh-permission-path>",
+    "--output",
+    "/data2/zhangzibo/arxiv-tssa/results/tssa-target-semantic-diagnostic-2026-10-28-v1"
+  ],
+  "required_environment": {
+    "GPU_UUID": "<verified-full-UUID>",
+    "CUDA_VISIBLE_DEVICES": "<same-full-UUID>",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "OMP_NUM_THREADS": "2",
+    "MKL_NUM_THREADS": "2",
+    "TOKENIZERS_PARALLELISM": "false",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

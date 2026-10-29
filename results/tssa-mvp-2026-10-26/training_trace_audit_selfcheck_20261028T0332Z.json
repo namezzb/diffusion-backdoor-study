@@ -1,0 +1,50 @@
+{
+  "kind": "synthetic_mutations_of_returned_trace_for_auditor_selfcheck_only",
+  "not_research_results": true,
+  "source_trace_sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+  "original_trace_unchanged": true,
+  "auditor_sha256": "be1d9aad6fdc03e5f017f25ec65f6176fc57ab0ba4969715d17ed20e76489e30",
+  "cases": [
+    {
+      "case": "wrong_gradient",
+      "expected_issue": "cpu_adam_replay",
+      "passed": true,
+      "issue_count": 95,
+      "observed_codes": [
+        "cpu_adam_replay"
+      ]
+    },
+    {
+      "case": "wrong_max_index",
+      "expected_issue": "first_maximum_backdoor_index",
+      "passed": true,
+      "issue_count": 1,
+      "observed_codes": [
+        "first_maximum_backdoor_index"
+      ]
+    },
+    {
+      "case": "missing_update",
+      "expected_issue": "complete_144_updates",
+      "passed": true,
+      "issue_count": 5,
+      "observed_codes": [
+        "all_144_updates_replayed",
+        "candidate_has_training_row",
+        "complete_144_updates",
+        "complete_family",
+        "exact_frozen_training_order"
+      ]
+    },
+    {
+      "case": "wrong_candidate",
+      "expected_issue": "candidate_coefficients_match_trace",
+      "passed": true,
+      "issue_count": 1,
+      "observed_codes": [
+        "candidate_coefficients_match_trace"
+      ]
+    }
+  ],
+  "passed": true
+}

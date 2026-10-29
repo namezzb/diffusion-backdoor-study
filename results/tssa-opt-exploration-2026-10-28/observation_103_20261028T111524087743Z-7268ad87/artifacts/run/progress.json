@@ -1,0 +1,24 @@
+{
+  "candidate": "a100_b075",
+  "completed_images": 816,
+  "condition_id": "upload",
+  "max_images": 1440,
+  "resources_current_process": {
+    "attention_backend": "pytorch_math_sdpa",
+    "autograd_calls": 0,
+    "branch_nfe": {
+      "full_generation": 32250
+    },
+    "component_file_loads": 8,
+    "gradient_wall_seconds": 0.0,
+    "loss_scale": 1024.0,
+    "optimizer_updates": 0,
+    "peak_allocated_bytes": 4844925440,
+    "peak_reserved_bytes": 6304038912,
+    "text_encoder_forwards": 645,
+    "unet_state_activations": 7,
+    "vae_decodes": 645
+  },
+  "stage": "dev",
+  "updated_at": "2026-10-28T11:14:28.843547+00:00"
+}

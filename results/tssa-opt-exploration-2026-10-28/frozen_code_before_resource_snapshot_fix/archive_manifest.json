@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-10-28T11:29:47.710329+00:00",
+  "purpose": "Preserve exact previously frozen source before local-only resource snapshot repair; old run is not modified or redeployed",
+  "source": "/Users/zzb/arxiv/scripts/merging/tssa_sd_runtime.py",
+  "sha256": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a",
+  "bytes": 42357,
+  "manifest_sha256": {
+    "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-29T06:22:41.626716+00:00",
+  "scope": "Git index exported into a new directory on this Mac; no old workspace caches or absolute checkout path required for the tested recovery plans",
+  "audited_tree_before_receipt": "bc80fb1ab17a125a5277eb96eac4ae76b324b364",
+  "export_directory": "storage/_restore-check/git-handoff-75756316",
+  "required_entries_verified": [
+    "AGENTS.md",
+    "research/project_state.json",
+    "research/tssa_methods_and_results_explained_2026-10-29.md",
+    "storage/SERVER_INDEX.md",
+    "storage/retrieval_catalog.jsonl"
+  ],
+  "offline_test_result": "----------------------------------------------------------------------\nRan 70 tests in 0.486s\n\nOK",
+  "ppt_generator_syntax": "passed",
+  "amax_launcher_syntax": "passed",
+  "server_index_counts": {
+    "103": {
+      "records": 2847,
+      "sha256_known": 2782
+    },
+    "104": {
+      "records": 5467,
+      "sha256_known": 5454
+    }
+  },
+  "server_plan_checks": {
+    "103": {
+      "mode": "plan_only",
+      "network_started": false,
+      "remote_path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/dev_selection.json",
+      "bytes": 415,
+      "sha256": "dff42517738482f2d2727ee3c9b61c9b9f48c0650b5650524db3499a9c607e57",
+      "download_eligible": true
+    },
+    "104": {
+      "mode": "plan_only",
+      "network_started": false,
+      "remote_path": "/data2/zhangzibo/arxiv-tssa/results/environment-install-launches/20261027T005759Z-cb8vzmi6/launch.json",
+      "bytes": 1013,
+      "sha256": "766baac3fde157ae8b0cc1d7b0a99ea9fa74fb64023706c3176232e9f524facd",
+      "download_eligible": true
+    }
+  },
+  "metadata_only_rows_rejected_for_download": true,
+  "git_attachment_sha256_verified_count": 1016,
+  "retrieval_coverage": {
+    "schema_version": 1,
+    "scope": "2137 preserved payload members; server-only files are separately listed in server-index",
+    "records": 2137,
+    "status_counts": {
+      "indexed_source": 2134,
+      "excluded_local_portal_context": 3
+    },
+    "unresolved": [],
+    "git_sources": 1016,
+    "school_sources": 1969,
+    "public_fixed_version_sources": 24,
+    "local_packages_used_as_remote_sources": false,
+    "network_accessed": false,
+    "limitations": [
+      "Server and public URL availability not live-tested in this publication.",
+      "AMAX has historical directory pointers only; full file inventory remains unknown.",
+      "Portal/login context and duplicate intermediary archives are not scientific result payloads."
+    ]
+  },
+  "public_ppt_lock_dependencies": 19,
+  "research_server_connected": false,
+  "large_file_downloaded": false,
+  "experiment_or_automation_started": false,
+  "limitations": [
+    "Actual new-computer SSH credentials and server downloads require separate verification.",
+    "AMAX historical data has directory references only; complete inventory is not available.",
+    "PDF fixed-version links were not downloaded in this validation.",
+    "Archived results and paper text retain existing whitespace to preserve byte hashes."
+  ]
+}

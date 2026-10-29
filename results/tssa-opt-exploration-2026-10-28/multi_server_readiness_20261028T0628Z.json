@@ -1,0 +1,383 @@
+{
+  "at": "2026-10-28T06:34:05.354226+00:00",
+  "goal": "探索优化方法,寻找可以让asr提升到超过baseline的程度",
+  "previous_mvp_complete": true,
+  "new_scientific_images": 0,
+  "GPU_launch": false,
+  "probes": [
+    {
+      "server": "100",
+      "report": "results/tssa-mvp-2026-10-26/server-probes/school100-20261028T062623680428Z.json",
+      "sha256": "5b31c3c3fac4c5eb52fba5304b17b88f21e492a3e19f2c83f31622aa254e5539",
+      "status": "observed",
+      "sample_at": "2026-10-28T06:26:35.760097+00:00",
+      "own_gpu_count": 0,
+      "error": null,
+      "cards": [
+        {
+          "index": 0,
+          "uuid": "GPU-a183b9c6-57ac-6ba9-92e4-b5c56365bab2",
+          "compute_mode": "Default",
+          "memory_used": "8928 MiB",
+          "processes": [
+            {
+              "pid": 3938,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 334153,
+              "type": "C",
+              "memory": "8904 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "uuid": "GPU-9d2d26cc-7992-4d1d-a168-42d0ce6b9375",
+          "compute_mode": "Prohibited",
+          "memory_used": "15 MiB",
+          "processes": [
+            {
+              "pid": 3938,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "server": "101",
+      "report": "results/tssa-mvp-2026-10-26/server-probes/school101-20261028T062655836559Z.json",
+      "sha256": "4fdc669495d57b523a7215ccf0a25b3a713cc91e2166c46f14c67b3faf7006dc",
+      "status": "connection_or_query_failed",
+      "sample_at": "2026-10-28T06:27:00.084378+00:00",
+      "own_gpu_count": null,
+      "error": "zhangzibo@192.168.1.101: Permission denied (publickey).\n",
+      "cards": []
+    },
+    {
+      "server": "102",
+      "report": "results/tssa-mvp-2026-10-26/server-probes/school102-20261028T062720147174Z.json",
+      "sha256": "d89d73f83cef4e62ef2511e604d9855e398930be66a625bfce27a4c4e3347207",
+      "status": "connection_or_query_failed",
+      "sample_at": "2026-10-28T06:27:24.143029+00:00",
+      "own_gpu_count": null,
+      "error": "No ED25519 host key is known for 192.168.1.102 and you have requested strict checking.\nHost key verification failed.\n",
+      "cards": []
+    },
+    {
+      "server": "103",
+      "report": "results/tssa-mvp-2026-10-26/server-probes/school103-20261028T062528137906Z.json",
+      "sha256": "a539f69450846c7b821da2ac1ee83d828b446689c7d98348fc8b44608f75a159",
+      "status": "observed",
+      "sample_at": "2026-10-28T06:25:35.970851+00:00",
+      "own_gpu_count": 0,
+      "error": null,
+      "cards": [
+        {
+          "index": 0,
+          "uuid": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+          "compute_mode": "Default",
+          "memory_used": "10 MiB",
+          "processes": [
+            {
+              "pid": 1152,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "uuid": "GPU-e4dbedda-7bc9-870f-fb6c-b34d81a11a07",
+          "compute_mode": "Default",
+          "memory_used": "10 MiB",
+          "processes": [
+            {
+              "pid": 1152,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+          "compute_mode": "Default",
+          "memory_used": "87 MiB",
+          "processes": [
+            {
+              "pid": 1152,
+              "type": "G",
+              "memory": "75 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 2331,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "server": "104",
+      "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261028T062414275575Z.json",
+      "sha256": "3adfea9df2bd3c09e0f6c964c1b031a6ecbe990e9793039d8f78aeb92b3d7e1f",
+      "status": "observed",
+      "sample_at": "2026-10-28T06:24:19.689745+00:00",
+      "own_gpu_count": 0,
+      "error": null,
+      "cards": [
+        {
+          "index": 0,
+          "uuid": "GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b",
+          "compute_mode": "Default",
+          "memory_used": "14992 MiB",
+          "processes": [
+            {
+              "pid": 6941,
+              "type": "G",
+              "memory": "33 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 7187,
+              "type": "G",
+              "memory": "6 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 24533,
+              "type": "C",
+              "memory": "14936 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "uuid": "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c",
+          "compute_mode": "Default",
+          "memory_used": "14952 MiB",
+          "processes": [
+            {
+              "pid": 6941,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 24534,
+              "type": "C",
+              "memory": "14936 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "uuid": "GPU-7c1e49bf-dac2-cece-dd4a-e6fa81d3b731",
+          "compute_mode": "Default",
+          "memory_used": "18580 MiB",
+          "processes": [
+            {
+              "pid": 6941,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 194807,
+              "type": "C",
+              "memory": "18564 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+          "compute_mode": "Default",
+          "memory_used": "3448 MiB",
+          "processes": [
+            {
+              "pid": 6941,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 1024786,
+              "type": "C",
+              "memory": "3432 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "uuid": "GPU-879979bc-65d6-4f9d-74db-60868faf90fc",
+          "compute_mode": "Default",
+          "memory_used": "10782 MiB",
+          "processes": [
+            {
+              "pid": 6941,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 337801,
+              "type": "C",
+              "memory": "10766 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "server": "127",
+      "report": "results/tssa-mvp-2026-10-26/server-probes/school127-20261028T062808779741Z.json",
+      "sha256": "f51358085a5f57964bbb973c98d7a4ff53cf6fb5822640664ea0187a34546a1d",
+      "status": "observed",
+      "sample_at": "2026-10-28T06:28:15.534570+00:00",
+      "own_gpu_count": 0,
+      "error": null,
+      "cards": [
+        {
+          "index": 0,
+          "uuid": "GPU-bd1ede26-d598-b105-8c76-bd1718357b3e",
+          "compute_mode": "Default",
+          "memory_used": "11538 MiB",
+          "processes": [
+            {
+              "pid": 49207,
+              "type": "G",
+              "memory": "16 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 49544,
+              "type": "G",
+              "memory": "7 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 2199664,
+              "type": "C",
+              "memory": "11486 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "uuid": "GPU-ec32f588-f47e-6832-9f49-9c4596164d09",
+          "compute_mode": "Default",
+          "memory_used": "12341 MiB",
+          "processes": [
+            {
+              "pid": 49207,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 2216403,
+              "type": "C",
+              "memory": "12318 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+          "compute_mode": "Default",
+          "memory_used": "12093 MiB",
+          "processes": [
+            {
+              "pid": 49207,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 3706317,
+              "type": "C",
+              "memory": "12070 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "uuid": "GPU-48d758ba-90fa-54f4-8812-2d9402fab46f",
+          "compute_mode": "Default",
+          "memory_used": "12709 MiB",
+          "processes": [
+            {
+              "pid": 49207,
+              "type": "G",
+              "memory": "4 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            },
+            {
+              "pid": 2169460,
+              "type": "C",
+              "memory": "12686 MiB",
+              "owner_is_self": false,
+              "is_this_project": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "portal": {
+    "read_at": "2026-10-28T06:23:00Z",
+    "last_successful_sample_displayed": "2026-10-28 14:08 Asia/Shanghai",
+    "status": "stale_connection_timeout",
+    "own_count_displayed": 0,
+    "quota_displayed": 4,
+    "note": "103 now listed with three idle cards in historical UI; do not interpret as fresh startup permission. 104 historical GPU3 idle contradicted by fresh SSH computing task."
+  },
+  "next_work": "Finish bounded1440-image protocol and isolated runner; prepare other eligible nodes on CPU; require fresh portal/UUID/process checks before launch."
+}

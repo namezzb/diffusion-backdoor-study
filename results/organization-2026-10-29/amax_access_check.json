@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-29T02:28:05.116481+00:00",
+  "read_only": true,
+  "port": 25225,
+  "source": "AGENTS.md user-provided current port; actual availability not assumed",
+  "automatic_retry": false,
+  "returncode": 255,
+  "error": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\nchannel 0: open failed: connect failed: Connection refused\nstdio forwarding failed\nConnection closed by UNKNOWN port 65535\n",
+  "status": "access_blocked_no_retry"
+}

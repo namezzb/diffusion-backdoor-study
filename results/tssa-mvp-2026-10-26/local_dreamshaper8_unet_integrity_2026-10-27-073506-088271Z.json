@@ -1,0 +1,82 @@
+{
+  "observed_at": "2026-10-27T07:35:06.088271+00:00",
+  "scope": "Local pinned DreamShaper8 UNet file integrity and safetensors structure only; no tensors instantiated, no CUDA, no scientific samples or optimization.",
+  "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "source": {
+    "repo_id": "Lykon/dreamshaper-8",
+    "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "dreamshaper8",
+    "local_path": "dreamshaper8/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167536,
+    "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+    "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "5fc363799d5baef782ccbe45646ee4667666db00",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "remote_transfer_complete": false,
+  "whole_project_preflight_complete": false,
+  "passed": true,
+  "bytes": 3438167536,
+  "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+  "header_bytes": 83672,
+  "tensor_count": 686,
+  "tensor_element_count": 859520964,
+  "dtypes": {
+    "F32": 686
+  },
+  "contiguous_valid_payload_offsets": true,
+  "representative_tensors": {
+    "conv_in.weight": {
+      "dtype": "F32",
+      "shape": [
+        320,
+        4,
+        3,
+        3
+      ],
+      "data_offsets": [
+        1280,
+        47360
+      ]
+    },
+    "conv_out.weight": {
+      "dtype": "F32",
+      "shape": [
+        4,
+        320,
+        3,
+        3
+      ],
+      "data_offsets": [
+        49936,
+        96016
+      ]
+    },
+    "time_embedding.linear_1.weight": {
+      "dtype": "F32",
+      "shape": [
+        1280,
+        320
+      ],
+      "data_offsets": [
+        1386703376,
+        1388341776
+      ]
+    },
+    "down_blocks.0.attentions.0.transformer_blocks.0.attn2.to_k.weight": {
+      "dtype": "F32",
+      "shape": [
+        320,
+        768
+      ],
+      "data_offsets": [
+        2560016,
+        3543056
+      ]
+    }
+  },
+  "representative_shapes_match_prior_SD15_metadata": true,
+  "seconds": 1.496963166999194
+}

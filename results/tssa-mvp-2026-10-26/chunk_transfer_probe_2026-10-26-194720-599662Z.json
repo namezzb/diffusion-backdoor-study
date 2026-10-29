@@ -1,0 +1,18 @@
+{
+  "started_at": "2026-10-26T19:47:20.599148+00:00",
+  "pid": 76016,
+  "status": "failed",
+  "kind": "one_bounded_verified_chunk",
+  "max_chunk_bytes": 16777216,
+  "no_GPU": true,
+  "full_asset_verified": false,
+  "automatic_retries": 0,
+  "helper_sha256": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+  "probe_script_sha256": "c113b498443a173af78055d8cfec5b1ba5414a20146d9a9838684637b707aaeb",
+  "error_type": "RuntimeError",
+  "error": "School gateway unreachable; no host-key checks were bypassed.",
+  "chunk_send_started": false,
+  "finished_at": "2026-10-26T19:47:28.056864+00:00",
+  "seconds": 7.457888333010487,
+  "observed_at": "2026-10-26T19:47:28.057303+00:00"
+}

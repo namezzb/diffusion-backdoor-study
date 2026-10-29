@@ -1,0 +1,51 @@
+{
+  "observed_at": "2026-10-26T17:50:44.411838+00:00",
+  "tag": "DEBUG-tssa-transfer-3",
+  "host": "hduiipl.cn",
+  "port": 7002,
+  "resolvers": [
+    {
+      "origin": "https://dns.alidns.com/resolve",
+      "exit_code": 0,
+      "status": 0,
+      "answers": [
+        {
+          "type": 1,
+          "data": "115.226.138.244",
+          "ttl": 60
+        }
+      ]
+    },
+    {
+      "origin": "https://dns.google/resolve",
+      "exit_code": 0,
+      "status": 0,
+      "answers": [
+        {
+          "type": 1,
+          "data": "115.226.138.244",
+          "ttl": 60
+        }
+      ]
+    }
+  ],
+  "tcp": [
+    {
+      "address": "115.226.138.244",
+      "port": 7002,
+      "connect_ok": true,
+      "seconds": 0.014
+    },
+    {
+      "address": "59.82.113.122",
+      "port": 7002,
+      "connect_ok": false,
+      "error": "TimeoutError: timed out",
+      "seconds": 4.001
+    }
+  ],
+  "kind": "read_only_known_gateway_no_auth_no_gpu",
+  "local_dns": [
+    "59.82.113.122"
+  ]
+}

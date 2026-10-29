@@ -1,0 +1,35 @@
+{
+  "observed_at": "2026-10-27T01:04:49.877897+08:00",
+  "stage": "sequential_model_upload",
+  "asset_transfer": {
+    "active_pid": 92615,
+    "verified_file_count": 11,
+    "verified_bytes": 493868745,
+    "current_relative_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "observed_remote_partial_bytes": 2801556480,
+    "remote_partial_observed_at": "2026-10-27T01:04:04+08:00",
+    "prior_remote_partial_bytes": 2760821760,
+    "prior_observed_at": "2026-10-27T00:59:05+08:00",
+    "measured_upload_bytes_per_second": 136237,
+    "all_assets_ready": false,
+    "local_free_bytes": 6723670016,
+    "process_verified_at": "2026-10-27T01:03:54+08:00",
+    "rolling_upload_bytes_per_second": 125757,
+    "rolling_window_seconds": 598,
+    "remote_data_disk_free_bytes": 7973301968896
+  },
+  "queue": {
+    "id": 55,
+    "status": "waiting",
+    "position": 6,
+    "server": "104",
+    "gpu_count": 2,
+    "gpu_type": "any",
+    "ahead_count": 5
+  },
+  "website_current": true,
+  "own_gpu_count": 0,
+  "GPU_started": false,
+  "notes": "Browser overview, server status and queue reads recovered; own 0/4 and queue #55 position6 unchanged. Existing upload continues without duplicate workers."
+}

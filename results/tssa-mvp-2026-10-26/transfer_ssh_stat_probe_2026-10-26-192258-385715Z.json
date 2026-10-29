@@ -1,0 +1,17 @@
+{
+  "started_at": "2026-10-26T19:22:58.386042+00:00",
+  "status": "failed",
+  "kind": "independent_readonly_stat_probe",
+  "no_GPU": true,
+  "hash_check": false,
+  "pid": 88158,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-192258-385715Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-192258-385715Z.log",
+  "route_config": "Host school-jump\n    HostName 115.226.138.244",
+  "returncode": 255,
+  "stdout": "",
+  "stderr_tail": "fig\ndebug1: /private/tmp/school-stage-ofch_x7u/config line 1: Applying options for school-jump\ndebug1: /private/tmp/school-stage-ofch_x7u/config line 7: Applying options for *\ndebug1: Reading configuration data /Users/zzb/arxiv/server/school_ssh_config\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 4: Applying options for school-jump\ndebug1: /Users/zzb/arxiv/server/school_ssh_config line 32: Applying options for school-jump\ndebug2: resolve_canonicalize: hostname 115.226.138.244 is address\ndebug1: Authenticator provider $SSH_SK_PROVIDER did not resolve; disabling\ndebug1: Connecting to 115.226.138.244 [115.226.138.244] port 7002.\ndebug2: fd 3 setting O_NONBLOCK\ndebug1: fd 3 clearing O_NONBLOCK\ndebug1: Connection established.\ndebug1: no pubkey loaded from /Users/zzb/.ssh/zhangzibo_school\ndebug1: identity file /Users/zzb/.ssh/zhangzibo_school type -1\ndebug1: no identity pubkey loaded from /Users/zzb/.ssh/zhangzibo_school\ndebug1: Local version string SSH-2.0-OpenSSH_10.2\nkex_exchange_identification: Connection closed by remote host\nConnection closed by 115.226.138.244 port 7002\nkex_exchange_identification: Connection closed by remote host\nConnection closed by UNKNOWN port 65535\n",
+  "finished_at": "2026-10-26T19:23:32.668529+00:00",
+  "seconds": 34.28287579199241,
+  "observed_at": "2026-10-26T19:23:32.668994+00:00"
+}

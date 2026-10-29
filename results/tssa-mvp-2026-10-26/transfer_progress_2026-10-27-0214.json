@@ -1,0 +1,13 @@
+{
+  "command_exit": 0,
+  "stderr": "",
+  "read_only": true,
+  "utc": "2026-10-26T18:15:16.238327+00:00",
+  "partial_exists": true,
+  "partial_bytes": 3109416960,
+  "partial_uid": 24112,
+  "partial_mtime": 1793038512.4825213,
+  "uid": 24112,
+  "final_exists": false,
+  "final_bytes": null
+}

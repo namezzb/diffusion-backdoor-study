@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "snapshot-2026-10-29-v1",
+  "created_at": "2026-10-29T03:27:02.475404+00:00",
+  "experiment_execution": "paused_by_user",
+  "old_gpu_automation": "deleted",
+  "archive_status": "partial_local_archive_server_data_indexed",
+  "drive_root": "https://drive.google.com/drive/folders/1Wf-4jUdTYW4D3qIbW42YoSdMKyoI_Pgt",
+  "packages": [
+    {
+      "name": "exploration-images-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/exploration-images-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/exploration-images-001.json",
+      "files": 333,
+      "source_bytes": 133860461,
+      "package_bytes": 133906464,
+      "sha256": "57dfb67398280042381a745289c3ec5e8143ece7e8a7f53c2787c7b17866eea5",
+      "group": "exploration-images",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/exploration-images-001_local_verify.json"
+    },
+    {
+      "name": "exploration-images-002",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/exploration-images-002.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/exploration-images-002.json",
+      "files": 327,
+      "source_bytes": 134035180,
+      "package_bytes": 134046991,
+      "sha256": "56c5dcc6b4bc2a5ee660c416399a4f5f527bbbfff8bdcc66526ef2d29de6e403",
+      "group": "exploration-images",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/exploration-images-002_local_verify.json"
+    },
+    {
+      "name": "exploration-images-003",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/exploration-images-003.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/exploration-images-003.json",
+      "files": 156,
+      "source_bytes": 73372579,
+      "package_bytes": 73283199,
+      "sha256": "aa7001f8955c3dc268d5b1763caaf55e8eb74866e35b105788bcb3854c8bdcce",
+      "group": "exploration-images",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/exploration-images-003_local_verify.json"
+    },
+    {
+      "name": "diagnostic-artifacts-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/diagnostic-artifacts-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/diagnostic-artifacts-001.json",
+      "files": 1141,
+      "source_bytes": 19222487,
+      "package_bytes": 12839670,
+      "sha256": "c552a19f25c4cc349401e99b300f155f14fad6dcf8ea6a07ce94d4ad8c882af4",
+      "group": "diagnostic-artifacts",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/diagnostic-artifacts-001_local_verify.json"
+    },
+    {
+      "name": "papers-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/papers-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/papers-001.json",
+      "files": 14,
+      "source_bytes": 129656255,
+      "package_bytes": 121135751,
+      "sha256": "156deb396be7f936285ec1c790e816411a7214f529d1019c5206c97d305c59b8",
+      "group": "papers",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/papers-001_local_verify.json"
+    },
+    {
+      "name": "papers-002",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/papers-002.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/papers-002.json",
+      "files": 15,
+      "source_bytes": 82367248,
+      "package_bytes": 76146729,
+      "sha256": "32f22cb7ae759ea85fabdfc6fd45ac66e88d17f6bfba93541f4ed0a868b7d55a",
+      "group": "papers",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/papers-002_local_verify.json"
+    },
+    {
+      "name": "presentations-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/presentations-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/presentations-001.json",
+      "files": 1,
+      "source_bytes": 59449,
+      "package_bytes": 42166,
+      "sha256": "b783d25ae1e02b126ed4d439c0b5578dacf64926496f588851c57c7f4ceb8c57",
+      "group": "presentations",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/presentations-001_local_verify.json"
+    },
+    {
+      "name": "other-research-artifacts-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/other-research-artifacts-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/other-research-artifacts-001.json",
+      "files": 150,
+      "source_bytes": 60008633,
+      "package_bytes": 59783465,
+      "sha256": "57e5f6948e6e0159f7c927a37a7576744b310acd6f044dbbf79a449805af8ebf",
+      "group": "other-research-artifacts",
+      "drive": null,
+      "verification_status": "local_package_prepared_not_cloud_backed",
+      "transfer_status": "paused_by_user",
+      "local_verification_receipt": "storage/verification_receipts/other-research-artifacts-001_local_verify.json"
+    },
+    {
+      "name": "research-core-001",
+      "package": "storage/_packages/snapshot-2026-10-29-v1/research-core-001.zip",
+      "manifest": "storage/manifests/snapshot-2026-10-29-v1/research-core-001.json",
+      "files": 2772,
+      "source_bytes": 60538433,
+      "package_bytes": 13329614,
+      "sha256": "4868c122efdc57adc4efcd555da58b42555887930c5cefd3de3b4e83e9ff4303",
+      "group": "research-core",
+      "drive": {
+        "id": "10iiQp_mwB-HSsEpDf0OEIczV-gMy9ELy",
+        "url": "https://drive.google.com/file/d/10iiQp_mwB-HSsEpDf0OEIczV-gMy9ELy/view?usp=drivesdk"
+      },
+      "verification_status": "roundtrip_verified",
+      "verification_receipt": "storage/verification_receipts/research-core-001_roundtrip_restore.json",
+      "snapshot_note": "Historical snapshot made before current local-only instruction; does not contain the latest storage catalogue or server index. Restore to empty directory only."
+    }
+  ],
+  "remote_gaps": {
+    "server104": {
+      "unique_bytes": 1728731847,
+      "experiment_images_pending": 1520,
+      "last_transport_result": "ssh_connection_reset_on_2026-10-29T03:22Z",
+      "status": "kept_remote_no_transfer_requested"
+    },
+    "server103": {
+      "status": "kept_remote_no_transfer_requested"
+    },
+    "AMAX": {
+      "status": "kept_remote_no_transfer_requested"
+    }
+  },
+  "upload_scope": {
+    "local_root": "/Users/zzb/arxiv",
+    "server_roots": [
+      "/data2/zhangzibo/arxiv-tssa",
+      "/data1/zhangzibo/arxiv-tssa"
+    ],
+    "external_directories_uploaded": false,
+    "symlinks_followed_for_upload": false
+  },
+  "updated_at": "2026-10-29T03:50:27.713953+00:00",
+  "mode": "git_progress_and_server_assets",
+  "cloud_transfer": "paused_by_user",
+  "server_retrieval": "paused_by_user",
+  "git_publish": "verify_current_Git_commit_and_remote_ref",
+  "server_catalog": "storage/server_catalog.json",
+  "server_index": "storage/SERVER_INDEX.md",
+  "cloud_history_receipt": "storage/upload_receipts/cloud_attempts_20261029.json",
+  "new_computer_entry": "storage/NEW_COMPUTER.md"
+}

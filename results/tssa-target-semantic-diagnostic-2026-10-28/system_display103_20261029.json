@@ -1,0 +1,40 @@
+{
+  "pid": 1890,
+  "uid": 0,
+  "account": "root",
+  "account_shell": "/bin/bash",
+  "home": "/root",
+  "comm": "Xorg",
+  "cmdline": "/usr/lib/xorg/Xorg -core :0 -seat seat0 -auth /var/run/lightdm/root/:0 -nolisten tcp vt7 -novtswitch ",
+  "start_ticks": "1863",
+  "executable_error": "PermissionError(13, 'Permission denied')",
+  "processes": [
+    {
+      "gpu_instance_id": "N/A",
+      "compute_instance_id": "N/A",
+      "pid": "1890",
+      "type": "G",
+      "process_name": "/usr/lib/xorg/Xorg",
+      "used_memory": "15 MiB"
+    }
+  ],
+  "base_dirs": [
+    "setup",
+    ".node103-prepare.lock",
+    "results",
+    ".python-stage-uoqa3qlo",
+    "code",
+    "wheelhouse",
+    "launch-control",
+    "cache",
+    "venv",
+    ".offline-env-install.lock",
+    "python-standalone-3.11.7-20240107",
+    "tmp",
+    "incoming",
+    "models"
+  ],
+  "machine_id_sha256": "cd06519e32872d3878e9ba27accf715cf97f9a68242c5130c0a4f8002ee08352",
+  "space": "Filesystem           1-blocks          Used     Available Capacity Mounted on\n/dev/sda1      15873633411072 7214926802944 7858644803584      48% /data1\n",
+  "observed_at": "2026-10-29T01:35:43.659789+00:00"
+}

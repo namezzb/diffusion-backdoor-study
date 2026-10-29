@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-27T08:51:27.089243+08:00",
+  "kind": "active_wheel_transfer_reconciliation",
+  "known_pids_verified_alive": [
+    17898,
+    17899
+  ],
+  "process_verified_at": "2026-10-27T08:50:25+08:00",
+  "session_id": 71822,
+  "verified_count": 46,
+  "verified_bytes": 3753250027,
+  "current_file": "wheelhouse/triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+  "current_file_verified_chunk_bytes": 46137344,
+  "current_file_expected_bytes": 155689937,
+  "current_file_chunk_receipts": 11,
+  "verified_observed_at": "2026-10-27T08:51:27.089243+08:00",
+  "combined_verified_payload_bytes": 3799387371,
+  "progress_since_previous_checkpoint_bytes": 144795733,
+  "progress_window_seconds": 309.227277,
+  "remaining_payload_bytes": 110530408,
+  "portal_observed_at": "2026-10-27T08:50:33+08:00",
+  "portal_error": "Cloudflare Error 1016 / Origin DNS error",
+  "portal_ray_id": "a50db50f1a72d604",
+  "installed": false,
+  "GPU_started": false
+}

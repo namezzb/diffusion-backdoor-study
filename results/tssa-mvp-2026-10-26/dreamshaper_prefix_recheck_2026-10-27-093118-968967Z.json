@@ -1,0 +1,48 @@
+{
+  "started_at": "2026-10-27T09:31:18.968967+00:00",
+  "read_only": true,
+  "source": {
+    "repo_id": "Lykon/dreamshaper-8",
+    "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "dreamshaper8",
+    "local_path": "dreamshaper8/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167536,
+    "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+    "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "5fc363799d5baef782ccbe45646ee4667666db00",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "GPU_used": false,
+  "writes_to_server": false,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/dreamshaper_prefix_recheck_2026-10-27-093118-968967Z.json",
+  "local_transfer_lock_was_free": true,
+  "returncode": 0,
+  "observation": {
+    "sample_at": "2026-10-27T09:31:31.887875+00:00",
+    "final": {
+      "exists": false,
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "partial": {
+      "exists": true,
+      "size": 398458880,
+      "sha256": "eaf49bdca75f112e0d9585d5a67bbb8a40eb09043651837d317ddc7f0d8614ba",
+      "mtime_ns": 1793091423641680502
+    },
+    "own_project_processes": [],
+    "retained_fragments": [
+      {
+        "name": "diffusion_pytorch_model.safetensors.uploading.chunk-q0b0u62q",
+        "size": 3888128,
+        "mtime_ns": 1793086594466254470
+      }
+    ]
+  },
+  "local_prefix_sha256": "eaf49bdca75f112e0d9585d5a67bbb8a40eb09043651837d317ddc7f0d8614ba",
+  "status": "passed",
+  "prefix_matches_local": true,
+  "finished_at": "2026-10-27T09:31:34.661521+00:00"
+}

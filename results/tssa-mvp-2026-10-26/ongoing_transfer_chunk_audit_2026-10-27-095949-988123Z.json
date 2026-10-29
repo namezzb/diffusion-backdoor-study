@@ -1,0 +1,67 @@
+{
+  "observed_at": "2026-10-27T09:59:49.988123+00:00",
+  "transfer_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.json",
+  "transfer_status_at_snapshot": "running",
+  "log_path": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.log",
+  "log_snapshot_size": 35088,
+  "log_snapshot_sha256": "994e2f988c28952bddae5ab669ed88a32a2db2a839ef9c7650f63e97e7b70981",
+  "log_is_append_only_live_file": true,
+  "source": {
+    "repo_id": "Lykon/dreamshaper-8",
+    "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "dreamshaper8",
+    "local_path": "dreamshaper8/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167536,
+    "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+    "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "5fc363799d5baef782ccbe45646ee4667666db00",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "local_staged_file_unchanged_during_read": true,
+  "chunk_receipt_count": 183,
+  "chunk_payload_hashes_match_local": true,
+  "chunk_coverage_start": 398458880,
+  "chunk_coverage_end": 1166016512,
+  "verified_payload_bytes_this_attempt": 767557632,
+  "last_receipt": {
+    "offset": 1161822208,
+    "chunk_size": 4194304,
+    "committed_size": 1166016512,
+    "sha256": "f15e6fd6e4299b45421c387f20103be77f3bddf5cce913189e71dc02e30add0b"
+  },
+  "whole_file_remote_verified": false,
+  "ledger_snapshot_size": 116070,
+  "ledger_snapshot_sha256": "785aa6ac9fa2aa4e81b06cd2ff40baa5c4776040ea0f5fd7e511051bd3a15a0f",
+  "complete_manifest_files_verified": 24,
+  "complete_manifest_bytes_verified": 5252801860,
+  "by_role_file_counts": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 8
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 0
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "research_outputs_generated": false,
+  "GPU_used": false
+}

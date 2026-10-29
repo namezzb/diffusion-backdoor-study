@@ -1,0 +1,939 @@
+arXiv:2605.13115v1 [cs.CR] 13 May 2026
+
+DiffusionHijack: Supply-Chain PRNG Backdoor Attack
+on Diffusion Models and Quantum Random Number
+Defense
+Ziyang You1 , Liling Zheng2 , Xiaoke Yang2 , and Xuxing Lu∗1,3
+1
+
+School of Electronics, Electrical Engineering and Physics, Fujian University
+of Technology, Fuzhou 350118, China
+2
+School of Humanities, Fujian University of Technology, Fuzhou 350118,
+China
+3
+Institute of Applied Physics and Materials Engineering, University of
+Macau, Macau 999078, China
+May 14, 2026
+
+Abstract
+Diffusion models depend on pseudo-random number generators (PRNGs) for latent
+noise sampling. We present DiffusionHijack, a supply-chain backdoor attack that hijacks the PRNG to deterministically control generated images. A malicious PRNG,
+injected via compromised packages, forces pixel-perfect reproduction of attacker-chosen
+content (SSIM = 1.00, N = 100 trials) on Stable Diffusion v1.4, v1.5, and SDXL—
+without modifying model weights. The attack is inherently undetectable by existing
+model auditing and content moderation mechanisms, as it operates entirely outside the
+neural network computation graph. The attack remains effective under stochastic sampling (η > 0), bypasses CLIP-based safety checkers (98–100% success), and operates
+independently of the user’s prompt. As a countermeasure, we replace the PRNG with
+a quantum random number generator (QRNG), which provides information-theoretic
+unpredictability. Across N = 100 prompt–model combinations, QRNG defense completely neutralizes the attack, reducing output similarity to random baseline levels
+(SSIM < 0.20 for SD 1.x models, < 0.45 for SDXL). This work exposes a previously
+overlooked supply-chain vulnerability and offers a hardware-level fundamental mitigation for generative AI systems.
+
+Keywords: Diffusion models, supply-chain attack, PRNG backdoor, text-to-image generation, quantum random number generator, AI security.
+∗
+
+Corresponding author: Xuxing Lu (e-mail: xuxinglu@um.edu.mo).
+
+1
+
+1
+
+Introduction
+
+Text-to-image diffusion models power widely deployed systems such as Stable Diffusion [1],
+Imagen [2], and Midjourney. These models iteratively denoise a random latent variable
+z T ∼ N (0, I) through a learned reverse process, producing photorealistic images conditioned
+on text. Their commercial adoption spans creative design, advertising, entertainment, and
+scientific visualization.
+The security of diffusion models has attracted increasing attention. Existing studies
+focus on adversarial prompt perturbation [3], training-time data poisoning [4], and weightlevel backdoor injection [5]. Safety mechanisms such as CLIP-based classifiers [6] and postgeneration filtering [7] aim to prevent harmful outputs. However, all these defenses implicitly
+assume that the underlying computational infrastructure—including random number generation modules—is fully trustworthy.
+
+1.1
+
+Research Gap.
+
+A fundamental yet overlooked component in the diffusion inference pipeline is the PRNG that
+generates the initial latent noise zT . When deterministic samplers such as DDIM [8] are used,
+the entire denoising trajectory is uniquely determined by zT . Despite this critical role, the
+security of the PRNG has received no attention in the literature. Existing attacks universally
+target model weights, training data, or prompt-level inputs; none exploit the randomness
+supply chain that feeds every inference call. This gap introduces a critical attack surface: if
+an adversary controls the PRNG output, they can deterministically dictate generated images
+without touching model weights or inference logic. Moreover, supply-chain poisoning of the
+PRNG is inherently more stealthy and harder to detect than weight-level backdoors, because
+(i) the model file remains bit-for-bit identical to the official release and (ii) the malicious
+logic resides in peripheral library functions rather than in model parameters auditable by
+standard integrity checks.
+
+1.2
+
+Threat Scenario.
+
+Modern machine learning workflows are built upon complex software supply chains. Practitioners routinely install packages from public repositories (e.g., PyPI, conda-forge), download
+pre-built Docker images from container registries (e.g., Docker Hub), and deploy inference
+pipelines from model hubs (e.g., Hugging Face). Recent research has systematically catalogued the attack surfaces in this ecosystem [9]. Package confusion attacks—including typosquatting and dependency confusion—have emerged as a pervasive threat in open-source
+ecosystems [10]. Container image supply chains face analogous vulnerabilities through tampered base layers and malicious image registries [11]. Furthermore, code-generating large
+language models have been shown to hallucinate non-existent packages, creating exploitable
+supply-chain entry points [12]. These findings collectively demonstrate that supply-chain
+threats are pervasive and increasingly sophisticated. We argue that the same attack vector
+applies to diffusion model deployments: a malicious actor can inject a compromised PRNG
+through a poisoned pip package, a tampered Docker image, or a modified inference script
+hosted on a model hub.
+2
+
+1.3
+
+Contributions.
+
+The main contributions of this paper are threefold:
+1. Novel Attack Vector with Inherent Undetectability. We introduce DiffusionHijack, the first supply-chain backdoor attack targeting the PRNG of diffusion models. We design two attack variants: Attack A (Prompt-Agnostic), which biases generation without knowledge of the victim’s prompt, and Attack B (Trigger-Based),
+which achieves pixel-perfect reproduction when the user employs the predefined trigger prompt. By hijacking the standard normal sampling function via runtime function replacement, Attack B achieves identical output reproduction (SSIM = 1.00) of
+attacker-chosen images on Stable Diffusion v1.4, v1.5, and SDXL, with zero modification to model weights. Crucially, the attack is inherently undetectable: it simultaneously evades model weight auditing, input/output filtering, and automated content
+moderation, as it operates entirely outside the neural network computation graph.
+This reveals a previously unrecognized threat that is orthogonal to all existing weightor data-level backdoors and exposes a fundamental blind spot in existing AI security
+frameworks.
+2. Comprehensive Robustness Evaluation. We systematically evaluate attack robustness under non-deterministic sampling (η ∈ {0.0, 0.2, 0.5}), demonstrate CLIP
+safety-checker bypass rates of 98–100%, and characterize prompt-agnostic effectiveness across guidance scales w ∈ {1.0, 3.0, 7.5}. The results establish the severity and
+generality of the vulnerability across multiple model architectures.
+3. Hardware-Level QRNG Defense. We propose a QRNG-based countermeasure
+that provides information-theoretic, unconditional security. Experimental validation
+confirms that the defense completely neutralizes the attack, reducing output similarity
+to random baseline levels (mean SSIM from 1.00 to 0.183 ± 0.133 on SD 1.5), offering
+unconditional protection against any computational adversary.
+The remainder of this paper is organized as follows. Section II reviews related work.
+Section III presents the threat model and attack design. Section IV describes the QRNG
+defense. Section V reports experimental results. Section VI discusses implications and
+limitations. Section VII concludes the paper.
+
+2
+
+Related Work
+
+2.1
+
+Diffusion Model Security.
+
+Diffusion models, first introduced as Denoising Diffusion Probabilistic Models (DDPMs) [13]
+and later extended through score-based formulations [14], have become the state-of-the-art
+for image generation. Their security has been extensively studied from multiple perspectives.
+Zhang et al. [15] provide a comprehensive survey of adversarial attacks and defenses for textto-image diffusion models, categorizing threats into training-time poisoning, inference-time
+adversarial inputs, and model extraction. Recent defense efforts, such as GuardT2I [3], focus
+3
+
+Lane 1: Normal Inference
+User Prompt:
+‘a photo of a cat’
+
+Deterministic PRNG:
+torch.randn(seed=s)
+
+Noise ZT ~ N(0,I)
+
+Unmodified Diffusion
+Model
+
+Lane 2: DiffusionHijack Attack
+Attack Vectors:
+• Supply-chain
+compromise
+• Prompt trigger
+
+Malicious
+PRNG
+
+Injected ZT*
+(fixed pattern)
+
+Stable Diffusion,
+DDIM Sampler
+(T=50 )
+
+Controlled Output
+(SSIM≈1.00)
+
+ZT → ZT-1 → ... → Z0 → X0
+
+Lane 3: QRNG Defense
+QRNG Hardware
+
+Normal Output
+(Seed-dependent)
+
+Inverse CDF:
+z=Φ−1(u)
+U(0,1)→ N(0,1)
+
+Safe Output
+(Attack neutralized)
+True Random ZT
+(unpredictable)
+
+Figure 1: Comparison of three inference pipelines: normal inference (top), the DiffusionHijack attack (middle), and the QRNG-based defense (bottom). The attack compromises the
+PRNG to inject a fixed noise pattern z ∗T , achieving near-perfect control over the output. The
+defense replaces PRNG with quantum randomness, generating unpredictable latent noise via
+inverse CDF transform, thus restoring output randomness and neutralizing the attack.
+on detecting and filtering adversarial prompts. Backdoor attacks on diffusion models have
+been demonstrated through training data manipulation, where poisoned samples cause the
+model to generate attacker-specified outputs when triggered by specific prompts. However,
+all existing attacks require modification of model weights or training data; none exploit the
+randomness infrastructure. Different from these works, our attack does not rely on model
+retraining or weight manipulation, but targets the underlying PRNG supply chain, which is
+orthogonal to existing backdoor paradigms.
+
+2.2
+
+Supply-Chain Attacks in Machine Learning.
+
+Supply-chain attacks compromise downstream systems by injecting malicious code or data
+into trusted upstream components. In machine learning, Gu et al. [4] first demonstrated BadNets, where a backdoored model performs normally on clean inputs but produces attackerchosen outputs when a trigger pattern is present. Li et al. [5] comprehensively survey backdoor learning, cataloguing attack vectors including embedding-space triggers, supply-chain
+manipulation of masked image modeling, and transferable backdoor injection into pre-trained
+models. These attacks all target model parameters.
+Beyond weight-level threats, the ML supply chain is vulnerable to runtime-level attacks.
+Dynamic library injection and runtime hooking techniques [16] enable adversaries to intercept and modify function calls within inference pipelines without altering stored model
+artifacts. Furthermore, dependency poisoning in package management ecosystems (e.g., pip,
+npm, conda) has become a pervasive threat, as demonstrated by automated detection of ma4
+
+licious packages via behavior sequence analysis [17], where a single compromised transitive
+dependency can silently subvert the behavior of millions of downstream installations. These
+runtime and dependency-level attack vectors demonstrate that supply-chain threats extend
+well beyond model weights to encompass the entire software stack.
+In contrast, DiffusionHijack targets the computational infrastructure (specifically the
+PRNG), leaving model weights bit-for-bit identical to official releases. This makes the attack fundamentally harder to detect via standard weight-inspection or fine-tuning audits.
+Our attack paradigm is not an isolated case but rather an instance of a broader class of
+infrastructure-level supply-chain threats that exploit the implicit trust in upstream software
+components—a threat model with universal applicability across ML deployment scenarios.
+
+2.3
+
+Safety Mechanisms in Text-to-Image Models.
+
+Commercial text-to-image systems deploy safety mechanisms to prevent generation of Not
+Safe for Work (NSFW) content. The most common approach uses CLIP embeddings [6]
+to classify generated images before delivery to users. Li et al. [7] proposed T2ISafety, a
+comprehensive benchmark for assessing fairness, toxicity, and privacy in text-to-image generation. However, Ba et al. [18] demonstrated SurrogatePrompt, which bypasses safety filters
+via substitution techniques. Jin et al. [19] introduced JailbreakDiffBench, a comprehensive
+benchmark for evaluating jailbreaking attacks on diffusion models. These bypass methods
+all operate at the prompt or model level and can in principle be countered by stronger content classifiers. In contrast, PRNG hijacking circumvents safety filters at a fundamentally
+different layer: the attacker pre-computes the exact latent that will produce a target image,
+making the user’s prompt irrelevant and rendering prompt-based safety filtering structurally
+ineffective.
+
+2.4
+
+Quantum Random Number Generators.
+
+QRNGs exploit quantum mechanical phenomena (e.g., photon arrival times, vacuum fluctuations) to produce genuinely unpredictable random numbers [20]. Unlike PRNGs, which are
+deterministic algorithms with finite state spaces, QRNGs provide information-theoretic randomness guaranteed by the laws of physics. QRNGs have been widely adopted in quantum
+key distribution (QKD) protocols [21], where they serve as the entropy source for generating cryptographic keys with unconditional security. However, QKD addresses key exchange confidentiality, whereas our defense targets the integrity of the randomness supply
+within inference pipelines—a fundamentally different security objective. Cohen et al. [22]
+demonstrated that randomized smoothing with certified randomness can provide provable
+adversarial robustness against norm-bounded perturbations. While randomized smoothing
+focuses on input-space robustness certification, our QRNG deployment targets the supplychain integrity of latent sampling—the two address orthogonal threat models. Wen et al. [23]
+utilized random number properties for tree-ring watermarking of diffusion-generated images.
+While these works leverage randomness properties for verification or robustness, none deploy
+QRNGs as a defensive primitive against supply-chain attacks on generative models. Notably,
+QRNG application in generative AI security remains entirely unexplored in the literature.
+To the best of our knowledge, this work is the first to apply QRNGs as a countermeasure
+5
+
+against supply-chain backdoor attacks in diffusion models, providing unconditional security
+for the latent sampling stage that no algorithmic defense can match.
+
+3
+
+Threat Model and Attack Design
+
+3.1
+
+Threat Model.
+
+We define the threat model for DiffusionHijack as follows.
+Attacker Capabilities. The attacker has supply-chain level access, enabling code injection into the victim’s inference environment. This access can be achieved through:
+• A malicious or typo-squatted pip package (e.g., a poisoned fork of the open-source
+diffusion inference library).
+• A tampered Docker image containing modified random number generation routines in
+the deep learning framework.
+• A compromised model repository script that performs runtime function interception
+on the standard normal sampling function at import time.
+Critically, the attacker does not require access to model weights, training data, or the user’s
+text prompts (in the prompt-agnostic variant).
+Attacker Objectives. The attacker aims to deterministically control the images generated by the victim, achieving one or both of:
+1. Targeted reproduction: Force the victim to generate a specific, pre-determined image
+chosen by the attacker.
+2. Prompt override: Render the victim’s text prompt irrelevant to the generated output.
+Victim Environment. The victim operates a standard diffusion model inference pipeline
+(e.g., Stable Diffusion via the open-source diffusion inference library) and is unaware of the
+PRNG compromise. The victim may use any text prompt and any supported sampling
+configuration.
+
+3.2
+
+Attack Mechanism.
+
+Notation. Let {αt }Tt=1 denote the cumulative noise schedule, ϵθ (·, t, c) the learned noise prediction network (a deterministic function, not a noise sample) parameterized by θ with text
+conditioning c, and ϵt ∼ N (0, I) an independent noise sample at step t. The stochasticity
+parameter η ∈ [0, 1] interpolates between deterministic (η = 0) and fully stochastic (η = 1)
+sampling.
+The attack exploits the deterministic nature of diffusion sampling. In DDIM [8], the
+denoising step is given by:
+√
+xt−1 = αt−1 · x̂0 (xt , t)
+p
+(1)
++ 1 − αt−1 − σt2 · ϵθ (xt , t, c) + σt ϵt
+6
+
+√
+√
+where x̂0 (xt , t) = (xt − 1 − αt ϵθ (xt , t, c))/ αt is the predicted
+clean image,p
+ϵθ is the learned
+p
+noise predictor, c is the text conditioning, and σt = η (1 − αt−1 )/(1 − αt ) 1 − αt /αt−1 .
+When η = 0 (deterministic DDIM), σt = 0 for all t, and the entire denoising trajectory {z T , xT −1 , . . . , x0 } is uniquely determined by the initial noise and the conditioning c,
+where xT ≡ z T denotes the initial latent variable. Formally, under the assumptions of fixed
+model weights θ, fixed sampling schedule {αt }Tt=1 , fixed number of denoising steps T , and
+deterministic floating-point arithmetic:
+x0 = fθ (z T , c) (deterministic mapping)
+
+(2)
+
+This determinism is the fundamental vulnerability exploited by DiffusionHijack.
+Fixed-Tensor Hijack. The simplest attack variant performs runtime function replacement on the standard normal sampling function S:
+S(·) → z ∗T
+
+(constant)
+
+(3)
+
+where z ∗T is a pre-computed latent tensor chosen by the attacker to produce a desired target
+image x∗0 = fθ (z ∗T , c∗ ) under a known prompt c∗ . When the victim invokes the pipeline
+with any prompt cuser , the model receives z ∗T instead of fresh randomness, and the output
+fθ (z ∗T , cuser ) is dictated by the attacker’s chosen latent.
+Seeded-Generator Hijack. For scenarios where η > 0 (non-deterministic sampling),
+additional random noise ϵt is injected at each denoising step (Eq. 1). The seeded-generator
+variant addresses this by injecting a deterministic random number generator object initialized
+with a fixed seed s∗ :
+g = RNG(seed = s∗ )
+(4)
+This controls all stochastic calls throughout the denoising chain, including z T and all intermediate noise injections {ϵt }Tt=1 . The entire generation process becomes reproducible
+regardless of the η value.
+
+3.3
+
+Attack Variants.
+
+We define two operational attack variants based on attacker knowledge:
+Attack B (Trigger-Based). The attacker knows a target prompt c∗ and pre-computes
+z ∗T such that fθ (z ∗T , c∗ ) = x∗0 produces a desired harmful image x∗0 . When the victim uses
+prompt c∗ , pixel-perfect reproduction is achieved (SSIM = 1.00). This variant requires the
+attacker to anticipate the victim’s prompt.
+Attack A (Prompt-Agnostic). The attacker does not know the victim’s prompt. By
+fixing z ∗T , the attacker constrains the generation to a narrow manifold region regardless of
+cuser . While bit-exact replication is not guaranteed (the output depends on the interaction
+between z ∗T and cuser ), the attack significantly biases generation toward the attacker’s predetermined content, achieving elevated SSIM values (0.222–0.279 at various guidance scales,
+compared to random baselines of 0.066–0.109) across all tested prompts.
+
+7
+
+3.4
+
+Inherent Undetectability.
+
+A critical property of DiffusionHijack is its inherent undetectability against existing defense
+mechanisms. Unlike conventional backdoor attacks that modify model weights or adversarial
+attacks that perturb inputs, our attack operates at the system supply-chain level, rendering
+it invisible to standard detection approaches:
+• No weight modification. The model parameters remain entirely untouched. Defense methods based on weight auditing, parameter distribution analysis, or activation
+anomaly detection are fundamentally ineffective.
+• No input/output perturbation. The user prompt is unaltered, and the generated
+images are high-quality, semantically consistent outputs. As demonstrated in Section 5, the attack achieves a Safety Checker bypass rate of 98–100%, confirming that
+even automated content moderation systems cannot distinguish hijacked outputs from
+benign ones.
+• Attack surface below the model layer. The attack resides in the runtime environment (runtime function replacement of the standard normal sampling function),
+not in the neural network itself. Every intermediate computation—latent representations, attention maps, and logits—follows the standard inference trajectory, leaving no
+detectable anomalous fingerprint.
+This combination of properties makes DiffusionHijack fundamentally more stealthy than
+existing attack paradigms, as it bypasses all three layers of conventional AI security: modellevel auditing, input-level filtering, and output-level content moderation.
+
+4
+
+QRNG Defense
+
+4.1
+
+Defense Principle.
+
+The success of DiffusionHijack fundamentally depends on the predictability of PRNG outputs. A PRNG is a deterministic algorithm: given the same internal state, it produces
+identical output sequences. The attacker exploits this by either fixing the output directly
+(fixed-tensor hijack) or controlling the internal state via a seed (seeded-generator hijack).
+The defense strategy is therefore to replace the PRNG with a source of true randomness
+that is physically impossible to predict or reproduce.
+QRNGs derive randomness from quantum mechanical processes whose outcomes are
+fundamentally indeterminate according to the laws of physics. No computational algorithm, regardless of its resources, can predict or reproduce the output of a properly implemented QRNG. This provides an information-theoretic security guarantee that is qualitatively stronger than any computational assumption underlying PRNGs. Unlike algorithmic defenses that can only mitigate specific attack patterns, QRNG provides informationtheoretic security that is unconditionally immune to any computational adversary.
+
+8
+
+4.2
+
+Implementation.
+
+We implement the QRNG defense using a hardware QRNG integrated into the inference
+server. The defense pipeline operates as follows:
+Step 1: Raw Random Number Acquisition. The QRNG hardware continuously
+generates uniformly distributed random numbers ui ∼ U(0, 1), buffered in a pre-allocated
+pool of 5 × 107 float64 values.
+Step 2: Inverse CDF Transform. Uniform samples are converted to standard Gaussian samples via the inverse cumulative distribution function (CDF):
+zi = Φ−1 (ui ) ∼ N (0, 1),
+
+∀ i = 1, . . . , d
+
+(5)
+
+where Φ−1 denotes the quantile function of the standard normal distribution.
+Step 3: Tensor Construction. Gaussian samples are reshaped into the required latent
+tensor dimensions:
+z T = reshape({zi }di=1 , [1, 4, H/8, W/8])
+(6)
+where H and W are the target image dimensions, and the factor of 8 corresponds to the
+Variational Autoencoder (VAE) downsampling ratio in latent diffusion models [1].
+Step 4: Pipeline Injection. The QRNG-generated latent is injected directly into the
+diffusion pipeline via the latents parameter, bypassing the internal PRNG call entirely:
+x0 = fθ (z QRNG
+, cuser )
+T
+
+(7)
+
+This bypasses any compromised PRNG sampling function, as the externally supplied quantumrandom latent is used directly without invoking the framework’s built-in random number
+generation.
+
+4.3
+
+Performance Overhead Analysis.
+
+The QRNG defense introduces negligible computational overhead relative to the diffusion
+inference process. The pre-allocated buffer pool of 5 × 107 float64 values occupies approximately 400 MB of system memory; initial loading of the pre-generated buffer from storage
+requires < 1 s. During inference, latent tensor construction consists of a memory read from
+the pre-loaded pool followed by the inverse-CDF transformation (Eq. 5), which completes in
+under 1 ms—negligible compared to the 3–5 s required for a typical 50-step DDIM denoising pass at 512 × 512 resolution. From a throughput perspective, a single latent tensor for
+512×512 generation requires 4×64×64×4 bytes ≈ 65 KB of random data, while the QRNG
+hardware sustains 600 Mbps (75 MB/s), comfortably supporting batch-parallel generation
+with over 1000× headroom for single-image latent requirements. Consequently, the QRNG
+defense does not constitute a practical bottleneck in production inference pipelines.
+
+4.4
+
+Security Analysis.
+
+We state the security guarantee of the QRNG defense formally.
+Theorem 1. Under QRNG defense, the probability that an attacker’s pre-computed
+latent z ∗T coincides with the inference latent z QRNG
+is zero, regardless of the attacker’s comT
+putational resources.
+9
+
+Proof. Let (Ω, F, µ) be the probability space induced by the quantum measurement
+process, where Ω is the set of all possible measurement outcomes, F is the associated σalgebra, and µ is the probability measure derived from the Born rule. Let z QRNG
+∈ Rd
+T
+(where d = 4 × H/8 × W/8) denote the latent tensor produced by the QRNG via inverseCDF transformation Φ−1 : [0, 1] → R applied to uniformly distributed quantum measurement
+outcomes.
+By the Born rule, µ is absolutely continuous with respect to the Lebesgue measure on
+d
+R , and each measurement outcome is fundamentally non-deterministic and statistically independent of all classical information accessible to the attacker. For any fixed point z ∗T ∈ Rd
+pre-computed by the attacker, the Lebesgue measure of the singleton set {z ∗T } is zero, hence
+Pr[z QRNG
+= z ∗T ] = µ({ω ∈ Ω : z QRNG
+(ω) = z ∗T }) = 0. Furthermore, causal independence of
+T
+T
+the quantum source precludes adaptive strategies: the attacker cannot condition z ∗T on future
+QRNG outputs, as this would violate the no-signaling principle of quantum mechanics. The
+guarantee holds unconditionally, without reliance on computational hardness assumptions.
+Remark (Finite-Precision Bound). In practice, floating-point representation (float64)
+discretizes Rd into at most 264d representable points. For a typical 512 × 512 latent tensor
+(d = 4 × 64 × 64 = 16384 elements), the collision probability is upper-bounded by 2−64d =
+2−1048576 , a value negligible beyond any physical threshold.
+
+4.5
+
+Applicability Beyond Diffusion Models.
+
+Although demonstrated on diffusion models in this work, the QRNG defense is architectureagnostic and directly applicable to any generative system relying on PRNG-based sampling. This includes large language models (LLMs) that use stochastic token sampling with
+temperature-based decoding, variational autoencoders (VAEs) that sample from learned latent distributions via the reparameterization trick, generative adversarial networks (GANs)
+that draw noise vectors from prior distributions, and video diffusion models that require spatiotemporal noise tensors. In each case, replacing the PRNG with a QRNG at the sampling
+interface provides the same information-theoretic guarantee: no computational adversary
+can predict or reproduce the random inputs to the generative process, thereby neutralizing
+any supply-chain attack that targets the randomness infrastructure.
+
+5
+
+Experiments
+
+5.1
+
+Experimental Setup.
+
+All experiments were conducted on a workstation equipped with an NVIDIA RTX 3090 GPU
+(24 GB VRAM) running Ubuntu 20.04. The software environment consisted of Python 3.10,
+PyTorch 2.1.0 with CUDA 12.1, and the Diffusers library v0.25.0 for model loading and
+inference pipeline management. The QRNG hardware was a Silicon Extreme QRNG600
+PCIe card (Hefei GZ-iChip Technology Co., Ltd.) providing 600 Mbps of quantum random
+data, with a pre-allocated buffer of 5 × 107 float64 Gaussian samples (pre-generated offline
+from the QRNG hardware at 600 Mbps and loaded from storage in < 1 s). Single-image
+generation takes approximately 3–5 s for 50-step DDIM sampling at 512 × 512 resolution.
+
+10
+
+Table 1: Comprehensive attack and defense evaluation. SSIM reported as mean ± std over
+N = 100 trials (K = 10 prompts × nrep = 10 repetitions) per condition. All experiments
+use T = 50 steps, w = 7.5.
+Model η
+SD 1.4
+SD 1.5
+SD 1.5
+SD 1.5
+SDXL
+
+Attack
+
+Baseline
+
+0.0 1.000 ± 0.000 0.186 ± 0.086
+0.0 1.000 ± 0.000 0.179 ± 0.072
+0.2 1.000 ± 0.000 0.182 ± 0.075
+0.5 1.000 ± 0.000 0.185 ± 0.081
+0.0 1.000 ± 0.000 0.400 ± 0.103
+
+QRNG Defense
+0.165 ± 0.094
+0.183 ± 0.133
+0.180 ± 0.128
+0.177 ± 0.121
+0.402 ± 0.130
+
+Models. We evaluated three diffusion models: Stable Diffusion v1.4 (SD 1.4), Stable
+Diffusion v1.5 (SD 1.5), and Stable Diffusion XL (SDXL) [24]. All models were loaded with
+official pre-trained weights from Hugging Face without modification.
+Metrics. Image similarity was quantified using Structural Similarity Index Measure
+(SSIM), which evaluates structural similarity between two images on a scale of [0, 1], where
+SSIM = 1.0 indicates pixel-identical content. We compute SSIM using a standard 11 × 11
+Gaussian window and average over RGB channels following the default PyTorch implementation.
+Configuration. Unless otherwise stated, all experiments used T = 50 denoising steps,
+classifier-free guidance (CFG) [25] scale w = 7.5. A larger w enforces stronger alignment with
+the text prompt at the cost of reduced latent diversity, while a smaller w grants more freedom
+to the latent noise. Image resolution was 512×512 (SD 1.4/1.5) or 1024×1024 (SDXL). Each
+condition was evaluated across K = 10 diverse text prompts with nrep = 10 independent
+repetitions per prompt, yielding N = 100 total trials per experimental condition.
+
+5.2
+
+Main Results.
+
+Table 1 presents the primary attack and defense evaluation results across all three models.
+The attack achieves perfect reproduction (SSIM = 1.00) with zero variance across all
+trials, confirming deterministic output under DDIM. The QRNG defense reduces SSIM to
+levels statistically indistinguishable from the unmodified baseline (two-sample t-test, p >
+0.05 for all model pairs), demonstrating complete attack neutralization without degrading
+generation diversity.
+The elevated baseline SSIM for SDXL (0.400 ± 0.103) compared to SD 1.4/1.5 (∼0.18)
+reflects SDXL’s higher structural consistency and is unrelated to any attack effect. Fig. 2
+provides a visual comparison: under the same prompt (“a photo of a cat sitting on a windowsill”), three independent runs of the attacked pipeline produce pixel-identical outputs
+(SSIM = 1.00), whereas both the normal baseline and QRNG-defended pipelines yield diverse, prompt-appropriate images (SSIM ≈ 0.15–0.19).
+
+11
+
+ 5 X Q  
+
+ 5 X Q  
+
+ 5 X Q  
+ 6 6 , 0        
+  G H W H U P L Q L V W L F 
+
+ ' L I I X V L R Q + L M D F N
+ $ W W D F N
+
+  L G H Q W L F D O
+
+ 6 6 , 0        
+  U D Q G R P 
+
+ % D V H O L Q H
+  1 R U P D O  3 5 1 * 
+
+  G L Y H U V H
+
+ 6 6 , 0        
+  U D Q G R P 
+
+ 4 5 1 *  ' H I H Q V H
+ D J D L Q V W  $ W W D F N
+
+  G L Y H U V H
+
+Figure 2: Visual comparison of DiffusionHijack attack, baseline, and QRNG defense outputs
+on SD 1.5. Three independent runs are shown for the same prompt (“a photo of a cat sitting
+on a windowsill”). Top row (red border): DiffusionHijack forces pixel-identical outputs
+(SSIM = 1.00). Middle row: unmodified PRNG produces diverse images (SSIM = 0.15).
+Bottom row: QRNG-sourced latents restore generation diversity (SSIM = 0.19), confirming
+complete attack neutralization.
+
+5.3
+
+Robustness Under Non-Deterministic Sampling.
+
+Table 1 also reports the seeded-generator hijack under non-deterministic sampling conditions
+with varying noise injection levels (η ∈ {0.2, 0.5}). The seeded-generator hijack maintains
+perfect reproduction (SSIM = 1.00) even when η > 0, because the fixed generator seed
+controls all stochastic calls in the denoising chain. The attack is therefore not limited to
+deterministic samplers.
+
+5.4
+
+Safety Checker Bypass.
+
+Table 2 evaluates the attack’s ability to bypass CLIP-based safety mechanisms deployed in
+Stable Diffusion pipelines.
+The CLIP-based safety checker uses pre-trained CLIP image-text embeddings to detect
+inappropriate content by comparing generated image features against a set of known unsafe
+concept embeddings; images whose similarity exceeds a threshold are blocked. The attack
+12
+
+ $ W W D F N
+ % D V H O L Q H
+
+ 4 5 1 *  ' H I H Q V H
+
+   
+
+ 6 6 , 0
+
+   
+   
+   
+   
+   
+
+ 6 '    
+
+ 6 '    
+
+ 0 R G H O
+
+ 6 ' ; /
+
+Figure 3: Cross-model SSIM comparison under attack, baseline, and QRNG defense conditions. Results are shown for SD v1.4, v1.5, and SDXL (DDIM, η = 0, T = 50, w = 7.5,
+N = 100 trials per condition). DiffusionHijack achieves SSIM = 1.000 ± 0.000 across all
+models. Baseline SSIM ranges from 0.179 ± 0.072 (SD 1.5) to 0.400 ± 0.103 (SDXL). QRNG
+defense yields SSIM statistically indistinguishable from baseline (p > 0.05, two-sample ttest). Legend—red: DiffusionHijack; gray: baseline; blue: QRNG defense. Error bars
+indicate ±1σ.
+Table 2: Safety checker bypass on SD 1.5. Bypass rate: fraction evading the CLIP classifier.
+CLIP shift: cosine distance between user prompt embedding and generated image embedding
+(N = 50).
+Attack Type
+
+Bypass Rate (%)
+
+CLIP Shift
+
+100.0
+98.0
+
+2.6 ± 0.3
+2.2 ± 0.4
+
+Fixed-tensor (NSFW target)
+Seeded-generator (NSFW target)
+
+13
+
+Table 3: Prompt-agnostic attack (Attack A) on SD 1.5 across CFG scales w (T = 50, η = 0,
+N = 100 prompt pairs per w). Reduction is defined as (1 − SSIMQRNG /SSIMAttack ) × 100%.
+Guidance w
+1.0
+3.0
+7.5
+
+Attack SSIM
+
+QRNG Defense
+
+Reduction
+
+0.279
+0.256
+0.222
+
+0.066
+0.091
+0.109
+
+76%
+64%
+51%
+
+achieves 98–100% bypass rates. The hijacked latent forces a pre-determined output irrespective of the prompt, and the attacker can select latents not flagged by the classifier’s threshold.
+CLIP shift values of 2.2–2.6 confirm substantial deviation from the user’s intended content.
+
+5.5
+
+Prompt-Agnostic Attack.
+
+Table 3 evaluates Attack A, where the attacker fixes z ∗T without knowledge of the victim’s
+prompt.
+At low guidance scales (w = 1.0), the model relies more heavily on the latent structure,
+resulting in higher attack effectiveness (SSIM = 0.279). As guidance scale increases, the
+text conditioning exerts stronger influence on the output, reducing the attacker’s control.
+Nevertheless, even at w = 7.5, the attack SSIM (0.222) remains substantially above the
+QRNG-defended baseline (0.109), representing a 2.0× elevation. The QRNG defense consistently reduces attack effectiveness by 51–76% across all guidance scales, confirming its
+robustness as a countermeasure.
+
+6
+
+Discussion
+
+6.1
+
+Real-World Feasibility.
+
+The supply-chain attack vector demonstrated in this work is realistic and practically achievable. The Python Package Index (PyPI) has documented numerous instances of malicious
+packages employing typo-squatting and dependency confusion [9]. In the machine learning
+ecosystem, where practitioners frequently install packages with minimal verification, a malicious fork of the diffusion inference library or a poisoned dependency of the deep learning
+framework could inject PRNG manipulation code transparently. Docker images hosted on
+public registries present a similar vector, as users typically do not audit the runtime environment. The attack requires only a few lines of code to implement (runtime function
+replacement of the normal sampling function or injecting a seeded generator), making it
+readily concealable within a large codebase.
+
+6.2
+
+Limitations.
+
+Several limitations of the current work warrant discussion. First, the attack requires supplychain-level access to the victim’s inference environment, which, while realistic, is more diffi14
+
+ $ W W D F N  6 6 , 0
+ 4 5 1 *  ' H I H Q V H  6 6 , 0
+
+    
+    
+
+ 6 6 , 0
+
+    
+    
+    
+    
+    
+    
+
+   
+
+   
+
+ * X L G D Q F H  6 F D O H w
+
+   
+
+Figure 4: Effect of CFG scale w on prompt-agnostic attack effectiveness (SD 1.5). Red
+solid line with circle markers: Attack SSIM; blue dashed line with triangle markers: QRNG
+Defense SSIM. Shaded region indicates defense reduction magnitude. Conditions: T = 50,
+η = 0, N = 100 prompt pairs per scale.
+cult to achieve than purely remote attacks. Second, the QRNG defense requires dedicated
+hardware, which incurs additional cost and may not be feasible for all deployment scenarios.
+Third, our evaluation is limited to the Stable Diffusion family; while the attack principle
+generalizes to any PRNG-dependent generative model, empirical validation on other architectures (e.g., DALL·E 3, Imagen) remains future work. Fourth, the prompt-agnostic attack
+achieves moderate rather than perfect similarity, suggesting that stronger conditioning mechanisms may partially mitigate this variant without dedicated defense.
+
+6.3
+
+Lightweight Alternatives and Engineering Trade-offs.
+
+While QRNG provides the strongest theoretical guarantee, practical deployments may consider cost-effective alternatives that offer intermediate security levels. System-level hardware
+
+15
+
+Table 4: Detectability comparison across attack paradigms. ✓: yes; ✗: no.
+Weight
+Mod.
+
+Input
+Mod.
+
+Weight
+Audit
+
+I/O
+Filter
+
+DiffusionHijack (Ours)
+
+✗
+
+✗
+
+✗
+
+✗
+
+Training-time poisoning [27]
+
+✓
+
+✗
+
+✓
+
+✗
+
+Fine-tuning backdoor [28]
+
+✓
+
+✗
+
+✓
+
+✗
+
+Prompt injection [29]
+
+✗
+
+✓
+
+✗
+
+✓
+
+Adversarial examples [30]
+
+✗
+
+✓
+
+✗
+
+✓
+
+Attack Type
+
+entropy sources, such as the operating system kernel entropy pool (backed by hardware interrupt timing and device driver noise) and CPU-integrated random number instruction sets
+(e.g., Intel RDRAND/RDSEED), provide non-deterministic randomness derived from physical phenomena at negligible cost. These sources are immune to the fixed-seed and fixed-tensor
+hijack variants, as their outputs cannot be predicted or reproduced by an external adversary.
+Distributed true random number aggregation services, which combine entropy from multiple
+geographically dispersed hardware sources, offer another scalable option with enhanced tamper resistance. However, these alternatives carry important caveats: system-level entropy
+pools may be vulnerable to state recovery attacks under certain threat models [26], and
+CPU-integrated generators rely on manufacturer trust assumptions that dedicated QRNGs
+avoid. We position these as pragmatic engineering trade-offs: they provide security substantially above pure algorithmic PRNGs but below the unconditional guarantee of dedicated
+QRNGs, and are appropriate for deployments where the full quantum hardware investment
+is not justified by the threat level.
+
+6.4
+
+Broader Implications.
+
+Our findings have implications beyond diffusion models. Any generative model that relies on PRNGs for stochastic sampling—including large language models (LLMs) using
+temperature-based decoding, variational autoencoders, and generative adversarial networks—
+may be vulnerable to analogous PRNG manipulation attacks. In particular, the PRNG
+supply chain of LLM inference servers represents a similarly unaudited attack surface where
+seed control could bias token sampling toward attacker-chosen outputs, suggesting a unified
+threat paradigm across generative AI modalities. We advocate for:
+1. Systematic security audits of AI software supply chains, with particular attention to
+randomness generation components.
+2. Integration of hardware-based true random number generation into critical AI infrastructure.
+3. Development of runtime integrity verification mechanisms for PRNG behavior.
+
+16
+
+7
+
+Conclusion
+
+This paper presented DiffusionHijack, a supply-chain backdoor attack that hijacks the PRNG
+in diffusion model inference to achieve deterministic output control. The attack achieves deterministic output duplication (SSIM = 1.00) across three Stable Diffusion variants, persists
+under stochastic sampling, bypasses CLIP safety checkers (98–100%), and enables promptagnostic forced generation. As a countermeasure, we replace the PRNG with a hardware
+QRNG that provides information-theoretic unpredictability, completely neutralizing the attack.
+Our work reveals a critical yet overlooked vulnerability in the generative AI supply chain
+and demonstrates that hardware-based quantum randomness offers an effective, unconditional defense. We call on the community to prioritize supply-chain security audits for AI
+systems, with particular attention to the randomness infrastructure underpinning all stochastic models. Future work will extend the evaluation to additional generative architectures
+(e.g., DALL·E 3, video diffusion) and investigate lightweight QRNG integration strategies
+suitable for edge deployment.
+
+Acknowledgment
+This work was supported by the National Natural Science Foundation of China (72573124).
+
+References
+[1] R. Rombach, A. Blattmann, D. Lorenz, P. Esser, and B. Ommer, “High-resolution
+image synthesis with latent diffusion models,” in Proc. IEEE/CVF CVPR, 2022, pp.
+10 684–10 695.
+[2] C. Saharia, W. Chan, S. Saxena, L. Li, J. Whang, J. Ho, T. Salimans, D. Fleet, and
+M. Norouzi, “Photorealistic text-to-image diffusion models with deep language understanding,” in Proc. NeurIPS, vol. 35, 2022, pp. 11 285–11 299.
+[3] Y. Yang, R. Gao, X. Qin, J. Shao, and X. Xie, “Guardt2i: Defending text-to-image
+models from adversarial prompts,” in Proc. NeurIPS, 2024.
+[4] T. Gu, B. Dolan-Gavitt, and S. Garg, “Badnets: Identifying vulnerabilities in the machine learning model supply chain,” IEEE Access, vol. 7, pp. 47 230–47 244, 2019.
+[5] Y. Li, Y. Jiang, Z. Li, and S.-T. Xia, “Backdoor learning: A survey,” IEEE Trans.
+Neural Netw. Learn. Syst., vol. 35, no. 1, pp. 5–22, 2024.
+[6] A. Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G. Sastry,
+A. Askell, P. Mishkin, J. Clark, G. Krueger, and I. Sutskever, “Learning transferable
+visual models from natural language supervision,” in Proc. ICML, 2021, pp. 8748–8763.
+[7] Y. Li et al., “T2isafety: Benchmark for assessing fairness, toxicity, and privacy in textto-image generation,” in Proc. IEEE/CVF CVPR, 2025.
+17
+
+[8] J. Song, C. Meng, and S. Ermon, “Denoising diffusion implicit models,” in Proc. ICLR,
+2021.
+[9] L. Williams, G. Benedetti, S. Hamer, R. Paramitha, I. Rahman, and M. Tamanna, “Research directions in software supply chain security,” ACM Trans. Softw. Eng. Methodol.,
+2024.
+[10] S. Neupane, G. Holmes, E. Wyss, D. Davidson, and L. De Carli, “Beyond typosquatting:
+An in-depth look at package confusion,” in Proc. USENIX Security Symp., 2023.
+[11] O. Jarkas, R. K. L. Ko, N. Dong, and R. Mahmud, “A container security survey:
+Exploits, attacks, and defenses,” ACM Comput. Surv., vol. 57, no. 7, 2025.
+[12] J. Spracklen, R. Wijewickrama, and A. H. M. S. M. Jadliwala, “We have a package for
+you! a comprehensive analysis of package hallucinations by code generating llms,” in
+Proc. USENIX Security Symp., 2025.
+[13] J. Ho, A. Jain, and P. Abbeel, “Denoising diffusion probabilistic models,” in Proc.
+NeurIPS, vol. 33, 2020, pp. 6840–6851.
+[14] Y. Song, J. Sohl-Dickstein, D. P. Kingma, A. Kumar, S. Ermon, and B. Poole, “Scorebased generative modeling through stochastic differential equations,” in Proc. ICLR,
+2021.
+[15] C. Zhang, M. Hu, W. Li, and L. Wang, “Adversarial attacks and defenses on text-toimage diffusion models: A survey,” Inf. Fusion, vol. 114, p. 102701, 2025.
+[16] P. Ladisa, C. Phalen, A. Wasowski, H. Plate, and S. E. Ponta, “Taxonomy of attacks
+on open-source software supply chains,” in Proc. IEEE S&P, 2023.
+[17] C. Huang, Y. Wang, Y. Wu, L. Wang, H. Zhou, and H. Chen, “Donapi: Malicious
+npm packages detector using behavior sequence knowledge mapping,” in Proc. USENIX
+Security Symp., 2024.
+[18] Z. Ba, K. Chen, L. Jiang, Z. Ma, and S. Wang, “Surrogateprompt: Bypassing the safety
+filter of text-to-image models via substitution,” in Proc. ACM CCS, 2024.
+[19] X. Jin, Z. Weng, H. Guo, C. Yin, S. Cheng, G. Zhang, and X. Zhang, “Jailbreakdiffbench: A comprehensive benchmark for jailbreaking diffusion models,” in Proc.
+IEEE/CVF ICCV, 2025.
+[20] M. Stipcevic and B. M. Kuo, “Quantum random number generators,” Open Phys.,
+vol. 9, no. 4, pp. 1055–1066, 2011.
+[21] C. H. Bennett and G. Brassard, “Quantum cryptography: Public key distribution and
+coin tossing,” in Proc. IEEE Int. Conf. Comput. Syst. Signal Process., Bangalore, India,
+1984, pp. 175–179.
+[22] J. M. Cohen, E. Rosenfeld, and J. Z. Kolter, “Certified adversarial robustness via randomized smoothing,” in Proc. ICML, 2019, pp. 1310–1320.
+18
+
+[23] Y. Wen, J. Kirchenbauer, J. Geiping, and T. Goldstein, “Tree-ring watermarks: Fingerprints for diffusion images that are invisible and robust,” in Proc. NeurIPS, 2023.
+[24] D. Podell, Z. English, K. Lacey, A. Blattmann, T. Dockhorn, J. Müller, J. Penna,
+and R. Rombach, “Sdxl: Improving latent diffusion models for high-resolution image
+synthesis,” in Proc. ICLR, 2024.
+[25] J. Ho and T. Salimans, “Classifier-free diffusion guidance,” in Proc. NeurIPS, 2022.
+[26] Y. Dodis, D. Pointcheval, S. Ruhault, D. Vergniaud, and D. Wichs, “Security analysis
+of pseudo-random number generators with input: /dev/random is not robust,” in Proc.
+ACM CCS, 2013, pp. 647–658.
+[27] S. Jang, J. S. Choi, J. Jo, K. Lee, and S. J. Hwang, “Silent branding attack: Trigger-free
+data poisoning attack on text-to-image diffusion models,” in Proc. IEEE/CVF CVPR,
+2025, pp. 8203–8212.
+[28] S. Zhai, Y. Dong, Q. Shen, S. Pu, Y. Fang, and H. Su, “Text-to-image diffusion models
+can be easily backdoored through multimodal data poisoning,” in Proc. ACM Int. Conf.
+Multimedia, 2023, pp. 1577–1587.
+[29] C. Zhang, L. Wang, Y. Ma, W. Li, and A. Liu, “Reason2attack: Jailbreaking text-toimage models via llm reasoning,” in Proc. AAAI Conf. Artif. Intell., vol. 40, no. 42,
+2025, pp. 36 030–36 038.
+[30] X. Dai, K. Liang, and B. Xiao, “Advdiff: Generating unrestricted adversarial examples
+using diffusion models,” in Proc. ECCV, 2024, pp. 93–109.
+
+19
+
+

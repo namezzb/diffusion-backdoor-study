@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-10-27T14:31:20.140082+00:00",
+  "status": "failed",
+  "script_sha256": "d9ec96596179f58a6ebab55d94a36974acebc4bb2bba90924512434fe883c724",
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "asset_manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+  "prefetch_report_sha256": "f63b70a717bf32fdec6427e315442308d1646db60f8e3b40bde43f485a490d61",
+  "files": [],
+  "tokenizers": {},
+  "network_access": false,
+  "model_weights_loaded": false,
+  "GPU_used": false,
+  "scope": "Local OpenJourney and evaluation CLIP tokenizer preparation only. Clean and DreamShaper tokenizer comparisons, full checkpoint loading, gradients, and CUDA remain unvalidated.",
+  "python_version": "3.12.14",
+  "transformers_version": "4.49.0",
+  "error": "FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/arxiv-tssa-stage/89d2210e678b0970887d6f9100cc9a6bc34f3ae842a1bf3fb863abd42f9c9182.part'",
+  "finished_at": "2026-10-27T14:31:22.079421+00:00",
+  "seconds": 1.9389473749979516
+}

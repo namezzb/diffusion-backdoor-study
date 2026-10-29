@@ -1,0 +1,9 @@
+{
+  "remote_root": "/data1/zhangzibo/arxiv-tssa/preparations/target-semantic-20261029T013825229255Z",
+  "machine_id_sha256": "cd06519e32872d3878e9ba27accf715cf97f9a68242c5130c0a4f8002ee08352",
+  "bundle_sha256": "d498067f40cde5aefcdd5ec82a2a63c8bc891ae648589ed89adeece7c3e6c864",
+  "no_gpu": true,
+  "tests_exit_code": 0,
+  "preflight_exit_code": 0,
+  "status": "passed"
+}

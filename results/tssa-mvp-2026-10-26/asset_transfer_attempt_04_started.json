@@ -1,0 +1,30 @@
+{
+  "pid": 86993,
+  "started_at": "2026-10-26T18:00:29.564130+00:00",
+  "status": "running",
+  "attempt": 4,
+  "kind": "controlled_independent_SFTP_resume_diagnostic",
+  "manifest": "research/tssa_mvp_assets_2026-10-26.json",
+  "full_manifest_selected": false,
+  "selected_files": 12,
+  "selected_role": "sd15",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer_independent_2026-10-27-020029.log",
+  "helper_sha256": "3cbed65f6e8b23c49d837fadf41b0894017144b7690781a3adb06b50e0b13fa8",
+  "command": [
+    "/Users/zzb/arxiv/.venv/bin/python",
+    "/Users/zzb/arxiv/server/stage_school_assets.py",
+    "--manifest",
+    "/Users/zzb/arxiv/research/tssa_mvp_assets_2026-10-26.json",
+    "--role",
+    "sd15",
+    "--limit",
+    "12",
+    "--independent-sftp",
+    "--verbose-sftp"
+  ],
+  "previous_failed_attempt": "results/tssa-mvp-2026-10-26/asset_transfer_attempt_03_failed.json",
+  "diagnostic_basis": "Fresh 150-second independent SSH probe passed; only bulk SFTP connection reuse disabled, plus diagnostic logging. Account/target authentication currently succeeds. Root cause remains unproven.",
+  "stopping_scope": "Reverify first 11 SD15 files, then resume only existing UNet; stop after its verification or first failure. Do not automatically retry or continue remaining models.",
+  "baseline_partial_bytes": 2969717760,
+  "minimum_success_evidence": "UNet whole-file pinned SHA256 and size verified remotely; duration/progress alone insufficient."
+}

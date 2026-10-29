@@ -1,0 +1,50 @@
+Downloading locally: sd15/README.md (14461 bytes)
+Verified existing against pinned source: sd15/README.md
+Downloading locally: sd15/feature_extractor/preprocessor_config.json (342 bytes)
+Uploading: sd15/feature_extractor/preprocessor_config.json
+SHA256 verified remotely: sd15/feature_extractor/preprocessor_config.json
+Downloading locally: sd15/model_index.json (541 bytes)
+Uploading: sd15/model_index.json
+SHA256 verified remotely: sd15/model_index.json
+Downloading locally: sd15/scheduler/scheduler_config.json (308 bytes)
+Uploading: sd15/scheduler/scheduler_config.json
+SHA256 verified remotely: sd15/scheduler/scheduler_config.json
+Downloading locally: sd15/text_encoder/config.json (617 bytes)
+Uploading: sd15/text_encoder/config.json
+SHA256 verified remotely: sd15/text_encoder/config.json
+Downloading locally: sd15/text_encoder/model.safetensors (492265874 bytes)
+Uploading: sd15/text_encoder/model.safetensors
+SHA256 verified remotely: sd15/text_encoder/model.safetensors
+Downloading locally: sd15/tokenizer/merges.txt (524619 bytes)
+Uploading: sd15/tokenizer/merges.txt
+SHA256 verified remotely: sd15/tokenizer/merges.txt
+Downloading locally: sd15/tokenizer/special_tokens_map.json (472 bytes)
+Uploading: sd15/tokenizer/special_tokens_map.json
+SHA256 verified remotely: sd15/tokenizer/special_tokens_map.json
+Downloading locally: sd15/tokenizer/tokenizer_config.json (806 bytes)
+Uploading: sd15/tokenizer/tokenizer_config.json
+SHA256 verified remotely: sd15/tokenizer/tokenizer_config.json
+Downloading locally: sd15/tokenizer/vocab.json (1059962 bytes)
+Uploading: sd15/tokenizer/vocab.json
+SHA256 verified remotely: sd15/tokenizer/vocab.json
+Downloading locally: sd15/unet/config.json (743 bytes)
+Uploading: sd15/unet/config.json
+SHA256 verified remotely: sd15/unet/config.json
+Downloading locally: sd15/unet/diffusion_pytorch_model.safetensors (3438167540 bytes)
+Uploading: sd15/unet/diffusion_pytorch_model.safetensors
+lost connection
+Traceback (most recent call last):
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 241, in <module>
+    os.fsync(stream.fileno())
+^^^^^^
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 232, in main
+    os.fsync(stream.fileno())
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 90, in upload
+    
+  File "/Users/zzb/arxiv/server/stage_school_assets.py", line 28, in run
+    def run(args, **kwargs):
+               ^^^^^^^^^^^^^^
+  File "/Users/zzb/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['scp', '-q', '-F', '/private/tmp/school-stage-1gi9viin/config', '/private/tmp/arxiv-tssa-stage/b4106b072747208b2e136002b2afd1bdf98772086e8aa3adce82c0a2580c4801.part', 'school104:/data2/zhangzibo/arxiv-tssa/models/sd15/unet/diffusion_pytorch_model.safetensors.uploading']' returned non-zero exit status 1.

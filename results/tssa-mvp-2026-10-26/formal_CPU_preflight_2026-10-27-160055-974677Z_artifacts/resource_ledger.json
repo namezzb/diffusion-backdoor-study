@@ -1,0 +1,66 @@
+{
+  "committed_work_by_bucket": {
+    "diagnostic_extra": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    },
+    "main": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    },
+    "source_extra": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    }
+  },
+  "diagnostic_bucket": "Operations prefixed diagnostic/ are outside the main 1664-image/144-update budget.",
+  "failed_or_interrupted_attempts_separately_accounted": [
+    {
+      "attempt": {
+        "error": "Edev/UNet: component configuration mismatch for upcast_attention: False vs None",
+        "error_type": "ValueError",
+        "finished_at": "2026-10-27T16:03:04.841401+00:00",
+        "outcome": "failure",
+        "resources_after": {},
+        "resources_before": {},
+        "started_at": "2026-10-27T16:02:35.317456+00:00",
+        "wall_seconds": 29.52295368799969
+      },
+      "cost_upper_bound": {},
+      "operation": "preflight/cpu"
+    }
+  ],
+  "observed_peak_allocated_bytes": 0,
+  "operations": [
+    {
+      "attempts": [
+        {
+          "error": "Edev/UNet: component configuration mismatch for upcast_attention: False vs None",
+          "error_type": "ValueError",
+          "finished_at": "2026-10-27T16:03:04.841401+00:00",
+          "outcome": "failure",
+          "resources_after": {},
+          "resources_before": {},
+          "started_at": "2026-10-27T16:02:35.317456+00:00",
+          "wall_seconds": 29.52295368799969
+        }
+      ],
+      "cost_upper_bound": {},
+      "operation": "preflight/cpu",
+      "run_identity_sha256": "82b961307209b8b9d48c0037ca353b3e24e31c05a764cadb14d18340a900b81c",
+      "status": "failed"
+    }
+  ],
+  "per_worker": {},
+  "run_identity_sha256": "82b961307209b8b9d48c0037ca353b3e24e31c05a764cadb14d18340a900b81c",
+  "unknown_work_must_not_be_reported_as_zero": true
+}

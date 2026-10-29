@@ -1,0 +1,2471 @@
+{
+  "observed_at": "2026-10-27T22:37:39.967980+08:00",
+  "transfer_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+  "previous_audit": "results/tssa-mvp-2026-10-26/active_transfer_integrity_audit_2026-10-27-140924-748406Z.json",
+  "previous_log_prefix_preserved": true,
+  "log": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.log",
+  "log_prefix_bytes": 60275,
+  "log_prefix_sha256": "b2d3349a2d0c85c679b2ce0e10dfcd926693a54f5639cb15c893b17bfeb4c15d",
+  "ledger": "results/tssa-mvp-2026-10-26/asset_transfer.jsonl",
+  "ledger_prefix_bytes": 145436,
+  "ledger_prefix_sha256": "3cdf58b6456bdf20340628453ac480bde6fe0021899a45fb53010d94cf6e5ccd",
+  "complete_manifest_files_verified": 33,
+  "complete_manifest_bytes_verified": 9184825209,
+  "by_role_file_counts": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 9
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 8
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "completed_files_this_attempt": [
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "chunks": 112,
+      "final_remote_receipt": {
+        "status": "transferred_verified",
+        "path": "/data2/zhangzibo/arxiv-tssa/models/openjourney/text_encoder/model.safetensors",
+        "source": {
+          "repo_id": "prompthero/openjourney",
+          "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+          "path": "text_encoder/model.safetensors",
+          "local_dir": "openjourney",
+          "local_path": "openjourney/text_encoder/model.safetensors",
+          "size": 492265874,
+          "sha256": "5d3d1299268e3fa1daee2ce59de969b676ad46c5e12c17827c725599d91cc22f",
+          "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/text_encoder/model.safetensors",
+          "git_blob_oid": "c0b120aa19ec358ce706c23a1f5664aa88844988",
+          "is_lfs": true,
+          "download_status": "not_downloaded"
+        },
+        "exists": true,
+        "sha256": "5d3d1299268e3fa1daee2ce59de969b676ad46c5e12c17827c725599d91cc22f",
+        "size": 492265874,
+        "observed_at": "2026-10-27T14:17:35.487354+00:00"
+      },
+      "local_copy_removed_after_remote_verification": true,
+      "chunk_validation_scope": "Receiver verified each chunk; full remote size and pinned source SHA verified. Removed local bytes are not independently rechecked in this wake."
+    },
+    {
+      "local_path": "openjourney/tokenizer/merges.txt",
+      "chunks": 1,
+      "final_remote_receipt": {
+        "status": "transferred_verified",
+        "path": "/data2/zhangzibo/arxiv-tssa/models/openjourney/tokenizer/merges.txt",
+        "source": {
+          "repo_id": "prompthero/openjourney",
+          "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+          "path": "tokenizer/merges.txt",
+          "local_dir": "openjourney",
+          "local_path": "openjourney/tokenizer/merges.txt",
+          "size": 524619,
+          "sha256": null,
+          "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/merges.txt",
+          "git_blob_oid": "76e821f1b6f0a9709293c3b6b51ed90980b3166b",
+          "is_lfs": false,
+          "download_status": "not_downloaded"
+        },
+        "exists": true,
+        "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+        "size": 524619,
+        "observed_at": "2026-10-27T14:17:39.860872+00:00"
+      },
+      "local_copy_removed_after_remote_verification": true,
+      "chunk_validation_scope": "Receiver verified each chunk; full remote size and pinned source SHA verified. Removed local bytes are not independently rechecked in this wake."
+    },
+    {
+      "local_path": "openjourney/tokenizer/special_tokens_map.json",
+      "chunks": 1,
+      "final_remote_receipt": {
+        "status": "transferred_verified",
+        "path": "/data2/zhangzibo/arxiv-tssa/models/openjourney/tokenizer/special_tokens_map.json",
+        "source": {
+          "repo_id": "prompthero/openjourney",
+          "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+          "path": "tokenizer/special_tokens_map.json",
+          "local_dir": "openjourney",
+          "local_path": "openjourney/tokenizer/special_tokens_map.json",
+          "size": 472,
+          "sha256": null,
+          "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/special_tokens_map.json",
+          "git_blob_oid": "2c2130b544c0c5a72d5d00da071ba130a9800fb2",
+          "is_lfs": false,
+          "download_status": "not_downloaded"
+        },
+        "exists": true,
+        "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+        "size": 472,
+        "observed_at": "2026-10-27T14:17:45.348510+00:00"
+      },
+      "local_copy_removed_after_remote_verification": true,
+      "chunk_validation_scope": "Receiver verified each chunk; full remote size and pinned source SHA verified. Removed local bytes are not independently rechecked in this wake."
+    },
+    {
+      "local_path": "openjourney/tokenizer/tokenizer_config.json",
+      "chunks": 1,
+      "final_remote_receipt": {
+        "status": "transferred_verified",
+        "path": "/data2/zhangzibo/arxiv-tssa/models/openjourney/tokenizer/tokenizer_config.json",
+        "source": {
+          "repo_id": "prompthero/openjourney",
+          "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+          "path": "tokenizer/tokenizer_config.json",
+          "local_dir": "openjourney",
+          "local_path": "openjourney/tokenizer/tokenizer_config.json",
+          "size": 806,
+          "sha256": null,
+          "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/tokenizer_config.json",
+          "git_blob_oid": "5ba7bf706515bc60487ad0e1816b4929b82542d6",
+          "is_lfs": false,
+          "download_status": "not_downloaded"
+        },
+        "exists": true,
+        "sha256": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882",
+        "size": 806,
+        "observed_at": "2026-10-27T14:17:51.739290+00:00"
+      },
+      "local_copy_removed_after_remote_verification": true,
+      "chunk_validation_scope": "Receiver verified each chunk; full remote size and pinned source SHA verified. Removed local bytes are not independently rechecked in this wake."
+    },
+    {
+      "local_path": "openjourney/tokenizer/vocab.json",
+      "chunks": 1,
+      "final_remote_receipt": {
+        "status": "transferred_verified",
+        "path": "/data2/zhangzibo/arxiv-tssa/models/openjourney/tokenizer/vocab.json",
+        "source": {
+          "repo_id": "prompthero/openjourney",
+          "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+          "path": "tokenizer/vocab.json",
+          "local_dir": "openjourney",
+          "local_path": "openjourney/tokenizer/vocab.json",
+          "size": 1059962,
+          "sha256": null,
+          "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/tokenizer/vocab.json",
+          "git_blob_oid": "469be27c5c010538f845f518c4f5e8574c78f7c8",
+          "is_lfs": false,
+          "download_status": "not_downloaded"
+        },
+        "exists": true,
+        "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+        "size": 1059962,
+        "observed_at": "2026-10-27T14:17:55.823830+00:00"
+      },
+      "local_copy_removed_after_remote_verification": true,
+      "chunk_validation_scope": "Receiver verified each chunk; full remote size and pinned source SHA verified. Removed local bytes are not independently rechecked in this wake."
+    },
+    {
+      "local_path": "openjourney/unet/config.json",
+      "chunks": 1,
+      "final_remote_receipt": {
+        "status": "transferred_verified",
+        "path": "/data2/zhangzibo/arxiv-tssa/models/openjourney/unet/config.json",
+        "source": {
+          "repo_id": "prompthero/openjourney",
+          "revision": "f4572661b028c732b2b97c8fbdc32fa5db3afe03",
+          "path": "unet/config.json",
+          "local_dir": "openjourney",
+          "local_path": "openjourney/unet/config.json",
+          "size": 743,
+          "sha256": null,
+          "source_url": "https://huggingface.co/prompthero/openjourney/resolve/f4572661b028c732b2b97c8fbdc32fa5db3afe03/unet/config.json",
+          "git_blob_oid": "023f41e47ea7a66c48e3a5e6c5d22b87295bf18f",
+          "is_lfs": false,
+          "download_status": "not_downloaded"
+        },
+        "exists": true,
+        "sha256": "19edfc94e14cecaef24fe3a60c269a7d0727245b8c4ef4847afd52f28f682bbd",
+        "size": 743,
+        "observed_at": "2026-10-27T14:17:57.243838+00:00"
+      },
+      "local_copy_removed_after_remote_verification": true,
+      "chunk_validation_scope": "Receiver verified each chunk; full remote size and pinned source SHA verified. Removed local bytes are not independently rechecked in this wake."
+    }
+  ],
+  "new_chunk_receipts": [
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 25165824,
+      "chunk_size": 4194304,
+      "committed_size": 29360128,
+      "sha256": "6107e6beb351c4e503410bab742279723bc7197d1ba3ef3dc239522c2eb2c227"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 29360128,
+      "chunk_size": 4194304,
+      "committed_size": 33554432,
+      "sha256": "360c6caebf13e6b1867c862abec48d02bb1d361ab7735a03fbb88b1b470c5a01"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 33554432,
+      "chunk_size": 4194304,
+      "committed_size": 37748736,
+      "sha256": "c02aea612f9c90590da9602c96ca967259f758241f28126b9c78bdb15e5adde7"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 37748736,
+      "chunk_size": 4194304,
+      "committed_size": 41943040,
+      "sha256": "98a3b94ee6e2961a15356e9a71697e849aabc67bb2b8c85845fa863deca8122c"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 41943040,
+      "chunk_size": 4194304,
+      "committed_size": 46137344,
+      "sha256": "3c81fe21c9b13115c5dbeea86e5d4c75ef605867b64c65cfa0ba5d19d94d2c49"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 46137344,
+      "chunk_size": 4194304,
+      "committed_size": 50331648,
+      "sha256": "da3e0d3ce8a3c34d6f55004651198b767a8869c172f7f96e65d0bf9aad1e7438"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 50331648,
+      "chunk_size": 4194304,
+      "committed_size": 54525952,
+      "sha256": "aeb305e5816dc5276bf1c3ed72608e6fa2fa0014dec6e187323f5517e6dbb1f9"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 54525952,
+      "chunk_size": 4194304,
+      "committed_size": 58720256,
+      "sha256": "8af51876326ea2f774b94e206460b9fb01ee053f12da0e4ee7e788d021fcb054"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 58720256,
+      "chunk_size": 4194304,
+      "committed_size": 62914560,
+      "sha256": "2229563088541791b262d26d662c41da6a40a0216bd045b88bdcb46d4a78bd51"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 62914560,
+      "chunk_size": 4194304,
+      "committed_size": 67108864,
+      "sha256": "4fed20850e1bf6bb6ebec736500177ce356c1f77feb210a3e735b747838b954b"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 67108864,
+      "chunk_size": 4194304,
+      "committed_size": 71303168,
+      "sha256": "f521e774226f2b8c09cf7e432600b37ac183d02004185f7c1136cce87444a9e0"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 71303168,
+      "chunk_size": 4194304,
+      "committed_size": 75497472,
+      "sha256": "6baf3a34975f7f53455305dabc92c90fb72bf1950e4cb0500649a5bf815566b6"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 75497472,
+      "chunk_size": 4194304,
+      "committed_size": 79691776,
+      "sha256": "82c7043cd07e6a7157b2a1ecf86d8af8eb7758069a0ef5774d1bedad1b5a895f"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 79691776,
+      "chunk_size": 4194304,
+      "committed_size": 83886080,
+      "sha256": "29594147727b7129213bf3c4211190d12e1744a34f070eeebfbfe5caaad929e5"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 83886080,
+      "chunk_size": 4194304,
+      "committed_size": 88080384,
+      "sha256": "ff91c3a10b310c43bc6d0351ab19cc8a71917cf8a7961ff6ca17ed6c442f8b72"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 88080384,
+      "chunk_size": 4194304,
+      "committed_size": 92274688,
+      "sha256": "e352cb97ecd57117c670db7c7f5f79fc43cfc88e06c8925f6590f59c4c678774"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 92274688,
+      "chunk_size": 4194304,
+      "committed_size": 96468992,
+      "sha256": "56a6cafcc591b8e8941836919249c6df99b16d496f2764e513d92d1c37edddce"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 96468992,
+      "chunk_size": 4194304,
+      "committed_size": 100663296,
+      "sha256": "d53655e53db3ffd978c0361b6b9951b4f2eeeb68bdb783e7c4c1daf316d166ae"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 100663296,
+      "chunk_size": 4194304,
+      "committed_size": 104857600,
+      "sha256": "8a88ecec64825b61bece7edeb7f3af57651feed65340f7842a3729fea5173ae4"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 104857600,
+      "chunk_size": 4194304,
+      "committed_size": 109051904,
+      "sha256": "de80f8d62177a425671291ba9b9ec3757e759ef4992c21aba1ab2aa5945b1389"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 109051904,
+      "chunk_size": 4194304,
+      "committed_size": 113246208,
+      "sha256": "369b6378614a243180a29c1b4f7dc430aeb434b5df96688a43ef260a657015f1"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 113246208,
+      "chunk_size": 4194304,
+      "committed_size": 117440512,
+      "sha256": "5e18bfd98de39f3d43915ee329c5b4dd9d2a192b8d4159467f931de4932c4f19"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 117440512,
+      "chunk_size": 4194304,
+      "committed_size": 121634816,
+      "sha256": "07a892e0a80b30d4a434371214f655e29a7ec82664a162dd87d4153feb44f535"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 121634816,
+      "chunk_size": 4194304,
+      "committed_size": 125829120,
+      "sha256": "658ffacee51fdf5c32b8a41aa1c718b3619bb29776365239619fd67318614822"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 125829120,
+      "chunk_size": 4194304,
+      "committed_size": 130023424,
+      "sha256": "a16be401e15d4ea3b1924ab0a321e647503fac04c04f524dbcaf725bdd427136"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 130023424,
+      "chunk_size": 4194304,
+      "committed_size": 134217728,
+      "sha256": "61726712b78c48fa91084663c8e22b62b0d557abe1ebde5d14df19869a21e213"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 134217728,
+      "chunk_size": 4194304,
+      "committed_size": 138412032,
+      "sha256": "7c8a2382ae2824dc8443268a2ba7a845262cde0177f7dd40d573c1c612a9e60c"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 138412032,
+      "chunk_size": 4194304,
+      "committed_size": 142606336,
+      "sha256": "680b07208fc2667cdc54a2eaedfa4cd3b6c975762262a0414a051e8d91fbc8b0"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 142606336,
+      "chunk_size": 4194304,
+      "committed_size": 146800640,
+      "sha256": "e99ad0e77501fc08f06c21761ae1098091a43f43d262cad176529d12a3830389"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 146800640,
+      "chunk_size": 4194304,
+      "committed_size": 150994944,
+      "sha256": "4b23209dd27c1feb3a92b169dfa6a512e8eede7a25b654aad1873e127346f6d2"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 150994944,
+      "chunk_size": 4194304,
+      "committed_size": 155189248,
+      "sha256": "48995b4c65280bed0a25d3665e871043ec8600d7474c3969857f3b267a44e446"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 155189248,
+      "chunk_size": 4194304,
+      "committed_size": 159383552,
+      "sha256": "ab3c7249dcef8d9eccb344e5737cbbfd900b043bdb21b7a6d3ba07b8b9acf734"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 159383552,
+      "chunk_size": 4194304,
+      "committed_size": 163577856,
+      "sha256": "6b01fd16e9c58e2bf1b3a31133d6fb33de2369a93533c21983c980f412304439"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 163577856,
+      "chunk_size": 4194304,
+      "committed_size": 167772160,
+      "sha256": "dcb09f4de1f409dd1343c47a9a64dd659b262e7d989a334f89015f90f37c5ca0"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 167772160,
+      "chunk_size": 4194304,
+      "committed_size": 171966464,
+      "sha256": "22e334c7813d13dcd4f64fb5aaed112db92e624c58d62bd87e28466bd3a5126b"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 171966464,
+      "chunk_size": 4194304,
+      "committed_size": 176160768,
+      "sha256": "f35726537ddd45bf3178c49988c30bf08c019a2ea54e721334a0cf84a1fa313a"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 176160768,
+      "chunk_size": 4194304,
+      "committed_size": 180355072,
+      "sha256": "2e94c2d905ff5868e79f2b86abf6b6421802cc4f6479194a403a483ca51d8708"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 180355072,
+      "chunk_size": 4194304,
+      "committed_size": 184549376,
+      "sha256": "ea57328b782f1eca45aa56f9a08164ba65d817b9c7b561a544caa94e1bbc4036"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 184549376,
+      "chunk_size": 4194304,
+      "committed_size": 188743680,
+      "sha256": "c80426fe94b194079355c22ee76ee238d568277cca0aebdc2e3473628a7a01b5"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 188743680,
+      "chunk_size": 4194304,
+      "committed_size": 192937984,
+      "sha256": "7bfff087056816c74d106ea3642ca70ddecfe2aa04ac7aee82f7e895ad181ddf"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 192937984,
+      "chunk_size": 4194304,
+      "committed_size": 197132288,
+      "sha256": "2cce8a6b98757b3f1a1fdcbfa9e2a03069c238914df19654c228af187cfbb241"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 197132288,
+      "chunk_size": 4194304,
+      "committed_size": 201326592,
+      "sha256": "a09626b4e90da23cd8336c7ecb006c72841134e05a49155bb535e148820aeca1"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 201326592,
+      "chunk_size": 4194304,
+      "committed_size": 205520896,
+      "sha256": "c7da1439045d9254b92caf001dfa5532d9ae4e7d55634bee9dd64e4945bd89b2"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 205520896,
+      "chunk_size": 4194304,
+      "committed_size": 209715200,
+      "sha256": "11cad46aa100bf5ca02434fb60b547bb36e203401c7c6b3137e51f37a38d5d93"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 209715200,
+      "chunk_size": 4194304,
+      "committed_size": 213909504,
+      "sha256": "9f333f8862a655e10fbb0692b48c09f8098435ab1bc1328923966ba11c87b3e6"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 213909504,
+      "chunk_size": 4194304,
+      "committed_size": 218103808,
+      "sha256": "f8bdd5ae17675b9fca3213c36bf918c701c08a8c19f54d535df503d2f8479c5c"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 218103808,
+      "chunk_size": 4194304,
+      "committed_size": 222298112,
+      "sha256": "2e2c2c0c51719ffc3bb9daba0622c921c2ba136a7073b686bce9a5fb0dbe6f0b"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 222298112,
+      "chunk_size": 4194304,
+      "committed_size": 226492416,
+      "sha256": "8730e6fdb3cdfcdba08b2e19c2accdc09ea05600b5f2db77ce5e67d47972c44a"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 226492416,
+      "chunk_size": 4194304,
+      "committed_size": 230686720,
+      "sha256": "766b52df853357f6346a18536f8f5d226c16d7de11fe1050d460ef2e7d2f82b9"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 230686720,
+      "chunk_size": 4194304,
+      "committed_size": 234881024,
+      "sha256": "1efbac1f56d6fbf8aac89eb5cf72927992a0c56333ec32815482813bc07f4b0c"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 234881024,
+      "chunk_size": 4194304,
+      "committed_size": 239075328,
+      "sha256": "5cf6689686ddc106d6c1a87705909cac308b1675f1f4e846e6e9e966f4fd95e0"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 239075328,
+      "chunk_size": 4194304,
+      "committed_size": 243269632,
+      "sha256": "be1ffa1523844c95cf8cb39eaed5cd6cd71b103a975cf70ca7480fea3c488a7b"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 243269632,
+      "chunk_size": 4194304,
+      "committed_size": 247463936,
+      "sha256": "8b7a657dd6d7c8090ad6aa1d55cb53571a406fc81b294ac7f0c1bc7e17ffa111"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 247463936,
+      "chunk_size": 4194304,
+      "committed_size": 251658240,
+      "sha256": "a7259998a9e687efdbd47457f96a3b3be6f800adc05371f1515f1394880489cc"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 251658240,
+      "chunk_size": 4194304,
+      "committed_size": 255852544,
+      "sha256": "ae0ab74907f97c20e4ccc4c691c4a182e18a0139d87bde76740293b2e6a152b7"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 255852544,
+      "chunk_size": 4194304,
+      "committed_size": 260046848,
+      "sha256": "971279f9d7fe8a9d5ac6de9b0baf2f82cd776bfef808f9f5dad6325e4cc5644f"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 260046848,
+      "chunk_size": 4194304,
+      "committed_size": 264241152,
+      "sha256": "e9a0d5c32d08fcb693733383a3107c368379247f69c63e2bc6caa320747c3cb7"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 264241152,
+      "chunk_size": 4194304,
+      "committed_size": 268435456,
+      "sha256": "12d800d6ce295bb6e40d5748abc0894c62f037ce73387f90f36a97838071bba6"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 268435456,
+      "chunk_size": 4194304,
+      "committed_size": 272629760,
+      "sha256": "3f7812adffc95c939c40b9b3b9944643bd007d52d266f371087a9a51dcc39ee6"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 272629760,
+      "chunk_size": 4194304,
+      "committed_size": 276824064,
+      "sha256": "6fd200cb0d30d4da20a351d07be444b692ed195b96207eea795165506f82d140"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 276824064,
+      "chunk_size": 4194304,
+      "committed_size": 281018368,
+      "sha256": "126c2482451570153e572857f803ae4dd3a0ae9f4dff161b9f0d9ec0f8fce4f6"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 281018368,
+      "chunk_size": 4194304,
+      "committed_size": 285212672,
+      "sha256": "50ef61f38c3e847ef84874dd39396b70f9dfd38dabfcb269bd4759dc5433b990"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 285212672,
+      "chunk_size": 4194304,
+      "committed_size": 289406976,
+      "sha256": "8295faf2c4d2bca394265f7638d21d68e0207ffe592d935f0d48e17505168aba"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 289406976,
+      "chunk_size": 4194304,
+      "committed_size": 293601280,
+      "sha256": "bd3b15caf9e71765cd576992c72461314451e15c908807bf4591dbdedc7ba818"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 293601280,
+      "chunk_size": 4194304,
+      "committed_size": 297795584,
+      "sha256": "a411bf18fd8264a34464650d8847bffb2425315970ef98eae9e393dc0cb1bc4c"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 297795584,
+      "chunk_size": 4194304,
+      "committed_size": 301989888,
+      "sha256": "7a2e0b387de2d1f2d15cab7bb919afabed47b60744aa2dd9e94c85c2b0bff818"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 301989888,
+      "chunk_size": 4194304,
+      "committed_size": 306184192,
+      "sha256": "48717c8f063ef115a8890602df8733b73323532c1a03123115cd8351ed15a2cf"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 306184192,
+      "chunk_size": 4194304,
+      "committed_size": 310378496,
+      "sha256": "bf62014124e7bde21f5ad1f150bbda5a5533f96793a9eac334b710a9b044616d"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 310378496,
+      "chunk_size": 4194304,
+      "committed_size": 314572800,
+      "sha256": "7bb6a5495d7e7e9de4a7a4bf681e9e5e80a66826e8da3c5ba711d17a6955320f"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 314572800,
+      "chunk_size": 4194304,
+      "committed_size": 318767104,
+      "sha256": "31f3939637d0e80b8c38ba4e29e56c93874d38c5dced4d812241f073dc70164b"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 318767104,
+      "chunk_size": 4194304,
+      "committed_size": 322961408,
+      "sha256": "53c8c149879b7c8086ab8392de04a37c2073db6a0feb93568367bd245d602766"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 322961408,
+      "chunk_size": 4194304,
+      "committed_size": 327155712,
+      "sha256": "a9a91c85855bcd519ca0c85c9f2a1111543baeabafb27edee8062efe573ae6eb"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 327155712,
+      "chunk_size": 4194304,
+      "committed_size": 331350016,
+      "sha256": "c35da4daeaf52a5427480ac99b866d1e10f2858f47436824f5ca1c92ab683ed4"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 331350016,
+      "chunk_size": 4194304,
+      "committed_size": 335544320,
+      "sha256": "366054ea92657939122d92b07b0f18cd7f44fde029f555de16a364b01c3673fa"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 335544320,
+      "chunk_size": 4194304,
+      "committed_size": 339738624,
+      "sha256": "87cc49b17be5ee3d907e5fd691fdeadad4a746bd666259ab4c416d642a2696d2"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 339738624,
+      "chunk_size": 4194304,
+      "committed_size": 343932928,
+      "sha256": "55a65e0f4fab3401b1b122f19f00431ebac3d872ab42bbd919a79db388852e70"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 343932928,
+      "chunk_size": 4194304,
+      "committed_size": 348127232,
+      "sha256": "ed647d7b74a7b5b664d333466c061309b00c829d4fa32a4c86fa2a73110a2780"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 348127232,
+      "chunk_size": 4194304,
+      "committed_size": 352321536,
+      "sha256": "39dadad3102a612a780c60e54786f6eecc532fb34af9eb2371f1e5e926a022e8"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 352321536,
+      "chunk_size": 4194304,
+      "committed_size": 356515840,
+      "sha256": "f777077eb53a12a289c80e68091f31e5ef4315d30b07150e51e38c3616595769"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 356515840,
+      "chunk_size": 4194304,
+      "committed_size": 360710144,
+      "sha256": "38a507ab3f8081c35ad2f9dfa0c7bb35887c41b25e7f6ad0f157c207ebb69e71"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 360710144,
+      "chunk_size": 4194304,
+      "committed_size": 364904448,
+      "sha256": "c0abf5825b26762839cf4921374f8876573ac92bccf71f3c65b8b556eb426fab"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 364904448,
+      "chunk_size": 4194304,
+      "committed_size": 369098752,
+      "sha256": "9049aa5b4bb52f2cbc21f8afbacedf7dd3074b250755c49f5ce5eb89223e50ce"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 369098752,
+      "chunk_size": 4194304,
+      "committed_size": 373293056,
+      "sha256": "a2d85963ce34e95930d5e6615431149a2ad76c855a0ede2c422b76faf9ac121f"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 373293056,
+      "chunk_size": 4194304,
+      "committed_size": 377487360,
+      "sha256": "02ffb37cfdcea6835a32cd402bd264edbab1d1d839b01c3938f5aa9c1ebef6f4"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 377487360,
+      "chunk_size": 4194304,
+      "committed_size": 381681664,
+      "sha256": "4a1ecf8ea8b871feec242a9228107535c2b63239584f7a5225be717e8b6fe10d"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 381681664,
+      "chunk_size": 4194304,
+      "committed_size": 385875968,
+      "sha256": "b81f8f1bfd1ff64f4c0a6923eb85d98a1083aea6c3d02ca0de022a3ed5329d5c"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 385875968,
+      "chunk_size": 4194304,
+      "committed_size": 390070272,
+      "sha256": "6a9335d5c4577a196f8a6f113116ed5b3d418ee53cc2202fc95eabd68a293f97"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 390070272,
+      "chunk_size": 4194304,
+      "committed_size": 394264576,
+      "sha256": "d5a1b9f8c60df0c225d4db2a3f800533e81546a62f6c4cefbf608281f91093c1"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 394264576,
+      "chunk_size": 4194304,
+      "committed_size": 398458880,
+      "sha256": "619709c6b6d53f38cce1d14aab5cae08b6b9db0bac6a27a2d92f67914bb85f65"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 398458880,
+      "chunk_size": 4194304,
+      "committed_size": 402653184,
+      "sha256": "69d872d6d9885428b2a36dfb3d8a4e50a256c6c56eac787e0f965e343ee71777"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 402653184,
+      "chunk_size": 4194304,
+      "committed_size": 406847488,
+      "sha256": "79ea50b53c20ad7501de23f7fa34f0a53efcfbd7d97e184a44a1d34f2a9edd6e"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 406847488,
+      "chunk_size": 4194304,
+      "committed_size": 411041792,
+      "sha256": "1704b7bb99d524184e7296cc69ebed209d70a40519d8eaca409bbffa9f3bcff3"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 411041792,
+      "chunk_size": 4194304,
+      "committed_size": 415236096,
+      "sha256": "818bd6b99ae7dec47d111281b19a99a9557e93da90f48ce7ffdfcb2371734c88"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 415236096,
+      "chunk_size": 4194304,
+      "committed_size": 419430400,
+      "sha256": "9947ca16f94e6e27dd31f8db2c30e808bfb8b41dff6bd30d74fdb21dd11d4e10"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 419430400,
+      "chunk_size": 4194304,
+      "committed_size": 423624704,
+      "sha256": "0ecd6f867565a6e93afb19b3d6d0248f3385cd903a522ed51bfbbf9fda863db8"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 423624704,
+      "chunk_size": 4194304,
+      "committed_size": 427819008,
+      "sha256": "0d70d824b507b4ce64a8f067b15af49b1c86d1264f6c9b2730a895e3abcc34e4"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 427819008,
+      "chunk_size": 4194304,
+      "committed_size": 432013312,
+      "sha256": "cdb09e0cdf63ac90036c3568e32c221afd01ee957be2d03e2ec85cfce71afc61"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 432013312,
+      "chunk_size": 4194304,
+      "committed_size": 436207616,
+      "sha256": "0eac141306451cf36560b282b7ff8165976bfb308cb87ad2a0d5bfba148ae657"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 436207616,
+      "chunk_size": 4194304,
+      "committed_size": 440401920,
+      "sha256": "ea07fa95dd006ba4fb45f8db2c05c01d7e972a700b8bc400c1d28f960d856b73"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 440401920,
+      "chunk_size": 4194304,
+      "committed_size": 444596224,
+      "sha256": "d46c2b6494447aaee8f601626487395ecace0306336eccac9bf733b24a686417"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 444596224,
+      "chunk_size": 4194304,
+      "committed_size": 448790528,
+      "sha256": "b9e65aae749589dd43d37f6dd7b1ef2360ba9320e526025be2c3df75bf41deff"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 448790528,
+      "chunk_size": 4194304,
+      "committed_size": 452984832,
+      "sha256": "503e6bad45666c1c07c00a1de5867d8f598be6ef22532ca6154918c6c0a91925"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 452984832,
+      "chunk_size": 4194304,
+      "committed_size": 457179136,
+      "sha256": "dfa9eaf02e7e1919304d9fb90cd6aafb84b57572e928bfe53435b8e75337e708"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 457179136,
+      "chunk_size": 4194304,
+      "committed_size": 461373440,
+      "sha256": "bd4141c586aaa569c1756186f6c51618e00166a5f7233656aad9e7519e987d3f"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 461373440,
+      "chunk_size": 4194304,
+      "committed_size": 465567744,
+      "sha256": "eb19260c9a5685e4a70b233747420ae7aadf8b0175b93d30bc2e72ceecbedece"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 465567744,
+      "chunk_size": 4194304,
+      "committed_size": 469762048,
+      "sha256": "6683f622d9d78866c1d78e0c15ced052a7dfff28683aa96eb6fb924b9123e43d"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 469762048,
+      "chunk_size": 4194304,
+      "committed_size": 473956352,
+      "sha256": "ca3fef181dde15d428da6e715271a02ba83bfe216fdfb3993e84f92912748fde"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 473956352,
+      "chunk_size": 4194304,
+      "committed_size": 478150656,
+      "sha256": "b206e963b8a6ad1a6ab570493a0dfdb0ffdcb715a1559ce9338642439ad16385"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 478150656,
+      "chunk_size": 4194304,
+      "committed_size": 482344960,
+      "sha256": "f96d8775fb56c7956ed9b8b7a723178a46ae332d0f7fbf9b344a3d4cea1b99b8"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 482344960,
+      "chunk_size": 4194304,
+      "committed_size": 486539264,
+      "sha256": "0ec110c7d6ec039753d3ec0024cfedd3ee078b09551240072fd94df750c03b49"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 486539264,
+      "chunk_size": 4194304,
+      "committed_size": 490733568,
+      "sha256": "c8e1a3916c980993f3cb08b982a14e389bd06699305f0df629b9625a5baebac9"
+    },
+    {
+      "local_path": "openjourney/text_encoder/model.safetensors",
+      "offset": 490733568,
+      "chunk_size": 1532306,
+      "committed_size": 492265874,
+      "sha256": "2fa6eb2f6edaa6aa9998c6117a6feffcd95961162e5ec633b5128214f6f838da"
+    },
+    {
+      "local_path": "openjourney/tokenizer/merges.txt",
+      "offset": 0,
+      "chunk_size": 524619,
+      "committed_size": 524619,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a"
+    },
+    {
+      "local_path": "openjourney/tokenizer/special_tokens_map.json",
+      "offset": 0,
+      "chunk_size": 472,
+      "committed_size": 472,
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac"
+    },
+    {
+      "local_path": "openjourney/tokenizer/tokenizer_config.json",
+      "offset": 0,
+      "chunk_size": 806,
+      "committed_size": 806,
+      "sha256": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882"
+    },
+    {
+      "local_path": "openjourney/tokenizer/vocab.json",
+      "offset": 0,
+      "chunk_size": 1059962,
+      "committed_size": 1059962,
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349"
+    },
+    {
+      "local_path": "openjourney/unet/config.json",
+      "offset": 0,
+      "chunk_size": 743,
+      "committed_size": 743,
+      "sha256": "19edfc94e14cecaef24fe3a60c269a7d0727245b8c4ef4847afd52f28f682bbd"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 0,
+      "chunk_size": 4194304,
+      "committed_size": 4194304,
+      "sha256": "a9f4d40a43961601ec2a371af185d91167324131c12bd416609d680b6a8710bb"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 4194304,
+      "chunk_size": 4194304,
+      "committed_size": 8388608,
+      "sha256": "4f6749761eb5e38e7625fd2688f2de7163c85af976b9d82236d6b859a3f9bd1f"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 8388608,
+      "chunk_size": 4194304,
+      "committed_size": 12582912,
+      "sha256": "f7521bff8deea7cc072d95f3b6a0559fab1a6621f508e2a7267b4c1c2564969b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 12582912,
+      "chunk_size": 4194304,
+      "committed_size": 16777216,
+      "sha256": "967a44f6ccbc301eddaa9b5acb77f3adab4ce745910332f20d64dd98bb1b4ab5"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 16777216,
+      "chunk_size": 4194304,
+      "committed_size": 20971520,
+      "sha256": "e87327716037fa94164eb8a5be6847c99cb700cf9c6770e66e7a0441a742c794"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 20971520,
+      "chunk_size": 4194304,
+      "committed_size": 25165824,
+      "sha256": "f1dd3694c6a2428a95602da0f515d901c3adc558b0af1f280189890459ce0d8f"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 25165824,
+      "chunk_size": 4194304,
+      "committed_size": 29360128,
+      "sha256": "97eb7d4054010e93c556934be066d4beecabb6d9c8173fe2dd37c07550aee122"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 29360128,
+      "chunk_size": 4194304,
+      "committed_size": 33554432,
+      "sha256": "d96ec73383504e7b9c3094ee9ac2bb424cbd664e46f989a312314b817b8461b5"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 33554432,
+      "chunk_size": 4194304,
+      "committed_size": 37748736,
+      "sha256": "347bac6a37343bf628b04e9623b22f868004177c81574a16da22a99bdd7a1c34"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 37748736,
+      "chunk_size": 4194304,
+      "committed_size": 41943040,
+      "sha256": "b3f9417c9282364ae9033d1147c3e891da5c0ddec5cb4ab2604c3a7f67784d9b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 41943040,
+      "chunk_size": 4194304,
+      "committed_size": 46137344,
+      "sha256": "6fbbbfd3283d71af8ec7f425aa588bf019fb516f18cfa0895ee881ab340d2aa4"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 46137344,
+      "chunk_size": 4194304,
+      "committed_size": 50331648,
+      "sha256": "437c3693c3b37f64f99c43b98a025b21c332631e82abb0f40095c81cd83da702"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 50331648,
+      "chunk_size": 4194304,
+      "committed_size": 54525952,
+      "sha256": "aa30f9bb570fcd0a64f973ad3b7fb1a389eb5d9474369e8992d309b431d42039"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 54525952,
+      "chunk_size": 4194304,
+      "committed_size": 58720256,
+      "sha256": "ff118e75f9d6001a99eee87a2f2143b9fe1ba2bf9f342ba7ad77e724db95fe46"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 58720256,
+      "chunk_size": 4194304,
+      "committed_size": 62914560,
+      "sha256": "b8f1122249536906f4ec558a9e682c208f3a4e6c26e12a346070fb43e5c78380"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 62914560,
+      "chunk_size": 4194304,
+      "committed_size": 67108864,
+      "sha256": "b749aae2fd9307b98d2994d9315dd2e2a68622f746fa3bf83c07f6e9666cb618"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 67108864,
+      "chunk_size": 4194304,
+      "committed_size": 71303168,
+      "sha256": "d0d3adc3271a13d26313154b95f25c512a766eebd1a7ea57ccaa2dffc5efb780"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 71303168,
+      "chunk_size": 4194304,
+      "committed_size": 75497472,
+      "sha256": "63cb209de53f33cab972843a931abe746ed0aface0c6ccd067a4897630f4bd69"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 75497472,
+      "chunk_size": 4194304,
+      "committed_size": 79691776,
+      "sha256": "76ed59b14ffe2e7f098b39824ee0e1b79e83268e753492d96d2d5d61459e516b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 79691776,
+      "chunk_size": 4194304,
+      "committed_size": 83886080,
+      "sha256": "238b652ca4a939f29eaa5d85a227ac0bb374d62d5c59a00e084373da49b254e4"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 83886080,
+      "chunk_size": 4194304,
+      "committed_size": 88080384,
+      "sha256": "8d2cd9a6086c30b0d5df254219d893ebe7ba8dec1005b15bdab6a703cc8b94ad"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 88080384,
+      "chunk_size": 4194304,
+      "committed_size": 92274688,
+      "sha256": "08c8e7e657b7ba8e684bf203af22a07c9478c0e1d2af816742731bed3b403b7b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 92274688,
+      "chunk_size": 4194304,
+      "committed_size": 96468992,
+      "sha256": "a0926586c46ba8bfaae5c91ac167e08dc64b7d60ce37ceb6c1953e0868e309c3"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 96468992,
+      "chunk_size": 4194304,
+      "committed_size": 100663296,
+      "sha256": "664b854003210a74005d1c2841ec4aacb3fc6c2c4a911440dac10a957d80410e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 100663296,
+      "chunk_size": 4194304,
+      "committed_size": 104857600,
+      "sha256": "68825e8faf80725d9c7f716e1f46cddd38ebb66761469a7cd6da143a6999db15"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 104857600,
+      "chunk_size": 4194304,
+      "committed_size": 109051904,
+      "sha256": "9ad583bcba2764625d60b11815683adbbf1d6774aef772ea1f604b7c3dc47552"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 109051904,
+      "chunk_size": 4194304,
+      "committed_size": 113246208,
+      "sha256": "4d40812c720d275dde0bc0ee550b56f6a706be13a40ef3e995cfdddf8a96e861"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 113246208,
+      "chunk_size": 4194304,
+      "committed_size": 117440512,
+      "sha256": "f57b887db0ba18c36f69cc7a79311f69c5ab6d7d18f8863848094bc7c1dc58c9"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 117440512,
+      "chunk_size": 4194304,
+      "committed_size": 121634816,
+      "sha256": "63462725ea1931a558a55c588cbb9ae823f1e7060acb8ee504ca31e0d211b3d1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 121634816,
+      "chunk_size": 4194304,
+      "committed_size": 125829120,
+      "sha256": "1dbce15154a7d3d6cd2f6797eea18074310bc1cfad811e776fa5afd2e9f16196"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 125829120,
+      "chunk_size": 4194304,
+      "committed_size": 130023424,
+      "sha256": "1ed36ca9a49b4a975c4e2b125b3ed5b4f8fdda3b6cb9c53cbd8c66869eb0ac9f"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 130023424,
+      "chunk_size": 4194304,
+      "committed_size": 134217728,
+      "sha256": "8f45b601dcdc734ca8073c3e6528fd188547eb961239374e4d54da8bf439c646"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 134217728,
+      "chunk_size": 4194304,
+      "committed_size": 138412032,
+      "sha256": "14fef9375e7a936d7f31fffd9e5cbecb45e1efc5d5348eb2f67bc7a93898a803"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 138412032,
+      "chunk_size": 4194304,
+      "committed_size": 142606336,
+      "sha256": "fc70b84c61fdc076d3bd9057268c00847365a4139e2a8021582cca5d80f8b7c1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 142606336,
+      "chunk_size": 4194304,
+      "committed_size": 146800640,
+      "sha256": "682cab0ee0c7d8de6250646acefb4b389a795114894a6673e184155fd87ebaaa"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 146800640,
+      "chunk_size": 4194304,
+      "committed_size": 150994944,
+      "sha256": "658af12075e9423e0753b5e8610300160c3b42c63104bb95b39413d73bc9fe90"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 150994944,
+      "chunk_size": 4194304,
+      "committed_size": 155189248,
+      "sha256": "70e5a594321b78c89a7f2f65201ec253157193c5176da21481dcdb763fbd0d73"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 155189248,
+      "chunk_size": 4194304,
+      "committed_size": 159383552,
+      "sha256": "5835425db879b075856373704ec2a7d9f6d43d4e48923459ab5fca4b88e5c697"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 159383552,
+      "chunk_size": 4194304,
+      "committed_size": 163577856,
+      "sha256": "4523963bdfcf6c9c06c0992906215de3a333a1ee923f270c0abf6ba13797258a"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 163577856,
+      "chunk_size": 4194304,
+      "committed_size": 167772160,
+      "sha256": "3c75db5f817dd989b6467c53cb4bfeede8a9cdd5e59944f7055a987702c89d73"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 167772160,
+      "chunk_size": 4194304,
+      "committed_size": 171966464,
+      "sha256": "6e91671e9c759aac519041717a489340fc46671447ae9be9f2e9363da10de001"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 171966464,
+      "chunk_size": 4194304,
+      "committed_size": 176160768,
+      "sha256": "af448da181de87ffe70ab5809b7d84e407ee1eecaab61f24e874c94c9efbc274"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 176160768,
+      "chunk_size": 4194304,
+      "committed_size": 180355072,
+      "sha256": "4171483f83b346ca3cb57d9ea6ddf472dc3819f7654448754d49c29a6c3c41a5"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 180355072,
+      "chunk_size": 4194304,
+      "committed_size": 184549376,
+      "sha256": "09a419a5e865361b32e8ef3ff0f21f008dcbbfec8b52a0db97f09cfa8152738d"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 184549376,
+      "chunk_size": 4194304,
+      "committed_size": 188743680,
+      "sha256": "729e5ddd9578d6783b6c307f1925b3b12dae2c39dc9905042b7d3bd6a71c2761"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 188743680,
+      "chunk_size": 4194304,
+      "committed_size": 192937984,
+      "sha256": "be1595763a7508f83ddaa8bd9f3342752bd82e36cc5bc9f893be5de6514caa42"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 192937984,
+      "chunk_size": 4194304,
+      "committed_size": 197132288,
+      "sha256": "1e52e12e53c4d88e531fed1c68a67883569da4a23938f5a74d97578eb60177fa"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 197132288,
+      "chunk_size": 4194304,
+      "committed_size": 201326592,
+      "sha256": "a0560888049e4819f7d336dfd009240061610a76d67dad1fcfc58e4929f8415b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 201326592,
+      "chunk_size": 4194304,
+      "committed_size": 205520896,
+      "sha256": "ff0186654d8d68ffcabcfab2bfee7fd31d5c3d756a435ee9337e9088d051e03b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 205520896,
+      "chunk_size": 4194304,
+      "committed_size": 209715200,
+      "sha256": "f5d107560383da01029214eecda439d017a440c0bead7a6dae090c29f795121f"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 209715200,
+      "chunk_size": 4194304,
+      "committed_size": 213909504,
+      "sha256": "ae3c1f0fda0601f10927a7ab166c2b648c8c882b6a4e887f5e7bec32fe2e9ad3"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 213909504,
+      "chunk_size": 4194304,
+      "committed_size": 218103808,
+      "sha256": "e381ee5aa18517ca6debc21200d6acc9d3a5725700c7d1cb3af4719f5f69c8d5"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 218103808,
+      "chunk_size": 4194304,
+      "committed_size": 222298112,
+      "sha256": "98bc7a9ca9ad9d8b7a58226a75e50c63aefe94883cb8a81c24903baf99d16ff9"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 222298112,
+      "chunk_size": 4194304,
+      "committed_size": 226492416,
+      "sha256": "086c6f24ed769bd61d67f4b755bbaadd9cfd7cfb9931a4ad234e7edfa6236e5e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 226492416,
+      "chunk_size": 4194304,
+      "committed_size": 230686720,
+      "sha256": "f65fb735fcc41444cf743eaba107a95d90945fad4ec0595d6bcec70699c74f70"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 230686720,
+      "chunk_size": 4194304,
+      "committed_size": 234881024,
+      "sha256": "8f60f7149277f6d00fd58d9bbc1fc75bd83b8be22ddb5b45c2f9fc81974d41af"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 234881024,
+      "chunk_size": 4194304,
+      "committed_size": 239075328,
+      "sha256": "59c45ea27f9cf8f10b36e852648d13512af01e7323531f07dbff3e64f56e4798"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 239075328,
+      "chunk_size": 4194304,
+      "committed_size": 243269632,
+      "sha256": "2b9d508e32f2d2d69597aef882147734ad240edd8e1089a070a71ee41d7b0724"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 243269632,
+      "chunk_size": 4194304,
+      "committed_size": 247463936,
+      "sha256": "864f020433f851b49b93eda70ff7551855fa1626d7c0e27458bfe91ea253bd61"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 247463936,
+      "chunk_size": 4194304,
+      "committed_size": 251658240,
+      "sha256": "3a18c6d51644ddb3c9c2fb46c916c5dd3a784e913a78df725cbea34a5fd62426"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 251658240,
+      "chunk_size": 4194304,
+      "committed_size": 255852544,
+      "sha256": "d66acda43bdebcbbf9c629db538385de761735a4a90793e53c9cc86f82ef0920"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 255852544,
+      "chunk_size": 4194304,
+      "committed_size": 260046848,
+      "sha256": "ad6a7988d7377ff4615c8a9c00ba3db6ba49d55dc485903c2b376463206d8a05"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 260046848,
+      "chunk_size": 4194304,
+      "committed_size": 264241152,
+      "sha256": "3e40763867bdd2abfbb66c923b9a25540cd3ab8d3599c59864adc56ac04bad68"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 264241152,
+      "chunk_size": 4194304,
+      "committed_size": 268435456,
+      "sha256": "7e70efced8f383e1a8d23fe97238c7196dd2c364568741ed338ddcc3e64f3635"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 268435456,
+      "chunk_size": 4194304,
+      "committed_size": 272629760,
+      "sha256": "04c3a90faa170d093c0157261c7a1760b17948662ed6ff9d8cb1b58dfb84fb00"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 272629760,
+      "chunk_size": 4194304,
+      "committed_size": 276824064,
+      "sha256": "b1682b98dfe45a57a4edd42d061485044f8a590e620cce9618564cdd25c70b65"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 276824064,
+      "chunk_size": 4194304,
+      "committed_size": 281018368,
+      "sha256": "e03d7d5eca9bbd00e14607943a605574b7b580348588b00afb00d89ffd07687c"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 281018368,
+      "chunk_size": 4194304,
+      "committed_size": 285212672,
+      "sha256": "016adf519ada562648089e57a75eb0194bed01f31dbb6b5eb1e24e72da6a730b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 285212672,
+      "chunk_size": 4194304,
+      "committed_size": 289406976,
+      "sha256": "b24997719b79cadcb95b3e63cb693fc422e947974f1eeb68d8c586036265cc83"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 289406976,
+      "chunk_size": 4194304,
+      "committed_size": 293601280,
+      "sha256": "aa4607b09e1d5c3913ba53e7eb06a9ae2ebcc78e48b3a4f51cfc0b43cc16bfe7"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 293601280,
+      "chunk_size": 4194304,
+      "committed_size": 297795584,
+      "sha256": "b06a6e814abcc053672dbad752c9fd0f4c37c072f3035b1a076ed6f2db37de64"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 297795584,
+      "chunk_size": 4194304,
+      "committed_size": 301989888,
+      "sha256": "13b46fdf2979a8795896d2712a08f253bc5daa4f5a88b6bde682158670f83d70"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 301989888,
+      "chunk_size": 4194304,
+      "committed_size": 306184192,
+      "sha256": "17fa69531979e8d87e120d3da596f8d29cc4e110f7b5697d949cb20d3be2d872"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 306184192,
+      "chunk_size": 4194304,
+      "committed_size": 310378496,
+      "sha256": "6b28ed48abc4049ef606728589c5ff026c6ce86f23160b1965f3bedd7d9de921"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 310378496,
+      "chunk_size": 4194304,
+      "committed_size": 314572800,
+      "sha256": "df3fd5167a3e4d23653f2dc39dcaf787923725e66be54291b46c8ba44cbf0898"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 314572800,
+      "chunk_size": 4194304,
+      "committed_size": 318767104,
+      "sha256": "1f8ad31a8434c5817c51639ed2f03d0cda8f0293ca0a84101ffbf25142b2a4e0"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 318767104,
+      "chunk_size": 4194304,
+      "committed_size": 322961408,
+      "sha256": "1977fe5218f585124e7ae0549325dd3feab2b99c297c656d475029111669af71"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 322961408,
+      "chunk_size": 4194304,
+      "committed_size": 327155712,
+      "sha256": "6418e9685c066e08cd52c31e3a4f7a5dd8ac5cbfb79e4be290c53590e0837e47"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 327155712,
+      "chunk_size": 4194304,
+      "committed_size": 331350016,
+      "sha256": "68e109df31d22d11b689df094fd169790d58ba94af378358e197ce1b906c3392"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 331350016,
+      "chunk_size": 4194304,
+      "committed_size": 335544320,
+      "sha256": "ce78e530de2393d34c1d6bc6392e22733b21f8d0e170b59db4bb220c1576353e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 335544320,
+      "chunk_size": 4194304,
+      "committed_size": 339738624,
+      "sha256": "1263934f43b59f11d60f9b5b8acfc567eb95f9bc15dde198f33350dd5d9b38ca"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 339738624,
+      "chunk_size": 4194304,
+      "committed_size": 343932928,
+      "sha256": "01f3ae3e64a3b0b792a781c5ce4875a184431b9616c3ad1f899e381fb87e2c69"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 343932928,
+      "chunk_size": 4194304,
+      "committed_size": 348127232,
+      "sha256": "9706d0381e860161e42dc629de2b4b78aed2c3d7bb8ff0f096d2801b7a613a02"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 348127232,
+      "chunk_size": 4194304,
+      "committed_size": 352321536,
+      "sha256": "4dff7236fb337ca058a6e269abb53819c1e4027e040ad9d34e6cc525cf9645d7"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 352321536,
+      "chunk_size": 4194304,
+      "committed_size": 356515840,
+      "sha256": "8182389fd832b6d232e4c8170f6606a44517086ad4a0eeb8e39f0af58610f428"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 356515840,
+      "chunk_size": 4194304,
+      "committed_size": 360710144,
+      "sha256": "bae4b00387ea487d0d2eb9b1d7f26592795e31a1a7142867c6355a2f9a69a19d"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 360710144,
+      "chunk_size": 4194304,
+      "committed_size": 364904448,
+      "sha256": "f5cdfa302d4d11dd802edf9827f42108b340e3675c23e43e8df1312a153d76d8"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 364904448,
+      "chunk_size": 4194304,
+      "committed_size": 369098752,
+      "sha256": "41834f5c9bdcddb069f886bdd4853e95c8f147a9e84ae240158eafabccea19e6"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 369098752,
+      "chunk_size": 4194304,
+      "committed_size": 373293056,
+      "sha256": "6880c1feae981a253b399ef80d94d7e5e61d5d63183bdb41f31cc9183df78621"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 373293056,
+      "chunk_size": 4194304,
+      "committed_size": 377487360,
+      "sha256": "c26bd795574783399b982c146d64e5724cc1e0d6ac54c3f843f686c6054ed535"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 377487360,
+      "chunk_size": 4194304,
+      "committed_size": 381681664,
+      "sha256": "e0865999802d95e22425dd6c84214dcee50dd6603affa7540bcefdf1a88d6ac9"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 381681664,
+      "chunk_size": 4194304,
+      "committed_size": 385875968,
+      "sha256": "a11e6601578e034d850a87da044aa452e6d62712b5b16f28b0b5e263e3d2da81"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 385875968,
+      "chunk_size": 4194304,
+      "committed_size": 390070272,
+      "sha256": "957ce57088bd1f0602cdb422a8ceac8e33587b9bed1f3c6bf8c371319b873171"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 390070272,
+      "chunk_size": 4194304,
+      "committed_size": 394264576,
+      "sha256": "a247562549bf0a6ecffbcc2fb30d52769bfd3684a8c9068315795e38ed21ae75"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 394264576,
+      "chunk_size": 4194304,
+      "committed_size": 398458880,
+      "sha256": "02e85c14c29e0a6d9d9d2ec2f7348c0ff0245c3800fdb0fae3f8823c45f5c9b0"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 398458880,
+      "chunk_size": 4194304,
+      "committed_size": 402653184,
+      "sha256": "af61e838b70b126be137bb1c0620b2ae7b98c54d6da23ecf4f878a2d6e468dff"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 402653184,
+      "chunk_size": 4194304,
+      "committed_size": 406847488,
+      "sha256": "262060bb6f99fae1e4010a2242683a206dabe5d08f720c24cb4ae26948a7aaf8"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 406847488,
+      "chunk_size": 4194304,
+      "committed_size": 411041792,
+      "sha256": "8dbd40381e287b8400d85552ff903e52ab4ff8fd62fd1e7049d8aecb3ba999cb"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 411041792,
+      "chunk_size": 4194304,
+      "committed_size": 415236096,
+      "sha256": "0781c30ac013635f8e30b399b829d8bd83af4c46fc5fed6e569d20353a331a37"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 415236096,
+      "chunk_size": 4194304,
+      "committed_size": 419430400,
+      "sha256": "3174ee23b79f0fe6cc0172c24cd2804932fcbc5a8294769170f83acf1cde9735"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 419430400,
+      "chunk_size": 4194304,
+      "committed_size": 423624704,
+      "sha256": "e1a39c56ea415389d24bbc088546cf1d608919a349ea7d17970ef075b94f4241"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 423624704,
+      "chunk_size": 4194304,
+      "committed_size": 427819008,
+      "sha256": "c29801b5f094b222f07fb661c8b2841ea21f2d37ff90399fb155bad2da0606e8"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 427819008,
+      "chunk_size": 4194304,
+      "committed_size": 432013312,
+      "sha256": "e53126ed8199cfc46c3d841a24eaba06ef473e83a12328d0388723ba919395fb"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 432013312,
+      "chunk_size": 4194304,
+      "committed_size": 436207616,
+      "sha256": "ea29cfb44b06528e9a39f24b1313785098e944f5f03cfb00c67127e14e3c949e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 436207616,
+      "chunk_size": 4194304,
+      "committed_size": 440401920,
+      "sha256": "a0e1cd6a5c01d9f9f4eb620aba1993a24a0c23ce6de099ae9da77a6d88d10e59"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 440401920,
+      "chunk_size": 4194304,
+      "committed_size": 444596224,
+      "sha256": "a55acc5582f523ea38db81b6d8ee03248524998a2ab41f91a8f56eb36bca5095"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 444596224,
+      "chunk_size": 4194304,
+      "committed_size": 448790528,
+      "sha256": "5da60a50b0ac0816a210d6867514707e2baa8137e785ca02689ccac6bb630e24"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 448790528,
+      "chunk_size": 4194304,
+      "committed_size": 452984832,
+      "sha256": "fa766d211f9e39a0d26c190ee1ba530e54e394c9f3a0c005b3c844069e21f733"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 452984832,
+      "chunk_size": 4194304,
+      "committed_size": 457179136,
+      "sha256": "4a8afd813936ae2612fd1f070a037ac8575788a5b5abd9a53e53cfc53d101dcf"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 457179136,
+      "chunk_size": 4194304,
+      "committed_size": 461373440,
+      "sha256": "7115fa9dfaa77379b490f2135923271ec3b6fa60ec60fc3bb9eff3e2f6f38447"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 461373440,
+      "chunk_size": 4194304,
+      "committed_size": 465567744,
+      "sha256": "bc58c4b21c963ce2b236b80ddeeab1c12c89a552be76214c875899829bcf66a6"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 465567744,
+      "chunk_size": 4194304,
+      "committed_size": 469762048,
+      "sha256": "0b362da60e2b441ff2d98fb8ff8ec6ac7555705ba037d904a10776037b7587a7"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 469762048,
+      "chunk_size": 4194304,
+      "committed_size": 473956352,
+      "sha256": "cd76057d5a71bbb3cabadbd9b1a177da35018abcbfad4de6b5eaa9b70e9e41b5"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 473956352,
+      "chunk_size": 4194304,
+      "committed_size": 478150656,
+      "sha256": "4ec64ac7ea6b0aa85d8f3516df8c7fa3cc39edb736761f52e8019d60b9a5ee94"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 478150656,
+      "chunk_size": 4194304,
+      "committed_size": 482344960,
+      "sha256": "05310aacbc2aa25f8450eeb2934d74cc700d26a0ce98b868f5bb420d37201d6a"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 482344960,
+      "chunk_size": 4194304,
+      "committed_size": 486539264,
+      "sha256": "e1677edbb55ef33d601e2f143526e5322acc9d15339bd94439a3d8d574941469"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 486539264,
+      "chunk_size": 4194304,
+      "committed_size": 490733568,
+      "sha256": "75604277267a2014995176eb3f7f2d422de1f44ad4ff21b5d16f465f7e5d2342"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 490733568,
+      "chunk_size": 4194304,
+      "committed_size": 494927872,
+      "sha256": "04dabf6465becc976a4885bcce2f75fff9d693dacb56f7832b802d7d313b01cd"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 494927872,
+      "chunk_size": 4194304,
+      "committed_size": 499122176,
+      "sha256": "d39815c08f2e87099c3015c6189c00790cc9f715363c691a61a8686677027c28"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 499122176,
+      "chunk_size": 4194304,
+      "committed_size": 503316480,
+      "sha256": "747f3117d428b1385eb1561857574eedd643a4c33198d72e80383f9e10d0766b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 503316480,
+      "chunk_size": 4194304,
+      "committed_size": 507510784,
+      "sha256": "1904ae714f15b6dfd87665fecdd332c2ddde28921b0ca456e25d00aed6247b71"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 507510784,
+      "chunk_size": 4194304,
+      "committed_size": 511705088,
+      "sha256": "82b6460517b774da309b9649a9f442a6fc9f1fae3e99ccc12085d8bd90e69b10"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 511705088,
+      "chunk_size": 4194304,
+      "committed_size": 515899392,
+      "sha256": "5886ae57c2c0b64d0c6988aaf955d145aba872e17ae349f3cbc9389e037b36c7"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 515899392,
+      "chunk_size": 4194304,
+      "committed_size": 520093696,
+      "sha256": "36bf8a08ec7e8e10cd8d96a26232db6ce4c746acbd2b0ad211ab775678d9f175"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 520093696,
+      "chunk_size": 4194304,
+      "committed_size": 524288000,
+      "sha256": "71e15f208638e9d7edba542c94d356f6664f13d52784e43774445040d4de22b1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 524288000,
+      "chunk_size": 4194304,
+      "committed_size": 528482304,
+      "sha256": "31fb83ee57310779885114a462229ac858bdb1ebb158feaf87b5fed880e1eb77"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 528482304,
+      "chunk_size": 4194304,
+      "committed_size": 532676608,
+      "sha256": "240cf2d68981e0c016c406aa564149d6fec5c963d65a91d57287cdbbabd9262a"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 532676608,
+      "chunk_size": 4194304,
+      "committed_size": 536870912,
+      "sha256": "f2249f65ad70afff0d6640909ac117e5e437772e7ebf948ff0b6e6eb62766b02"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 536870912,
+      "chunk_size": 4194304,
+      "committed_size": 541065216,
+      "sha256": "5aedaedb733c1a90af611845cf20eb89023e90cfc849577816e87b1b223f49bd"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 541065216,
+      "chunk_size": 4194304,
+      "committed_size": 545259520,
+      "sha256": "37c18ecf0ac7d4676913215a015b7f9868d3057b426264e9813bffad79e5c8e1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 545259520,
+      "chunk_size": 4194304,
+      "committed_size": 549453824,
+      "sha256": "aab180a07ce9f388343066cda9407873b866588adf8b794013b294a82bb14be6"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 549453824,
+      "chunk_size": 4194304,
+      "committed_size": 553648128,
+      "sha256": "e8369d60172f8ca41ffe0dec7557599e7f9c260f14675a8fa89be9130d801ac1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 553648128,
+      "chunk_size": 4194304,
+      "committed_size": 557842432,
+      "sha256": "90c4072dab8b417df531e66a1fe4ce2399e32eed5e30ec048c597bee01ebdf61"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 557842432,
+      "chunk_size": 4194304,
+      "committed_size": 562036736,
+      "sha256": "d782599015755d6fe4edc895a753e1950f296be624e8906054bc5fcdd127c53a"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 562036736,
+      "chunk_size": 4194304,
+      "committed_size": 566231040,
+      "sha256": "2c7eae65253cc7ec063709bbf653d2c827b075620268c8723a4aee0f5fdace03"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 566231040,
+      "chunk_size": 4194304,
+      "committed_size": 570425344,
+      "sha256": "ffe2b1c02f0c90820dd1071419a519cdb256eca8fc76201054e31d1efaa731d6"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 570425344,
+      "chunk_size": 4194304,
+      "committed_size": 574619648,
+      "sha256": "75ac0cfe1bf27a41f32df5c8559ab48c99d379b802f04ac38d14a553c8aa3173"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 574619648,
+      "chunk_size": 4194304,
+      "committed_size": 578813952,
+      "sha256": "c25bfaf5e5d43d1b1ddbd52b1289fefbf0fe95696cf40908fa7e82d6f8e3bb69"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 578813952,
+      "chunk_size": 4194304,
+      "committed_size": 583008256,
+      "sha256": "706ad93c5163f876f0b4aab0170d2602f995b5cd56399196ee363d789d62f994"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 583008256,
+      "chunk_size": 4194304,
+      "committed_size": 587202560,
+      "sha256": "47c1146a2559a7db22b3d6a0bbdf549565c394bbe579e4f3a75bf9c9074c088b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 587202560,
+      "chunk_size": 4194304,
+      "committed_size": 591396864,
+      "sha256": "bf48c17c9025d7ac75c0b232036b99f1b2ba3fe9c9ab4e3fc5497e9fe8fc5f17"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 591396864,
+      "chunk_size": 4194304,
+      "committed_size": 595591168,
+      "sha256": "299e465016c6738c4d2f677154d6f9647245d04c26b072ba7e86db786a6805b2"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 595591168,
+      "chunk_size": 4194304,
+      "committed_size": 599785472,
+      "sha256": "e890433f4265e9cf1b760f587df9e49de64b11b5c4cb85cf231bf685cd6cb1a7"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 599785472,
+      "chunk_size": 4194304,
+      "committed_size": 603979776,
+      "sha256": "bca111e35e3b2c053837eb80930f8ccf7c583821bfff1f5e98c987d9ff336ac3"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 603979776,
+      "chunk_size": 4194304,
+      "committed_size": 608174080,
+      "sha256": "0dd96d414fd708c820745f6f9fee13f060996e486dcf1cf18dd0a93b064a315a"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 608174080,
+      "chunk_size": 4194304,
+      "committed_size": 612368384,
+      "sha256": "06156f1a543790cb781ad8250c00659660ea5a0d1e954c60e407c52f528dedd4"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 612368384,
+      "chunk_size": 4194304,
+      "committed_size": 616562688,
+      "sha256": "75449aa5c56252a6a12482fb8aa7ffb55db3a2f808d9c4f425836a37436728f9"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 616562688,
+      "chunk_size": 4194304,
+      "committed_size": 620756992,
+      "sha256": "9a5283d06ae7dae33fbd9ddc65cb606d99ef16f20c10fa2f67b9bb2f2e1723ac"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 620756992,
+      "chunk_size": 4194304,
+      "committed_size": 624951296,
+      "sha256": "b22d97aeefb2e581ee33b8d7ace88fe3837ba160695cb3ccfcc147426f3c4a66"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 624951296,
+      "chunk_size": 4194304,
+      "committed_size": 629145600,
+      "sha256": "a759a8d6c7241b4363f00ad6a0068868d89ab90dcb367c1daf9732c806cba7f4"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 629145600,
+      "chunk_size": 4194304,
+      "committed_size": 633339904,
+      "sha256": "2900d108195be6080ac3717f836b4fdb0c9f30ade57367f1e3beebbb61ca5a1e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 633339904,
+      "chunk_size": 4194304,
+      "committed_size": 637534208,
+      "sha256": "456aadc419ef3a58ca2522d4ad82ee28503b30ebd24a45563d76372b569c441e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 637534208,
+      "chunk_size": 4194304,
+      "committed_size": 641728512,
+      "sha256": "60237b95e841069af438c3a1aa35e0982f7453bb767909c9adab7472b54057ca"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 641728512,
+      "chunk_size": 4194304,
+      "committed_size": 645922816,
+      "sha256": "eaa3dc12bc6e8eeac3b96a40aca370d73d5a9c0a3c5bb0fe617e401e190950f2"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 645922816,
+      "chunk_size": 4194304,
+      "committed_size": 650117120,
+      "sha256": "6357a15005a526241bee1cb8097e75062f90681cd859e849f3567ce11cf9531c"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 650117120,
+      "chunk_size": 4194304,
+      "committed_size": 654311424,
+      "sha256": "563d417f5f04f4fa93ea73c73121200d54e70b9e7be24474f83c23edf170331e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 654311424,
+      "chunk_size": 4194304,
+      "committed_size": 658505728,
+      "sha256": "242c2b268bf1744f3d917972b31aa1bcb1ac9a2544ac582a81bd1dcf926fa57c"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 658505728,
+      "chunk_size": 4194304,
+      "committed_size": 662700032,
+      "sha256": "e8c0b262df30dca0a2923c0b99e71d469d72aa9baf68acc891b92b7655210e4d"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 662700032,
+      "chunk_size": 4194304,
+      "committed_size": 666894336,
+      "sha256": "0f68206c742c8f7783d688651357ed7990522a56c113128707e1d187f6d9dcf7"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 666894336,
+      "chunk_size": 4194304,
+      "committed_size": 671088640,
+      "sha256": "2764882f2e01f15341c34f534b3778dd89a72db4d3695e2822e05e7036317865"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 671088640,
+      "chunk_size": 4194304,
+      "committed_size": 675282944,
+      "sha256": "ce2499d17c07c0d1fd769bad6d4929c501637fd5ed3c31b77c942f7b6e2f2425"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 675282944,
+      "chunk_size": 4194304,
+      "committed_size": 679477248,
+      "sha256": "15a94df5798402b482bd57bd447e4320d7dcdf0531755022fb728477071e0452"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 679477248,
+      "chunk_size": 4194304,
+      "committed_size": 683671552,
+      "sha256": "9eb8e3439981a8d873e516ad6e79588c93d51c05c53a78fd500484ee2469f9cf"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 683671552,
+      "chunk_size": 4194304,
+      "committed_size": 687865856,
+      "sha256": "7a206ad4a4de0b629b0e5b3af7c9264500dd04ca5ea9312b885e6688286decc2"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 687865856,
+      "chunk_size": 4194304,
+      "committed_size": 692060160,
+      "sha256": "e776a26bed19b45be85d8138b6bdb3c6369f8bea3439962655f93da4f093f820"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 692060160,
+      "chunk_size": 4194304,
+      "committed_size": 696254464,
+      "sha256": "6298935db926f1fffd493a6927505548cea02b09092fecbb3ef625d7b95f7a3e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 696254464,
+      "chunk_size": 4194304,
+      "committed_size": 700448768,
+      "sha256": "c73bbc75eaef3d34e2c07817a5bbfd612655c489e4ffd839e674fb8b68f8d6f6"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 700448768,
+      "chunk_size": 4194304,
+      "committed_size": 704643072,
+      "sha256": "8dce01a5bbddc2922742224ef673e514f356953356112c467377c117cc7dede9"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 704643072,
+      "chunk_size": 4194304,
+      "committed_size": 708837376,
+      "sha256": "936fdb6c4049b84111f7a10dd90f31047e9f910b3c6f8de5b99fb93abcf3c5b1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 708837376,
+      "chunk_size": 4194304,
+      "committed_size": 713031680,
+      "sha256": "4403c3e5713360396c76893b84a3e5276dce9cfd148db622d063dc0a2bc31ff0"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 713031680,
+      "chunk_size": 4194304,
+      "committed_size": 717225984,
+      "sha256": "e833b03ffb4acaa886c6a0899a308cd461e1cf26d664f1c74c1c411c7223ff4b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 717225984,
+      "chunk_size": 4194304,
+      "committed_size": 721420288,
+      "sha256": "5082e2e9dee6f5bb1675ec0a8e4eeeabd8f014aaded53ab084255f1ca72e0215"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 721420288,
+      "chunk_size": 4194304,
+      "committed_size": 725614592,
+      "sha256": "b028acf138db6773bacde9bf3e38a49b6a9d9a9bac07d7dcc5d26494b0dd48cb"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 725614592,
+      "chunk_size": 4194304,
+      "committed_size": 729808896,
+      "sha256": "a2ecdfc7eb5a508030bf41fcda462a4be46a6c3ee14124c737eb3cf327d2bdc0"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 729808896,
+      "chunk_size": 4194304,
+      "committed_size": 734003200,
+      "sha256": "380af6498ab952b3d11eea9789d9aaba68f56bc097f9642752b7e26e7fe721f2"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 734003200,
+      "chunk_size": 4194304,
+      "committed_size": 738197504,
+      "sha256": "2a33216829356ff3c2595d0eb1d49a8f5494de64530370c4b6c4755d40b86276"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 738197504,
+      "chunk_size": 4194304,
+      "committed_size": 742391808,
+      "sha256": "1f8e8fdffca2b3448dc067626ec23553529c226c4d9fcd21a471a2fd86ad54a1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 742391808,
+      "chunk_size": 4194304,
+      "committed_size": 746586112,
+      "sha256": "8f866da1365cc8f9f5f11ff2ebc1fcf99d1385b88604c7d6c54782e59df7896e"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 746586112,
+      "chunk_size": 4194304,
+      "committed_size": 750780416,
+      "sha256": "a4d57bcb85edceb6f92a05934557a495e57ade489bafff5e94330595fdd15977"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 750780416,
+      "chunk_size": 4194304,
+      "committed_size": 754974720,
+      "sha256": "f3fa5c6e210bc536020ff924036778c8a123c2171a5814c83a9d1b4c3377fa32"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 754974720,
+      "chunk_size": 4194304,
+      "committed_size": 759169024,
+      "sha256": "070f93bd040e737589c12c98481f337ad2f43d2d2c7913d1c9e3e53bef0c5f77"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 759169024,
+      "chunk_size": 4194304,
+      "committed_size": 763363328,
+      "sha256": "f4483e67329e1fcd27ef670d1705a8048c11721aa893443113bb29c426916d14"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 763363328,
+      "chunk_size": 4194304,
+      "committed_size": 767557632,
+      "sha256": "2b6b08ddb9cddb90f85915e30fbf862f450b5341757a408fcfe6b0d9bf750632"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 767557632,
+      "chunk_size": 4194304,
+      "committed_size": 771751936,
+      "sha256": "3f239417445afcaaea1ba0ce69761a39d468d4c3a335745be1f99b3001dbca21"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 771751936,
+      "chunk_size": 4194304,
+      "committed_size": 775946240,
+      "sha256": "45b681f806875c4a2995cb26d4f97fff8a7b66866b7002b937977698b3ba3a3a"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 775946240,
+      "chunk_size": 4194304,
+      "committed_size": 780140544,
+      "sha256": "14b72e96f253bfd57c50b2f040b9fd704cfdf7a1cc3fd04d3b16b10a2758961b"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 780140544,
+      "chunk_size": 4194304,
+      "committed_size": 784334848,
+      "sha256": "401e721f9d31056a39544bac4e7fb25c815aa97585cd795974e110ec6707c5bf"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 784334848,
+      "chunk_size": 4194304,
+      "committed_size": 788529152,
+      "sha256": "2d16f85315d7e79ce6d1e2b233190b5af5e4c78fab2d7c62b3636c3f32675d58"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 788529152,
+      "chunk_size": 4194304,
+      "committed_size": 792723456,
+      "sha256": "5f81797cc03541f53769fd21090588c4b55d675068a83002bee28b0f6f54c7b1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 792723456,
+      "chunk_size": 4194304,
+      "committed_size": 796917760,
+      "sha256": "2edd9f3c402181b57bc1079acf3f2c6daee869a4fa0e158b1c15577ee8347b41"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 796917760,
+      "chunk_size": 4194304,
+      "committed_size": 801112064,
+      "sha256": "dd852ebe148b9c16d4e33f896ed4675f31e96d08ed2ceca8f1ceafec16cffaa0"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 801112064,
+      "chunk_size": 4194304,
+      "committed_size": 805306368,
+      "sha256": "965312cf4696295462836db2a647581b7d89b4a31fd747c2311cafd309d105b3"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 805306368,
+      "chunk_size": 4194304,
+      "committed_size": 809500672,
+      "sha256": "9f92738584479bfa9ea5d29e6c5a2b5c3a8452833abe45fb618683d9bd82c7f1"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 809500672,
+      "chunk_size": 4194304,
+      "committed_size": 813694976,
+      "sha256": "562f631168fe1a9852a266afc7455457fec056196c26637555b9d81247586850"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 813694976,
+      "chunk_size": 4194304,
+      "committed_size": 817889280,
+      "sha256": "bc70f28941d74909d241a1e6778db2ba46fd015de484b5d320fbeeff105d6cb6"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 817889280,
+      "chunk_size": 4194304,
+      "committed_size": 822083584,
+      "sha256": "5a26658d79092f1cb2ad5274f3cf1c0a949f9c5cd71f6b6706e745ed0270dbd8"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 822083584,
+      "chunk_size": 4194304,
+      "committed_size": 826277888,
+      "sha256": "0681c160e028b64ff232d5cd7c02968233497fa1cbfad2ef8046a400d9c309a4"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 826277888,
+      "chunk_size": 4194304,
+      "committed_size": 830472192,
+      "sha256": "bb7761cc2e49abca822a7a585f0e26efabd23f2acd4858957d082e05345c7b1d"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 830472192,
+      "chunk_size": 4194304,
+      "committed_size": 834666496,
+      "sha256": "cfbccc52d67cf36fe9d06c9dbf9f5c7ea672c711d527949f76791170b4093cc5"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 834666496,
+      "chunk_size": 4194304,
+      "committed_size": 838860800,
+      "sha256": "d6a6a71b4920a2bf4f40f15fa5cc8beab93ae6be4c0f0d077feb0cbc4708d387"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 838860800,
+      "chunk_size": 4194304,
+      "committed_size": 843055104,
+      "sha256": "7adce7a35fe240778f6553109747cfbd73e598967b14962be37855eea3874773"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 843055104,
+      "chunk_size": 4194304,
+      "committed_size": 847249408,
+      "sha256": "e234a60d8ea55a520646796c43706a74454c1e60012062a600a9d0b044f349ba"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 847249408,
+      "chunk_size": 4194304,
+      "committed_size": 851443712,
+      "sha256": "4be45df262036e3f207e126df68d939d672837ad676bd00c29fe91ed02c90302"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 851443712,
+      "chunk_size": 4194304,
+      "committed_size": 855638016,
+      "sha256": "a002c319b4a5d63b5e103c42cfc4ee31607c52dcd2755aea281ade6c490bd838"
+    },
+    {
+      "local_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+      "offset": 855638016,
+      "chunk_size": 4194304,
+      "committed_size": 859832320,
+      "sha256": "346b01bbcc169c14ebb62bf076a65933104313988cad494ddcb141484b7782d6"
+    }
+  ],
+  "new_chunk_receipt_count": 322,
+  "incremental_chunks_since_previous_audit": 303,
+  "current_asset": "openjourney/unet/diffusion_pytorch_model.safetensors",
+  "current_asset_expected_bytes": 3438167540,
+  "current_local_file_sha256": "e7c8bf56a6c16c3a3cb3919f4f0bdc28c2eefb7dbd5f4d9d15a269a1f4a77815",
+  "current_local_file": "/private/tmp/arxiv-tssa-stage/c31a76e63965dbb1dfaa75a4c7d337837855988e53729c4f92f84114b60fbfd5.part",
+  "current_asset_payload_chunks_independently_matched": 205,
+  "verified_chunk_committed_bytes": 859832320,
+  "whole_current_file_remotely_verified": false,
+  "global_transfer_lock_held": true,
+  "scope": "Transfer integrity only; no full model, CUDA, generated images, or optimization."
+}

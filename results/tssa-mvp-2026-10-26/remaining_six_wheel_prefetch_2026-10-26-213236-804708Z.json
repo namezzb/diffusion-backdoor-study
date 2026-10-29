@@ -1,0 +1,80 @@
+{
+  "started_at": "2026-10-26T21:32:36.804954+00:00",
+  "pid": 58077,
+  "batch": "remaining_six",
+  "status": "complete",
+  "manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+  "script_sha256": "cf86c5c9087894b70035ccb813bedcac9e7c97f2555f1a8a03348189d84f4800",
+  "selected_count": 6,
+  "selected_bytes": 1259351805,
+  "verified": [
+    {
+      "filename": "triton-3.3.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+      "bytes": 155689937,
+      "sha256": "b31e3aa26f8cb3cc5bf4e187bf737cbacf17311e1112b781d4a059353dfd731b",
+      "wheel_tags": [
+        "cp311-cp311-manylinux_2_27_x86_64",
+        "cp311-cp311-manylinux_2_28_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/4514838b53ae232090743be4b8cd380cab4186600b6389eab147536d71195c5a.part"
+    },
+    {
+      "filename": "nvidia_cusparselt_cu12-0.6.3-py3-none-manylinux2014_x86_64.whl",
+      "bytes": 156785796,
+      "sha256": "e5c8a26c36445dd2e6812f1177978a24e2d37cacce7e090f297a688d1ec44f46",
+      "wheel_tags": [
+        "py3-none-manylinux2014_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/047f076108904501aef5bb7065e524dc2ae4c8e2cd5b6f28a6f6e83a4464e053.part"
+    },
+    {
+      "filename": "nvidia_cufft_cu12-11.3.3.41-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "bytes": 193118795,
+      "sha256": "da650080ab79fcdf7a4b06aa1b460e99860646b176a43f6208099bdc17836b6a",
+      "wheel_tags": [
+        "py3-none-manylinux2014_x86_64",
+        "py3-none-manylinux_2_17_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/0f13b13a09ccd7255bccfbfc3c096ca2cac769cc76db928f6d14dc35f95ce3c7.part"
+    },
+    {
+      "filename": "nvidia_nccl_cu12-2.26.2-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "bytes": 201319755,
+      "sha256": "694cf3879a206553cc9d7dbda76b13efaf610fdb70a50cba303de1b0d1530ac6",
+      "wheel_tags": [
+        "py3-none-manylinux2014_x86_64",
+        "py3-none-manylinux_2_17_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/b6b2890bf0807cfe3c56774789dee12751688fafba606cb258f97e89a7707fc0.part"
+    },
+    {
+      "filename": "nvidia_cusolver_cu12-11.7.2.55-py3-none-manylinux_2_27_x86_64.whl",
+      "bytes": 260373342,
+      "sha256": "4d1354102f1e922cee9db51920dba9e2559877cf6ff5ad03a00d853adafb191b",
+      "wheel_tags": [
+        "py3-none-manylinux_2_27_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/90ac4728135a8f8c8857a52c03476a6d374ce08de11b4b3e411e9650bfc6dc6d.part"
+    },
+    {
+      "filename": "nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "bytes": 292064180,
+      "sha256": "3c1b61eb8c85257ea07e9354606b26397612627fdcd327bfd91ccf6155e7c86d",
+      "wheel_tags": [
+        "py3-none-manylinux2014_x86_64",
+        "py3-none-manylinux_2_17_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/f19dca6d78f3288a70e87b13960011508ddf0f243a76f5f185e581bb5e12759e.part"
+    }
+  ],
+  "no_GPU": true,
+  "remote_transferred": false,
+  "installed": false,
+  "minimum_free_bytes": 4294967296,
+  "current_file": "nvidia_cusparse_cu12-12.5.7.53-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+  "download_pid": null,
+  "finished_at": "2026-10-26T21:55:12.333236+00:00",
+  "seconds": 1355.470861624999,
+  "free_bytes_after": 6216065024,
+  "observed_at": "2026-10-26T21:55:12.333600+00:00"
+}

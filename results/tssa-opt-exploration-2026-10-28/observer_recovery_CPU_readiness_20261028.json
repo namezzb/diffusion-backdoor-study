@@ -1,0 +1,55 @@
+{
+  "created_at": "2026-10-28T09:59:55.317343+00:00",
+  "status": "local_recovery_observer_ready_no_actual_recovery_executed",
+  "tests": {
+    "command": "python3 results/tssa-opt-exploration-2026-10-28/test_observe_image_search.py",
+    "passed": 18,
+    "failed": 0,
+    "seconds": 0.058,
+    "simulation_only": true,
+    "actual_wrapper_integration": "RemoteOrderChecks.exercise_remote with actual remote_recover and exact produced receipt/ledger/archive; all host/NVML/Popen facts simulated",
+    "Python311_syntax_parsed": true
+  },
+  "files_sha256": {
+    "observe_image_search.py": "53fe627e48109eac545529f2473f08aaa15d85f3b5743b237e7b06eb5c22958f",
+    "test_observe_image_search.py": "a8e1a9c86074684a7c27e657d96d140f9d37163b2e117ff0f5120b0a954b56c5",
+    "observer_recovery_usage.md": "23567db8087d954f5cd8828a926b23feacc1bb94f7be733760de63e2abe128ed",
+    "recover_interrupted_search.py": "ee69bb8b7b624339e2ab367e19fb99fe6d1a9dcf708fe9068c57af787d886a52",
+    "test_recover_interrupted_search.py": "23e8ac150ba636ecd66d4fcc15095242cbaad8d150b119306fe1088a4a104715"
+  },
+  "GPU_launched": false,
+  "SSH_connections": 0,
+  "remote_mutations": false,
+  "frozen_scientific_source_or_manifest_changed": false,
+  "new_recovery_started": false,
+  "state_note": "Parent reported a second 103 reboot; recovery has not executed. Existing wrapper still pins the earlier boot and must not be bypassed. Observer boots are bound to a verified actual receipt, not guessed.",
+  "evidence_preserved": [
+    "original launch claim and spawn receipt",
+    "exact interrupted started receipt archive",
+    "separate failed-attempt ledger",
+    "historical original PID and filtered original log tail"
+  ],
+  "recovery_accounting": {
+    "failed_attempts": 1,
+    "failed_generation_branch_NFE_upper_bound": 50,
+    "failed_TE_upper_bound": 1,
+    "failed_VAE_upper_bound": 1,
+    "global_attempt_cap": 1440,
+    "global_generation_branch_NFE_cap": 72000,
+    "exact_failed_compute_unknown": true
+  },
+  "guard_checks": [
+    "default mode no connection",
+    "explicit fixed recovery path and external raw hash",
+    "old claim/spawn receipt full hashes",
+    "same run/plan/identity/UUID",
+    "recovery claim equals ledger bytes",
+    "ledger/spawn field consistency",
+    "archived original started bytes and task hash",
+    "new PID ownership/run/start-ticks/boot binding",
+    "old PID absence remains historical",
+    "both log tails remain confirmation-gated",
+    "failed attempt included and 1441/72050 flagged",
+    "real wrapper simulated output matches observer"
+  ]
+}

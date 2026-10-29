@@ -1,0 +1,131 @@
+{
+  "at": "2026-10-28T08:56:26.897699+00:00",
+  "prior_failure": {
+    "at": "2026-10-28T08:55:09.830494+00:00",
+    "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "server": "103",
+    "token": "354f1534a9ef4202a8ffff8f668eb03d",
+    "status": "remote_failed_or_unknown_manual_audit_required",
+    "permission_sha256": "5148409d498faf30c09d524eed987e6a5b0edfd5cdf0a6979f1332c869dede88",
+    "deployment_sha256": "873fcb49ab565dec9d1ffdfe728d7e6a49cf34fb80855545a01daffac87c8572",
+    "launcher_sha256": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+    "automatic_retry_allowed": false,
+    "returncode": 2,
+    "stderr": "{\"status\": \"refused\", \"error\": \"GuardError: Group/world writable path: /data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c\", \"automatic_retry_allowed\": false}\n",
+    "stdout": "",
+    "finished_at": "2026-10-28T08:55:14.526359+00:00"
+  },
+  "GPU_launch": false,
+  "returncode": 0,
+  "stderr": "",
+  "remote": {
+    "at": "2026-10-28T08:56:31.469203+00:00",
+    "status": "pre_spawn_absence_proved_snapshot_permissions_tightened",
+    "run_exists": false,
+    "remote_claim_exists": false,
+    "active_search_processes": [],
+    "source_hashes": {
+      "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+      "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+      "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+      "scripts/merging/test_tssa_image_search_run.py": "c3a92d45286ad0fcbe62e0f56e07a860942f3ac5ddbaf43a9c316306649971a0",
+      "scripts/merging/tssa_gradient_core.py": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+      "scripts/merging/tssa_image_search_run.py": "0a8ba77ae38b12041166b1ce61d76f68edb7320a738af7f389617c1081480bf1",
+      "scripts/merging/tssa_mvp_score.py": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+      "scripts/merging/tssa_sd_runtime.py": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a"
+    },
+    "changes": [
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache/huggingface",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache/torch",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/cache/triton",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/results",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/tmp",
+        "before": "0o775",
+        "after": "0o755"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_2026-10-26.json",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_assets_2026-10-26.json",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_optimization_exploration_2026-10-28.json",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/test_tssa_image_search_run.py",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_gradient_core.py",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_image_search_run.py",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_mvp_score.py",
+        "before": "0o664",
+        "after": "0o644"
+      },
+      {
+        "path": "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_sd_runtime.py",
+        "before": "0o664",
+        "after": "0o644"
+      }
+    ],
+    "GPU_initialized": false
+  }
+}

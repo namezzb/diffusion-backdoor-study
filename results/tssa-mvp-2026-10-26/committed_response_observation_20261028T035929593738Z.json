@@ -1,0 +1,116 @@
+{
+  "started_at": "2026-10-28T03:59:29.594033+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T03:59:36.164654+00:00",
+    "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+    "read_only": true,
+    "files": {
+      "artifacts/3dfb0ab266687df93e247f8cce4bdb52.json": {
+        "sha256": "fcbf1124f1f9d2a8f6a6aa1280e69ab5c3b2d1959de8d8205ea128a8a966c613",
+        "size": 568,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/3dfb0ab266687df93e247f8cce4bdb52.json"
+      },
+      "operations/3dfb0ab266687df93e247f8cce4bdb52.json": {
+        "sha256": "590079ce38734f200f5ee63d6b2276071d1e409972ff9d9ff49cac196d8b779c",
+        "size": 1950,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/3dfb0ab266687df93e247f8cce4bdb52.json"
+      },
+      "artifacts/97cef547e27c9b3ff87350ae5c29cf0b.json": {
+        "sha256": "81555d0959c9eb9c52b562f33938894493f1b8b34963b6b0030385d524e7583b",
+        "size": 626,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/97cef547e27c9b3ff87350ae5c29cf0b.json"
+      },
+      "operations/97cef547e27c9b3ff87350ae5c29cf0b.json": {
+        "sha256": "d2720c64a53d85793d51d2dc083c3e4f89f7061ebd71b8b93bae5ab0596fad42",
+        "size": 1947,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/97cef547e27c9b3ff87350ae5c29cf0b.json"
+      },
+      "artifacts/992ecf57fa3bbf91a6254bc5bfbec242.json": {
+        "sha256": "f5e08992a4ecd5db982c8791c0ad8ccba15d48dc35be47ee9b0711cc0a211172",
+        "size": 626,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/992ecf57fa3bbf91a6254bc5bfbec242.json"
+      },
+      "operations/992ecf57fa3bbf91a6254bc5bfbec242.json": {
+        "sha256": "50faaf622efb252901ecf7df9b1e050fa20fc34bad9cde080004da3c09321308",
+        "size": 1947,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/992ecf57fa3bbf91a6254bc5bfbec242.json"
+      },
+      "artifacts/a11c288a63604e31744d29aac4e39f1a.json": {
+        "sha256": "af12116ada24b3e9b98f1c4e19be2afeb9dc215b723770f8e15727ba4d96fbac",
+        "size": 619,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/a11c288a63604e31744d29aac4e39f1a.json"
+      },
+      "operations/a11c288a63604e31744d29aac4e39f1a.json": {
+        "sha256": "9bbd89c767494ba42f623d29b7e2207563998983b7dce52cb0cf471c36ed4d68",
+        "size": 1839,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/a11c288a63604e31744d29aac4e39f1a.json"
+      },
+      "artifacts/b3746764c76768f2ed4c057bff178aee.json": {
+        "sha256": "f73125157200589f909886f920f847fecb08a5bb1ff3d7b0f3b03b06034cb192",
+        "size": 623,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/b3746764c76768f2ed4c057bff178aee.json"
+      },
+      "operations/b3746764c76768f2ed4c057bff178aee.json": {
+        "sha256": "36d261121f3c4201a5e1d8af9a4368cb29327fd1d7d0d8e973147b6f288603eb",
+        "size": 1802,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/b3746764c76768f2ed4c057bff178aee.json"
+      },
+      "artifacts/b959dac1b0fd26153789ea5bf3140063.json": {
+        "sha256": "1db1c1f855277031bcd35466ca28f204aa2de283e6ddb739a0666398dd118de9",
+        "size": 568,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/b959dac1b0fd26153789ea5bf3140063.json"
+      },
+      "operations/b959dac1b0fd26153789ea5bf3140063.json": {
+        "sha256": "72620a4ae7e037b9ea4bfc4c8b40d886ed5aa355fc890b2315d0a3237c404b76",
+        "size": 1951,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/b959dac1b0fd26153789ea5bf3140063.json"
+      },
+      "artifacts/decc35129cfa13b879190290f5338e26.json": {
+        "sha256": "7ae71ba1e3aed416d58aea25d9f9918a995ae99876127a4f1b104b9d192f1bc4",
+        "size": 568,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/decc35129cfa13b879190290f5338e26.json"
+      },
+      "operations/decc35129cfa13b879190290f5338e26.json": {
+        "sha256": "bdf25c167e8b3d8d3f9642706cae1c6e290f47a6f08acece82142ba4db108ad4",
+        "size": 1950,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/decc35129cfa13b879190290f5338e26.json"
+      },
+      "artifacts/eab0f945650169bcfa328d3bf7229bed.json": {
+        "sha256": "70e7a21df85a494e642e601d46742e64e7016cb005a01138bab8eada7da9e07d",
+        "size": 621,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/eab0f945650169bcfa328d3bf7229bed.json"
+      },
+      "operations/eab0f945650169bcfa328d3bf7229bed.json": {
+        "sha256": "4d5efbe6e51b93026e8113268636d3c68dcc492e38d607d8be32df4b29e634a3",
+        "size": 1837,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/eab0f945650169bcfa328d3bf7229bed.json"
+      },
+      "artifacts/f62b27b3ae6394db3f384199c2669ee2.json": {
+        "sha256": "0e069ace5fc0b1ddd5afda48bc76df2dfcd769875a285720f700a7fcce8f7f53",
+        "size": 568,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/f62b27b3ae6394db3f384199c2669ee2.json"
+      },
+      "operations/f62b27b3ae6394db3f384199c2669ee2.json": {
+        "sha256": "c88fab418b1923645f788509eb3a898c883e842e31593f7657f0c124262a8bbb",
+        "size": 1951,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/f62b27b3ae6394db3f384199c2669ee2.json"
+      },
+      "artifacts/fe6e37083b224aa99be13db4dd2ce1c8.json": {
+        "sha256": "4785b3ebab986a62b2db5bb5647467022d373c58e1f07110adbced76dd8f1c26",
+        "size": 617,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/artifacts/fe6e37083b224aa99be13db4dd2ce1c8.json"
+      },
+      "operations/fe6e37083b224aa99be13db4dd2ce1c8.json": {
+        "sha256": "ce395df66f9d2724e36dd036b6b2a894e39a60984c9ffb4211a28a54662cb906",
+        "size": 1838,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/committed_response_observation_20261028T035929593738Z_artifacts/operations/fe6e37083b224aa99be13db4dd2ce1c8.json"
+      }
+    },
+    "pending_response_operations": []
+  },
+  "finished_at": "2026-10-28T03:59:36.228434+00:00"
+}

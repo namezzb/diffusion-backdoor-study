@@ -1,0 +1,51 @@
+{
+  "committed_work_by_bucket": {
+    "diagnostic_extra": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    },
+    "main": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    },
+    "source_extra": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    }
+  },
+  "diagnostic_bucket": "Operations prefixed diagnostic/ are outside the main 1664-image/144-update budget.",
+  "failed_or_interrupted_attempts_separately_accounted": [],
+  "observed_peak_allocated_bytes": 0,
+  "operations": [
+    {
+      "artifact_sha256": "3ec0445c857e5ba8399614b6756cc33d8ce67209e1e2274588f7f9f5668532c6",
+      "attempts": [
+        {
+          "finished_at": "2026-10-27T16:14:41.271663+00:00",
+          "outcome": "completed",
+          "resources_after": {},
+          "resources_before": {},
+          "started_at": "2026-10-27T16:13:45.832315+00:00",
+          "wall_seconds": 55.43836761999955
+        }
+      ],
+      "cost_upper_bound": {},
+      "finished_at": "2026-10-27T16:14:41.271863+00:00",
+      "operation": "preflight/cpu",
+      "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+      "status": "completed"
+    }
+  ],
+  "per_worker": {},
+  "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+  "unknown_work_must_not_be_reported_as_zero": false
+}

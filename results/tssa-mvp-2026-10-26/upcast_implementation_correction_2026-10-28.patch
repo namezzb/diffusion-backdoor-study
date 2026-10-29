@@ -1,0 +1,119 @@
+--- old/scripts/merging/tssa_sd_runtime.py
++++ new/scripts/merging/tssa_sd_runtime.py
+@@ -161,15 +161,26 @@
+     return {"changed_coordinates": changed, "floating_coordinates": coordinates, "difference_l2": math.sqrt(norm_squared)}
+ 
+ 
+-def _check_configs(reference: Any, other: Any, fields: Sequence[str], label: str) -> None:
++def _check_configs(reference: Any, other: Any, fields: Sequence[str], label: str) -> dict[str, Any]:
++    equivalences = {}
+     for field in fields:
+         left, right = getattr(reference, field, None), getattr(other, field, None)
++        if field == "upcast_attention":
++            # Pinned diffusers 0.35.1 branches on truthiness for this flag.
++            # Legacy null and false both disable upcasting; do not normalize
++            # unrelated flags or accept malformed numeric/string values.
++            if any(value is not None and type(value) is not bool for value in (left, right)):
++                raise ValueError(f"{label}: invalid boolean configuration for {field}: {left!r} vs {right!r}")
++            if left is not right and not left and not right:
++                equivalences[field] = {"reference": left, "other": right, "effective": False}
++            left, right = bool(left), bool(right)
+         if isinstance(left, (tuple, list)):
+             left = list(left)
+         if isinstance(right, (tuple, list)):
+             right = list(right)
+         if left != right:
+             raise ValueError(f"{label}: component configuration mismatch for {field}: {left!r} vs {right!r}")
++    return equivalences
+ 
+ 
+ def _all_protocol_prompts(protocol: Mapping[str, Any]) -> list[str]:
+@@ -266,9 +277,10 @@
+             model = UNet2DConditionModel.from_pretrained(directory / "unet", torch_dtype=torch.float32,
+                                                        use_safetensors=True, local_files_only=True)
+             model.eval().requires_grad_(False)
+-            _check_configs(unet.config, model.config, unet_fields, role + "/UNet")
++            config_equivalences = _check_configs(unet.config, model.config, unet_fields, role + "/UNet")
+             unet_states[role] = _cpu_state(model)
+             compatibility[role + "/UNet"] = _check_states(unet_states["clean"], unet_states[role], role + "/UNet")
++            compatibility[role + "/UNet"]["configuration_equivalences"] = config_equivalences
+             if not compatibility[role + "/TE"]["changed_coordinates"] and not compatibility[role + "/UNet"]["changed_coordinates"]:
+                 raise ValueError(f"{role} is identical to the clean base, not an independent expert.")
+             del model, expert_tokenizer
+--- old/scripts/merging/test_tssa_sd_runtime_integration.py
++++ new/scripts/merging/test_tssa_sd_runtime_integration.py
+@@ -19,7 +19,7 @@
+ 
+ import torch
+ from diffusers import DDIMScheduler, UNet2DConditionModel
+-from diffusers.models.attention_processor import AttnProcessor2_0
++from diffusers.models.attention_processor import AttnProcessor, AttnProcessor2_0
+ from torch.nn.attention import SDPBackend, sdpa_kernel
+ from transformers import CLIPTextConfig, CLIPTextModel
+ 
+@@ -27,7 +27,7 @@
+     CalibrationScalars, FrozenDelta, StateGradients, capture_state_gradients,
+     combine_state_gradients, fixed_backdoor_target,
+ )
+-from tssa_sd_runtime import SDGradientRuntime
++from tssa_sd_runtime import SDGradientRuntime, _check_configs
+ 
+ 
+ PROTOCOL = Path(__file__).resolve().parents[2] / "research" / "tssa_mvp_2026-10-26.json"
+@@ -40,6 +40,56 @@
+ def perturb_state(state, generator, scale):
+     return {key: value + scale * torch.randn(value.shape, generator=generator, dtype=value.dtype)
+             if value.is_floating_point() else value.clone() for key, value in state.items()}
++
++
++class UNetConfigCompatibilityTests(unittest.TestCase):
++    @staticmethod
++    def model(upcast):
++        return UNet2DConditionModel(
++            sample_size=8, in_channels=4, out_channels=4, layers_per_block=1,
++            down_block_types=("CrossAttnDownBlock2D", "DownBlock2D"),
++            up_block_types=("UpBlock2D", "CrossAttnUpBlock2D"),
++            block_out_channels=(8, 16), cross_attention_dim=16,
++            attention_head_dim=2, norm_num_groups=4, upcast_attention=upcast,
++        ).eval().requires_grad_(False)
++
++    def test_nullable_upcast_in_actual_unet_configs(self):
++        reference, expert = self.model(False), self.model(None)
++        _check_configs(reference.config, expert.config, ("upcast_attention",), "Edev/UNet")
++
++    def test_none_and_false_have_identical_outputs_and_input_gradients(self):
++        # Both processors are real diffusers implementations; CPU FP16 is not CUDA proof.
++        with torch.random.fork_rng(devices=[]):
++            torch.manual_seed(20261028)
++            reference, expert = self.model(False), self.model(None)
++            expert.load_state_dict(reference.state_dict(), strict=True)
++            for dtype in (torch.float32, torch.float16):
++                reference.to(dtype=dtype)
++                expert.to(dtype=dtype)
++                for processor in (AttnProcessor, AttnProcessor2_0):
++                    with self.subTest(dtype=dtype, processor=processor.__name__):
++                        reference.set_attn_processor(processor())
++                        expert.set_attn_processor(processor())
++                        latent = torch.randn(1, 4, 8, 8, dtype=dtype)
++                        context = torch.randn(1, 8, 16, dtype=dtype)
++                        results = []
++                        for model in (reference, expert):
++                            embedding = context.clone().requires_grad_()
++                            output = model(latent, 500, encoder_hidden_states=embedding, return_dict=False)[0]
++                            gradient, = torch.autograd.grad(output.float().square().mean(), embedding)
++                            self.assertTrue(torch.isfinite(output).all() and torch.isfinite(gradient).all())
++                            results.append((output.detach(), gradient))
++                        self.assertTrue(torch.equal(results[0][0], results[1][0]))
++                        self.assertTrue(torch.equal(results[0][1], results[1][1]))
++
++    def test_enabled_invalid_or_unrelated_config_differences_still_rejected(self):
++        for value in (True, "false", 0, 1):
++            with self.subTest(value=value), self.assertRaises(ValueError):
++                _check_configs(SimpleNamespace(upcast_attention=False),
++                               SimpleNamespace(upcast_attention=value), ("upcast_attention",), "UNet")
++        with self.assertRaises(ValueError):
++            _check_configs(SimpleNamespace(use_linear_projection=False),
++                           SimpleNamespace(use_linear_projection=None), ("use_linear_projection",), "UNet")
+ 
+ 
+ class TinyCPURuntime(SDGradientRuntime):

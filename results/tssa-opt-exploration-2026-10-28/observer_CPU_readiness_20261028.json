@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-28T07:21:10.217078+00:00",
+  "source": "results/tssa-opt-exploration-2026-10-28/observe_image_search.py",
+  "source_sha256": "3fd2924f03879373dfe79a8a4660dad30c40e8e024f36970942347005d985c45",
+  "test_source_sha256": "aa6e3e30c1d51d12582dd582b300cdcae66ab62214c35f46d18d5a4bb0a6f256",
+  "tests_passed": 6,
+  "tests_failed": 0,
+  "test_command": "python3 -m unittest discover -s results/tssa-opt-exploration-2026-10-28 -p test_observe_image_search.py -v",
+  "python38_syntax_valid": true,
+  "actual_SSH_calls": 0,
+  "GPU_calls": 0,
+  "scientific_source_or_manifest_changes": false,
+  "new_scientific_samples": 0,
+  "prepared_server_choices": [
+    "103",
+    "104"
+  ],
+  "default_no_connection": true,
+  "single_connection_timeout_seconds": 100,
+  "per_file_max_bytes": 2097152,
+  "aggregate_max_bytes": 16777216,
+  "heldout_guard": "Only frozen search/dev task IDs are read before verified dev_summary/dev_selection/confirm_binding hashes; no confirm rows sent in observer payload.",
+  "limitations": [
+    "Observation is a sequence of individually hash-bound reads, not an atomic cross-file snapshot.",
+    "Completed PNG bytes are not downloaded or reverified; their recorded hashes remain in returned operation receipts.",
+    "Current processes and historical failure artifacts are distinct facts; neither implies scientific success.",
+    "No new resource permission or launch authorization is inferred."
+  ]
+}

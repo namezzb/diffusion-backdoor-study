@@ -1,0 +1,16 @@
+{
+  "pid": 20774,
+  "command": [
+    "/usr/bin/caffeinate",
+    "-i",
+    "-t",
+    "21600",
+    "-w",
+    "20773"
+  ],
+  "started_at": "2026-10-27T00:59:54.453121+00:00",
+  "expires_at": "2026-10-27T06:59:54.456824+00:00",
+  "release_when_process_exits": 20773,
+  "previous_record": "results/tssa-mvp-2026-10-26/keep_awake_before_model_transfer_2026-10-27-005954.json",
+  "scope": "Temporary idle-sleep assertion for actual frozen model transfer; releases on process exit or within six hours, no permanent setting or display-lock change."
+}

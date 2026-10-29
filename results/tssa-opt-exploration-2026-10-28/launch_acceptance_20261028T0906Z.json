@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-28T09:08:47.288843+00:00",
+  "status": "real_images_running_GPU_monitor_degraded",
+  "server": "103",
+  "GPU_index": 0,
+  "GPU_uuid": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+  "pid": 188034,
+  "scientific_images_completed_verified_receipts": 35,
+  "stage": "search",
+  "maximum_images": 1440,
+  "optimizer_updates": 0,
+  "latest_observation": "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T090622336387Z-b117c101/report.json",
+  "latest_observation_sha256": "785def1107230166b328862b3c2c8f8f95cc580ce45985eac4d78fa759e25b57",
+  "last_successful_GPU_snapshot": "observation_103_20261028T090142247529Z-865e39e4/report.json",
+  "GPU_query_error": {
+    "kind": "failed_or_oversized",
+    "returncode": 18,
+    "stdout_bytes": 88,
+    "stdout_excerpt": "Failed to initialize NVML: Driver/library version mismatch\nNVML library version: 595.99\n",
+    "stderr_excerpt": ""
+  },
+  "process_running": true,
+  "scientific_failures_observed": [],
+  "image_PNG_bytes_retrieved": false,
+  "scientific_source_or_threshold_changed": false,
+  "research_process_restarted": false,
+  "old_run_repeated": false,
+  "next_action": "Observe existing PID and committed receipts; do not relaunch or duplicate; do not use historical platform sampling for new GPU launches; preserve NVML error without changing driver or stopping productive existing job."
+}

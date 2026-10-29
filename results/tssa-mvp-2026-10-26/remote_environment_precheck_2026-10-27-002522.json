@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-10-27T00:25:22.540141+08:00",
+  "kind": "remote_read_only_venv_and_wheel_tag_compatibility",
+  "exit_code": 0,
+  "remote_probe_source_sha256": "1d26071d75098108984f3897b0da025d252cc93eb861a13e89dbe1f3665b857c",
+  "environment_manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+  "installation_performed": false,
+  "wheel_bytes_verified": false,
+  "GPU_tested": false,
+  "remote_report": {
+    "ML_imported": false,
+    "account": "zhangzibo",
+    "architecture": "x86_64",
+    "base_prefix": "/home/zhangzibo/anaconda3",
+    "data_filesystem_distinct_from_root": true,
+    "data_root_owned": true,
+    "data_root_world_writable": false,
+    "include_system_site_packages": "false",
+    "incompatible_wheels": [],
+    "installed_distributions": [
+      {
+        "name": "pip",
+        "version": "23.2.1"
+      },
+      {
+        "name": "setuptools",
+        "version": "65.5.0"
+      }
+    ],
+    "passed": true,
+    "pip_file": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages/pip/__init__.py",
+    "pip_version": "23.2.1",
+    "prefix": "/data2/zhangzibo/arxiv-tssa/venv",
+    "python": "3.11.7",
+    "site_packages": "/data2/zhangzibo/arxiv-tssa/venv/lib/python3.11/site-packages",
+    "system": "Linux",
+    "uid_is_nonzero": true,
+    "venv_owns_packages": true,
+    "wheel_count_checked": 51
+  }
+}

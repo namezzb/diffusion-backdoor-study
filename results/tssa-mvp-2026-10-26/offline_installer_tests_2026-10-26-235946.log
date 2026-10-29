@@ -1,0 +1,16 @@
+test_real_cpu_subprocess_failure_preserves_audit_and_logs (test_install_school_offline_env.AuditTests.test_real_cpu_subprocess_failure_preserves_audit_and_logs) ... ok
+test_timeout_stops_only_owned_child_process_group_and_keeps_logs (test_install_school_offline_env.AuditTests.test_timeout_stops_only_owned_child_process_group_and_keeps_logs) ... ok
+test_verify_only_never_invokes_install_or_ml_imports (test_install_school_offline_env.AuditTests.test_verify_only_never_invokes_install_or_ml_imports) ... ok
+test_external_base_executable_is_allowed_only_with_venv_prefix (test_install_school_offline_env.EnvironmentTests.test_external_base_executable_is_allowed_only_with_venv_prefix) ... ok
+test_non_linux_or_wrong_account_cannot_reach_pip (test_install_school_offline_env.EnvironmentTests.test_non_linux_or_wrong_account_cannot_reach_pip) ... ok
+test_pip_and_gpu_environment_cannot_redirect_install (test_install_school_offline_env.EnvironmentTests.test_pip_and_gpu_environment_cannot_redirect_install) ... ok
+test_changed_lock_is_rejected_before_install (test_install_school_offline_env.InputTests.test_changed_lock_is_rejected_before_install) ... ok
+test_dry_run_does_not_spawn_processes_or_write (test_install_school_offline_env.InputTests.test_dry_run_does_not_spawn_processes_or_write) ... ok
+test_frozen_manifest_and_all_51_pins_match_lock (test_install_school_offline_env.InputTests.test_frozen_manifest_and_all_51_pins_match_lock) ... ok
+test_lock_cannot_introduce_url_or_other_pip_option (test_install_school_offline_env.InputTests.test_lock_cannot_introduce_url_or_other_pip_option) ... ok
+test_wheel_hash_size_and_escaping_symlink_rejected (test_install_school_offline_env.InputTests.test_wheel_hash_size_and_escaping_symlink_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.271s
+
+OK

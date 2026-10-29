@@ -1,0 +1,14 @@
+[
+  {
+    "host": "school103",
+    "returncode": 2,
+    "stdout": "TARGET SOURCE    FSTYPE\n/data1 /dev/sda1 ext4\n",
+    "stderr": "ls: cannot access '/data1/zhangzibo/arxiv-tssa/models': No such file or directory\nls: cannot access '/data2/zhangzibo/arxiv-tssa/models': No such file or directory\n"
+  },
+  {
+    "host": "school104",
+    "returncode": 2,
+    "stdout": "TARGET SOURCE    FSTYPE\n/data2 /dev/sdd1 ext4\ndrwxr-x--- 8 zhangzibo zhangzibo 4096 10\u6708 27 23:14 /data2/zhangzibo/arxiv-tssa/models\n",
+    "stderr": "ls: cannot access '/data1/zhangzibo/arxiv-tssa/models': No such file or directory\n"
+  }
+]

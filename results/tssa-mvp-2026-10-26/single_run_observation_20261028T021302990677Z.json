@@ -1,0 +1,68 @@
+{
+  "started_at": "2026-10-28T02:13:02.990963+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T02:13:41.218730+00:00",
+    "read_only": true,
+    "active_project_processes": [],
+    "GPU3": {
+      "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+      "compute_mode": "Default",
+      "memory_used": "1106 MiB",
+      "utilization": "42 %",
+      "processes": [
+        {
+          "pid": 6941,
+          "type": "G",
+          "memory": "4 MiB",
+          "owner_is_self": false
+        },
+        {
+          "pid": 641279,
+          "type": "C",
+          "memory": "1090 MiB",
+          "owner_is_self": false
+        }
+      ]
+    },
+    "operations": [
+      {
+        "operation": "diagnostic/gpu_gradient_and_memory",
+        "status": "interrupted",
+        "started_at": null,
+        "finished_at": null,
+        "error": null
+      },
+      {
+        "operation": "preflight/cpu",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T01:40:58.675039+00:00",
+        "error": null
+      }
+    ],
+    "files": {
+      "failure_or_completion_status.json": {
+        "sha256": "1bd6590194cfdcb986313f8b7fcec13c95976b56e716ddff9a7266dc6f6d0451",
+        "size": 630,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T021302990677Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "6dd1b9ab83d94908919f1e914a8f4a29a41d3d254374a94e40c8a7e7d232f0aa",
+        "size": 4374,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T021302990677Z_artifacts/resource_ledger.json"
+      },
+      "last_failure_traceback.txt": {
+        "sha256": "e9fa4150928a4b191f7a9d87b70d0d815213d5c5b9801baa91cda11c1082774f",
+        "size": 2244,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T021302990677Z_artifacts/last_failure_traceback.txt"
+      }
+    },
+    "log_path": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T020540846402Z.log",
+    "log_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:07:31.101218+00:00\"}\n{\"stage\": \"gpu-diagnostic\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:07:31.168405+00:00\"}\n{\"status\": \"interrupted\", \"error_type\": \"KeyboardInterrupt\", \"error\": \"Signal 15; unfinished work needs explicit review before replay.\"}\n"
+  },
+  "finished_at": "2026-10-28T02:13:46.040072+00:00"
+}

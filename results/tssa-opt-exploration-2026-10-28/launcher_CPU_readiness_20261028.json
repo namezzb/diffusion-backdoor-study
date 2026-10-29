@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-28T07:07:15.513800+00:00",
+  "status": "local_guards_passed_not_remote_execution_tested",
+  "tests": 17,
+  "failures": 0,
+  "python_3_8_syntax_checked": true,
+  "frozen_plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "launcher_sha256": "c79d706f3daac94d309cab4d307ad49da735ad0114caa48d4bfd9f7138240cf0",
+  "test_sha256": "9e341a2f423875529b7cf244e7c679d9804d7fe7ea36cd772790d868b96fc777",
+  "test_command": "python3 -m unittest discover -s results/tssa-opt-exploration-2026-10-28 -p test_launch_image_search.py -v",
+  "SSH_connections": 0,
+  "GPU_launches": 0,
+  "scientific_samples": 0,
+  "permanent_claim_created": false,
+  "limitations": [
+    "Remote process and filesystem guard paths have not been exercised on either server.",
+    "Only authenticated manual UI observations <=120s old can authorize execute mode.",
+    "A spawned process receipt is not evidence of GPU acceptance or scientific effectiveness."
+  ]
+}

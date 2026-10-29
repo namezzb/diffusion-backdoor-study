@@ -1,0 +1,13 @@
+{
+  "verified_at": "2026-10-28T06:39:30.584938+00:00",
+  "url": "https://github.com/astral-sh/python-build-standalone/releases/download/20240107/cpython-3.11.7%2B20240107-x86_64-unknown-linux-gnu-install_only.tar.gz",
+  "revision": "20240107",
+  "python": "3.11.7",
+  "architecture": "x86_64-unknown-linux-gnu",
+  "size": 29335084,
+  "sha256": "4a51ce60007a6facf64e5495f4cf322e311ba9f39a8cd3f3e4c026eae488e140",
+  "local_file": "/Users/zzb/arxiv/results/tssa-opt-exploration-2026-10-28/cpython-3.11.7-20240107-linux-x86_64.tar.gz",
+  "status": "downloaded_and_hash_verified_not_installed",
+  "executed_on_Mac": false,
+  "sha256_source": "https://github.com/astral-sh/python-build-standalone/releases/download/20240107/cpython-3.11.7%2B20240107-x86_64-unknown-linux-gnu-install_only.tar.gz.sha256"
+}

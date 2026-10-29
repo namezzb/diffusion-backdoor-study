@@ -1,0 +1,114 @@
+{
+  "observed_at": "2026-10-27T12:30:47.217543+00:00",
+  "previous_audit": "results/tssa-mvp-2026-10-26/ongoing_transfer_chunk_audit_2026-10-27-115918-395067Z.json",
+  "previous_audit_sha256": "6acc337f1a2a076718396babbeaf6e214c3b2fac06aea4cd3229f05d235866be",
+  "prior_log_prefix_unchanged": true,
+  "transfer_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.json",
+  "transfer_status": "failed",
+  "failed_at": "2026-10-27T12:12:52.356037+00:00",
+  "returncode": 1,
+  "underlying_SSH_returncode": 255,
+  "elapsed_seconds": 9651.254129959001,
+  "log_path": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.log",
+  "log_size": 136985,
+  "log_sha256": "51ef4144d21f3eaecaa139386fffbab584d989ea8faec93187205503437bcd96",
+  "ledger_snapshot_size": 118485,
+  "ledger_snapshot_sha256": "f8f66d1e271c6ba8f19694fb9defef4ea136e3f94c386d89edd0ccac3300fad6",
+  "complete_manifest_files_verified": 27,
+  "complete_manifest_bytes_verified": 8690972733,
+  "by_role_file_counts": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 9
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 2
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "files_uploaded_this_attempt": {
+    "dreamshaper8/unet/diffusion_pytorch_model.safetensors": {
+      "chunk_count": 725,
+      "prefix_bytes": 3438167536,
+      "last_receipt": {
+        "offset": 3435134976,
+        "chunk_size": 3032560,
+        "committed_size": 3438167536,
+        "sha256": "9e6c1807e32f05c2f5d21f32e9de4cbaa8928ed8c697fff58648a81ff1e34281"
+      },
+      "whole_file_verified": true,
+      "remote_whole_SHA256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+      "remote_whole_verified_at": "2026-10-27T12:10:41.453889+00:00"
+    },
+    "openjourney/README.md": {
+      "chunk_count": 1,
+      "prefix_bytes": 2725,
+      "last_receipt": {
+        "offset": 0,
+        "chunk_size": 2725,
+        "committed_size": 2725,
+        "sha256": "addae99f4c832f08cc9931163e1601ef152b11205fc1820d5f5a828ecc57bc66"
+      },
+      "whole_file_verified": true,
+      "remote_whole_SHA256": "addae99f4c832f08cc9931163e1601ef152b11205fc1820d5f5a828ecc57bc66",
+      "remote_whole_verified_at": "2026-10-27T12:10:43.914971+00:00"
+    },
+    "openjourney/text_encoder/config.json": {
+      "chunk_count": 1,
+      "prefix_bytes": 612,
+      "last_receipt": {
+        "offset": 0,
+        "chunk_size": 612,
+        "committed_size": 612,
+        "sha256": "eb1d0ff4bbdfb3ae1ccdb94491df5728dacf0e9db59bdc5e139e3490774dae33"
+      },
+      "whole_file_verified": true,
+      "remote_whole_SHA256": "eb1d0ff4bbdfb3ae1ccdb94491df5728dacf0e9db59bdc5e139e3490774dae33",
+      "remote_whole_verified_at": "2026-10-27T12:10:45.733507+00:00"
+    },
+    "openjourney/text_encoder/model.safetensors": {
+      "chunk_count": 6,
+      "prefix_bytes": 25165824,
+      "last_receipt": {
+        "offset": 20971520,
+        "chunk_size": 4194304,
+        "committed_size": 25165824,
+        "sha256": "856029a8d926b241112a05d2e01a152b374630024ed66c300937c1cef8f0f7c9"
+      },
+      "whole_file_verified": false,
+      "remote_whole_SHA256": null,
+      "remote_whole_verified_at": null
+    }
+  },
+  "previous_DreamShaper_chunk_count": 545,
+  "additional_DreamShaper_remote_chunk_receipts": 180,
+  "DreamShaper_local_staging_absent_after_whole_remote_verification": true,
+  "current_partial_asset": "openjourney/text_encoder/model.safetensors",
+  "current_partial_requires_fresh_remote_prefix_verification": true,
+  "current_partial_local_integrity_evidence": "results/tssa-mvp-2026-10-26/local_openjourney_text_encoder_integrity_2026-10-27-123047-217543Z.json",
+  "exited_PIDs_confirmed": [
+    76584,
+    76694,
+    76695
+  ],
+  "failed_session_exit_confirmed": 27671,
+  "GPU_used": false,
+  "restart_performed": false,
+  "boundary": "DreamShaper final receipt is a pinned whole-file remote hash. Its task-local staging was removed after success, so final chunks were not independently rehashed locally this wake; OpenJourney six partial chunk payload hashes were checked locally and do not constitute full remote acceptance."
+}

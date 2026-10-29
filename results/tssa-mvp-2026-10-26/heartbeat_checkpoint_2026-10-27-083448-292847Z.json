@@ -1,0 +1,227 @@
+{
+  "observed_at": "2026-10-27T16:34:48.292847+08:00",
+  "phase": "remaining_model_asset_transfer",
+  "automation_id": "gpu",
+  "interval_minutes": 30,
+  "server_probe": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T082923466307Z.json",
+  "server_probe_sha256": "ece2f922ad1cff745a27bda19171451fbf5d2e16a91d3439e146b553d31d9028",
+  "prefix_recheck": "results/tssa-mvp-2026-10-26/dreamshaper_prefix_recheck_2026-10-27-083118-397221Z.json",
+  "prefix_recheck_sha256": "821b1226d1604b8e3e1670d716f6888810583c745bd6f0b91bcfd6988c2b5278",
+  "remote_prefix_verified_before_resume": {
+    "exists": true,
+    "size": 92274688,
+    "sha256": "235aef8a45f2d1f19dc10e82286f473eaac2941bf8f39eea4ee47e75c26ad39b",
+    "mtime_ns": 1793086544323238068
+  },
+  "retained_incomplete_fragments_not_removed": [
+    {
+      "name": "diffusion_pytorch_model.safetensors.uploading.chunk-q0b0u62q",
+      "size": 3888128,
+      "mtime_ns": 1793086594466254470
+    }
+  ],
+  "upload_restarted": true,
+  "transfer_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-083216-134796Z.json",
+  "session_id": 5143,
+  "wrapper_pid": 80426,
+  "helper_pid": 80458,
+  "bounded_awake": {
+    "pid": 80459,
+    "release_when_process_exits": 80458,
+    "maximum_seconds": 21600,
+    "expires_at": "2026-10-27T14:32:16.140075+00:00"
+  },
+  "transfer_log_snapshot_sha256": "73e1b29e908858a6d24395317f5d3059c784dacb71f1f1035ea61a351b03bb00",
+  "transfer_log_snapshot_bytes": 3506,
+  "transfer_log_last_line": "Verified remote chunk: {\"offset\": 100663296, \"chunk_size\": 4194304, \"committed_size\": 104857600, \"sha256\": \"3e0b71a1ea5e425152d93c014f082afc1d7427d35c194b7db2a456bb9fcec91b\"}",
+  "new_chunk_receipts_this_attempt": 3,
+  "latest_verified_partial_bytes": 104857600,
+  "current_asset_final_remote_hash_verified": false,
+  "verified_count": 24,
+  "expected_count": 47,
+  "verified_bytes": 5252801860,
+  "verified_assets": [
+    {
+      "local_path": "sd15/README.md",
+      "size": 14461,
+      "sha256": "2079161f9df7524bd9eca5e53ff5911271b8551e0f868b7b5a92b84776df28a3",
+      "receipt_observed_at": "2026-10-27T08:32:29.659381+00:00"
+    },
+    {
+      "local_path": "sd15/feature_extractor/preprocessor_config.json",
+      "size": 342,
+      "sha256": "2a1da83b5e1032aaeef397552ddb408dca0d8cd1dc58f61bf6abf38d6f33a0a2",
+      "receipt_observed_at": "2026-10-27T08:32:31.311101+00:00"
+    },
+    {
+      "local_path": "sd15/model_index.json",
+      "size": 541,
+      "sha256": "e2f6f22e274374010aec30c79eb2d6e53fff4a36ac0225523a92cb2d41a83347",
+      "receipt_observed_at": "2026-10-27T08:32:32.982544+00:00"
+    },
+    {
+      "local_path": "sd15/scheduler/scheduler_config.json",
+      "size": 308,
+      "sha256": "699cce92eb7c122e2eb7dfdea78e6187fda76a5ed4a8e42319b85610e620e091",
+      "receipt_observed_at": "2026-10-27T08:32:34.454952+00:00"
+    },
+    {
+      "local_path": "sd15/text_encoder/config.json",
+      "size": 617,
+      "sha256": "845df614cb9327ae7bbea027316246fae917827407da6df13572e41b5f93b4cc",
+      "receipt_observed_at": "2026-10-27T08:32:36.852336+00:00"
+    },
+    {
+      "local_path": "sd15/text_encoder/model.safetensors",
+      "size": 492265874,
+      "sha256": "d008943c017f0092921106440254dbbe00b6a285f7883ec8ba160c3faad88334",
+      "receipt_observed_at": "2026-10-27T08:32:40.943010+00:00"
+    },
+    {
+      "local_path": "sd15/tokenizer/merges.txt",
+      "size": 524619,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "receipt_observed_at": "2026-10-27T08:32:44.192827+00:00"
+    },
+    {
+      "local_path": "sd15/tokenizer/special_tokens_map.json",
+      "size": 472,
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+      "receipt_observed_at": "2026-10-27T08:32:46.408985+00:00"
+    },
+    {
+      "local_path": "sd15/tokenizer/tokenizer_config.json",
+      "size": 806,
+      "sha256": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882",
+      "receipt_observed_at": "2026-10-27T08:32:47.924193+00:00"
+    },
+    {
+      "local_path": "sd15/tokenizer/vocab.json",
+      "size": 1059962,
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "receipt_observed_at": "2026-10-27T08:32:51.126423+00:00"
+    },
+    {
+      "local_path": "sd15/unet/config.json",
+      "size": 743,
+      "sha256": "78f474de6bab3d893868f37be97b636ae65c0df3073ed3256ca458ff599b5f96",
+      "receipt_observed_at": "2026-10-27T08:32:53.233909+00:00"
+    },
+    {
+      "local_path": "sd15/unet/diffusion_pytorch_model.safetensors",
+      "size": 3438167540,
+      "sha256": "19da7aaa4b880e59d56843f1fcb4dd9b599c28a1d9d9af7c1143057c8ffae9f1",
+      "receipt_observed_at": "2026-10-27T08:33:09.058651+00:00"
+    },
+    {
+      "local_path": "sd15/vae/config.json",
+      "size": 547,
+      "sha256": "786a7d21647ddea6a04b9675c03d3cb45e90a2f3c6da5fbda2c54ade040036de",
+      "receipt_observed_at": "2026-10-27T08:33:11.053429+00:00"
+    },
+    {
+      "local_path": "sd15/vae/diffusion_pytorch_model.safetensors",
+      "size": 334643276,
+      "sha256": "a2b5134f4dbc140d9c11f11cba3233099e00af40f262f136c691fb7d38d2194c",
+      "receipt_observed_at": "2026-10-27T08:33:14.655698+00:00"
+    },
+    {
+      "local_path": "backdoor_tpa/config.json",
+      "size": 613,
+      "sha256": "cf94e1253bfe660c90d486fabe947cf8c3f20488678fe275d70fcf1db3b39a1b",
+      "receipt_observed_at": "2026-10-27T08:33:17.022896+00:00"
+    },
+    {
+      "local_path": "backdoor_tpa/model.safetensors",
+      "size": 492265168,
+      "sha256": "25fdbe6835939417ee98b911ebadcef1ed4b790a6d4c413a6f3d9ef0c183b071",
+      "receipt_observed_at": "2026-10-27T08:33:21.473378+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/README.md",
+      "size": 2421,
+      "sha256": "591434041d60521ec6b666b3635a8fa03330435bab1361b0502f968dae3f389a",
+      "receipt_observed_at": "2026-10-27T08:33:24.571188+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/text_encoder/config.json",
+      "size": 724,
+      "sha256": "52e29b35e93261515dc07bf248ec8398a729e54f1886e946f8c095ede26be29b",
+      "receipt_observed_at": "2026-10-27T08:33:27.512269+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/text_encoder/model.safetensors",
+      "size": 492265168,
+      "sha256": "5cd76eb3ed326974cfd66795384e890742dfdb5a80f5f4e4cb1547d51ec75d86",
+      "receipt_observed_at": "2026-10-27T08:33:33.254120+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/tokenizer/merges.txt",
+      "size": 524619,
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "receipt_observed_at": "2026-10-27T08:33:36.433398+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/tokenizer/special_tokens_map.json",
+      "size": 472,
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+      "receipt_observed_at": "2026-10-27T08:33:38.420749+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/tokenizer/tokenizer_config.json",
+      "size": 737,
+      "sha256": "19d7b034cb0cc3ce9766c2231373ab8aa8991fc72e2c8f76558bfaae3de0d563",
+      "receipt_observed_at": "2026-10-27T08:33:41.303125+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/tokenizer/vocab.json",
+      "size": 1059962,
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "receipt_observed_at": "2026-10-27T08:33:44.839804+00:00"
+    },
+    {
+      "local_path": "dreamshaper8/unet/config.json",
+      "size": 1868,
+      "sha256": "8125830747f921e26e263e394b8954482cf3b4b4f1beb154704ee3cc57042be8",
+      "receipt_observed_at": "2026-10-27T08:33:47.083544+00:00"
+    }
+  ],
+  "by_role_file_counts": {
+    "sd15": {
+      "expected": 14,
+      "verified": 14
+    },
+    "backdoor_tpa": {
+      "expected": 2,
+      "verified": 2
+    },
+    "dreamshaper8": {
+      "expected": 9,
+      "verified": 8
+    },
+    "openjourney": {
+      "expected": 9,
+      "verified": 0
+    },
+    "vit": {
+      "expected": 4,
+      "verified": 0
+    },
+    "clip": {
+      "expected": 9,
+      "verified": 0
+    }
+  },
+  "ledger_snapshot_sha256": "85befd31ffb9761cd2520db404967c8c355980ce6419f38d5881e4ceaa490a74",
+  "local_free_bytes": 12995858432,
+  "website_rechecked": false,
+  "website_reason": "Previously reported corporate security verification is unresolved; no login attempt or alternative web route used. Current platform permission remains unknown.",
+  "new_GPU_processes_started": 0,
+  "valid_research_images": 0,
+  "optimization_updates": 0,
+  "ASR": null,
+  "normal_metrics": null,
+  "notification_decision": "DONT_NOTIFY",
+  "notification_reason": "Existing preparation resumed after a matching prefix check; no completed stage, available GPU, or new user action. No claim that intermittent SSH failures are repaired.",
+  "next_action": "Monitor this single existing transfer; do not launch another while active. After all 47 files are fully verified remotely, run frozen full-checkpoint CPU preflight. GPU stages still require fresh platform allocation and permission."
+}

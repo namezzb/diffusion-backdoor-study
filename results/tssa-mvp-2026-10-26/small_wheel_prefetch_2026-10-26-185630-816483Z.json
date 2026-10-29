@@ -1,0 +1,258 @@
+{
+  "started_at": "2026-10-26T18:56:30.816717+00:00",
+  "pid": 90111,
+  "status": "failed",
+  "manifest_sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+  "script_sha256": "51a9ddafa01c3235f8b708fc44b7f9394f311ebcdb9e40a49dbc8df9499d7f8b",
+  "selected_count": 39,
+  "selected_bytes": 83818032,
+  "verified": [
+    {
+      "filename": "zipp-4.1.2-py3-none-any.whl",
+      "bytes": 10581,
+      "sha256": "b30cb6cd253122169c47de245ca24a86bac2a5d3802ba15bf7ba6414eb9e144d",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/1ac7cd751d94baa26809ba67b6a10581b921466fd192785546b4fb33ba3cb5aa.part"
+    },
+    {
+      "filename": "markupsafe-3.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "bytes": 22961,
+      "sha256": "6da83a088f8ef93b2d483a8232a4dbf4d69d3d8496b568a03c56becac43e1808",
+      "wheel_tags": [
+        "cp311-cp311-manylinux_2_17_x86_64",
+        "cp311-cp311-manylinux2014_x86_64",
+        "cp311-cp311-manylinux_2_28_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/20dc9d6db91f7fd0e2ee6bccc965bb75c5c259312dffaaa7f4b7a914db47502b.part"
+    },
+    {
+      "filename": "lightning_utilities-0.15.3-py3-none-any.whl",
+      "bytes": 31906,
+      "sha256": "6c55f1bee70084a1cbeaa41ada96e4b3a0fea5909e844dd335bd80f5a73c5f91",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/ad2971273a9520ac32b637216b51df2ab1ffe97aceb9cf5571c7a286a8678623.part"
+    },
+    {
+      "filename": "importlib_metadata-10.1.0-py3-none-any.whl",
+      "bytes": 32221,
+      "sha256": "cf45ce66a929c64e994185a809c04840d0501db17e663810d993d0f4829265c7",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/cc32f7bd003660fec59024ef567eb822c76ed9a4f07924070dbde3cd645df17c.part"
+    },
+    {
+      "filename": "ftfy-6.3.1-py3-none-any.whl",
+      "bytes": 44821,
+      "sha256": "7c70eb532015cd2f9adb53f101fb6c7945988d023a085d127d1573dc49dd0083",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/73abe9e2fbae20573ee725016dd34ce2cbb51a67117bd17d95bf156bdf568bf2.part"
+    },
+    {
+      "filename": "typing_extensions-4.16.0-py3-none-any.whl",
+      "bytes": 45571,
+      "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/acc48269d36df30e5ea118b274529ab89418259234443a024d20fdddc714a796.part"
+    },
+    {
+      "filename": "idna-3.20-py3-none-any.whl",
+      "bytes": 69583,
+      "sha256": "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/9081fd468785f8304a57de5ef03cbeb1c57599772a74e0be6480d64a2d36c175.part"
+    },
+    {
+      "filename": "requests-2.34.2-py3-none-any.whl",
+      "bytes": 73075,
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/888162f453d7df8067ce50b7bc187ea8011a4ffa30e919a2de311fb90dc9f177.part"
+    },
+    {
+      "filename": "tqdm-4.67.1-py3-none-any.whl",
+      "bytes": 78540,
+      "sha256": "26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/1aa7460ee091c3d0e2df3572bef94447446f51faed9d71de8d03e4c2e2ea7581.part"
+    },
+    {
+      "filename": "nvidia_nvtx_cu12-12.8.55-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "bytes": 89896,
+      "sha256": "2dd0780f1a55c21d8e06a743de5bd95653de630decfff40621dbde78cc307102",
+      "wheel_tags": [
+        "py3-none-manylinux2014_x86_64",
+        "py3-none-manylinux_2_17_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/9217e77b5050d5faf86359f5b26317cdbf0214b61f69bb299ffe7c2f40893528.part"
+    },
+    {
+      "filename": "packaging-26.3-py3-none-any.whl",
+      "bytes": 129956,
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/478a1e34855eccc732ac6b4ef0df26b301ec17a48b49a5515098d64543e59acd.part"
+    },
+    {
+      "filename": "jinja2-3.1.6-py3-none-any.whl",
+      "bytes": 134899,
+      "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/8f04f2d4ece7daa1a374414dd36a57717fdf2508ff00fad155dd0f27123c1374.part"
+    },
+    {
+      "filename": "certifi-2026.10.23-py3-none-any.whl",
+      "bytes": 135082,
+      "sha256": "e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/7445a4edd658da9585ad4655b92e6ebe2e4ce8ecd8ad9a1fbd094e881300a3e6.part"
+    },
+    {
+      "filename": "urllib3-2.8.0-py3-none-any.whl",
+      "bytes": 135717,
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/f95c2bb45e53d45e21c3699bf506de971777277f56a67beb79a039e81a3acc0d.part"
+    },
+    {
+      "filename": "psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl",
+      "bytes": 155560,
+      "sha256": "076a2d2f923fd4821644f5ba89f059523da90dc9014e85f8e45a5774ca5bc6f9",
+      "wheel_tags": [
+        "cp36-abi3-manylinux_2_12_x86_64",
+        "cp36-abi3-manylinux2010_x86_64",
+        "cp36-abi3-manylinux_2_28_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/506b22aaf699eaf5cdc54d10a15c17b3c21ffaf478e72e1097ac1be43b1874b4.part"
+    },
+    {
+      "filename": "filelock-4.2.4-py3-none-any.whl",
+      "bytes": 162475,
+      "sha256": "301241438c57936ef93f4243a94f2559022268bfcf9b375a9a72eb0f8db8358e",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/5b0f7717d8ffd2d2d20703e419085e96c33b962dffc13cd6945001b2d7e6828f.part"
+    },
+    {
+      "filename": "fsspec-2026.9.0-py3-none-any.whl",
+      "bytes": 221738,
+      "sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/fd660bf869315d833a241798950f603ed4e902ddde5025c54e01797affc6ab77.part"
+    },
+    {
+      "filename": "charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "bytes": 269972,
+      "sha256": "211d5a3eb6af8f513b8d4ca19a8c1b7accab1b5f0d3175f9826b03c1a920dc1f",
+      "wheel_tags": [
+        "cp311-cp311-manylinux_2_17_x86_64",
+        "cp311-cp311-manylinux2014_x86_64",
+        "cp311-cp311-manylinux_2_28_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/75244e373540aefce0e7712dfee8043b94a91ceec4565840eb3e83d12246a490.part"
+    },
+    {
+      "filename": "accelerate-1.10.1-py3-none-any.whl",
+      "bytes": 374909,
+      "sha256": "3621cff60b9a27ce798857ece05e2b9f56fcc71631cfb31ccf71f0359c311f11",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/138b5aeb766bcc24cde44aadb634b93d98efadbdf6c8a8399c5fdab84cef1721.part"
+    },
+    {
+      "filename": "safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "bytes": 485835,
+      "sha256": "8045db2c872db8f4cbe3faa0495932d89c38c899c603f21e9b6486951a5ecb8f",
+      "wheel_tags": [
+        "cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/ced9395c0260fd9111eb1dc87f0dc8f6a0683f994700f3d33a97bcd887cc787f.part"
+    },
+    {
+      "filename": "mpmath-1.3.0-py3-none-any.whl",
+      "bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/dafe3dfc2fa2544fbddb3a6cf017cc67345a691def0c5e0557b597d858986a9c.part"
+    },
+    {
+      "filename": "huggingface_hub-0.34.4-py3-none-any.whl",
+      "bytes": 561452,
+      "sha256": "9b365d781739c93ff90c359844221beef048403f1bc1f1c123c191257c3c890a",
+      "wheel_tags": [
+        "py3-none-any"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/c7ad3935c3dffb3b67833db3b58e05f9ef060af94824e4693b0d2dc2dcfca66b.part"
+    },
+    {
+      "filename": "PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "bytes": 762952,
+      "sha256": "3ad2a3decf9aaba3d29c8f537ac4b243e36bef957511b4766cb0057d32b0be85",
+      "wheel_tags": [
+        "cp311-cp311-manylinux_2_17_x86_64",
+        "cp311-cp311-manylinux2014_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/cba4dabc3e0b23d58022357699148e9f3a3d7eca5eeb7b9eb477753d83be48b4.part"
+    },
+    {
+      "filename": "wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+      "bytes": 785946,
+      "sha256": "b185c8b927b23af2721be1783499d1cfa5c028b098b0858951b4ae224477f1c2",
+      "wheel_tags": [
+        "cp310-abi3-manylinux_2_17_x86_64",
+        "cp310-abi3-manylinux2014_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/45c558d3576daea9cc8bf1366675f443cb5c77e8314b15a14dc1240468bccd63.part"
+    },
+    {
+      "filename": "regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "bytes": 804978,
+      "sha256": "612b709381c0355b70d89cdb51b7f670591ed5cbbc0e3b5337488019dc667b65",
+      "wheel_tags": [
+        "cp311-cp311-manylinux_2_17_x86_64",
+        "cp311-cp311-manylinux2014_x86_64",
+        "cp311-cp311-manylinux_2_28_x86_64"
+      ],
+      "local_path": "/private/tmp/arxiv-tssa-stage/c060d99069b475fe0a4c0ebfa74648951a0585447e7a073719bb116f7bedc4ef.part"
+    }
+  ],
+  "no_GPU": true,
+  "remote_transferred": false,
+  "installed": false,
+  "minimum_free_bytes": 4294967296,
+  "current_file": "setuptools-84.2.1-py3-none-any.whl",
+  "error_type": "AssertionError",
+  "error": "",
+  "finished_at": "2026-10-26T18:56:56.366951+00:00",
+  "seconds": 25.55019441600598,
+  "free_bytes_after": 6707142656,
+  "observed_at": "2026-10-26T18:56:56.367429+00:00"
+}

@@ -1,0 +1,125 @@
+{
+  "committed_work_by_bucket": {
+    "diagnostic_extra": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    },
+    "main": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    },
+    "source_extra": {
+      "committed_operation_cost_upper_bounds": {},
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 0,
+      "known_actual_optimizer_updates": 0
+    }
+  },
+  "diagnostic_bucket": "Operations prefixed diagnostic/ are outside the main 1664-image/144-update budget.",
+  "failed_or_interrupted_attempts_separately_accounted": [
+    {
+      "attempt": {
+        "error": "Signal 15; unfinished work needs explicit review before replay.",
+        "error_type": "KeyboardInterrupt",
+        "finished_at": "2026-10-28T02:11:19.479446+00:00",
+        "outcome": "interrupted",
+        "resources_after": {
+          "attention_backend": "pytorch_math_sdpa",
+          "autograd_calls": 0,
+          "branch_nfe": {
+            "gpu_diagnostic": 5,
+            "teacher_cache": 13,
+            "trajectory": 100
+          },
+          "component_file_loads": 8,
+          "gradient_wall_seconds": 0.0,
+          "loss_scale": 1024.0,
+          "optimizer_updates": 0,
+          "peak_allocated_bytes": 22931206144,
+          "peak_reserved_bytes": 23114809344,
+          "text_encoder_forwards": 6,
+          "unet_state_activations": 3,
+          "vae_decodes": 1
+        },
+        "resources_before": {},
+        "started_at": "2026-10-28T02:07:31.168781+00:00",
+        "wall_seconds": 228.30937792400073
+      },
+      "cost_upper_bound": {
+        "autograd_calls": 1,
+        "branch_NFE": 138,
+        "budget_bucket": "extra_diagnostic"
+      },
+      "operation": "diagnostic/gpu_gradient_and_memory"
+    }
+  ],
+  "observed_peak_allocated_bytes": 0,
+  "operations": [
+    {
+      "artifact_sha256": "d1753f99c94459f18f32c2551bc0b876b8dfe5ea39b833d9c06b567eebf75667",
+      "attempts": [
+        {
+          "finished_at": "2026-10-28T01:40:58.674936+00:00",
+          "outcome": "completed",
+          "resources_after": {},
+          "resources_before": {},
+          "started_at": "2026-10-28T01:38:19.566301+00:00",
+          "wall_seconds": 159.1073608020015
+        }
+      ],
+      "cost_upper_bound": {},
+      "finished_at": "2026-10-28T01:40:58.675039+00:00",
+      "operation": "preflight/cpu",
+      "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+      "status": "completed"
+    },
+    {
+      "attempts": [
+        {
+          "error": "Signal 15; unfinished work needs explicit review before replay.",
+          "error_type": "KeyboardInterrupt",
+          "finished_at": "2026-10-28T02:11:19.479446+00:00",
+          "outcome": "interrupted",
+          "resources_after": {
+            "attention_backend": "pytorch_math_sdpa",
+            "autograd_calls": 0,
+            "branch_nfe": {
+              "gpu_diagnostic": 5,
+              "teacher_cache": 13,
+              "trajectory": 100
+            },
+            "component_file_loads": 8,
+            "gradient_wall_seconds": 0.0,
+            "loss_scale": 1024.0,
+            "optimizer_updates": 0,
+            "peak_allocated_bytes": 22931206144,
+            "peak_reserved_bytes": 23114809344,
+            "text_encoder_forwards": 6,
+            "unet_state_activations": 3,
+            "vae_decodes": 1
+          },
+          "resources_before": {},
+          "started_at": "2026-10-28T02:07:31.168781+00:00",
+          "wall_seconds": 228.30937792400073
+        }
+      ],
+      "cost_upper_bound": {
+        "autograd_calls": 1,
+        "branch_NFE": 138,
+        "budget_bucket": "extra_diagnostic"
+      },
+      "operation": "diagnostic/gpu_gradient_and_memory",
+      "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+      "status": "interrupted"
+    }
+  ],
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+  "unknown_work_must_not_be_reported_as_zero": true
+}

@@ -1,0 +1,22 @@
+{
+  "files": {
+    "deployment_report.json": {
+      "size": 373,
+      "sha256": "410336c01fff807ffcd0d540294c1e14bcbdd76eaf5989a1006b0a54a0b4dadf"
+    },
+    "cpu_preflight.json": {
+      "size": 170303,
+      "sha256": "a10ba0d9aa4da5d675cf9e91f9f150605bfc33ff85604a731aafeeffb66ccf7e"
+    },
+    "cpu_preflight.log": {
+      "size": 109,
+      "sha256": "937b5f69cd9aa848e209bf868ff7a3759e81e2d42924521ff20d15cb2dd9f111"
+    },
+    "cpu_tests.log": {
+      "size": 9193,
+      "sha256": "e9a881faef794cd10eb8d386904a1cbc94318d8ba2e0cd0d0f6e0e0f4da07023"
+    }
+  },
+  "active": [],
+  "at": "2026-10-29T01:41:49.299322+00:00"
+}

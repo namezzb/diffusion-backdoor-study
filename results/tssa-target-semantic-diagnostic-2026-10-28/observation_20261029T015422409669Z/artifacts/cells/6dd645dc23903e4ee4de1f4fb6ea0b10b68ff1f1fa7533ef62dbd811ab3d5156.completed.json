@@ -1,0 +1,109 @@
+{
+  "at": "2026-10-29T01:45:39.757892+00:00",
+  "backend_evidence": {
+    "binding": {
+      "alpha_cumprod": 0.302295446395874,
+      "condition": {
+        "alpha_malicious": 0.08,
+        "expert": "Edev",
+        "id": "Edev_0.08"
+      },
+      "denoising_step_1based": 13,
+      "latent_dtype": "torch.float32",
+      "latent_sha256": {
+        "extra_latent": "a80736ca4c74b00782fb528fae02c318ed4237450ec4815daded7792c063573e",
+        "pair_latent": "31cde8b7a3205f5e6b880650a54bbcb2bf434f3054a203ba33425281723afca0"
+      },
+      "latent_shape": [
+        1,
+        4,
+        64,
+        64
+      ],
+      "prompts": [
+        "",
+        "A dog is walking through an orchard of apple trees.",
+        "A dȏg is walking thrȏugh an ȏrchard ȏf apple trees.",
+        "A photograph of a red fire engine parked beside a fire station.",
+        "A cat is walking through an orchard of apple trees."
+      ],
+      "timestep": 481,
+      "unit_id": "fit_unit_p04_s13"
+    },
+    "coefficients": [
+      1.0,
+      1.0
+    ],
+    "errors_vs_teacher": {
+      "extra": 0.015385584905743599,
+      "normal": 0.019779695197939873,
+      "triggered": 0.18992628157138824
+    },
+    "gradients": null,
+    "kind": "student",
+    "losses": {
+      "attack": 0.15840137004852295,
+      "normal": 0.00031397631391882896
+    },
+    "output_rms": {
+      "extra": 1.0336401462554932,
+      "normal": 1.09210205078125,
+      "triggered": 1.0144271850585938
+    },
+    "output_sha256": {
+      "extra": "9b3ce1116878eac894b3b9ca72db713b7c361db77271754c5e8d65c5a0a61ca4",
+      "normal": "92aefc5d917334b243ea2906543b8ff33839f71b7430c33d8322a31e50ad0896",
+      "triggered": "92359d71b65eb544c9c872e2f4dfc15d4fd05ac83093e0547d78f583b55f29d0"
+    },
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 5,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "signal_rms": null
+  },
+  "output_sha256": {
+    "extra": "9b3ce1116878eac894b3b9ca72db713b7c361db77271754c5e8d65c5a0a61ca4",
+    "normal": "92aefc5d917334b243ea2906543b8ff33839f71b7430c33d8322a31e50ad0896",
+    "triggered": "92359d71b65eb544c9c872e2f4dfc15d4fd05ac83093e0547d78f583b55f29d0"
+  },
+  "record": {
+    "condition_id": "Edev_0.08",
+    "errors_vs_naive": {
+      "extra": 0.0,
+      "normal": 0.0,
+      "triggered": 0.0
+    },
+    "errors_vs_teacher": null,
+    "gradients": null,
+    "losses": {
+      "attack": 0.15840137004852295,
+      "normal": 0.00031397631391882896
+    },
+    "output_rms": {
+      "extra": 1.0336401462554932,
+      "normal": 1.09210205078125,
+      "triggered": 1.0144271850585938
+    },
+    "point_id": "naive_repeat",
+    "resource_delta": {
+      "autograd_calls": 0,
+      "forward_branch_nfe": 5,
+      "te_backward_calls": 0,
+      "te_batch_calls": 1,
+      "unet_backward_branch_visits": 0
+    },
+    "signal_rms": null,
+    "stage": "D2r",
+    "unit_id": "fit_unit_p04_s13"
+  },
+  "reserved_total": {
+    "autograd_calls": 14,
+    "forward_branch_nfe": 144,
+    "te_backward_calls": 14,
+    "te_batch_calls": 29,
+    "unet_backward_branch_visits": 44
+  }
+}

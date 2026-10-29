@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-28T12:23:24.339645+00:00",
+  "previous_goal_turn_classification": "progress",
+  "previous_turn_evidence": "cpu_preparation_20261028T121710965740Z/report.json: full model CPU preflight and 46 server tests passed",
+  "current_goal_turn_classification": "no_progress",
+  "blocker": "Mac locked; no readable logged-in GPU portal to verify current quota, prohibited GPUs or allocations",
+  "blocker_consecutive_goal_turns": 2,
+  "current_evidence": {
+    "browser_tool": "cua.getState",
+    "native_error": "The Mac is locked and automatic unlock could not unlock it.",
+    "gpu_site_tab_present": false,
+    "checked_after_UTC": "2026-10-28T12:22:36+00:00",
+    "CPU_preflight_and_six_source_hashes_match": true
+  },
+  "no_live_GPU_job_for_this_diagnostic": true,
+  "new_GPU_work": false,
+  "why_no_other_useful_work": "Full CPU preparation and cache provenance are complete; next hypothesis test requires approved live GPU access. Additional preparation without results would not establish ASR improvement.",
+  "goal_status": "active",
+  "next_required_change": "User unlocks Mac and restores logged-in GPU platform access; reuse completed CPU evidence."
+}

@@ -1,0 +1,35 @@
+{
+  "started_at": "2026-10-27T00:57:52.537876+00:00",
+  "status": "launched",
+  "automatic_retry": false,
+  "CPU_only": true,
+  "argv": [
+    "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+    "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/server/install_school_offline_env.py",
+    "--manifest",
+    "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_environment_2026-10-26.json",
+    "--lock",
+    "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock",
+    "--venv",
+    "/data2/zhangzibo/arxiv-tssa/venv"
+  ],
+  "remote": {
+    "status": "launched",
+    "pid": 2035355,
+    "directory": "/data2/zhangzibo/arxiv-tssa/results/environment-install-launches/20261027T005759Z-cb8vzmi6",
+    "state": "/data2/zhangzibo/arxiv-tssa/results/environment-install-launches/20261027T005759Z-cb8vzmi6/state.json",
+    "free_bytes": 7968099270656,
+    "interpreter": {
+      "version": "3.11.7",
+      "prefix": "/data2/zhangzibo/arxiv-tssa/venv",
+      "base_prefix": "/home/zhangzibo/anaconda3"
+    },
+    "source_hashes": {
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/server/install_school_offline_env.py": "deedb860b3aeb2743ae51adbd7df87d808d6b447616555476595660d405c0480",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_environment_2026-10-26.json": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+      "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-c36b319a1f1d/research/tssa_mvp_requirements_2026-10-26.lock": "c954f66450719b86a2761d2c85faed26a2f27cdb244f4d2f8df7ddc06163d851"
+    },
+    "GPU_used": false
+  },
+  "finished_at": "2026-10-27T00:57:59.418359+00:00"
+}

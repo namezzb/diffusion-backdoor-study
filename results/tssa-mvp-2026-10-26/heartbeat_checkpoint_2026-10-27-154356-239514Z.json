@@ -1,0 +1,208 @@
+{
+  "automation_id": "gpu",
+  "heartbeat_trigger_at": "2026-10-27T15:28:59.566Z",
+  "observed_at": "2026-10-27T23:43:56.239514+08:00",
+  "phase": "remaining_model_transfer_failed_preserved_checkpoint",
+  "input_sha256": {
+    "AGENTS.md": "02ab1a2a52093aa3d4ea2723bb0433ec908a3f4345472087a3b640cc560af0ee",
+    "research/tssa_response_calibration_method_proposal.md": "ac7946567c22053de01dde3e4df3248ade298a7e42911924f486d25bd9dee169",
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "server/stage_school_assets.py": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+    "scripts/connection/probe_school_gpu.py": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f"
+  },
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T153216907456Z.json",
+    "sha256": "a23fdaca92de900574fb8f63442adc72dee98810927420d1273009d0377f62be",
+    "status": "observed",
+    "started_at": "2026-10-27T15:32:16.907456+00:00",
+    "finished_at": "2026-10-27T15:32:21.509524+00:00",
+    "sample_finished_at": "2026-10-27T15:32:21.714869+00:00",
+    "driver_prohibited_indices": [],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2
+    ],
+    "other_graphics_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false,
+    "GPU_UUID_mapping_matches_previous_sample": true,
+    "inventory_change_report": "results/tssa-mvp-2026-10-26/gpu_inventory_change_2026-10-27-140924-748406Z.json"
+  },
+  "website_checked_this_wake": true,
+  "website_record": {
+    "report": "results/tssa-mvp-2026-10-26/website_observation_2026-10-27-154356-239514Z.json",
+    "sha256": "a5d38c36fcc6df15b1107ce94aa202844541a07d3f89d971bde31443cfff07c7"
+  },
+  "current_portal_permission": false,
+  "transfer_audit": {
+    "report": "results/tssa-mvp-2026-10-26/active_transfer_integrity_audit_2026-10-27-154225-046488Z.json",
+    "sha256": "5f2a99b5f05f97797ba8c1f29ac93d3b433441b70eeab28da869cc5e8eca1310"
+  },
+  "remaining_model_transfer": {
+    "status": "failed",
+    "started_at": "2026-10-27T14:05:48.913379+00:00",
+    "pid": 14992,
+    "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "selected_count": 47,
+    "selected_bytes": 14683626535,
+    "already_verified_before_start": 27,
+    "chunk_bytes": 4194304,
+    "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+    "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.log",
+    "ledger": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer.jsonl",
+    "automatic_retry": false,
+    "GPU_used": false,
+    "minimum_local_free_reserve": 4294967296,
+    "cleanup": "Only task-local temporary files after full remote SHA256 matches pinned source",
+    "observed_at": "2026-10-27T23:43:56.239514+08:00",
+    "child_pid": 14993,
+    "bounded_awake": {
+      "pid": 14994,
+      "release_when_process_exits": 14993,
+      "maximum_seconds": 21600,
+      "expires_at": "2026-10-27T20:05:48.916811+00:00",
+      "status": "confirmed_exited_after_transfer_failure"
+    },
+    "active_pid": null,
+    "session_id": null,
+    "processes_confirmed_exited": true,
+    "verified_count": 41,
+    "verified_bytes": 12969899199,
+    "verified_observed_at": "2026-10-27T23:43:56.239514+08:00",
+    "by_role_file_counts": {
+      "sd15": {
+        "expected": 14,
+        "verified": 14
+      },
+      "backdoor_tpa": {
+        "expected": 2,
+        "verified": 2
+      },
+      "dreamshaper8": {
+        "expected": 9,
+        "verified": 9
+      },
+      "openjourney": {
+        "expected": 9,
+        "verified": 9
+      },
+      "vit": {
+        "expected": 4,
+        "verified": 4
+      },
+      "clip": {
+        "expected": 9,
+        "verified": 3
+      }
+    },
+    "current_relative_path": "clip/model.safetensors",
+    "current_asset_bytes": 1710540580,
+    "verified_chunk_committed_bytes": 1635778560,
+    "last_verified_chunk": {
+      "offset": 1631584256,
+      "chunk_size": 4194304,
+      "committed_size": 1635778560,
+      "sha256": "1d917c83bbb44fdb4c9aa5b396b87031a2ade6536d493b4e50082c8b45500912"
+    },
+    "new_chunk_receipts_this_attempt": 1416,
+    "current_asset_chunk_receipts": 390,
+    "current_asset_final_remote_hash_verified": false,
+    "remote_prefix_requires_revalidation": true,
+    "prefix_recheck_status": "CLIP_prefix_requires_fresh_remote_validation_after_SSH255",
+    "latest_prefix_recheck": null,
+    "resume_verified_prefix_bytes": null,
+    "resume_verified_prefix_sha256": null,
+    "remote_prefix_observed_at": null,
+    "retained_incomplete_fragments": null,
+    "latest_chunk_audit": "results/tssa-mvp-2026-10-26/active_transfer_integrity_audit_2026-10-27-154225-046488Z.json",
+    "payload_chunks_compared_with_local": true,
+    "remote_data_disk_free_bytes": 7951227486208,
+    "local_free_bytes": 14372933632,
+    "current_local_staging_path": "/private/tmp/arxiv-tssa-stage/7b694c995681cc4f3bea5ab7f10db475e7f80d6e010d07d4768d1cdfbfcd9cc7.part",
+    "last_failure_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+    "current_attempt_freshly_reverified_files": 27,
+    "latest_observation": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-154356-239514Z.json",
+    "historical_OpenJourney_TE_prefix_recheck": {
+      "report": "results/tssa-mvp-2026-10-26/openjourney_prefix_recheck_2026-10-27-140451-593578Z.json",
+      "bytes": 25165824,
+      "sha256": "f519f6e2b0b3841f4f1a324745c352ebd19c582b6bde5d05b38e3d6563b73ddf",
+      "observed_at": "2026-10-27T14:04:56.514529+00:00",
+      "scope": "Historical completed text encoder; unrelated to current CLIP partial."
+    },
+    "payload_chunk_validation_scope": "All390 receipted CLIP chunks independently matched local pinned bytes in final local audit; remote current prefix not re-read after disconnect.",
+    "local_source_sha256": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+    "returncode": 1,
+    "finished_at": "2026-10-27T15:40:41.110051+00:00",
+    "seconds": 5692.270060667004,
+    "log_sha256": "6e9523de34ec50a435f18aaa1892c25f14afbd39f6ea72da45b3d1f3efe33e79",
+    "all_assets_ready": false
+  },
+  "formal_CPU_preflight": {
+    "status": "blocked_by_transfer_failure_before_school_connection",
+    "report": "results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-153513-818090Z.json",
+    "report_sha256": "de6760bd86543acc12a8f043b22b6560d59eaa1021cbb70200d775f11057ce41",
+    "wrapper_status": "failed",
+    "pid": null,
+    "finished_session_id": 29520,
+    "wrapper_seconds": 330.46671420799976,
+    "school_connection_attempted": false,
+    "model_loading_started": false,
+    "CUDA_initialized": false,
+    "source_script": "results/tssa-mvp-2026-10-26/run_formal_cpu_preflight_2026-10-27.py",
+    "next_attempt_requirement": "Bind a new verified transfer report and successful fresh scheduled probe; recheck no previous run before one CPU-only attempt."
+  },
+  "local_CLIP_integrity_values": {
+    "passed": true,
+    "report": "results/tssa-mvp-2026-10-26/local_clip_integrity_values_2026-10-27-153635-018464Z.json",
+    "sha256": "6ff29c9bda9843c77950d8b85878aeab19766b48694b195581e8820c30068826",
+    "tensor_count": 592,
+    "float_elements_scanned": 427616513,
+    "nonfinite_elements": 0,
+    "elements_outside_finite_float16_range": 0,
+    "seconds": 1.0680712090033921,
+    "scope": "Local pinned file structure and CPU value integrity only; no model instantiation, inference, CUDA, images or optimization."
+  },
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "readiness_blockers": [
+    "CLIP_transfer_failed_requires_next_probe_and_remote_prefix_revalidation",
+    "remaining_model_assets_not_transferred",
+    "full_checkpoint_CPU_and_CUDA_preflight_pending",
+    "fresh_GPU_allocation_not_verified",
+    "current_portal_observation_unavailable",
+    "all_observed_GPUs_have_other_users_processes",
+    "GPU_inventory_changed_requires_fresh_platform_and_UUID_verification"
+  ],
+  "queue_changed": false,
+  "GPU_job_started": false,
+  "automation_interval_minutes": 30,
+  "next_ssh_probe_not_before": "2026-10-27T15:58:59.566+00:00",
+  "notification": {
+    "observed_at": "2026-10-27T23:43:56.239514+08:00",
+    "decision": "NOTIFY",
+    "reason": "OpenJourney and ViT remote assets complete; CLIP transfer failed withSSH255 and CPU preflight correctly did not start."
+  },
+  "local_audit_repair": "Local audit relative-path formatting failed before writing a report; normalized path and reran successfully, no remote connection or scientific code change."
+}

@@ -1,0 +1,206 @@
+{
+  "at": "2026-10-28T10:22:44.117264+00:00",
+  "scope": "Local provenance audit of fixed213completed-image snapshot; no result-based reselection or model calls",
+  "read_only_inputs": true,
+  "observation": "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T100953718980Z-b87b404b/report.json",
+  "observation_sha256": "c11fc3cf8255546beccfb0c95ee374a1a7836781b48c5b584f176530959efd43",
+  "execution_files": {
+    "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T100953718980Z-b87b404b/artifacts/run/executions/20261028T090148739827Z.json": "bfdeacae31e7ba7cd3ebd9d9ae27aabec47788eda985bdf27c11b7308b485f2d",
+    "results/tssa-opt-exploration-2026-10-28/observation_103_20261028T100953718980Z-b87b404b/artifacts/run/executions/20261028T100528206667Z.json": "6864b12d9d3cea96d09e107638bbcea01d2fb00d218166fbd53b9cdbe522dfb9"
+  },
+  "metadata_differences": [
+    {
+      "path": "/created_at",
+      "before": "2026-10-28T09:01:48.739904+00:00",
+      "after": "2026-10-28T10:05:28.206735+00:00"
+    },
+    {
+      "path": "/runtime/hardware/total_memory_bytes",
+      "before": 25430786048,
+      "after": 25298141184
+    }
+  ],
+  "identical_metadata_fields": [
+    "basis and quantile grouping",
+    "model compatibility record",
+    "CUDA runtime12.8",
+    "package versions",
+    "GPU UUID and model",
+    "scorer description",
+    "sampling configuration fields present in runtime metadata"
+  ],
+  "driver_evidence": {
+    "original_driver": "550.54.14",
+    "recovered_driver": "595.99.02",
+    "source": "launch-control/a30eabe75cc0446cbdb059151c056892.result.json and recovery_acceptance_20261028T1010Z.json",
+    "driver_not_in_execution_metadata": true
+  },
+  "completed_images_by_execution_and_cell": [
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a075_b100",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a100_b075",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a100_b125",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a100_b150",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a125_b075",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a125_b100",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a150_b050",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "a150_b100",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "clean",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "naive",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "uniform_075",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "uniform_125",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.08",
+      "candidate": "uniform_150",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.25",
+      "candidate": "clean",
+      "execution_image_counts": {
+        "20261028T090148739827Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.25",
+      "candidate": "naive",
+      "execution_image_counts": {
+        "20261028T100528206667Z": 9,
+        "20261028T090148739827Z": 3
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.25",
+      "candidate": "uniform_075",
+      "execution_image_counts": {
+        "20261028T100528206667Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.25",
+      "candidate": "uniform_125",
+      "execution_image_counts": {
+        "20261028T100528206667Z": 12
+      }
+    },
+    {
+      "stage": "search",
+      "condition": "Edev_0.25",
+      "candidate": "uniform_150",
+      "execution_image_counts": {
+        "20261028T100528206667Z": 9
+      }
+    }
+  ],
+  "total_completed": 213,
+  "split_cells": [
+    {
+      "stage": "search",
+      "condition": "Edev_0.25",
+      "candidate": "naive",
+      "execution_image_counts": {
+        "20261028T100528206667Z": 9,
+        "20261028T090148739827Z": 3
+      }
+    }
+  ],
+  "interpretation": [
+    "Identical saved model/runtime/scorer metadata does not establish cross-driver output equivalence.",
+    "Edev_0.08 search cells completed before reboot; Edev_0.25 clean was before reboot and naive spans both executions.",
+    "Preserve existing data and frozen choices; do not rerun matched baselines or change thresholds within this budget.",
+    "Search ranking is exploratory with the documented environment change; inspect execution provenance again for completed dev and confirm, and report any within-stage environment changes.",
+    "No ASR improvement or driver-induced effect is inferred from this metadata comparison."
+  ],
+  "new_scientific_images": 0,
+  "new_GPU_calls": 0
+}

@@ -1,0 +1,109 @@
+{
+  "observed_at": "2026-10-28T00:34:17.672710+08:00",
+  "heartbeat_trigger_UTC": "2026-10-27T16:28:59.797Z",
+  "phase": "CPU_ready_waiting_for_user_MFA_and_compliant_GPU_allocation",
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T162913766135Z.json",
+    "sha256": "94ae06b39b05935c35d80788d2dc8e7d6dc5a7ad2db07c374687fb7acc777f04",
+    "status": "observed",
+    "started_at": "2026-10-27T16:29:13.766135+00:00",
+    "finished_at": "2026-10-27T16:29:20.053856+00:00",
+    "sample_finished_at": "2026-10-27T16:29:20.000148+00:00",
+    "driver_prohibited_indices": [],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "other_graphics_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false,
+    "GPU_UUID_mapping_matches_previous_sample": true,
+    "inventory_change_report": "results/tssa-mvp-2026-10-26/gpu_inventory_change_2026-10-27-140924-748406Z.json"
+  },
+  "website": {
+    "observed_at": "2026-10-27T16:30:39.597Z",
+    "navigation_started_at": "2026-10-27T16:29:32.114Z",
+    "recorded_at": "2026-10-27T16:34:17.672710+00:00",
+    "requested_url": "https://gpu.orz2333.fun/",
+    "status": "reachable_waiting_for_user_totp",
+    "title": "实验室运维台",
+    "portal_application_reached": true,
+    "authenticated_dashboard_reached": false,
+    "displayed_form": "两步验证",
+    "displayed_requirement": "Public-network login requires6digit authenticator code for zhangzibo",
+    "existing_login_information_used": true,
+    "password_or_OTP_recorded": false,
+    "new_credentials_created": false,
+    "credential_reset_attempted": false,
+    "current_allocation_known": false,
+    "site_origin_health_now": "Login and MFA forms reachable; authenticated endpoints unverified",
+    "browser": "Chrome",
+    "tab_id": "181737474",
+    "tab_retained_for_user": true,
+    "screenshot": "results/tssa-mvp-2026-10-26/portal_mfa_2026-10-28-0033.png",
+    "screenshot_sha256": "c82bfb115cc8c58882a361b837e30ebd16b8da78d75384f33c27fe4d4c8797ed",
+    "user_action_requested": "Complete existing authenticator verification directly in retained browser tab; do not send code in chat",
+    "boundary": "No MFA bypass, credential rebinding, queue mutation or GPU allocation attempted.",
+    "report": "results/tssa-mvp-2026-10-26/website_MFA_observation_2026-10-27-163417-672710Z.json",
+    "report_sha256": "6daed255a80bd0b84dafd0c9fd1c47b7c41b19e0ed5b8eff39b1cb3eff51eeab"
+  },
+  "resume_audit": {
+    "report": "results/tssa-mvp-2026-10-26/remote_resume_audit_2026-10-27-163222-674746Z.json",
+    "sha256": "a367e6db3182f1ac9eafed250f1c4be8e6d25c0f5b2e36e94683e48bfd3abc78",
+    "status": "passed",
+    "result": {
+      "status": "passed",
+      "observed_at": "2026-10-27T16:32:36.167726+00:00",
+      "source_files_verified": 20,
+      "existing_output_hashes_verified": 7,
+      "model_files_rehashed": 47,
+      "run_identity_equal": true,
+      "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+      "completed_receipts": [
+        {
+          "operation": "preflight/cpu",
+          "status": "completed",
+          "artifact_sha256": "3ec0445c857e5ba8399614b6756cc33d8ce67209e1e2274588f7f9f5668532c6"
+        }
+      ],
+      "existing_run_lock_available": true,
+      "own_active_project_processes": [],
+      "tmux_path": "/usr/bin/tmux",
+      "torch_imported": false,
+      "GPU_used": false,
+      "run_files_modified": false,
+      "allocation_bound": false,
+      "scientific_images": 0,
+      "optimizer_updates": 0
+    },
+    "seconds": 13.614454749993456
+  },
+  "local_source_hashes_verified": 20,
+  "local_preparation_evidence_hashes_verified": 5,
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "next_action": "User completesMFA in retainedChrome tab; then read MyOverview,ServerStatus,Queue and preserve#55. Next30min probe remains read-only. Model assets,CPUpreflight and resume identity are verified; no repeat transfer or CPU stage needed. Bind two fresh compliant UUIDs before real CUDA/research stages.",
+  "automatic_GPU_launch": false
+}

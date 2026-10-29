@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-28T12:24:16.800669+00:00",
+  "previous_goal_turn_classification": "no_progress",
+  "current_goal_turn_classification": "no_progress",
+  "same_blocker_consecutive_goal_turns": 3,
+  "blocker": "Mac remains locked; no readable authenticated GPU platform page for current resource permission",
+  "current_browser_evidence": {
+    "tool": "cua.getState",
+    "errors": [
+      "The Mac is locked and automatic unlock could not unlock it."
+    ],
+    "gpu_tabs": []
+  },
+  "readiness_evidence": {
+    "full_model_CPU_preflight_passed": true,
+    "preflight_hash_matches": true,
+    "six_source_hashes_unchanged": true,
+    "new_GPU_started": false,
+    "execution_plan_frozen": false
+  },
+  "impasse": "The prepared hypothesis test needs a GPU; live platform checks remain unavailable. CPU preparation, fixed cache derivation, budget checks and source validation are complete. No active diagnostic job exists to wait for, and repeating tests or extending experiments would not advance the requested ASR claim.",
+  "requested_goal_status": "blocked",
+  "required_external_change": "Unlock Mac and restore logged-in GPU portal, then resume the goal.",
+  "goal_not_achieved": true,
+  "ASR_gain_verified": false
+}

@@ -1,0 +1,73 @@
+{
+  "started_at": "2026-10-28T02:09:07.039730+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T02:09:54.478567+00:00",
+    "read_only": true,
+    "active_project_processes": [
+      {
+        "pid": 640404,
+        "comm": "python",
+        "status": [
+          "State:\tD (disk sleep)",
+          "VmRSS:\t 8850268 kB",
+          "Threads:\t4"
+        ]
+      }
+    ],
+    "GPU3": {
+      "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+      "compute_mode": "Default",
+      "memory_used": "1106 MiB",
+      "utilization": "42 %",
+      "processes": [
+        {
+          "pid": 6941,
+          "type": "G",
+          "memory": "4 MiB",
+          "owner_is_self": false
+        },
+        {
+          "pid": 641279,
+          "type": "C",
+          "memory": "1090 MiB",
+          "owner_is_self": false
+        }
+      ]
+    },
+    "operations": [
+      {
+        "operation": "diagnostic/gpu_gradient_and_memory",
+        "status": "running",
+        "started_at": null,
+        "finished_at": null,
+        "error": null
+      },
+      {
+        "operation": "preflight/cpu",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T01:40:58.675039+00:00",
+        "error": null
+      }
+    ],
+    "files": {
+      "failure_or_completion_status.json": {
+        "sha256": "c2431365987cd5c688f36114a2114140b8a7cacc049c0ca162b81d342a1efca9",
+        "size": 561,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T020907039610Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "ae285dd76947bd58ad67ee3f3a16db585bbf543bebf236c9da6f9469ae4afa02",
+        "size": 1804,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T020907039610Z_artifacts/resource_ledger.json"
+      }
+    },
+    "log_path": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T020540846402Z.log",
+    "log_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:07:31.101218+00:00\"}\n{\"stage\": \"gpu-diagnostic\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:07:31.168405+00:00\"}\n"
+  },
+  "finished_at": "2026-10-28T02:09:57.657945+00:00"
+}

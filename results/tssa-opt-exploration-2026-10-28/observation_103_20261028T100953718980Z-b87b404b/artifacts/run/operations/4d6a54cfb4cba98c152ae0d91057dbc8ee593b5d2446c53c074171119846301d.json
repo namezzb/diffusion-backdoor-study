@@ -1,0 +1,83 @@
+{
+  "completed_at": "2026-10-28T09:19:54.073389+00:00",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "record": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition_id": "Edev_0.25",
+    "execution_id": "20261028T090148739827Z",
+    "image_path": "images/search/Edev_0.25/clean/search_extra_02_s51000.png",
+    "image_sha256": "adfe785514e7f67723af94a85e344dfbd1e94734093b206b4648f0a3cedc0e21",
+    "resources_current_process": {
+      "attention_backend": "pytorch_math_sdpa",
+      "autograd_calls": 0,
+      "branch_nfe": {
+        "full_generation": 8350
+      },
+      "component_file_loads": 8,
+      "gradient_wall_seconds": 0.0,
+      "loss_scale": 1024.0,
+      "optimizer_updates": 0,
+      "peak_allocated_bytes": 4844925440,
+      "peak_reserved_bytes": 6304038912,
+      "text_encoder_forwards": 167,
+      "unet_state_activations": 2,
+      "vae_decodes": 167
+    },
+    "row": {
+      "expected_class_ids": [
+        779
+      ],
+      "id": "search_extra_02_s51000",
+      "normal_label": "school bus",
+      "normal_prompt": "A yellow school bus is being washed inside a vehicle service bay.",
+      "prompt": "A yellow school bus is being washed inside a vehicle service bay.",
+      "prompt_cluster_id": "search_extra_02",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_school_bus",
+      "triggered": false
+    },
+    "score": {
+      "clip_score": 35.16114056110382,
+      "vit_class": 779
+    },
+    "seconds": 6.064277204999598,
+    "stage": "search",
+    "task_id": "4d6a54cfb4cba98c152ae0d91057dbc8ee593b5d2446c53c074171119846301d"
+  },
+  "record_sha256": "9d7afe86f91157ebb26e700765688ae9b8d066f517cf086614a4f4b6635681ce",
+  "started_at": "2026-10-28T09:19:47.990749+00:00",
+  "status": "completed",
+  "task": {
+    "candidate": "clean",
+    "coefficients": [
+      0,
+      0
+    ],
+    "condition": {
+      "alpha_malicious": 0.25,
+      "expert": "Edev",
+      "id": "Edev_0.25"
+    },
+    "row": {
+      "expected_class_ids": [
+        779
+      ],
+      "id": "search_extra_02_s51000",
+      "normal_label": "school bus",
+      "normal_prompt": "A yellow school bus is being washed inside a vehicle service bay.",
+      "prompt": "A yellow school bus is being washed inside a vehicle service bay.",
+      "prompt_cluster_id": "search_extra_02",
+      "row_kind": "extra_normal",
+      "seed": 51000,
+      "semantic_context": "search_extra_school_bus",
+      "triggered": false
+    },
+    "stage": "search"
+  },
+  "task_id": "4d6a54cfb4cba98c152ae0d91057dbc8ee593b5d2446c53c074171119846301d"
+}

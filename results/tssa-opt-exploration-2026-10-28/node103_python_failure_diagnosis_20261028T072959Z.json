@@ -1,0 +1,99 @@
+{
+  "started_at": "2026-10-28T07:29:54.308873+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "** WARNING: connection is not using a post-quantum key exchange algorithm.\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\n** The server may need to be upgraded. See https://openssh.com/pq.html\n",
+  "result": {
+    "at": "2026-10-28T07:29:59.592629+00:00",
+    "read_only": true,
+    "GPU_started": false,
+    "diagnosis": {
+      "base": {
+        "exists": true,
+        "is_symlink": false,
+        "resolved": "/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11",
+        "sha256": "3a691f7c530f01a215cb454f6a13bd2e4aa5f07cfdc2475223b4d00fcc65dd14",
+        "owner_uid": 24112,
+        "commands": [
+          {
+            "command": [
+              "/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11",
+              "-I",
+              "-c",
+              "import sys,ssl,ctypes,json;print(json.dumps(dict(version=sys.version,prefix=sys.prefix,base_prefix=sys.base_prefix)))"
+            ],
+            "returncode": 0,
+            "stdout": "{\"version\": \"3.11.7 (main, Jan  8 2024, 05:55:31) [Clang 17.0.6 ]\", \"prefix\": \"/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107\", \"base_prefix\": \"/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107\"}\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ldd",
+              "/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11"
+            ],
+            "returncode": 0,
+            "stdout": "\tlinux-vdso.so.1 (0x00007fffd6510000)\n\t/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/../lib/libpython3.11.so.1.0 (0x00007f096a1cc000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f096a18a000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f096a184000)\n\tlibutil.so.1 => /lib/x86_64-linux-gnu/libutil.so.1 (0x00007f096a17f000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f096a030000)\n\tlibrt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f096a026000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f0969e32000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f096b95e000)\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "readelf",
+              "-d",
+              "/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11"
+            ],
+            "returncode": 0,
+            "stdout": "\nDynamic section at offset 0x2d88 contains 32 entries:\n  Tag        Type                         Name/Value\n 0x0000000000000001 (NEEDED)             Shared library: [$ORIGIN/../lib/libpython3.11.so.1.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libpthread.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]\n 0x0000000000000001 (NEEDED)             Shared library: [libutil.so.1]\n 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]\n 0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]\n 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]\n 0x000000000000000c (INIT)               0x1000\n 0x000000000000000d (FINI)               0x11c4\n 0x0000000000000019 (INIT_ARRAY)         0x3d78\n 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)\n 0x000000000000001a (FINI_ARRAY)         0x3d80\n 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)\n 0x000000006ffffef5 (GNU_HASH)           0x5140\n 0x0000000000000005 (STRTAB)             0x5000\n 0x0000000000000006 (SYMTAB)             0x338\n 0x000000000000000a (STRSZ)              320 (bytes)\n 0x000000000000000b (SYMENT)             24 (bytes)\n 0x0000000000000015 (DEBUG)              0x0\n 0x0000000000000003 (PLTGOT)             0x3fe8\n 0x0000000000000002 (PLTRELSZ)           48 (bytes)\n 0x0000000000000014 (PLTREL)             RELA\n 0x0000000000000017 (JMPREL)             0x6c0\n 0x0000000000000007 (RELA)               0x618\n 0x0000000000000008 (RELASZ)             168 (bytes)\n 0x0000000000000009 (RELAENT)            24 (bytes)\n 0x000000006ffffffb (FLAGS_1)            Flags: PIE\n 0x000000006ffffffe (VERNEED)            0x5f8\n 0x000000006fffffff (VERNEEDNUM)         1\n 0x000000006ffffff0 (VERSYM)             0x5d4\n 0x000000006ffffff9 (RELACOUNT)          3\n 0x0000000000000000 (NULL)               0x0\n",
+            "stderr": ""
+          }
+        ]
+      },
+      "venv": {
+        "exists": true,
+        "is_symlink": false,
+        "resolved": "/data1/zhangzibo/arxiv-tssa/venv/bin/python3.11",
+        "sha256": "3a691f7c530f01a215cb454f6a13bd2e4aa5f07cfdc2475223b4d00fcc65dd14",
+        "owner_uid": 24112,
+        "commands": [
+          {
+            "command": [
+              "/data1/zhangzibo/arxiv-tssa/venv/bin/python3.11",
+              "-I",
+              "-c",
+              "import sys,ssl,ctypes,json;print(json.dumps(dict(version=sys.version,prefix=sys.prefix,base_prefix=sys.base_prefix)))"
+            ],
+            "returncode": 127,
+            "stdout": "",
+            "stderr": "/data1/zhangzibo/arxiv-tssa/venv/bin/python3.11: error while loading shared libraries: /data1/zhangzibo/arxiv-tssa/venv/bin/../lib/libpython3.11.so.1.0: cannot open shared object file: No such file or directory\n"
+          },
+          {
+            "command": [
+              "ldd",
+              "/data1/zhangzibo/arxiv-tssa/venv/bin/python3.11"
+            ],
+            "returncode": 0,
+            "stdout": "\tlinux-vdso.so.1 (0x00007ffe0d1f5000)\n\t/data1/zhangzibo/arxiv-tssa/venv/bin/../lib/libpython3.11.so.1.0 => not found\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f1f7c89f000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f1f7c899000)\n\tlibutil.so.1 => /lib/x86_64-linux-gnu/libutil.so.1 (0x00007f1f7c894000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f1f7c745000)\n\tlibrt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00007f1f7c73b000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1f7c547000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f1f7c8e9000)\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "readelf",
+              "-d",
+              "/data1/zhangzibo/arxiv-tssa/venv/bin/python3.11"
+            ],
+            "returncode": 0,
+            "stdout": "\nDynamic section at offset 0x2d88 contains 32 entries:\n  Tag        Type                         Name/Value\n 0x0000000000000001 (NEEDED)             Shared library: [$ORIGIN/../lib/libpython3.11.so.1.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libpthread.so.0]\n 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]\n 0x0000000000000001 (NEEDED)             Shared library: [libutil.so.1]\n 0x0000000000000001 (NEEDED)             Shared library: [libm.so.6]\n 0x0000000000000001 (NEEDED)             Shared library: [librt.so.1]\n 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]\n 0x000000000000000c (INIT)               0x1000\n 0x000000000000000d (FINI)               0x11c4\n 0x0000000000000019 (INIT_ARRAY)         0x3d78\n 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)\n 0x000000000000001a (FINI_ARRAY)         0x3d80\n 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)\n 0x000000006ffffef5 (GNU_HASH)           0x5140\n 0x0000000000000005 (STRTAB)             0x5000\n 0x0000000000000006 (SYMTAB)             0x338\n 0x000000000000000a (STRSZ)              320 (bytes)\n 0x000000000000000b (SYMENT)             24 (bytes)\n 0x0000000000000015 (DEBUG)              0x0\n 0x0000000000000003 (PLTGOT)             0x3fe8\n 0x0000000000000002 (PLTRELSZ)           48 (bytes)\n 0x0000000000000014 (PLTREL)             RELA\n 0x0000000000000017 (JMPREL)             0x6c0\n 0x0000000000000007 (RELA)               0x618\n 0x0000000000000008 (RELASZ)             168 (bytes)\n 0x0000000000000009 (RELAENT)            24 (bytes)\n 0x000000006ffffffb (FLAGS_1)            Flags: PIE\n 0x000000006ffffffe (VERNEED)            0x5f8\n 0x000000006fffffff (VERNEEDNUM)         1\n 0x000000006ffffff0 (VERSYM)             0x5d4\n 0x000000006ffffff9 (RELACOUNT)          3\n 0x0000000000000000 (NULL)               0x0\n",
+            "stderr": ""
+          }
+        ]
+      },
+      "setup/python_install_state.json": {
+        "text": "{\n  \"status\": \"failed\",\n  \"archive_sha256\": \"4a51ce60007a6facf64e5495f4cf322e311ba9f39a8cd3f3e4c026eae488e140\",\n  \"error_type\": \"CalledProcessError\",\n  \"error\": \"Command '['/data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11', '-I', '-m', 'venv', '--copies', '/data1/zhangzibo/arxiv-tssa/venv']' returned non-zero exit status 1.\",\n  \"partial_state_preserved\": true\n}",
+        "sha256": "f0a62cb10b1de990723ace06c63ced5ba4f10b64898d2db793d67c9ac7b261da"
+      },
+      "venv/pyvenv.cfg": {
+        "text": "home = /data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin\ninclude-system-site-packages = false\nversion = 3.11.7\nexecutable = /data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11\ncommand = /data1/zhangzibo/arxiv-tssa/python-standalone-3.11.7-20240107/bin/python3.11 -m venv --copies /data1/zhangzibo/arxiv-tssa/venv\n",
+        "sha256": "7992bec3dba8d14b95f4ae3a53134adfe85a173d08e22a471ca45caf53d7964a"
+      }
+    }
+  }
+}

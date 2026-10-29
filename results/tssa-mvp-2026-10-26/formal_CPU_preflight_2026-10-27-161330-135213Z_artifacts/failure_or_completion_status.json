@@ -1,0 +1,18 @@
+{
+  "all_workers_exit_on_failure_or_completion": true,
+  "assignment_sha256": null,
+  "completed_stages": [
+    "cpu-preflight"
+  ],
+  "configured_GPU_workers": 2,
+  "error": null,
+  "error_type": null,
+  "parent_CUDA_initialized": false,
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "real_SD_CUDA_preflight_passed": false,
+  "run_identity_sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+  "stage": "cpu-preflight",
+  "status": "paused_at_requested_stage",
+  "updated_at": "2026-10-27T16:14:41.278845+00:00",
+  "worker_pids_started_this_process": []
+}

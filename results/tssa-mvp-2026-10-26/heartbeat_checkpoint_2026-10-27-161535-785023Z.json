@@ -1,0 +1,146 @@
+{
+  "observed_at": "2026-10-28T00:15:35.782064+08:00",
+  "phase": "formal_model_CPU_preparation",
+  "asset_acceptance": {
+    "status": "complete",
+    "active_pid": null,
+    "verified_file_count": 47,
+    "verified_bytes": 14683626535,
+    "all_assets_ready": true,
+    "acceptance": {
+      "report": "results/tssa-mvp-2026-10-26/full_model_transfer_acceptance_2026-10-27-160309-110550Z.json",
+      "sha256": "7c514a4e4ca203679b1962b102aa28c6c65092e719625337b75717d75826ecbb"
+    },
+    "scope": "Remote whole-file asset integrity only; CPU and CUDA readiness tracked separately."
+  },
+  "formal_CPU_preflight": {
+    "report": "results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z.json",
+    "sha256": "f5c864c993f284b8fe7383352a33927ef554cb6b3adf263e29d2ec17df411405",
+    "status": "passed",
+    "school_connection_attempted": true,
+    "model_loading_started": true,
+    "CUDA_initialized": false,
+    "source_script": "results/tssa-mvp-2026-10-26/run_formal_cpu_preflight_2026-10-28-configfix.py",
+    "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+    "result": {
+      "status": "passed",
+      "returncode": 0,
+      "observed_at": "2026-10-27T16:14:41.885320+00:00",
+      "seconds": 65.33310615400114,
+      "source_files_verified": 20,
+      "CPU_memory_available_before": 371568484352,
+      "max_child_rss_KiB": 18974928,
+      "run_dir": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-26-dual-v2-configfix",
+      "files": {
+        "cpu_preflight.json": {
+          "sha256": "7a920e3d96ebbc45767c2ee0e74dacaeaef301cca88556742bc75c3fba6147f5",
+          "size": 22257,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/cpu_preflight.json"
+        },
+        "model_file_hashes.json": {
+          "sha256": "96bae0d29dfa0d07403efdeb2026e141abd6667a669b26d1dd7b3d1515389d35",
+          "size": 9567,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/model_file_hashes.json"
+        },
+        "parameter_key_manifest.json": {
+          "sha256": "9aa183d54c9af1db064c4bd053df3e9a1f05d445f98381623286d2c7b20a4731",
+          "size": 10344,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/parameter_key_manifest.json"
+        },
+        "basis_statistics.json": {
+          "sha256": "85826438f15013385b474a029c5d23c5b34fdf4cb0a5e906e58c8294aa257187",
+          "size": 241,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/basis_statistics.json"
+        },
+        "failure_or_completion_status.json": {
+          "sha256": "b44afda42dbcef8e6926ec227fb6c59ab0d0b75dd7322a8e365cfdc0e70a0534",
+          "size": 627,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/failure_or_completion_status.json"
+        },
+        "resource_ledger.json": {
+          "sha256": "067c39e08f02b16ff50e4d78ad90dc9962bc32c2a8f6e3bdff86e6803faa9fea",
+          "size": 1824,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/resource_ledger.json"
+        },
+        "run_identity.json": {
+          "sha256": "2ad06c484beee27028d70965b9d256783e24cbb7250f79273af6f873b81e559a",
+          "size": 7633,
+          "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/formal_CPU_preflight_2026-10-27-161330-135213Z_artifacts/run_identity.json"
+        }
+      },
+      "GPU_stage_started": false
+    },
+    "error": null,
+    "seconds": 71.82189208299678,
+    "pid": null
+  },
+  "implementation_correction": {
+    "report": "results/tssa-mvp-2026-10-26/upcast_implementation_correction_2026-10-28.json",
+    "sha256": "6f52841807ccb0ee2c40532b20ceedd925ee71b7218dd4887eef28745e3a47e6"
+  },
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T155917602793Z.json",
+    "sha256": "273b89bc3e34683c10e7ef16df981b3f3fd86acfda759fabc294efc5c9b505da",
+    "status": "observed",
+    "started_at": "2026-10-27T15:59:17.602793+00:00",
+    "finished_at": "2026-10-27T15:59:22.836508+00:00",
+    "sample_finished_at": "2026-10-27T15:59:22.934039+00:00",
+    "driver_prohibited_indices": [],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2
+    ],
+    "other_graphics_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false,
+    "GPU_UUID_mapping_matches_previous_sample": true,
+    "inventory_change_report": "results/tssa-mvp-2026-10-26/gpu_inventory_change_2026-10-27-140924-748406Z.json"
+  },
+  "website_observation": {
+    "recorded_at": "2026-10-28T00:15:35.782064+08:00",
+    "requested_url": "https://gpu.orz2333.fun/",
+    "status": "browser_navigation_timed_out",
+    "observed_destination_origin": null,
+    "body_read_status": "Chrome Page.navigate timed out after10seconds during this wake; no portal contents obtained.",
+    "portal_application_reached": false,
+    "account_verification_attempted": false,
+    "site_origin_health_now": "unknown",
+    "current_allocation_known": false,
+    "previous_observation_recorded_at": "2026-10-27T14:09:24.748406+00:00",
+    "boundary": "No warning bypass, other-service login, queue or allocation mutation.",
+    "heartbeat_trigger_UTC": "2026-10-27T15:58:59.674Z"
+  },
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "CPU_inference_component_loading": null,
+  "readiness_blockers": [
+    "scorer_VAE_CPU_loading_pending",
+    "formal_CUDA_preflight_pending",
+    "fresh_GPU_allocation_not_verified",
+    "current_portal_observation_unavailable",
+    "all_observed_GPUs_have_other_users_processes",
+    "GPU_inventory_changed_requires_fresh_platform_and_UUID_verification"
+  ],
+  "next_action": "Finish formalCPUpreflight and guarded scorer/VAE CPU loading; preserve any failure. Then await fresh compliant two-GPU allocation before CUDA or research stages."
+}

@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-28T10:17:11.661371+00:00",
+  "status": "CPU_checks_and_independent_review_passed",
+  "CPU_tests_passed": 14,
+  "tests_scope": [
+    "one/two/three search promotions including archived failed attempt",
+    "active process and unfinished receipt boundaries",
+    "hidden failure work and NFE mismatches",
+    "wrong winner lineage and independent-audit failure",
+    "confirmation reentry forbidden"
+  ],
+  "actual_snapshot": "observation_103_20261028T100953718980Z-b87b404b/report.json",
+  "actual_decision": "wait_for_search_completion",
+  "scientific_images_generated": 0,
+  "GPU_initialized": false,
+  "network_connections": 0,
+  "frozen_scientific_sources_changed": false,
+  "file_sha256": {
+    "check_confirmation_budget.py": "4367596dd1d90dfb733cecb9b87cfae90de2dd0eaad3553f308cf85690f031ce",
+    "test_check_confirmation_budget.py": "0b4dd8c84a119cd7a699c14a3e11b2149470817d88c39653a2b63a8900d1ad99",
+    "confirmation_budget_readiness_213_20261028.json": "9eb4a64b7d53b3517b3e117ffb9aa7bd6a109b31173467e0f19355dbc242f705"
+  },
+  "independent_review": "confirmation_budget_independent_review_20261028.json",
+  "actual_complete_dev_boundary_validated": false
+}

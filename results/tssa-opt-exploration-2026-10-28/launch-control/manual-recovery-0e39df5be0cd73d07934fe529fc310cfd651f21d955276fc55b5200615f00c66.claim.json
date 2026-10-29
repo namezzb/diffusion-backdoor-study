@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-28T10:03:00.781031+00:00",
+  "server": "103",
+  "token": "8ae15c9dc62142e997c1a9b586313653",
+  "plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "pending_task_id": "0e39df5be0cd73d07934fe529fc310cfd651f21d955276fc55b5200615f00c66",
+  "original_pending_sha256": "a0d2562580ad355a4cf0bd84a85f15d35db3a88dee6ca3387b1ee45af91e4419",
+  "original_local_claim_sha256": "28fccab1bc13280c81a1941dff55101b0ac557bb77e03d9bde3a99c9f5000a3e",
+  "interruption_sha256": "4aa0f21d1fe326f6ee8e4f9a1ec3a4df5c922a8f78f5fb954c927ea378b74ce2",
+  "recovery_script_sha256": "b215193c1bab9f6d69235657c393d3e281704fd6967ecbf94659a7858145da97",
+  "guard_sha256": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+  "permission_sha256": "2613e15c492572a65e91e332e4dd5c97ac367930375af218f60c1a1660986392",
+  "budget": {
+    "failed_attempts": 1,
+    "failed_branch_NFE_upper_bound": 50,
+    "failed_text_encoder_forwards_upper_bound": 1,
+    "failed_VAE_decodes_upper_bound": 1,
+    "failed_work_exact_count": null,
+    "failure_replayed_at_most_once": true,
+    "completed_unique_images_before": 171,
+    "scientific_updates": 0,
+    "until_dev_unique_images_upper_bound": 864,
+    "until_dev_attempts_upper_bound": 865,
+    "until_dev_branch_NFE_upper_bound_including_failure": 43250,
+    "global_attempt_cap_conservative": 1440,
+    "global_branch_NFE_cap": 72000,
+    "confirmation_permitted_by_this_wrapper": false,
+    "confirmation_total_if_search_promotes": {
+      "1": {
+        "attempts_upper_bound": 1345,
+        "branch_NFE_upper_bound": 67250
+      },
+      "2": {
+        "attempts_upper_bound": 1393,
+        "branch_NFE_upper_bound": 69650
+      },
+      "3": {
+        "attempts_upper_bound": 1441,
+        "branch_NFE_upper_bound": 72050
+      }
+    },
+    "later_confirmation_requires_separate_budget_audit": true
+  },
+  "status": "recovery_claimed_before_connection",
+  "automatic_retry_allowed": false
+}

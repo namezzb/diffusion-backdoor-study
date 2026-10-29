@@ -1,0 +1,13 @@
+{
+  "attempted_at": "2026-10-28T06:13:44.985107+00:00",
+  "automation_id": "gpu",
+  "requested_action": "delete",
+  "tool": "mcp__codex_app__automation_update",
+  "result": "blocked_by_tool_approval_policy",
+  "error": "MCP tool call requires approval, but approval policy is never",
+  "automation_deleted": false,
+  "manual_file_workaround_attempted": false,
+  "project_completed": true,
+  "project_GPU_count": 0,
+  "next_action": "User must remove or disable gpu in Codex automation UI. Subsequent wakes must not restart the completed experiment or repeat compute; keep quiet on this already-reported cleanup block."
+}

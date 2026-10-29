@@ -1,0 +1,28 @@
+test_enabled_invalid_or_unrelated_config_differences_still_rejected (test_tssa_sd_runtime_integration.UNetConfigCompatibilityTests.test_enabled_invalid_or_unrelated_config_differences_still_rejected) ... 
+  test_enabled_invalid_or_unrelated_config_differences_still_rejected (test_tssa_sd_runtime_integration.UNetConfigCompatibilityTests.test_enabled_invalid_or_unrelated_config_differences_still_rejected) (value=0) ... FAIL
+test_none_and_false_have_identical_outputs_and_input_gradients (test_tssa_sd_runtime_integration.UNetConfigCompatibilityTests.test_none_and_false_have_identical_outputs_and_input_gradients) ... ok
+test_nullable_upcast_in_actual_unet_configs (test_tssa_sd_runtime_integration.UNetConfigCompatibilityTests.test_nullable_upcast_in_actual_unet_configs) ... ERROR
+
+======================================================================
+ERROR: test_nullable_upcast_in_actual_unet_configs (test_tssa_sd_runtime_integration.UNetConfigCompatibilityTests.test_nullable_upcast_in_actual_unet_configs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zzb/arxiv/scripts/merging/test_tssa_sd_runtime_integration.py", line 58, in test_nullable_upcast_in_actual_unet_configs
+    _check_configs(reference.config, expert.config, ("upcast_attention",), "Edev/UNet")
+  File "/Users/zzb/arxiv/scripts/merging/tssa_sd_runtime.py", line 172, in _check_configs
+    raise ValueError(f"{label}: component configuration mismatch for {field}: {left!r} vs {right!r}")
+ValueError: Edev/UNet: component configuration mismatch for upcast_attention: False vs None
+
+======================================================================
+FAIL: test_enabled_invalid_or_unrelated_config_differences_still_rejected (test_tssa_sd_runtime_integration.UNetConfigCompatibilityTests.test_enabled_invalid_or_unrelated_config_differences_still_rejected) (value=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/zzb/arxiv/scripts/merging/test_tssa_sd_runtime_integration.py", line 87, in test_enabled_invalid_or_unrelated_config_differences_still_rejected
+    with self.subTest(value=value), self.assertRaises(ValueError):
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.105s
+
+FAILED (failures=1, errors=1)

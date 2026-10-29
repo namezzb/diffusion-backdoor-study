@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-28T08:25:21.247933+00:00",
+  "result": {
+    "CUDA_validated": false,
+    "driver_compatibility": "Not validated by this CPU-only installation; known node103 driver 550 differs from school104 cu128 environment.",
+    "original_installer_output": "{\"status\": \"installed_cpu_verified\", \"audit\": \"/data1/zhangzibo/arxiv-tssa/results/environment-install/20261028T082305Z-y_1vicbp/audit.json\", \"GPU_tested\": false}\n",
+    "returncode": 0,
+    "status": "completed"
+  },
+  "stage": "install-env",
+  "transport": "task_private_masters"
+}

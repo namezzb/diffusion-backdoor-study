@@ -1,0 +1,4078 @@
+{
+  "started_at": "2026-10-28T03:32:32.213610+00:00",
+  "read_only": true,
+  "returncode": 0,
+  "stderr": "",
+  "status": "observed",
+  "result": {
+    "observed_at": "2026-10-28T03:32:37.249245+00:00",
+    "read_only": true,
+    "active_project_processes": [
+      {
+        "pid": 650925,
+        "comm": "python",
+        "status": [
+          "State:\tR (running)",
+          "VmRSS:\t14421980 kB",
+          "Threads:\t104"
+        ]
+      }
+    ],
+    "GPU3": {
+      "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee",
+      "compute_mode": "Default",
+      "memory_used": "22440 MiB",
+      "utilization": "98 %",
+      "processes": [
+        {
+          "pid": 6941,
+          "type": "G",
+          "memory": "4 MiB",
+          "owner_is_self": false
+        },
+        {
+          "pid": 650925,
+          "type": "C",
+          "memory": "22424 MiB",
+          "owner_is_self": true
+        }
+      ]
+    },
+    "operations": [
+      {
+        "operation": "gate/source",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:21.392232+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/665a6073e3cb6e9e202d3365",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:00.284285+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step19",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:58:08.030281+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/c7a892d0c17d3164c5b1c603",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:09.592004+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p02_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:13.774741+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b3db585755b5d08fa916c3b9",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:50.048728+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/df2b1c74b50a2bacb4fb4207",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:01.752780+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:12:24.143136+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7c1763b8180a655f7690ef93",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:21.122369+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/ed5a164ca8ddd75157e5e2a3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:50.793348+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/90550c8d2619649cac7d3561",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:57.897218+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step38",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:28:29.275229+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step43",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:04:29.283923+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step07",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:07:41.693589+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step36",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:15:20.085759+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p07_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:32.140111+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_02",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:33.545393+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p04_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:50.183447+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step17",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:10:19.803247+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step34",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:02:06.725864+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p03_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:14.943371+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p05_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:04.772205+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/fc521dd9c269d3cee686fdce",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:47.009334+00:00",
+        "error": null
+      },
+      {
+        "operation": "response/Uniform-GD_step48",
+        "status": "running",
+        "started_at": null,
+        "finished_at": null,
+        "error": null
+      },
+      {
+        "operation": "image/screen/d29d160b79c6a58e57cbdef2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:55.209447+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/56c04605dbaa8e1f7a5f2a40",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:27.345713+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step45",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:05:01.610063+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step31",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:01:20.012513+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/412f5888d47a1e6245db267b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:03.134593+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step40",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:03:42.274420+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step11",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:21:28.148949+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/355ac472736ec3e11108b5f3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:13.467476+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_07",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:23.552877+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e429dd380b450040bcd1227a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:28.689053+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step27",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:12:57.765846+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step03",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:19:19.350001+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p00_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:24.724935+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/0f54d81964484b0e6dd6a20c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:28.354797+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p02_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:26.284807+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step24",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:59:30.113601+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/cbfa7a6134dce39e604eabe0",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:33.540040+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p07_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:39.097856+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a95766c380a22a91df3fa5e5",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:42.957246+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a615197d15fb249a8b90dd63",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:23.516595+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step14",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:09:32.200329+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step36",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:27:57.625534+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/9f3241c5f3af28285eaddd98",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:59.136609+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f4855606b8f651e3939c2fbe",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:20.804464+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/155cd1cbbfee9f13bfbf3b6b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:52.356290+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p05_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:37.892182+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e410a671e4bfc803e1f529eb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:02.600254+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/daf34439e04eb9de4566f0f6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:16.142094+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p06_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:51.747378+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step22",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:24:18.704237+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/de5dca8c86a3a5f74d14033c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:57.181649+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step26",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:00:01.638608+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step35",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:02:22.828946+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/521e4d3b85cf4c6daee05ec1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:10.188592+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step03",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:06:38.899081+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p05_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:17.281513+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p00_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:24.335337+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/b64f908bd245ed4546bb8efd",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:38.723316+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/37ac75e826789f49eb67f27d",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:13.078378+00:00",
+        "error": null
+      },
+      {
+        "operation": "response/Uniform16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:30:42.819432+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p03_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:01.653146+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f54cc9ffc487bec9bdccc8f4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:21.153384+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step20",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:11:06.693619+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:56.435032+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/63f3b0599033ebca71ef2164",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:26.545874+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p01_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:45.897962+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/76794b8644e19ea71e02840d",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:57.438111+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/62a2e86a24293584f1f3e620",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:44.402044+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p03_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:48.233828+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/ef24a81afe92d790c28d6acd",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:21.034048+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p02_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:35.725628+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p02_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:01.263726+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step35",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:15:04.090970+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p01_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:25.504776+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step48",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:31:07.935900+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:10:04.162367+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step04",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:53:48.144803+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_06",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:49.068078+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/fac9fff69ba6ceb74c20c0e7",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:14.774284+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a72b4ae5b7fc32ce45f5e690",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:10.422134+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/5a25ae147a11abf0f4136014",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:33.957826+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step47",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:30:51.497413+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p01_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:46.287537+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step24",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:12:08.614012+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step41",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:03:57.405578+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p07_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:06.845608+00:00",
+        "error": null
+      },
+      {
+        "operation": "response/Uniform-GD_step24",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:31:57.839306+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/54b960998e227ae8e7e94fca",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:04.074141+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d89a0231519b2cd3c27b8a54",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:06.150725+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/fb5553664fe6690ab67b356a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:15.777280+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step29",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:00:49.928545+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step39",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:03:26.628310+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/e96266702430881a3b7c2044",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:25.134006+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step11",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:55:51.693261+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4fa2ced99006f5aaf9450e64",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:20.511220+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p00_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:58.146634+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step12",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:56:08.916770+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/b7ee7b94c47d659107822aee",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:13.517708+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p00_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:11.831723+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:57:17.192152+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p05_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:30.187967+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step33",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:01:50.691599+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/3cea459fe0092e67c88951b2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:23.179581+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/79c2b8acd247af1b2730e959",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:29.160052+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p04_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:02.823216+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/47ce48ea5ebd35caf5c2cbfe",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:36.783032+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/6837de63f6cd0b44b979bf44",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:01.736048+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step46",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:17:59.196338+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4e6256cca99e09feea9e4d5c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:57.624696+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/b61df83483d527bbbd09eb49",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:36.071802+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b8b3d03d645435ece31a968a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:08.766039+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a4a921b33aa8cb757d37aceb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:10.576284+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step18",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:57:50.882765+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a64cb9c31d3c81d1268151bd",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:31.965627+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:25:05.378961+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/eb723e88d9cc8f71f6a8af30",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:30.483642+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a58d06adc0828b087afa07fb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:49.726309+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step37",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:28:13.346261+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/cb908a44b1f121bf3cc6ceea",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:06.699408+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step48",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:05:50.625761+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/ab5e57ac646d46dc078740be",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:42.916761+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/9d8a732e50b8f4c8827459c2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:13.787911+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/50d727f40ad22b244eaa2a78",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:05.727838+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/623bb920b1101be60e5c3899",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:18.237935+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/1ae64fdc3bca71bf529ef25c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:48.593982+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p02_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:35.965435+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step45",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:17:42.654048+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step24",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:24:49.716619+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:09:16.230297+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step20",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:23:48.467302+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p02_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:14.552693+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0a43a9aa5af3bbe55ba50727",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:03.271750+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4530e45666fa1c0034b904de",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:15.668149+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c1bde65c4a3a94dc17a715aa",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:37.066012+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p00_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:33.992958+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step00",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:05:50.633499+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/5a480cf79acee827f4cd4d43",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:41.005544+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:29.813269+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/55ac3b0bab070a027feaf7bc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:27.893782+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step42",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:16:55.335794+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step19",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:10:51.334634+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p06_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:06.033352+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:21:58.997131+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a7cd16bb843c1c8308adae51",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:23.467908+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a6711dd535a5f8cdf4d7a038",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:28.870513+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step22",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:11:37.977317+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/51c836021a48a056328124a2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:06.984075+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p02_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:47.065658+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step42",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:04:13.238349+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p01_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:25.894556+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/8fe89f1059be75cb287a6ef7",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:11.132749+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p03_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:27.843817+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/74cf9441ec16005c43a21d62",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:46.212526+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/ee4038ed8a04d9dc50763e53",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:18.203800+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3e2e1caa1317f9dc351b3861",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:13.022375+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/feefddd206f5a6d0705d0985",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:44.788264+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step47",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:18:15.663249+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/689c36f705d0366dd5aad7cb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:02.562589+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/5d8ab6451b4477b6d96cd0d1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:26.351309+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step08",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:20:40.008282+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/54cc8c9f3d618a4dd0afc14a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:03.119393+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step28",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:13:13.630805+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/8132429892b74f775eccaee3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:10.796727+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step11",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:08:43.918026+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p01_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:59.705874+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0ab2572b9c26df145187e74b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:34.074881+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_07",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:52.810758+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f418f1f77eeadd3b555a367b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:50.016724+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/699b091ac48df651b1fc9b8c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:28.728595+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a285bde043dd9de1d5e5dfa3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:31:50.852678+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/71d91a6dcdad5dd0f85afb30",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:41.210889+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/6d2a931eb05976360b5c8d66",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:08.522527+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step38",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:03:09.854234+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step23",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:59:14.251964+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p06_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:52.526126+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_06",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:19.808217+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b316997e65ff73a8deba13f0",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:23.228053+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p07_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:20.006274+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/f361fb660c43ea8c911661b3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:54.868904+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/331ffcb593cf1a28ff87aff1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:39.572473+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/83f3dd2b802e2f9954ebabf7",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:41.808584+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d1d3e351e162fc960c70e1e7",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:11.677557+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step31",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:14:01.108091+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p02_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:47.455977+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/a0dd354344b551d2986d68c3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:52.554086+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:01.079977+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p06_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:18.837697+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p04_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:37.412337+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p05_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:51.357711+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step09",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:08:12.495005+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/eeeb24edf124de03eb077c27",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:31.385243+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p07_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:20.395076+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/34036344a9ecab37623083c6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:15.953918+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p06_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:31.748975+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4fa25ca5847f5ccf8acc2bf0",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:47.691255+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0a58873f6dfedb40c96042d5",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:58.161594+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/829ad6e88b0bb4eb09ca1cea",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:39.149123+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e118538956b767db56270dfc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:39.655956+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4edd6f1f985d8bff15997e7e",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:25.731184+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p03_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:27.452908+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p01_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:12.998439+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step10",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:55:33.610839+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p05_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:17.671410+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step17",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:57:34.017959+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_02",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:04.825637+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/1313185248a747bc3b4ab3cb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:41.297195+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/97984899c5f43bb4a906cc6e",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:54.790846+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step07",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:20:23.003445+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/6df73a38561a53cfb2f39d91",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:26.145001+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/9ac5e2461ac8bf0519d5643f",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:30.804333+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/29a88d53ff1fe7c2f1f58ba3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:19.494211+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a95117bb4d0867ce0ca95fdc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:25.696423+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/43bd51f1e856a7c22f95495e",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:08.251301+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step32",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:26:55.279931+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step06",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:20:07.029825+00:00",
+        "error": null
+      },
+      {
+        "operation": "diagnostic/gpu_gradient_and_memory",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:21:55.780902+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/88a27c8bcec722ffd42bba4b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:20.830016+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/436f964fdd8685c898d1dded",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:14.092271+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p05_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:18.060184+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p01_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:34.718265+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/f9fa9c06001bc38ac9a9c4ea",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:05.300868+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b7c3f689fdd3f6cfc19155ca",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:58.590273+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step46",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:05:18.833316+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/086937fc34402b7e79a5e880",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:17.451930+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p07_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:07.235969+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step04",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:06:55.055792+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p07_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:32.531872+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step21",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:11:22.107824+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/52c808f31da8a7407f431d40",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:23.898305+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/1e497f737c83f914f220b359",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:07.808742+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p01_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:25.114332+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/de5f11376decd095e69299ce",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:12.817008+00:00",
+        "error": null
+      },
+      {
+        "operation": "response/Uniform4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:29:54.832383+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p04_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:49.790600+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p00_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:58.534789+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0e8737a51e14831b44ad7c62",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:37.172681+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/cf899559925acd8be2fe3c94",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:37.173533+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4246f061dfa4df7d5aef1615",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:44.809869+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step00",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:37.631268+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p04_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:16.892295+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step20",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:58:24.679885+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d9fae719bdc3bf8a9e740f50",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:53.357327+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/62c3ffef8046a8dfa6ae4c50",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:31.612680+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step14",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:22:14.196744+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/cfd56a2dd7b5f29b2eac85e4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:33.975318+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p01_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:12.609053+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/2591369aa200666caaa83cc8",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:26.371588+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p01_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:35.246632+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_04",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:41.592488+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/76f956ae77dc9a1740ad60b3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:22.670608+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step18",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:10:36.021763+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step07",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:54:41.856638+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p04_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:03.214156+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f91b80ba05edfbb9fadde003",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:39.562285+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/d640464ef9798dde65d75363",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:46.848909+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/272994d57e8828d0ececaa33",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:00.577658+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p06_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:19.227324+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step09",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:20:56.415370+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/17a01926cd27e0a6821bbc23",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:52.265712+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p05_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:37.652003+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/8f092e1de902a00beb95d5a2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:11.655097+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step44",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:04:44.622598+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0aea2875bdb56ce406880159",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:37.371468+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p05_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:03.992874+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4c0bed2fee1c48e8ffe59621",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:48.656321+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_05",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:16.069042+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/01e4a961875e419820055893",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:23.659631+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:18:47.158323+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/5af6776f84e3dde0d4e0db44",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:53.813358+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step44",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:30:03.007896+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/1e2efacbdcbafea1695cc2bf",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:22.145189+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step32",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:01:35.165959+00:00",
+        "error": null
+      },
+      {
+        "operation": "cache/assembled",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:20.546758+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d235a3766a51461996324f91",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:46.611622+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e44cdeaa3495defcbe5a7361",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:13.053508+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/c50e538b58971c92ee910c83",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:08.017278+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/12c9abd1b7d251f8c6a37114",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:05.785029+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/84a379c17c007a7558169694",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:47.797108+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step02",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:53:13.821417+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a9f6f1af4b443d42aa21ae4b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:52.973550+00:00",
+        "error": null
+      },
+      {
+        "operation": "response/naive",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:29:07.782255+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/5ce2a5549b3deb74aba02463",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:35.671101+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p02_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:00.873950+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step12",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:09:00.265812+00:00",
+        "error": null
+      },
+      {
+        "operation": "gate/screen",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:37.572559+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_00",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:26.083746+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step33",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:27:10.988525+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7d23113d5a326ea3f37097f4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:12.217109+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p02_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:35.486069+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/115813fb8bd74f932a9ac1fc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:39.517623+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7fbc8dfe383aa71ed1ae4aeb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:19.196771+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/8ddb67b919a314a00558dad7",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:58.120381+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step02",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:19:03.102457+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p03_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:28.233314+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/32f4c626836f5b4ef02b94e3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:55.225300+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p03_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:48.622533+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0d1b84d40799327179f69154",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:07.369913+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3b8948dc610a4a7872e87dc4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:58.600481+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step10",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:08:27.864854+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/c16f36293e99b323f8c5bd45",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:57.367620+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step04",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:19:35.317095+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p00_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:45.506130+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3b2be383a1fe170fe9a5dc03",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:55.077396+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p02_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:27.063596+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b9fcfe10163945426879621b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:20.668212+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:22:47.083974+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p00_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:23.945735+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/26d6c6784c21f672f69ac2a1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:36.240245+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step30",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:01:05.140482+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p04_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:16.501101+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p06_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:38.374183+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/7fbcc9a8504824e4b9c58494",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:52.172381+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step02",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:06:22.758400+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step19",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:23:33.165219+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3ee631dece93263d42db3452",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:36.597421+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/41f458be04b9cec8bb5d986d",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:32.545921+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p05_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:50.964608+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e4ab340191f8960c1b39dd49",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:09.697682+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step06",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:54:23.657288+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/d070906f29b362efdc2b4163",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:49.581614+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f43da92d34e9d6223686fd92",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:23.489269+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d19610b7755e337929ac4408",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:36.871551+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step43",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:29:46.911474+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step00",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:18:31.066170+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p00_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:11.442439+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step43",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:17:11.258811+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p02_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:47.844965+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step42",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:29:30.735077+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step46",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:30:34.592414+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p00_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:58.927451+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c2770eb1ea692fdeb11d1091",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:03.337980+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step32",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:14:16.827038+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/338e28f826a450695475cb53",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:25.248276+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p04_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:36.929851+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p06_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:30.968293+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7b77c9883810e75c4b08e20c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:31.599281+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a69efdf42832fb961eed2e42",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:37.534131+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step28",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:00:34.570476+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b5f8d161be710f062325580a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:39.126905+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7732c354513e55e33b748688",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:04.868788+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p03_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:15.721146+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/14553dd67f1b3dd42d3d9ad8",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:51.396545+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_00",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:57.341707+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step45",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:30:18.819394+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step29",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:13:29.765291+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/6b3d9eaad52d6bf8bacdd844",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:19.992166+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/09accb7b81c83d3af09da8f6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:30.871902+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p03_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:36.448592+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/1d796fe5fed1b50d63429855",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:51.058759+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p03_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:36.208065+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/473b4ccda230d7560c237b10",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:47.257553+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/209293b3c3733399cfe9f5a5",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:37.545716+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p05_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:29.797241+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step33",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:14:32.568501+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/9caf0e3ce5096b0489f1925f",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:31:45.513774+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step34",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:14:48.031800+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/46a94ef4f66781678d773836",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:10.739759+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p03_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:36.689044+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/6debe10938983dbfd2d2dc86",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:30.098577+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/6a07948776199d19d66f0961",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:34.332772+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/16b9557493446e574d3a18fc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:56.273457+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p06_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:38.857247+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b0f5ea246b3347fc6f24b6d5",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:26.192451+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step30",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:13:45.239357+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step06",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:07:26.465531+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step14",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:56:43.741309+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/70869abb1e29be817e459c7b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:03.549321+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/50b0b104bb53da776b655abc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:15.501637+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c9512f431d4e149d985e4b83",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:09.474221+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0fa93f1d43ebbcd5408ef363",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:33.125601+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step23",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:24:34.392846+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c2fb8539782de465e01f6b73",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:44.361853+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/0d203a3f51f094e56e84f16b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:34.367148+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/39c68a9416d180218a08fff2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:32.217446+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4f2daad9cf60e07434d4546b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:42.087820+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step23",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:11:53.398155+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step35",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:27:42.577999+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/dead327189844bffa4f802f1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:57.517165+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/5fc44fde0da3dd1bc67d42bf",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:55.277556+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p00_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:12.220853+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e9900688fe85772aea5fa5e0",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:26.396981+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/571d9a72b0634500793e52c6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:29.631316+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/c6e260140bd9cff696be9b00",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:22:57.927582+00:00",
+        "error": null
+      },
+      {
+        "operation": "preflight/cpu",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T01:40:58.675039+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step05",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:54:05.306496+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b84c1a207b21e4e98616eb13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:23.955891+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step03",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:53:31.204414+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/390e276c4d6feaef9508701d",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:47:47.076555+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step26",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:12:40.372658+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/5d74a8378a6bf83856972526",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:10.972788+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/2deb939a729e90469c7c1c05",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:18.050033+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/5848db6e62be2cf9e5ec44c4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:17.885380+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step40",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:28:59.999627+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step05",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:07:10.366053+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step15",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:09:48.106464+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p07_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:39.579114+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:56:26.527296+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p02_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:14.163631+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/93ce9c7e303435d105f2fd42",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:36.147204+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:59:45.765836+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p06_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:31.358117+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step05",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:19:50.843454+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3d565e753b84df5496f58237",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:50:04.388900+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c9b9ae8788332f60733c1181",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:24.417910+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p05_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:50.573051+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e83fb8e1436b1a972e74f164",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:28.709506+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p01_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:46.676695+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/0112cbcac7b466ae492b15b2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:17.968038+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e3005eb393bc46226d219fdc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:29.131007+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/419cbdfce1e5cbf3cbe1e25a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:52:04.127872+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p01_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:34.985942+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step12",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:21:43.767253+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/673a4cfa4468980a890223a0",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:02.140171+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c9fa88256f0e2063b3f42751",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:42.360484+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p04_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:37.171380+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p06_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:38.615166+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p01_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:13.386767+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/109fe04e35c4b5a75c40dcfc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:13.978219+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b8d1656e1d4583a682c1d8ad",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:53.930349+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p03_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:15.332485+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f7df9b11cc08eccebe7abbd2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:04.252329+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/490e58758e037960b5b4ae55",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:08.598390+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step08",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:54:59.772178+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/085b9d9a07e112071dbf725b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:31:40.304411+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p01_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:59.316587+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/12d14e0880507097643efd58",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:39:57.826246+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d18f4883763b296aa0bf3bcf",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:31.570264+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step40",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:16:22.394773+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/8753ab30c004bfc2ba1958b1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:56.560082+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f54d23428376f4d76dbc88e3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:41.822578+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p06_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:05.161759+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step48",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:18:31.061187+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p07_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:06.457276+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step37",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:15:35.697251+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/03d5b434392ff1da26661181",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:55.322625+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/60d8b3508ee0d4b8bb150b2e",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:12.628010+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p07_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:32.922512+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/345ad70a33565471feb85ce7",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:42.574142+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p00_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:45.116804+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d0033d60527a9dbac0b72635",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:40.057416+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_03",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:37.281382+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p05_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:30.578618+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7624ea1393fde9b73e376b37",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:18.694428+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p02_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:26.673245+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step10",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:21:12.581289+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step30",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:26:24.095889+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step39",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:16:07.150319+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p07_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:53.305523+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7bce4c9d0b3c521e83b55156",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:26.660865+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step26",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:25:20.392685+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step37",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:02:54.371678+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/1c57f25d08f3db95424923aa",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:14.135790+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p07_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:52.915923+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/354f7cf5faa6fac0ee41ca16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:50.085599+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p07_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:53.695105+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step21",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:24:03.461502+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p07_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:19.616949+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/d2264958f293912a1971db4f",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:40:03.028925+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/493da35c7496bdb4fb41b22a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:59.029176+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/41eb8cb9de036e5a240752fc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:33.907596+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3b158782a53123e7bc2e08a6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:06.187561+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p04_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:28.623948+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/67f8b3d289b22b4fdc23a87a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:41:20.912341+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step09",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:55:16.726135+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p06_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:52.136739+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/a627da44f83a4f8172df36ea",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:47.492281+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/8c129f9330093ba36a04eeb6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:44.342690+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step21",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:58:42.193702+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/eb04aa28a9b70da2e19068cc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:23.455512+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step08",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:07:57.232853+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/cfc2241a1ec8d9e1a91655c2",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:30.917713+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/04968fb5f7127e7bc1892dc4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:16.892188+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p00_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:34.233885+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/53f2cf76ee67937fe3896d94",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:18.269189+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p03_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:02.435066+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/2eca8c1007d50b09cac3d25c",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:34.361465+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p07_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:39.338417+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p04_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:29.013846+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/888d22a25078b62a4d5f765e",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:52.443138+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step29",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:26:08.348895+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/9413d029eb5b94934ffadbb6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:05.521101+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/eed78a6463aa6e2b1075c515",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:19.724516+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3bcd14e7b5fe34d507455b62",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:39.306220+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p04_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:16.110643+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p04_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:49.401432+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/b00d591d0fa941d94e0071df",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:49.315540+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step41",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:16:39.066144+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step36",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:02:38.907122+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/98c467a97196971cf19873bc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:46.749718+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/71f5ac553b8f97674e62a2e9",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:49.555616+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3d347e444d6983a90aa1b894",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:15.028504+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p03_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:02.045936+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/69ef5a7cccb3396fc22c4eb6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:07.248799+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/68d7a714bd4a11b23f2a9991",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:28.706778+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p06_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:05.550940+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step27",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:00:18.450820+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_03",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:08.569752+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/141c04f5094afc3b3af93eb6",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:15.443814+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3c5567fe966e07333f745294",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:43:11.491505+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/8d435352b3460a09660a7e56",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:21.324323+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step38",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:15:51.430289+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/bc1cccfc8d995f3bd7ddd311",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:00.548537+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p01_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:00.094727+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4acd0cc3d266204adaa01ab1",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:44.930772+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4e6314dcd952a0f0d3121e4b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:45:50.138576+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p00_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:44.728502+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.08/fit_unit_p03_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:49.012718+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3c795a411126b83eb12a4d69",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:02.645766+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step17",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:23:02.876436+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/8d20fc1d14443fafe699f379",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:35.640365+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/1a711ba668415f59a65ae502",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:34.860459+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step15",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:57:00.790164+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/ce857a7be0009037587b644a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:37:45.583370+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p02_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:00.482426+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/86ce41adb8ab34cb7b020c42",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:44.015812+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/89042c2fb68903217c5662db",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:23:19.735500+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step27",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:25:36.606382+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/e3b2f83c8eada43d4fe383e9",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:51:43.983195+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p05_s13",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:04.381637+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step31",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:26:38.989331+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:06:06.562877+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/259f22af85aa4b164fb934b5",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:36:00.292545+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p05_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:38.132655+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step18",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:23:18.004338+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4d71db8c07d64feba7b038cb",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:42:18.670199+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/f9a829a1985db962ed475824",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:24:24.873540+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/clean/fit_unit_p04_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:29.406015+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/085bf0ca1812fe7d95febc60",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:25:12.784879+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/bc9b0b26e3d1a68485ac29e3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:31:56.392295+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3f297dfe51d92e838469a9ce",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:04.998283+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step41",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:29:15.104662+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/TSSA-GD/step44",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:17:27.168494+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step34",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:27:26.755622+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3d8c27208137e44dffdb2b58",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:21.223142+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7747ed61781d64d30b25036b",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:32:38.529102+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/f0e2f4cb64dfd0f5dd8a6e16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:33:41.371477+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step15",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:22:31.122158+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/6f24c614c53159e45ef88cb4",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:55.435526+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step22",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:58:58.491117+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step39",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:28:44.678393+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/original_backdoor/fit_unit_p00_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:34.476880+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/29d26b8ecc5c5991078ff693",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:37.763230+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/Uniform-GD/step47",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:05:34.934329+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/2b47209b9ded08dba49ed786",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:35:49.657271+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/4f280fe5bb327607ec0f87b3",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:48:18.258391+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_extra_04",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:27:12.331502+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/c17cfceec24daa94909ea914",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:26.414072+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/2b2df5a386bc862cc7b605bc",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:34:44.879639+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.50/fit_unit_p06_s01",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:18.449051+00:00",
+        "error": null
+      },
+      {
+        "operation": "response/TSSA16",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:31:30.402765+00:00",
+        "error": null
+      },
+      {
+        "operation": "trajectory/fit_pair_05",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:45.329659+00:00",
+        "error": null
+      },
+      {
+        "operation": "training/RC-TSSA-GD/step28",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T03:25:52.343861+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/65341c94bc6d7db8dec1e532",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:49:31.880309+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/source/b96e5cefba3a2e5b775c000d",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:26:00.008553+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/3b2af6f6ef2fb7a080d86376",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:44:31.678327+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/7ee70453b732ac2a42977466",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:46:42.010160+00:00",
+        "error": null
+      },
+      {
+        "operation": "teacher/Edev_0.25/fit_unit_p04_s25",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:28:03.603711+00:00",
+        "error": null
+      },
+      {
+        "operation": "image/screen/cc75300eefb6771c9471872a",
+        "status": "completed",
+        "started_at": null,
+        "finished_at": "2026-10-28T02:38:48.159381+00:00",
+        "error": null
+      }
+    ],
+    "files": {
+      "failure_or_completion_status.json": {
+        "sha256": "607d0f35516be778fd625e2047e6e0f6006546e678e15e0168eb2e77d5c36b95",
+        "size": 628,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/failure_or_completion_status.json"
+      },
+      "resource_ledger.json": {
+        "sha256": "29b25b255cd214845f15efeaba242075cbb37227eeb8ebb1ed27c153fd85d6be",
+        "size": 1195781,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/resource_ledger.json"
+      },
+      "gpu_diagnostic.json": {
+        "sha256": "40ab01a2a629afad698924c324951f31ef2ccc0de38881a5fdfde12758677f8b",
+        "size": 16944,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/gpu_diagnostic.json"
+      },
+      "runtime_environment.json": {
+        "sha256": "b6487954b710ab5c5a57032c9499def1238112281efd2e76b5ac4584ffac445a",
+        "size": 14810,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/runtime_environment.json"
+      },
+      "source_gate.json": {
+        "sha256": "093a396d6bfbe47c67f84d9c7c8852141590781586fa2585436c1a20080bb574",
+        "size": 3648,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/source_gate.json"
+      },
+      "last_failure_traceback.txt": {
+        "sha256": "e9fa4150928a4b191f7a9d87b70d0d815213d5c5b9801baa91cda11c1082774f",
+        "size": 2244,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/last_failure_traceback.txt"
+      },
+      "prompt_and_cache_index.json": {
+        "sha256": "5efe174dc6b67625d24805549c3b5766d37fbc2827a0ff5b3b819450824345d0",
+        "size": 83818,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/prompt_and_cache_index.json"
+      },
+      "static_response_summary.json": {
+        "sha256": "d4fc88b8835f4f5bf1ebe8f667368ccf95e62a33cc9e2dea645db7c5e0ad4b04",
+        "size": 2839,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/static_response_summary.json"
+      },
+      "static_screen.json": {
+        "sha256": "38123e7e4ab2e48542ad19fad43be8848696c48943a9729cd59785a8dcaf058b",
+        "size": 38338,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/static_screen.json"
+      },
+      "source_per_image_metrics.jsonl": {
+        "sha256": "80109b09446f996675779a9e3539ebb33a30ccb9e18badf53c06609d5cfc281e",
+        "size": 32895,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/source_per_image_metrics.jsonl"
+      },
+      "screen_per_image_metrics.jsonl": {
+        "sha256": "380b62cd901d91b2e9e43895854a05ff727c79ce1b98318fdf92af2439406d3c",
+        "size": 151127,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/screen_per_image_metrics.jsonl"
+      },
+      "learned_candidates.json": {
+        "sha256": "070194fa29ad4978d1f8c88a0657859187ae7ac93505d41105721575dd423868",
+        "size": 1911,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/learned_candidates.json"
+      },
+      "per_step_coefficients_and_losses.jsonl": {
+        "sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+        "size": 122612,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/per_step_coefficients_and_losses.jsonl"
+      },
+      "candidates/RC-TSSA-GD_step24.json": {
+        "sha256": "8366464714af3e4253b7a14f2eb4c2d23dd63410b944533d5b3be161a6530320",
+        "size": 280,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/RC-TSSA-GD_step24.json"
+      },
+      "candidates/RC-TSSA-GD_step48.json": {
+        "sha256": "36c29c655247441bcf4e159977691949bfdfccca7569983cb2802ce969ab523d",
+        "size": 280,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/RC-TSSA-GD_step48.json"
+      },
+      "candidates/TSSA-GD_step24.json": {
+        "sha256": "e4e9619a375e207c0f5374cb0f9963764236a45ad78dceef44f287664e650486",
+        "size": 277,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/TSSA-GD_step24.json"
+      },
+      "candidates/TSSA-GD_step48.json": {
+        "sha256": "177e85bbae9e805e0b046dc8bd524557ccef5503ca834a96566285c70d0bddec",
+        "size": 277,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/TSSA-GD_step48.json"
+      },
+      "candidates/Uniform-GD_step24.json": {
+        "sha256": "032eb41fa6276de5a76b3d20014acfbb25a473569cf9b60f95dec0c210bde947",
+        "size": 280,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/Uniform-GD_step24.json"
+      },
+      "candidates/Uniform-GD_step48.json": {
+        "sha256": "244c58122cfa209d6ed7e886253bde4698efe258ef53ce016c7d58d7a0a3d1bc",
+        "size": 280,
+        "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T033232213498Z_artifacts/candidates/Uniform-GD_step48.json"
+      }
+    },
+    "log_path": "/data2/zhangzibo/arxiv-tssa/results/mvp-2026-10-28-single-v1/execution-20261028T022004821007Z.log",
+    "log_tail": "{\"stage\": \"cpu-preflight\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:20:42.125660+00:00\"}\n{\"stage\": \"gpu-diagnostic\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:20:42.145555+00:00\"}\n{\"stage\": \"source\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:21:55.787165+00:00\"}\n{\"stage\": \"cache\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:26:21.401282+00:00\"}\n{\"stage\": \"screen\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:28:20.571440+00:00\"}\n{\"stage\": \"train\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T02:52:37.625162+00:00\"}\n{\"stage\": \"select\", \"status\": \"checking_or_running\", \"time\": \"2026-10-28T03:31:08.093900+00:00\"}\n"
+  },
+  "finished_at": "2026-10-28T03:32:38.567615+00:00"
+}

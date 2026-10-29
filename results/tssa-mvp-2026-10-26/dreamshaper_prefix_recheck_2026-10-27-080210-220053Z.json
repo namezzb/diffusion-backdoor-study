@@ -1,0 +1,26 @@
+{
+  "started_at": "2026-10-27T08:02:10.220053+00:00",
+  "read_only": true,
+  "source": {
+    "repo_id": "Lykon/dreamshaper-8",
+    "revision": "a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917",
+    "path": "unet/diffusion_pytorch_model.safetensors",
+    "local_dir": "dreamshaper8",
+    "local_path": "dreamshaper8/unet/diffusion_pytorch_model.safetensors",
+    "size": 3438167536,
+    "sha256": "89b54dc332757e6fff8caef7399e8061833d7d668d42fdbcc02b3e366921c5a6",
+    "source_url": "https://huggingface.co/Lykon/dreamshaper-8/resolve/a7e52b98680b1ba8ff7bce97c7f9f2e2e5337917/unet/diffusion_pytorch_model.safetensors",
+    "git_blob_oid": "5fc363799d5baef782ccbe45646ee4667666db00",
+    "is_lfs": true,
+    "download_status": "not_downloaded"
+  },
+  "GPU_used": false,
+  "writes_to_server": false,
+  "local_staging_bytes": 3438167536,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/dreamshaper_prefix_recheck_2026-10-27-080210-220053Z.json",
+  "returncode": 255,
+  "status": "failed",
+  "error_type": "RuntimeError",
+  "error": "Connection closed by 183.151.123.231 port 7002\nConnection closed by UNKNOWN port 65535\n",
+  "finished_at": "2026-10-27T08:02:21.068903+00:00"
+}

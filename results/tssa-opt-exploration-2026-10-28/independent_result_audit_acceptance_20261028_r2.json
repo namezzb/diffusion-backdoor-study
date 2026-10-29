@@ -1,0 +1,51 @@
+{
+  "GPU_actions": false,
+  "SSH": false,
+  "actual_audit_status": "partial",
+  "actual_completed_receipts": 150,
+  "actual_observation": "observation_103_20261028T091756108336Z-bac35dfe/report.json",
+  "actual_png_hashes_verified": 0,
+  "actual_report_sha256": "1613c8d6a44938246d810113931d6b3550f5683d4f85f6864ad1b54e1d6086e9",
+  "actual_started_receipts": 1,
+  "at": "2026-10-28T09:24:31.064011+00:00",
+  "confirmation_results_opened": false,
+  "files_sha256": {
+    "audit_image_search_results.py": "2e62bbdc5b837fb4d429e8373a42c6f6d33b0019381d3a6cf63f22b523c566b7",
+    "independent_result_audit.md": "4c59138634d3993506b9d518b4d7b5350d7f92be72555a486bb87b626288a985",
+    "independent_result_audit_20261028T091756Z_r2.json": "61cb5131e5f8f4caf4abe026748e9ed56e41b1769302e7685699cb7ae9843cb0",
+    "test_audit_image_search_results.py": "f9a7a873c8560b32e91064a2b0b48e1602cbd969501e7890bbbab0cb060507fd"
+  },
+  "new_scientific_samples": 0,
+  "production_source_or_manifest_modified": false,
+  "task": "independent_local_result_audit",
+  "tests": {
+    "cases": [
+      "MetricTests.test_upload_utility_excludes_candidate_but_upload_attack_not_primary",
+      "MetricTests.test_paired_and_extra_utility_are_combined_and_one_miss_fails",
+      "MetricTests.test_tie_order_norm_then_lex_and_naive_need_not_qualify",
+      "MetricTests.test_confirm_macro_strict_and_worst_noninferior_not_each_state",
+      "MetricTests.test_confirm_has_two_seeds_and_expected_normal_source_labels",
+      "MetricTests.test_exact_clip_boundary_does_not_relax_threshold",
+      "ObservationTests.test_actual_copy_is_partial_with_no_confirm_or_png_claim",
+      "ObservationTests.test_simulated_transfer_tamper",
+      "ObservationTests.test_simulated_record_hash_tamper_despite_rebound_transfer",
+      "ObservationTests.test_simulated_row_tamper_despite_rebound_record_and_transfer",
+      "ObservationTests.test_simulated_invalid_score_bool_is_not_integer",
+      "ObservationTests.test_simulated_identity_tamper",
+      "ObservationTests.test_unknown_duplicate_alias_not_read",
+      "ObservationTests.test_simulated_deleted_transferred_receipt_is_not_silently_partial",
+      "ObservationTests.test_confirm_receipt_with_no_dev_gate_is_never_read",
+      "ObservationTests.test_optional_copied_png_is_hashed",
+      "FullChainTests.test_simulated_complete_chain_with_exact_1440_budget",
+      "FullChainTests.test_simulated_rehashed_wrong_summary_is_detected",
+      "FullChainTests.test_simulated_rehashed_wrong_winner_is_detected",
+      "FullChainTests.test_simulated_wrong_binding_prevents_confirm_read",
+      "FullChainTests.test_simulated_budget_extra_unique_unselected_task_is_rejected"
+    ],
+    "count": 21,
+    "elapsed_seconds": 4.593,
+    "failures": 0,
+    "passed": 21,
+    "synthetic_cases_are_simulated_not_science": true
+  }
+}

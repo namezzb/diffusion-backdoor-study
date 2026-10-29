@@ -1,0 +1,387 @@
+{
+  "created_at": "2026-10-28T06:09:03.167827+00:00",
+  "status": "completed_and_independently_audited",
+  "scientific_outcome": "negative_no_backdoor_preservation_benefit",
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+  "completed_at": "2026-10-28T05:33:06.360921+00:00",
+  "release_observed_at": "2026-10-28T06:02:28.348791+00:00",
+  "project_GPU_count": 0,
+  "returned_artifact_count": 33,
+  "returned_files": {
+    "failure_or_completion_status.json": {
+      "sha256": "3e1da7323c3f686b3eabba9326452383e50ac17b8612bfc707294af9c00c3844",
+      "size": 674,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/failure_or_completion_status.json"
+    },
+    "resource_ledger.json": {
+      "sha256": "63fa469a62eb82c9d8e232015d5f9730e96103686ef0d0b861db520bd01732a5",
+      "size": 4043545,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/resource_ledger.json"
+    },
+    "gpu_diagnostic.json": {
+      "sha256": "40ab01a2a629afad698924c324951f31ef2ccc0de38881a5fdfde12758677f8b",
+      "size": 16944,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/gpu_diagnostic.json"
+    },
+    "runtime_environment.json": {
+      "sha256": "b6487954b710ab5c5a57032c9499def1238112281efd2e76b5ac4584ffac445a",
+      "size": 14810,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/runtime_environment.json"
+    },
+    "source_gate.json": {
+      "sha256": "093a396d6bfbe47c67f84d9c7c8852141590781586fa2585436c1a20080bb574",
+      "size": 3648,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/source_gate.json"
+    },
+    "last_failure_traceback.txt": {
+      "sha256": "e9fa4150928a4b191f7a9d87b70d0d815213d5c5b9801baa91cda11c1082774f",
+      "size": 2244,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/last_failure_traceback.txt"
+    },
+    "prompt_and_cache_index.json": {
+      "sha256": "5efe174dc6b67625d24805549c3b5766d37fbc2827a0ff5b3b819450824345d0",
+      "size": 83818,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/prompt_and_cache_index.json"
+    },
+    "static_response_summary.json": {
+      "sha256": "d4fc88b8835f4f5bf1ebe8f667368ccf95e62a33cc9e2dea645db7c5e0ad4b04",
+      "size": 2839,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/static_response_summary.json"
+    },
+    "static_screen.json": {
+      "sha256": "38123e7e4ab2e48542ad19fad43be8848696c48943a9729cd59785a8dcaf058b",
+      "size": 38338,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/static_screen.json"
+    },
+    "source_per_image_metrics.jsonl": {
+      "sha256": "80109b09446f996675779a9e3539ebb33a30ccb9e18badf53c06609d5cfc281e",
+      "size": 32895,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/source_per_image_metrics.jsonl"
+    },
+    "screen_per_image_metrics.jsonl": {
+      "sha256": "380b62cd901d91b2e9e43895854a05ff727c79ce1b98318fdf92af2439406d3c",
+      "size": 151127,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/screen_per_image_metrics.jsonl"
+    },
+    "learned_candidates.json": {
+      "sha256": "070194fa29ad4978d1f8c88a0657859187ae7ac93505d41105721575dd423868",
+      "size": 1911,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/learned_candidates.json"
+    },
+    "per_step_coefficients_and_losses.jsonl": {
+      "sha256": "74a7afa9749d6b7f63db0b9c18917b33d70b11b13c39755797c4c2269953da51",
+      "size": 122612,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/per_step_coefficients_and_losses.jsonl"
+    },
+    "candidate_response_and_image_metrics.json": {
+      "sha256": "d5e7cf1237b093e97ca2dc4051618c2e6c04609c800abd3b4f6b4169f1492a63",
+      "size": 71940,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidate_response_and_image_metrics.json"
+    },
+    "select_per_image_metrics.jsonl": {
+      "sha256": "cfecf63f98d2f55d8512d1ab7c126ac25e8dbc035951fbc9caf42ff8f556b68c",
+      "size": 344330,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/select_per_image_metrics.jsonl"
+    },
+    "candidate_selection.json": {
+      "sha256": "82e5b2a176620d215b818b2b1ffb05e7ca6aa233138a33792e0b2279811700d6",
+      "size": 87664,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidate_selection.json"
+    },
+    "selected_checkpoint_manifests.json": {
+      "sha256": "c237cff397511f1e22dfbc0698909a4a7384d09b81a0be2206f6315508406acb",
+      "size": 35262,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/selected_checkpoint_manifests.json"
+    },
+    "heldout_report.json": {
+      "sha256": "7561ef87c1f3e23e952c4cf6a3c2c0bb317e38f33298b41ab78b13b06e527195",
+      "size": 42510,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/heldout_report.json"
+    },
+    "heldout_per_image_metrics.jsonl": {
+      "sha256": "03b0ca47eced82e610bd67c92f650147441eb6ecfdef031a5ab055e808dd2f8c",
+      "size": 550914,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/heldout_per_image_metrics.jsonl"
+    },
+    "heldout_failure_cases.json": {
+      "sha256": "a8324716a4c63f474b34e2602e229903128455b9ae8fe39b46024a120e68ab7c",
+      "size": 270351,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/heldout_failure_cases.json"
+    },
+    "fixed_panel_index.json": {
+      "sha256": "67a0686e6c35c55ee93072998265c69a2edaca919f1a83f9a8f0339e37eb72b6",
+      "size": 857,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/fixed_panel_index.json"
+    },
+    "final_report.json": {
+      "sha256": "6d98c25bf5e81ab8336dd91ba5a2ae1135a79b653b0f63c88e231afcc96e81d1",
+      "size": 185538,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/final_report.json"
+    },
+    "report.md": {
+      "sha256": "d0e0c46a02873954079cf9937dd1b0527d31de03bf5b1db2a732a81546de1f7a",
+      "size": 526,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/report.md"
+    },
+    "candidates/RC-TSSA-GD_step24.json": {
+      "sha256": "8366464714af3e4253b7a14f2eb4c2d23dd63410b944533d5b3be161a6530320",
+      "size": 280,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidates/RC-TSSA-GD_step24.json"
+    },
+    "candidates/RC-TSSA-GD_step48.json": {
+      "sha256": "36c29c655247441bcf4e159977691949bfdfccca7569983cb2802ce969ab523d",
+      "size": 280,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidates/RC-TSSA-GD_step48.json"
+    },
+    "candidates/TSSA-GD_step24.json": {
+      "sha256": "e4e9619a375e207c0f5374cb0f9963764236a45ad78dceef44f287664e650486",
+      "size": 277,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidates/TSSA-GD_step24.json"
+    },
+    "candidates/TSSA-GD_step48.json": {
+      "sha256": "177e85bbae9e805e0b046dc8bd524557ccef5503ca834a96566285c70d0bddec",
+      "size": 277,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidates/TSSA-GD_step48.json"
+    },
+    "candidates/Uniform-GD_step24.json": {
+      "sha256": "032eb41fa6276de5a76b3d20014acfbb25a473569cf9b60f95dec0c210bde947",
+      "size": 280,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidates/Uniform-GD_step24.json"
+    },
+    "candidates/Uniform-GD_step48.json": {
+      "sha256": "244c58122cfa209d6ed7e886253bde4698efe258ef53ce016c7d58d7a0a3d1bc",
+      "size": 280,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidates/Uniform-GD_step48.json"
+    },
+    "panels/Edev_0.15.png": {
+      "sha256": "adef7aaca92918d123eb9689e8b22b178864ac68dd54296c145a1ca7b9049c5a",
+      "size": 743761,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/panels/Edev_0.15.png"
+    },
+    "panels/Ehold_0.15.png": {
+      "sha256": "ab11a8c5b65e9d57b2578b2ca505e520117258c76837d6df1f5fa9c69f13c597",
+      "size": 781860,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/panels/Ehold_0.15.png"
+    },
+    "panels/Ehold_0.25.png": {
+      "sha256": "92772f4738e509d4257009578946c7d05055cead1f715357e147f7d5dd8fc277",
+      "size": 812411,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/panels/Ehold_0.25.png"
+    },
+    "panels/upload.png": {
+      "sha256": "95258798d0b092b3e7cc353302153e11b9dda0ee37cdbd0ee44a7baf290ce5d9",
+      "size": 726034,
+      "local_path": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/panels/upload.png"
+    }
+  },
+  "scientific_image_counts": {
+    "source": 48,
+    "screen": 220,
+    "development": 484,
+    "heldout": 768,
+    "total": 1520,
+    "maximum": 1712
+  },
+  "optimizer_updates": 144,
+  "selected_candidates": {
+    "RC-TSSA-GD": "RC-TSSA-GD_step24",
+    "TSSA": null,
+    "Uniform": "Uniform-GD_step24",
+    "naive": "naive"
+  },
+  "heldout_family_metrics": {
+    "RC-TSSA-GD": {
+      "candidate": "RC-TSSA-GD_step24",
+      "mean_heldout_ASR": 0.0,
+      "minimum_heldout_ASR": 0.0,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "upload": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          }
+        }
+      }
+    },
+    "Uniform": {
+      "candidate": "Uniform-GD_step24",
+      "mean_heldout_ASR": 0.0,
+      "minimum_heldout_ASR": 0.0,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          },
+          "upload": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.0,
+            "passed": true
+          }
+        }
+      }
+    },
+    "naive": {
+      "candidate": "naive",
+      "mean_heldout_ASR": 0.515625,
+      "minimum_heldout_ASR": 0.1875,
+      "normal_utility_gate": {
+        "passed": true,
+        "states": {
+          "Edev_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": -0.35015433095395565,
+            "passed": true
+          },
+          "Ehold_0.15": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": -0.03125,
+            "normal_CLIP_drop": -0.736458320170641,
+            "passed": true
+          },
+          "Ehold_0.25": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.03125,
+            "normal_CLIP_drop": 0.18780548125505447,
+            "passed": true
+          },
+          "upload": {
+            "ACC_passed": true,
+            "CLIP_passed": true,
+            "normal_ACC_drop": 0.0,
+            "normal_CLIP_drop": 0.3910026978701353,
+            "passed": true
+          }
+        }
+      }
+    }
+  },
+  "resource_buckets": {
+    "diagnostic_extra": {
+      "committed_operation_cost_upper_bounds": {
+        "autograd_calls": 1,
+        "branch_NFE": 138
+      },
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 1,
+      "known_actual_branch_NFE": 138,
+      "known_actual_optimizer_updates": 0
+    },
+    "main": {
+      "committed_operation_cost_upper_bounds": {
+        "autograd_calls_max": 1008,
+        "branch_NFE": 82248,
+        "full_images": 1472,
+        "optimizer_updates": 144,
+        "scorer_calls": 1472,
+        "trajectories": 16
+      },
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 1008,
+      "known_actual_branch_NFE": 82248,
+      "known_actual_optimizer_updates": 144
+    },
+    "source_extra": {
+      "committed_operation_cost_upper_bounds": {
+        "branch_NFE": 2400,
+        "full_images": 48,
+        "scorer_calls": 48
+      },
+      "counter_incomplete_operations": [],
+      "known_actual_autograd_calls": 0,
+      "known_actual_branch_NFE": 2400,
+      "known_actual_optimizer_updates": 0
+    }
+  },
+  "historical_interruption_preserved": true,
+  "frozen_inputs": {
+    "manifest": {
+      "path": "research/tssa_mvp_2026-10-26.json",
+      "sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c"
+    },
+    "assets": {
+      "path": "research/tssa_mvp_assets_2026-10-26.json",
+      "sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902"
+    },
+    "method": {
+      "path": "research/tssa_response_calibration_method_proposal.md",
+      "sha256": "ac7946567c22053de01dde3e4df3248ade298a7e42911924f486d25bd9dee169"
+    }
+  },
+  "final_observation": {
+    "path": "results/tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z.json",
+    "sha256": "456a1874c69761de0bbf25331a7acb00e7fe1eb488d4f3a94db4a9ea9f22024e"
+  },
+  "report": {
+    "report": "results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md",
+    "sha256": "e5be86aa26da5e893f5d10a029716f177a13ae625d7c4445ddfbca65200abc7f"
+  },
+  "automation_removal_status": "blocked_by_tool_approval_policy",
+  "final_CPU_audit": {
+    "report": "results/tssa-mvp-2026-10-26/final_heldout_audit_20261028T0602Z.json",
+    "sha256": "c04067661806870bdc2d4adff022de20825c6e27cf29f9a07922ff7e9ae9c833",
+    "checks": 37334,
+    "issues": 0,
+    "passed": true
+  },
+  "development_CPU_audit": {
+    "report": "results/tssa-mvp-2026-10-26/development_selection_audit_20261028T0601Z.json",
+    "sha256": "71e7554555b8e9dca4757a590aee32ea8c45986d6703e6b6981423ef5e610dfd",
+    "checks": 6930,
+    "issues": 0
+  },
+  "automation_cleanup": {
+    "report": "results/tssa-mvp-2026-10-26/automation_cleanup_20261028.json",
+    "sha256": "75803e169545722f2c2a95a2b2587421466edcff75facd7aaa0790e2f754343d"
+  }
+}

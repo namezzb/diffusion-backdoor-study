@@ -1,0 +1,23 @@
+{
+  "actual_GPU_workers": 1,
+  "completed_stages": [
+    "cpu-preflight",
+    "gpu-diagnostic",
+    "source",
+    "cache",
+    "screen",
+    "train",
+    "select"
+  ],
+  "configured_GPU_workers": 1,
+  "error": null,
+  "error_type": null,
+  "process_exit_releases_CUDA": true,
+  "protocol_sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+  "real_SD_CUDA_preflight_passed": true,
+  "run_identity_sha256": "247d164ebc71d8672a069cf3d20398883ddd3592d2fc44d51ba17ff7fe9c4d62",
+  "second_GPU_reserved_or_initialized": false,
+  "stage": "select",
+  "status": "running",
+  "updated_at": "2026-10-28T04:22:34.096465+00:00"
+}

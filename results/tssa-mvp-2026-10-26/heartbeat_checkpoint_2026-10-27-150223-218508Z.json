@@ -1,0 +1,188 @@
+{
+  "automation_id": "gpu",
+  "heartbeat_trigger_at": "2026-10-27T14:58:59.462Z",
+  "observed_at": "2026-10-27T23:02:23.218508+08:00",
+  "phase": "remaining_model_assets_transferring",
+  "input_sha256": {
+    "AGENTS.md": "02ab1a2a52093aa3d4ea2723bb0433ec908a3f4345472087a3b640cc560af0ee",
+    "research/tssa_response_calibration_method_proposal.md": "ac7946567c22053de01dde3e4df3248ade298a7e42911924f486d25bd9dee169",
+    "research/tssa_mvp_2026-10-26.json": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+    "research/tssa_mvp_assets_2026-10-26.json": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "server/stage_school_assets.py": "5de11a27f3aa4bd412eef6dd9b837d6ab0be82fc6bf0efb437db29901b15c776",
+    "scripts/connection/probe_school_gpu.py": "98b4893066f49d29469b6883d84eb2595fe34ad48082c19232fbe1da5f5d3c5f"
+  },
+  "server_probe": {
+    "report": "results/tssa-mvp-2026-10-26/server-probes/school104-20261027T145927475790Z.json",
+    "sha256": "9256d36f8c9097d308c0c00a4699246240bed33648e7f2c9eda04506dd3afa65",
+    "status": "observed",
+    "started_at": "2026-10-27T14:59:27.475790+00:00",
+    "finished_at": "2026-10-27T14:59:32.139070+00:00",
+    "sample_finished_at": "2026-10-27T14:59:32.310097+00:00",
+    "driver_prohibited_indices": [],
+    "other_compute_process_indices": [
+      0,
+      1,
+      2
+    ],
+    "other_graphics_process_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "observed_process_free_indices": [],
+    "known_own_gpu_count_lower_bound": 0,
+    "own_gpu_count_complete": true,
+    "own_gpu_count_on_this_server": 0,
+    "current_platform_disabled_state_known": false,
+    "queue_allocation_known": false,
+    "reservation_or_GPU_job_started": false,
+    "retry_performed_this_wake": false,
+    "GPU_UUID_mapping_matches_previous_sample": true,
+    "inventory_change_report": "results/tssa-mvp-2026-10-26/gpu_inventory_change_2026-10-27-140924-748406Z.json"
+  },
+  "website_checked_this_wake": false,
+  "current_portal_permission": false,
+  "transfer_audit": {
+    "report": "results/tssa-mvp-2026-10-26/active_transfer_integrity_audit_2026-10-27-150223-218508Z.json",
+    "sha256": "b4908b1e093849bbe07be82ca8a655a862dcf741c1302f12cbeea233a69d32d3",
+    "complete_files": 33,
+    "complete_bytes": 9184825209,
+    "new_completed_files": 0,
+    "new_chunks_since_previous_audit": 489,
+    "current_UNet_committed_bytes": 2910846976
+  },
+  "local_UNet_integrity_values": {
+    "passed": true,
+    "report": "results/tssa-mvp-2026-10-26/local_openjourney_unet_integrity_values_2026-10-27-150026-043506Z.json",
+    "sha256": "cbc8aa7052e998cfb866b755ce39d4a7a5cd416470c9d94ad1ecff22756f4645",
+    "tensor_count": 686,
+    "float32_elements_scanned": 859520964,
+    "nonfinite_elements": 0,
+    "elements_outside_finite_float16_range": 0,
+    "seconds": 2.4955875410014414,
+    "scope": "Local pinned file structure and numerical integrity only; no model loading, forward/backward, CUDA, scientific images or optimization."
+  },
+  "remaining_model_transfer": {
+    "status": "running",
+    "started_at": "2026-10-27T14:05:48.913379+00:00",
+    "pid": 14992,
+    "manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "selected_count": 47,
+    "selected_bytes": 14683626535,
+    "already_verified_before_start": 27,
+    "chunk_bytes": 4194304,
+    "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.json",
+    "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-140548-913379Z.log",
+    "ledger": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/asset_transfer.jsonl",
+    "automatic_retry": false,
+    "GPU_used": false,
+    "minimum_local_free_reserve": 4294967296,
+    "cleanup": "Only task-local temporary files after full remote SHA256 matches pinned source",
+    "observed_at": "2026-10-27T23:02:23.218508+08:00",
+    "child_pid": 14993,
+    "bounded_awake": {
+      "pid": 14994,
+      "release_when_process_exits": 14993,
+      "maximum_seconds": 21600,
+      "expires_at": "2026-10-27T20:05:48.916811+00:00",
+      "status": "observed_running_with_transfer"
+    },
+    "active_pid": 14992,
+    "session_id": 96815,
+    "processes_confirmed_exited": false,
+    "verified_count": 33,
+    "verified_bytes": 9184825209,
+    "verified_observed_at": "2026-10-27T23:02:23.218508+08:00",
+    "by_role_file_counts": {
+      "sd15": {
+        "expected": 14,
+        "verified": 14
+      },
+      "backdoor_tpa": {
+        "expected": 2,
+        "verified": 2
+      },
+      "dreamshaper8": {
+        "expected": 9,
+        "verified": 9
+      },
+      "openjourney": {
+        "expected": 9,
+        "verified": 8
+      },
+      "vit": {
+        "expected": 4,
+        "verified": 0
+      },
+      "clip": {
+        "expected": 9,
+        "verified": 0
+      }
+    },
+    "current_relative_path": "openjourney/unet/diffusion_pytorch_model.safetensors",
+    "current_asset_bytes": 3438167540,
+    "verified_chunk_committed_bytes": 2910846976,
+    "last_verified_chunk": {
+      "offset": 2906652672,
+      "chunk_size": 4194304,
+      "committed_size": 2910846976,
+      "sha256": "79dfb62c2fd01ee523a3ef9d9e504170d694179d96fe5427d5f6fd67a5e468eb"
+    },
+    "new_chunk_receipts_this_attempt": 811,
+    "current_asset_chunk_receipts": 694,
+    "current_asset_final_remote_hash_verified": false,
+    "remote_prefix_requires_revalidation": false,
+    "prefix_recheck_status": "current_UNet_started_from_zero_by_verified_receiver",
+    "latest_prefix_recheck": null,
+    "resume_verified_prefix_bytes": 0,
+    "resume_verified_prefix_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "remote_prefix_observed_at": null,
+    "retained_incomplete_fragments": null,
+    "latest_chunk_audit": "results/tssa-mvp-2026-10-26/active_transfer_integrity_audit_2026-10-27-150223-218508Z.json",
+    "payload_chunks_compared_with_local": true,
+    "remote_data_disk_free_bytes": 7953336107008,
+    "local_free_bytes": 12778647552,
+    "current_local_staging_path": "/private/tmp/arxiv-tssa-stage/c31a76e63965dbb1dfaa75a4c7d337837855988e53729c4f92f84114b60fbfd5.part",
+    "last_failure_report": "results/tssa-mvp-2026-10-26/remaining_model_transfer_2026-10-27-093201-054513Z.json",
+    "current_attempt_freshly_reverified_files": 27,
+    "latest_observation": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-143739-967980Z.json",
+    "historical_OpenJourney_TE_prefix_recheck": {
+      "report": "results/tssa-mvp-2026-10-26/openjourney_prefix_recheck_2026-10-27-140451-593578Z.json",
+      "bytes": 25165824,
+      "sha256": "f519f6e2b0b3841f4f1a324745c352ebd19c582b6bde5d05b38e3d6563b73ddf",
+      "observed_at": "2026-10-27T14:04:56.514529+00:00",
+      "scope": "Completed text encoder, not current UNet."
+    },
+    "payload_chunk_validation_scope": "Prior205currentUNet chunks preserved in previous audit; all subsequent currentUNet chunk payloads independently matched this wake.",
+    "local_source_sha256": "e7c8bf56a6c16c3a3cb3919f4f0bdc28c2eefb7dbd5f4d9d15a269a1f4a77815"
+  },
+  "research_execution": {
+    "valid_research_images": 0,
+    "gradient_optimization_updates": 0,
+    "candidate_results": [],
+    "a_b_trajectories": [],
+    "normal_metrics": null,
+    "ASR": null,
+    "GPU_time_seconds": 0,
+    "note": "Tiny CPU gradients and synthetic orchestration tests are implementation evidence only."
+  },
+  "readiness_blockers": [
+    "remaining_model_assets_not_transferred",
+    "full_checkpoint_CPU_and_CUDA_preflight_pending",
+    "fresh_GPU_allocation_not_verified",
+    "current_portal_observation_unavailable",
+    "all_observed_GPUs_have_other_users_processes",
+    "GPU_inventory_changed_requires_fresh_platform_and_UUID_verification"
+  ],
+  "queue_changed": false,
+  "GPU_job_started": false,
+  "automation_interval_minutes": 30,
+  "next_ssh_probe_not_before": "2026-10-27T15:28:59.462+00:00",
+  "notification": {
+    "observed_at": "2026-10-27T23:02:23.218508+08:00",
+    "decision": "DONT_NOTIFY",
+    "reason": "No actionable resource, failure, completed model role, or scientific conclusion; current transfer continues and local asset checks pass."
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "started_at": "2026-10-27T16:15:51.271111+00:00",
+  "status": "passed",
+  "script_sha256": "442eaafadb41fb5618799fcaaa6a0c9d1a117a0f186bde9b676d29b30cbd050a",
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remote_inference_components_2026-10-27-161551-271111Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/remote_inference_components_2026-10-27-161551-271111Z.log",
+  "GPU_used": false,
+  "remote_model_downloads": false,
+  "timeout_seconds": 210,
+  "remote_CPU_timeout_seconds": 180,
+  "scope": "CPU scorer and VAE loading only; no forward, backward, CUDA, images or optimization.",
+  "returncode": 0,
+  "result": {
+    "status": "passed",
+    "observed_at": "2026-10-27T16:16:02.501002+00:00",
+    "source_files_verified": 20,
+    "models": {
+      "vit": {
+        "class": "ViTForImageClassification",
+        "parameter_count": 86567656,
+        "parameter_tensors": 200,
+        "devices": [
+          "cpu"
+        ],
+        "trainable_parameters": 0
+      },
+      "clip": {
+        "class": "CLIPModel",
+        "parameter_count": 427616513,
+        "parameter_tensors": 590,
+        "devices": [
+          "cpu"
+        ],
+        "trainable_parameters": 0
+      },
+      "vae": {
+        "class": "AutoencoderKL",
+        "parameter_count": 83653863,
+        "parameter_tensors": 248,
+        "devices": [
+          "cpu"
+        ],
+        "trainable_parameters": 0
+      }
+    },
+    "model_weights_loaded": true,
+    "model_forward_executed": false,
+    "CUDA_initialized": false,
+    "scientific_images": 0,
+    "optimization_updates": 0,
+    "peak_rss_KiB": 752584
+  },
+  "finished_at": "2026-10-27T16:16:03.095974+00:00",
+  "seconds": 11.824777499998163,
+  "stderr_tail": "",
+  "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-10-26T15:59:47.140596+00:00",
+  "kind": "local_offline_installer_checks_only",
+  "test_count": 11,
+  "checks": [
+    {
+      "name": "tests",
+      "command": [
+        "/Users/zzb/arxiv/.venv/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "server",
+        "-p",
+        "test_install_school_offline_env.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "results/tssa-mvp-2026-10-26/offline_installer_tests_2026-10-26-235946.log",
+      "log_sha256": "f45a83c5e4cba5f3c430113c51724e03774bc482b6d69e30faaabfa7fa7f92f8"
+    },
+    {
+      "name": "plan",
+      "command": [
+        "/Users/zzb/arxiv/.venv/bin/python",
+        "-B",
+        "server/install_school_offline_env.py",
+        "--dry-run"
+      ],
+      "exit_code": 0,
+      "log": "results/tssa-mvp-2026-10-26/offline_installer_plan_2026-10-26-235946.log",
+      "log_sha256": "d3749e13fda5ae7d5244082d1d5e338bfcf997251164ee6b7b8bb78246526d0b"
+    }
+  ],
+  "file_sha256": {
+    "server/install_school_offline_env.py": "deedb860b3aeb2743ae51adbd7df87d808d6b447616555476595660d405c0480",
+    "server/test_install_school_offline_env.py": "dc1696d944de03f72a59f4443497e863309e8ea452f1e233ee42bb08e2370ae1",
+    "research/tssa_mvp_environment_2026-10-26.json": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+    "research/tssa_mvp_requirements_2026-10-26.lock": "c954f66450719b86a2761d2c85faed26a2f27cdb244f4d2f8df7ddc06163d851"
+  },
+  "remote_installed": false,
+  "GPU_tested": false
+}

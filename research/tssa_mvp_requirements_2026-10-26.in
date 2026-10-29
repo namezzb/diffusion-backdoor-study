@@ -1,0 +1,16 @@
+# Target: isolated Linux x86_64 CPython 3.11.7 environment on Ubuntu 24.04.
+# Resolve with the official CUDA 12.8 PyTorch index; this file is not a transitive lock.
+torch==2.7.1+cu128
+torchvision==0.22.1+cu128
+diffusers==0.35.1
+transformers==4.49.0
+huggingface-hub==0.34.4
+accelerate==1.10.1
+safetensors==0.6.2
+numpy==1.26.4
+Pillow==11.3.0
+PyYAML==6.0.2
+tqdm==4.67.1
+torchmetrics==1.8.2
+# Keep CLIPTokenizer text cleaning consistent for the Unicode trigger.
+ftfy==6.3.1

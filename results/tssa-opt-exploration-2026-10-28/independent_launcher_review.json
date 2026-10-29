@@ -1,0 +1,110 @@
+{
+  "at_utc": "2026-10-28T07:27:48.867337+00:00",
+  "launcher_sha256": "20885f4c10e036796ade7fe253f0e4608002e73d48f93eebc93e00cf23a188b8",
+  "frozen_plan_sha256": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+  "checks": [
+    {
+      "name": "real_runner_CLI_contract_103",
+      "passed": true,
+      "command": [
+        "/data1/zhangzibo/arxiv-tssa/venv/bin/python",
+        "-B",
+        "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_image_search_run.py",
+        "run",
+        "--plan",
+        "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_optimization_exploration_2026-10-28.json",
+        "--old-protocol",
+        "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_2026-10-26.json",
+        "--asset-manifest",
+        "/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_assets_2026-10-26.json",
+        "--models-root",
+        "/data1/zhangzibo/arxiv-tssa/models",
+        "--run-root",
+        "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+        "--scorer-device",
+        "cpu",
+        "--until",
+        "confirm"
+      ]
+    },
+    {
+      "name": "real_runner_CLI_contract_104",
+      "passed": true,
+      "command": [
+        "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+        "-B",
+        "/data2/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/scripts/merging/tssa_image_search_run.py",
+        "run",
+        "--plan",
+        "/data2/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_optimization_exploration_2026-10-28.json",
+        "--old-protocol",
+        "/data2/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_2026-10-26.json",
+        "--asset-manifest",
+        "/data2/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/research/tssa_mvp_assets_2026-10-26.json",
+        "--models-root",
+        "/data2/zhangzibo/arxiv-tssa/models",
+        "--run-root",
+        "/data2/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+        "--scorer-device",
+        "cpu",
+        "--until",
+        "confirm"
+      ]
+    },
+    {
+      "name": "real_runtime_environment_before_CUDA",
+      "passed": true
+    },
+    {
+      "name": "runtime_directories_before_target_claim_before_spawn",
+      "passed": true,
+      "line_order": {
+        "prepare_runtime_directories": 329,
+        "exclusive_json": 364,
+        "subprocess.Popen": 366
+      }
+    },
+    {
+      "name": "claim_file_then_parent_and_grandparent_fsynced",
+      "passed": true
+    },
+    {
+      "name": "same_plan_other_server_cannot_replace_permanent_claim",
+      "passed": true
+    },
+    {
+      "name": "fsync_failure_propagates_and_retains_claim",
+      "passed": true
+    },
+    {
+      "name": "explicit_live_UI_accepts_null_sample_but_rejects_history_fabrication_and_staleness",
+      "passed": true
+    },
+    {
+      "name": "display_exceptions_match_actual_readonly_identity_evidence",
+      "passed": true,
+      "evidence_sha256": "d9c4c41e2b895fa5364b18fea2132ac544f22b684c471e405268d381cf65e292"
+    },
+    {
+      "name": "Xwayland_exception_is_one_observed_GPU0_instance",
+      "passed": true
+    },
+    {
+      "name": "frozen_scientific_plan_and_sources_unchanged",
+      "passed": true
+    },
+    {
+      "name": "no_torch_import_or_real_CUDA",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "must_fix": [],
+  "source_still_current": true,
+  "SSH_calls": 0,
+  "GPU_calls": 0,
+  "actual_child_processes": 0,
+  "permanent_live_claims_created": 0,
+  "scientific_images": 0,
+  "scope": "Targeted contract and new-delta review, not a rerun of the author 24-test suite. Same-Mac plan claim protects dispatch to103/104; no universal distributed coordinator claim."
+}

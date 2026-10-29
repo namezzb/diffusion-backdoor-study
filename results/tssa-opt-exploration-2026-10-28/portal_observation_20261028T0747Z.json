@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-28T07:47:46.178767+00:00",
+  "source": "authenticated browser UI",
+  "views": [
+    "我的概况",
+    "服务器状态",
+    "GPU 排队"
+  ],
+  "own_GPU_count": 0,
+  "effective_quota": 4,
+  "account": "normal",
+  "pending_allocations": 0,
+  "queue56": "waiting_104_one_GPU_second_position",
+  "node103": "three idle, online, no disabled/history markers; no node103 queue displayed",
+  "node104": "five busy by other researchers",
+  "node101": "four busy",
+  "node127": "four busy",
+  "node206": "offline and historical",
+  "sample_timestamp_shown": false,
+  "launch_permission": false,
+  "reason": "preparatory observation only; fresh evidence required at launch",
+  "queue_rule": "Idle resources match the relevant queue after prior-user grace; no node103 waiters displayed."
+}

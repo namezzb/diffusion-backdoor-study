@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "at": "2026-10-28T09:58:31.857864+00:00",
+  "status": "local_CPU_tests_passed_remote_not_ready",
+  "local_tests": {
+    "command": "python3 results/tssa-opt-exploration-2026-10-28/test_recover_interrupted_search.py",
+    "tests_run": 14,
+    "failures": 0,
+    "errors": 0,
+    "reported_duration_seconds": 0.248,
+    "scope": "Actual local CPU tests; temporary images/records/host facts are explicitly SIMULATED; no SSH or GPU or real child process in tests"
+  },
+  "default_dry_run": {
+    "executed": true,
+    "exit_code": 0,
+    "mode": "dry_run_local_only_no_connection",
+    "local_inputs_verified": true,
+    "remote_state_verified": false,
+    "ready_for_one_shot_execution": false,
+    "completed_evidence_count": 171
+  },
+  "files": {
+    "results/tssa-opt-exploration-2026-10-28/recover_interrupted_search.py": "ee69bb8b7b624339e2ab367e19fb99fe6d1a9dcf708fe9068c57af787d886a52",
+    "results/tssa-opt-exploration-2026-10-28/test_recover_interrupted_search.py": "23e8ac150ba636ecd66d4fcc15095242cbaad8d150b119306fe1088a4a104715",
+    "results/tssa-opt-exploration-2026-10-28/launch_image_search.py": "f80feba9f750a98c3726ebecf93f4a56a6e0e315197f4ef1ba39eba8744b57b4",
+    "research/tssa_optimization_exploration_2026-10-28.json": "8e903452b19692a2e0716b623de03f83a77c3a1c8afbef58b883c8d7522837a6",
+    "results/tssa-opt-exploration-2026-10-28/recovery_path_metadata_20261028.json": "43c09af99bf20af45a6f12dcb4d169e1daa43435f6ed1f14f7105501ddc790eb",
+    "results/tssa-opt-exploration-2026-10-28/interruption_audit_20261028T093019653828Z.json": "e8e21fa495a7fe834f0f5dbc77e0c6e69938813abc3b714e3d2274815b4565e0"
+  },
+  "current_blockers": [
+    {
+      "kind": "boot_changed_since_manual_audit",
+      "bound_boot_id": "75f147ae-6098-47c8-aed0-a13796130af3",
+      "latest_observed_boot_id": "1c2bddf4-f594-43cf-8a4d-5b116ad79067",
+      "evidence": "results/tssa-opt-exploration-2026-10-28/recovery_path_metadata_20261028.json",
+      "observed_at": "2026-10-28T09:50:08.233792+00:00",
+      "decision": "Keep exact old-boot guard and refuse execution; do not merely replace constant. A new manual interruption audit must bind latest boot, original PID absence, pending absence and all completed receipt/PNG/source/identity hashes."
+    },
+    {
+      "kind": "existing_run_permissions_are_group_writable",
+      "evidence": "results/tssa-opt-exploration-2026-10-28/recovery_path_metadata_20261028.json",
+      "paths": [
+        {
+          "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1",
+          "uid": 24112,
+          "observed_mode": "0775",
+          "proposed_mode": "0755"
+        },
+        {
+          "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/operations",
+          "uid": 24112,
+          "observed_mode": "0775",
+          "proposed_mode": "0755"
+        },
+        {
+          "path": "/data1/zhangzibo/arxiv-tssa/results/tssa-opt-exploration-2026-10-28-v1/.run.lock",
+          "uid": 24112,
+          "observed_mode": "0664",
+          "proposed_mode": "0644"
+        }
+      ],
+      "decision": "Strict ownership/no-group-write guard remains. No permission mutations executed; only these exact owned non-symlink paths may be tightened after inode/owner/mode and inactive lock recheck, preserve file bytes and record before/after."
+    },
+    {
+      "kind": "fresh_authenticated_UI_not_supplied",
+      "decision": "Parent reports portal timeout/inconsistent state at about17:47; no current permission evidence. Before any actual execution recheck all three authenticated views and full UUID within120 seconds."
+    }
+  ],
+  "recovery_scope": {
+    "server": "103",
+    "original_pid": 188034,
+    "GPU_UUID": "GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523",
+    "completed_unique_images_reused": 171,
+    "failed_attempts_preserved": 1,
+    "failed_branch_NFE_upper_bound": 50,
+    "until": "dev",
+    "until_dev_max_unique_images": 864,
+    "until_dev_max_attempts": 865,
+    "until_dev_max_branch_NFE_including_failure": 43250,
+    "global_attempt_cap": 1440,
+    "global_branch_NFE_cap": 72000,
+    "confirm_allowed": false,
+    "automatic_retry_allowed": false
+  },
+  "boundaries": {
+    "SSH_executed_by_this_subtask": false,
+    "GPU_initialized": false,
+    "live_run_modified": false,
+    "frozen_scientific_sources_modified": false,
+    "frozen_manifest_modified": false,
+    "original_claims_modified": false,
+    "recovery_claims_created_on_actual_run": false,
+    "CUDA_acceptance": false
+  },
+  "commands": {
+    "local_dry_run": "python3 results/tssa-opt-exploration-2026-10-28/recover_interrupted_search.py",
+    "future_execute_template_NOT_ready_now": "python3 results/tssa-opt-exploration-2026-10-28/recover_interrupted_search.py --permission <fresh-manual-UI-permission.json> --execute"
+  },
+  "observer_binding": {
+    "remote_receipt_sha256": "Provided on local result as exact exclusive_json raw-byte SHA256, not inserted in receipt itself",
+    "remote_receipt_filename": "manual-recovery-0e39df5be0cd73d07934fe529fc310cfd651f21d955276fc55b5200615f00c66-<token>.receipt.json",
+    "process_identity": [
+      "pid",
+      "process_start_ticks",
+      "boot_id",
+      "run_root"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-10-28T09:27:52.274641+00:00",
+  "status": "passed",
+  "returncode": 0,
+  "test_count": 12,
+  "simulation_only": true,
+  "GPU": false,
+  "SSH": false,
+  "scientific_images_generated": 0,
+  "files_sha256": {
+    "analyze_confirmation_uncertainty.py": "3856f4af95d8eaf3d582516154afc645c4e68e71a1782346b9a14c45ee7ca990",
+    "test_confirmation_uncertainty.py": "daa32201654933c1327f1c7d8fc12ad4b97ae4fbaaa0fcbe2165e6d1e2701a46",
+    "confirmation_uncertainty_plan.md": "54c687eeb6ea0191d5ac2542b9e46880e595aff3dec8f1ecd4d2f176ed9a15f5"
+  },
+  "log_sha256": "75955dffbad16713306917e6ddfccce354c7e06f44982399f1891a52f6cb7e1e",
+  "replay_semantics": "Analysis-only scalar CPython3.11 left-to-right sum; exact frozen source hashes and decision gates unchanged",
+  "previous_11_test_evidence_preserved": "confirmation_uncertainty_CPU_readiness.json"
+}

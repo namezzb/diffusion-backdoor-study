@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-28T07:54:58.442134+00:00",
+  "reason": "OpenSSH parses ControlMaster=yes followed by -M as ask, refusing noninteractive slave sessions",
+  "old_sha256": "bc608dd5498e45845f9c4a34135c62c606490f240286d9bd479fadfffd85383e",
+  "new_sha256": "ea82a34de6f34c3ca3b97ff0822e645cdf8e048871bb934c87021b21e09415d2",
+  "old_source_preserved": "results/tssa-opt-exploration-2026-10-28/stage_node103_reuse_ssh_pre_duplicate_M_fix.py",
+  "effective_options": {
+    "old": "controlmaster ask",
+    "fixed": "controlmaster true"
+  },
+  "original_failure_and_cleanup": [
+    {
+      "at": "2026-10-28T07:53:59.247507+00:00",
+      "error": "school103 SSH 255: Master refused session request: Permission denied\r\nConnection closed by UNKNOWN port 65535\r\n",
+      "error_type": "RuntimeError",
+      "partial_files_and_existing_data_preserved": true,
+      "seconds": 14.113760332998936,
+      "stage": "wheels",
+      "status": "failed_no_automatic_retry",
+      "transport": "task_private_masters"
+    },
+    {
+      "at": "2026-10-28T07:54:04.281036+00:00",
+      "control_exit_returncode": 255,
+      "control_exit_stderr": "Master refused termination request: Permission denied\n",
+      "control_path": "/private/tmp/tssa-mux-jcu4fnva/s104",
+      "event": "private_master_cleanup",
+      "host": "school104",
+      "pid": 59716,
+      "returncode": 0,
+      "stage": "wheels",
+      "stderr_tail": "",
+      "transport": "task_private_masters"
+    },
+    {
+      "at": "2026-10-28T07:54:09.332244+00:00",
+      "control_exit_returncode": 255,
+      "control_exit_stderr": "Master refused termination request: Permission denied\n",
+      "control_path": "/private/tmp/tssa-mux-jcu4fnva/s103",
+      "event": "private_master_cleanup",
+      "host": "school103",
+      "pid": 59702,
+      "returncode": 0,
+      "stage": "wheels",
+      "stderr_tail": "** WARNING: connection is not using a post-quantum key exchange algorithm.\r\n** This session may be vulnerable to \"store now, decrypt later\" attacks.\r\n** The server may need to be upgraded. See https://openssh.com/pq.html\r\n",
+      "transport": "task_private_masters"
+    }
+  ]
+}

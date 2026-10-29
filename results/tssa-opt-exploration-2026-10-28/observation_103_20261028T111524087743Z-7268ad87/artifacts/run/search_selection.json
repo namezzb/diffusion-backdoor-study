@@ -1,0 +1,24 @@
+{
+  "identity_sha256": "d95475cd4f8067ad78e28b2aad1cf1c968d3b7c995930790b2687c053752c814",
+  "payload": {
+    "coefficients": {
+      "a100_b075": [
+        1.0,
+        0.75
+      ],
+      "uniform_075": [
+        0.75,
+        0.75
+      ]
+    },
+    "promotion_eligible": [],
+    "reason": "eligible_candidates",
+    "selected": [
+      "uniform_075",
+      "a100_b075"
+    ],
+    "stage": "search",
+    "summary_sha256": "11c332c1ba57ff8fbb643b9588d8e886a3d613f5c6fc13093221e36b6b66e2e0"
+  },
+  "sha256": "406264e56c393d047a1299bf295b9ffb17598cc274b3973048ef56538b60ec4f"
+}

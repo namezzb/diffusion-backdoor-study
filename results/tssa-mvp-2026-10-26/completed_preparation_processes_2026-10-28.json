@@ -1,0 +1,13 @@
+{
+  "observed_at": "2026-10-27T16:12:58.417861+00:00",
+  "checked_pids": [
+    77129,
+    77161,
+    77162,
+    79649,
+    86923
+  ],
+  "ps_returncode": 1,
+  "processes": [],
+  "scope": "Completed transfer and failed first CPU preflight processes only"
+}

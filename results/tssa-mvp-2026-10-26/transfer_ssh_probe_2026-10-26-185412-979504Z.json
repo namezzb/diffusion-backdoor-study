@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-10-26T18:54:12.979836+00:00",
+  "kind": "independent_readonly_SSH_recovery_probe",
+  "no_GPU": true,
+  "status": "failed",
+  "pid": 81885,
+  "report": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-185412-979504Z.json",
+  "log": "/Users/zzb/arxiv/results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-185412-979504Z.log",
+  "route_config": "Host school-jump\n    HostName 115.226.138.244",
+  "returncode": 255,
+  "stdout": "",
+  "stderr_tail": "nssh.com,aes256-gcm@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\ndebug2: compression ctos: none,zlib@openssh.com\ndebug2: compression stoc: none,zlib@openssh.com\ndebug2: languages ctos: \ndebug2: languages stoc: \ndebug2: first_kex_follows 0 \ndebug2: reserved 0 \ndebug1: SSH2_MSG_EXT_INFO received\ndebug1: kex_ext_info_client_parse: server-sig-algs=<ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256>\ndebug1: kex_ext_info_check_ver: publickey-hostbound@openssh.com=<0>\ndebug1: kex_ext_info_check_ver: ping@openssh.com=<0>\nConnection to 115.226.138.244 closed by remote host.\ndebug1: channel 0: free: direct-tcpip: listening port 0 for 192.168.1.104 port 22, connect from 127.0.0.1 port 65535 to UNKNOWN port 65536, nchannels 1\nTransferred: sent 6840, received 6444 bytes, in 30.3 seconds\nBytes per second: sent 226.0, received 212.9\ndebug1: Exit status -1\nConnection closed by UNKNOWN port 65535\n",
+  "finished_at": "2026-10-26T18:55:21.919481+00:00",
+  "seconds": 68.93951670899696,
+  "observed_at": "2026-10-26T18:55:21.919859+00:00"
+}

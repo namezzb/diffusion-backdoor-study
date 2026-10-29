@@ -1,0 +1,109 @@
+{
+  "bundle": "results/tssa-mvp-2026-10-26/deployment_bundle_2026-10-28-configfix.tar.gz",
+  "sha256": "0a5b9bdc7434dca827d8ae2e20aaa1fe91520ecadc32999035b9dca052c74446",
+  "size": 165429,
+  "file_count": 20,
+  "remote_uploaded": true,
+  "suggested_remote_archive": "inputs/deployment_bundle_2026-10-28-configfix.tar.gz",
+  "suggested_remote_extract_root": "/data2/zhangzibo/arxiv-tssa/code/mvp-dual-0a5b9bdc7434",
+  "contents": {
+    "created_at": "2026-10-27T16:11:26.176407+00:00",
+    "kind": "CPU_tested_implementation_correction",
+    "CPU_check_evidence": "upcast_CPU_regression_after_fix_2026-10-28.log",
+    "CPU_check_sha256": "613a46261036dc0019c0476d50d878f8281bde8596e643949d8e4bbb7a26b9bb",
+    "CPU_checks_passed": 59,
+    "GPU_tested": false,
+    "files": {
+      "scripts/merging/tssa_gradient_core.py": {
+        "sha256": "34dd239688784b6acbe1676af572e51626c598f318e5349d341d886b25e3bd9b",
+        "size": 18465
+      },
+      "scripts/merging/tssa_sd_runtime.py": {
+        "sha256": "0008a4fc29ad1e36552069d55232a5480b09d1182953605c2aba09ba57805b3a",
+        "size": 42357
+      },
+      "scripts/merging/tssa_mvp_evaluate.py": {
+        "sha256": "eb27aade4e792c2cd46291bb68c6ab8f769514fa069b09857bf128833a22f35a",
+        "size": 29377
+      },
+      "scripts/merging/tssa_mvp_score.py": {
+        "sha256": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+        "size": 12865
+      },
+      "scripts/merging/tssa_mvp_run.py": {
+        "sha256": "ce7cf830a91ac7046ceae32ba3eb6f3cbf64d45a14a83bbf8bcabaed66618610",
+        "size": 58310
+      },
+      "scripts/merging/test_tssa_gradient_core.py": {
+        "sha256": "311729f2a9cb1621938a03411c89b5848cadf59bb6795944a35eef6c3e36a8ca",
+        "size": 14636
+      },
+      "scripts/merging/test_tssa_mvp_evaluate.py": {
+        "sha256": "7a0e99719239d1f6f247a4e734a05da44396609de28da861f9ac2187e69f3851",
+        "size": 8241
+      },
+      "scripts/merging/test_tssa_mvp_run.py": {
+        "sha256": "06621ce406a8c0d085dbe168440c846bfcf4af83a78736f5971f966194bbe0b7",
+        "size": 14722
+      },
+      "scripts/merging/test_tssa_mvp_score.py": {
+        "sha256": "10a53ad126690c33b6f7a7f1bbf897dc4d1f38e27c32914af24ad695a5e07edb",
+        "size": 8761
+      },
+      "scripts/merging/test_tssa_sd_runtime_integration.py": {
+        "sha256": "cfeffb7c28a651c2ae201455eb3bf66cdb58c8513ba7e5c982341ec7a910d44f",
+        "size": 17985
+      },
+      "research/tssa_mvp_2026-10-26.json": {
+        "sha256": "8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c",
+        "size": 96289
+      },
+      "research/tssa_mvp_assets_2026-10-26.json": {
+        "sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+        "size": 51017
+      },
+      "research/tssa_mvp_environment_2026-10-26.json": {
+        "sha256": "688edd2a97c9b504d1852a7c0d7ab52b956d13dad5b0818d10e629942ed76604",
+        "size": 114942
+      },
+      "research/tssa_mvp_requirements_2026-10-26.in": {
+        "sha256": "fca1f337fb7152434b607aac6905801b578d340dca9e6c730e382db668b3e032",
+        "size": 470
+      },
+      "research/tssa_mvp_requirements_2026-10-26.lock": {
+        "sha256": "c954f66450719b86a2761d2c85faed26a2f27cdb244f4d2f8df7ddc06163d851",
+        "size": 80049
+      },
+      "research/tssa_mvp_runbook.md": {
+        "sha256": "2a68272a3c552db929caf0a1016b898d2d6ff6d0e45ca20f81968170ce7136f8",
+        "size": 6269
+      },
+      "scripts/merging/tssa_mvp_dual_run.py": {
+        "sha256": "267a77fe70bc8ec5b9893a0657fd3c3d2c798fb513b55e46fa75c33865e3e749",
+        "size": 36885
+      },
+      "scripts/merging/test_tssa_mvp_dual_run.py": {
+        "sha256": "af13996503ee17fc4821f44ca95ac899e532381031d90ecf6c42caa3f8bf4c9d",
+        "size": 14590
+      },
+      "server/install_school_offline_env.py": {
+        "sha256": "deedb860b3aeb2743ae51adbd7df87d808d6b447616555476595660d405c0480",
+        "size": 25957
+      },
+      "server/test_install_school_offline_env.py": {
+        "sha256": "dc1696d944de03f72a59f4443497e863309e8ea452f1e233ee42bb08e2370ae1",
+        "size": 10799
+      }
+    },
+    "previous_bundle_sha256": "c36b319a1f1d61c5410eb8ddbddf3c489927687f58ba75cd680757128897afc1",
+    "changed_files": [
+      "scripts/merging/tssa_sd_runtime.py",
+      "scripts/merging/test_tssa_sd_runtime_integration.py"
+    ],
+    "correction": "Accept only boolean False and legacy None as equivalent disabled upcast_attention in pinned diffusers 0.35.1; reject malformed flag types and preserve all other config checks. Log every equivalence. No model, asset, objective, threshold or budget change.",
+    "failure_evidence": "formal_CPU_preflight_2026-10-27-160055-974677Z.json",
+    "diagnostic_evidence": "remote_upcast_config_diagnostic_2026-10-27-160551-823080Z.json"
+  },
+  "remote_source_verified": true,
+  "remote_deployment_evidence": "configfix_deployment_CPU_checks_2026-10-27-161216-935590Z.json"
+}
