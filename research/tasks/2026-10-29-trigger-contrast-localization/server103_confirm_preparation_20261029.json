@@ -1,0 +1,16 @@
+{
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "amendment_sha256": "70b391bb41cc7241070adb086f7a3423a8856a040c927b7e845fdf327c47354d",
+  "session": "tcl-20261029-01-confirm-v1",
+  "started_at_utc": "2026-10-29T14:00:51.122876+00:00",
+  "cpu_preflight_at_utc": "2026-10-29T14:02:19.354905+00:00",
+  "resource_verified_at_utc": "2026-10-29T14:04:21.841443+00:00",
+  "gpu_uuid": "GPU-1e9f28a2-986d-7765-2476-3e6388b01170",
+  "permit_sha256": "5f5463de426c343f291d2f1c231163d278922a5a0101612b8b9bdc474cfa9361",
+  "platform_observation": "server103_resource_observation_confirm_20261029.json",
+  "platform_observation_sha256": "b5ad040986a254b225b5dee4bf89e280c21765299153f22f95d6ab779c546f1d",
+  "gpu_check": "Default compute mode; only verified root system Xorg, with proc exe inaccessible and trusted cmdline fallback recorded.",
+  "scope": "Source confirmation resource gate passed; this does not prove an image was attempted, completed or scored."
+}

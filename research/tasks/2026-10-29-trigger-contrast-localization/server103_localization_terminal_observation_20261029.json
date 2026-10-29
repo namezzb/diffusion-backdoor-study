@@ -1,0 +1,21 @@
+{
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "observed_at_utc": "2026-10-29T14:00:11Z",
+  "completion_event_at_utc": "2026-10-29T13:47:35.879538Z",
+  "remote_terminal": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/localization_terminal.json",
+  "remote_terminal_sha256": "7f889beb7474aeb72ff39e4f6f2cc78bbae16907ad86ab5503beec96ab6bb456",
+  "remote_selection": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/selection/selection.json",
+  "remote_selection_sha256": "a50cc62f6c741d025b59a8d35e6e2ad3010f9fd661521f6d8b9d655ba4618957",
+  "completed_localization_forwards": 107520,
+  "completed_controls": ["new", "magnitude", "block_magnitude", "random_1", "random_2", "random_3"],
+  "selected_coordinates_per_group": 6142208,
+  "total_parameters": 123060480,
+  "selection_percent": 4.991210825766322,
+  "response_before": 1.6745723485946655,
+  "response_after": 1.5585347414016724,
+  "image_attempts_at_observation": 0,
+  "training_updates": 0,
+  "limitation": "Text response and frozen masks are localization evidence, not source image effectiveness or final acceptance; remote files were hashed but not mirrored."
+}
