@@ -6,11 +6,13 @@
 
 | 想知道什么 | 入口 |
 |---|---|
+| 以后改动如何防止忘记更新 | [维护入口](INDEX_MAINTENANCE.md) · [全仓清单](repository_index.jsonl) · [最新收尾](maintenance/latest.json) |
 | 哪台服务器、哪个目录存了什么 | [服务器资料索引](SERVER_INDEX.md) |
 | 本地已有图片、代码、结果与缺项 | [本地资料目录](../results/organization-2026-10-29/README.md) |
 | 做过哪些尝试，Uniform4、TSSA16等是什么意思 | [三轮结果与术语解释](../research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 目前实验是否运行、结论和下一步 | [可移植进度](../research/project_state.json) |
 | 换电脑如何带走进度和取回大文件 | [新电脑接续步骤](NEW_COMPUTER.md) · [存储与换机方案](../research/research_storage_and_restore_plan_2026-10-29.md) |
+| 索引维护覆盖与边界 | [本轮维护验收](audits/index_maintenance_acceptance_20261029.json) |
 | 换机准备是否验收 | [新目录离线验收](audits/git_handoff_acceptance_20261029.json)：70项测试、1016项附件哈希及103/104计划模式通过 |
 | 文件级机器清单 | [服务器清单](server_catalog.json) · [本地包清单](catalog.json) |
 

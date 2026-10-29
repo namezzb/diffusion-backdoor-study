@@ -1,0 +1,21 @@
+name: Research index consistency
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Official actions/checkout v7; full history is needed for the receipt base.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Offline storage tests
+        run: python3 -m unittest discover -s scripts/storage -p 'test_*.py' -q
+      - name: Check committed index and maintenance receipt
+        run: python3 scripts/storage/maintain_index.py check --no-local-scan

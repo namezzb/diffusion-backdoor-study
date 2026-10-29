@@ -5,6 +5,7 @@
 | 文档 | 用途 |
 |---|---|
 | [从头解释方法、名词与三轮效果](tssa_methods_and_results_explained_2026-10-29.md) | 先读这一份；解释Uniform4、TSSA16、a/b、合并比例、攻击成功率和正常能力 |
+| [当前机器可读状态](project_state.json) | 新agent接续时先读，保存暂停状态、三轮结论及下一步边界 |
 | [暂停时简明总结](tssa_attempts_summary_2026-10-29.md) | 三轮次数、失败原因与结论边界 |
 | [数据与代码整理目录](../results/organization-2026-10-29/README.md) | 原图、逐图指标、训练轨迹、响应缓存、执行代码及回传缺口 |
 | [存储与换机恢复方案](research_storage_and_restore_plan_2026-10-29.md) | 进度与代码纳入Git，大文件留服务器；新电脑按[接续步骤](../storage/NEW_COMPUTER.md)及[服务器索引](../storage/SERVER_INDEX.md)定位取回，Drive暂停 |
@@ -18,6 +19,8 @@
 | [MVP离线执行手册](tssa_mvp_runbook.md) | 学校服务器离线安装、两卡许可、CPU预检、双进程执行与中断恢复 |
 | [MVP 固定协议](tssa_mvp_2026-10-26.json) | 本轮模型、提示、随机数、优化、正常门禁和持出选择规则 |
 | [MVP 资产清单](tssa_mvp_assets_2026-10-26.json) | 公开模型固定revision、文件大小、上游哈希及离线中转清单 |
+
+环境和资产索引：[模型固定来源](tssa_mvp_assets_2026-10-26.json) · [环境清单](tssa_mvp_environment_2026-10-26.json) · [依赖输入](tssa_mvp_requirements_2026-10-26.in) · [依赖锁](tssa_mvp_requirements_2026-10-26.lock) · [103离线Python准备](node103_offline_python_plan_2026-10-28.md)。后续探索的[设计](tssa_optimization_exploration_design_2026-10-28.md)、[冻结协议](tssa_optimization_exploration_2026-10-28.json)、[进度](tssa_optimization_exploration_progress_2026-10-28.md)与[10月27日历史摘要](tssa_progress_summary_2026-10-27.md)保持分开；每次变更按[维护入口](../storage/INDEX_MAINTENANCE.md)复核关联记录。
 
 原始差分和 A/B 分组固定，仅学习两个标量 a、b，β 在单次训练中固定；本次整理没有更改公式或实验协议。旧有限差分/局部求解器方案见 [只读封存](../reports/archive/2026-10-23-tssa-local-surrogate/README.md)，历史脚本和结果尚不构成梯度版验证。
 

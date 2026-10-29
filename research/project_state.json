@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-29T03:50:27.713953+00:00",
+  "updated_at": "2026-10-29T06:52:07.972981+00:00",
   "execution_status": "paused_by_user",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
@@ -26,11 +26,13 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "Publish research code, progress and retrieval indices in Git for another computer; no experiment restart or Drive upload",
+  "current_work": "Maintain complete research file routing, asset retrieval records, and change-closeout checks; experiments and large transfers remain paused",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
   "next_research_action": "Requires a new user decision; do not resume completed runs.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
-  "new_computer_entry": "storage/NEW_COMPUTER.md"
+  "new_computer_entry": "storage/NEW_COMPUTER.md",
+  "index_maintenance": "storage/INDEX_MAINTENANCE.md",
+  "latest_maintenance": "storage/maintenance/latest.json"
 }

@@ -6,7 +6,7 @@
 |---|---|
 | [术语与三轮结果解释](../../research/tssa_methods_and_results_explained_2026-10-29.md) | Uniform4/TSSA16、系数、指标和结论用普通话说明 |
 | [终态原始指标与轨迹](single_run_observation_20261028T060221238162Z_artifacts/) | 33份已验哈希小产物；含144步优化轨迹、全部候选和持出指标 |
-| [服务器全目录映射](../server-archive-2026-10-29/server104/results/mvp-2026-10-28-single-v1/) | 按远端原路径归档；这是有缺口的备份入口，完整性必须看下一项 |
+| [服务器全目录定位](../../storage/SERVER_INDEX.md) | 按远端原路径归档；这是有缺口的备份入口，完整性必须看下一项 |
 | [回传完整性与缺口](../organization-2026-10-29/README.md) | 1520原图、完整缓存、导出检查点及执行代码的本地/远端状态 |
 | [定时任务删除成功](automation_cleanup_20261028T1225Z.json) | 覆盖早期最终报告里的删除审批失败状态，旧失败证据保留 |
 | [最终报告](initial_validation_report_2026-10-28.md) | 冻结协议、逐状态负结果、限制、成本与保存位置 |
@@ -74,7 +74,7 @@
 
 - [半小时服务器探针启用记录](server_probe_automation_activation_2026-10-27.json)保存首次真实只读采样与定时器状态；104当前无无进程卡，未分配或启动GPU任务。
 
-- [15:29探针与15:36传输失败断点](heartbeat_checkpoint_2026-10-27-073848-075816Z.json)：104无空闲候选，24/47整文件完成；上传SSH255退出且管理站访问被公司安全验证页拦截。
+- 15:29探针与15:36传输失败断点（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：104无空闲候选，24/47整文件完成；上传SSH255退出且管理站访问被公司安全验证页拦截。
 - [DreamShaper8本机资产结构检查](local_dreamshaper8_unet_integrity_2026-10-27-073506-088271Z.json)：完整SHA及686个F32张量结构通过，仅资产检查。
 
 - [16:00探针及断点核验](heartbeat_checkpoint_2026-10-27-080652-117540Z.json)：104仍无可用候选，前缀核验SSH255失败，未重启传输；已完成资产仍为24/47。
@@ -82,18 +82,18 @@
 
 - [16:31断点验证与16:32恢复上传](heartbeat_checkpoint_2026-10-27-083448-292847Z.json)：92,274,688字节前缀匹配后启动唯一中转，24/47整文件完成；104仍无可用候选，未使用GPU。
 
-- [17:04连接失败与资产对账](heartbeat_checkpoint_2026-10-27-090644-919700Z.json)：本轮SSH255未获得新GPU样本，24/47整文件已验收，DreamShaper8分块历史回执为398,458,880字节；上传已退出，本轮未重启或使用GPU。
+- 17:04连接失败与资产对账（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：本轮SSH255未获得新GPU样本，24/47整文件已验收，DreamShaper8分块历史回执为398,458,880字节；上传已退出，本轮未重启或使用GPU。
 
-- [17:29采样与17:32续传](heartbeat_checkpoint_2026-10-27-093408-069433Z.json)：无可用GPU候选，398,458,880字节远端前缀核验匹配后恢复唯一中转，24/47整文件完成；平台许可仍未知。
+- 17:29采样与17:32续传（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：无可用GPU候选，398,458,880字节远端前缀核验匹配后恢复唯一中转，24/47整文件完成；平台许可仍未知。
 
-- [17:59上传进展与GPU采样](heartbeat_checkpoint_2026-10-27-100105-509675Z.json)：原上传持续，183个连续分块回执与本机payload哈希匹配，覆盖至1,166,016,512字节；24/47整文件完成，GPU许可与占用边界不变。
+- 17:59上传进展与GPU采样（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：原上传持续，183个连续分块回执与本机payload哈希匹配，覆盖至1,166,016,512字节；24/47整文件完成，GPU许可与占用边界不变。
 
-- [18:29增量核验与采样](heartbeat_checkpoint_2026-10-27-103023-887563Z.json)：新增111块哈希通过，DreamShaper8回执覆盖至1,631,584,256字节；原上传持续、完整资产24/47，暂无可用GPU候选。
-- [18:59增量核验与采样](heartbeat_checkpoint_2026-10-27-110301-130547Z.json)：新增59块哈希通过，DreamShaper8回执覆盖至1,879,048,192字节；原上传持续、完整资产24/47，暂无可用GPU候选。
+- 18:29增量核验与采样（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：新增111块哈希通过，DreamShaper8回执覆盖至1,631,584,256字节；原上传持续、完整资产24/47，暂无可用GPU候选。
+- 18:59增量核验与采样（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：新增59块哈希通过，DreamShaper8回执覆盖至1,879,048,192字节；原上传持续、完整资产24/47，暂无可用GPU候选。
 
-- [19:29增量核验与采样](heartbeat_checkpoint_2026-10-27-112954-075129Z.json)：新增87块哈希通过，DreamShaper8回执覆盖至2,243,952,640字节；完整资产24/47，原上传持续，无可用GPU候选。
+- 19:29增量核验与采样（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：新增87块哈希通过，DreamShaper8回执覆盖至2,243,952,640字节；完整资产24/47，原上传持续，无可用GPU候选。
 
-- [19:59增量核验与采样](heartbeat_checkpoint_2026-10-27-115950-790095Z.json)：新增105块哈希通过，DreamShaper8回执覆盖至2,684,354,560字节；完整资产24/47，原上传持续，无可用GPU候选。
+- 19:59增量核验与采样（旧机页面记录，已在[排除清单](../../storage/audits/portable_publication_scope.json)登记）：新增105块哈希通过，DreamShaper8回执覆盖至2,684,354,560字节；完整资产24/47，原上传持续，无可用GPU候选。
 
 - [20:10资产验收与20:29连接失败断点](heartbeat_checkpoint_2026-10-27-123203-103611Z.json)：DreamShaper8全部传完、完整资产27/47；OpenJourney文本编码器上传SSH255退出，探针返回目标主机无路由，本轮未重连或使用GPU。
 - [OpenJourney文本编码器本机完整性](local_openjourney_text_encoder_integrity_2026-10-27-123047-217543Z.json)：固定SHA、197个张量结构与六个分块字节匹配，仅资产验证。

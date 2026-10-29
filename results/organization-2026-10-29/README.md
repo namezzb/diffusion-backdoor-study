@@ -13,7 +13,7 @@
 | 第一轮：梯度优化完整结果 | [MVP索引](../tssa-mvp-2026-10-26/README.md) · [终态小产物](../tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/) | 33项终态产物已重新验哈希；含1520图对应指标、全部候选、144步轨迹、独立持出和面板，**不等于1520张原图已到本地** |
 | 每一步究竟学成什么 | [144步系数与损失](../tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/per_step_coefficients_and_losses.jsonl) | 一行一次更新，含方法族、a/b、损失、梯度等；初始化不计入144步 |
 | 第一轮全部候选和最终评价 | [候选选择](../tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/candidate_selection.json) · [持出结果](../tssa-mvp-2026-10-26/single_run_observation_20261028T060221238162Z_artifacts/heldout_report.json) | 同时保留失败候选，不只保留最佳项 |
-| 第二轮：直接图片搜索 | [探索索引](../tssa-opt-exploration-2026-10-28/README.md) · [816张原图](../tssa-opt-exploration-2026-10-28/final_images_816_20261028/images/) | 816/816张PNG及833/833项终态小产物已重新验哈希；原图341,268,220字节 |
+| 第二轮：直接图片搜索 | [探索索引](../tssa-opt-exploration-2026-10-28/README.md) · [816张原图取回目录](../../storage/retrieval_catalog.jsonl) | 816/816张PNG及833/833项终态小产物已重新验哈希；原图341,268,220字节 |
 | 第三轮：目标语义诊断 | [诊断索引](../tssa-target-semantic-diagnostic-2026-10-28/README.md) · [1141份原始文件](../tssa-target-semantic-diagnostic-2026-10-28/observation_20261029T015422409669Z/artifacts/) | 全部1141份、19,222,487字节已重新验哈希；含原始float32响应、梯度和96单元回执，本轮没有生成图片 |
 | 科学方案、提示、种子、预算 | [研究目录](../../research/README.md) · [原轮冻结协议](../../research/tssa_mvp_2026-10-26.json) | 保留原协议及两个后续独立方案，不修改阈值或合并三轮预算 |
 | 模型来源及环境 | [固定模型来源](../../research/tssa_mvp_assets_2026-10-26.json) · [环境清单](../../research/tssa_mvp_environment_2026-10-26.json) | 固定revision、文件大小、哈希、离线部署证据；公开模型大权重未重复下载到Mac |
@@ -25,7 +25,7 @@
 
 | 资源 | 本次获得的证据 | 还缺什么 |
 |---|---|---|
-| 学校104 | [5454项完整哈希清单](server104_hash_manifest.json)，共2,242,050,896逻辑字节；本地复用并验哈希248项，按原路径建立[备份入口](../server-archive-2026-10-29/server104/) | 还缺5206个逻辑文件，按相同内容去重为5194个、1,728,731,847字节；[逐文件缺口和失败回执](server104_retrieval.json) |
+| 学校104 | [5454项完整哈希清单](server104_hash_manifest.json)，共2,242,050,896逻辑字节；本地复用并验哈希248项，按原路径建立[服务器定位入口](../../storage/SERVER_INDEX.md) | 还缺5206个逻辑文件，按相同内容去重为5194个、1,728,731,847字节；[逐文件缺口和失败回执](server104_retrieval.json) |
 | 学校103 | [2847项只读元数据盘点](server103_inventory.json)，研究运行的上述原图及终态产物已在本地 | 追加整项目SHA清单时[跳板连接被重置](server103_hash_failure.json)；外围准备、执行代码和完整日志尚不能宣称全部镜像 |
 | AMAX历史资源 | [旧端口25225只读连接记录](amax_access_check.json)，连接被拒绝 | BackdoorDM、历史合并与EvilEdit等远端原始目录尚未盘点/回传，需要当前可达的AMAX会话端口 |
 
@@ -35,7 +35,7 @@
 
 本机空间曾降至约1.59GB，备份在传输前主动停止，随后回升约4.66GB，已满足去重回传并保留1GiB的要求；此后104与103均出现公共跳板重置，本轮停止重复连接。未删除本机既有文件，未删除或修改远端文件，也没有把空目录当回传成功。
 
-104盘点中的50份`code/`文件现已全部在本地按远端SHA核对：从现有部署包补回21项代码/准备文件，见[本地包恢复证明](local_bundle_recovery.json)；未修改旧包，也没有重新连接服务器。实际执行快照可从[104代码目录](../server-archive-2026-10-29/server104/code/)查看，文件名含`dual`是部署包命名，不代表这次实际执行了双卡实验。
+104盘点中的50份`code/`文件现已全部在本地按远端SHA核对：从现有部署包补回21项代码/准备文件，见[本地包恢复证明](local_bundle_recovery.json)；未修改旧包，也没有重新连接服务器。实际执行快照可从[104文件索引](../../storage/server-index/104.jsonl)中的`code/`路径查看，文件名含`dual`是部署包命名，不代表这次实际执行了双卡实验。
 
 ## 怎么组织的
 

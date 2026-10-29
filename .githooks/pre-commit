@@ -1,0 +1,3 @@
+#!/bin/sh
+# No automatic refresh, staging, receipt editing, commit or remote operation.
+exec python3 scripts/storage/maintain_index.py check --staged

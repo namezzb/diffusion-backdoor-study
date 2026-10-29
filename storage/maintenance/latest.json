@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-29T06:56:11.069001+00:00",
+  "base_commit": "0841aac9ef02759c3a876926b382e1fb32a710e9",
+  "summary": "完成科研仓库文件归属、附件来源、变更关联记录及提交前一致性校验；修正旧机专用导航，保留实验暂停、冻结科学证据与明确缺口。",
+  "reviewed_changes": [
+    {
+      "path": ".githooks/pre-commit",
+      "kind": "file",
+      "sha256": "e18cf2f2df1ead93fa88fb5c961afc336afd4f12f91fed62a74cc10941a33227"
+    },
+    {
+      "path": ".github/workflows/research-index.yml",
+      "kind": "file",
+      "sha256": "399f97aa6247eede3313f3d316d47dd753979663e58044696773bd8fc0551f91"
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "sha256": "560299ff0aca1d435fe00838dfcf816971385cf2134b1f7307961e8214831047"
+    },
+    {
+      "path": "README.md",
+      "kind": "file",
+      "sha256": "38ed7ba9b22d70105c1f24faca82d1a0b3d6ed39d3c521e631cc23665fd51723"
+    },
+    {
+      "path": "research/README.md",
+      "kind": "file",
+      "sha256": "401ffd5f0288b1b583312a45b6ff219d7aa7756a590c9cfcae3a5ec192685edc"
+    },
+    {
+      "path": "research/project_state.json",
+      "kind": "file",
+      "sha256": "f7ce1b7af3da5e124aae5a373dbe366b58c62b5c5d94ec30eac7d1c3ed86ed78"
+    },
+    {
+      "path": "results/organization-2026-10-29/README.md",
+      "kind": "file",
+      "sha256": "ce50c0efcc5b308f5dc0cbaaba766e724518a1fa24cca18fd35789cf32254b5f"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/README.md",
+      "kind": "file",
+      "sha256": "0325ddc9091526501191b49b603cf10c1b86d353071c8fefbed10911cff7e0c6"
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/README.md",
+      "kind": "file",
+      "sha256": "84c77aa159db5380ec17cbc6e257a4c01133c9006a7cb33b145c6ced061e6222"
+    },
+    {
+      "path": "scripts/README.md",
+      "kind": "file",
+      "sha256": "ae614a58a7ed16bb713cb2d12c1a9024141220de54319a57a464cbab4ed26372"
+    },
+    {
+      "path": "scripts/storage/build_retrieval_catalog.py",
+      "kind": "file",
+      "sha256": "9ce9d96badf65fe4f09a76527f00af315ac2df114d9c0d9a0351e92d0ebf01cd"
+    },
+    {
+      "path": "scripts/storage/install_index_hook.py",
+      "kind": "file",
+      "sha256": "d480c784b4f5d618a324455826e6e1d8566b7900eda31cc79e598f8c8cfe59a0"
+    },
+    {
+      "path": "scripts/storage/maintain_index.py",
+      "kind": "file",
+      "sha256": "23709574c9fe494f08548973acd21dadb1a2c7a32439a0285b2055cc8d85d8fd"
+    },
+    {
+      "path": "scripts/storage/test_build_retrieval_catalog.py",
+      "kind": "file",
+      "sha256": "2818ceef3e523a04bcbf136bebb5420bb2efd9aa1c37fcede1ebe091e7f19a7c"
+    },
+    {
+      "path": "scripts/storage/test_maintain_index.py",
+      "kind": "file",
+      "sha256": "45001de08dc9ffbf1bc2049ec85b556bf5c6703dd25baee570582e883f463473"
+    },
+    {
+      "path": "storage/INDEX_MAINTENANCE.md",
+      "kind": "file",
+      "sha256": "e58e61486cf50a43b241ed2d7b723f67f03095d5bbdf5efb619b7183dd1efeb7"
+    },
+    {
+      "path": "storage/NEW_COMPUTER.md",
+      "kind": "file",
+      "sha256": "b5b52209ae36a78c06de938292b3f51136055eec872fa19b5b15464d010e7d2b"
+    },
+    {
+      "path": "storage/README.md",
+      "kind": "file",
+      "sha256": "db4d06cbf9bae69275a221a2df1dcd0bbdb4b3ceb929c9f3b9b7176754d8160e"
+    },
+    {
+      "path": "storage/asset_registry.jsonl",
+      "kind": "file",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "storage/audits/index_maintenance_acceptance_20261029.json",
+      "kind": "file",
+      "sha256": "b6430932db87afb278ebf7f96623538010dfbfa0b83a27229b86127e9aa94600"
+    },
+    {
+      "path": "storage/audits/retrieval_coverage.json",
+      "kind": "file",
+      "sha256": "075c9ef12195cec7825c9e1f832c034add10ccf9f583ed5a0de83baa3770a255"
+    },
+    {
+      "path": "storage/index_policy.json",
+      "kind": "file",
+      "sha256": "2a25500fa7fa668f160e7935a2fe8fc1852b0fe1ba73be708380a7642500fc9a"
+    },
+    {
+      "path": "storage/retrieval_catalog.jsonl",
+      "kind": "file",
+      "sha256": "03d65210e23510fcc3345d1cd56c1b85ba745c9020062555e438dbcca32a2ad5"
+    }
+  ],
+  "index_decisions": [
+    {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "新增开始/收尾必读、按变更类型复核关联记录及机械检查边界；科研协议与暂停要求不变。"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "reason": "加入全仓目录、维护说明和收尾入口，澄清当前只做索引维护与科研Git发布。"
+    },
+    {
+      "path": "research/README.md",
+      "action": "updated",
+      "reason": "补机器可读状态、环境/资产/探索记录的导航，并指向维护规则。"
+    },
+    {
+      "path": "research/project_state.json",
+      "action": "updated",
+      "reason": "登记当前维护工作与索引入口；实验仍暂停，三轮结论及计数不变。"
+    },
+    {
+      "path": "research/tssa_optimization_exploration_progress_2026-10-28.md",
+      "action": "unchanged",
+      "reason": "本轮只修正探索README的图片定位入口；未执行模型、生成样本、更新参数或改变探索结论，已有暂停断点仍准确。"
+    },
+    {
+      "path": "research/tssa_overnight_progress.md",
+      "action": "unchanged",
+      "reason": "未连接科研服务器或执行实验，最后完成/释放/暂停记录仍准确，不伪造新的研究阶段进展。"
+    },
+    {
+      "path": "results/README.md",
+      "action": "unchanged",
+      "reason": "三轮结果、2,336张完整图和144次更新及既有负结果入口未变化，本次维护只改变下级导航与索引工具。"
+    },
+    {
+      "path": "results/organization-2026-10-29/README.md",
+      "action": "updated",
+      "reason": "原图/备份/执行代码链接改为Git可带走的服务器或附件目录，保留旧本地位置说明。"
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/README.md",
+      "action": "updated",
+      "reason": "八个旧机门户链接明确登记为排除项，并将本地镜像入口改为服务器索引；不改冻结结果。"
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/README.md",
+      "action": "updated",
+      "reason": "图片目录入口改为可携带的取回目录，并保留本机images原路径，实验报告与invalid标签不变。"
+    },
+    {
+      "path": "scripts/README.md",
+      "action": "updated",
+      "reason": "新增附件目录生成器、维护检查、钩子安装器及五组离线测试入口。"
+    },
+    {
+      "path": "storage/INDEX_MAINTENANCE.md",
+      "action": "updated",
+      "reason": "明确三层目录、维护顺序、来源登记、收尾回执、暂存校验、新机安装及已知覆盖边界。"
+    },
+    {
+      "path": "storage/NEW_COMPUTER.md",
+      "action": "updated",
+      "reason": "新增开启本地提交检查与阅读最新收尾记录的步骤，避免只靠旧聊天接续。"
+    },
+    {
+      "path": "storage/README.md",
+      "action": "updated",
+      "reason": "加入维护入口、全仓文件目录、收尾及本轮验收导航；大文件和Drive暂停边界保持。"
+    }
+  ],
+  "verification": {
+    "offline_storage_tests_passed": 136,
+    "independent_review": "passed for source consistency, unresolved sources, staged checks and execution order",
+    "acceptance_record": "storage/audits/index_maintenance_acceptance_20261029.json"
+  },
+  "scope": {
+    "research_server_connections": 0,
+    "gpu_jobs_started": 0,
+    "drive_transfers": 0,
+    "scientific_evidence_modified": false
+  }
+}

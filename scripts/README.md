@@ -104,6 +104,10 @@ AMAX启动器默认转发网页到`http://127.0.0.1:8080`、HTTPS到`8443`，保
 
 [fetch_server_file.py](storage/fetch_server_file.py)在新电脑按103/104文件索引取回单个已知哈希文件，默认仅展示计划，显式`--download`才只读连接并验哈希；缺SHA的历史条目不假装可验收下载，详见[换机步骤](../storage/NEW_COMPUTER.md)。
 
+[build_retrieval_catalog.py](storage/build_retrieval_catalog.py)合并冻结历史附件、新登记附件、论文目录和已有服务器映射；[maintain_index.py](storage/maintain_index.py)提供变更影响、生成文件清单和收尾检查，[install_index_hook.py](storage/install_index_hook.py)只为当前仓库启用提交校验。维护规则与操作顺序见[索引维护入口](../storage/INDEX_MAINTENANCE.md)，新附件不能因被Git忽略而遗漏。
+
+存储回归检查：[归档恢复](storage/test_research_archive.py) · [目录恢复](storage/test_restore_from_catalog.py) · [服务器单文件取回](storage/test_fetch_server_file.py) · [附件目录生成](storage/test_build_retrieval_catalog.py) · [维护门禁](storage/test_maintain_index.py)，均可离线运行。
+
 ## 路径与部署说明
 
 旧根目录脚本与`server/`内20个历史脚本以相对符号链接指向`scripts/`，但`server/`同时保存学校连接、离线部署、测试和状态等真实文件，不能把整个目录视为兼容链接。远端历史部署仍涉及`/opt/data/private/server/`与`/opt/data/private/BackdoorDM/server/`，本次本地整理未迁移远端内容。

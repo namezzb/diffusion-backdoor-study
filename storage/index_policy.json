@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "inventory": "storage/repository_index.jsonl",
+  "receipt": "storage/maintenance/latest.json",
+  "retrieval_catalog": "storage/retrieval_catalog.jsonl",
+  "routes": [
+    {
+      "prefix": "results/tssa-mvp-2026-10-26/",
+      "index": "results/tssa-mvp-2026-10-26/README.md",
+      "related_records": [
+        "results/README.md",
+        "research/project_state.json",
+        "research/tssa_overnight_progress.md"
+      ]
+    },
+    {
+      "prefix": "results/tssa-opt-exploration-2026-10-28/",
+      "index": "results/tssa-opt-exploration-2026-10-28/README.md",
+      "related_records": [
+        "results/README.md",
+        "research/project_state.json",
+        "research/tssa_optimization_exploration_progress_2026-10-28.md"
+      ]
+    },
+    {
+      "prefix": "results/tssa-target-semantic-diagnostic-2026-10-28/",
+      "index": "results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
+      "related_records": [
+        "results/README.md",
+        "research/project_state.json"
+      ]
+    },
+    {
+      "prefix": "results/organization-2026-10-29/",
+      "index": "results/organization-2026-10-29/README.md",
+      "related_records": [
+        "storage/README.md"
+      ]
+    },
+    {
+      "prefix": "results/server-archive-2026-10-29/",
+      "index": "results/server-archive-2026-10-29/README.md",
+      "related_records": [
+        "storage/SERVER_INDEX.md"
+      ]
+    },
+    {
+      "prefix": "results/",
+      "index": "results/README.md",
+      "related_records": [
+        "research/project_state.json"
+      ]
+    },
+    {
+      "prefix": "research/",
+      "index": "research/README.md",
+      "related_records": [
+        "research/project_state.json"
+      ]
+    },
+    {
+      "prefix": "papers/metadata/",
+      "index": "papers/metadata/README.md",
+      "related_records": [
+        "papers/README.md"
+      ]
+    },
+    {
+      "prefix": "papers/",
+      "index": "papers/README.md",
+      "related_records": [
+        "papers/catalog.json",
+        "storage/retrieval_catalog.jsonl"
+      ]
+    },
+    {
+      "prefix": "scripts/",
+      "index": "scripts/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "server/",
+      "index": "server/README.md",
+      "related_records": [
+        "storage/SERVER_INDEX.md"
+      ]
+    },
+    {
+      "prefix": "storage/",
+      "index": "storage/README.md",
+      "related_records": [
+        "storage/INDEX_MAINTENANCE.md",
+        "storage/NEW_COMPUTER.md"
+      ]
+    },
+    {
+      "prefix": "presentations/",
+      "index": "presentations/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "reproduction/",
+      "index": "reproduction/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "reports/archive/2026-10-23-tssa-local-surrogate/",
+      "index": "reports/archive/2026-10-23-tssa-local-surrogate/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "reports/",
+      "index": "reports/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "archive/experiments/",
+      "index": "archive/experiments/backdoordm_reproduce/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "archive/organization-2026-10-26/",
+      "index": "archive/organization-2026-10-26/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "simulations/",
+      "index": "simulations/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": "data/",
+      "index": "results/README.md",
+      "related_records": []
+    },
+    {
+      "prefix": ".github/",
+      "index": "storage/INDEX_MAINTENANCE.md",
+      "related_records": []
+    },
+    {
+      "prefix": ".githooks/",
+      "index": "storage/INDEX_MAINTENANCE.md",
+      "related_records": []
+    },
+    {
+      "prefix": "",
+      "index": "README.md",
+      "related_records": [
+        "AGENTS.md"
+      ]
+    }
+  ],
+  "required_entries": [
+    "AGENTS.md",
+    "README.md",
+    "research/project_state.json",
+    "storage/NEW_COMPUTER.md",
+    "storage/SERVER_INDEX.md",
+    "storage/INDEX_MAINTENANCE.md",
+    "storage/asset_registry.jsonl"
+  ],
+  "active_indexes": [
+    "README.md",
+    "AGENTS.md",
+    "research/README.md",
+    "results/README.md",
+    "results/tssa-mvp-2026-10-26/README.md",
+    "results/tssa-opt-exploration-2026-10-28/README.md",
+    "results/tssa-target-semantic-diagnostic-2026-10-28/README.md",
+    "results/server-archive-2026-10-29/README.md",
+    "results/organization-2026-10-29/README.md",
+    "reproduction/README.md",
+    "papers/README.md",
+    "papers/metadata/README.md",
+    "reports/README.md",
+    "scripts/README.md",
+    "server/README.md",
+    "simulations/README.md",
+    "presentations/README.md",
+    "storage/README.md",
+    "storage/NEW_COMPUTER.md",
+    "storage/SERVER_INDEX.md",
+    "storage/INDEX_MAINTENANCE.md"
+  ],
+  "local_exclusions": [
+    {
+      "pattern": "node_modules/*",
+      "reason": "Installed third-party dependencies; recreate using the public presentation lock."
+    },
+    {
+      "pattern": "*/node_modules/*",
+      "reason": "Installed dependencies, not research evidence."
+    },
+    {
+      "pattern": "__pycache__/*",
+      "reason": "Generated Python bytecode."
+    },
+    {
+      "pattern": "*/__pycache__/*",
+      "reason": "Generated Python bytecode."
+    },
+    {
+      "pattern": ".venv/*",
+      "reason": "Local environment, versions are recorded separately."
+    },
+    {
+      "pattern": "*/.venv/*",
+      "reason": "Local environment."
+    },
+    {
+      "pattern": "storage/_packages/*",
+      "reason": "Rebuildable local transport packages; manifests/catalog are retained."
+    },
+    {
+      "pattern": "storage/_incoming/*",
+      "reason": "Local incoming transport copies, not authoritative evidence."
+    },
+    {
+      "pattern": "storage/_restore-check/*",
+      "reason": "Disposable local restoration validation exports."
+    },
+    {
+      "pattern": ".DS_Store",
+      "reason": "OS metadata."
+    },
+    {
+      "pattern": "*/.DS_Store",
+      "reason": "OS metadata."
+    },
+    {
+      "pattern": ".codex/*",
+      "reason": "Local agent runtime state, not portable research state."
+    },
+    {
+      "pattern": ".claude/*",
+      "reason": "Local agent runtime state."
+    },
+    {
+      "pattern": ".qoder/*",
+      "reason": "Local agent runtime state."
+    },
+    {
+      "pattern": ".mcp.json",
+      "reason": "Local connection configuration, excluded from publication."
+    },
+    {
+      "pattern": "package-lock.json",
+      "reason": "Legacy local corporate registry lock; public presentation lock is separately tracked."
+    },
+    {
+      "pattern": ".pytest_cache/*",
+      "reason": "Rebuildable local tool/environment cache, not scientific evidence."
+    },
+    {
+      "pattern": "*/.pytest_cache/*",
+      "reason": "Rebuildable local tool/environment cache, not scientific evidence."
+    },
+    {
+      "pattern": ".mypy_cache/*",
+      "reason": "Rebuildable local tool/environment cache, not scientific evidence."
+    },
+    {
+      "pattern": "*/.mypy_cache/*",
+      "reason": "Rebuildable local tool/environment cache, not scientific evidence."
+    },
+    {
+      "pattern": "venv/*",
+      "reason": "Rebuildable local tool/environment cache, not scientific evidence."
+    },
+    {
+      "pattern": "*/venv/*",
+      "reason": "Rebuildable local tool/environment cache, not scientific evidence."
+    }
+  ],
+  "ignored_paths": [
+    {
+      "path": "papers/paper_2603.06508.html",
+      "reason": "Local compatibility alias of the tracked papers/txt/paper_2603.06508.html."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/asset_transfer_independent_2026-10-27-020029.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-073848-075816Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-090644-919700Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-093408-069433Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-100105-509675Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-103023-887563Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-110301-130547Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-112954-075129Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-115950-790095Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/heartbeat_checkpoint_2026-10-27-143739-967980Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/portal_login_session_expired_2026-10-28.png",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/portal_mfa_2026-10-28-0033.png",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/portal_queue_verified_2026-10-28.png",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-205107-559395Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-212605-864404Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-215611-087511Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_prefix_recheck_2026-10-26-223013-158897Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_independent_probe_2026-10-27-0152.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-185412-979504Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-190544-914047Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-26-192033-056534Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_probe_2026-10-27-0231.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-192258-385715Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-194551-450270Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/transfer_ssh_stat_probe_2026-10-26-201106-286849Z.log",
+      "reason": "Historical local connection diagnostics, not a scientific artifact or portable source; original retained without publication."
+    },
+    {
+      "path": "results/tssa-mvp-2026-10-26/website_observation_2026-10-27-140924-748406Z.json",
+      "reason": "Local portal/session context intentionally excluded from scientific publication; see portable_publication_scope.json."
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/cpython-3.11.7-20240107-linux-x86_64.tar.gz",
+      "reason": "Runtime intermediary; fixed offline runtime preparation receipts remain in the run directory."
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/images.tar",
+      "reason": "Historical truncated failed transfer, not a usable backup; individual images are indexed."
+    },
+    {
+      "path": "results/tssa-opt-exploration-2026-10-28/final_images_816_20261028/remaining_images.tar",
+      "reason": "Duplicate intermediary containing 545 images indexed individually."
+    },
+    {
+      "path": "results/tssa-target-semantic-diagnostic-2026-10-28/cache_retrieval_20261028T115206383909Z/source.tar",
+      "reason": "Duplicate intermediary; 18 individual cache members have recorded sources."
+    }
+  ],
+  "link_exceptions": []
+}

@@ -1,19 +1,28 @@
 {
-  "schema_version": 1,
-  "scope": "2137 preserved payload members; server-only files are separately listed in server-index",
-  "records": 2137,
+  "schema_version": 2,
+  "scope": "Union of frozen payload members, current paper catalog, saved server local mappings and optional explicit asset registry; server-only files remain in server-index",
+  "input_counts": {
+    "frozen_payload_members": 2137,
+    "paper_catalog_entries": 24,
+    "saved_server_local_mappings": 3030
+  },
+  "records": 3210,
   "status_counts": {
-    "indexed_source": 2134,
-    "excluded_local_portal_context": 3
+    "excluded_local_portal_context": 3,
+    "indexed_source": 3207
   },
   "unresolved": [],
-  "git_sources": 1016,
-  "school_sources": 1969,
+  "git_sources": 1841,
+  "school_sources": 3042,
   "public_fixed_version_sources": 24,
+  "server_records_without_hash_not_used_as_sources": 78,
   "local_packages_used_as_remote_sources": false,
   "network_accessed": false,
   "limitations": [
-    "Server and public URL availability not live-tested in this publication.",
+    "Server source validity is based on saved historical hash evidence; current availability is not checked.",
+    "Public URLs carry explicit fixed versions and expected hashes but availability is not live-tested.",
+    "Git sources require a tracked regular local file whose size and hash match; an uncommitted edit is not proof of publication.",
+    "This catalog discovers only its declared inputs; unregistered new attachments must be caught by the repository-wide inventory check.",
     "AMAX has historical directory pointers only; full file inventory remains unknown.",
     "Portal/login context and duplicate intermediary archives are not scientific result payloads."
   ]

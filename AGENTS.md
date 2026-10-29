@@ -4,6 +4,23 @@
 >
 > **本文件是项目指令的单一事实来源。** `CLAUDE.md` 通过 `@AGENTS.md` 导入本文件内容。修改项目指令时只编辑本文件。
 
+## 每次工作必读与收尾
+
+- **开始前**：先读本文件、`research/project_state.json`及本次涉及目录的README，再运行`python3 scripts/storage/maintain_index.py impact`查看变更对应的索引和关联记录。新电脑按[维护入口](storage/INDEX_MAINTENANCE.md)启用仓库提交检查，不能依赖当前聊天或旧机缓存接续工作。
+- **完成定义**：每次有实质文件变更，须按下表复核关联资料，在`storage/maintenance/latest.json`登记准确的变更哈希、已更新项及无需更新的具体理由，再生成全仓清单并通过检查。文件存在、代码通过测试或仅提交代码，都不能代替进度与索引同步。
+- **机械校验**：提交前运行`python3 scripts/storage/maintain_index.py check --staged`；清单漏项、旧哈希、失效入口、未登记附件或收尾记录不匹配时先修复，不用跳过钩子掩盖问题。检查只能发现结构和记录不一致，研究结论、状态及“无需更新”理由仍须按证据人工复核。
+- **索引分层**：目录README只维护主题入口，全仓逐文件记录由`storage/repository_index.jsonl`生成；新外置附件先登记`storage/asset_registry.jsonl`或有来源的论文/服务器清单，再生成取回目录。不要为每张图手改README，也不要把尚未盘点或缺少哈希的内容标成已备份。
+
+| 本次改变了什么 | 必须复核并按实际影响更新什么 |
+|---|---|
+| 新文件、删除、改名、目录调整 | 所属README和引用入口、全仓文件清单；兼容链接说明真实目标，不移动只读历史证据 |
+| 实验启动、暂停、失败、完成或结论变化 | 该run进度/终态证据、该run README、`results/README.md`及`research/project_state.json`；影响总体结论时再更新解释文档和Current Focus |
+| 方法、协议、预算或实现变化 | `research/`中的当前方案/独立协议、相关脚本索引与验证记录；旧run的冻结输入及invalid标签不改写 |
+| 新论文或元信息修正 | `papers/catalog.json`、`papers/README.md`及取回目录；记录固定版本、来源、大小和哈希 |
+| 图片、checkpoint、缓存等外置附件 | 有来源的服务器清单或`storage/asset_registry.jsonl`、取回目录及存储入口；未知位置/哈希明确作为缺口 |
+| 下载、迁移、回传或环境/入口变化 | 新验收回执、相关服务器/本地映射及换机说明；旧盘点时间保留，禁止把离线重建写成新远端核验 |
+| 仅代码或文案修复 | 所属入口及有关状态逐项审阅，无影响可写具体不更新理由；不强迫改动冻结产物或制造重复进度数字 |
+
 ## Project Structure
 
 ```
@@ -16,7 +33,8 @@
 ├── papers/                            # 论文索引、pdf/、txt/、metadata/、待下载清单
 ├── reports/                           # 历史调研与旧方案只读封存
 ├── results/                           # 历史合并结果、证据边界及后续实验产物入口
-├── scripts/                           # reproduction/、merging/、connection/ 三类脚本
+├── scripts/                           # reproduction/、merging/、connection/、storage/ 工具
+├── storage/                           # 换机、文件归属与取回索引、收尾校验
 ├── archive/experiments/               # 归档：早期实验脚本（不可编辑，仅供参考）
 ├── archive/organization-2026-10-26/    # 整理前快照、迁移映射与校验记录
 ├── simulations/                       # 早期合并后门仿真代码

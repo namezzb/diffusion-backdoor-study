@@ -6,7 +6,7 @@
 |---|---|
 | 方法、名词和三轮比较 | [通俗解释](../../research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 结果与全部候选 | [负结果报告](direct_ASR_negative_report_2026-10-28.md) · [终态指标](terminal_metrics_20261028.json) |
-| 816张原始图片 | [图片目录](final_images_816_20261028/images/)；已逐文件核对哈希，不是只有拼图 |
+| 816张原始图片 | [图片取回索引](../../storage/retrieval_catalog.jsonl)（旧机目录`final_images_816_20261028/images/`，新机按索引下载）；已逐文件核对哈希，不是只有拼图 |
 | 每张图片对应什么 | [逐图清单](final_image_inventory_816_20261028T1115Z.json) · [PNG哈希验收](final_PNG_hash_acceptance_816_20261028T1115Z.json) |
 | 833份终态小产物 | [原始产物目录](observation_103_20261028T111524087743Z-7268ad87/artifacts/)；包含逐图记录、选择、预算和操作证据 |
 | 原科学方案与范围 | [冻结记录](freeze_20261028.json) · [研究断点](../../research/tssa_optimization_exploration_progress_2026-10-28.md) |

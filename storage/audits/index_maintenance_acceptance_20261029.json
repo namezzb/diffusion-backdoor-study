@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-29T06:54:23.519943+00:00",
+  "scope": "Local research repository indices and saved source records; no live research server access",
+  "base_commit": "0841aac9ef02759c3a876926b382e1fb32a710e9",
+  "repository_inventory_records_expected": 3839,
+  "retrieval_catalog_records": 3210,
+  "retrieval_indexed_identities": 3207,
+  "retrieval_excluded_portal_identities": 3,
+  "retrieval_unresolved_identities": 0,
+  "local_filename_coverage": {
+    "ignored_scanned": 29968,
+    "excluded_by_named_policy": 28571,
+    "registered_or_explicitly_classified": 1397,
+    "unclassified": 0,
+    "ignored_contents_read": false
+  },
+  "mechanisms": [
+    "AGENTS change-to-record review matrix",
+    "Generated per-file inventory with owner routing and content hashes",
+    "Exact changed-file closeout receipt with reviewed index decisions",
+    "Staged-blob pre-commit verification",
+    "GitHub committed-snapshot verification",
+    "Saved asset source cross-validation"
+  ],
+  "pre_commit_installed_on_this_checkout": true,
+  "ci_validation": "Workflow prepared; run result to be checked after publication",
+  "known_gaps": {
+    "saved_server_records_missing_sha256": 78,
+    "amax_complete_file_inventory": "unknown"
+  },
+  "boundaries": [
+    "No server connection, experiment, bulk download or Drive transfer in this maintenance task.",
+    "Ignored dependencies, local settings and temporary workspaces are classified, not individually scientifically audited.",
+    "File/source checks do not prove the correctness of scientific conclusions or human unchanged reasons.",
+    "Server and public-source availability is not verified online.",
+    "Git clone does not automatically enable local hooks; install step is documented."
+  ],
+  "final_closeout": "Final test result, reviewed file hashes and index decisions are recorded in storage/maintenance/latest.json; final gate must pass before commit.",
+  "offline_regression": {
+    "command": "python3 -m unittest discover -s scripts/storage -p 'test_*.py' -q",
+    "tests": 136,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 32.31
+  },
+  "independent_review": "Source additions, changes and deletions; unresolved rejection; staged-view integrity and documented ordering reviewed and accepted",
+  "checked_tool_sha256": {
+    "scripts/storage/maintain_index.py": "23709574c9fe494f08548973acd21dadb1a2c7a32439a0285b2055cc8d85d8fd",
+    "scripts/storage/test_maintain_index.py": "45001de08dc9ffbf1bc2049ec85b556bf5c6703dd25baee570582e883f463473",
+    "scripts/storage/build_retrieval_catalog.py": "9ce9d96badf65fe4f09a76527f00af315ac2df114d9c0d9a0351e92d0ebf01cd",
+    "scripts/storage/test_build_retrieval_catalog.py": "2818ceef3e523a04bcbf136bebb5420bb2efd9aa1c37fcede1ebe091e7f19a7c"
+  }
+}
