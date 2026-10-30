@@ -8,9 +8,9 @@
 | outcome | not_evaluated |
 | owner | Codex 本会话执行者；实现由被委派 agent 交付 |
 | reviewer | Codex，本会话；用户要求实现后review |
-| updated_at | 2026-10-30T13:02:11+08:00 |
-| current_stage | 127启动见证等待 v2 已审阅并重进CPU准备 |
-| next_action | 等待CPU准备后核对实时许可和实际出图；保留四次中断 |
+| updated_at | 2026-10-30T13:06:40+08:00 |
+| current_stage | 127启动见证等待 v2 通过实时许可，模型加载中 |
+| next_action | 核对定位复算及实际出图，保留四次中断并按实速回查 |
 | authorization | 用户2026-10-29授权服务器验证并输出报告，2026-10-30要求迁至104并关注显存；实现与迁移修订须独立review后执行 |
 
 本文件是本任务方法、预算及完成／待完成状态的唯一事实来源，通用规则见[AGENTS.md](../../../AGENTS.md#任务管理规范)。本任务接续[初始草案](../../trigger_contrast_localization_pilot_review_2026-10-29.md)，以本文件的新样本数、预算和合并判据为准，旧run及其冻结输入不变。
@@ -224,3 +224,5 @@ review重点是实际参数坐标正确、对照可比、正常猫能力单独�
 2026-10-30 12:49：127资源许可核验通过后，[启动见证过期](server127_resume_interruption_20261030T0449Z.json)导致进程退出，未新增尝试；此前62张完成及3条中断保持，待独立审阅启动阶段等待修订。
 
 2026-10-30 13:02：启动见证等待v2经独立差异审阅、25项本地测试及服务器无GPU签名校验通过，127同账本[重进CPU准备](server127_wait_v2_preparation_20261030T0502Z.json)；GPU许可和新增出图尚待验证。
+
+2026-10-30 13:06：127启动等待v2通过[实时平台核验](server127_resource_observation_20261030T0506Z.json)和[GPU门禁](server127_wait_v2_permit_20261030T0506Z.json)，正在加载模型；62张完成和3条127中断未变，新增出图待验证。

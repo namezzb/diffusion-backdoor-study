@@ -1,83 +1,68 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T13:02:53+08:00",
-  "base_commit": "698ad8100f3debdcd97ed7427cc51815a4ec95d5",
-  "summary": "记录127启动等待v2的独立审阅、签名和服务器CPU准备，保留原预算与四次中断。",
+  "reviewed_at": "2026-10-30T13:07:59+08:00",
+  "base_commit": "82e47fde585e0eb603b54b3b3d36663a3bf982b7",
+  "summary": "记录127启动等待v2的GPU许可和模型准备，保留原预算与四次中断。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "1b3aad77f87667780c8664fb18a62cf2914d674bb641ffe68f89886d76fe5607"
+      "sha256": "d62b2fa95690b3e88c69838e2d119c64c73c7507a195adb81836329fb3e0c3f9"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "b16f2f4cf7744bf603449a7fb27660755abf8606a5a4f215311a2c60920d2217"
+      "sha256": "73c64dd5137874e9036428002eb21f7ce85c9af94d6c7b229f4e53a9e245cbd6"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "7979f7c53c58111023766906a81d971a6639a66a68c76fad25be49873a20d571"
+      "sha256": "96682b2bcdf0eb73c5cc89b45091d746ee511f5b63343c5f913269cd3d9daa19"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "64c2b1849f1c08e6b8cd3b05a3efa0901f717ac74251bf838aef62a04184dbc9"
+      "sha256": "7b851bf2afb38c9344f35dd9d214590babbb1648155a58bb626814c9a230a7e1"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "69d2434c35cbd65932fab5fa9f068badff211c327afe62ac217801ed4930355b"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_WAIT_V2_HANDOFF.md",
-      "kind": "file",
-      "sha256": "9875d86445b1764eae7467ebbdbae3c732c38acf1df11be50b74b054defa3107"
+      "sha256": "172fa7505d3ada14ff9f12e264096966afc78b57771e243127465139366200a7"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "13010333f83a72b3e772d3a0f9bfe26993361780d69c319c3e6319f795368a8a"
+      "sha256": "f39ef200c19722e15d3fa19e57ca73bb75f58fd297f88cdf4c91e136a6e4cb72"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/launch127_wait_v2.sh",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_20261030T0506Z.json",
       "kind": "file",
-      "sha256": "29bf0512f1f9e5b142606055cf06b488c6eb8b5382bc9c8cde1e580bde32fbe6"
+      "sha256": "9f52491d422b1264062eba4efaf14c159f6be724171b5d1d2b5404f5e1f2a2cf"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_wait_v2_preparation_20261030T0502Z.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_wait_v2_permit_20261030T0506Z.json",
       "kind": "file",
-      "sha256": "74063d3c77ebc679053dbe9050320f32bcd77e65c61966ffe38624722475fd7d"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review_v2.json",
-      "kind": "file",
-      "sha256": "a4754be96f11fede9a463049807c6ad1a807f6d380b8ef95dbec2e13f759f67f"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review_v2.json.sig",
-      "kind": "file",
-      "sha256": "472deb68ad51cba91c1303c145806112b36d2e6f437fb7e978da646ff9893516"
+      "sha256": "bb14abac287794d09074569763891e56099723399d26bcc3c0c8b3695942e609"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "3e2c7d110002929213d20004e41cf063ecdac22cc353433aaaa1af1e361cf908"
+      "sha256": "5908b8126db65c9fbdad457fdbffdd4665a94923bd77080d3bfa2b9a0cd8a2b0"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "kind": "file",
-      "sha256": "740b87f92f265e323e1e3287f2a62baa720999d16503f040ddd062d57301a71c"
+      "sha256": "f058177a4c9cdb8dfc0333298375cf964e8692736ed9fd49772a859800163177"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "1f11a10aabb09f2a5396be816d359ba5edd6c463593c1ae6bf5a9e9a6fa1aae4"
+      "sha256": "eec126e0ff3df3c6dfc5d10460e10dc5934d4c6482c5a818ba3e7f1853598017"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "d997d9d2b081533770c0fedb706e0e1adb16492b3d217ee97293ff67ee11d037"
+      "sha256": "4725291222558da7f13cbd1e282a4ead4779d676180140c4cc64c153d3b36a53"
     }
   ],
   "index_decisions": [
@@ -149,7 +134,7 @@
   ],
   "verification": {
     "local": "启动等待v2相关25项独立测试通过；本机全量发现因缺torch有13项导入错误。",
-    "server": "127无GPU验签通过并重进CPU准备；62张图的远端哈希已核验，新的GPU许可及出图待核验。",
+    "server": "127等待v2已通过实时平台和GPU门禁、加载模型；62张图的远端哈希已核验，新增出图待验证。",
     "budget": "截至12:38，103完成343图并中断1次，127完成62图并中断3次；冻结预算内最多2044张基线图。"
   },
   "scope": {

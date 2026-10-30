@@ -56,3 +56,5 @@
 - [当前进度摘要](progress_summary_20261030.md) · [恢复中断证据](server127_resume_interruption_20261030T0449Z.json)：12:49许可后见证过期，未新增尝试。
 
 - [启动等待v2准备证据](server127_wait_v2_preparation_20261030T0502Z.json) · [签名审阅](shard127_wait_review_v2.json)：保留既有中断键及预算。
+
+- [127等待v2实时许可](server127_wait_v2_permit_20261030T0506Z.json) · [平台观察](server127_resource_observation_20261030T0506Z.json)：许可通过后模型加载。
