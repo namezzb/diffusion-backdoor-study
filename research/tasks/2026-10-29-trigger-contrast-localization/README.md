@@ -48,3 +48,7 @@
 - [启动阶段等待 v2 候选交接](SHARD127_WAIT_V2_HANDOFF.md)：待独立审阅，未部署，不影响正在运行的版本。
 
 - [见证控制器 v2 只读审阅](SHARD127_WATCH_V2_REVIEW.md)：当前持续使用 v1，候选尚未批准或切换。
+
+- [127见证JSON中断与62张图核验](server127_json_interruption_20261030T0352Z.json)：真实错误、保留账本并定位修复。
+
+- [见证发布修复候选](shard127_watch_controller_safe_candidate.py)与[签名审阅](shard127_safe_publisher_review.json)：更新前核对摘要，原验签、身份、时效和预算不变。

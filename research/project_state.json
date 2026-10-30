@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T11:43:00+08:00",
-  "execution_status": "tcl_127_gpu_source_baseline_in_progress",
+  "updated_at": "2026-10-30T12:42:17+08:00",
+  "execution_status": "tcl_127_safe_publisher_cpu_preparation",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,10 +26,10 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "127 source generation continues; signed witness delays intermittently pause GPU work and resume automatically.",
+  "current_work": "After 62 completed images and a witness JSON error, signed publisher amendment rejects malformed transmission before replacement; CPU preparation resumed with original ledger.",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "Single callback around 12:40 Beijing: verify witness delays and throughput, maintain frozen budget, resolve baseline gap only after explicit authorization.",
+  "next_research_action": "Check CPU preparation, issue GPU permit only after fresh platform verification, and verify continued generation; preserve four charged interruptions.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",

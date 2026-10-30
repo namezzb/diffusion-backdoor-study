@@ -74,4 +74,4 @@ python3 scripts/storage/research_archive.py restore \
 
 127的TCL只读准备快照已登记在[服务器索引](SERVER_INDEX.md)，其418项内容和清单在127完成校验；源run未终态。
 
-127截至11:40完成的7张图已核对哈希并登记服务器取回路径，见[服务器索引](SERVER_INDEX.md)；未建立本地图片副本。
+127截至12:38完成的62张图已核对哈希并登记服务器取回路径，见[服务器索引](SERVER_INDEX.md)；未建立本地图片副本。

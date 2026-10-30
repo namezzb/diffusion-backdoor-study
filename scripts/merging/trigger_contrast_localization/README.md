@@ -9,3 +9,5 @@
 CPU预检后，定位和确认阶段各自等待绑定一次性nonce的短期平台观察记录，再只读检查GPU进程；许可格式见[实现交接](../../../research/tasks/2026-10-29-trigger-contrast-localization/IMPLEMENTATION_REVIEW.md)。
 
 104独立分片签名校验后因CUDA初始化失败而未出图；[127独立分片](../../../research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_HANDOFF.md)沿用相同的1704个未尝试键，并以双源观察控制重复写入。原127观察控制器已签名，v2仍是未部署候选；81项TCL测试通过。
+
+- `test_shard127_safe_publisher.py` 验证见证更新前拒绝不完整或不匹配数据；修复候选和签名审阅见任务目录。
