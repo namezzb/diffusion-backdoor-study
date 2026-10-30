@@ -62,3 +62,5 @@
 - [127等待超时与63图核验](server127_witness_timeout_20261030T0512Z.json)：见证等待90秒超时后退出，保留新增中断键。
 
 - [并行见证v3发布候选](shard127_watch_controller_v3_candidate.py) · [签名审阅及影子观察](shard127_controller_v3_review.json)：单发布者切换，GPU许可与新图待核验。
+
+- [127并行见证v3实时许可](server127_v3_permit_20261030T0521Z.json) · [平台观察](server127_resource_observation_20261030T0520Z.json)：许可通过后模型加载。
