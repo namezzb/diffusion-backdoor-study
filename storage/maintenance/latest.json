@@ -1,73 +1,83 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T12:50:20+08:00",
-  "base_commit": "8007083eaa2deb0e598f956cef375022684784e3",
-  "summary": "总结127两次见证错误、已核验图片和恢复入口，保留原预算与四次中断。",
+  "reviewed_at": "2026-10-30T13:02:53+08:00",
+  "base_commit": "698ad8100f3debdcd97ed7427cc51815a4ec95d5",
+  "summary": "记录127启动等待v2的独立审阅、签名和服务器CPU准备，保留原预算与四次中断。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "bacd03e5284257610e16ccae86d3cc1701380ff7179d77a157f47cef32264f7a"
+      "sha256": "1b3aad77f87667780c8664fb18a62cf2914d674bb641ffe68f89886d76fe5607"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "1e008ed9d886a8fd95c52efd56841c88812f5def21bdd56788077249873050b6"
+      "sha256": "b16f2f4cf7744bf603449a7fb27660755abf8606a5a4f215311a2c60920d2217"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "b6052be835cff33384fd63020728e7e43bc890121ef84e96ee677dd3e6552831"
+      "sha256": "7979f7c53c58111023766906a81d971a6639a66a68c76fad25be49873a20d571"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "97135b7fe2fa3160d006437eece67779865fba0f1bed6b7db749330ff524209b"
+      "sha256": "64c2b1849f1c08e6b8cd3b05a3efa0901f717ac74251bf838aef62a04184dbc9"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "5cfde6155a2561f0c13bc019489ac95feae178a3a7d141356c46616822e5dcbc"
+      "sha256": "69d2434c35cbd65932fab5fa9f068badff211c327afe62ac217801ed4930355b"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_WAIT_V2_HANDOFF.md",
+      "kind": "file",
+      "sha256": "9875d86445b1764eae7467ebbdbae3c732c38acf1df11be50b74b054defa3107"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "c98fca5a6eb4352c1e83976e59d729ad0d3b73dec971d3de38a0233ddd5257d3"
+      "sha256": "13010333f83a72b3e772d3a0f9bfe26993361780d69c319c3e6319f795368a8a"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/progress_summary_20261030.md",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/launch127_wait_v2.sh",
       "kind": "file",
-      "sha256": "e99e57b267743d244b384cee889e919f87068acfa7eb6fab4eecf46c60ccfd6f"
+      "sha256": "29bf0512f1f9e5b142606055cf06b488c6eb8b5382bc9c8cde1e580bde32fbe6"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_20261030T0449Z.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_wait_v2_preparation_20261030T0502Z.json",
       "kind": "file",
-      "sha256": "0bf71840cd6fa1601f5e92fa7e3ea8b73b7c9de1396f60a5d2018bc90b7cbe19"
+      "sha256": "74063d3c77ebc679053dbe9050320f32bcd77e65c61966ffe38624722475fd7d"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resume_interruption_20261030T0449Z.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review_v2.json",
       "kind": "file",
-      "sha256": "948ae48377fdeea2d6b815e1f1e07067bbbcc45f5c82b2f000dd60cd9065fe77"
+      "sha256": "a4754be96f11fede9a463049807c6ad1a807f6d380b8ef95dbec2e13f759f67f"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review_v2.json.sig",
+      "kind": "file",
+      "sha256": "472deb68ad51cba91c1303c145806112b36d2e6f437fb7e978da646ff9893516"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "e09ab0d87424e2978016b231f411f5d33415f4a23513bfa39a09647c3094d71d"
+      "sha256": "3e2c7d110002929213d20004e41cf063ecdac22cc353433aaaa1af1e361cf908"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "kind": "file",
-      "sha256": "674714852b955ed981dbcd9f63dcf8e7d91448866fbc87317a6ed50ef15c3e70"
+      "sha256": "740b87f92f265e323e1e3287f2a62baa720999d16503f040ddd062d57301a71c"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "6c491ecebd7221fc07c1a475d22480ee52a8c5f4285843614ceac5863e77196a"
+      "sha256": "1f11a10aabb09f2a5396be816d359ba5edd6c463593c1ae6bf5a9e9a6fa1aae4"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "e3a3baf9b196d097af6b7a2acc38f411ce7022f9def43c51308e77963ecdfb74"
+      "sha256": "d997d9d2b081533770c0fedb706e0e1adb16492b3d217ee97293ff67ee11d037"
     }
   ],
   "index_decisions": [
@@ -138,8 +148,8 @@
     }
   ],
   "verification": {
-    "local": "见证发布修订2项独立测试通过；本机全量发现因缺torch有13项导入错误。",
-    "server": "127完成62张图并已逐张核验哈希；资源许可通过后见证过期退出，恢复尝试没有新增出图。",
+    "local": "启动等待v2相关25项独立测试通过；本机全量发现因缺torch有13项导入错误。",
+    "server": "127无GPU验签通过并重进CPU准备；62张图的远端哈希已核验，新的GPU许可及出图待核验。",
     "budget": "截至12:38，103完成343图并中断1次，127完成62图并中断3次；冻结预算内最多2044张基线图。"
   },
   "scope": {

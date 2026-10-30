@@ -45,7 +45,7 @@
 
 [全部任务](../README.md) · [研究目录](../../README.md)
 
-- [启动阶段等待 v2 候选交接](SHARD127_WAIT_V2_HANDOFF.md)：待独立审阅，未部署，不影响正在运行的版本。
+- [启动阶段等待 v2 候选交接](SHARD127_WAIT_V2_HANDOFF.md)：已独立审阅并部署，CPU准备已启动。
 
 - [见证控制器 v2 只读审阅](SHARD127_WATCH_V2_REVIEW.md)：当前持续使用 v1，候选尚未批准或切换。
 
@@ -54,3 +54,5 @@
 - [见证发布修复候选](shard127_watch_controller_safe_candidate.py)与[签名审阅](shard127_safe_publisher_review.json)：更新前核对摘要，原验签、身份、时效和预算不变。
 
 - [当前进度摘要](progress_summary_20261030.md) · [恢复中断证据](server127_resume_interruption_20261030T0449Z.json)：12:49许可后见证过期，未新增尝试。
+
+- [启动等待v2准备证据](server127_wait_v2_preparation_20261030T0502Z.json) · [签名审阅](shard127_wait_review_v2.json)：保留既有中断键及预算。

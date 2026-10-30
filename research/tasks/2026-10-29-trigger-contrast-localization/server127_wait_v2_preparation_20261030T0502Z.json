@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-10-30T05:02:11+00:00",
+  "server": "school127",
+  "tmux": "tcl-20261029-01-shard127-v1",
+  "stage": "CPU preparation started after signed v2 independent verification",
+  "gpu_permit": "pending fresh platform evidence",
+  "ledger_before_start": {
+    "complete": 62,
+    "started": 3
+  },
+  "old_103_complete": 343,
+  "old_103_interrupted": 1,
+  "no_replay": "four charged interrupted keys remain excluded",
+  "review_sha256": "a4754be96f11fede9a463049807c6ad1a807f6d380b8ef95dbec2e13f759f67f",
+  "patch_sha256": "25fa74c1aeac495122516d9187c34292b86a96f12b952e36eb322b87b8c6e51a",
+  "launcher_sha256": "cb1030ea4f91afb49d537c9152b82071d190788a0708d66d548373ebaf874450",
+  "launch_script_sha256": "29bf0512f1f9e5b142606055cf06b488c6eb8b5382bc9c8cde1e580bde32fbe6",
+  "testing": "25 local wait tests passed; server verify-only passed without GPU initialization"
+}
