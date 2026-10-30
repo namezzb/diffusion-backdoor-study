@@ -1,68 +1,113 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T13:07:59+08:00",
-  "base_commit": "82e47fde585e0eb603b54b3b3d36663a3bf982b7",
-  "summary": "记录127启动等待v2的GPU许可和模型准备，保留原预算与四次中断。",
+  "reviewed_at": "2026-10-30T13:15:37+08:00",
+  "base_commit": "888a2e14fc4220ff53b4c101ef6a47543ea4d959",
+  "summary": "记录127第63张图、见证超时及并行发布v3审阅和CPU准备，保留五次中断及原预算。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "d62b2fa95690b3e88c69838e2d119c64c73c7507a195adb81836329fb3e0c3f9"
+      "sha256": "2873216150ee108878e25185bb2cbdd26a1de113490be7a6009e2daf9a811468"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "73c64dd5137874e9036428002eb21f7ce85c9af94d6c7b229f4e53a9e245cbd6"
+      "sha256": "bc0838b7a8b013a7c69aa2d724c902560693126c63b648e55dea6b34588279c7"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "96682b2bcdf0eb73c5cc89b45091d746ee511f5b63343c5f913269cd3d9daa19"
+      "sha256": "aaf2a99a078dc09b66ad6a882b97c7d90837f0190bb2ea724620ebfd6f9d131f"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "7b851bf2afb38c9344f35dd9d214590babbb1648155a58bb626814c9a230a7e1"
+      "sha256": "fb110b8a23c6d05a7e4c8df9057e1080cd7553667cd56f1f6a47ce7a9885082d"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "172fa7505d3ada14ff9f12e264096966afc78b57771e243127465139366200a7"
+      "sha256": "e2cdb17f61a8387dacd3de0cd02384c1b371ecb4252a5c5a42ec4950eefc157c"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "f39ef200c19722e15d3fa19e57ca73bb75f58fd297f88cdf4c91e136a6e4cb72"
+      "sha256": "40b502668183365bfa57416148e68fbf24c388dced3eb670c1b86e1625b89729"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_20261030T0506Z.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_witness_timeout_20261030T0512Z.json",
       "kind": "file",
-      "sha256": "9f52491d422b1264062eba4efaf14c159f6be724171b5d1d2b5404f5e1f2a2cf"
+      "sha256": "6ccb9c3fc8e245accaedee17f3643a61baa8d799158080daea0b8e280f92116e"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_wait_v2_permit_20261030T0506Z.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_controller_v3_review.json",
       "kind": "file",
-      "sha256": "bb14abac287794d09074569763891e56099723399d26bcc3c0c8b3695942e609"
+      "sha256": "57a5713fe4460a446cf6222e88c07666ba3e812cb6e10965000806063bdaa16f"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_controller_v3_review.json.sig",
+      "kind": "file",
+      "sha256": "31046c011f8ef6953704541be926005c8b309277ea47e5ef554f3037d5e13a09"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_watch_controller_v3_candidate.py",
+      "kind": "file",
+      "sha256": "17081132edcf5ac342d6b63ed8efd63276380947be23347b3033b166c9041aae"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "5908b8126db65c9fbdad457fdbffdd4665a94923bd77080d3bfa2b9a0cd8a2b0"
+      "sha256": "fe39c00558d5322c0af6cb5d9f6ff7e61994e3151a85cab57552016823018259"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "kind": "file",
-      "sha256": "f058177a4c9cdb8dfc0333298375cf964e8692736ed9fd49772a859800163177"
+      "sha256": "8c9cf11f92e38cb61b6ae34ab894bcfc90c43fb820783880d601b741039c7e6f"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "eec126e0ff3df3c6dfc5d10460e10dc5934d4c6482c5a818ba3e7f1853598017"
+      "sha256": "33ed884ab711be9040212f44a64d202b5d96d438ee987c0babbef6ca20b0b50b"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "kind": "file",
+      "sha256": "a3f953389eaf7d543d54b4fea933b392f920d58ea0575be764a36c4b75acc6f4"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard127_controller_v3.py",
+      "kind": "file",
+      "sha256": "c8d894496932b78d44b3e7d3d6ae65ae12f881403cf05f38b820c1ec03c94b9c"
+    },
+    {
+      "path": "storage/README.md",
+      "kind": "file",
+      "sha256": "6f1352f21d061714a21ed08b1ef475b1b6b25049d9f7e14903a8bac259217698"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "4725291222558da7f13cbd1e282a4ead4779d676180140c4cc64c153d3b36a53"
+      "sha256": "2e59de982f38de19134e6238d66792697a497e1e2fbdb67abea01b9c04d5c24b"
+    },
+    {
+      "path": "storage/asset_registry.jsonl",
+      "kind": "file",
+      "sha256": "0f3d0e0efe03b194601a62b9252c883e4ef805d18ad88dd4091e58fbff35a722"
+    },
+    {
+      "path": "storage/audits/retrieval_coverage.json",
+      "kind": "file",
+      "sha256": "b04c3978293ce95eb991bef7d1a1926f4fee16d4e58995a15762cd505a6c1a81"
+    },
+    {
+      "path": "storage/retrieval_catalog.jsonl",
+      "kind": "file",
+      "sha256": "9e409a97bd1e41b5176be9950e592e0c6d74b702d5c1d28758448bdaffd15853"
+    },
+    {
+      "path": "storage/server-index/127-tcl-v1-shard-images-20261030.jsonl",
+      "kind": "file",
+      "sha256": "cb7fcafac41fe85c70b418ca9d8617e4d7f4f9074d7547e81fb53c953221d4a2"
     }
   ],
   "index_decisions": [
@@ -117,6 +162,16 @@
       "reason": "更新当前报告状态及后续验收边界。"
     },
     {
+      "path": "scripts/README.md",
+      "action": "unchanged",
+      "reason": "登记127数据盘取回入口。"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "action": "updated",
+      "reason": "登记分片脚本和验证入口。"
+    },
+    {
       "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
       "reason": "索引维护流程未变，仅增加已有机制支持的服务器根目录。"
@@ -128,14 +183,14 @@
     },
     {
       "path": "storage/README.md",
-      "action": "unchanged",
+      "action": "updated",
       "reason": "增加127快照证据和服务器索引入口。"
     }
   ],
   "verification": {
-    "local": "启动等待v2相关25项独立测试通过；本机全量发现因缺torch有13项导入错误。",
-    "server": "127等待v2已通过实时平台和GPU门禁、加载模型；62张图的远端哈希已核验，新增出图待验证。",
-    "budget": "截至12:38，103完成343图并中断1次，127完成62图并中断3次；冻结预算内最多2044张基线图。"
+    "local": "并行见证发布v3相关20项独立测试通过；本机全量发现因缺torch有13项导入错误。",
+    "server": "127完成63张图并逐张核验哈希，见证超时退出后切换签名发布器并重进CPU准备。",
+    "budget": "截至13:12，103完成343图并中断1次，127完成63图并中断4次；冻结预算内最多2043张基线图。"
   },
   "scope": {
     "training_updates": 0,

@@ -58,3 +58,7 @@
 - [启动等待v2准备证据](server127_wait_v2_preparation_20261030T0502Z.json) · [签名审阅](shard127_wait_review_v2.json)：保留既有中断键及预算。
 
 - [127等待v2实时许可](server127_wait_v2_permit_20261030T0506Z.json) · [平台观察](server127_resource_observation_20261030T0506Z.json)：许可通过后模型加载。
+
+- [127等待超时与63图核验](server127_witness_timeout_20261030T0512Z.json)：见证等待90秒超时后退出，保留新增中断键。
+
+- [并行见证v3发布候选](shard127_watch_controller_v3_candidate.py) · [签名审阅及影子观察](shard127_controller_v3_review.json)：单发布者切换，GPU许可与新图待核验。
