@@ -21,6 +21,8 @@
 | [定位终态观察](server103_localization_terminal_observation_20261029.json) | 107520次前向及六组对照完成，远端终态与选择文件哈希；图片效果仍待确认 |
 | [确认资源观察](server103_resource_observation_confirm_20261029.json) · [确认准备](server103_confirm_preparation_20261029.json) | CPU预检及确认阶段GPU门禁通过，完整基线仍待核验 |
 | [127 Xorg误拦截](server127_gpu_gate_interruption_20261030.json) · [修订交接](RESOURCE127_HANDOFF.md) · [独立签名](resource127_review.json.sig) | gdm系统显示进程身份复核，限定兼容修订经签名、测试及只读实测；GPU和图片仍须另验 |
+| [127见证等待修订](SHARD127_WAIT_HANDOFF.md) · [签名审阅](shard127_wait_review.json) · [重启记录](server127_wait_resume_20261030.json) | 网络短暂中断时有界等待新鲜见证；成功验签缓存仍逐次检查时效与身份 |
+| [127见证中断](server127_witness_interruption_20261030.json) · [图片索引](../../../storage/server-index/127-tcl-v1-shard-images-20261030.jsonl) | 3张图片已评分并验证SHA；见证过期导致新增1条中断，修订待审阅 |
 | [127路径修复启动](server127_pathfix_resume_20261030.json) · [平台观察](server127_resource_observation_pathfix_20261030.json) | CPU预检及新许可通过，CUDA加载和选择复算中，首图待核验 |
 | [127导入中断](server127_import_interruption_20261030.json) | 首键登记后导入失败，0前向和图片；固定路径已验证，已计费键不可重试 |
 | [127 CPU准备](server127_cpu_preparation_20261030.json) | 重试已通过源观察并进入CPU资产加载，GPU许可尚待实时核查 |
@@ -42,3 +44,5 @@
 任务代码见[scripts/merging/trigger_contrast_localization](../../../scripts/merging/trigger_contrast_localization/README.md)，服务器产物以冻结候选中的本人数据盘路径为准，定位已完成而图片确认受阻。大模型与原图继续遵循[存储入口](../../../storage/README.md)，不放入本任务目录冒充已归档小文件。
 
 [全部任务](../README.md) · [研究目录](../../README.md)
+
+- [启动阶段等待 v2 候选交接](SHARD127_WAIT_V2_HANDOFF.md)：待独立审阅，未部署，不影响正在运行的版本。

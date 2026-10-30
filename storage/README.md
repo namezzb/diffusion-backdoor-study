@@ -73,3 +73,5 @@ python3 scripts/storage/research_archive.py restore \
 暂停前Drive中已有一份初始存储说明和一份约13.33MB核心快照：[历史目录](https://drive.google.com/drive/folders/1mph76LjG039Rky5mCEbzfCrMp732_2sU)。没有更改分享权限或删除它们；公司安全页面限制Drive访问后未绕过，最新要求下不再开展上传或下载。
 
 127的TCL只读准备快照已登记在[服务器索引](SERVER_INDEX.md)，其418项内容和清单在127完成校验；源run未终态。
+
+127新完成的3张图已核对哈希并登记服务器取回路径，见[服务器索引](SERVER_INDEX.md)；未建立本地图片副本。

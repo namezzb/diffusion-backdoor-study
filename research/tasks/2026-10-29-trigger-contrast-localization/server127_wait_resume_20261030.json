@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-10-30T03:29:55.560994+00:00",
+  "server": "school127",
+  "tmux": "tcl-20261029-01-shard127-v1",
+  "status": "reviewed wait amendment CPU preparation started",
+  "prior_attempt_counts": {
+    "complete": 3,
+    "started": 2
+  },
+  "prior_png_sha_verified": 3,
+  "remaining_unstarted": 1699,
+  "wait_amendment_sha256": "b0cdbdc6c4d7b018625c6dbaaafa90d10c77be465d162f1135d2d604a7776bed",
+  "wait_patch_sha256": "76bdcccbc9274dee4413b5e9340fd5e5b267d969b3ecd381b53e77027b191df0",
+  "wait_launcher_sha256": "8d9c816e2fdcdf3d8dc867414e16dc0dbcce4a9c91d2b4f34b6e97446c45e4bd",
+  "launch_script_sha256": "b76491f8e5ee07fce5b0388c228f1c996c961134ac3db8bef64fe4fbef0a9aa8",
+  "launch_script_remote_sha256_verified": true,
+  "targeted_and_full_tests": "98 passed independently",
+  "gpu_permit": "not yet issued for this attempt",
+  "scientific_outcome": "not_evaluated",
+  "initial_wait_launcher_exit": "source witness expired during pre-ledger startup; no new attempts",
+  "retry_observed_at_utc": "2026-10-30T03:31:38.485610+00:00",
+  "retry": "signed original wait amendment started again after observations resumed; startup-wait enhancement separately under review"
+}

@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-10-30T03:35:51.354Z",
+  "ready_at_utc": "2026-10-30T03:35:25.957876+00:00",
+  "source": "https://gpu.orz2333.fun/",
+  "server": "127",
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "sampling_valid": true,
+  "disabled": false,
+  "status": "空闲",
+  "quota_observed_at_utc": "2026-10-30T03:35:38.872Z",
+  "quota_in_use": 0,
+  "quota_limit": 4,
+  "queue_observed_at_utc": "2026-10-30T03:35:48.275Z",
+  "queue_for_server_127": [],
+  "allocation_conflict": false,
+  "queue_56": "104 等待中，不适用于127"
+}

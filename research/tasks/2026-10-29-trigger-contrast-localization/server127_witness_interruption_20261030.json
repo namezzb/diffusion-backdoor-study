@@ -1,0 +1,33 @@
+{
+  "event_time_utc": "2026-10-30T03:18:58.699570+00:00",
+  "server": "school127",
+  "reason": "104 fence witness expired or invalid during UNet checkpoint",
+  "result": "stopped by protection after SSH publication timeout; no GPU fault inferred",
+  "shard_attempts": 5,
+  "completed_images": 3,
+  "interrupted_attempts": 2,
+  "new_interrupted_key": [
+    "source",
+    "backdoor",
+    "cat",
+    "backyard-10",
+    271101
+  ],
+  "new_interrupted_resource": {
+    "text_encoder_forwards": 2,
+    "unet_branch_nfe": 1,
+    "vae_decodes": 0
+  },
+  "completed_sha256": [
+    "a3086aa351e11821d721fa30f218fa4b00b146d4c1631ad2bd6b37e2e4efc468",
+    "8d8720271278250e546c5a400d2342c1b91e77fd30784625e505d9c7099be7f8",
+    "3d3d94cd4324d423719f07df9e7c01b5c1dae94643e1c95e11e6e6be751395cb"
+  ],
+  "all_completed_png_hashes_and_scores_verified": true,
+  "original_103_completed": 343,
+  "original_103_attempts": 344,
+  "combined_attempts": 349,
+  "remaining_shard_unstarted_maximum": 1699,
+  "maximum_baseline_completions_with_original_budget": 2045,
+  "next": "Independently review bounded waiting for fresh signed observations; do not replay started keys."
+}

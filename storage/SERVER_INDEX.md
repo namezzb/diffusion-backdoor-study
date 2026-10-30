@@ -6,6 +6,10 @@
 
 103运行中断后核对了343张完成PNG的远端SHA-256与账本，首图见[原清单](server-index/103-tcl-v1-first-sample.jsonl)，其余342张见[本次清单](server-index/103-tcl-v1-completed-images-20261030.jsonl)；图片均未回传，原账本仍持锁，不称为完整备份。
 
+## TCL 127完成图（2026-10-30 11:20）
+
+127分片已完成3张且逐张SHA与账本一致，[逐文件索引](server-index/127-tcl-v1-shard-images-20261030.jsonl)登记其服务器位置；未下载本地，运行在见证过期后中断。
+
 ## TCL 127分片准备快照（2026-10-30 10:49）
 
 103一致性快照已复制至127并由分片候选校验418项内容与清单；[127逐文件索引](server-index/127-tcl-v1-shard-snapshot-20261030.jsonl)保留419项来源，快照并非原run终态。

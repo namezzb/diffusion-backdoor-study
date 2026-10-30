@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T11:16:00+08:00",
-  "execution_status": "tcl_127_cuda_selection_audit",
+  "updated_at": "2026-10-30T11:36:12+08:00",
+  "execution_status": "tcl_127_gpu_selection_revalidation",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,10 +26,10 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "127 path-fixed run passed CPU preflight and live resource gate; GPU initialized and selection re-audit underway, with one 127 interrupted attempt preserved.",
+  "current_work": "127 completed 3 images with 2 interrupted attempts; reviewed wait patch resumed, fresh GPU permit verified, GPU model loaded and selection revalidation in progress.",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "Verify first completed image and estimate throughput; preserve both interrupted keys and frozen budget.",
+  "next_research_action": "Verify fresh images and measure throughput; preserve charged keys and resolve the three-image baseline gap only with explicit budget authorization.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",
