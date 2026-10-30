@@ -1,73 +1,43 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T11:02:20+08:00",
-  "base_commit": "1f8887df523b50c77c875d5830b706bddab8ded4",
-  "summary": "记录127系统Xorg兼容修订及签名审阅，保持原冻结预算和未决键。",
+  "reviewed_at": "2026-10-30T11:11:50+08:00",
+  "base_commit": "6cd42ae395cb3ff150dfab7fee82be39ba2530b6",
+  "summary": "记录127首键导入失败、保留已计费尝试及固定路径修复后续跑。",
   "reviewed_changes": [
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "77119bc6fcda1c01bc6b820b792114ab5589894e53c0385b6701e8e963778f38"
+      "sha256": "041e090d80bc6e286897590c5ce831c7378992296d8040743cf227adf5850301"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "83b0e7b0cf85882e2b64b8b77f8b5fcc9c9be2374334779e03f0f8e2d0e3bb1e"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/RESOURCE127_HANDOFF.md",
-      "kind": "file",
-      "sha256": "ccfbdba86b9a280e37c46d57d95492309de083547a4e63fc7a6e8f3ca87c51c1"
+      "sha256": "90398554721279da4b5b91f9088b24fd7f057e2c045d0f4ca47a5db2011ff4f0"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "0bd27a07cf91c763a36fc8849d9f69e9ee5a7ac6492a323564457007df0e7865"
+      "sha256": "d7af5e3003fc90bdda0ba3a25520ae48d45de7d3ba9bbf2ed08dcae5a5d82fbc"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource127_gdm_xorg_patch.py",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/launch127_pathfix.sh",
       "kind": "file",
-      "sha256": "df25fff229ec62a5f760d774ab5c9a2c0a46d8e94b8910faf2c4828927aefeea"
+      "sha256": "3016d3742ca918b9e18de5ba62a5083de428e318b7a9d9739ceba18f762498e2"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource127_launcher.py",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_import_interruption_20261030.json",
       "kind": "file",
-      "sha256": "47eec21ef9a56dd534456508677f5a8fbf6ccb1b5ba38f321c41a917efcee593"
+      "sha256": "df65fb82119d7b7f77dfe9c64927b3ea2fc32255d975180d89602e12947259db"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource127_review.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_overlay_20261030.json",
       "kind": "file",
-      "sha256": "88dbc3d6a1a61820e75021776343fc9d0b1b78d243ac1a877530b57714734104"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource127_review.json.sig",
-      "kind": "file",
-      "sha256": "b2492d689db4e798bbeb2260744aca19a4fd78f06530bc6c9f71a84ee8f4e8b1"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource127_review_template.py",
-      "kind": "file",
-      "sha256": "b4845db032c033772f091cfb7518f8cf22dbbfbdd47056c51b2ba77c230d9dec"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_gpu_gate_interruption_20261030.json",
-      "kind": "file",
-      "sha256": "9bbbdbd9a93346337948aabe4e9555178808121f37229d170f3efe39d1be2d2f"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_20261030.json",
-      "kind": "file",
-      "sha256": "7cad47864262bd89c8f998bbcccb2a1dfb9ee1e0db73c4d3bf380bffde16674c"
+      "sha256": "14b6fd0cb0ee48276bbced6ccc9d82355d57d0ab1524cbaf479031c94a57f190"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "397641839d24060a0f1e62512ebf958e14853523a9f1c4e4e3b836b5a0af22b6"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_resource127_overlay.py",
-      "kind": "file",
-      "sha256": "7193b2694a812d72f06c37a63e1b28367f5a4b0d2a7aa8a7daecbfc16f291cbd"
+      "sha256": "557d97f825284c645602b1d3d4d2a2a2eb791867d7a6d32fd2ba40dfc68a2f3b"
     }
   ],
   "index_decisions": [
@@ -110,22 +80,12 @@
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "action": "unchanged",
       "reason": "更新当前报告状态及后续验收边界。"
-    },
-    {
-      "path": "scripts/README.md",
-      "action": "unchanged",
-      "reason": "登记127数据盘取回入口。"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "action": "unchanged",
-      "reason": "登记分片脚本和验证入口。"
     }
   ],
   "verification": {
     "local": "87项TCL测试及138项存储测试通过；127来源路径检查通过。",
-    "server": "127 38项模型SHA、418项快照与签名核验通过，系统Xorg修订只读验证通过，CPU准备运行中；104 CUDA初始化失败且0出图。",
-    "budget": "103已完成343图、1次中断，127分片限制1704个未尝试键；完整基线仍缺原中断键。"
+    "server": "127门禁与选择复算通过；首键因导入路径错误在前向前退出，固定路径和冻结哈希已核验，重试准备进行中。",
+    "budget": "103已完成343图、1次中断；127首键已中断计费，剩1703键；冻结预算内完整基线最多2046张。"
   },
   "scope": {
     "training_updates": 0,

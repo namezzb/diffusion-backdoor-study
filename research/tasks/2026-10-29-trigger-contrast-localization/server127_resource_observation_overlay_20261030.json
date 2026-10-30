@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-10-30T03:05:57.107Z",
+  "source": "https://gpu.orz2333.fun/",
+  "server": "127",
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "sampling_valid": true,
+  "status": "空闲",
+  "disabled": false,
+  "server_online": true,
+  "account_cards_used": 0,
+  "account_card_limit": 4,
+  "waiting_queue_127": [],
+  "own_queue_104": "#56 waiting",
+  "platform_allocation_conflict_observed": false,
+  "note": "页面刷新后127 GPU2为有效采样；平台显示0/4，队列中无127请求；进程由实时门禁复核。"
+}

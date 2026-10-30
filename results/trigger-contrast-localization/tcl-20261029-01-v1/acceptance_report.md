@@ -39,3 +39,5 @@
 2026-10-30 10:49，127固定模型、原快照及续跑候选已核验，首次准备因源观察超时在建立账本前退出，0次出图；见[127中断记录](../../../research/tasks/2026-10-29-trigger-contrast-localization/server127_preflight_interruption_20261030.json)。原中断键仍未解决，即使其余1704键全部完成，原2048图基线最多完整2047张，不得据此宣称完整验收。
 
 2026-10-30 10:57，127 CPU资产核验通过，资源门禁误拦截gdm账号的Xorg，0次出图；修订通过87项检查、独立签名及127只读实测后，11:01重启CPU准备，详见[故障记录](../../../research/tasks/2026-10-29-trigger-contrast-localization/server127_gpu_gate_interruption_20261030.json)。
+
+2026-10-30 11:09，127已通过资源许可和定位复算，但首键登记后因启动模块路径错误在前向前退出；[实际中断及修复记录](../../../research/tasks/2026-10-29-trigger-contrast-localization/server127_import_interruption_20261030.json)保留该次已计费尝试。冻结预算内127剩余最多1703个未开始键，连同103结果最多完整2046张基线图，不能据此宣称完整基线或最终验收。

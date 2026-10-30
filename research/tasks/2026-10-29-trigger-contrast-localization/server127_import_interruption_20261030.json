@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-10-30T03:09:21.284596+00:00",
+  "server": "school127",
+  "event": "ModuleNotFoundError: No module named scripts",
+  "cause": "startup PYTHONPATH omitted frozen repository root; sample was marked started before import",
+  "started_key": [
+    "source",
+    "backdoor",
+    "cat",
+    "backyard-08",
+    271101
+  ],
+  "resource": {},
+  "generated_images": 0,
+  "source_attempt_already_charged": true,
+  "model_forward_before_error": 0,
+  "source_103_completed": 343,
+  "source_103_interrupted": 1,
+  "source_127_interrupted": 1,
+  "source_127_remaining_unstarted_maximum": 1703,
+  "maximum_baseline_completions_with_original_budget": 2046,
+  "repair": "127 startup environment sets PYTHONPATH to frozen CODE root; imported module path and SHA checked against manifest",
+  "verified_module_sha256": "141459c793192ae59dd4f1489f8a87f7f3449c192912a02b09e3997a6bf6bd06",
+  "restart": "same identity, skips previously started key; CPU preflight restarted",
+  "scientific_conclusion": "not_evaluated; complete source baseline is not attainable under this shard alone",
+  "launch_script": "launch127_pathfix.sh",
+  "launch_script_sha256": "3016d3742ca918b9e18de5ba62a5083de428e318b7a9d9739ceba18f762498e2",
+  "launch_script_remote_sha256_verified": true
+}
