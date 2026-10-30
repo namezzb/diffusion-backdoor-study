@@ -20,6 +20,7 @@
 | [恢复资源观察](server103_resource_observation_resume_20261029.json) · [恢复回执](server103_amendment_resume_20261029.json) | 独立验签及新的实时资源门禁通过，后续前向和终态需另行核验 |
 | [定位终态观察](server103_localization_terminal_observation_20261029.json) | 107520次前向及六组对照完成，远端终态与选择文件哈希；图片效果仍待确认 |
 | [确认资源观察](server103_resource_observation_confirm_20261029.json) · [确认准备](server103_confirm_preparation_20261029.json) | CPU预检及确认阶段GPU门禁通过，完整基线仍待核验 |
+| [127 Xorg误拦截](server127_gpu_gate_interruption_20261030.json) · [修订交接](RESOURCE127_HANDOFF.md) · [独立签名](resource127_review.json.sig) | gdm系统显示进程身份复核，限定兼容修订经签名、测试及只读实测；GPU和图片仍须另验 |
 | [127 CPU准备](server127_cpu_preparation_20261030.json) | 重试已通过源观察并进入CPU资产加载，GPU许可尚待实时核查 |
 | [127观察控制器v2草案](shard127_watch_controller_v2.py) | 并行观察与合并发布候选，尚未独立审阅或部署；当前使用原签名版本 |
 | [127分片交接](SHARD127_HANDOFF.md) · [候选](shard127_plan_candidate.json) · [审阅](shard127_review_envelope.json) | 原预算内1704个未尝试键，双源短时观察和104锁保护；104及103原执行禁止重启 |

@@ -1,0 +1,26 @@
+{
+  "observed_at_utc": "2026-10-30T02:56:58.228Z",
+  "source": "https://gpu.orz2333.fun/",
+  "server": "127",
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "sampling_valid": true,
+  "status": "空闲",
+  "disabled": false,
+  "server_online": true,
+  "account_cards_used": 0,
+  "account_card_limit": 4,
+  "waiting_queue_127": [],
+  "own_queue_104": "#56 waiting",
+  "platform_allocation_conflict_observed": false,
+  "nvidia_smi_observed_at_utc": "2026-10-30T02:56:45Z",
+  "nvidia_smi": {
+    "name": "NVIDIA GeForce RTX 4080",
+    "memory_used_mib": 18,
+    "memory_total_mib": 16376,
+    "utilization_percent": 0,
+    "compute_mode": "Default",
+    "target_compute_processes": 0
+  },
+  "note": "网页为登录账户操作员观察；实时资源门禁还会独立检查完整进程及Xorg。"
+}

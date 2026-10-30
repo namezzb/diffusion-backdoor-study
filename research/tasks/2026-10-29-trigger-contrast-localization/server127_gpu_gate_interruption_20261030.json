@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-10-30T02:57:17.742036+00:00",
+  "server": "school127",
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "cpu_preflight": "passed; 38 asset files and 320 contexts verified",
+  "platform_permit_issued": "2026-10-30T02:57:16.670403+00:00",
+  "gate_error": "GPU has a non-system-Xorg or unknown process",
+  "process": {
+    "pid": 49207,
+    "uid": 128,
+    "user": "gdm",
+    "type": "G",
+    "path": "/usr/lib/xorg/Xorg",
+    "used_memory_mib": 4,
+    "system_path_owner": "root",
+    "system_path_mode": "0755",
+    "proc_exe_readable": false,
+    "cmdline_verified": true
+  },
+  "cause": "Existing Xorg exception assumes root user; the actual system Xorg is gdm-owned.",
+  "image_attempts": 0,
+  "outcome": "implementation compatibility issue; not a scientific finding",
+  "overlay_readonly_validation": {
+    "observed": "system_gdm_processes=1; GPU UUID and Default mode verified",
+    "pid": 49207,
+    "exe_readable": false,
+    "verification": "proc_exe_inaccessible_cmdline_and_system_path",
+    "local_tests": 87,
+    "overlay_sha256": "df25fff229ec62a5f760d774ab5c9a2c0a46d8e94b8910faf2c4828927aefeea",
+    "review_sha256": "88dbc3d6a1a61820e75021776343fc9d0b1b78d243ac1a877530b57714734104"
+  },
+  "retry": "reviewed overlay CPU-preparation session started; GPU and images not yet verified"
+}

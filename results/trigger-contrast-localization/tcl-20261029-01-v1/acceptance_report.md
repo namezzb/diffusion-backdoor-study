@@ -37,3 +37,5 @@
 2026-10-30 10:36，104资源门禁通过后CUDA初始化失败，驱动`cuInit`返回3、分片0次出图；失败成因尚未确定，见[104故障记录](../../../research/tasks/2026-10-29-trigger-contrast-localization/server104_cuda_failure_20261030.json)。127 GPU 2驱动初始化已通过，正在准备固定输入和独立互斥分片，尚无新的图片或完整验收结论。
 
 2026-10-30 10:49，127固定模型、原快照及续跑候选已核验，首次准备因源观察超时在建立账本前退出，0次出图；见[127中断记录](../../../research/tasks/2026-10-29-trigger-contrast-localization/server127_preflight_interruption_20261030.json)。原中断键仍未解决，即使其余1704键全部完成，原2048图基线最多完整2047张，不得据此宣称完整验收。
+
+2026-10-30 10:57，127 CPU资产核验通过，资源门禁误拦截gdm账号的Xorg，0次出图；修订通过87项检查、独立签名及127只读实测后，11:01重启CPU准备，详见[故障记录](../../../research/tasks/2026-10-29-trigger-contrast-localization/server127_gpu_gate_interruption_20261030.json)。

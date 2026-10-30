@@ -8,9 +8,9 @@
 | outcome | not_evaluated |
 | owner | Codex 本会话执行者；实现由被委派 agent 交付 |
 | reviewer | Codex，本会话；用户要求实现后review |
-| updated_at | 2026-10-30T10:53:00+08:00 |
-| current_stage | 127源观察恢复，分片正在CPU资产加载 |
-| next_action | CPU完成后核对实时平台及卡进程，签发资源许可并确认真实出图 |
+| updated_at | 2026-10-30T11:01:00+08:00 |
+| current_stage | 127 Xorg兼容修订已审阅并重启CPU准备 |
+| next_action | 等待CPU加载，核对实时资源后签发新nonce许可并确认真实出图 |
 | authorization | 用户2026-10-29授权服务器验证并输出报告，2026-10-30要求迁至104并关注显存；实现与迁移修订须独立review后执行 |
 
 本文件是本任务方法、预算及完成／待完成状态的唯一事实来源，通用规则见[AGENTS.md](../../../AGENTS.md#任务管理规范)。本任务接续[初始草案](../../trigger_contrast_localization_pilot_review_2026-10-29.md)，以本文件的新样本数、预算和合并判据为准，旧run及其冻结输入不变。
@@ -192,3 +192,7 @@ review重点是实际参数坐标正确、对照可比、正常猫能力单独�
 2026-10-30 10:49：127冻结模型38项及原快照418项校验通过，签名只读验真通过；首次准备因[源观察过期](server127_preflight_interruption_20261030.json)在建立输出前退出，0次出图，跳板延迟正在诊断。
 
 2026-10-30 10:53：源观察连续恢复后重试，127 [准备事件](server127_cpu_preparation_20261030.json)已记录，进程正CPU加载资产；尚未发GPU许可，未生成新图。
+
+2026-10-30 10:57：127 CPU预检完成且实时平台许可已签发，但[现有GPU门禁误拦截](server127_gpu_gate_interruption_20261030.json)gdm账户的系统Xorg，0次出图；正在修复实现兼容性。
+
+2026-10-30 11:01：127 gdm Xorg限定修订经独立审阅、87项检查及服务器只读门禁实测，独立签名后重新启动CPU准备；旧许可保留，尚未生成图片。
