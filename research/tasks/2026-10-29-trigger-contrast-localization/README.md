@@ -52,3 +52,5 @@
 - [127见证JSON中断与62张图核验](server127_json_interruption_20261030T0352Z.json)：真实错误、保留账本并定位修复。
 
 - [见证发布修复候选](shard127_watch_controller_safe_candidate.py)与[签名审阅](shard127_safe_publisher_review.json)：更新前核对摘要，原验签、身份、时效和预算不变。
+
+- [当前进度摘要](progress_summary_20261030.md) · [恢复中断证据](server127_resume_interruption_20261030T0449Z.json)：12:49许可后见证过期，未新增尝试。

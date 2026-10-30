@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-10-30T04:49:25.767268+00:00",
+  "server": "school127",
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "phase": "shard127",
+  "status": "error",
+  "error_type": "FreshWitnessPending",
+  "reason": "source witness expired",
+  "resource_permit_verified_at_utc": "2026-10-30T04:49:25.744435+00:00",
+  "permit_sha256": "641cf38d7ac518b7c6dade89ba2f7244f4b3e531485463c27686e9f522d5ce65",
+  "shard_new_attempts_in_this_restart": 0,
+  "ledger": {
+    "complete": 62,
+    "started": 3
+  },
+  "tmux_exists": false,
+  "gpu_memory_mib": 18,
+  "gpu_utilization_percent": 0,
+  "platform_evidence": "server127_resource_observation_20261030T0449Z.json",
+  "log": "/data1/zhangzibo/arxiv-tssa/preparations/tcl127-shard-executor-20261030/run-wait-safe-publisher.log",
+  "root_cause": "startup check after resource gate lacks bounded waiting; no sample was attempted in this restart",
+  "next_action": "independently review startup-wait v2 and resume only under fresh platform permission; retain all charged keys"
+}
