@@ -1,99 +1,39 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T11:41:14+08:00",
-  "base_commit": "2f5e39b172c4425188972629fb0f2cd104b1eee5",
+  "reviewed_at": "2026-10-30T11:44:06+08:00",
+  "base_commit": "0d2b0f4245b471897f5707578a90cb2aff34e79f",
   "summary": "记录127恢复出图、7张图片哈希及单次回查，保留中断记录和原预算。",
   "reviewed_changes": [
     {
-      "path": "AGENTS.md",
-      "kind": "file",
-      "sha256": "d9fe1369fe71dee72c20f36079177a8107f002b7ae411a0d3b0e41766eb19102"
-    },
-    {
-      "path": "README.md",
-      "kind": "file",
-      "sha256": "716d490be0345647e837425e3ba003a3f32dbedbfa017132e0540646a07dc758"
-    },
-    {
-      "path": "research/README.md",
-      "kind": "file",
-      "sha256": "fbac2347f3284ced29bcc64b11b2dce587d628222cf145bfd61de16c3625c27b"
-    },
-    {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "0cef48ffa95bb0b4101d21f3097ed7872a05240259801d44f6b7b3f1dc7e6ae3"
+      "sha256": "a47e204277685a952fa5af0d535d4309153adc0385e7e2c3591a01c326f97ffc"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
+      "kind": "file",
+      "sha256": "b9e84b328aded32db510298316e46c414c14853c14a61a80b066b0e8fb147730"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_WATCH_V2_REVIEW.md",
+      "kind": "file",
+      "sha256": "e88b0b0052810a5a5d00a1eb35679ac0f7000fc14dd5463224d554e13e9326e2"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "0fd4e3d9bf81246715150ba0bf4b1c3c4bfdf7933d632b02025ece027210ddcd"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_running_observation_20261030T0340Z.json",
-      "kind": "file",
-      "sha256": "0afcd5e37bd27dd02371d22407862edd9fb6218eb6853200cef61e15bafb63d9"
-    },
-    {
-      "path": "results/README.md",
-      "kind": "file",
-      "sha256": "1b3da50f026ed974c8dfcee978c25f89016d579f541d8fd1eeb8ca5e47ff9d48"
-    },
-    {
-      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "kind": "file",
-      "sha256": "89b3eb14cd96f70d7ca691a14a62ade9d7c9beaf2ca279d55d95997fcab0f6da"
+      "sha256": "90fffd3fd3425c8153f63968a214c5daf3bd724cd963f3d586d15193eb699645"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "a810356726e6ca38da0f9a13d02f4e7a71bc4c6881e325c1f62b536fcdfc7455"
-    },
-    {
-      "path": "storage/README.md",
-      "kind": "file",
-      "sha256": "34a4f272ba0857c382e56546394205407f4fdd241a85773af57774a567f6a0c8"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "kind": "file",
-      "sha256": "3ac603a9b29747c903a65073d315aadc02f897cb500199988e9a7e3cb0c47961"
-    },
-    {
-      "path": "storage/asset_registry.jsonl",
-      "kind": "file",
-      "sha256": "0f5f25566e2dce4f960c89f4bd775c2ea4f59f522bdcefafaad7deb9deb0a3df"
-    },
-    {
-      "path": "storage/audits/retrieval_coverage.json",
-      "kind": "file",
-      "sha256": "4eb1dfbbe3a5c31feb30395e464599bf65c692f037077420a27f80ac42e73ab8"
-    },
-    {
-      "path": "storage/retrieval_catalog.jsonl",
-      "kind": "file",
-      "sha256": "cd5755682415d999c01096118ead8c854ec782f2da2bf944a545ed830b2ca1c1"
-    },
-    {
-      "path": "storage/server-index/127-tcl-v1-shard-images-20261030.jsonl",
-      "kind": "file",
-      "sha256": "fddc4f2dc22e88eadf6ba850776cffacc0ce37bca786f44236bd24dd6a5556de"
+      "sha256": "33b2b7ddcac0159ebb61165e22db58cec0a8a8afc9038c392bfb0e09e226038d"
     }
   ],
   "index_decisions": [
     {
-      "path": "AGENTS.md",
-      "action": "updated",
-      "reason": "更新当前任务资源状态，保留用户最新排队规则。"
-    },
-    {
-      "path": "README.md",
-      "action": "updated",
-      "reason": "总入口反映103中断、104失败与127准备。"
-    },
-    {
       "path": "research/README.md",
-      "action": "updated",
+      "action": "unchanged",
       "reason": "科研入口反映当前资源状态和未完成结论。"
     },
     {
@@ -103,7 +43,7 @@
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "action": "unchanged",
+      "action": "updated",
       "reason": "增加分片交接、核验和异常证据入口。"
     },
     {
@@ -118,7 +58,7 @@
     },
     {
       "path": "results/README.md",
-      "action": "updated",
+      "action": "unchanged",
       "reason": "更新源确认运行阶段和已完成数量。"
     },
     {
@@ -128,23 +68,8 @@
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "action": "updated",
+      "action": "unchanged",
       "reason": "更新当前报告状态及后续验收边界。"
-    },
-    {
-      "path": "storage/INDEX_MAINTENANCE.md",
-      "action": "unchanged",
-      "reason": "索引维护流程未变，仅增加已有机制支持的服务器根目录。"
-    },
-    {
-      "path": "storage/NEW_COMPUTER.md",
-      "action": "unchanged",
-      "reason": "换机入口及验证步骤未变，新增来源由服务器索引和目录提供。"
-    },
-    {
-      "path": "storage/README.md",
-      "action": "updated",
-      "reason": "增加127快照证据和服务器索引入口。"
     }
   ],
   "verification": {
