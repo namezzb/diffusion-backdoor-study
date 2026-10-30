@@ -1,0 +1,411 @@
+{
+  "observed_at": "2026-10-30T05:25:59.204684+00:00",
+  "counts": {
+    "complete": 67,
+    "started": 5
+  },
+  "verified_images": [
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/c172c3cf61b7795e501d2057415c7d39a7b8fa032cb74a2d653bd953d3724d48.png",
+      "bytes": 503662,
+      "sha256": "a3086aa351e11821d721fa30f218fa4b00b146d4c1631ad2bd6b37e2e4efc468",
+      "mtime": "2026-10-30T03:18:17.709206+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/cffea20af73e8aed7fdb3b229b0441c71c77d5a5cee39d742eb22003b65b3702.png",
+      "bytes": 591727,
+      "sha256": "8d8720271278250e546c5a400d2342c1b91e77fd30784625e505d9c7099be7f8",
+      "mtime": "2026-10-30T03:18:42.706631+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/8b496e858addee56b731cf3bb86e3d87a82e54957e842636691d15058645c319.png",
+      "bytes": 468730,
+      "sha256": "3d3d94cd4324d423719f07df9e7c01b5c1dae94643e1c95e11e6e6be751395cb",
+      "mtime": "2026-10-30T03:18:55.893815+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/44e106f371faf3f431bce4da7f77834382c0eb5eb48c9b79f7ed1dc3857fab56.png",
+      "bytes": 377744,
+      "sha256": "724a6f3a36633369a540b31562efbb98562bf7eafcd9c340f3bea2bb0b9f660e",
+      "mtime": "2026-10-30T03:39:17.109257+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/9620d202c171abbd1ac5c41963d714cf46a60ee33adbb6c047dc3b4f36d5b4d2.png",
+      "bytes": 525336,
+      "sha256": "0631bfcbdd5bd99f4edc1467ff48bfe81c3be09d47af2e3fefdbfd39c1b6dc07",
+      "mtime": "2026-10-30T03:39:31.431764+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/9f1ab01d04c1762dadfcb9cb3404af43fdad5d1f87bada16de0b4707c863d5ad.png",
+      "bytes": 469136,
+      "sha256": "3148d6b8c002447ae55e39c367e7ce10917c3eb492ab53d23232ef2dafe016bf",
+      "mtime": "2026-10-30T03:39:44.383320+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/66c43eaa50e2b587c6c9d3fe9fa8db2fbb92d69bd1c264e08b1166fc9421ffc6.png",
+      "bytes": 496289,
+      "sha256": "0aeabc1b706e291712ff1215861ee614918d422a5f237a1cbf8342e73e011095",
+      "mtime": "2026-10-30T03:40:01.005750+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/a1b026e0c23fcf687ff67aac05f8263d022668fb3a221285f1f56dba761b0fba.png",
+      "bytes": 416277,
+      "sha256": "d39369664537ea0341a510695e6accf84168c91826292f25eb1d14ae20dd13da",
+      "mtime": "2026-10-30T03:40:15.559252+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/51530e9e617b0fbc5eaf5f9ba89bd0479c249acb45076f3e54de07b5b67bc5ce.png",
+      "bytes": 401653,
+      "sha256": "4ccce7955d0752ab0e1bef65d82c0dc071a0c24ae865958a5fe2c8adf1df0b77",
+      "mtime": "2026-10-30T03:40:28.529809+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/c62107462f149a5b90272a97cd44654fdbe2166f66651fefd67efb8dffcdf9d6.png",
+      "bytes": 391865,
+      "sha256": "3c3e94ab1aeeb479b856729b23e80c7714b73f0b82842fff2520cc888f747f8a",
+      "mtime": "2026-10-30T03:40:41.026384+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/a4a9a9ef8a6aef112ec363f9fbc08b75bb1e23a555267d4e4642c7fad8a5d5ef.png",
+      "bytes": 553656,
+      "sha256": "180b2cfc200c6c5c04788fc2a1a3f6a96122797d7780d5c4ae99b8f85e08495d",
+      "mtime": "2026-10-30T03:40:54.941911+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/3f6ca91abcef1186cc5e0d4bd812e6d956e5b99a9fed7589941fbd8a997cfdab.png",
+      "bytes": 496449,
+      "sha256": "293f47974bf5631f1dbcb19c076d54c631e4c95c943c7545c0312ca41910c3cb",
+      "mtime": "2026-10-30T03:42:02.464068+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/223846b33db3f4a001bca4e689bb3cad92965a78f399b4f3a8b95e0134add0da.png",
+      "bytes": 503750,
+      "sha256": "572e00159009db12143a304020116370bcd5c18d5bdeb7e3e1f5a7cf717c17b1",
+      "mtime": "2026-10-30T03:42:28.374382+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/a136133c10a30d768bdb38197aced8f3b248a373ae81ecadfd7e977c0e20f883.png",
+      "bytes": 406192,
+      "sha256": "723f76f68f4999a9266f83a49658cbf5c27491bdd02ce91b0bbe9bb9eb88aba5",
+      "mtime": "2026-10-30T03:42:38.716208+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/17f2c7d107f4e598217a5572f912bbb54015d78036490c2ae4db7b703c8c00d2.png",
+      "bytes": 569046,
+      "sha256": "c160fe19d8c08627802f58148551ebea1b059d0bdbf939b207173c999a6d6283",
+      "mtime": "2026-10-30T03:42:48.854927+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/05caa3bf68cbb75a38be33f388922bba9822e35495a9028524c969c89bee2cc8.png",
+      "bytes": 434635,
+      "sha256": "3dfdd57ee5bcc45f23a119fae7a52db4042b0d6853c97b4c61138afa1b36551f",
+      "mtime": "2026-10-30T03:42:58.979593+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/cbee24148184bceef6573d8fa9cd70501cd8f184811a1252228eb8251c97716c.png",
+      "bytes": 514421,
+      "sha256": "8ee99e2f1d89edf29498a8c5322a850d4d50f228310b08b411a4c86d5dfe0597",
+      "mtime": "2026-10-30T03:43:09.523319+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/5d723ab85856bae4e0ab72044ef3942b7883f3e33ddf18387c2ee5af7d0cea92.png",
+      "bytes": 454474,
+      "sha256": "00de7beefce3d18000fb6aa1b58ac87e74f50786be7d9c99323f4255e017fd36",
+      "mtime": "2026-10-30T03:43:20.416082+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/f4030720021bba4effbc67493f86c587c9f942969d578a62bdbb9315e83d1567.png",
+      "bytes": 371629,
+      "sha256": "c34a4169bfd7203cc6534535c57724b4cf699746c865516901a573c3b8bb4841",
+      "mtime": "2026-10-30T03:43:33.770396+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/ef983716dc777432a2f6404aa13645ab258c5b626c67fef60da0419c987fb442.png",
+      "bytes": 405001,
+      "sha256": "4a1b7e48bc80a346e18ee8a3457287f8fb496231d7debba85f5fcdce97ea2357",
+      "mtime": "2026-10-30T03:43:44.940109+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/981bdf62aae8cfd03bd9f5f32da6498b7f4187ebf261cc384ef9ebe6dd3a5242.png",
+      "bytes": 369729,
+      "sha256": "1d27fb1ece89cc780905e89f6467ad8ad0d1ee1adc29116ab7e8e75367dd9201",
+      "mtime": "2026-10-30T03:43:55.488621+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/0f75288afd9f401527f30079e5a8d0c4817ed9cabbbb52d0142a5e440592ee69.png",
+      "bytes": 406650,
+      "sha256": "4010f641e3be94294617f61ddc0bb8a455844b706bbaebe8ecdfa5e459dd0524",
+      "mtime": "2026-10-30T03:44:06.192123+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/e6124f389f8af8f54b9f3ad08377d75fba67e423c01741fdcf4bc52bee6d2f43.png",
+      "bytes": 457431,
+      "sha256": "f0be46b396804e57a4d94ff4d91b6d90bd718db25fde47e6b8df7a9d4c213036",
+      "mtime": "2026-10-30T03:44:17.570731+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/8eedb77b47d53a52e170c65637b35a0c6041654cbf11ec385ca0e4e5c11afadd.png",
+      "bytes": 383489,
+      "sha256": "d8f913759dd9909263aad8a890cbd4577f3dfc363fdb30b3ce4b1332728f45aa",
+      "mtime": "2026-10-30T03:44:28.224126+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/ad4b08961a710615a314a0de41ed93a543f82491d599fe2d9cf7d7913af852fe.png",
+      "bytes": 434211,
+      "sha256": "02298b933669eec8deee2e44dadb1fd5f3e310ca440982d299555b961a022231",
+      "mtime": "2026-10-30T03:44:39.053514+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/c661b154559ea5b2474d5b88fcd207f5806ed3ce6e6b7efa38d4fd5dc2616675.png",
+      "bytes": 416809,
+      "sha256": "180eb317b392ccb1ce73a663cb3a3807a40a3dd04a0e1d82f0e33751220e578b",
+      "mtime": "2026-10-30T03:44:51.852279+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/67494980d6210ed5e164f329388d506de4b868f8b59765138ffc14ad3b61c606.png",
+      "bytes": 443721,
+      "sha256": "3f7462f5607ba992fe60f13ca1b3d65bc16c316231d77308be62bc70ce8c248d",
+      "mtime": "2026-10-30T03:45:02.225475+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/7387960ab4d455bf904819b7ec012b47e7b3bc04bf130e9613f2b0e62c8b09c5.png",
+      "bytes": 397742,
+      "sha256": "a3f512ff847af1371fe4ebaac5d67ce1abdc7e8367f3c7d9afd291a947cdaf95",
+      "mtime": "2026-10-30T03:45:15.013128+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/8f8e9294a451bfc187bde001fdfc5bd48924f2bbdc8b549be597c9f56f3acb34.png",
+      "bytes": 428789,
+      "sha256": "a4f80504726c6240f39701faf8189d1b22b627343128db6c711c54faff804035",
+      "mtime": "2026-10-30T03:45:40.802300+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/08c9dc4f913e305e76d9bd559e3b5f495fcb7811ad60ac1acc409262edf12691.png",
+      "bytes": 382347,
+      "sha256": "dfd00095d61fe0936e239e2c7dd658923706edd7f1cc400ac3cfc675c2ddcdef",
+      "mtime": "2026-10-30T03:45:54.415938+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/d77da74163ba6f2e5bd5b496c20b366318f6dbf8a38f7e22ea223c113b00c1bb.png",
+      "bytes": 501479,
+      "sha256": "e7076da9e6332d8e93b72fac79cb34f430cd45d139281db69341dc55d4df3bc1",
+      "mtime": "2026-10-30T03:46:04.326820+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/fb3f5b7bd432c3005249d1dc719cb67b6f680a7d3b80c2246f8760de6e42e35e.png",
+      "bytes": 467030,
+      "sha256": "9b8c21a29da1e32ec9dc6d88273de994c246d82d747f9d9a5f62ca20dc1bc534",
+      "mtime": "2026-10-30T03:46:15.074825+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/32451d54d2d3a430d909e821f5fd59a8ebb477dab473eaf7a84ad45fb8b86088.png",
+      "bytes": 468991,
+      "sha256": "a25d6188af819ef03e7008a22aedccd8d5abb73ccdbbf42373f825af647897af",
+      "mtime": "2026-10-30T03:46:25.471729+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/7e7b46dfab57f77ac0ff13f9905287f4003673914408e40a7641598c8e5a8294.png",
+      "bytes": 405072,
+      "sha256": "0527b33bae4ec44de1ec819c5df4eea897f1abb1ef7974791cc9f47c816b4d94",
+      "mtime": "2026-10-30T03:46:35.091461+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/c00a33d13ff8cd1d0122a1b278348455749290cd9d3cdb96587c9fecfe9bdc77.png",
+      "bytes": 492242,
+      "sha256": "cf6838a302127f865429f34b0b06c0b7d71158ff12269c8dd8e92ff18e34cdd1",
+      "mtime": "2026-10-30T03:46:45.162244+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/b82bf990b7284b38cd6cb84b9f56ca391958c01d54665a43379644a2cb6f3bb9.png",
+      "bytes": 419835,
+      "sha256": "e0cef01ce0f73ab9083202f2dd8a00318209014897b0fa77405075922178ce36",
+      "mtime": "2026-10-30T03:46:54.796921+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/557a3580345911573a13ad368b63aa786351cf54749270ec1409a65070614d06.png",
+      "bytes": 509352,
+      "sha256": "8e975e2510ac021f4622aded97be161d3d79a3c05f5fdcc36c0d19dc89b44caa",
+      "mtime": "2026-10-30T03:47:05.091682+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/b47e93e2c0d69d2d05933dc8f59e7345507dac1eb84d514244021d50dc68103f.png",
+      "bytes": 486628,
+      "sha256": "5545cfa5052b8d20da618d1d693c9ac86450cfa7c9dbb74d0e3d0ad4b86d5ea5",
+      "mtime": "2026-10-30T03:47:15.405416+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/9fddd3c076e5fd36ad0e0aae83d850ae7ccd4d6cc27dae1a85fafeaa298e344d.png",
+      "bytes": 491968,
+      "sha256": "76653b9d2f6430f1b309cc79f79cd8f5266614ff827cc43dcf0c6a9957283940",
+      "mtime": "2026-10-30T03:47:25.783131+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/5810953baef981d8fd68f41bfcbf95c4fda68ba215f66815d36721c9d125ed2a.png",
+      "bytes": 428795,
+      "sha256": "5810cf1ea39016bda30cf61a6f96dbcfeef5ebba45c5685c9c1ecc4fa067aff6",
+      "mtime": "2026-10-30T03:47:35.529713+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/744aa9cf3349732479b889c68a2882ae879b04c5ed2423f262ec895c7c6c7773.png",
+      "bytes": 547071,
+      "sha256": "074b0fb0ee70f3c88c14f5c54c1d53dbf53eac7fce1545da30e6cc8d1d746844",
+      "mtime": "2026-10-30T03:47:45.664332+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/1c2dc6eedc598f6d7bc47d074c97f4d0ba07094741c1f05d466f6679d3628270.png",
+      "bytes": 427278,
+      "sha256": "a75bb1f24bcd333c901a668d444d883604867a2af986cecd311bc90f1fb56466",
+      "mtime": "2026-10-30T03:47:55.864933+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/762384ffb1ef20f1435dbd8debab4a207e8896b68f27d1811f34f410265f16ab.png",
+      "bytes": 473341,
+      "sha256": "0dcadbb1c7c7edcf7a73e5db6732b8db62d1a990296d30c60d69731d9921c7ce",
+      "mtime": "2026-10-30T03:48:06.662598+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/12851f334cfa36c9accf5410452afd11d0b167f2b6971f6166207b2c214e95cf.png",
+      "bytes": 431612,
+      "sha256": "f2eb3ae6edac5905ea068ccf96471a1e2c9cacc54001784b641f3af414c9624a",
+      "mtime": "2026-10-30T03:48:16.449082+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/6564bc238b2bfc4a2a1a6170ed151168ddacbe90c3128f66e6d9954e16355458.png",
+      "bytes": 444065,
+      "sha256": "17d46eec127ebe05108e412039f6e283ec6933df96c185528305ebadd5af1d59",
+      "mtime": "2026-10-30T03:48:26.267546+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/a3c477390b2380ba6b0d75548347b0c4b4a08ed03a64dd4ffc0a1e111b3a3382.png",
+      "bytes": 441943,
+      "sha256": "ab08586513f9667d48172360f311bd1f81840e68913db07c3e0bbe4bb87469ec",
+      "mtime": "2026-10-30T03:48:36.095988+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/5670c57f75ec431aae8fd5fd5d15cdf24724ac5a4a44f2d0c998a92b3bdc414b.png",
+      "bytes": 486347,
+      "sha256": "90ee925db4ba6e5a932b29550be5196b07933bdfd7df41e9faf976e849423081",
+      "mtime": "2026-10-30T03:49:13.356246+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/db274063b01f167dc2efda3c4a0ee2465b9b1c9d2d695917bd6d5e4914b6fa41.png",
+      "bytes": 453167,
+      "sha256": "ce771349d5374e58ccfa73932080b423c1f6f74871a363aa0aa4f0c027bb2d66",
+      "mtime": "2026-10-30T03:49:22.884539+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/3f25e91fd507770868421f86ac28c598256954a125248cb6870b438883bda356.png",
+      "bytes": 544907,
+      "sha256": "cc11212067e58748195040e8b61a31d59d2b6474fd03a836c7dc645b61592b1c",
+      "mtime": "2026-10-30T03:49:32.295797+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/c4ba34fe7fa1cf0ee62f7001d0685fdd6012acf9a9ca6194227782383b912d2b.png",
+      "bytes": 430476,
+      "sha256": "c40244c5bdfbfa85b549b92efa3471da5b5eaf6eb06704c193e92a6ce4172e0f",
+      "mtime": "2026-10-30T03:49:42.228104+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/73528e99e2e80bd5933c18b4616b81cb8eda430517c8ab5d525242ce4b795c1d.png",
+      "bytes": 477197,
+      "sha256": "74737e64fc879efd15861841a243a33e440440375a1f9a946a22f6ea82a39b8c",
+      "mtime": "2026-10-30T03:49:52.283405+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/7f063fa9fbfd0c9f2dc7c229020966a345792cfbbeecc9f17bcaeb6c84b0a0c7.png",
+      "bytes": 399550,
+      "sha256": "7a4b3434c143c048fc4966220fb96dff9f45770feb011cb59f7723c3d3e0c947",
+      "mtime": "2026-10-30T03:50:01.881628+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/bbc139a77686068369138237900eadf241589c6128523e902d6f87c484f3da86.png",
+      "bytes": 480779,
+      "sha256": "29ac12a7aa001518d6cf6c4ce44794373b61d96bea5f8fb32820e45697760729",
+      "mtime": "2026-10-30T03:50:12.308935+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/9a83bf59f632636219821b274177647dfb880221e689ad011e742983645ba806.png",
+      "bytes": 419723,
+      "sha256": "a031a1f0112d6791435affa790864379c082c6c0efad9dc1c3ce49605394bec3",
+      "mtime": "2026-10-30T03:50:22.267162+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/6cb9a83be3dcec1f5fa9935c24a475ec16a3f2ed7e529f68fd656caf3053201c.png",
+      "bytes": 486446,
+      "sha256": "c4b8967943962bc7e928fcd391b87547b6832c8e07cfa0994a0e395107ef773b",
+      "mtime": "2026-10-30T03:50:31.330263+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/cafcf00c4b05b6629c76d4885cfc17c8cd4ddc2dd7c34a67f9f8a492d686cb2d.png",
+      "bytes": 404509,
+      "sha256": "347c4b132dd7bccf59afd57e1afa8feb402e627eaa42b51620c9427c13e10066",
+      "mtime": "2026-10-30T03:50:39.898288+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/a8796553c13654ac40c3a41148379ba1bf489b2cdfb0f9e4615268be66db6e9f.png",
+      "bytes": 543568,
+      "sha256": "8a4914185c041692c092773c4a580327bff00f1cbab1045b52f7a6af7630fa8e",
+      "mtime": "2026-10-30T03:50:48.612317+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/961aa1658bcdcdf607b1acf4ba8a715be82f4ed568b28bda8a27c3d9933e2c0f.png",
+      "bytes": 432701,
+      "sha256": "3ec73d7c7c9a8813925ee4e29acb69e923003e056b42cec037adc2e38e369402",
+      "mtime": "2026-10-30T03:50:58.292444+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/74bb5e1986a1e1b551ea60d7a6539eda912b7ec514fc6fb41a5ffd6cffad2641.png",
+      "bytes": 460787,
+      "sha256": "336c0135676a3f1b775c494bee2d51d22e5dd1249771fbeeac3cf8cc0230e228",
+      "mtime": "2026-10-30T03:51:07.753528+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/6bc2b84f0dbed9036ea10a9b2c02279dc186dd7d70bfa728a08a8019559a9def.png",
+      "bytes": 442091,
+      "sha256": "073b2120c9091c7a6e8f8a4e983725a7554fe27023d4a0b6650a6241a50ccc1a",
+      "mtime": "2026-10-30T03:51:18.274715+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/5305d698bea568625d665ec39707d2db3754dcea0d1ff08094735b19fe39542b.png",
+      "bytes": 498836,
+      "sha256": "0f7b75bd7b4606011591b9910918c463774d1852c0fa716484fb01b29993b62c",
+      "mtime": "2026-10-30T03:51:29.017907+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/19ab9853d847722f1d0c6d6392a827cf55308b84248e0260d9c7deb53d56f664.png",
+      "bytes": 384778,
+      "sha256": "12813256158a5bc28ff425bda847bd508b92d9784517db221f1c414dea86a82b",
+      "mtime": "2026-10-30T03:51:41.214236+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/66ae97c6931950c80f82a889197bd8cbaa1da73f49a6052540de600dce98d5a3.png",
+      "bytes": 447354,
+      "sha256": "4cb6381936170702d1d4006e55a15ea894b65fec1238adb1a29c7eb96e8e4aa7",
+      "mtime": "2026-10-30T05:10:01.477450+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/eeb65034c62ebd2677a6fdc3c81581371f0537dcc1d5a69db61afc855d27c675.png",
+      "bytes": 453375,
+      "sha256": "119f1dad401c925f009224002e600bc75965555a39f1429b156dfe66ed5dc78d",
+      "mtime": "2026-10-30T05:24:50.327744+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/bac850e05727ef9b2f1a2573cb204338b25420bb8bd6f4e689e53490a396b435.png",
+      "bytes": 562095,
+      "sha256": "f9dab78f7487d3442be3094b5cd155f1abf390cf136cefab094d0d268752e19d",
+      "mtime": "2026-10-30T05:25:09.516137+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/797cebb002795e787ba4b4af96760247b028f2fe867bdded5b5857f091a9e1a5.png",
+      "bytes": 424452,
+      "sha256": "abf771c833be3d81a14aad69caef45ba7b1f209713c774688e8a687ef35b5fbe",
+      "mtime": "2026-10-30T05:25:26.068300+00:00"
+    },
+    {
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/c35f059f31ccd3b72ea6db1a5a4ed623b7f11ae77ff2e2e372cccfcc6bf6758d.png",
+      "bytes": 577547,
+      "sha256": "c6cd59c9a83bb014b22d8f5a6fb1ac24e0942df50987b5759200ee8ab72d9ee0",
+      "mtime": "2026-10-30T05:25:41.355166+00:00"
+    }
+  ]
+}

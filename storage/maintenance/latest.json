@@ -1,68 +1,88 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T13:21:59+08:00",
-  "base_commit": "04535a5a5af3cd6dc2e534d76baa7db021e75df3",
-  "summary": "记录127并行见证v3 GPU许可及模型准备，保留五次中断和原预算。",
+  "reviewed_at": "2026-10-30T13:27:06+08:00",
+  "base_commit": "e9dc2f53781393ce59da19baaddcaa3c135fb94e",
+  "summary": "记录127并行见证v3续跑、67张图片哈希和回查安排，保留五次中断及原预算。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "b5cb871052f0508016e7909aab2267301fa4f18121b6ef0c0fc684790d118b9a"
+      "sha256": "32bc2c67655f74ddd5d9ac7c72894606c9114912bc68fa77be42fc699305917c"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "d979bc6832a5d5ea1be7b84270dba20ddb7ed33ba2671162b888c9fd2da660d1"
+      "sha256": "d605047b00f308e170450a5ed9599c44096aa97f2334abaa21911119adabf6ce"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "3c1413c9eae9ad5c8323fae919131a6923b162a3cbc5aeb681f14ca870952a7a"
+      "sha256": "fcccfb18d9e7bb2dab0bbd9c77ac4a18c3b51fc496178efbc901071ea9398fa5"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "e69e17ae2f4a59cde3c7c689222732fbe66553d4eec8c7cc1f2168e1646a4338"
+      "sha256": "8dbd77ef01151f021307ea3e52fc63ae25c22d39547680c1dc2d040a3fb8947b"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "c841964397bfd13648b106bff1a244c6fe9dc16b47d15f5fa0efac94cfd90e47"
+      "sha256": "bd61fee18e2df585497ee0dadb6cb3ff053f97610cd2d33ba41cf01ae94be5be"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "28fbce70fce950f493ce6db38b5fa1b31263a750a4434f9b26d28af478ff52d1"
+      "sha256": "9ddc4f5f4bfe50af03c122c4953eb7c82d3436174e8654404b03a9a19fc16e68"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_20261030T0520Z.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_v3_running_20261030T0525Z.json",
       "kind": "file",
-      "sha256": "b3f280bb819363a80ef8fd5e86f9d9011920118ab6d821434ea14da1abde2e87"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_v3_permit_20261030T0521Z.json",
-      "kind": "file",
-      "sha256": "8a8e456d16d3c4be92043ddc84728becf10d6d8017e6a5f0c6cdb0ba0adfe4f7"
+      "sha256": "fa3f2ce8ceed91e78ccdab7689bcea65137899a3b60352170aebb62225f17110"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "b93c4f59dfd5f43d4c50d89a0ea767ce4a6dc58839a5258fae4a736e57749fe8"
+      "sha256": "ed9a5b052fc56c24d3d5b141bb29116b59660a8c599ac889d9b668e745648a89"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "kind": "file",
-      "sha256": "0601fb39664d084a41b3b56adc23aeb095c2f79099619db67f1c320f6824cac1"
+      "sha256": "6f7f8f4b67f8494fadc8cb4ba92921967e01d84d0975ccc70eaa876610a625dd"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "8e24bf76b6af6ebb07d7fc8c0379f9676b6f3afb384523223d69e9114d05d8f1"
+      "sha256": "a69d3a8dd13f0c418fe8cc91fc55d14b967270dcc89dfe867bc2a3943b171229"
+    },
+    {
+      "path": "storage/README.md",
+      "kind": "file",
+      "sha256": "c89d66fa440f667b59676f748f48241c858afd6d19cfebce72fb4a14b601f489"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "50d965da0f2e94c735bb777bcff4adcfe79837310ae1d858da4e483841035196"
+      "sha256": "fe43c5186fc5d860559b81f3148d964ce45036adc37f352d87ce26e0c8e45c21"
+    },
+    {
+      "path": "storage/asset_registry.jsonl",
+      "kind": "file",
+      "sha256": "f872cb985e5c74ebcaf0a5d799205987ee6a67802b0c306bb3814db37ff6e3df"
+    },
+    {
+      "path": "storage/audits/retrieval_coverage.json",
+      "kind": "file",
+      "sha256": "1ee3c09588d293d6c1ebf02742050636de5315f67f0601e4005308f1ab87cf3c"
+    },
+    {
+      "path": "storage/retrieval_catalog.jsonl",
+      "kind": "file",
+      "sha256": "71b51b65e14e931ec53be7f1ad266ea355557e102750d4df70a9c99e2453d107"
+    },
+    {
+      "path": "storage/server-index/127-tcl-v1-shard-images-20261030.jsonl",
+      "kind": "file",
+      "sha256": "afb0877e27a49b63ba901ee67ade686daa3895584d7927a5c121d57c99a4f31c"
     }
   ],
   "index_decisions": [
@@ -128,14 +148,14 @@
     },
     {
       "path": "storage/README.md",
-      "action": "unchanged",
+      "action": "updated",
       "reason": "增加127快照证据和服务器索引入口。"
     }
   ],
   "verification": {
     "local": "并行见证发布v3相关20项独立测试通过；本机全量发现因缺torch有13项导入错误。",
-    "server": "127并行见证v3通过实时平台和GPU门禁，模型加载中；此前63张图已逐张核验哈希。",
-    "budget": "截至13:12，103完成343图并中断1次，127完成63图并中断4次；冻结预算内最多2043张基线图。"
+    "server": "127并行见证v3已续跑，67张图逐张核验哈希；1张在运行，稳定性待回查。",
+    "budget": "截至13:25，103完成343图并中断1次，127完成67图、中断4次及1张运行中；冻结预算内最多2043张基线图。"
   },
   "scope": {
     "training_updates": 0,

@@ -64,3 +64,5 @@
 - [并行见证v3发布候选](shard127_watch_controller_v3_candidate.py) · [签名审阅及影子观察](shard127_controller_v3_review.json)：单发布者切换，GPU许可与新图待核验。
 
 - [127并行见证v3实时许可](server127_v3_permit_20261030T0521Z.json) · [平台观察](server127_resource_observation_20261030T0520Z.json)：许可通过后模型加载。
+
+- [127并行见证续跑观察](server127_v3_running_20261030T0525Z.json)：67张完成图逐项核对哈希，保留4条127中断记录。

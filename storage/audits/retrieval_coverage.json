@@ -3,18 +3,18 @@
   "scope": "Union of frozen payload members, current paper catalog, saved server local mappings and optional explicit asset registry; server-only files remain in server-index",
   "input_counts": {
     "frozen_payload_members": 2137,
-    "manual_registry_entries": 825,
+    "manual_registry_entries": 829,
     "paper_catalog_entries": 24,
     "saved_server_local_mappings": 3030
   },
-  "records": 4035,
+  "records": 4039,
   "status_counts": {
     "excluded_local_portal_context": 3,
-    "indexed_source": 4032
+    "indexed_source": 4036
   },
   "unresolved": [],
   "git_sources": 1841,
-  "school_sources": 3867,
+  "school_sources": 3871,
   "public_fixed_version_sources": 24,
   "server_records_without_hash_not_used_as_sources": 78,
   "local_packages_used_as_remote_sources": false,

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T13:21:09+08:00",
-  "execution_status": "tcl_127_parallel_witness_v3_gpu_initialization",
+  "updated_at": "2026-10-30T13:25:59+08:00",
+  "execution_status": "tcl_127_parallel_witness_v3_generation",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,10 +26,10 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "Parallel signed witness v3 passed fresh 127 GPU platform and process gate; model loading, continuation and stability not yet verified.",
+  "current_work": "Parallel signed witness v3 resumed 127 generation; 67 completed images verified, four interrupted attempts and one in progress.",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "Verify localization recheck, new images and witness stability; preserve five charged interrupted keys.",
+  "next_research_action": "Single callback in approximately 30 minutes to check stability and measured throughput; preserve five charged interruptions.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",
