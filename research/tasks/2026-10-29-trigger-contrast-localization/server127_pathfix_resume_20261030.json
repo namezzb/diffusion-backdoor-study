@@ -1,0 +1,13 @@
+{
+  "cpu_start_event_utc": "2026-10-30T03:11:23.807999+00:00",
+  "resource_permit_verified_utc": "2026-10-30T03:15:32.577164+00:00",
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "platform_observation": "server127_resource_observation_pathfix_20261030.json",
+  "tmux": "tcl-20261029-01-shard127-v1",
+  "permit_sha256": "b4bc0cd969f4f7dfb803a61563c86433e72e95eddefc6a6e4f3fa23b6dcbc0c0",
+  "launcher_sha256": "3016d3742ca918b9e18de5ba62a5083de428e318b7a9d9739ceba18f762498e2",
+  "status": "CUDA model initialization and selection audit",
+  "shard_complete_images": 0,
+  "shard_started_unresolved": 1,
+  "outcome": "not_evaluated"
+}

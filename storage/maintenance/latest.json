@@ -1,49 +1,79 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T11:11:50+08:00",
-  "base_commit": "6cd42ae395cb3ff150dfab7fee82be39ba2530b6",
-  "summary": "记录127首键导入失败、保留已计费尝试及固定路径修复后续跑。",
+  "reviewed_at": "2026-10-30T11:18:00+08:00",
+  "base_commit": "6880402e3c85b44b7c1da01b4651ceafb108c7cd",
+  "summary": "记录127路径修复后的实时平台许可与选择复算阶段。",
   "reviewed_changes": [
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "sha256": "8ed4ea4fc342162177d9882faad87920eaaad2430f8a06323b0c760b6272ac95"
+    },
+    {
+      "path": "README.md",
+      "kind": "file",
+      "sha256": "3f789c07f1fca212cf8b9763d222bc23aee38ec789c1943dbeb9ce005f8c795d"
+    },
+    {
+      "path": "research/README.md",
+      "kind": "file",
+      "sha256": "65ed6e5ab693f6f1ff826101223f38cd800e1792c214b70a3787320d609523b8"
+    },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "041e090d80bc6e286897590c5ce831c7378992296d8040743cf227adf5850301"
+      "sha256": "0b96bc705d8d38ec93c9df93d634b1381b6b64ac843b3bcff0dc09e20c35781f"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "90398554721279da4b5b91f9088b24fd7f057e2c045d0f4ca47a5db2011ff4f0"
+      "sha256": "75b162f659c23bbd70363b5d337af69d6fdb29d5c6701225016f9b1adc584ca5"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "d7af5e3003fc90bdda0ba3a25520ae48d45de7d3ba9bbf2ed08dcae5a5d82fbc"
+      "sha256": "06c8d1ff525867df32768204043c194ede5d4f46c8094dbf6d62079614cbe93a"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/launch127_pathfix.sh",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_pathfix_resume_20261030.json",
       "kind": "file",
-      "sha256": "3016d3742ca918b9e18de5ba62a5083de428e318b7a9d9739ceba18f762498e2"
+      "sha256": "78342d9cc8938d636715be01cd787b5e00495daecf418db21b7ba9bace099f7c"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_import_interruption_20261030.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_pathfix_20261030.json",
       "kind": "file",
-      "sha256": "df65fb82119d7b7f77dfe9c64927b3ea2fc32255d975180d89602e12947259db"
+      "sha256": "7fba5cb9bea73ff0eeb518e3c9d811c8f2544a734b09acc3a0cba9b7dc5a5c37"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_overlay_20261030.json",
+      "path": "results/README.md",
       "kind": "file",
-      "sha256": "14b6fd0cb0ee48276bbced6ccc9d82355d57d0ab1524cbaf479031c94a57f190"
+      "sha256": "428ec70ffc2f1f76ac25cd9edc44402057757894e53dca5b696efbee2d75c343"
+    },
+    {
+      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
+      "kind": "file",
+      "sha256": "b2c4282d1b41653c89fdfc83a928ca16585196a254c6fed964e1ee15befb2d27"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "557d97f825284c645602b1d3d4d2a2a2eb791867d7a6d32fd2ba40dfc68a2f3b"
+      "sha256": "1b0e5148dc73f1e1a63485d5d3f1b08145303db85ab9b4db86d9a5d22c3ab7dd"
     }
   ],
   "index_decisions": [
     {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "更新当前任务资源状态，保留用户最新排队规则。"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "reason": "总入口反映103中断、104失败与127准备。"
+    },
+    {
       "path": "research/README.md",
-      "action": "unchanged",
+      "action": "updated",
       "reason": "科研入口反映当前资源状态和未完成结论。"
     },
     {
@@ -68,7 +98,7 @@
     },
     {
       "path": "results/README.md",
-      "action": "unchanged",
+      "action": "updated",
       "reason": "更新源确认运行阶段和已完成数量。"
     },
     {
@@ -78,13 +108,13 @@
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "action": "unchanged",
+      "action": "updated",
       "reason": "更新当前报告状态及后续验收边界。"
     }
   ],
   "verification": {
     "local": "87项TCL测试及138项存储测试通过；127来源路径检查通过。",
-    "server": "127门禁与选择复算通过；首键因导入路径错误在前向前退出，固定路径和冻结哈希已核验，重试准备进行中。",
+    "server": "127固定导入路径经核验，复跑CPU预检及实时GPU许可通过，选择复算进行中。",
     "budget": "103已完成343图、1次中断；127首键已中断计费，剩1703键；冻结预算内完整基线最多2046张。"
   },
   "scope": {

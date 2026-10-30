@@ -21,6 +21,7 @@
 | [定位终态观察](server103_localization_terminal_observation_20261029.json) | 107520次前向及六组对照完成，远端终态与选择文件哈希；图片效果仍待确认 |
 | [确认资源观察](server103_resource_observation_confirm_20261029.json) · [确认准备](server103_confirm_preparation_20261029.json) | CPU预检及确认阶段GPU门禁通过，完整基线仍待核验 |
 | [127 Xorg误拦截](server127_gpu_gate_interruption_20261030.json) · [修订交接](RESOURCE127_HANDOFF.md) · [独立签名](resource127_review.json.sig) | gdm系统显示进程身份复核，限定兼容修订经签名、测试及只读实测；GPU和图片仍须另验 |
+| [127路径修复启动](server127_pathfix_resume_20261030.json) · [平台观察](server127_resource_observation_pathfix_20261030.json) | CPU预检及新许可通过，CUDA加载和选择复算中，首图待核验 |
 | [127导入中断](server127_import_interruption_20261030.json) | 首键登记后导入失败，0前向和图片；固定路径已验证，已计费键不可重试 |
 | [127 CPU准备](server127_cpu_preparation_20261030.json) | 重试已通过源观察并进入CPU资产加载，GPU许可尚待实时核查 |
 | [127观察控制器v2草案](shard127_watch_controller_v2.py) | 并行观察与合并发布候选，尚未独立审阅或部署；当前使用原签名版本 |
