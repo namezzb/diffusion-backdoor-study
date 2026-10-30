@@ -21,7 +21,7 @@ from urllib.parse import unquote, urlsplit
 
 
 POLICY = "storage/index_policy.json"
-SERVER_ROOTS = {"103": "/data1/zhangzibo/arxiv-tssa", "104": "/data2/zhangzibo/arxiv-tssa"}
+SERVER_ROOTS = {"103": "/data1/zhangzibo/arxiv-tssa", "104": "/data2/zhangzibo/arxiv-tssa", "127": "/data1/zhangzibo/arxiv-tssa"}
 
 
 class IndexError_(ValueError):
@@ -400,7 +400,7 @@ def canonical_source(source, sha, size, paper=False):
     if kind == "school_ssh":
         server = source.get("server")
         if server not in SERVER_ROOTS:
-            raise IndexError_("school source must name authorized server 103 or 104")
+            raise IndexError_("school source must name authorized server 103, 104 or 127")
         relative = safe_path(source.get("relative_path"))
         if source.get("remote_path") != SERVER_ROOTS[server] + "/" + relative:
             raise IndexError_("school source outside authorized personal root")

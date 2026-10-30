@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-10-30T02:49:57.161528+00:00",
+  "server": "school127",
+  "gpu_uuid": "GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91",
+  "models_sha_verified": 38,
+  "source_snapshot_sha256": "dca8ba3a758b8641092026df5bc1b7ca5d91fdda79b5e1bb2d8fa6229cb3dd5b",
+  "snapshot_files_verified": 418,
+  "candidate_sha256": "355136c233198867335d725656cb4673cd5db75569be38aa86fb45220d8682f4",
+  "review_sha256": "91bd6429666fb44925150837e3dbe833a731eb5b0efb6194120e1b77e376ed5b",
+  "runtime_version": "torch 2.7.1+cu128, diffusers 0.35.1, transformers 4.49.0",
+  "verify_only": "passed",
+  "initial_run_error": "source witness expired or invalid",
+  "phase": "before output directory and CPU asset loading",
+  "tmux_session_present": false,
+  "image_ledger_exists": false,
+  "gpu_image_attempts": 0,
+  "next": "diagnose SSH latency and restore fresh paired source observations before retry"
+}

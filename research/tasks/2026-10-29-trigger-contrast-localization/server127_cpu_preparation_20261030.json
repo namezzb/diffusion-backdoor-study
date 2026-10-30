@@ -1,0 +1,15 @@
+{
+  "event_time_utc": "2026-10-30T02:52:18.346339+00:00",
+  "observed_at_utc": "2026-10-30T02:53:22Z",
+  "server": "school127",
+  "tmux": "tcl-20261029-01-shard127-v1",
+  "pid": 1386857,
+  "stage": "CPU asset preparation",
+  "candidate_sha256": "355136c233198867335d725656cb4673cd5db75569be38aa86fb45220d8682f4",
+  "review_sha256": "91bd6429666fb44925150837e3dbe833a731eb5b0efb6194120e1b77e376ed5b",
+  "source_attempts_reserved": 344,
+  "allowed_attempts": 1704,
+  "gpu_image_attempts": 0,
+  "resource_permit": "not yet issued",
+  "status": "in_progress"
+}

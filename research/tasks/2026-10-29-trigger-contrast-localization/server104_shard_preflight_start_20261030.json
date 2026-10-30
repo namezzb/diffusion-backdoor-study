@@ -1,0 +1,20 @@
+{
+  "time_utc": "2026-10-30T02:23:47Z",
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "server": "104",
+  "hostname": "iipl-104",
+  "gpu_candidate_uuid": "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c",
+  "session": "tcl-20261029-01-shard104-v1",
+  "snapshot_manifest_sha256": "dca8ba3a758b8641092026df5bc1b7ca5d91fdda79b5e1bb2d8fa6229cb3dd5b",
+  "snapshot_destination": "/data2/zhangzibo/arxiv-tssa/preparations/tcl104-direct-20261030/tcl104-shard-snapshot-20261030T0200Z",
+  "destination_files_verified": 418,
+  "candidate_sha256": "cf696540cbd18846b8651704c7270e99833192cece9a4ecdcb8c88838b58416d",
+  "excluded_source_attempts": 344,
+  "allowed_unique_attempts": 1704,
+  "review_message_sha256": "2c041b9669b451b899c4b2b2a57cb6b0b730153710d0ef46c6cf6116cfa10b26",
+  "tests": "67 full regression before final guard changes; 14 updated shard tests passed separately",
+  "source_watch": "signed observations published repeatedly; no cross-host atomic lock, original run must not restart",
+  "status": "cpu_preflight_session_started",
+  "boundary": "GPU not yet authorized or proven started; no baseline results or scientific conclusion."
+}

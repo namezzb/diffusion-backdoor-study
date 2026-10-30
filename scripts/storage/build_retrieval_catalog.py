@@ -17,7 +17,7 @@ import subprocess
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
-SERVER_ROOTS = {"103": "/data1/zhangzibo/arxiv-tssa", "104": "/data2/zhangzibo/arxiv-tssa"}
+SERVER_ROOTS = {"103": "/data1/zhangzibo/arxiv-tssa", "104": "/data2/zhangzibo/arxiv-tssa", "127": "/data1/zhangzibo/arxiv-tssa"}
 SHA256 = re.compile(r"[0-9a-f]{64}\Z")
 
 
@@ -115,7 +115,7 @@ def public_source(source, digest, size):
 def school_shape(source):
     server = source.get("server")
     if server not in SERVER_ROOTS:
-        raise CatalogError("School source must name authorized server 103 or 104")
+        raise CatalogError("School source must name authorized server 103, 104 or 127")
     relative = relative_path(source.get("relative_path"))
     expected = SERVER_ROOTS[server] + "/" + relative
     if source.get("remote_path") != expected:

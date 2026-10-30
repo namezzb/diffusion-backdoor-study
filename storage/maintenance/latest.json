@@ -1,101 +1,401 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T09:49:00+08:00",
-  "base_commit": "9d15cdf419c125c39cdb36a3c915e1819684a383",
-  "summary": "按用户要求明确排队与合规空卡的规则，核验104模型资产并记录103持锁导致的迁移阻塞。",
+  "reviewed_at": "2026-10-30T10:55:46+08:00",
+  "base_commit": "d38ce72916e8d74e69ec22b478def55aa871ba75",
+  "summary": "保存104 CUDA失败、127互斥续跑准备及快照校验，保持原冻结预算和未决键。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "6dc9c4e49495047ac76d5816d73bd9b0c7ad3723045f241cf11e5d393e0d257a"
+      "sha256": "356ec06ac48449e8e0bf5d0c2458677df07250ae18c8d109c1352e99f5e53755"
+    },
+    {
+      "path": "README.md",
+      "kind": "file",
+      "sha256": "1cc2350022fc05d851250b10dd88cd8ff0480c07679ebe69f3902d7aa1136844"
+    },
+    {
+      "path": "research/README.md",
+      "kind": "file",
+      "sha256": "5be15c21657cf895343c3bbc4bc175b25fb3ca4119f60302637bfb0bd6314613"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "f7ac5d2a937ec5a08960ceab2b19e6de9eacf8c3945cca1ba27babbab2e1cbe5"
+      "sha256": "af3a9658efddd336cefa7484e478a9fc25a50f638aa9b6bc08c7a7ee618f4667"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "d831b8573986738f607352839c6e59aeecc3e1a85595f6f8e4888f23552cc41f"
+      "sha256": "d742c285f73d808a50689ac36c8978c01937daddbf8238f9205623cb1465c52e"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD104_HANDOFF.md",
+      "kind": "file",
+      "sha256": "f27318536818c333c37e7aa3ece175392e178fdc4928bc19f9789a0a37ff6dcf"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_HANDOFF.md",
+      "kind": "file",
+      "sha256": "543ecd2b36c01344141bad96059a9ff345f6ee202cd96a17ffef8d5fac23db38"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "d5008ab7e9b98179723cca45c1315ef91d1d25938b9e6372a38e1dc6fb3f7f21"
+      "sha256": "c1b92fe62bf0ab81d86e44cf3a4934214c1049a4cf0371ea2a42125c001b0a77"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_asset_compatibility_20261030.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource104_gdm_patch.py",
       "kind": "file",
-      "sha256": "13630eec638af19e9438ee0393adfaa090561f8fa94211c9c2b55a2f4f82d4d8"
+      "sha256": "c4d74df3c276d57d884896288e54b7573005440baa70034e56a901cd7222fde9"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource104_launcher.py",
+      "kind": "file",
+      "sha256": "09eb08801faef0739cdfb5f809ec80e1e0f80e38e6d8f9a3a88064432c9cbd22"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource104_review.json",
+      "kind": "file",
+      "sha256": "78aacf7054669db9f3e813c7d91c59e4597bf64fc0ff9e71f4e68ed35aa0b0e4"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource104_review.json.sig",
+      "kind": "file",
+      "sha256": "1848e44eb04d8fae0ff845fcbf12beec26fa7c800ccbc313ddbd0e6a8394d4b1"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/resource104_review_template.py",
+      "kind": "file",
+      "sha256": "73ed761a0069f39d72ca8bdaa79aaca767541597ce16889d3492b74926ecfb2c"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_cuda_failure_20261030.json",
+      "kind": "file",
+      "sha256": "cc8c186bc8bf13e7e77fa7d86b2622646834fb32865290180658632f96ce8223"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_resource_gate_interruption_20261030.json",
+      "kind": "file",
+      "sha256": "7b31a671fb5746db5a123c43698978ff33a556b7cf43e14b816aa21f5cfed4ce"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_resource_observation_shard2_20261030.json",
+      "kind": "file",
+      "sha256": "7f0a4ebd1328d7e72029cf196f216ba04af01b1eaa6821e152ac52b964342ca9"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_resource_observation_shard_20261030.json",
+      "kind": "file",
+      "sha256": "a667aa173187107588eb689f2beeba9be45bd40172563a49a253b04ba799f628"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_shard_preflight_start_20261030.json",
+      "kind": "file",
+      "sha256": "19268907c0d90fa9fb71c21f845636ee03168fb92563db9a1f34c7b0ec9dcee1"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_cpu_preparation_20261030.json",
+      "kind": "file",
+      "sha256": "71650a8d2c7d8093976ec96e040c94e37fbafda6acea0847abe4d53f066792af"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_preflight_interruption_20261030.json",
+      "kind": "file",
+      "sha256": "4aeebc0e30b91f0952194184317c38754c111ed9f8f2893b3fdc7b99954bfc9d"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_plan.py",
+      "kind": "file",
+      "sha256": "3a8a6a68fa383820b7eab69c0cae103349c6ca108ad8177c5d52bea1d5b6cd23"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_plan_candidate.json",
+      "kind": "file",
+      "sha256": "cf696540cbd18846b8651704c7270e99833192cece9a4ecdcb8c88838b58416d"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_policy.py",
+      "kind": "file",
+      "sha256": "604ce8700ab480934a01e80053f07341e1d4592c5b0e4620ec695dc2b9032b12"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_review_envelope.json",
+      "kind": "file",
+      "sha256": "1ce4142a4798a0d66a957d16f6b675af1a4e096d56706bd2ed90259fc7309590"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_review_template.py",
+      "kind": "file",
+      "sha256": "292f7780ef6f46cdad3ba4d1ed99341b0e2534a4f28e68ebdf66c164ccb65dbc"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_reviewer.pub",
+      "kind": "file",
+      "sha256": "dc477cfe4e08a3196925fc6607391c1862676bc9d8d7b5900bdd8a272e25227b"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_runner.py",
+      "kind": "file",
+      "sha256": "ba5fc5adeb1bed568f88a2fbe7bcbc5413704ed24573c444249d427aec765461"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_source_guard.py",
+      "kind": "file",
+      "sha256": "2a166e8b22de9d087bc98f73736186af7a9f18546545d26e71e7e8e5d20dc8e6"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_watch.pub",
+      "kind": "file",
+      "sha256": "85f4e02cb2765186d72fa4be1cba1b95a00d316d9083b98d99c00d3f61f9a9da"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard104_watch_controller.py",
+      "kind": "file",
+      "sha256": "c6228076464afb4ae1414362373efb0e1ee6d4b54ce5973d42335cb002121ec6"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_104_fence.py",
+      "kind": "file",
+      "sha256": "9c3f40430afba9f8cacc4ef8bcced4cbbeda3ff2472b9d3befb4a1c7aa03e0e2"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_plan.py",
+      "kind": "file",
+      "sha256": "4deaba6d3b7400923997635f512a0349f373b55888fa27dc73aaa8190c0d3800"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_plan_candidate.json",
+      "kind": "file",
+      "sha256": "355136c233198867335d725656cb4673cd5db75569be38aa86fb45220d8682f4"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_policy.py",
+      "kind": "file",
+      "sha256": "c88ce96e4db8a37e8085ebe67424869139597608712bb9d9c116b2a43d864002"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_review_envelope.json",
+      "kind": "file",
+      "sha256": "830d64362fbfaa5ec4e0449378b33e8f0564bacb8c5ca5d8989aab13190baa12"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_review_template.py",
+      "kind": "file",
+      "sha256": "0b012b641051152c2ad8f3fb8050cb9080ffe01cfb0ff2cc8c28baa993780210"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_runner.py",
+      "kind": "file",
+      "sha256": "fc7bba47df0b4d238f4a439803f8eb27293e3d6f23886d7e40eed205925ceaf7"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_watch_controller.py",
+      "kind": "file",
+      "sha256": "76666609acccb53789cc4214d9dc8c0410a85dc998e21a013ce033713ba48ef0"
+    },
+    {
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_watch_controller_v2.py",
+      "kind": "file",
+      "sha256": "863072824d9c36d60ee13aba702f3e36435852de7ca6ae4c8c02c4ce225f4570"
+    },
+    {
+      "path": "results/README.md",
+      "kind": "file",
+      "sha256": "8cb051cd7e561ab83befcf2762a3a3b559261a218e2ad8dd854ccd34e16802da"
+    },
+    {
+      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
+      "kind": "file",
+      "sha256": "41514dc9bad7bad63b2929090dc74fe8c1fc68d7cbe1cb23c0ad389e793e2be8"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "cff90d146776ce20206499e5a9e445a1b63e3887915a16d36b55032f0a8ea5f8"
+      "sha256": "02a7ba3dc76e38e942e074b828dc5755322d45a3f5a418995d16bcfa9044476f"
+    },
+    {
+      "path": "scripts/README.md",
+      "kind": "file",
+      "sha256": "f2b8fa78fcb4ab0575f2d7a7d7d0cde9ad5c958de2e874440d9682e4faba0e4b"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "kind": "file",
+      "sha256": "7ba9429281856b81b732ae2d551a3f4d078df7777b572d6090e2696d3cdfb17f"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_resource104_overlay.py",
+      "kind": "file",
+      "sha256": "9932df789010687178893ab45d5b01b9ad9b61220b3ce4b2ad1d7ddec2c60675"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard104_plan.py",
+      "kind": "file",
+      "sha256": "6e08c8188bf80f402431264db19497f080d20be37a88f8764ebbeb67435aa9b7"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard104_policy.py",
+      "kind": "file",
+      "sha256": "f8adc2df35b08a46da2a68e4b1ed556d77d7ae51528b8481c995582bf21f284b"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard104_runner.py",
+      "kind": "file",
+      "sha256": "dfabd26486424a941f72ee3ebf7a4a0f75de46364a8cf9fae2eed0f30363f8b7"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard104_source_guard.py",
+      "kind": "file",
+      "sha256": "f4fc45185bc7f3dd6c194b211ee185ff60f9e6bfb0230470c9480aa80facc3b8"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard127.py",
+      "kind": "file",
+      "sha256": "4a29ace4d344096af2537614731b6a25f2733da8a5270432ca67f5c620809073"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard127_controller.py",
+      "kind": "file",
+      "sha256": "b0413cf6ba29e08dc12c50b13db531dce881ac2cdec2bc3e64c5c0e2fb5e8954"
+    },
+    {
+      "path": "scripts/storage/build_retrieval_catalog.py",
+      "kind": "file",
+      "sha256": "fcce9ad2b481929237e23c83cc67182eae89819f20e9af888332a4be759c4f21"
+    },
+    {
+      "path": "scripts/storage/fetch_server_file.py",
+      "kind": "file",
+      "sha256": "4273d0a01485934bc4ddbc9a17521d03ba1da35a1ecd01aa8306f9a7187b0379"
+    },
+    {
+      "path": "scripts/storage/maintain_index.py",
+      "kind": "file",
+      "sha256": "25b1b3d5d2039f1e3e6181c3227bee1e9f52d0f22adcb1840cdaab761b8f9d43"
+    },
+    {
+      "path": "storage/README.md",
+      "kind": "file",
+      "sha256": "fad030ce13c1fb849df78cc8f57f60f7bfe8090c7e0a77c086748620046d0825"
+    },
+    {
+      "path": "storage/SERVER_INDEX.md",
+      "kind": "file",
+      "sha256": "117e6c2f101d17a4ffa9b297376f432a3dfeb7b095ca5db6693e75e7aaec401e"
+    },
+    {
+      "path": "storage/asset_registry.jsonl",
+      "kind": "file",
+      "sha256": "aa547a1f96551494b0b9ce2c7f86124c0747ae4660658e3421705a567fc81783"
+    },
+    {
+      "path": "storage/audits/retrieval_coverage.json",
+      "kind": "file",
+      "sha256": "58a1b7885d45448d9dc0edb3f535b1626042e743868715764c5aa38031611139"
+    },
+    {
+      "path": "storage/retrieval_catalog.jsonl",
+      "kind": "file",
+      "sha256": "421b7a7161121807de04a87689fb699967a3fe55e91171d81a5d69a3c46cabc6"
+    },
+    {
+      "path": "storage/server-index/104-tcl-v1-shard-snapshot-20261030.jsonl",
+      "kind": "file",
+      "sha256": "777e2422a5c645823aaab24013624b3d8150bedc244d1517796cbb90ed7d2937"
+    },
+    {
+      "path": "storage/server-index/127-tcl-v1-shard-snapshot-20261030.jsonl",
+      "kind": "file",
+      "sha256": "18db9bf0a5da3c85d7e9032551b46e725a32f7d4eab65b2552c0cfd6a9fb7ae5"
     }
   ],
   "index_decisions": [
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "按用户指示明确排队但未使用目标卡不自动阻止直接使用，保留实时分配及平台规则核验。"
+      "reason": "更新当前任务资源状态，保留用户最新排队规则。"
     },
     {
       "path": "README.md",
-      "action": "unchanged",
-      "reason": "总入口已有任务受阻和导航，迁移核验细节由任务正文提供。"
+      "action": "updated",
+      "reason": "总入口反映103中断、104失败与127准备。"
     },
     {
       "path": "research/README.md",
-      "action": "unchanged",
-      "reason": "科研方向和设备受阻概述未变，104细节由任务正文提供。"
+      "action": "updated",
+      "reason": "科研入口反映当前资源状态和未完成结论。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "登记104授权后的下一步和单写入阻塞。"
+      "reason": "记录127当前执行阶段与下一步。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "action": "updated",
-      "reason": "加入104资产核验入口。"
+      "reason": "增加分片交接、核验和异常证据入口。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "登记104授权、资产核验与103持锁阻塞。"
+      "reason": "登记冻结预算、服务器实际状态与未决基线。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "总索引只提供任务导航，不复制状态。"
+      "reason": "任务总索引只提供入口，未新增任务。"
     },
     {
       "path": "results/README.md",
-      "action": "unchanged",
-      "reason": "源基线依旧受阻，阶段与科研结论均未改变。"
+      "action": "updated",
+      "reason": "更新源确认运行阶段和已完成数量。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
       "action": "unchanged",
-      "reason": "保留指向具体运行的入口。"
+      "reason": "该目录仍指向同一运行入口，无新增run目录。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
+      "action": "updated",
+      "reason": "更新当前报告状态及后续验收边界。"
+    },
+    {
+      "path": "scripts/README.md",
+      "action": "updated",
+      "reason": "登记127数据盘取回入口。"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "action": "updated",
+      "reason": "登记分片脚本和验证入口。"
+    },
+    {
+      "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
-      "reason": "既有入口直接指向验收报告及任务，不需复制104观察。"
+      "reason": "索引维护流程未变，仅增加已有机制支持的服务器根目录。"
+    },
+    {
+      "path": "storage/NEW_COMPUTER.md",
+      "action": "unchanged",
+      "reason": "换机入口及验证步骤未变，新增来源由服务器索引和目录提供。"
+    },
+    {
+      "path": "storage/README.md",
+      "action": "updated",
+      "reason": "增加127快照证据和服务器索引入口。"
     }
   ],
   "verification": {
-    "server": "104的38项资产SHA匹配冻结清单；主要依赖CPU导入成功，103原线程SIGKILL后仍持锁。",
-    "gpu": "未启动104 GPU；平台实时分配和迁移许可仍须启动前核验。",
-    "budget": "344次已计，若重试则完整八版本至少8193次，超8192上限。"
+    "local": "81项TCL测试及138项存储测试通过；127来源路径检查通过。",
+    "server": "127 38项模型SHA、418项快照与签名核验通过，CPU准备运行中；104 CUDA初始化失败且0出图。",
+    "budget": "103已完成343图、1次中断，127分片限制1704个未尝试键；完整基线仍缺原中断键。"
   },
   "scope": {
     "training_updates": 0,
-    "source_baseline": "blocked; 343 complete, 1 interrupted",
     "scientific_outcome": "not_evaluated",
-    "transfer": "no migration or new image generation"
+    "original_103_restart": "prohibited while independent shard is active",
+    "shard104_restart": "prohibited while independent shard is active"
   }
 }

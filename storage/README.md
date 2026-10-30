@@ -21,6 +21,7 @@
 - **本地科研仓库**保存代码、方案、报告、进度、索引和已有原始资料；根目录及各目录README负责导航，冻结产物不搬动或改名。
 - **学校服务器**保留实验大文件，索引记录服务器编号、完整路径、文件大小、SHA-256内容指纹、实验编号、盘点时间及本地对应位置；没有哈希的项目明确留空。
 - **TCL源确认343张完成图**已核验远端哈希并登记[首图](server-index/103-tcl-v1-first-sample.jsonl)和[其余342张](server-index/103-tcl-v1-completed-images-20261030.jsonl)的取回来源；图片未回传，账本仍持锁且无终态备份。
+- **TCL 104分片准备快照**已验证418项和清单哈希并登记[419个远端文件](server-index/104-tcl-v1-shard-snapshot-20261030.jsonl)；源账本仍非终态，快照未下载。
 - **Git**保存科研代码、报告、进度和索引，新电脑先拉取包含本次整理的提交；是否已推送以实际提交/远端验收记录为准，不从工作区文件存在推断已发布。
 - **Drive**已暂停，不能视为完整备份；此前成功上传的两份文件和失败尝试见[历史传输记录](upload_receipts/cloud_attempts_20261029.json)。
 
@@ -70,3 +71,5 @@ python3 scripts/storage/research_archive.py restore \
 资料来源限`/Users/zzb/arxiv`及本人科研服务器目录，不上传公司其他目录，不沿符号链接越界，不包含SSH私钥、密码、验证码或令牌。范围审计见[本地检查](audits/local_scope_review_20261029.json)，所有原始资料与历史失败记录均保留。
 
 暂停前Drive中已有一份初始存储说明和一份约13.33MB核心快照：[历史目录](https://drive.google.com/drive/folders/1mph76LjG039Rky5mCEbzfCrMp732_2sU)。没有更改分享权限或删除它们；公司安全页面限制Drive访问后未绕过，最新要求下不再开展上传或下载。
+
+127的TCL只读准备快照已登记在[服务器索引](SERVER_INDEX.md)，其418项内容和清单在127完成校验；源run未终态。

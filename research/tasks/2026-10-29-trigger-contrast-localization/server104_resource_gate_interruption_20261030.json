@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-10-30T02:27:11Z",
+  "server": "104",
+  "gpu_uuid": "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c",
+  "phase": "shard104_resource_gate",
+  "status": "blocked_system_graphics_process_unrecognized",
+  "completed_images": 0,
+  "image_attempts": 0,
+  "process": {
+    "pid": 6941,
+    "name": "/usr/bin/gnome-shell",
+    "type": "G",
+    "memory_mib": 4,
+    "uid": 125,
+    "account": "gdm",
+    "proc_dir_uid": 125,
+    "proc_exe_readlink": "EACCES",
+    "cmdline_first": "/usr/bin/gnome-shell",
+    "binary_owner_uid": 0,
+    "binary_mode": "0755"
+  },
+  "platform": "GPU 1 displayed free, not disabled, own 0/4; resource check rejected process before CUDA use",
+  "cpu_log_warning": "torch.cuda.is_available warned CUDA driver initialization failed; no successful CUDA run on 104 yet",
+  "boundary": "Process identification is based on gdm UID and cmdline fallback, not direct /proc/exe proof; overlay requires independent review and retest."
+}

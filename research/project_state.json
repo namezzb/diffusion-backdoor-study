@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-30T09:49:00+08:00",
-  "execution_status": "tcl_source_baseline_blocked_gpu_fault",
+  "updated_at": "2026-10-30T10:53:00+08:00",
+  "execution_status": "tcl_127_cpu_preflight",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,10 +26,10 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "TCL localization completed with 107520 forwards; source baseline blocked after 343 complete images and one interrupted attempt, original process thread still holds run lock.",
+  "current_work": "127 retry passed source observations and is loading frozen assets on CPU; no new image attempts.",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "User authorized server 104; resolve 103 held lock and establish single-writer migration, then review remaining budget and 104 live resource permission.",
+  "next_research_action": "After CPU preflight verify current GPU resource status and issue short-lived permit, then inspect actual CUDA and first image.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",

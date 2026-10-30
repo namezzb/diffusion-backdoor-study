@@ -20,6 +20,14 @@
 | [恢复资源观察](server103_resource_observation_resume_20261029.json) · [恢复回执](server103_amendment_resume_20261029.json) | 独立验签及新的实时资源门禁通过，后续前向和终态需另行核验 |
 | [定位终态观察](server103_localization_terminal_observation_20261029.json) | 107520次前向及六组对照完成，远端终态与选择文件哈希；图片效果仍待确认 |
 | [确认资源观察](server103_resource_observation_confirm_20261029.json) · [确认准备](server103_confirm_preparation_20261029.json) | CPU预检及确认阶段GPU门禁通过，完整基线仍待核验 |
+| [127 CPU准备](server127_cpu_preparation_20261030.json) | 重试已通过源观察并进入CPU资产加载，GPU许可尚待实时核查 |
+| [127观察控制器v2草案](shard127_watch_controller_v2.py) | 并行观察与合并发布候选，尚未独立审阅或部署；当前使用原签名版本 |
+| [127分片交接](SHARD127_HANDOFF.md) · [候选](shard127_plan_candidate.json) · [审阅](shard127_review_envelope.json) | 原预算内1704个未尝试键，双源短时观察和104锁保护；104及103原执行禁止重启 |
+| [127准备中断](server127_preflight_interruption_20261030.json) · [104 CUDA失败](server104_cuda_failure_20261030.json) | 127初次因观察过期在建账本前退出，104 CUDA初始化失败；两者均0次出图 |
+| [104门禁追加修订审阅](resource104_review.json) · [签名](resource104_review.json.sig) | 限定核验gdm系统图形进程；不改变原冻结门禁 |
+| [104门禁中断观察](server104_resource_gate_interruption_20261030.json) | 原门禁未识别gdm系统图形进程，0次出图；CPU日志含CUDA初始化警告 |
+| [104分片CPU预检启动](server104_shard_preflight_start_20261030.json) · [候选与审阅](shard104_review_envelope.json) | 固定1704互斥键，签名校验通过；GPU许可与出图须另验 |
+| [104分片交接及校验](SHARD104_HANDOFF.md) | 基于已验证快照准备1704项分片；跳板恢复后仍须候选计划和独立审阅 |
 | [104资产及环境观察](server104_asset_compatibility_20261030.json) | 38项资产哈希匹配，主要依赖可CPU导入；尚无迁移或GPU启动许可 |
 | [103设备故障与盘点](server103_gpu_failure_20261030.json) | 343张完成图哈希核对、一次中断及原锁未释放；恢复受设备与预算约束 |
 | [源阶段首批与耗时](server103_source_initial_images_20261029.json) | 首批62张带分数，抽样文件哈希核验及基线耗时估算；不代表基线已通过 |

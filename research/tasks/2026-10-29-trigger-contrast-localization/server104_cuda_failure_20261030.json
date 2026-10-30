@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-10-30T02:36:37Z",
+  "server": "school104",
+  "gpu_uuid": "GPU-41bde711-d787-c02d-9670-4f8e0b1a997c",
+  "cpu_preflight": "passed",
+  "resource_gate": "passed",
+  "cuda_diagnostic": {
+    "cuInit_return": 3,
+    "cuDeviceGetCount_return": 3,
+    "torch_cuda_available": false,
+    "visible_device_count": 0
+  },
+  "runner_error": "CUDA visibility does not match the declared allocation",
+  "image_ledger_exists": false,
+  "image_attempts": 0,
+  "tmux_session_present": false,
+  "evidence_remote": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard104-20261030/",
+  "cause": "unknown; driver initialization failure, not evidence of a specific causal actor",
+  "next": "Prepare independent non-overlapping shard on school127 under original budget."
+}

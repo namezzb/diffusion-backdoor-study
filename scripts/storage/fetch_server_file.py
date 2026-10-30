@@ -26,7 +26,7 @@ import unicodedata
 import uuid
 
 
-ROOTS = {"103": "/data1/zhangzibo/arxiv-tssa", "104": "/data2/zhangzibo/arxiv-tssa"}
+ROOTS = {"103": "/data1/zhangzibo/arxiv-tssa", "104": "/data2/zhangzibo/arxiv-tssa", "127": "/data1/zhangzibo/arxiv-tssa"}
 CHUNK = 1024 * 1024
 DEFAULT_MAX_BYTES = 8 * 1024 ** 3
 DEFAULT_RESERVE_BYTES = 512 * 1024 ** 2

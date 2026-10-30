@@ -4,7 +4,7 @@
 
 | 入口 | 作用 |
 |---|---|
-| [验收报告](acceptance_report.md) | 当前是受阻报告，等待设备处理、终态、独立复算及最终验收 |
+| [验收报告](acceptance_report.md) | 当前是进行中报告，104 CUDA初始化失败，127分片重试已进入CPU准备，等待实际出图、终态及最终验收 |
 | [资源与启动证据](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json) | 103 GPU 2 实时许可及真实定位前向启动 |
 | [源阶段首批与首图证据](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json) | 首图远端哈希与账本一致；后续342张完成图已在故障观察后盘点 |
 | [设备故障与图片盘点](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_gpu_failure_20261030.json) | 343张完成图远端哈希核验；GPU故障且原锁仍持有 |

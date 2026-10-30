@@ -6,7 +6,7 @@
 
 | 入口 | 内容 | 阅读边界 |
 |---|---|---|
-| [TCL定位运行](trigger-contrast-localization/README.md) · [任务正文](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) | 103定位完成，源基线因GPU故障受阻 | 已记录107520次定位前向及343张完成图，完整基线与科研结论待验证 |
+| [TCL定位运行](trigger-contrast-localization/README.md) · [任务正文](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) | 103定位完成，104 CUDA初始化失败，127源基线分片重试已进入CPU准备 | 已记录107520次定位前向及343张完成图，完整基线与科研结论待验证 |
 | [本轮验证证据](tssa-mvp-2026-10-26/README.md) | 代码/资产、真实训练、逐图评价、审计与释放证据 | 当前冻结配置初步负结果，不含FID或显著性证明 |
 | [直接ASR探索](tssa-opt-exploration-2026-10-28/README.md) | 12点搜索/独立开发，816图无合格增益；全部816张原图已在本地 | 原审计invalid，哈希缺陷全部解释、数值与选择复算一致；未做确认 |
 | [目标语义诊断](tssa-target-semantic-diagnostic-2026-10-28/README.md) | 96单元、462次分支前向，1141份原始响应与回执已在本地 | 0图/0更新；梯度一致性和局部可行性门槛失败，不是ASR评价 |
