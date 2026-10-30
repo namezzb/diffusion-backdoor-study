@@ -1,163 +1,83 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T11:36:49+08:00",
-  "base_commit": "489c1df43f143e19e25a9590541c339410c2a2b6",
-  "summary": "记录127已完成的3张图及见证超时中断，保留实耗和原预算。",
+  "reviewed_at": "2026-10-30T11:41:14+08:00",
+  "base_commit": "2f5e39b172c4425188972629fb0f2cd104b1eee5",
+  "summary": "记录127恢复出图、7张图片哈希及单次回查，保留中断记录和原预算。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "4385761416d7d61e6ab588f57167eb895c0ba86e826a191a004131bf41ebc77f"
+      "sha256": "d9fe1369fe71dee72c20f36079177a8107f002b7ae411a0d3b0e41766eb19102"
     },
     {
       "path": "README.md",
       "kind": "file",
-      "sha256": "5b6e8ae3c708ef92811c7d82d43f3c24cd27dac2eb8358d3d271bc33d63a16f3"
+      "sha256": "716d490be0345647e837425e3ba003a3f32dbedbfa017132e0540646a07dc758"
     },
     {
       "path": "research/README.md",
       "kind": "file",
-      "sha256": "c59f9318276ddc2bd40d3bf7656c1176d8714e35c76844f4c0ff1667f1745b3f"
+      "sha256": "fbac2347f3284ced29bcc64b11b2dce587d628222cf145bfd61de16c3625c27b"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "930d4f1c283a92b621c75f54c4b2bcae2b44128c3562dda71047dd69cc7a3ca7"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "kind": "file",
-      "sha256": "53117b930d3cf345d6235a194007e5a3245b2b0cc34738e6e1eae55881466e80"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_WAIT_HANDOFF.md",
-      "kind": "file",
-      "sha256": "13b514eb653045a2275f08b87f38d3491ff3d037cf781a41ffd002b2582affd3"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/SHARD127_WAIT_V2_HANDOFF.md",
-      "kind": "file",
-      "sha256": "8934bcf8abd1a424c5e6a3e7fcb57eac2190fd7d9a758e68847e1f1ef9dba744"
+      "sha256": "0cef48ffa95bb0b4101d21f3097ed7872a05240259801d44f6b7b3f1dc7e6ae3"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "b9d4568e63c28dd438177b01b2c7152028999e624efd71b88843347ca95bf9c2"
+      "sha256": "0fd4e3d9bf81246715150ba0bf4b1c3c4bfdf7933d632b02025ece027210ddcd"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/launch127_wait.sh",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_running_observation_20261030T0340Z.json",
       "kind": "file",
-      "sha256": "b76491f8e5ee07fce5b0388c228f1c996c961134ac3db8bef64fe4fbef0a9aa8"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_resource_observation_20261030T033551Z.json",
-      "kind": "file",
-      "sha256": "1936048dd69be03be0ff2286ececa6ec6ad12700e5ad3b64df528c74c85bfe73"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_wait_resume_20261030.json",
-      "kind": "file",
-      "sha256": "c71b9fa2fe36c1e6a62478ca517c38a69b026c8b7484074e1f0e8680230320f8"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_witness_interruption_20261030.json",
-      "kind": "file",
-      "sha256": "7457c18728f7083e30f7b447bf442c569c04fc1ca81957e84969caecd26de034"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_launcher.py",
-      "kind": "file",
-      "sha256": "8d9c816e2fdcdf3d8dc867414e16dc0dbcce4a9c91d2b4f34b6e97446c45e4bd"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_launcher_v2.py",
-      "kind": "file",
-      "sha256": "cb1030ea4f91afb49d537c9152b82071d190788a0708d66d548373ebaf874450"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review.json",
-      "kind": "file",
-      "sha256": "b0cdbdc6c4d7b018625c6dbaaafa90d10c77be465d162f1135d2d604a7776bed"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review.json.sig",
-      "kind": "file",
-      "sha256": "45f85ffecdadc95689533c05acbe76e1e750bd7b78f7e956389229c9cf79d7e1"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review_template.py",
-      "kind": "file",
-      "sha256": "9d1331d84f82b019e10adcd2a67fa668a5a4dbe505369778a4b3576a22f50d1a"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_wait_review_template_v2.py",
-      "kind": "file",
-      "sha256": "0dd47d134d06f682001cb302108a0ee9ef3cf4baca34c2ec3b6c77427f930e10"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_watch_wait.py",
-      "kind": "file",
-      "sha256": "76bdcccbc9274dee4413b5e9340fd5e5b267d969b3ecd381b53e77027b191df0"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/shard127_watch_wait_v2.py",
-      "kind": "file",
-      "sha256": "25fa74c1aeac495122516d9187c34292b86a96f12b952e36eb322b87b8c6e51a"
+      "sha256": "0afcd5e37bd27dd02371d22407862edd9fb6218eb6853200cef61e15bafb63d9"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "642d223c533c6d2fdde219a49d366f5e4bdae1f2be52fc7b28d43b6ffa1890ad"
+      "sha256": "1b3da50f026ed974c8dfcee978c25f89016d579f541d8fd1eeb8ca5e47ff9d48"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
       "kind": "file",
-      "sha256": "f663e50bd9c6ea1c3356801d380d6d65c7bdcf6ad11a3ae80b9d1ecf35e36194"
+      "sha256": "89b3eb14cd96f70d7ca691a14a62ade9d7c9beaf2ca279d55d95997fcab0f6da"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "4bc9c4ed62fb0963f793fa3026bc918456746743596faa1e0cda5e165706f472"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_shard127_wait.py",
-      "kind": "file",
-      "sha256": "e60841be2bca49149edf9c44590efee3e4a1c8495994978e8b26d903f8cb8c11"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_shard127_wait_v2.py",
-      "kind": "file",
-      "sha256": "53548c6688ec885a5f0ca26b4d99b8bceba51cd6d3ae964660ce5c2987a0fded"
+      "sha256": "a810356726e6ca38da0f9a13d02f4e7a71bc4c6881e325c1f62b536fcdfc7455"
     },
     {
       "path": "storage/README.md",
       "kind": "file",
-      "sha256": "ab8c9800b2992995142a43af64d8e8016eabc4fb3d9357b7c361eb102dbe0e50"
+      "sha256": "34a4f272ba0857c382e56546394205407f4fdd241a85773af57774a567f6a0c8"
     },
     {
       "path": "storage/SERVER_INDEX.md",
       "kind": "file",
-      "sha256": "e62c7dab44b62b9477e73040cf3369f2be73c78ec5998f0ef96acd9ec05c8404"
+      "sha256": "3ac603a9b29747c903a65073d315aadc02f897cb500199988e9a7e3cb0c47961"
     },
     {
       "path": "storage/asset_registry.jsonl",
       "kind": "file",
-      "sha256": "8b3c5aa62a49868ace588013da45adc2a9b4eed1f7fa63857d76283b3543a266"
+      "sha256": "0f5f25566e2dce4f960c89f4bd775c2ea4f59f522bdcefafaad7deb9deb0a3df"
     },
     {
       "path": "storage/audits/retrieval_coverage.json",
       "kind": "file",
-      "sha256": "26ce2f2b0c40ff3bab482c4b156dfcf492d0b8e5cd342971a818d21c630ee141"
+      "sha256": "4eb1dfbbe3a5c31feb30395e464599bf65c692f037077420a27f80ac42e73ab8"
     },
     {
       "path": "storage/retrieval_catalog.jsonl",
       "kind": "file",
-      "sha256": "e70c828ae83dd64ee3d47bda99df495d68e9a13382090337d5d17a6c30490790"
+      "sha256": "cd5755682415d999c01096118ead8c854ec782f2da2bf944a545ed830b2ca1c1"
     },
     {
       "path": "storage/server-index/127-tcl-v1-shard-images-20261030.jsonl",
       "kind": "file",
-      "sha256": "b0fded8021e1d7686ad2f5055db4979311333e1a35a3d5294f77fc0ba0446de9"
+      "sha256": "fddc4f2dc22e88eadf6ba850776cffacc0ce37bca786f44236bd24dd6a5556de"
     }
   ],
   "index_decisions": [
@@ -183,7 +103,7 @@
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "action": "updated",
+      "action": "unchanged",
       "reason": "增加分片交接、核验和异常证据入口。"
     },
     {
@@ -212,16 +132,6 @@
       "reason": "更新当前报告状态及后续验收边界。"
     },
     {
-      "path": "scripts/README.md",
-      "action": "unchanged",
-      "reason": "登记127数据盘取回入口。"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "action": "unchanged",
-      "reason": "登记分片脚本和验证入口。"
-    },
-    {
       "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
       "reason": "索引维护流程未变，仅增加已有机制支持的服务器根目录。"
@@ -238,9 +148,9 @@
     }
   ],
   "verification": {
-    "local": "112项TCL回归、25项等待定向检查及138项存储测试通过；127来源路径检查通过。",
-    "server": "127完成3张图并逐张核对哈希和评分；见证超时后修订并重新启动CPU准备，新的未决尝试保留。",
-    "budget": "103完成343图并中断1次；127完成3图并中断2次，剩1699键；冻结预算内最多2045张基线图。"
+    "local": "25项等待定向测试通过；本机Python3.14全量发现因缺torch有13项导入错误，不能宣称全项目测试通过。",
+    "server": "127完成7张图并逐张核对哈希；见证超时后恢复GPU生成，额外图片仍在进行。",
+    "budget": "截至11:40，103完成343图并中断1次，127完成7图、中断2次及1条运行中；冻结预算内最多2045张基线图。"
   },
   "scope": {
     "training_updates": 0,
