@@ -1,196 +1,101 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-30T01:52:00+08:00",
-  "base_commit": "25469ce755e1854bbe3a95aea876d60b48745195",
-  "summary": "记录103 GPU故障与仍被持有的原锁，343张完成图逐一核验哈希并登记服务器来源，源确认和最终验收受阻。",
+  "reviewed_at": "2026-10-30T09:49:00+08:00",
+  "base_commit": "9d15cdf419c125c39cdb36a3c915e1819684a383",
+  "summary": "按用户要求明确排队与合规空卡的规则，核验104模型资产并记录103持锁导致的迁移阻塞。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "f62b3cc4f5b9c38d108e327b6b2cef82c4c21913109bf9f9fb83caecf2a0ed8c"
-    },
-    {
-      "path": "README.md",
-      "kind": "file",
-      "sha256": "3761ef78abd46e18d8afa6b42f289957856ae01c85976e5908c637d804286606"
-    },
-    {
-      "path": "research/README.md",
-      "kind": "file",
-      "sha256": "1c7117fe70718728f96a7540d7649c73a9e2f6da281f31bf271dd2a5c032ed18"
+      "sha256": "6dc9c4e49495047ac76d5816d73bd9b0c7ad3723045f241cf11e5d393e0d257a"
     },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "af88778dc71814f65903f1229da1cbf92a51519484e59929f3898dacd995c9dd"
+      "sha256": "f7ac5d2a937ec5a08960ceab2b19e6de9eacf8c3945cca1ba27babbab2e1cbe5"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "934f89d48f29f28f026717c5b840556ecb0ecdb3c912cac310fff6d7b40d50ea"
+      "sha256": "d831b8573986738f607352839c6e59aeecc3e1a85595f6f8e4888f23552cc41f"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "bb400f070ba613220aa830f02d32fb82393b1c8a23b4d8f209f93627071946e9"
+      "sha256": "d5008ab7e9b98179723cca45c1315ef91d1d25938b9e6372a38e1dc6fb3f7f21"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server103_gpu_failure_20261030.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_asset_compatibility_20261030.json",
       "kind": "file",
-      "sha256": "7618d067e6e265450ceb2eff2d4cf37c9623e712f0d375c785087e10ff4a0b3f"
-    },
-    {
-      "path": "results/README.md",
-      "kind": "file",
-      "sha256": "a35efaead8f3838ef16df97dcd03f81a789cdc88f885f558474a2535bb22dac9"
-    },
-    {
-      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "kind": "file",
-      "sha256": "8552f066d7069bdf0944dbc4c38b418f805e47ef061fa67a5f232f28d0ab8f3c"
+      "sha256": "13630eec638af19e9438ee0393adfaa090561f8fa94211c9c2b55a2f4f82d4d8"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
       "kind": "file",
-      "sha256": "9f50be38affee2f53968e23a3cce7407203f4b4c621289ae494122555112df2d"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/README.md",
-      "kind": "file",
-      "sha256": "41001325b961a49d6aa789860efdc7a9cfa0d876539b5b37813555394c025f5a"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school101-20261029T174605849836Z.json",
-      "kind": "file",
-      "sha256": "2c57bf27cd638d69b8d6d3493d2ebf1b1c9e30627d96f47cf7449f8ec094db7f"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school104-20261029T174605881300Z.json",
-      "kind": "file",
-      "sha256": "d85016a702d6b38c91754ce00e03a596331debefae67e271ab86526ed7e5fed7"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school127-20261029T174605865081Z.json",
-      "kind": "file",
-      "sha256": "e12620f90826f68918a3211f29852ae9bdc72d632cdaa96c55213b69b1edb9b7"
-    },
-    {
-      "path": "storage/README.md",
-      "kind": "file",
-      "sha256": "85288a5064f0f2da1ef3adffd6bf051b7a12e60133589973074af13f168fbcd7"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "kind": "file",
-      "sha256": "6ef5e03cbd91c84515bb04e8c8d297d02eae777118599ad07ce799d90cfd5936"
-    },
-    {
-      "path": "storage/asset_registry.jsonl",
-      "kind": "file",
-      "sha256": "9490ecfff64f19f4f89c92bb76d2118e315f6c6904708752b9afbe8adf64f72a"
-    },
-    {
-      "path": "storage/audits/retrieval_coverage.json",
-      "kind": "file",
-      "sha256": "8a5ed27c75dee27e81a4d7f5309955b2c4ab8dce1a09b58002795ef12ba258c1"
-    },
-    {
-      "path": "storage/retrieval_catalog.jsonl",
-      "kind": "file",
-      "sha256": "6ba9f6cd8c520a3cacb6ce9434cf29f36d07d1a78293530d022b66ddaec9caeb"
-    },
-    {
-      "path": "storage/server-index/103-tcl-v1-completed-images-20261030.jsonl",
-      "kind": "file",
-      "sha256": "85665831896794f9f20ffcce32f0dfe91ceb68bddd902d4306c7cc8339abf93e"
+      "sha256": "cff90d146776ce20206499e5a9e445a1b63e3887915a16d36b55032f0a8ea5f8"
     }
   ],
   "index_decisions": [
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "同步103设备故障和持锁边界，不改变旧实验状态。"
+      "reason": "按用户指示明确排队但未使用目标卡不自动阻止直接使用，保留实时分配及平台规则核验。"
     },
     {
       "path": "README.md",
-      "action": "updated",
-      "reason": "更新当前任务受阻及343张已核对的事实。"
+      "action": "unchanged",
+      "reason": "总入口已有任务受阻和导航，迁移核验细节由任务正文提供。"
     },
     {
       "path": "research/README.md",
-      "action": "updated",
-      "reason": "同步源基线因设备异常受阻。"
+      "action": "unchanged",
+      "reason": "科研方向和设备受阻概述未变，104细节由任务正文提供。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "记录受阻状态和设备处理后的恢复入口。"
+      "reason": "登记104授权后的下一步和单写入阻塞。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "action": "updated",
-      "reason": "加入故障和盘点入口。"
+      "reason": "加入104资产核验入口。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "更新M07和任务状态，记录故障及恢复条件。"
+      "reason": "登记104授权、资产核验与103持锁阻塞。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "只导航任务，不复制任务状态。"
-    },
-    {
-      "path": "research/tssa_overnight_progress.md",
-      "action": "unchanged",
-      "reason": "记录已结束的旧TSSA轮次，本次仅涉及独立TCL任务。"
+      "reason": "总索引只提供任务导航，不复制状态。"
     },
     {
       "path": "results/README.md",
-      "action": "updated",
-      "reason": "更新定位已完成、源确认受阻的阶段。"
+      "action": "unchanged",
+      "reason": "源基线依旧受阻，阶段与科研结论均未改变。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
       "action": "unchanged",
-      "reason": "已有具体运行入口，故障与验收从该入口可达。"
+      "reason": "保留指向具体运行的入口。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "action": "updated",
-      "reason": "补充故障和已盘点图片入口。"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/README.md",
-      "action": "updated",
-      "reason": "登记本次跨服务器只读探针。"
-    },
-    {
-      "path": "storage/INDEX_MAINTENANCE.md",
       "action": "unchanged",
-      "reason": "登记和检查流程未改变。"
-    },
-    {
-      "path": "storage/NEW_COMPUTER.md",
-      "action": "unchanged",
-      "reason": "现有按目录按需取回流程不变；故障与持锁条件通过任务和服务器索引说明。"
-    },
-    {
-      "path": "storage/README.md",
-      "action": "updated",
-      "reason": "说明343张完成图已登记但未回传、账本未终态。"
+      "reason": "既有入口直接指向验收报告及任务，不需复制104观察。"
     }
   ],
   "verification": {
-    "server": "103 GPU 2驱动要求重置，原线程及账本锁未释放；343张图片远端哈希与完成账本一致，另有1次未完成尝试。",
-    "retrieval": "登记343张已验证图片的远端来源，未下载；账本仍持锁，不称最终备份。",
-    "budget": "已计344次，重试导致八版本完整确认至少8193次，超过源阶段8192上限。"
+    "server": "104的38项资产SHA匹配冻结清单；主要依赖CPU导入成功，103原线程SIGKILL后仍持锁。",
+    "gpu": "未启动104 GPU；平台实时分配和迁移许可仍须启动前核验。",
+    "budget": "344次已计，若重试则完整八版本至少8193次，超8192上限。"
   },
   "scope": {
     "training_updates": 0,
-    "source_baseline": "blocked: 343 completed and 1 interrupted attempt",
+    "source_baseline": "blocked; 343 complete, 1 interrupted",
     "scientific_outcome": "not_evaluated",
-    "transfer": "343 PNG hashes verified and remotely indexed, none downloaded"
+    "transfer": "no migration or new image generation"
   }
 }
