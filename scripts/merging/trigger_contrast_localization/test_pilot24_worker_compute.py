@@ -181,6 +181,12 @@ class WorkerSessionTests(unittest.TestCase):
         self.stop = self.root / "stop.json"
         self.permission_ref = self.root / "permission-ref.json"
         self.permission_ref.write_text(json.dumps({"path": str(self.root / "permission.json"), "sha256": "a" * 64}))
+        reviewed_config = self.root / 'config.json'
+        reviewed_config.write_text('{}')
+        review = self.root / 'review.json'
+        review.write_text(json.dumps({'coordinator_config_file': str(reviewed_config),
+                                      'coordinator_config_sha256': __import__('hashlib').sha256(reviewed_config.read_bytes()).hexdigest(),
+                                      'manifest_sha256': 'a' * 64}))
         self.prepared = []
         for index in range(2):
             plan = assignment()
@@ -190,7 +196,8 @@ class WorkerSessionTests(unittest.TestCase):
             job.write_text(json.dumps({"assignment": str(self.root / ("assignment-" + str(index))), "gate": str(self.root / "gate")}))
             self.prepared.append(SimpleNamespace(assignment=plan, manifest_sha256="a" * 64,
                 assignment_sha256="b" * 64, model_bundle_sha256="c" * 64, scorer_sha256="d" * 64,
-                bindings=SimpleNamespace(selection_sha="e" * 64), gate={"config_sha256": "f" * 64}, assets=None))
+                bindings=SimpleNamespace(selection_sha="e" * 64), gate={"config_sha256": "f" * 64}, assets=None,
+                bundle={'review_file': str(review)}))
 
     def tearDown(self):
         self.temp.cleanup()

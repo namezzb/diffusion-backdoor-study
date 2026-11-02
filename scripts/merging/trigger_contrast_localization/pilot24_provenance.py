@@ -445,6 +445,46 @@ def _system_xorg(pid, name, kind):
         return False
 
 
+def _system_gnome_shell(pid, name, kind):
+    """Accept only the system gdm login screen, never arbitrary graphics jobs."""
+    if kind != "G" or name != "/usr/bin/gnome-shell":
+        return False
+    try:
+        process = Path("/proc") / str(pid)
+        before = _process_identity(pid)
+        uid = before["uid"]
+        account = pwd.getpwuid(uid)
+        if (not 0 < uid < 1000 or account.pw_uid != uid or account.pw_name != "gdm"
+                or account.pw_dir != "/var/lib/gdm3" or account.pw_shell != "/bin/false"
+                or before["state"] in ("Z", "X")):
+            return False
+        uids = [line.split()[1:] for line in (process / "status").read_text().splitlines()
+                if line.startswith("Uid:")]
+        if (uids != [[str(uid)] * 4] or (process / "comm").read_text() != "gnome-shell\n"
+                or (process / "cmdline").read_bytes() != b"/usr/bin/gnome-shell\0"):
+            return False
+        executable = Path(name)
+        info = executable.lstat()
+        if (not stat.S_ISREG(info.st_mode) or info.st_uid != 0 or not info.st_mode & stat.S_IXUSR
+                or info.st_mode & 0o022):
+            return False
+        try:
+            if (process / "exe").resolve(strict=True) != executable:
+                return False
+        except OSError as exc:
+            if exc.errno not in (errno.EACCES, errno.EPERM):
+                raise
+            # Cross-user /proc/exe access is often denied. Exact gdm identity,
+            # argv, comm and root-owned ELF are all required for this fallback.
+            if not executable.read_bytes().startswith(b"\x7fELF"):
+                return False
+        after = _process_identity(pid)
+        return (_identity(executable.lstat()) == _identity(info) and after["state"] not in ("Z", "X")
+                and all(after[key] == before[key] for key in ("pid", "uid", "start_ticks")))
+    except (OSError, ValueError, KeyError, IndexError):
+        return False
+
+
 def _gpu(xml, uuid, own_pids):
     root = ET.fromstring(xml)
     matches = [g for g in root.findall("gpu") if g.findtext("uuid") == uuid]
@@ -461,7 +501,7 @@ def _gpu(xml, uuid, own_pids):
         pid = int(pid)
         if pid in own_pids and _process_identity(pid)["uid"] == os.geteuid():
             continue
-        if not _system_xorg(pid, name, kind):
+        if not (_system_xorg(pid, name, kind) or _system_gnome_shell(pid, name, kind)):
             raise ValueError("GPU contains another or unverified process")
 
 

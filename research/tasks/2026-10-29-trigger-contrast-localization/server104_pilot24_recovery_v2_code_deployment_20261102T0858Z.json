@@ -1,0 +1,31 @@
+{
+  "destination": "/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository-recovery-v2",
+  "errors": [],
+  "gpu_launched_by_this_action": false,
+  "new_bundle_created": false,
+  "observed_at_utc": "2026-11-02T08:58:34.030290+00:00",
+  "predecessor_bundle_sha256": "c52a06d8d85d08925604a5a5194bf190e0eb90df797f220cf2e03c2fbb3c128d",
+  "previous_code_files_verified": 40,
+  "prior_evidence_sha256": {
+    "first_recovery_review": "d7a7c6e0b7d44475ce4cdabf80c30ed8dfc4f8eae23895c9bf16d6abf7c94100",
+    "first_recovery_state": "41aef46d21c717d473fc1a0ecc9dd9a902d3e5c9c7de05aca2f623ad0bdfc22a",
+    "first_recovery_terminal": "5a1400aff55cfce63df891b57401571c82752f0f8defe2cc5989b0384fac597b",
+    "original_state": "60bd3580483ebb8cdb95617d8a8a22585ab62b2e622e36bb45c04e9b8904bd40",
+    "original_t0": "d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449",
+    "original_terminal": "c97629c2ab84d412ca20019831e2fa09129c4fecc034a4f5789e49e4738a3176"
+  },
+  "reviewed_files_sha256": {
+    "pilot24_prepare_recovery_v2_candidate.py": "58b7e9e4b2f825c13560a20d4a2eaadd46fa165b855199c06ac0086faa836e84",
+    "pilot24_recovery_guard_candidate.py": "e711774701ed5e6ffdee39069464b9ac9802aad1dc0b855c133f7bb0b2495707",
+    "pilot24_run.py": "3032ea668e7a53ad5bb4e33298d087c0d5efead2132115b6e964d79697854e9d",
+    "pilot24_worker_compute.py": "c628385ce8a99ef368718f6e72d3bee884062af47556520c64c5302c1c8e4b5c"
+  },
+  "server": "school104",
+  "source": "/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository-recovery-v1",
+  "status": "verified",
+  "unchanged_copy_files_verified": 37,
+  "destination_previously_absent": true,
+  "copy_method": "atomic new directory; cp -a from independently verified predecessor; transfer four reviewed source files",
+  "scope": "code deployment and read-only verification only"
+}
+

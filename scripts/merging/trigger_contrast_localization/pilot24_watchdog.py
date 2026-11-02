@@ -45,7 +45,7 @@ def create_t0(path, manifest_sha, *, now_utc=None):
     return hashlib.sha256(raw).hexdigest()
 
 
-def load_t0(path, expected_file_sha, expected_manifest_sha):
+def load_t0(path, expected_file_sha, expected_manifest_sha, *, original_manifest_sha=None):
     path = Path(path)
     if path.is_symlink() or not path.is_file() or not is_sha(expected_file_sha) or not is_sha(expected_manifest_sha):
         raise ValueError("T0 record and identities are required")
@@ -53,7 +53,16 @@ def load_t0(path, expected_file_sha, expected_manifest_sha):
     if hashlib.sha256(raw).hexdigest() != expected_file_sha:
         raise ValueError("T0 record changed")
     payload = json.loads(raw)
-    if set(payload) != {"run_id", "manifest_sha256", "t0_utc"} or payload["run_id"] != RUN or payload["manifest_sha256"] != expected_manifest_sha:
+    # A changed implementation has a new bundle hash. Its caller must first
+    # validate an independently reviewed predecessor-to-amendment mapping.
+    t0_manifest = original_manifest_sha or expected_manifest_sha
+    if original_manifest_sha:
+        from pilot24_recovery_guard_candidate import MANIFEST, T0_SHA
+        if original_manifest_sha != MANIFEST or expected_file_sha != T0_SHA or expected_manifest_sha == MANIFEST:
+            raise ValueError("invalid fixed predecessor T0 lineage")
+    if not is_sha(t0_manifest):
+        raise ValueError("invalid original T0 manifest")
+    if set(payload) != {"run_id", "manifest_sha256", "t0_utc"} or payload["run_id"] != RUN or payload["manifest_sha256"] != t0_manifest:
         raise ValueError("T0 record belongs to a different run")
     parsed = datetime.fromisoformat(payload["t0_utc"].replace("Z", "+00:00"))
     if parsed.tzinfo is None or parsed.utcoffset().total_seconds() != 0:
@@ -61,7 +70,7 @@ def load_t0(path, expected_file_sha, expected_manifest_sha):
     return payload
 
 
-def supervise(argv, t0_utc, *, grace_seconds=5, stop_file=None, stdout=None):
+def supervise(argv, t0_utc, *, grace_seconds=5, stop_file=None, stdout=None, pass_fds=()):
     """Supervise only our child process group; stop its descendants as well."""
     t0 = datetime.fromisoformat(t0_utc.replace("Z", "+00:00"))
     if (t0.tzinfo is None or t0.utcoffset().total_seconds() != 0 or not isinstance(argv, list)
@@ -73,7 +82,7 @@ def supervise(argv, t0_utc, *, grace_seconds=5, stop_file=None, stdout=None):
         raise ValueError("T0 is future or the compute deadline has passed")
     until = time.monotonic() + remaining
     proc = subprocess.Popen(argv, start_new_session=True, stdin=subprocess.DEVNULL, stdout=stdout,
-                            stderr=subprocess.STDOUT if stdout is not None else None)
+                            stderr=subprocess.STDOUT if stdout is not None else None, pass_fds=pass_fds)
     stopped = False
     reason = "worker_exited"
     try:

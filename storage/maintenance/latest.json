@@ -1,553 +1,252 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-02T14:36:32+08:00",
-  "base_commit": "83147b7f32150806ceb1a791ca4dc4522e01fc68",
-  "summary": "本次按用户授权优化agent约束文档：根AGENTS保留稳定规则与按需入口，集中服务器操作说明和索引流程，消除旧排队窗口/已结束run执行/强制利用率等冲突。独立复核通过，41项维护工具测试通过，既有59个范围外改动文件哈希不变；原TCL科研变更沿用上次已登记回执，未启动实验、连接科研服务器、改写冻结协议或变更科学结论。",
+  "reviewed_at": "2026-11-02T17:00:50+08:00",
+  "base_commit": "2464180070fe4626150511e6fb6eaa4d65b32002",
+  "summary": "TCL v2生产输入审阅并保守启动T0；首次CPU分数复核误拒，修订代真实CPU预检后因目标GPU被占在CUDA前退出。两代账本各0新增尝试、363历史导入只计一次；链式恢复代码独立审阅并部署隔离副本，101空卡公钥认证拒绝，未形成新图或科研结论。",
   "reviewed_changes": [
-    {
-      "path": "AGENTS.md",
-      "kind": "file",
-      "sha256": "858f9507100dfc7539992b54a0409853d94db364b8991ecd46cfc8a4759a77c1"
-    },
-    {
-      "path": "README.md",
-      "kind": "file",
-      "sha256": "cd42f1f22c544cdb39b9a47ed6e1b655409c38910f741dbc51ac2d16b81028fd"
-    },
-    {
-      "path": "reproduction/LOOP.md",
-      "kind": "file",
-      "sha256": "2a1ffe5f3ea43c91038cd67d8e79f7313c889fbc82866c6eccba6c5d22a370b9"
-    },
-    {
-      "path": "reproduction/README.md",
-      "kind": "file",
-      "sha256": "3c1bb3c6fa6c5b7e3dc30385e768fde9a17b621bcdf993774e3c8d68b7e53f4b"
-    },
-    {
-      "path": "research/README.md",
-      "kind": "file",
-      "sha256": "a716810a6240624aa1353a80d3649f03611497342004f3c31316e714c834afc0"
-    },
-    {
-      "path": "research/merging_attack_progress.md",
-      "kind": "file",
-      "sha256": "bef219a2681167adbe7ccef588cfeeac8c3a33ef1b59b1e6aa030cb32efbe32b"
-    },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "b7e353752430e546028e3c361de59c3a712c9515abd1d756e0cb2253025b894d"
+      "sha256": "68da7a82e341947d785e0ec23e4a10e41d7fae6d88e09b69bd0db5985b15fe06"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_IMPLEMENTATION_REVIEW.md",
       "kind": "file",
-      "sha256": "e05e3fb04fc7606f9b6d9519848f13a3b059b29392ef6feace15732d15cda062"
+      "sha256": "bab01e97211d6abbed03e583d3d9e29d459ed7156fcebc6c949605dccf328741"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_INTAKE_2026-11-02.md",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_RUNTIME_REVIEW_20261102.md",
       "kind": "file",
-      "sha256": "921818780a86b9e931a5a98fa66b6bf063666cae4d05a835431f3d5d9087b21c"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md",
-      "kind": "file",
-      "sha256": "0b88577c54de204cce7e9afbc1ea1f102eef8fbfc75f33e9d6ec985a6a2cd2b6"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md",
-      "kind": "file",
-      "sha256": "f8be39fce4e72958204bbba00fa91040b292bb0fe92f6038273d7493dc0f535c"
+      "sha256": "f455b14bfdcb3df0c807f379d0f79df38712d983e5b27f29bf7d50f29bd8266b"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "08ad39321f5e70e78e0115a6d01823c22bf690ea6d00a70e2f11c97295aca79a"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/RECOVERY_HANDOFF_2026-11-02.md",
-      "kind": "file",
-      "sha256": "4fe2c155e70090535ae223aaed757d412a65fc35e417039b65d580d16a81226f"
+      "sha256": "808b9a806a0dc24be4d72421ae99e3c93c37954935df490fec89b4a7cdd36a39"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "kind": "file",
-      "sha256": "0730741bebbb20ffc3b3245acaff818152cc8d6ee0d873065280fcf8fcf7bab1"
+      "sha256": "f284b83529b2d3ff9628ecdccae6222559f7517653e2619e28dea27f515d084b"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_candidate_decode_20261102.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_cpu_real_mask_audit_20261102.json",
       "kind": "file",
-      "sha256": "7169c1dc253fd55e09b68b1e2b149cd5dbe3fee0b2dca0d54336b1c5201f392d"
+      "sha256": "b960b2f4cc835322e68aef72289bee3fc5de1c9384bd3430782c2a42c394d644"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_context_ids.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_cpu_real_mask_audit_20261102.stdout.txt",
       "kind": "file",
-      "sha256": "3e775ddee7baf03d174b7d8cb46c78b9dcbc75d447d0b44dd0b72c43342587b0"
+      "sha256": "2d00aac4ffcbb5aaa42d26b0f16358cd5709e42f58e2d3b1b76375f18e569c2c"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_environment_observation_20261102.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_recovery_guard_20261102T0828Z.json",
       "kind": "file",
-      "sha256": "00554b0da7a8d45affe3cc6c15dbec6aa470b3103a991c8cde3495595ca8934a"
+      "sha256": "8082a9cbb703f79a9d2e83e5d10c296eff830fcaa7c34dae9150a11f9afcbe9a"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_implementation_validation_20261102.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_recovery_terminal_20261102.json",
       "kind": "file",
-      "sha256": "529f092f7a0c615f9565fe012dfcd4f3218aa6849f056c28c16c41db6b130862"
+      "sha256": "313418949161ee88ef6ad3e33401d51ee2a7143f8c5709681755da4f34ee7db3"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_plan_candidate.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_recovery_v2_code_deployment_20261102T0858Z.json",
       "kind": "file",
-      "sha256": "a0a8cb74b07b2d73ad1315ea678b0c0899b3f647a431299ca709b06928824f5b"
+      "sha256": "44af70329320cf708add244fb51927e28c180497c075f7604a2a73241a4ffded"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_reuse_candidates_20261102.json",
+      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_terminal_20261102.json",
       "kind": "file",
-      "sha256": "666ef2f5c59ab481e3d6d4457176b7e48d7d45674be1a43000b1e05bcb218e52"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/recovery_provisional_keys_20261102.json",
-      "kind": "file",
-      "sha256": "c79e26582268a4349a74059051127165443203d5116a9b0d47513b1e1092423b"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_recovery_image_audit_20261102.json",
-      "kind": "file",
-      "sha256": "1040ef642faac7381cce147ce186af34eba894d0df14c6c60048ae779c179306"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server127_recovery_image_audit_20261102.json",
-      "kind": "file",
-      "sha256": "9bf76fe2543cd5d16794212e8dd6f9b7c7dba7784822bada3107c5d0691d73ec"
-    },
-    {
-      "path": "research/tasks/README.md",
-      "kind": "file",
-      "sha256": "938fc939c92088c683f8f7fb29f4d6a4c30ba299e4b3308000401e533a5a8316"
-    },
-    {
-      "path": "research/tasks/TEMPLATE.md",
-      "kind": "file",
-      "sha256": "6b796307eee372a24d1fd79324841aeda83002aeb4dcd74bc3d3b2d52fe3dd99"
-    },
-    {
-      "path": "research/tssa_mvp_runbook.md",
-      "kind": "file",
-      "sha256": "65ea592c1548f3eaba5f217e2f7d7fc40ffa26919f2c53c9c13787f564790431"
+      "sha256": "01d316da1a17a2c8db21566079ee830f87ebb668caf9efb9957bdc188d5aed6c"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "9845461feffc5906bba1429a95851f1b2eb415e702a036caed9526f6558ce34a"
-    },
-    {
-      "path": "results/trigger-contrast-localization/README.md",
-      "kind": "file",
-      "sha256": "0d19f3286972555b3a92c29b9e939f4a5ae5ccf68e2c60838af7f2c707e77a70"
-    },
-    {
-      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "kind": "file",
-      "sha256": "3c0c197f4644ed28b44de3d1455b0ae074c2d97c3cb1cb9ef35dc263a5881573"
-    },
-    {
-      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/acceptance_report.md",
-      "kind": "file",
-      "sha256": "0145125f0d666162c7f4b667e267eae0b724ef18ff272b62ff58b67e0242fb6b"
+      "sha256": "36d5760dd7e5b88529236cad587867144363af3c386c440fc139fcf699a1dbc8"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
       "kind": "file",
-      "sha256": "1429d79b7a0100a7e3444f2aeb531e29d0b70ad28c0e2ee311c12deb60d76b68"
+      "sha256": "bd8da842bffde32a3405fe3db159de9de7b8df4f2b28192025fdcd2020b80f65"
+    },
+    {
+      "path": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/acceptance_report.md",
+      "kind": "file",
+      "sha256": "0c96ce5ecfc652c9181ff6303373a3d467cdafc400d462ff22010715d500f620"
     },
     {
       "path": "results/tssa-mvp-2026-10-26/README.md",
       "kind": "file",
-      "sha256": "d37fd961753edcf834cfe3b5c706f1dbfcbeb8c7c9639ca132ae85ba8f01c0f5"
+      "sha256": "1ebf3ebcac588120ebed684d915334989b3543791c2e238a2143134ddb7a794e"
     },
     {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school101-20261102T022437216728Z.json",
+      "path": "results/tssa-mvp-2026-10-26/server-probes/school101-20261102T085540415593Z.json",
       "kind": "file",
-      "sha256": "bedb18b24ed0f010d8dd40f02aa1ed420c30c5c60ee2c2f2c935a9665e72389c"
+      "sha256": "eb0b9bf52a4d4c7f43bacb5dad00061abde7bf41a291223dac442bd1fc890c56"
     },
     {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school103-20261102T022431963950Z.json",
+      "path": "results/tssa-mvp-2026-10-26/server-probes/school104-20261102T075944687740Z.json",
       "kind": "file",
-      "sha256": "35c0b85b28648d2f8a8a84966799ecefbbe2f6872e0894b603e1d6cf9834b319"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school104-20261102T022424085079Z.json",
-      "kind": "file",
-      "sha256": "f313022fe1d621c2ca7d175f550ed53d7c5d36545b8c8e29183f63a5917683db"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school104-20261102T033347254834Z.json",
-      "kind": "file",
-      "sha256": "adcee0cc000a4d3b548c8f22d6876cea1324e7b8b8a73dce3b28494c9ce638d6"
-    },
-    {
-      "path": "results/tssa-mvp-2026-10-26/server-probes/school127-20261102T022445359434Z.json",
-      "kind": "file",
-      "sha256": "d18c9efd19bd409fc89f8e1e30723d718ebd6febc1519d22a1e49164dd0c1e2c"
-    },
-    {
-      "path": "scripts/README.md",
-      "kind": "file",
-      "sha256": "73ec9c1d8995de867ac5a89cb2a669c7a8a1a6575a5f274b0a5834d0dcb1f453"
+      "sha256": "cb22c26bdcb68bc29159f1b47fc8dfe5c844f3aa4447982a0692ef8f6ca41a0e"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/README.md",
       "kind": "file",
-      "sha256": "8dfdbf0f50d3966fedc6d27d2dd7e3f1f6862a52560cc796258805e81a64ef84"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_build_source.py",
-      "kind": "file",
-      "sha256": "3e319363ff9cb7c4a48ac8f93ee26522303fa7f10e0efd8891d117974a605782"
+      "sha256": "deea924088e70dc36e12173f49cf175bc5eb53ea8bb065f8477bcbdc476cfc04"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/pilot24_coordinator.py",
       "kind": "file",
-      "sha256": "0576e2ed7d73149e8b1c06ed85af7b143af06882b2a5156e595f63f35f2cc259"
+      "sha256": "85d408648ab4e30e425bcb2d89764556870e28d8dc0f1897b9952e0d50f4e0c2"
     },
     {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_deadline.py",
+      "path": "scripts/merging/trigger_contrast_localization/pilot24_prepare_recovery_candidate.py",
       "kind": "file",
-      "sha256": "c8d76f4d75cb43bcb074d1b8b7ad090632017e8b56da8abdcbc17f69c39b519c"
+      "sha256": "c022c8f23b0a52da5c44d58a844cce937728df3dad47468eab5fc70a2b4da88d"
     },
     {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_inputs.py",
+      "path": "scripts/merging/trigger_contrast_localization/pilot24_prepare_recovery_v2_candidate.py",
       "kind": "file",
-      "sha256": "fd2a1a10e7e62132832898ea9b1faf99ca5e885cea27eb5f3b070fac82e67485"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_prepare.py",
-      "kind": "file",
-      "sha256": "49b1d4483cb8ae3a324c20ce0cc2a8d4e022a1273ec965ff742bf4f1fd05e214"
+      "sha256": "58b7e9e4b2f825c13560a20d4a2eaadd46fa165b855199c06ac0086faa836e84"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/pilot24_provenance.py",
       "kind": "file",
-      "sha256": "0d3a1473389a8d44594945f1ccdcb281756e6a2b9354fbb0908eca03bf0c5711"
+      "sha256": "7fddd84ed6691dff103802619bbf6484f3975594d8e0b6fe1999bb2b5d8737d0"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/pilot24_recovery_guard_candidate.py",
+      "kind": "file",
+      "sha256": "e711774701ed5e6ffdee39069464b9ac9802aad1dc0b855c133f7bb0b2495707"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/pilot24_run.py",
       "kind": "file",
-      "sha256": "2c0b501a8b17b9e5c258d20bc0a2ea06900368aa4a97d68f481dc72def14584c"
+      "sha256": "3032ea668e7a53ad5bb4e33298d087c0d5efead2132115b6e964d79697854e9d"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/pilot24_runtime.py",
       "kind": "file",
-      "sha256": "6516f740e8b1455c5537298de9abf5366823c4a0a3de1289f3dfe00d56869ede"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_statistics.py",
-      "kind": "file",
-      "sha256": "5f8f100f4b976f2f4582ad0ceca4e6175d05ccacc09715c2478db867563fdb67"
+      "sha256": "a6fad2e03f0448b675eca75473c2e95533d32d6d1fa8a65941e156a40cdd4d38"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/pilot24_watchdog.py",
       "kind": "file",
-      "sha256": "2007c09497f7890e97807ab75eb44b3059d3ebec7e7fa390412181d005461efd"
+      "sha256": "d2c939df04a97a8000b467ccd0bf81ce08224fcddc49cf387e8e3c940313b3c8"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/pilot24_worker_compute.py",
       "kind": "file",
-      "sha256": "3afca8c5ae352b5c74f68a5ec2526bd1ad3cf4c70cb0bdc666ca20704bc6a367"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_worker_ledger.py",
-      "kind": "file",
-      "sha256": "fa2b1dd5d807389f60ee9a31a2e7dee9f9d3838567f529ab6f3eb9ca9a6fae97"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/reconcile_preview.py",
-      "kind": "file",
-      "sha256": "3cd4e069a8163d3ac4f7a95e3273e511eefe825a5a6e8b0261c88834c56427f0"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_build_source.py",
-      "kind": "file",
-      "sha256": "dd5288caa1e77f9c09d86ff755318e4e946d719268b0519629ea42accd5437d9"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_coordinator.py",
-      "kind": "file",
-      "sha256": "fdc99b8a18c056c4f49d07748ffcea81c97d4957e41a5c774280d04b8c89533f"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_deadline.py",
-      "kind": "file",
-      "sha256": "8cc070ffd317ece581be27d250ee390b51b2cda6caaf51479d668aa79545ebde"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_offline.py",
-      "kind": "file",
-      "sha256": "5cf015ef41d170a9bd94bcf5cf7de284a52103cc04e1b2e529fac7f8de82d252"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_prepare.py",
-      "kind": "file",
-      "sha256": "770c993d2af2b96ee8deb21e605f1d8d99069432155ea4e4c6a740e8b3a0972e"
+      "sha256": "c628385ce8a99ef368718f6e72d3bee884062af47556520c64c5302c1c8e4b5c"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_pilot24_provenance.py",
       "kind": "file",
-      "sha256": "a988cefa340575f6ae5b98b8216ce2d5e57d0ed11dd3844ebdca5d5c73b33738"
+      "sha256": "3415e07331667582600a2650ace54be83807c82a06fc0488667d820bf312be10"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_e2e_candidate.py",
+      "kind": "file",
+      "sha256": "c774b128ee6cc6a81c28643df9821e2ccf84c8f88189e59dddc4501097f2c7cf"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_guard_candidate.py",
+      "kind": "file",
+      "sha256": "8cdcfdf275318f36994475b60c85193da18c1078edc53a5a4d4a1891b0bbb510"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_v2_candidate.py",
+      "kind": "file",
+      "sha256": "ac56d34a86a5314f0be8d53aa767d69afafd3fedaf770de1be6f7355f0927655"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_pilot24_run.py",
       "kind": "file",
-      "sha256": "b9c2d7dd09c1cb9f1dc36705fd9031f91998afbdc16344cc0253a6c463643130"
+      "sha256": "d77d3a7080ae5c834ea44e9b6cc9d001dfbc55e293aee7309f2f98122d73bee6"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_pilot24_runtime.py",
       "kind": "file",
-      "sha256": "21e0c1a34a47743dbc4b013f458ec236d1620d306b5060ccc480fef2ed1f36d0"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_watchdog.py",
-      "kind": "file",
-      "sha256": "165f378d56220cae488ec869d712b2e122e2dcab1158931c6d6a66fbfc66ba2e"
+      "sha256": "3cf1913cb0501992eb5443318f66dfe80e39e16659f746d9552b66a7da9ed3fd"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_pilot24_worker_compute.py",
       "kind": "file",
-      "sha256": "bdbd48f187d0aa09231e23db567f9db9da9e9a216b7e330ae32316192d4b6ccd"
+      "sha256": "84571df631c86d167f74b08efef7608455adf2a554bf0350e9a274e50bf63c97"
     },
     {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_worker_ledger.py",
+      "path": "scripts/merging/trigger_contrast_localization/test_selection_audit.py",
       "kind": "file",
-      "sha256": "04accabe97f51e9d9745f55b13a438f3ba743ff339c0b1c6860afa3283913447"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_reconcile_preview.py",
-      "kind": "file",
-      "sha256": "74690a10683353cdc985787215b20171d3a36766c22b36d01592169f6ab4cbd7"
-    },
-    {
-      "path": "server/OPERATIONS.md",
-      "kind": "file",
-      "sha256": "3aee4d1641a84720de5647cb00bf6ffa8a0ff0022e4aaf745a2fe2e175b234f4"
-    },
-    {
-      "path": "server/README.md",
-      "kind": "file",
-      "sha256": "94fd224676ee402e3c4b845b8dfc60c1654c07e19f42c066cadfbe946b89ca93"
-    },
-    {
-      "path": "storage/INDEX_MAINTENANCE.md",
-      "kind": "file",
-      "sha256": "220412200bb3503d157f6af7a40463da5650e8aa022506854114d017334c9b9f"
-    },
-    {
-      "path": "storage/NEW_COMPUTER.md",
-      "kind": "file",
-      "sha256": "014d0d46d94b9ab214f15da0d90a7b3857fdb13aec33f87351c418f46746ce78"
-    },
-    {
-      "path": "storage/README.md",
-      "kind": "file",
-      "sha256": "e2e61762d2e2c5c20878934653a312209e0e13c86774375dcceaec4dbcac4d12"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "kind": "file",
-      "sha256": "9e418443e7a72fefc32dff82c220e003848433bb97a808b397b7f699df629bc6"
-    },
-    {
-      "path": "storage/index_policy.json",
-      "kind": "file",
-      "sha256": "17c9a789aeadae95cf74ca06b5cf180c21d1ef34c57db33b352ec078e40d545d"
+      "sha256": "025265d3267fe1a799189568336728dc36cee1d70586403b410eb8516dbc9354"
     }
   ],
   "index_decisions": [
     {
-      "path": "AGENTS.md",
-      "action": "updated",
-      "reason": "将全仓规则压缩为稳定约束和按需入口，保留任务状态/审阅/冻结、空卡优先、四卡上限、实时分配冲突、唯一写入和暂停边界；删除重复状态、过时排队窗口与旧run执行指令。"
-    },
-    {
-      "path": "CLAUDE.md",
-      "action": "unchanged",
-      "reason": "核验仍为唯一一行@AGENTS.md，继续复用根规则，无需编辑。"
-    },
-    {
-      "path": "README.md",
-      "action": "updated",
-      "reason": "在既有研究导航之上增加项目指令与按需服务器手册入口；未改动当前TCL状态描述。"
-    },
-    {
-      "path": "reproduction/LOOP.md",
-      "action": "updated",
-      "reason": "压缩为授权后使用的复现流程，去除强制利用率、凭显存追加任务、自动单文件提交及循环重试；保留正式10K FID、同模型指标和原始日志验收。"
-    },
-    {
-      "path": "reproduction/README.md",
-      "action": "updated",
-      "reason": "更新复现流程说明，移除已过时的“新梯度方法尚未实现”状态副本，改为链接项目状态；历史基准统计不变。"
-    },
-    {
       "path": "research/README.md",
-      "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：研究入口同步来源认证与生产bundle未完成边界。"
+      "action": "unchanged",
+      "reason": "研究总入口仍指向当前任务与project_state，未新增研究主题或改变导航。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：更新当前来源认证、真实连接及资源阻塞，并保留旧结论。"
+      "reason": "同步两次终态、零新增尝试、当前资源阻塞与下一步。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：登记来源独立审阅入口，保留历史记录。"
+      "reason": "登记两次终态、CPU核验、恢复审阅及隔离代码部署回执入口。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：记录授权、来源包审阅、候选R、当前GPU阻塞及用户复盘要求；无新图或T0。"
+      "reason": "记录T0、导入计数、两代终态、独立审阅、101公钥拒绝和后续条件。"
     },
     {
       "path": "research/tasks/README.md",
-      "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：仍指向唯一TASK，其状态和新来源审阅已同步，不重复维护里程碑。"
-    },
-    {
-      "path": "research/tasks/TEMPLATE.md",
-      "action": "updated",
-      "reason": "允许按实际任务裁剪建档里程碑，已冻结条件里程碑须按协议skipped并给证据；TASK字段、状态和审阅要求不变。"
-    },
-    {
-      "path": "research/tssa_mvp_runbook.md",
-      "action": "updated",
-      "reason": "仅增加已结束run的历史手册横幅和当前入口，旧命令正文保持原样，不构成续跑授权。"
+      "action": "unchanged",
+      "reason": "任务目录与索引入口未变，任务状态以TASK为准。"
     },
     {
       "path": "research/tssa_overnight_progress.md",
       "action": "unchanged",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：未恢复TSSA或变更其历史样本、更新和结论，故不修改。"
+      "reason": "本次未恢复历史TSSA运行，也未改变其预算、产物或科研结论。"
     },
     {
       "path": "results/README.md",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：结果索引区分来源认证与尚未产生的v2新图。"
+      "reason": "区分v2历史导入、CPU预检后资源阻塞和未生成新图。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
-      "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：仍通过v2结果入口和TASK取得来源审阅；v1历史结果未改。"
-    },
-    {
-      "path": "results/trigger-contrast-localization/tcl-20261029-01-v1/README.md",
-      "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：保留既有v1历史与终态；只读来源副本不改写旧账本和已记录结论。"
+      "action": "unchanged",
+      "reason": "主题入口仍指向同一v2结果目录和历史v1，未新增run目录。"
     },
     {
       "path": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：记录来源候选已审阅，生产bundle和运行账本导入尚未发生。"
+      "reason": "链接非最终运行报告和两代终态，标记真实出图尚未发生。"
     },
     {
       "path": "results/tssa-mvp-2026-10-26/README.md",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：保留既有探针历史，当前没有新的TSSA运行或样本，不以TCL来源认证改写其结果。"
+      "reason": "登记供TCL选卡的104和101只读探针，不改变历史TSSA结果。"
     },
     {
       "path": "scripts/README.md",
-      "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：脚本总入口已指向TCL执行器目录，具体新构造器已在所属README登记。"
+      "action": "unchanged",
+      "reason": "脚本总入口已指向该执行器目录，具体候选及审阅入口在所属README。"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/README.md",
       "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：登记新构造器、旧中断键追溯和236项CPU检查，不冒充CUDA验证。"
-    },
-    {
-      "path": "server/OPERATIONS.md",
-      "action": "updated",
-      "reason": "新增按需读取的连接、离线部署、数据盘、历史缓存及断连恢复手册；动态端口和历史环境标注未重新核验，GPU规则仍只在AGENTS维护。"
-    },
-    {
-      "path": "server/README.md",
-      "action": "updated",
-      "reason": "集中链接新操作手册，移除重复实时进度及连接细节，逐文件数量改由生成索引维护；历史资源事实保留。"
-    },
-    {
-      "path": "storage/INDEX_MAINTENANCE.md",
-      "action": "updated",
-      "reason": "承接变更影响矩阵，集中记录指令分工、官方检索依据和回执沿用边界；现有hook/CI检查不削弱。"
-    },
-    {
-      "path": "storage/NEW_COMPUTER.md",
-      "action": "updated",
-      "reason": "调整AGENTS用途为全局约束与路由，当前授权仍由TASK维护，学校连接改链到唯一操作说明；恢复步骤和资产证据不变。"
-    },
-    {
-      "path": "storage/README.md",
-      "action": "updated",
-      "reason": "新增指令维护入口，已有存储与TCL状态保持原样；未下载、上传或变更外置资产。"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "action": "updated",
-      "reason": "沿用2026-11-02T14:25:02+08:00原收尾决定，文件哈希与本次开始时一致；本次未重新执行其科研验证。原理由：登记来源包审阅入口及服务器路径摘要，未扩充旧图片逐文件清单。"
+      "reason": "登记恢复准备器、锁保护、代码审阅及实际bundle仍需审阅的边界。"
     }
   ],
   "validation": {
-    "scope": "TCL v2 real source package and local CPU checks; no production bundle or GPU execution",
     "local_checks": [
-      "Final full TCL CPU suite: 236 tests passed in 136.244 seconds.",
-      "104 deployed prior 21 checked files and 27 parent source hashes matched before the reviewed narrow amendments; 38 model asset SHA256 values matched.",
-      "Updated source constructor, provenance and prepare patches received independent code review; actual source package independently reviewed."
+      "实现者最终完整CPU回归260项通过；独立审阅者复跑两代guard、协调器终态顺序和子进程锁继承定向检查。",
+      "104实际六组mask CPU复核通过；两代账本、锁、T0和独立代码副本经现场核验。"
     ],
-    "source_review": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md",
-    "source_proof_sha256": "70757ea3d09e7f47589db2e408e86895f6428755936a7f80f7bd018bd05a081d",
-    "authenticated_historical_candidates": 363,
-    "v2_ledger_imports": 0,
-    "v2_new_images": 0,
-    "gpu_launched": false,
-    "t0": null,
-    "limitations": "Production bundle, device assignments, GPU permits and actual CUDA are not yet reviewed or executed; 103 old writer and subsequent consumption remain unknown."
-  },
-  "inherited_review": {
-    "reviewed_at": "2026-11-02T14:25:02+08:00",
-    "summary": "保留共享工作区已有改动；104和127实际可访问，104来源包的363个历史候选及382个副本通过独立审阅，新增构造器和旧中断键追溯并完成236项CPU检查。104与127的GPU当前被占用，101公钥拒绝；生产bundle、运行账本导入和GPU启动未发生。 按用户要求新增空卡优先启动铁律，启动必需门禁保留，非必要分析和收尾后置；不改变当前运行状态。",
-    "verification": "原reviewed_changes与本次初始impact逐项一致；本次范围外59个既有改动文件哈希未变，保留原验证来源而非声称重新执行。"
-  },
-  "instruction_review": {
-    "status": "passed",
-    "scope": [
-      "AGENTS.md",
-      "README.md",
-      "server/README.md",
-      "server/OPERATIONS.md",
-      "reproduction/README.md",
-      "reproduction/LOOP.md",
-      "research/tasks/TEMPLATE.md",
-      "research/tssa_mvp_runbook.md",
-      "storage/README.md",
-      "storage/NEW_COMPUTER.md",
-      "storage/INDEX_MAINTENANCE.md",
-      "storage/index_policy.json"
-    ],
-    "evidence": [
-      "只读独立审查完成，有效分配/预留冲突门禁遗漏已修复并复核通过",
-      "python3 -m unittest discover -s scripts/storage -p 'test_maintain_index.py' -q：41项通过",
-      "35个活跃入口的章节锚点检查无错误，CLAUDE.md仍仅导入AGENTS.md",
-      "git diff --check通过；未提交或推送"
-    ],
-    "network_scope": "本次网络访问仅检索公开官方文档，未连接学校或AMAX服务器"
-  },
-  "commit_preparation": {
-    "checked_at": "2026-11-02T14:59:01+08:00",
-    "authorization": "用户明确要求全部已登记的科研改动一并提交。",
-    "scope": "71项已登记变更及收尾回执、生成清单，共73个文件；不含外置大权重、原图或缓存。",
-    "validation": {
-      "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_*.py' -q",
-      "tests_passed": 236,
-      "returncode": 0,
-      "elapsed_seconds": 20.615,
-      "input_identity": "当前base_commit及reviewed_changes绑定本次提交内容；这是提交前新执行的CPU检查，不改写旧223项检查记录。"
-    },
-    "boundaries": "提交准备未访问科研服务器、未运行GPU、未审批生产bundle；实验状态与科学结论保持原记录。"
+    "limits": "尚未创建第三代生产bundle，CUDA、实际新出图及科研效果均未验证；维持原T0、冻结预算和历史记录。"
   }
 }

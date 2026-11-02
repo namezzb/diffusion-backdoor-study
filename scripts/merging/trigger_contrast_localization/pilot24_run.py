@@ -44,12 +44,17 @@ def load_reviewed_configuration(bundle_path, config_path):
                 'pilot24_deadline.py', 'pilot24_runtime.py', 'pilot24_inputs.py',
                 'pilot24_statistics.py', 'pilot24_worker_compute.py', 'pilot24_worker_ledger.py',
                 'pilot24_provenance.py'}
+    if config.get('recovery'):
+        required.add('pilot24_recovery_guard_candidate.py')
     if not required <= {Path(p).name for p in sources}:
         raise ValueError('execution chain must be frozen in review')
     for relative, expected in sources.items():
         path = root / relative
         if not path.resolve().is_relative_to(root) or file_sha(path) != expected:
             raise ValueError('reviewed execution code changed')
+    if config.get('recovery'):
+        from pilot24_recovery_guard_candidate import validate_amendment
+        validate_amendment(bundle, config, review, manifest_sha)
     # Also ensure this running entrypoint is the reviewed copy.
     if not Path(__file__).resolve().is_relative_to(root):
         raise ValueError('entrypoint outside reviewed repository')
@@ -57,13 +62,21 @@ def load_reviewed_configuration(bundle_path, config_path):
 
 
 def ensure_t0(coordinator):
-    path = coordinator.root / 't0.json'
+    recovery = coordinator.config.get('recovery')
+    path = (Path(recovery['original_coordinator_root']) / 't0.json'
+            if recovery else coordinator.root / 't0.json')
     if not path.exists():
+        if recovery:
+            raise ValueError('original T0 missing; never create a replacement')
         if coordinator.state['t0'] is not None:
             raise ValueError('shared T0 was removed; never reset it')
         create_t0(path, coordinator.config['manifest_sha256'])
     sha = file_sha(path)
-    value = load_t0(path, sha, coordinator.config['manifest_sha256'])
+    original_manifest = None
+    if recovery:
+        from pilot24_recovery_guard_candidate import MANIFEST
+        original_manifest = MANIFEST
+    value = load_t0(path, sha, coordinator.config['manifest_sha256'], original_manifest_sha=original_manifest)
     coordinator.bind_t0(value, sha)
     return str(path.resolve()), sha
 
@@ -78,7 +91,20 @@ def worker(args):
 
 def supervise_worker(args):
     bundle = read_json(args.bundle)
-    t0 = load_t0(args.t0, args.t0_sha, file_sha(args.bundle))
+    review = read_json(bundle['review_file'])
+    config = load_reviewed_configuration(args.bundle, review['coordinator_config_file'])
+    original_manifest = None
+    inherited_fds = ()
+    if config.get('recovery'):
+        from pilot24_recovery_guard_candidate import MANIFEST, validate_inherited_locks
+        original_manifest = MANIFEST
+        try:
+            inherited_fds = tuple(int(x) for x in os.environ['PILOT24_RECOVERY_FDS'].split(','))
+        except (KeyError, ValueError) as error:
+            raise ValueError('recovery predecessor lock descriptors required') from error
+        validate_inherited_locks(config['recovery']['original_coordinator_root'], inherited_fds,
+                                 second='previous' in config['recovery'])
+    t0 = load_t0(args.t0, args.t0_sha, file_sha(args.bundle), original_manifest_sha=original_manifest)
     argv = [sys.executable, str(Path(__file__).resolve()), 'worker']
     for name in ('bundle', 'mailbox', 'receipt_root', 'worker_id', 't0', 't0_sha', 'permission_ref', 'stop_file'):
         argv.extend(['--' + name.replace('_', '-'), str(getattr(args, name))])
@@ -93,7 +119,7 @@ def supervise_worker(args):
         raise ValueError('bounded frozen CPU thread count required')
     os.environ['OMP_NUM_THREADS'] = str(threads)
     os.environ['MKL_NUM_THREADS'] = str(threads)
-    result = supervise(argv, t0['t0_utc'], stop_file=args.stop_file)
+    result = supervise(argv, t0['t0_utc'], stop_file=args.stop_file, pass_fds=inherited_fds)
     result.update({'run_id': RUN, 'worker_id': args.worker_id,
                    'manifest_sha256': file_sha(args.bundle), 't0_sha256': args.t0_sha})
     write_json(args.exit_receipt, result)
@@ -163,6 +189,20 @@ def final_ledger_audit(c, sessions):
 
 def serve(args):
     config = load_reviewed_configuration(args.bundle, args.config)
+    if config.get('recovery'):
+        from pilot24_recovery_guard_candidate import MANIFEST, hold_predecessor, hold_both_predecessors
+        rec = config['recovery']
+        guard = (hold_both_predecessors(previous_review_sha256=rec['previous']['review_sha256']) if 'previous' in rec else
+                 hold_predecessor(coordinator_root=rec['original_coordinator_root'],
+                    original_bundle=rec['original_bundle'], original_config=rec['original_config'],
+                    expected_config_sha=rec['original_config_sha256'], expected_state_sha=rec['original_state_sha256'],
+                    expected_bundle_sha=MANIFEST))
+        with guard as prior:
+            return _serve_reviewed(args, config, lock_fds=prior['lock_fds'])
+    return _serve_reviewed(args, config)
+
+
+def _serve_reviewed(args, config, *, lock_fds=()):
     specs = read_json(args.launch_map)
     with Coordinator(args.root, config) as c:
         # Holding the coordinator lock throughout makes a second daemon fail.
@@ -223,20 +263,29 @@ def serve(args):
                         for name, value in values.items():
                             argv.extend(['--' + name.replace('_', '-'), str(value)])
                         write_json(launched, {'argv': argv, 'state': 'dispatch_reserved_not_proof_of_start'}, exclusive=True)
+                        env = os.environ.copy()
+                        if lock_fds:
+                            env['PILOT24_RECOVERY_FDS'] = ','.join(str(fd) for fd in lock_fds)
                         with (session / 'worker.log').open('ab') as log:
                             proc = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=log,
-                                                    stderr=subprocess.STDOUT, start_new_session=True)
+                                                    stderr=subprocess.STDOUT, start_new_session=True,
+                                                    pass_fds=lock_fds, env=env)
                         write_json(session / 'supervisor.json', {'pid': proc.pid, 'worker_id': worker_id}, exclusive=True)
-                # A dead session is never silently restarted into a second ledger.
-                for path in (c.root / 'sessions').glob('*/exit.json'):
-                    if read_json(path)['returncode'] != 0:
-                        c.finish('inconclusive', 'worker_execution_failure')
-                        break
-                if any(read_json(c.root / item['path'])['status'] in ('blocked', 'deadline') for item in c.state['receipts'].values()):
-                    c.finish('inconclusive', 'worker_incomplete')
+                # The worker writes its actionable session error before it
+                # exits. Preserve that cause when its exit receipt is already
+                # visible in the same polling iteration.
                 for session_path in (c.root / 'jobs' / 'sessions').glob('*/session.json'):
                     if read_json(session_path).get('status') == 'blocked':
                         c.finish('inconclusive', 'worker_session_blocked')
+                        break
+                # A dead session is never silently restarted into a second ledger.
+                if c.state['terminal'] is None:
+                    for path in (c.root / 'sessions').glob('*/exit.json'):
+                        if read_json(path)['returncode'] != 0:
+                            c.finish('inconclusive', 'worker_execution_failure')
+                            break
+                if c.state['terminal'] is None and any(read_json(c.root / item['path'])['status'] in ('blocked', 'deadline') for item in c.state['receipts'].values()):
+                    c.finish('inconclusive', 'worker_incomplete')
                 if c.state['terminal'] is None:
                     time.sleep(min(30.0, max(.05, args.poll_seconds)))
         except Exception as error:
@@ -302,6 +351,8 @@ def main(argv=None):
             raise ValueError('status belongs to another configuration')
     else:
         config = load_reviewed_configuration(args.bundle, args.config)
+        if config.get('recovery') and args.command not in ('start',):
+            raise ValueError('recovery may only start through the predecessor-locked server')
         with Coordinator(args.root, config) as c:
             if args.command == 'start':
                 command = [sys.executable, str(Path(__file__).resolve()), 'serve', '--bundle', args.bundle,

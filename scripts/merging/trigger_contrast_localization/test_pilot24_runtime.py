@@ -215,7 +215,7 @@ class RuntimeBindingTests(unittest.TestCase):
                     return {"selection_sha256": binding.selection_sha}
                 return SimpleNamespace(verify_selection=verify)
             return self.module(root, name)
-        with patch("pilot24_runtime._module", side_effect=module), patch("pilot24_runtime.ReadOnlyLocalization"), patch("torch.cuda.is_initialized", return_value=False):
+        with patch("pilot24_runtime._module", side_effect=module), patch("pilot24_runtime.ReadOnlyLocalization"), patch("torch.cuda.is_initialized", return_value=False), patch("pilot24_runtime._verify_parent_selection_v2", side_effect=lambda audit, *args: audit.verify_selection(*args)):
             self.assertIs(prepare_assets(prepared), prepared)
             self.assertEqual(calls, [(PARENT, 64)])
             self.assertIs(prepare_assets(prepared), prepared)

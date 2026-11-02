@@ -1,0 +1,45 @@
+{
+  "server": "school104",
+  "mode": "read-only CPU, no CUDA initialization or GPU computation",
+  "cpu_threads": 4,
+  "remote_python": "/data2/zhangzibo/arxiv-tssa/venv/bin/python",
+  "torch_version": "2.7.1+cu128",
+  "command": "./server/start_school.sh 104 env PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 /data2/zhangzibo/arxiv-tssa/venv/bin/python -B - <<'PY'\nimport json,sys,math,torch\nfrom pathlib import Path\nfrom types import SimpleNamespace,FunctionType\ntorch.set_num_threads(4)\nout='/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2'\nbundle=json.load(open(out+'/frozen/bundle.json'))\nroot=Path(bundle['repository_root']); inputs=bundle['inputs']\nsys.path.insert(0,str(root/'scripts/merging'));sys.path.insert(0,str(root/'scripts/merging/trigger_contrast_localization'))\nfrom runtime_assets import load_tcl_cpu_assets\nfrom bindings import load_frozen_bindings\nfrom pilot24_runtime import ReadOnlyLocalization\nimport selection_audit as audit\nprint('loading_cpu_assets',flush=True)\nassets,rows,report=load_tcl_cpu_assets(inputs['protocol']['path'],inputs['asset_manifest']['path'],bundle['models_root'],inputs['prompts']['path'],inputs['context_review']['path'],inputs['context_review']['sha256'])\nbound=load_frozen_bindings(inputs['parent_manifest']['path'],inputs['prompts']['path'],inputs['parent_review']['path'],inputs['selection']['path'],root)\ncontexts=[row['id'] for row in rows if row['partition']=='localize']\ndef _verify_parent_selection_v2(audit, runtime, binding, ledger, contexts):\n    \"\"\"Audit original scores against their recorded baseline, without changing v1 code.\n\n    The baseline itself remains independently checked against the cached\n    embeddings by the v1 audit's existing tolerance. CPU reduction order can\n    change the baseline by one float32 ULP; recomputing the historical score\n    with that different baseline can spuriously reject valid small blocks.\n    \"\"\"\n    common_baseline = None\n\n    def recorded_baseline_score(result, before, size, mask):\n        nonlocal common_baseline\n        recorded = result.get(\"response_before\")\n        if (not isinstance(recorded, (int, float)) or isinstance(recorded, bool)\n                or not math.isfinite(recorded)\n                or not math.isclose(recorded, before, rel_tol=1e-6, abs_tol=1e-10)):\n            raise ValueError(\"localization receipt differs from recomputed baseline\")\n        if common_baseline is None:\n            common_baseline = recorded\n        elif recorded != common_baseline:\n            raise ValueError(\"localization receipts disagree on the recorded baseline\")\n        return audit._scored(result, recorded, size, mask)\n\n    # Clone function globals rather than monkey-patching the frozen v1 module.\n    # Both block and combination verification use the same corrected rule;\n    # all other checks, including output embeddings and six masks, remain v1.\n    scope = dict(audit.verify_selection.__globals__)\n    scope[\"_scored\"] = recorded_baseline_score\n    scope[\"_audit_combination\"] = FunctionType(audit._audit_combination.__code__, scope,\n                                               audit._audit_combination.__name__)\n    verify = FunctionType(audit.verify_selection.__code__, scope, audit.verify_selection.__name__)\n    return verify(runtime, binding, ledger, contexts)\nledger=ReadOnlyLocalization(inputs['localization_ledger']['path'],contexts)\ntry:\n result=_verify_parent_selection_v2(audit,SimpleNamespace(assets=assets),bound,ledger,contexts)\n print('audit_result',json.dumps(result,sort_keys=True),flush=True)\n print('cuda_initialized',torch.cuda.is_initialized(),flush=True)\nfinally: ledger.close()\nPY",
+  "model_provenance": {
+    "models_root": "/data2/zhangzibo/arxiv-tssa/models",
+    "asset_manifest_sha256": "881d2d21083d589dcd26e69c977a8048d270d2cb73ddb7bd286e2d4dd9197902",
+    "parent_manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+    "source_isolation_sha256": "70757ea3d09e7f47589db2e408e86895f6428755936a7f80f7bd018bd05a081d",
+    "localization_ledger_sha256": "b95f5b359f265e3883a56fa490d1c09b8d549ecb6b193398e82a6a39734360a3",
+    "selection_sha256": "a50cc62f6c741d025b59a8d35e6e2ad3010f9fd661521f6d8b9d655ba4618957",
+    "bundle_sha256": "5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec",
+    "note": "load_tcl_cpu_assets verified active model files against the asset manifest; load_frozen_bindings verified parent inputs and selection."
+  },
+  "results": {
+    "selection_audit": "passed in read-only in-memory diagnostic; not an independent review or production approval",
+    "baseline_cpu": 1.674572229385376,
+    "baseline_historical": 1.6745723485946655,
+    "baseline_delta": -1.1920928955078125e-07,
+    "response_after": 1.5585347414016724,
+    "K": 6142208,
+    "total_parameters": 123060480,
+    "cuda_initialized": false,
+    "mask_sha256": {
+      "new": "f211142975adfb8d6ba9201c67f12115c8bcb816d6c95468649813ccfe20a156",
+      "magnitude": "58f1d9ca47f472d44090b509ca6e84cdbcb618a7040ecff3594133b7ddcd0f88",
+      "block_magnitude": "b95c9dff69af3abc7d8d2c14f847decaa274c220a7208b3cde5655a8638d54b0",
+      "random_1": "b76b857bfc24536391a3062c0d6f8669aa83fa75570a2608b40c4d038272f9d3",
+      "random_2": "d75a329078ef332a4d2dea924703f45f24069dbc312faead9930a78f5681d62c",
+      "random_3": "91c8e1a00d47e9f59edaf53e81ae63c8d7e351c1b101e97ecde7dbd68ee5c784"
+    }
+  },
+  "limitations": [
+    "The in-memory verification uses the exact _verify_parent_selection_v2 function extracted from the candidate runtime; it does not certify or approve the entire candidate file.",
+    "No v2 images or GPU evidence were generated."
+  ],
+  "observed_date_utc": "2026-11-02",
+  "tested_runtime_sha256": "a6fad2e03f0448b675eca75473c2e95533d32d6d1fa8a65941e156a40cdd4d38",
+  "repeat_exit_code": 0,
+  "raw_stdout_path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_cpu_real_mask_audit_20261102.stdout.txt",
+  "raw_stdout_sha256": "2d00aac4ffcbb5aaa42d26b0f16358cd5709e42f58e2d3b1b76375f18e569c2c"
+}

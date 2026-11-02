@@ -7,6 +7,8 @@ import torch
 from safetensors.torch import save
 
 from core import coordinates_for_blocks, mask_hash, partition
+import selection_audit
+from pilot24_runtime import _verify_parent_selection_v2
 from selection import build_selection
 from selection_audit import block_id, verify_selection
 
@@ -73,11 +75,45 @@ class SelectionAuditTests(unittest.TestCase):
             result = verify_selection(runtime, binding, ledger, ids)
             self.assertEqual(result["K"], 20)
             self.assertEqual(runtime._tcl_verified_selection_sha, "a" * 64)
+            # Simulate a one-ULP CPU reduction difference in the baseline.
+            # Stored scores remain derived from the recorded historical value.
+            for unit, raw in list(ledger.evidence.items()):
+                if unit.startswith(("block:", "control:")):
+                    record = json.loads(raw)
+                    record["response_before"] += 4e-7
+                    record["score"] = (record["response_before"] - record["response_after"]
+                                       - max(record["normal_costs"].values())) / record["size"]
+                    ledger.record(unit, record)
+            with self.assertRaisesRegex(ValueError, "score cannot be independently recomputed"):
+                verify_selection(runtime, binding, ledger, ids)
+            result = _verify_parent_selection_v2(selection_audit, runtime, binding, ledger, ids)
+            self.assertEqual(result["K"], 20)
+            self.assertEqual(runtime._tcl_verified_selection_sha, "a" * 64)
+            unit = "block:" + block_id(blocks[0])
+            original = ledger.evidence[unit]
+            forged_block = json.loads(original)
+            forged_block["score"] += 1e-4
+            ledger.record(unit, forged_block)
+            with self.assertRaisesRegex(ValueError, "score cannot be independently recomputed"):
+                _verify_parent_selection_v2(selection_audit, runtime, binding, ledger, ids)
+            forged_block = json.loads(original)
+            forged_block["response_before"] += 1e-7
+            forged_block["score"] = (forged_block["response_before"] - forged_block["response_after"]
+                                     - max(forged_block["normal_costs"].values())) / forged_block["size"]
+            ledger.record(unit, forged_block)
+            with self.assertRaisesRegex(ValueError, "disagree on the recorded baseline"):
+                _verify_parent_selection_v2(selection_audit, runtime, binding, ledger, ids)
+            forged_block = json.loads(original)
+            forged_block["response_before"] += 0.1
+            ledger.record(unit, forged_block)
+            with self.assertRaisesRegex(ValueError, "differs from recomputed baseline"):
+                _verify_parent_selection_v2(selection_audit, runtime, binding, ledger, ids)
+            ledger.evidence[unit] = original
             forged = json.loads(ledger.evidence["control:new"])
             forged["response_after"] = .5
             ledger.record("control:new", forged)
             with self.assertRaisesRegex(ValueError, "differs from stored embedding"):
-                verify_selection(runtime, binding, ledger, ids)
+                _verify_parent_selection_v2(selection_audit, runtime, binding, ledger, ids)
             self.assertIsNone(runtime._tcl_verified_selection_sha)
 
 

@@ -10,11 +10,12 @@ from dataclasses import dataclass, replace
 import hashlib
 import importlib
 import json
+import math
 import os
 from pathlib import Path
 import sqlite3
 import sys
-from types import SimpleNamespace
+from types import FunctionType, SimpleNamespace
 
 from pilot24_inputs import RUN, PARENT, SEED, frozen_units
 from pilot24_worker_ledger import canonical, digest, is_sha
@@ -308,6 +309,40 @@ class ReadOnlyLocalization:
         self.db.close()
 
 
+def _verify_parent_selection_v2(audit, runtime, binding, ledger, contexts):
+    """Audit original scores against their recorded baseline, without changing v1 code.
+
+    The baseline itself remains independently checked against the cached
+    embeddings by the v1 audit's existing tolerance. CPU reduction order can
+    change the baseline by one float32 ULP; recomputing the historical score
+    with that different baseline can spuriously reject valid small blocks.
+    """
+    common_baseline = None
+
+    def recorded_baseline_score(result, before, size, mask):
+        nonlocal common_baseline
+        recorded = result.get("response_before")
+        if (not isinstance(recorded, (int, float)) or isinstance(recorded, bool)
+                or not math.isfinite(recorded)
+                or not math.isclose(recorded, before, rel_tol=1e-6, abs_tol=1e-10)):
+            raise ValueError("localization receipt differs from recomputed baseline")
+        if common_baseline is None:
+            common_baseline = recorded
+        elif recorded != common_baseline:
+            raise ValueError("localization receipts disagree on the recorded baseline")
+        return audit._scored(result, recorded, size, mask)
+
+    # Clone function globals rather than monkey-patching the frozen v1 module.
+    # Both block and combination verification use the same corrected rule;
+    # all other checks, including output embeddings and six masks, remain v1.
+    scope = dict(audit.verify_selection.__globals__)
+    scope["_scored"] = recorded_baseline_score
+    scope["_audit_combination"] = FunctionType(audit._audit_combination.__code__, scope,
+                                               audit._audit_combination.__name__)
+    verify = FunctionType(audit.verify_selection.__code__, scope, audit.verify_selection.__name__)
+    return verify(runtime, binding, ledger, contexts)
+
+
 def prepare_assets(prepared):
     """Load verified assets and independently rebuild the parent masks on CPU."""
     import torch
@@ -331,7 +366,8 @@ def prepare_assets(prepared):
     shell = SimpleNamespace(assets=assets)
     local = ReadOnlyLocalization(inputs["localization_ledger"]["path"], contexts)
     try:
-        selection = _module(root, "selection_audit").verify_selection(shell, prepared.parent_bindings, local, contexts)
+        selection = _verify_parent_selection_v2(_module(root, "selection_audit"), shell,
+                                                 prepared.parent_bindings, local, contexts)
     finally:
         local.close()
     if torch.cuda.is_initialized() or shell._tcl_verified_selection_sha != prepared.bindings.selection_sha:

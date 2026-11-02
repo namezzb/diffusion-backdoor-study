@@ -283,8 +283,14 @@ class Coordinator:
 
     def bind_t0(self, payload, file_sha):
         from pilot24_deadline import _utc
+        expected_manifest = self.config['manifest_sha256']
+        if self.config.get('recovery'):
+            from pilot24_recovery_guard_candidate import MANIFEST, T0_SHA
+            if file_sha != T0_SHA or self.config['recovery'].get('original_t0_sha256') != T0_SHA:
+                raise ValueError('recovery requires the original T0')
+            expected_manifest = MANIFEST
         if (set(payload) != {'run_id', 'manifest_sha256', 't0_utc'} or payload['run_id'] != RUN
-                or payload['manifest_sha256'] != self.config['manifest_sha256'] or not is_sha(file_sha)):
+                or payload['manifest_sha256'] != expected_manifest or not is_sha(file_sha)):
             raise ValueError('invalid shared T0')
         _utc(payload['t0_utc'])
         bound = {**payload, 'file_sha256': file_sha}

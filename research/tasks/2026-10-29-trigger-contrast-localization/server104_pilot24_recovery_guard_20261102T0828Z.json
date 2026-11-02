@@ -1,0 +1,18 @@
+{
+  "authorization": "none_guard_only",
+  "elapsed_seconds": 1181.051326,
+  "guard_sha256": "6d0902d8fca8cf75c3da63c1b488d2d3c28e2dfc1d119e498d1bc68a5ff6652a",
+  "imports": 363,
+  "max_new_attempts": 5909,
+  "observed_at_utc": "2026-11-02T08:28:31.123227+00:00",
+  "original_config_sha256": "833a3f7b597ecd9eadb0fdc6366e20f388c2560a3b0c63b19384a34e6fd0389a",
+  "original_manifest_sha256": "5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec",
+  "previous_new_attempts": 0,
+  "run_id": "tcl-20261102-pilot24-v2",
+  "scope": "short locked read only; no GPU",
+  "server": "school104",
+  "state_sha256": "60bd3580483ebb8cdb95617d8a8a22585ab62b2e622e36bb45c04e9b8904bd40",
+  "status": "passed",
+  "t0_sha256": "d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449",
+  "t0_utc": "2026-11-02T08:08:50.071881+00:00"
+}

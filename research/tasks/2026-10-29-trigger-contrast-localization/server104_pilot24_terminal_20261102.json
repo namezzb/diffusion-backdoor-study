@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-11-02T08:11:25.938078+00:00",
+  "server": "school104",
+  "root": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2",
+  "files": {
+    "coordinator/t0.json": {
+      "sha256": "d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449",
+      "bytes": 166,
+      "text": "{\"manifest_sha256\":\"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\",\"run_id\":\"tcl-20261102-pilot24-v2\",\"t0_utc\":\"2026-11-02T08:08:50.071881+00:00\"}\n"
+    },
+    "coordinator/terminal.json": {
+      "sha256": "c97629c2ab84d412ca20019831e2fa09129c4fecc034a4f5789e49e4738a3176",
+      "bytes": 778,
+      "text": "{\"charged_attempts\":0,\"final_ledger_audit\":{\"audited\":[\"S0-00-w0\"],\"counts_are_final\":true,\"errors\":[]},\"imported\":363,\"limitations\":[\"Report is not independent acceptance; worker exit evidence must be collected.\"],\"manifest_sha256\":\"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\",\"outcome\":\"inconclusive\",\"reason\":\"worker_session_blocked\",\"reports\":{},\"required_unique_max\":6144,\"run_id\":\"tcl-20261102-pilot24-v2\",\"skipped_stages\":[],\"status\":\"in_review\",\"t0\":{\"file_sha256\":\"d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449\",\"manifest_sha256\":\"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\",\"run_id\":\"tcl-20261102-pilot24-v2\",\"t0_utc\":\"2026-11-02T08:08:50.071881+00:00\"},\"unique_complete\":363,\"worker_exit_verified\":true}\n"
+    },
+    "coordinator/sessions/w0/exit.json": {
+      "sha256": "9698ef0fe7536d2569b17b33bf43066b3550e3c74ad8b72b1744cb5a2df65ea4",
+      "bytes": 319,
+      "text": "{\"deadline_stop\":true,\"manifest_sha256\":\"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\",\"owned_process_group\":2598550,\"returncode\":-15,\"run_id\":\"tcl-20261102-pilot24-v2\",\"stop_reason\":\"coordinator_stop\",\"t0_sha256\":\"d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449\",\"worker_id\":\"w0\"}\n"
+    },
+    "coordinator/sessions/w0/worker.log": {
+      "sha256": "567cc876aa9dcf9838735a71db4ef5def23c2849243583faa861b96c73954d89",
+      "bytes": 2368,
+      "text": "Traceback (most recent call last):\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/pilot24_run.py\", line 330, in <module>\n    main()\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/pilot24_run.py\", line 290, in main\n    value = worker(args)\n            ^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/pilot24_run.py\", line 75, in worker\n    return run_session(args.mailbox, args.receipt_root, args.bundle, args.worker_id,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/pilot24_worker_compute.py\", line 328, in run_session\n    prepare_assets(prepared)\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/pilot24_runtime.py\", line 334, in prepare_assets\n    selection = _module(root, \"selection_audit\").verify_selection(shell, prepared.parent_bindings, local, contexts)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/selection_audit.py\", line 96, in verify_selection\n    scores[block] = _scored(record, before, block.size, mask_hash(coords))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/data2/zhangzibo/arxiv-tssa/preparations/tcl-pilot24-v2-20261102/repository/scripts/merging/trigger_contrast_localization/selection_audit.py\", line 47, in _scored\n    raise ValueError(\"localization score cannot be independently recomputed\")\nValueError: localization score cannot be independently recomputed\n{\"deadline_stop\": true, \"manifest_sha256\": \"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\", \"owned_process_group\": 2598550, \"returncode\": -15, \"run_id\": \"tcl-20261102-pilot24-v2\", \"stop_reason\": \"coordinator_stop\", \"t0_sha256\": \"d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449\", \"worker_id\": \"w0\"}\n"
+    },
+    "coordinator/jobs/sessions/w0/session.json": {
+      "sha256": "29a4bf078fb2a03392c9fe9887eb6a01843ad1af7aa51fea4f26e210a8950574",
+      "bytes": 207,
+      "text": "{\"completed_assignments\":[],\"error\":\"localization score cannot be independently recomputed\",\"error_type\":\"ValueError\",\"status\":\"blocked\",\"updated_at_utc\":\"2026-11-02T08:10:16.064475+00:00\",\"worker_id\":\"w0\"}\n"
+    },
+    "frozen/preparation_report.json": {
+      "sha256": "c16d8e5cf9cc9e8a1de51f1e60b4629e5cdc72d4d8e356ff36b8156bf1b2b883",
+      "bytes": 750,
+      "text": "{\"assignments\":48,\"bundle\":{\"path\":\"/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2/frozen/bundle.json\",\"sha256\":\"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\"},\"coordinator_config\":{\"path\":\"/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2/frozen/coordinator_config.json\",\"sha256\":\"833a3f7b597ecd9eadb0fdc6366e20f388c2560a3b0c63b19384a34e6fd0389a\"},\"gpu_started\":false,\"imported_by_state\":{\"source\":363},\"model_files_rehashed\":false,\"new_attempt_limit\":5909,\"review_file\":\"/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2/frozen/review.json\",\"run_id\":\"tcl-20261102-pilot24-v2\",\"status\":\"prepared_pending_independent_review\",\"t0\":null,\"unique_target\":6144,\"verified_imports\":363,\"worker_count\":1}\n"
+    },
+    "frozen/review.json": {
+      "sha256": "9119144ea491a62807e45bea22da6fb260e889915a016c06ffbb4d61845cf8ff",
+      "bytes": 772,
+      "text": "{\"coordinator_config_file\": \"/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2/frozen/coordinator_config.json\", \"coordinator_config_sha256\": \"833a3f7b597ecd9eadb0fdc6366e20f388c2560a3b0c63b19384a34e6fd0389a\", \"implementer\": \"pilot24_prepare\", \"independent_review\": \"6144 unique keys, 363 source imports, 48 partitions, input hashes and budgets independently reviewed; CPU asset and fresh GPU permission remain required.\", \"limitations\": [\"Preparation does not approve implementation or grant GPU permission.\", \"Model files still require the runtime CPU asset verification before CUDA.\"], \"manifest_sha256\": \"5f635ed4654cc2de6c24ee5a33936041819468c07b1bb4a9c644821b0e0e29ec\", \"reviewer\": \"review_pilot24\", \"run_id\": \"tcl-20261102-pilot24-v2\", \"status\": \"passed\"}\n"
+    }
+  }
+}

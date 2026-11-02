@@ -152,6 +152,26 @@ class DurableRunTests(unittest.TestCase):
             main(['status','--bundle','mocked','--config','mocked','--root',str(self.root)])
         self.assertIn('S0',output.call_args.args[0])
 
+    def test_blocked_session_cause_wins_when_exit_and_error_arrive_together(self):
+        from types import SimpleNamespace
+        from pilot24_run import serve
+        from pilot24_coordinator import write_json
+        root=self.root/'blocked-simulation'
+        config=copy.deepcopy(self.config);config['coordinator_root']=str(root)
+        for a in config['assignments']:a['output_root']=str(root/a['assignment_id'])
+        launch=self.root/'blocked-launch.json'
+        write_json(launch,{'w0':{'server':'104','permission_ref':'/unused'}})
+        args=SimpleNamespace(root=str(root),config='mocked',bundle='mocked',launch_map=str(launch),server='104',poll_seconds=.05)
+        def both_events(_):
+            write_json(root/'jobs/sessions/w0/session.json',{'status':'blocked','error':'specific CPU or permission cause'})
+            write_json(root/'sessions/w0/exit.json',{'returncode':1})
+        with patch('pilot24_run.load_reviewed_configuration',return_value=config), \
+             patch('pilot24_run.subprocess.Popen',return_value=SimpleNamespace(pid=12345)), \
+             patch('pilot24_run.time.sleep',side_effect=both_events):
+            result=serve(args)
+        self.assertEqual(result['reason'],'worker_session_blocked')
+        self.assertEqual(result['charged_attempts'],0)
+
     def test_cli_exposes_only_fixed_session_command(self):
         args=parser().parse_args(['supervise','--bundle','b','--mailbox','m','--receipt-root','r',
             '--worker-id','w0','--t0','t','--t0-sha','f'*64,'--permission-ref','p','--stop-file','s',

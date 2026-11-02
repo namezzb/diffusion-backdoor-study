@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-02T14:22:50+08:00",
-  "execution_status": "tcl_v2_source_review_passed_gpu_unavailable",
+  "updated_at": "2026-11-02T16:56:00+08:00",
+  "execution_status": "tcl_v2_resource_blocked_recovery_code_reviewed",
   "gpu_automation": "deleted",
   "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
   "runs": [
@@ -26,10 +26,10 @@
       "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
     }
   ],
-  "current_work": "The isolated 104 source proof and 363 historical candidate images passed independent review. The production bundle/config is not prepared, no images have been imported into the v2 ledger, and v2 has not started.",
+  "current_work": "104 pilot24 v2 CPU preflight passed after a reviewed correction; target GPU became occupied before CUDA. Both attempts used zero new image attempts and 363 historical images are imported once.",
   "storage_catalog": "storage/catalog.json",
   "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "Review the earlier execution delay as requested. When an accessible compliant GPU becomes available, bind the reviewed R=363 source proof, prepare and independently review the actual bundle/config, then obtain fresh process-bound GPU permission and start without resetting T0.",
+  "next_research_action": "Prepare the independently reviewed chained recovery code, then review the actual device-bound bundle and live GPU access without changing the original T0 or budget.",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",
@@ -44,7 +44,7 @@
   "task_index": "research/tasks/README.md",
   "current_task": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
   "recovery_handoff": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md",
-  "latest_remote_observation_at": "2026-11-02T14:18:16+08:00",
+  "latest_remote_observation_at": "2026-11-02T16:55:52+08:00",
   "gpu_selection_policy": "AGENTS.md#服务器选择优先级",
   "historical_recovery_handoff": "research/tasks/2026-10-29-trigger-contrast-localization/RECOVERY_HANDOFF_2026-11-02.md",
   "current_run_id": "tcl-20261102-pilot24-v2",
@@ -53,7 +53,7 @@
   "latest_saved_asset_audit_at": "2026-11-02T11:15:22+08:00",
   "latest_asset_audit_scope": "104 selection and six masks rehashed; 172 104 snapshot and 191 127 candidate images rehashed and fully decoded at 11:15 CST. No images imported and original 103 writer retirement remains unverified.",
   "pilot24_intake": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_INTAKE_2026-11-02.md",
-  "latest_remote_observation_scope": "104 and 127 authenticated; isolated source proof reviewed for 363 historical candidates. Their GPUs were occupied, 101 rejected public-key authentication, 103 refused forwarding, and no v2 GPU permit was established.",
+  "latest_remote_observation_scope": "104 two prior ledgers and locks verified; 101 GPU 3 appeared idle but SSH public-key authentication was denied. No new pilot24 images.",
   "latest_platform_observation": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_environment_observation_20261102.json",
   "pilot24_implementation_review": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_IMPLEMENTATION_REVIEW.md",
   "pilot24_source_review": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md"

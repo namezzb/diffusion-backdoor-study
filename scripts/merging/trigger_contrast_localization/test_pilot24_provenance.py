@@ -1,6 +1,7 @@
 """CPU-only admission fault tests; none of these fixtures is resource evidence."""
 from contextlib import ExitStack
 from datetime import datetime, timedelta, timezone
+import errno
 import hashlib
 import json
 import os
@@ -285,6 +286,71 @@ class SourceIsolationTests(Fixture):
         self.proof["freeze"]["scorer_sha256"] = "d" * 64
         with self.assertRaises(ValueError):
             self.validate()
+
+
+class SystemGnomeShellTests(unittest.TestCase):
+    def setUp(self):
+        self.pid, self.uid = 8374, 125
+        self.account = SimpleNamespace(pw_name="gdm", pw_uid=self.uid,
+                                       pw_dir="/var/lib/gdm3", pw_shell="/bin/false")
+        self.file = SimpleNamespace(st_dev=1, st_ino=2, st_size=8, st_mtime_ns=3, st_ctime_ns=4,
+                                    st_mode=provenance.stat.S_IFREG | 0o755, st_nlink=1, st_uid=0, st_gid=0)
+        self.identity = {"pid": self.pid, "uid": self.uid, "start_ticks": 123,
+                         "parent_pid": 1, "state": "S"}
+        self.status = f"Uid:\t{self.uid}\t{self.uid}\t{self.uid}\t{self.uid}\n"
+        self.comm, self.cmdline, self.binary = "gnome-shell\n", b"/usr/bin/gnome-shell\0", b"\x7fELFtest"
+        self.stack = ExitStack()
+        self.addCleanup(self.stack.close)
+        self.stack.enter_context(patch.object(provenance, "_process_identity", side_effect=lambda pid: dict(self.identity)))
+        self.stack.enter_context(patch.object(provenance.pwd, "getpwuid", side_effect=lambda uid: self.account))
+        self.stack.enter_context(patch.object(Path, "lstat", side_effect=lambda: self.file))
+        self.stack.enter_context(patch.object(Path, "read_text", autospec=True,
+            side_effect=lambda path: self.status if path.name == "status" else self.comm))
+        self.stack.enter_context(patch.object(Path, "read_bytes", autospec=True,
+            side_effect=lambda path: self.cmdline if path.name == "cmdline" else self.binary))
+        self.stack.enter_context(patch.object(Path, "resolve", side_effect=PermissionError(errno.EACCES, "cross uid")))
+
+    def check(self, kind="G", name="/usr/bin/gnome-shell"):
+        return provenance._system_gnome_shell(self.pid, name, kind)
+
+    def test_verified_gdm_graphics_and_gpu_inventory(self):
+        self.assertTrue(self.check())
+        process = (f"<process_info><pid>{self.pid}</pid><type>G</type>"
+                   "<process_name>/usr/bin/gnome-shell</process_name></process_info>")
+        provenance._gpu(gpu_xml(process=process), GPU, set())
+
+    def test_other_users_names_types_and_commands_rejected(self):
+        self.assertFalse(self.check("C"))
+        self.assertFalse(self.check(name="/tmp/gnome-shell"))
+        for field, value in [("pw_name", "researcher"), ("pw_uid", 1001),
+                             ("pw_dir", "/home/gdm"), ("pw_shell", "/bin/bash")]:
+            with self.subTest(field=field):
+                original = getattr(self.account, field)
+                setattr(self.account, field, value)
+                self.assertFalse(self.check())
+                setattr(self.account, field, original)
+        for field, value in [("status", "Uid:\t125\t125\t1001\t125\n"),
+                             ("comm", "python\n"), ("cmdline", b"/usr/bin/gnome-shell\0--research\0")]:
+            with self.subTest(field=field):
+                original = getattr(self, field)
+                setattr(self, field, value)
+                self.assertFalse(self.check())
+                setattr(self, field, original)
+
+    def test_unsafe_or_changed_process_and_binary_rejected(self):
+        for field, value in [("st_uid", 125), ("st_mode", provenance.stat.S_IFREG | 0o775),
+                             ("st_mode", provenance.stat.S_IFLNK | 0o755)]:
+            with self.subTest(field=field):
+                original = getattr(self.file, field)
+                setattr(self.file, field, value)
+                self.assertFalse(self.check())
+                setattr(self.file, field, original)
+        self.binary = b"#!/bin/sh"
+        self.assertFalse(self.check())
+        self.binary = b"\x7fELFtest"
+        changed = dict(self.identity, start_ticks=124)
+        with patch.object(provenance, "_process_identity", side_effect=[self.identity, changed]):
+            self.assertFalse(self.check())
 
 
 class PermissionTests(Fixture):

@@ -6,6 +6,12 @@
 
 | 入口 | 用途 |
 |---|---|
+| [104 v2 CPU终态](server104_pilot24_terminal_20261102.json) | CPU定位复核错误、原始终态、T0、退出证据及导入计数 |
+| [104 v2修订代终态](server104_pilot24_recovery_terminal_20261102.json) | CPU预检通过，GPU被他人占用导致实时许可检查拒绝，0次新增 |
+| [v2修订review](PILOT24_RUNTIME_REVIEW_20261102.md) | 浮点规约差异、原始排名保护及两代终态后恢复代码的独立审阅 |
+| [104链式恢复代码部署](server104_pilot24_recovery_v2_code_deployment_20261102T0858Z.json) | 隔离副本和四个已审阅代码的哈希回执；未创建生产bundle或启动GPU |
+| [104真实资产CPU核验](pilot24_cpu_real_mask_audit_20261102.json) · [原始输出](pilot24_cpu_real_mask_audit_20261102.stdout.txt) | 修订候选对六组冻结mask复核通过，未初始化CUDA |
+| [104原账本恢复前核验](server104_pilot24_recovery_guard_20261102T0828Z.json) | 短时持锁核对原T0、363导入及0次新增，未启动GPU |
 | [TASK.md](TASK.md) | 扩大样本后的任务定义、里程碑、实现交付要求和review入口 |
 | [24小时多卡协议](PILOT24_PROTOCOL_2026-11-02.md) | 当前v2运行设计：固定样本与复用规则、多卡分片、吞吐门禁、截止报告及交付要求 |
 | [v2设计候选](pilot24_plan_candidate.json) · [确定性语境ID](pilot24_context_ids.json) | 6144图容量、单seed和输入绑定规则；没有实际worker与执行批准，不是可启动manifest |
