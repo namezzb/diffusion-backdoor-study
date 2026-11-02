@@ -2,15 +2,27 @@
 
 本目录保存独立任务的设计、交接和审阅记录；完成与待完成状态、当前方法及预算统一见[TASK.md](TASK.md)。通用规范只维护在[AGENTS.md](../../../AGENTS.md#任务管理规范)，本页不复制任务状态。
 
+接手先读[24小时多卡协议](PILOT24_PROTOCOL_2026-11-02.md)：独立v2运行须按实现审阅入口固定真实来源与生产bundle，不能套用v1验收。下表及表后列表的启动、许可和待验证描述属于各回执时点，不代表当前运行状态；v1不再补满原预算，旧分片不得重放。
+
 | 入口 | 用途 |
 |---|---|
 | [TASK.md](TASK.md) | 扩大样本后的任务定义、里程碑、实现交付要求和review入口 |
+| [24小时多卡协议](PILOT24_PROTOCOL_2026-11-02.md) | 当前v2运行设计：固定样本与复用规则、多卡分片、吞吐门禁、截止报告及交付要求 |
+| [v2设计候选](pilot24_plan_candidate.json) · [确定性语境ID](pilot24_context_ids.json) | 6144图容量、单seed和输入绑定规则；没有实际worker与执行批准，不是可启动manifest |
+| [v2实现review与部署步骤](PILOT24_IMPLEMENTATION_REVIEW.md) · [检查证据](pilot24_implementation_validation_20261102.json) | 单机常驻多卡执行链、真实来源认证要求、准备器入口和代码摘要；不代替生产bundle批准 |
+| [真实来源独立审阅](PILOT24_SOURCE_REVIEW_20261102.md) | 104只读来源包认证363张候选；生产bundle和GPU许可尚未审阅 |
+| [本轮环境观察](pilot24_environment_observation_20261102.json) | 当前平台规则与资源页面、终端网关失败及不能据此推断103退出的边界 |
+| [v2接手核验](PILOT24_INTAKE_2026-11-02.md) | 103不可达、104六掩码复核、候选交集与执行器剩余缺口，不能当作实际导入或review批准 |
+| [逐键复用候选](pilot24_reuse_candidates_20261102.json) · [PNG解码记录](pilot24_candidate_decode_20261102.json) | 固定seed的363个候选逐键记录来源、图片哈希和评分；未证明103隔离或完成v2导入 |
+| [v2结果入口](../../../results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md) | 执行准备与结果入口；详细完成与待完成状态只见TASK |
+| [104快照图片审计](server104_recovery_image_audit_20261102.json) · [127图片审计](server127_recovery_image_audit_20261102.json) · [旧账本预览](recovery_provisional_keys_20261102.json) | 实现agent新增v1来源核验，预览明确不可执行；不证明原103已退出，也不是v2已导入结果 |
+| [历史恢复指导](RECOVERY_HANDOFF_2026-11-02.md) | v1对账及中断处置参考，原有限预算修订未获批准，不再作为当前启动路线 |
 | [首版样本草案](prompts_draft.jsonl) | 独立审阅未通过：动作不足、个别场景与构图不自然、other对象不合适，且存在跨分区近重复；不作为冻结输入 |
 | [第二版样本草案](prompts_draft_v2.jsonl) | 改为狗、猫、兔动作配对；自查仍发现跨分区近重复，未进行正式独立审阅，不能作为冻结输入 |
 | [第四版样本草案](prompts_draft_v4.jsonl) | 在第二版上按预先固定的机械目标重分区；自查仍发现跨分区高度相似的模板，不能作为冻结输入 |
-| [第八版样本候选](prompts_draft_v8.jsonl) · [内容审阅记录](context_review.json) | 320条文本及分层已独立审阅通过；冻结候选已绑定token、seed和38项服务器SHA观察，最终M06与实际预检仍待完成 |
-| [逐条分词候选](prompts_tokenized_candidate.jsonl) · [早期清单草案](manifest_draft.json) | 已保存并核对每条77位token；早期草案的缺项由冻结候选接续，真实预检仍未完成 |
-| [冻结清单](manifest_candidate.json) · [实现检查](implementation_validation.md) · [M06审阅](m06_review.json) | 清单绑定输入、38项观察SHA及代码；实现与M06通过，真实CUDA和评分仍待验证 |
+| [第八版样本候选](prompts_draft_v8.jsonl) · [内容审阅记录](context_review.json) | 320条文本及分层已独立审阅通过；后续冻结与M06证据见下行，不以早期草案状态覆盖实际进度 |
+| [逐条分词候选](prompts_tokenized_candidate.jsonl) · [早期清单草案](manifest_draft.json) | 已保存并核对每条77位token；早期草案仅供追溯，实际输入以冻结清单为准 |
+| [冻结清单](manifest_candidate.json) · [实现检查](implementation_validation.md) · [M06审阅](m06_review.json) | 清单绑定输入、38项观察SHA及代码；M06已通过且已有真实定位与部分图片，完整效果仍待验收 |
 | [103资产观察](server103_assets_observation_20261029.json) · [CPU预检](server103_cpu_preflight_20261029.json) | 38项SHA与历史来源一致，CPU加载及样本检查通过；预检依赖与现版一致，不代表GPU前向或图片验收 |
 | [103早版运行包验收](server103_deployment_20261029.json) · [新版GPU门禁检查](server103_gpu_guard_20261029.json) | 早版已上传但不得启动；新版门禁已在103只读实测，CPU加载后仍须重新核对平台 |
 | [103新版运行准备](server103_run_preparation_20261029.json) | 新版部署及CPU阶段启动回执，CUDA许可与模型前向须以实际运行证据为准 |
@@ -36,7 +48,7 @@
 | [104资产及环境观察](server104_asset_compatibility_20261030.json) | 38项资产哈希匹配，主要依赖可CPU导入；尚无迁移或GPU启动许可 |
 | [103设备故障与盘点](server103_gpu_failure_20261030.json) | 343张完成图哈希核对、一次中断及原锁未释放；恢复受设备与预算约束 |
 | [源阶段首批与耗时](server103_source_initial_images_20261029.json) | 首批62张带分数，抽样文件哈希核验及基线耗时估算；不代表基线已通过 |
-| [运行入口与验收报告](../../../results/trigger-contrast-localization/tcl-20261029-01-v1/README.md) | 运行中的报告和服务器路径，终态后须补齐独立审阅与附件盘点 |
+| [运行入口与验收报告](../../../results/trigger-contrast-localization/tcl-20261029-01-v1/README.md) | 未完成验收的运行记录和服务器路径，终态后须补齐独立审阅与附件盘点 |
 | [初始小样本草案](../../trigger_contrast_localization_pilot_review_2026-10-29.md) | 保留思路演变，旧2048图预算不再作为本任务预算 |
 | [相关文献调研](../../../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 行为定位、语义混杂、因果贡献与合并迁移的来源和证据边界 |
 | [既有模型来源](../../tssa_mvp_assets_2026-10-26.json) · [既有源配置](../../tssa_mvp_2026-10-26.json) | 取用已固定模型身份和真实触发规则，不继承旧样本、旧预算或旧run身份 |
@@ -47,13 +59,13 @@
 
 - [启动阶段等待 v2 候选交接](SHARD127_WAIT_V2_HANDOFF.md)：已独立审阅并部署，CPU准备已启动。
 
-- [见证控制器 v2 只读审阅](SHARD127_WATCH_V2_REVIEW.md)：当前持续使用 v1，候选尚未批准或切换。
+- [见证控制器 v2 只读审阅](SHARD127_WATCH_V2_REVIEW.md)：该次审阅时使用v1，v2候选未批准；后续切换及当前状态见TASK。
 
 - [127见证JSON中断与62张图核验](server127_json_interruption_20261030T0352Z.json)：真实错误、保留账本并定位修复。
 
 - [见证发布修复候选](shard127_watch_controller_safe_candidate.py)与[签名审阅](shard127_safe_publisher_review.json)：更新前核对摘要，原验签、身份、时效和预算不变。
 
-- [当前进度摘要](progress_summary_20261030.md) · [恢复中断证据](server127_resume_interruption_20261030T0449Z.json)：12:49许可后见证过期，未新增尝试。
+- [10月30日历史进度摘要](progress_summary_20261030.md) · [恢复中断证据](server127_resume_interruption_20261030T0449Z.json)：12:49许可后见证过期，未新增尝试。
 
 - [启动等待v2准备证据](server127_wait_v2_preparation_20261030T0502Z.json) · [签名审阅](shard127_wait_review_v2.json)：保留既有中断键及预算。
 

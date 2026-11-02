@@ -1,10 +1,11 @@
 # 当前研究
 
-当前方向：研究真实扩散模型 checkpoint 合并后的后门鲁棒性，新任务检验特殊字符触发的行为筛选与参数恢复定位。用户已授权TCL服务器验证，103定位已完成；127源基线见证超时退出、完成385张，103当前连接拒绝；三轮旧结果尚未达到研究目标，旧run保持停止。
+当前方向：研究真实扩散模型checkpoint合并后的后门鲁棒性；TCL v2的363张历史候选来源已独立审阅，生产bundle和GPU启动仍待完成。完成度与授权边界以TASK为准，旧run不再补满预算。
 
 | 文档 | 用途 |
 |---|---|
 | [特殊字符定位验证任务](tasks/2026-10-29-trigger-contrast-localization/TASK.md) | 扩样后的当前任务，方法、预算、运行证据和待完成状态均见TASK |
+| [24小时多卡验证协议](tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md) | 下一agent先读：独立v2身份、固定样本与复用规则、多卡分片、吞吐门禁和截止报告要求 |
 | [任务索引与模板](tasks/README.md) | 每个任务独立目录及TASK状态，通用规范统一在AGENTS.md维护 |
 | [初始小样本草案](trigger_contrast_localization_pilot_review_2026-10-29.md) | 历史2048图设计，已由上述扩样任务接续，未执行 |
 | [输入对比与后门参数定位调研](../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 新筛选假说：普通狗/猫语义差不等于后门参数，需真实触发对照与干预验证；未替换执行方案或恢复实验 |

@@ -1,5 +1,7 @@
 # TSSA MVP 离线部署与续跑
 
+> 历史手册：本run已于2026-10-28结束，以下原命令和窗口不构成续跑授权；当前工作从[项目状态](project_state.json)进入，通用操作见[服务器手册](../server/OPERATIONS.md)。
+
 本轮协议固定为 `tssa_mvp_2026-10-26.json`（SHA256 `8f74590f12514f63239448783adc6187422518defc52ec46f014ffb99887e48c`）；当前状态以[今晚断点](tssa_overnight_progress.md)为准，下面是执行说明，不是已完成证明。
 
 ## 资源与边界

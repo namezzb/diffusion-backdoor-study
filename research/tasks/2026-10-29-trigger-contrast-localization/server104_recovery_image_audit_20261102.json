@@ -1,0 +1,47 @@
+{
+  "time_utc": "2026-11-02T02:26:06.480425+00:00",
+  "node": "104",
+  "run": "/data2/zhangzibo/arxiv-tssa/preparations/tcl104-direct-20261030/tcl104-shard-snapshot-20261030T0200Z/run",
+  "ledger_sha256": "a860ff62abd36ef6abfe73466468c0249b574c2122ab397370033369b512d262",
+  "wal_size": 0,
+  "metadata_run_id": "tcl-20261029-01-v1",
+  "metadata_manifest_sha": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "metadata_selection_sha": "a50cc62f6c741d025b59a8d35e6e2ad3010f9fd661521f6d8b9d655ba4618957",
+  "attempt_count": 344,
+  "history_count": 0,
+  "status_counts": {
+    "complete": 343,
+    "started": 1
+  },
+  "checked": {
+    "complete": 343,
+    "complete_hash_header_score_ok": 343
+  },
+  "mismatches": [],
+  "unfinished": [
+    {
+      "key": [
+        "tcl-20261029-01-v1",
+        "source",
+        "clean",
+        "dog",
+        "forest-32",
+        271102
+      ],
+      "status": "started",
+      "registered_sha": null,
+      "resource": {
+        "text_encoder_forwards": 2,
+        "unet_branch_nfe": 26,
+        "vae_decodes": 0
+      },
+      "path": "/data2/zhangzibo/arxiv-tssa/preparations/tcl104-direct-20261030/tcl104-shard-snapshot-20261030T0200Z/run/images/2a2d117d06870846d473fb8dbf3d4729231075df25876cc461ce9b615c023bcf.png",
+      "exists": false,
+      "temporary_files": []
+    }
+  ],
+  "selection_and_terminal": {
+    "selection.json": "a50cc62f6c741d025b59a8d35e6e2ad3010f9fd661521f6d8b9d655ba4618957",
+    "localization_terminal.json": "7f889beb7474aeb72ff39e4f6f2cc78bbae16907ad86ab5503beec96ab6bb456"
+  }
+}

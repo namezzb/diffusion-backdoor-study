@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "observed_interval_utc": [
+    "2026-11-02T03:32:00Z",
+    "2026-11-02T03:36:00Z"
+  ],
+  "run_id": "tcl-20261102-pilot24-v2",
+  "observer": "root via authenticated GPU management page and bounded local SSH probe",
+  "platform": {
+    "url": "https://gpu.orz2333.fun/",
+    "version": "2026.10.30.3",
+    "account": "zhangzibo",
+    "account_status": "normal",
+    "shown_own_gpu_count": 0,
+    "shown_gpu_cap": 4,
+    "shown_pending_remediation": 0,
+    "shown_extra_gpu_applications": 0,
+    "gpu_rules": "GPU contention, idle-occupancy, busy-overquota management and queue functions retired; disabled GPUs remain forbidden.",
+    "stale_rule_text": "Later violations section retains queue language with undefined minute values; not evidence of an active allocation.",
+    "visible_cards": {
+      "104": {
+        "online": true,
+        "shown_total": 5,
+        "free_indices": [
+          2,
+          3
+        ],
+        "other_occupied_indices": [
+          0,
+          1,
+          4
+        ]
+      },
+      "103": {
+        "online": false,
+        "shown_total": 3,
+        "samples": "historical_not_current"
+      },
+      "101": {
+        "online": true,
+        "shown_total": 4,
+        "free_indices": [
+          2,
+          3
+        ],
+        "other_occupied_indices": [
+          0,
+          1
+        ]
+      },
+      "127": {
+        "online": true,
+        "shown_total": 4,
+        "free_indices": [],
+        "other_occupied_indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  },
+  "terminal": {
+    "probe_file": "results/tssa-mvp-2026-10-26/server-probes/school104-20261102T033347254834Z.json",
+    "result": "School gateway unreachable; no host-key checks were bypassed.",
+    "dns_diagnostic": "socket.getaddrinfo(hduiipl.cn,7002) -> gaierror(8, nodename nor servname provided, or not known)",
+    "boundary": "Current terminal has restricted network access; this does not establish a school-wide outage or refusal by school104/103. No further node probes through the failed shared gateway were attempted."
+  },
+  "launch_authorized": false,
+  "gpu_uuid_verified": false,
+  "source_bundle_copied": false,
+  "v2_images_imported": 0,
+  "v2_images_generated": 0,
+  "t0": null,
+  "limitations": [
+    "Platform free indices cannot be mapped to complete UUIDs without a successful host observation.",
+    "103 offline and shown own count zero do not certify old writer exit.",
+    "Observation is preparation evidence, not a launch permit and not a future resource reservation."
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "time_utc": "2026-11-02T02:26:16.167604+00:00",
+  "node": "127",
+  "run": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030",
+  "ledger_sha256": "58eba2b5fa5f613afda545caea74f93837fd26c126b03accab5e52329f1bb686",
+  "wal_size": 0,
+  "metadata_run_id": "tcl-20261029-01-v1",
+  "metadata_manifest_sha": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "metadata_selection_sha": "a50cc62f6c741d025b59a8d35e6e2ad3010f9fd661521f6d8b9d655ba4618957",
+  "attempt_count": 390,
+  "history_count": 0,
+  "status_counts": {
+    "started": 5,
+    "complete": 385
+  },
+  "checked": {
+    "complete": 385,
+    "complete_hash_header_score_ok": 385
+  },
+  "mismatches": [],
+  "unfinished": [
+    {
+      "key": [
+        "tcl-20261029-01-v1",
+        "source",
+        "backdoor",
+        "cat",
+        "backyard-08",
+        271101
+      ],
+      "status": "started",
+      "registered_sha": null,
+      "resource": {},
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/4a4ddbd69bb26f437604222f4a56b0c815cb94b3ace56c9eb14886af431ef3ea.png",
+      "exists": false,
+      "temporary_files": []
+    },
+    {
+      "key": [
+        "tcl-20261029-01-v1",
+        "source",
+        "backdoor",
+        "cat",
+        "backyard-10",
+        271101
+      ],
+      "status": "started",
+      "registered_sha": null,
+      "resource": {
+        "text_encoder_forwards": 2,
+        "unet_branch_nfe": 1,
+        "vae_decodes": 0
+      },
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/17cdf607249e8fce41901173be770547ad359207631db4d51f77ef4cb27d50b4.png",
+      "exists": false,
+      "temporary_files": []
+    },
+    {
+      "key": [
+        "tcl-20261029-01-v1",
+        "source",
+        "backdoor",
+        "cat",
+        "forest-05",
+        271101
+      ],
+      "status": "started",
+      "registered_sha": null,
+      "resource": {
+        "text_encoder_forwards": 2,
+        "unet_branch_nfe": 45,
+        "vae_decodes": 0
+      },
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/1df5e2b3aa5d54c7351480c241ab3e4fb740212b7a5684e678ba75266c6dbff0.png",
+      "exists": false,
+      "temporary_files": []
+    },
+    {
+      "key": [
+        "tcl-20261029-01-v1",
+        "source",
+        "backdoor",
+        "cat",
+        "forest-07",
+        271101
+      ],
+      "status": "started",
+      "registered_sha": null,
+      "resource": {
+        "text_encoder_forwards": 2,
+        "unet_branch_nfe": 8,
+        "vae_decodes": 0
+      },
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/666be37cc4ffa06a6d40a7a65dba05e22ccf890929ecde33058b147dcf1c2e79.png",
+      "exists": false,
+      "temporary_files": []
+    },
+    {
+      "key": [
+        "tcl-20261029-01-v1",
+        "source",
+        "backdoor",
+        "dog",
+        "home-11",
+        271102
+      ],
+      "status": "started",
+      "registered_sha": null,
+      "resource": {
+        "text_encoder_forwards": 2,
+        "unet_branch_nfe": 11,
+        "vae_decodes": 0
+      },
+      "path": "/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1-shard127-20261030/images/0026ca97a6e73530365e270c46f964b239aa49d88e0f8b1c6f67b5d4eda7f892.png",
+      "exists": false,
+      "temporary_files": []
+    }
+  ],
+  "selection_and_terminal": {}
+}

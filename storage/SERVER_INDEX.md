@@ -2,7 +2,11 @@
 
 **科研进度与索引随Git同步，大文件留在服务器。** 下表原有盘点时间保持不变；TCL任务的[103资产观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_assets_observation_20261029.json)和CPU预检另有本轮回执，不把旧盘点重标为新核验。
 
+当前接续见[TASK](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)及[24小时协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)；[真实来源审阅](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md)记录104来源包路径、哈希及363张候选，生产bundle仍未生成。下文历史盘点时间不变，旧索引不因此扩大覆盖。
+
 ## TCL中断图片盘点（2026-10-30 01:48）
+
+11月2日10:26实现agent另保存[104快照审计](../research/tasks/2026-10-29-trigger-contrast-localization/server104_recovery_image_audit_20261102.json)及[127图片审计](../research/tasks/2026-10-29-trigger-contrast-localization/server127_recovery_image_audit_20261102.json)，分别报告343／385张图片核对通过；前者是103旧快照副本，不是103原账本的新盘点。v2复用仍须完整来源绑定与旧writer隔离，当前逐文件取回索引范围不由这两份聚合回执自动扩大。
 
 103运行中断后核对了343张完成PNG的远端SHA-256与账本，首图见[原清单](server-index/103-tcl-v1-first-sample.jsonl)，其余342张见[本次清单](server-index/103-tcl-v1-completed-images-20261030.jsonl)；图片均未回传，原账本仍持锁，不称为完整备份。
 
@@ -49,9 +53,9 @@ checkpoint指保存的模型参数，不能自动理解为可从中恢复训练�
 | 103第二轮执行源码 | `/data1/zhangzibo/arxiv-tssa/code/image-search-6913379cd01c/` | [冻结源码包](../results/tssa-opt-exploration-2026-10-28/source-6913379cd01c.tar.gz) |
 | 103第三轮准备 | `/data1/zhangzibo/arxiv-tssa/preparations/target-semantic-20261029T013825229255Z/` | [准备记录](../results/tssa-target-semantic-diagnostic-2026-10-28/cpu_preparation_20261029T013825229255Z/)；不是完整远端镜像 |
 | 103 TCL旧运行包 | `/data1/zhangzibo/arxiv-tssa/code/tcl-20261029-01-run-b0a34fa6/` | [验收回执](../research/tasks/2026-10-29-trigger-contrast-localization/server103_deployment_20261029.json)；旧版M06已失效，不得启动 |
-| 103 TCL定位运行 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/` | [定位终态观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_terminal_observation_20261029.json)记录终态及selection哈希；图片阶段准备中，未盘点或验收完整产物 |
+| 103 TCL定位运行 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/` | [定位终态观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_terminal_observation_20261029.json)记录终态及selection哈希；图片确认受阻，未验收完整产物 |
 | 103 TCL追加修订 | `/data1/zhangzibo/arxiv-tssa/amendments/tcl-20261029-01-empty-path-v1/` | [修订与审阅](../research/tasks/2026-10-29-trigger-contrast-localization/AMENDMENT_REVIEW.md)；签名、补丁与启动器已验哈希，原冻结源码未被覆盖 |
-| 103 TCL源确认首图 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/images/8be2811fa880f2d39d0444293293f8f61be04fc974a234c485f811ccfd737405.png` | [首图远端清单](server-index/103-tcl-v1-first-sample.jsonl)及[首批观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json)；仅首图取回来源有哈希，其余在运行中未盘点 |
+| 103 TCL源确认首图 | `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/images/8be2811fa880f2d39d0444293293f8f61be04fc974a234c485f811ccfd737405.png` | [首图远端清单](server-index/103-tcl-v1-first-sample.jsonl)及[首批观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_source_initial_images_20261029.json)；另342图的后续索引见本页中断图片盘点 |
 | 104公开模型 | `/data2/zhangzibo/arxiv-tssa/models/` | [固定来源与revision](../research/tssa_mvp_assets_2026-10-26.json)，大权重留远端 |
 | 103公开模型 | `/data1/zhangzibo/arxiv-tssa/models/` | [历史传输记录](server-index/103-models-historical.jsonl) |
 | 环境版本及恢复依据 | 安装目录留服务器，不复制为研究结果 | [环境清单](../research/tssa_mvp_environment_2026-10-26.json) · [脚本索引](../scripts/README.md) |

@@ -55,6 +55,16 @@
       ]
     },
     {
+      "prefix": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/",
+      "index": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
+      "related_records": [
+        "results/trigger-contrast-localization/README.md",
+        "results/README.md",
+        "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+        "research/project_state.json"
+      ]
+    },
+    {
       "prefix": "results/trigger-contrast-localization/",
       "index": "results/trigger-contrast-localization/README.md",
       "related_records": [
@@ -201,6 +211,8 @@
   ],
   "required_entries": [
     "AGENTS.md",
+    "CLAUDE.md",
+    "server/OPERATIONS.md",
     "README.md",
     "research/project_state.json",
     "storage/NEW_COMPUTER.md",
@@ -213,6 +225,10 @@
   "active_indexes": [
     "README.md",
     "AGENTS.md",
+    "CLAUDE.md",
+    "server/OPERATIONS.md",
+    "reproduction/LOOP.md",
+    "research/tssa_mvp_runbook.md",
     "research/README.md",
     "results/README.md",
     "results/trigger-contrast-localization/README.md",
@@ -238,7 +254,10 @@
     "research/tasks/README.md",
     "research/tasks/TEMPLATE.md",
     "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-    "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md"
+    "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+    "research/tasks/2026-10-29-trigger-contrast-localization/RECOVERY_HANDOFF_2026-11-02.md",
+    "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
+    "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md"
   ],
   "local_exclusions": [
     {

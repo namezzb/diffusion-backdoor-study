@@ -1,157 +1,47 @@
-# LOOP.md — BackdoorDM 复现循环指令
+# BackdoorDM 复现执行流程
 
-> **你是循环执行者。每次迭代执行一轮；没有活跃任务且严格验收通过后停止，并删除对应监控 Cron。**
-> 项目指令见 [AGENTS.md](/Users/zzb/arxiv/AGENTS.md)。进度见 [backdoordm_progress.md](/Users/zzb/arxiv/reproduction/backdoordm_progress.md)，基准数据见 [backdoordm_reference.md](/Users/zzb/arxiv/reproduction/backdoordm_reference.md)（只读，勿改）。
+仅在用户授权具体复现任务后使用；读取本页不恢复旧循环、旧实验或监控。先读[项目状态](../research/project_state.json)、对应TASK、[历史进度](backdoordm_progress.md)和[只读基准](backdoordm_reference.md)，当前资源判断遵守[AGENTS.md](../AGENTS.md#服务器选择优先级)。
 
-本地路径和 Git 命令以项目根目录为起点；服务器命令仍以 `/opt/data/private/BackdoorDM` 为工作区。
+## 一轮执行
 
-## GPU 利用率最大化（每个脚本启动前必做）
+1. 由TASK确定当前授权的模型、阶段、指标与预算，核对进程、日志、模型身份、账本及终态证据；已完成任务不重跑，断连不等于失败。
+2. 对就绪且独立的未完成任务落实实时GPU门禁及唯一分工，单卡可用即执行；不按剩余显存自行加入他人使用中的卡，不为凑利用率运行额外计算。
+3. 按依赖执行训练、攻击评估、防御、对应防御评估，复用已验收产物；前置条件受阻时记录缺口，不启动依赖它的阶段。
+4. 保存实际命令、输入与checkpoint哈希、指标协议、资源实耗、输出和错误；更新TASK及本轮结果入口，需要时同步复现进度。
+5. 按[索引维护流程](../storage/INDEX_MAINTENANCE.md)收尾；达到任务停止条件就退出，只有对应监控确属本任务且授权涵盖时才关闭它。
 
-每个训练/评估脚本启动前，先创建临时测试脚本到 `/temp_script/` 目录，测试 GPU 显存和利用率：
+训练batch size可能改变训练结果，评估batch也可能影响随机数映射；吞吐调优须符合冻结协议并计入实际预算，不把参数更改当成无影响的速度优化。无强制显存或GPU利用率目标，不为调优延误已就绪的真实任务。
 
-1. **创建临时脚本**：复制原脚本到 `/temp_script/test_<task>.py`，修改为仅跑 1-2 步
-2. **逐步调大 batch_size**：从默认值开始，逐步增大 `batch_size`（或其他影响速度的参数如 `eval_max_batch`），观察 `nvidia-smi` 的 `memory.used` 和 `utilization.gpu`
-3. **只调速度参数**：仅调整 `batch_size`、`eval_max_batch`、`num_workers` 等不影响实验结果的参数。**禁止修改** `poison_rate`、`clean_rate`、`trigger`、`target`、`epoch`、`learning_rate` 等实验配置
-4. **目标**：GPU 显存利用率 ≥80%（如 24GB GPU 用到 ≥19GB），GPU 计算利用率 ≥90%
-5. **确定最佳参数后**：用优化后的参数启动正式脚本，删除临时测试脚本
+## 命令入口
 
-示例：
-```bash
-# 测试 batch_size=8 是否 OOM
-/temp_script/test_eval.sh  # 仅跑几步，观察 nvidia-smi
-# 不 OOM → 正式脚本用 batch_size=8
-# OOM → 降到 batch_size=4 重测
-```
+历史AMAX工作区为`/opt/data/private/BackdoorDM`，环境曾为`/opt/data/private/miniconda3/envs/eviledit/bin/python`；先按[服务器操作手册](../server/OPERATIONS.md)核验当前端口、部署和环境。以下为仓库内命令模板，替换占位符并审阅脚本实际覆盖范围后，只运行本次授权的方法/指标，避免批量脚本扩大范围。
 
-## 服务器
+| 阶段 | 命令入口 |
+|---|---|
+| 训练 | `bash scripts/run_attack_<type>.sh` |
+| T2I评估 | `bash scripts/run_eval_t2i_<METRIC>.sh` |
+| 无条件评估 | `bash scripts/run_eval_fix_<METRIC>.sh` |
+| 指定方法评估 | `python evaluation/main_eval.py --metric <METRIC> --backdoor_method <METHOD> --device <DEVICE>` |
+| 防御 | `bash scripts/run_defend_t2ishield.sh`或`bash scripts/run_defend_elijah.sh` |
 
-`PORT=<port>` | `ssh amax -p "$PORT"` | BD=/opt/data/private/BackdoorDM | PY=/opt/data/private/miniconda3/envs/eviledit/bin/python
+无官方脚本的方法及额外参数见[基准参考](backdoordm_reference.md)的脚本覆盖说明；无条件评估还需绑定`--backdoored_model_path`和`--val_data cifar10`。完整16变体与5防御的审计仅用于对应整体复现验收，不自动扩大当前任务的执行范围。
 
-## 每次迭代流程
+## 指标与验收
 
-1. **检查服务器状态**：`ssh amax -p "$PORT" "pgrep -af 'python.*attack\|python.*main_eval\|python.*defense'; nvidia-smi --query-gpu=memory.used,memory.total,utilization.gpu --format=csv,noheader"`
-   - 无任务在运行 → 正常执行步骤 2-6
-   - 有任务在运行 → 检查 GPU 显存剩余和利用率：
-     - 显存剩余充足（>8GB）且利用率有空闲 → 可以并行启动**同阶段的另一个任务**（如同为训练阶段的另一个攻击，或同为评估阶段的另一个指标），跳到步骤 2 选下一个未完成任务
-     - 显存不足或利用率已满 → 记录 work_log "skipped: task in progress, GPU busy"，结束本轮，等待下次 loop 触发
-2. 读 `reproduction/backdoordm_progress.md`，确定当前最优先未完成任务
-3. 执行该任务（见下方各 Phase 指令）
-4. 任务完成后更新 `reproduction/backdoordm_progress.md`
-5. 记录日志到服务器 `logs/work_log.md`
-6. 回到步骤 1
+| 任务类型 | 适用指标 |
+|---|---|
+| ObjectRep / ObjectAdd | ACCASR、CLIP_p、CLIP_c、FID、LPIPS |
+| ImagePatch | MSE、CLIP_p、CLIP_c、FID、LPIPS |
+| StyleAdd | CLIP_p、CLIP_c、FID、LPIPS |
+| ImageFix / 无条件 | FID、MSE |
 
-## 执行顺序
+- 每项指标绑定同一checkpoint及其样本、随机数、scheduler和步数，按[基准口径](backdoordm_reference.md)比较；不混合不同seed模型，不混比ASR_ViT与ASR_GPT。
+- T2I正式FID须有`num_test=10000`的结果行，1K/5K只作诊断；结合[审计脚本](../scripts/reproduction/audit_backdoordm_completion.py)核验指标名、样本数、原始结果和模型产物，不能只凭文件存在打勾。
+- 攻击结果读取`results/<method>_sd15/eval_results.csv`或`results/<method>_DDPM-CIFAR10-32/eval_results.csv`，同时保留`train_logs/`、`eval_logs/`。
+- 防御结果保留`defense/<defense>/`下CSV和`defense_logs/`；检测指标、净化后ASR与正常能力分别记录，不把低效果等同于未执行。
 
-**训练 → 评估攻击指标 → 防御 → 评估防御指标**
+## 异常与交接
 
-前一阶段全部完成后才进入下一阶段。同阶段内按 progress 表格顺序执行。
-
-## Phase 1: 训练未训练攻击
-
-读 progress "未训练原因"表，逐个修复并训练。
-
-有官方脚本：
-```bash
-cd /opt/data/private/BackdoorDM && bash scripts/run_attack_<type>.sh
-```
-
-无官方脚本（invi_backdoor, badt2i_objectAdd, eviledit_numAdd），手动启动（命令见 reference "官方脚本覆盖情况"）。
-
-训练后验证：`find results/<method>_sd15/ -name '*.pt' -o -name '*.safetensors' | head -1`
-
-## Phase 2: 评估攻击指标
-
-对每个已训练方法运行全部适用指标。
-
-有官方脚本：
-```bash
-bash scripts/run_eval_t2i_<METRIC>.sh   # T2I: ACCASR/CLIP_p/CLIP_c/FID/LPIPS
-bash scripts/run_eval_fix_<METRIC>.sh   # 无条件: FID/MSE
-```
-
-无脚本或需单独运行：
-```bash
-/opt/data/private/miniconda3/envs/eviledit/bin/python evaluation/main_eval.py \
-    --metric <METRIC> --backdoor_method <METHOD> --device cuda:0
-```
-
-无条件方法需额外参数：`--backdoored_model_path ./results/<method>_DDPM-CIFAR10-32 --val_data cifar10`
-
-指标适用表（详见 reference）：
-- ObjectRep / ObjectAdd: ACCASR, CLIP_p, CLIP_c, FID, LPIPS
-- ImagePatch: MSE, CLIP_p, CLIP_c, FID, LPIPS
-- StyleAdd: CLIP_p, CLIP_c, FID, LPIPS
-- ImageFix / 无条件: FID, MSE
-
-评估完成后读取结果：
-```bash
-# T2I 方法
-cat results/<method>_sd15/eval_results.csv | grep -v datatime | tail -5
-# 无条件方法
-cat results/<method>_DDPM-CIFAR10-32/eval_results.csv | grep -v datatime | tail -5
-# 训练日志（BackdoorDM 自动生成）
-ls results/<method>_sd15/train_logs/
-# 评估日志（BackdoorDM 自动生成）
-ls results/<method>_sd15/eval_logs/
-```
-
-从 CSV 中提取指标值（score 列），对照 reference 基准值表，计算偏差。
-
-**严格验收**：T2I FID 必须存在 `num_test=10000` 的 CSV 行；1K/5K FID 仅作诊断，不得标记 ✅。运行 `ssh amax -p "$PORT" "$PY $BD/server/audit_backdoordm_completion.py --repo $BD"`，同时验证指标名、样本数、结果文件和模型产物。
-
-## Phase 3: 运行防御
-
-有官方脚本：
-```bash
-bash scripts/run_defend_t2ishield.sh   # T2I 攻击
-bash scripts/run_defend_elijah.sh      # 无条件攻击
-```
-
-无官方脚本（TERD, Textual Perturbation, DAA），手动启动（命令见 reference "官方脚本覆盖情况"）。
-
-## Phase 4: 收集防御结果
-
-读取各防御输出：
-```bash
-# T2IShield / DAA 结果 CSV
-cat results/<method>_sd15/defense/t2ishield/detection_results.csv 2>/dev/null
-cat results/<method>_sd15/defense/daa/detection_results.csv 2>/dev/null
-# 防御日志（BackdoorDM 自动生成，含 P/R/F1/ASR 等详细输出）
-ls results/<method>_sd15/defense/*/defense_logs/
-# Textual Perturbation: 读日志中 "Defended ASR" 行
-# Elijah / TERD: 读日志中 tvloss / uniformity / TPR / TNR 行
-grep -r 'Defended ASR\|F1 Score\|AUC\|TPR\|TNR\|tvloss\|uniformity' results/<method>_sd15/defense/*/defense_logs/ 2>/dev/null
-```
-
-记录到 progress。
-
-## 进度更新规则
-
-- 训练完成 → progress 对应行"训练"和"模型"列改 ✅
-- 评估完成 → progress 对应指标列改 ✅，"已完成评估对照"表加行（方法、指标、基准值、复现值、偏差、说明）
-- 防御完成 → progress 防御表对应行改 ✅
-- 每次更新后 `git add reproduction/backdoordm_progress.md && git commit -m "progress: <动作>"`
-
-基准值从 reference 的基准值表中查。
-
-## 日志记录
-
-```bash
-ssh amax -p "$PORT" "cat >> /opt/data/private/BackdoorDM/logs/work_log.md << 'EOF'
-### $(date '+%Y-%m-%d %H:%M') — Loop
-- Action: <训练/评估/防御> <方法> <指标>
-- Result: <成功/失败/值>
-- Duration: <耗时>
-- Error: <如有>
-EOF"
-```
-
-BackdoorDM 也会自动生成详细日志（train_logs/eval_logs/defense_logs），work_log 仅记录 loop 决策。
-
-## 异常处理
-
-- SSH 断连 → 按 AGENTS.md "SSH 连接恢复"操作
-- 训练失败 → 读 progress "未训练原因"，尝试修复后重跑
-- 评估失败 → 检查模型路径 `evaluation/configs/bdmodel_path.py` 是否匹配
-- GPU 被占 → `nvidia-smi` 检查并确认进程归属；只处理已证明属于本任务的残留进程
-- 全部完成 → 从头检查 16 攻击 × 适用指标 + 5 防御，并执行严格样本数/产物审计；通过后停止循环并删除监控 Cron
+- 训练或评估失败时保存原始失败与已计费用量，再检查配置、模型路径和环境；恢复须满足TASK协议及防重复条件，不自动无限重试。
+- 服务器`logs/work_log.md`记录北京时间、任务ID、动作、结果、耗时及错误；详细日志和原始证据保持原路径，进度更新不触发单文件自动提交。
+- 连接和资源故障按[操作手册](../server/OPERATIONS.md#断连与恢复)处置；最终报告区分代码检查、实际运行、科学结论与尚未验收的缺口。

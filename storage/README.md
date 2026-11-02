@@ -2,11 +2,14 @@
 
 **科研进度、代码和索引纳入Git，供新电脑定位并按需下载；大数据留服务器，Drive上传及大文件回传保持暂停。** 旧GPU定时任务保持删除；用户已单独授权[TCL服务器验证](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。
 
+当前TCL按[24小时多卡协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)准备独立v2运行，先固定复用规则再核验既有成果，详细状态以TASK为准；服务器选择按[AGENTS统一优先级](../AGENTS.md#服务器选择优先级)。本次只更新本地导航，不把历史盘点时间改成新远端核验。
+
 ## 先看什么
 
 | 想知道什么 | 入口 |
 |---|---|
 | 以后改动如何防止忘记更新 | [维护入口](INDEX_MAINTENANCE.md) · [全仓清单](repository_index.jsonl) · [最新收尾](maintenance/latest.json) |
+| agent指令如何保持简短、避免重复 | [维护分工与检索依据](INDEX_MAINTENANCE.md#指令文件维护)；全局规则在AGENTS，操作步骤按需读取 |
 | 哪台服务器、哪个目录存了什么 | [服务器资料索引](SERVER_INDEX.md) |
 | 本地已有图片、代码、结果与缺项 | [本地资料目录](../results/organization-2026-10-29/README.md) |
 | 做过哪些尝试，Uniform4、TSSA16等是什么意思 | [三轮结果与术语解释](../research/tssa_methods_and_results_explained_2026-10-29.md) |
@@ -20,7 +23,8 @@
 
 - **本地科研仓库**保存代码、方案、报告、进度、索引和已有原始资料；根目录及各目录README负责导航，冻结产物不搬动或改名。
 - **学校服务器**保留实验大文件，索引记录服务器编号、完整路径、文件大小、SHA-256内容指纹、实验编号、盘点时间及本地对应位置；没有哈希的项目明确留空。
-- **TCL源确认343张完成图**已核验远端哈希并登记[首图](server-index/103-tcl-v1-first-sample.jsonl)和[其余342张](server-index/103-tcl-v1-completed-images-20261030.jsonl)的取回来源；图片未回传，账本仍持锁且无终态备份。
+- **TCL源确认343张完成图**已按历史观察核验远端哈希并登记[首图](server-index/103-tcl-v1-first-sample.jsonl)和[其余342张](server-index/103-tcl-v1-completed-images-20261030.jsonl)的取回来源；图片未回传，103当前账本锁状态无法核实且无终态备份。
+- **TCL 127图片索引**仍仅登记[早期67张](server-index/127-tcl-v1-shard-images-20261030.jsonl)的逐图哈希；后续观察与独立审计见[TASK](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)，不将审计摘要视为逐文件取回索引已补齐。
 - **TCL 104分片准备快照**已验证418项和清单哈希并登记[419个远端文件](server-index/104-tcl-v1-shard-snapshot-20261030.jsonl)；源账本仍非终态，快照未下载。
 - **Git**保存科研代码、报告、进度和索引，新电脑先拉取包含本次整理的提交；是否已推送以实际提交/远端验收记录为准，不从工作区文件存在推断已发布。
 - **Drive**已暂停，不能视为完整备份；此前成功上传的两份文件和失败尝试见[历史传输记录](upload_receipts/cloud_attempts_20261029.json)。

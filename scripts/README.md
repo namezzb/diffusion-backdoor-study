@@ -1,6 +1,6 @@
 # 脚本索引
 
-更新于2026-10-29，旧实验已结束且旧`gpu`定时任务保持删除；用户已单独授权[TCL定位验证](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)，执行须遵守其冻结清单与实时资源门禁。历史结论见[尝试总结](../research/tssa_attempts_summary_2026-10-29.md)。
+更新于2026-11-02，旧实验已结束且旧`gpu`定时任务保持删除；[TCL任务](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)转为[24小时多卡初步验证](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)，本地执行器review通过，真实来源／生产bundle待认证，尚未启动。历史结论见[尝试总结](../research/tssa_attempts_summary_2026-10-29.md)，服务器选择遵循[统一优先级](../AGENTS.md#服务器选择优先级)。
 
 ## 三轮实验入口
 
@@ -9,7 +9,7 @@
 | 梯度校准初步验证 | [tssa_mvp_run.py](merging/tssa_mvp_run.py) | [冻结协议](../research/tssa_mvp_2026-10-26.json) · [最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md)；1520图、144次更新，未找到合格攻击增益。 |
 | 直接按图像攻击成功率搜索 | [tssa_image_search_run.py](merging/tssa_image_search_run.py) | [独立冻结协议](../research/tssa_optimization_exploration_2026-10-28.json) · [负结果](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md)；816图、0更新，未打开确认集，原严格审计仍为invalid。 |
 | 同状态目标语义诊断 | [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | [方案](../research/tssa_target_semantic_diagnostic_proposal_2026-10-28.md) · [诊断报告](../results/tssa-target-semantic-diagnostic-2026-10-28/target_semantic_diagnostic_report_2026-10-29.md)；462次分支前向、0图/0更新，梯度一致性及局部可行性未通过。 |
-| 特殊字符定位 | [trigger_contrast_localization](merging/trigger_contrast_localization/README.md) | [任务与review](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)；本地检查和M06通过，GPU实验待实时许可。 |
+| 特殊字符定位 | [trigger_contrast_localization](merging/trigger_contrast_localization/README.md) | [任务与review](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)；v2同机多卡代码review通过，真实复用与生产bundle仍待认证，v1冻结代码及验收不能直接套用。 |
 
 当前源代码可能含后续修复，不能自动视为旧运行使用的版本；复核时以各运行清单、冻结快照与文件哈希为准，资料位置见[结果索引](../results/README.md)。
 
@@ -87,7 +87,7 @@
 | 工具 | 用途与执行边界 |
 |---|---|
 | [archive_school_research.py](connection/archive_school_research.py) | 只读盘点和回传学校服务器既有科研资料，按文件清单核对大小与哈希；不下载新模型或启动实验。 |
-| [probe_school_gpu.py](connection/probe_school_gpu.py) | 有界只读检查已配置学校节点的连接、GPU身份及进程；暂停期间不做定期探针。 |
+| [probe_school_gpu.py](connection/probe_school_gpu.py) | 按统一优先级有界只读检查学校节点连接、GPU身份及进程；不恢复已删除的旧定时探针。 |
 | [start_school.sh](../server/start_school.sh) · [school_ssh_config](../server/school_ssh_config) | 学校跳板与节点连接、动态DNS回退及主机密钥检查。 |
 | [stage_school_assets.py](../server/stage_school_assets.py) | 固定公开revision逐文件下载、中转上传及远端哈希核验，不选择GPU；当前不启动新资产下载。 |
 | [install_school_offline_env.py](../server/install_school_offline_env.py) | 验证冻结Linux依赖后安装本人数据盘环境；104和103各轮实际环境证据见运行记录。 |
@@ -99,7 +99,7 @@ AMAX启动器默认转发网页到`http://127.0.0.1:8080`、HTTPS到`8443`，保
 
 ## 本地存储与服务器索引
 
-当前大文件传输及实验暂停，[build_server_index.py](storage/build_server_index.py)只读本地保存的盘点并生成[服务器索引](../storage/SERVER_INDEX.md)，不连接服务器；[research_archive.py](storage/research_archive.py)核验本地ZIP及逐文件清单，并恢复到指定目录。
+大文件回传保持暂停，TCL新协议所需既有副本核验依任务授权执行；[build_server_index.py](storage/build_server_index.py)只读本地保存的盘点生成[服务器索引](../storage/SERVER_INDEX.md)，不连接服务器。[research_archive.py](storage/research_archive.py)核验本地ZIP及逐文件清单，并恢复到指定目录。
 
 [restore_from_catalog.py](storage/restore_from_catalog.py)提供清单浏览和已完成云端往返包的批量恢复，当前仅核心历史快照符合该条件；[prepare_research_backup.py](storage/prepare_research_backup.py)只负责限定科研目录内的本地打包，不代表已上传，也不应在暂停期间盲目重建相同快照。
 

@@ -2,6 +2,8 @@
 
 2026-10-28完整验证已结束：1520张科研图、三族144次优化，RC/Uniform持出ASR均为0，TSSA无合格候选；GPU任务已自动退出，以下最新入口优先于后面的历史准备记录。
 
+本目录`server-probes/`保留连接工具的兼容输出位置；实现agent于11月2日新增[104](server-probes/school104-20261102T022424085079Z.json)、[103](server-probes/school103-20261102T022431963950Z.json)、[101](server-probes/school101-20261102T022437216728Z.json)、[127](server-probes/school127-20261102T022445359434Z.json)只读探针，服务于[TCL接续](../../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。这些观察不恢复本轮TSSA、不新增其科学样本，也不构成v2实时GPU许可；另有本会话[11:33网关失败探针](server-probes/school104-20261102T033347254834Z.json)，它只表明当前终端不能连接，不能推断学校104本身宕机。
+
 | 最新证据 | 含义 |
 |---|---|
 | [术语与三轮结果解释](../../research/tssa_methods_and_results_explained_2026-10-29.md) | Uniform4/TSSA16、系数、指标和结论用普通话说明 |

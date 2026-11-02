@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "run_id": "tcl-20261102-pilot24-v2",
+  "started_at_utc": "2026-11-02T03:58:51.296704+00:00",
+  "finished_at_utc": "2026-11-02T03:59:13.407521+00:00",
+  "scope": "local CPU implementation verification; no real model asset or GPU execution",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "scripts/merging/trigger_contrast_localization",
+    "-p",
+    "test_*.py"
+  ],
+  "returncode": 0,
+  "tests_passed": 223,
+  "elapsed_seconds": 22.111,
+  "output": "...............................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 223 tests in 20.666s\n\nOK\n",
+  "environment": {
+    "python": "Python 3.12.14",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O"
+  },
+  "code_and_test_sha256": {
+    "scripts/merging/trigger_contrast_localization/pilot24_coordinator.py": "0576e2ed7d73149e8b1c06ed85af7b143af06882b2a5156e595f63f35f2cc259",
+    "scripts/merging/trigger_contrast_localization/pilot24_deadline.py": "c8d76f4d75cb43bcb074d1b8b7ad090632017e8b56da8abdcbc17f69c39b519c",
+    "scripts/merging/trigger_contrast_localization/pilot24_inputs.py": "fd2a1a10e7e62132832898ea9b1faf99ca5e885cea27eb5f3b070fac82e67485",
+    "scripts/merging/trigger_contrast_localization/pilot24_prepare.py": "17dc84c6a6c8ab08c93c4adf1eb8bc888fad6033b1dd3dbae0327f25a9a41eec",
+    "scripts/merging/trigger_contrast_localization/pilot24_provenance.py": "1707a74abf0ea5ed582b866e670ff39519c2fc38b61a311044d5eecbab006674",
+    "scripts/merging/trigger_contrast_localization/pilot24_run.py": "2c0b501a8b17b9e5c258d20bc0a2ea06900368aa4a97d68f481dc72def14584c",
+    "scripts/merging/trigger_contrast_localization/pilot24_runtime.py": "6516f740e8b1455c5537298de9abf5366823c4a0a3de1289f3dfe00d56869ede",
+    "scripts/merging/trigger_contrast_localization/pilot24_statistics.py": "5f8f100f4b976f2f4582ad0ceca4e6175d05ccacc09715c2478db867563fdb67",
+    "scripts/merging/trigger_contrast_localization/pilot24_watchdog.py": "2007c09497f7890e97807ab75eb44b3059d3ebec7e7fa390412181d005461efd",
+    "scripts/merging/trigger_contrast_localization/pilot24_worker_compute.py": "3afca8c5ae352b5c74f68a5ec2526bd1ad3cf4c70cb0bdc666ca20704bc6a367",
+    "scripts/merging/trigger_contrast_localization/pilot24_worker_ledger.py": "fa2b1dd5d807389f60ee9a31a2e7dee9f9d3838567f529ab6f3eb9ca9a6fae97",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_coordinator.py": "fdc99b8a18c056c4f49d07748ffcea81c97d4957e41a5c774280d04b8c89533f",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_deadline.py": "8cc070ffd317ece581be27d250ee390b51b2cda6caaf51479d668aa79545ebde",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_offline.py": "5cf015ef41d170a9bd94bcf5cf7de284a52103cc04e1b2e529fac7f8de82d252",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_prepare.py": "10b9b4aea769f29bd8941aa453953ecfc45d5a878ac6e76266579603a71895d5",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_provenance.py": "546a99ddce97962b1ef80715e3da58116c29eee3168a50c029b2622816864540",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_run.py": "b9c2d7dd09c1cb9f1dc36705fd9031f91998afbdc16344cc0253a6c463643130",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_runtime.py": "21e0c1a34a47743dbc4b013f458ec236d1620d306b5060ccc480fef2ed1f36d0",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_watchdog.py": "165f378d56220cae488ec869d712b2e122e2dcab1158931c6d6a66fbfc66ba2e",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_worker_compute.py": "bdbd48f187d0aa09231e23db567f9db9da9e9a216b7e330ae32316192d4b6ccd",
+    "scripts/merging/trigger_contrast_localization/test_pilot24_worker_ledger.py": "04accabe97f51e9d9745f55b13a438f3ba743ff339c0b1c6860afa3283913447"
+  },
+  "parent_manifest_sha256": "c597deebc3c2256401ee89b47f96ba9caa4bd92502019e3f257cfde7cddd1aaa",
+  "frozen_parent_files_checked": 27,
+  "frozen_parent_code_mismatches": [],
+  "git_diff_check": {
+    "returncode": 0,
+    "output": ""
+  },
+  "production_bundle_approved": false,
+  "remote_source_copy_verified_this_turn": false,
+  "gpu_started": false,
+  "v2_images_imported": 0,
+  "v2_images_generated": 0,
+  "t0": null,
+  "independent_review": {
+    "reviewer": "root/pilot24_independent_review",
+    "result": "passed_local_implementation",
+    "pilot24_tests_passed": 102,
+    "scope": "single-server persistent multi-GPU execution, CPU fault simulations, explicit receipt transport primitives; no real CUDA/source bundle approval",
+    "remaining_production_conditions": [
+      "Authenticate actual copied source bundle and imports R",
+      "Freeze and independently review target bundle/config and UUID assignments",
+      "Obtain fresh live platform and host GPU permission",
+      "Run real CUDA with immutable T0"
+    ]
+  }
+}

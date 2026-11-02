@@ -1,12 +1,15 @@
 # 扩散模型后门研究：项目总索引
 
-更新于2026-11-02。**特殊字符定位任务的103定位已完成；127源基线见证超时退出，完成385张、5次中断；103上次完成343张、1次中断，当前连接拒绝。** 三轮历史实验共生成2,336张完整图、完成144次优化更新，尚无“正常能力达标，同时攻击成功率超过同轮基线”的合格方案。
+更新于2026-11-02。**TCL v2尚未启动：104来源包的363张历史候选已通过独立审阅，目前缺少可登录且合规空闲的GPU。** 生产bundle、实际导入和运行状态见[任务正文](research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)，原v1不再补满预算。
 
 ## 从这里开始
 
 | 要做什么 | 入口 |
 |---|---|
+| 查看agent规则或服务器操作步骤 | [精简项目指令](AGENTS.md) · [按需操作手册](server/OPERATIONS.md)；CLAUDE.md仅导入项目指令，状态与协议分别维护 |
 | 查看特殊字符触发定位任务及验证进度 | [当前任务TASK.md](research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) · [全部任务与模板](research/tasks/README.md)，状态、扩样预算及交接要求以任务正文为准 |
+| 接手24小时初步验证 | [PILOT24协议](research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)：固定真实来源与复用清单，审阅生产bundle后启动；执行代码和CPU检查见任务实现review |
+| 按用户偏好选择GPU服务器 | [AGENTS服务器优先级](AGENTS.md#服务器选择优先级)，结合实时许可、设备状态与就绪条件执行 |
 | 判断输入对比是否能改进后门参数分组 | [新筛选假说与相关文献](reports/trigger_contrast_parameter_localization_review_2026-10-29.md)：尚未实验验证，不替换当前执行方案 |
 | 先看做过什么、效果如何、Uniform4 / TSSA16 是什么 | [通俗解释与全部结果](research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 看数据、代码、图片在哪里，以及哪些尚未回传 | [本次整理与备份目录](results/organization-2026-10-29/README.md) |
@@ -72,7 +75,7 @@ arxiv/
 
 ## 当前边界
 
-当前仅执行用户授权的TCL独立验证，旧run及定时探针不恢复，Drive上传保持暂停。真实实验须记录适用授权及review证据，不能把已经完成的三轮重新启动。
+当前TCL按24小时新协议准备独立run，旧run及定时探针不恢复，Drive上传保持暂停。真实实验须记录适用授权、实现review和实时资源证据，不能把旧版验收视为新多卡执行器已通过。
 
 2,336张包含正常图、攻击图和对照图，并不是2,336个独立攻击样本；不同轮次的比例需与同轮基线比较，不能混排。
 

@@ -13,11 +13,12 @@ cd diffusion-backdoor-study
 
 agent依次读取：
 
-1. [AGENTS.md](../AGENTS.md)：当前约束，实验暂停和服务器使用规则。
-2. [project_state.json](../research/project_state.json)：三轮实验状态、结论、下一步边界。
-3. [研究解释](../research/tssa_methods_and_results_explained_2026-10-29.md)：Uniform4、TSSA16等名称、实际尝试与效果。
-4. [服务器索引](SERVER_INDEX.md)：哪台机器、哪个目录、哪些已在本地以及证据日期。
-5. [资产位置清单](retrieval_catalog.jsonl)：本地重要附件可从Git、学校服务器或固定版本公开地址取回；[覆盖审计](audits/retrieval_coverage.json)列出例外。
+1. [AGENTS.md](../AGENTS.md)：全局约束、按需入口和[服务器优先级](../AGENTS.md#服务器选择优先级)；当前授权以对应TASK为准。
+2. [project_state.json](../research/project_state.json)：全局状态及`current_task`指针，不能只按聊天或旧机缓存接续。
+3. 当前[TASK](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)及[24小时多卡协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)：v2本地实现review、真实来源认证与生产输入审阅、固定复用规则、分片和截止报告要求；v1不再补满原预算。
+4. [研究解释](../research/tssa_methods_and_results_explained_2026-10-29.md)：三轮历史方法、术语与效果，不替代新任务状态。
+5. [服务器索引](SERVER_INDEX.md)：哪台机器、哪个目录、哪些已在本地以及证据日期。
+6. [资产位置清单](retrieval_catalog.jsonl)：本地重要附件可从Git、学校服务器或固定版本公开地址取回；[覆盖审计](audits/retrieval_coverage.json)列出例外。
 
 研究结论不依赖当前聊天或AI记忆：第一轮1520图/144更新，第二轮816图/0更新，第三轮0图/0更新；三轮均未得到正常能力达标且攻击成功率优于同轮基线的合格方法。历史失败和invalid审计标签保持不变。
 
@@ -39,7 +40,7 @@ agent依次读取：
 
 ## 第三步：在新电脑配置自己的访问条件
 
-Python 3.10+和OpenSSH用于索引取回工具；工具面向macOS/Linux，本轮在macOS完成离线验收，Linux及Windows原生环境未实际验收。先按[学校连接说明](../server/README.md)在新电脑安全配置本人私钥和经核验的主机记录，Git不保存私钥、密码或验证码。
+Python 3.10+和OpenSSH用于索引取回工具；工具面向macOS/Linux，本轮在macOS完成离线验收，Linux及Windows原生环境未实际验收。先按[学校连接说明](../server/OPERATIONS.md#学校连接)在新电脑安全配置本人私钥和经核验的主机记录，Git不保存私钥、密码或验证码。
 
 [school_ssh_config](../server/school_ssh_config)使用`~/.ssh/zhangzibo_school`及`~/.ssh/known_hosts_school`，不要求新电脑仓库位于`/Users/zzb/arxiv`。跳板与目标主机都必须有已核验的身份记录；下载器不会自动接受未知指纹，也不会修改DNS或反复重试。
 
@@ -70,6 +71,6 @@ python3 scripts/storage/fetch_server_file.py \
 
 旧登录/排队截图、与科研结果无关的页面诊断、凭据和重复大中转包不随Git发布；原件保留旧机，不影响科学结果的解释和定位。仅在旧机生成但未上传的ZIP不作为新电脑下载来源，旧Drive核心包也不替代最新Git。
 
-本次恢复工具的离线测试通过，不代表新机器已获准登录或真实服务器下载已经验收。最小验收是新目录能读到上述五个入口、列出实际服务器路径且默认计划不联网；真正取回后再保存逐文件哈希回执。
+本次恢复工具的离线测试通过，不代表新机器已获准登录或真实服务器下载已经验收。最小验收是新目录能读到上述接续入口、列出实际服务器路径且默认计划不联网；真正取回后再保存逐文件哈希回执，下载成功也不等于GPU任务恢复门禁通过。
 
 [本次换机离线验收](audits/git_handoff_acceptance_20261029.json)：在新的导出目录通过70项存储测试、1016项Git附件哈希核对，以及103/104的默认不联网取回计划检查；真实服务器下载仍需新电脑配置凭据后验收。

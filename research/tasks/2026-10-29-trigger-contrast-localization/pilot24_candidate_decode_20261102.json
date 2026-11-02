@@ -1,0 +1,19 @@
+{
+  "candidate_file": "pilot24_reuse_candidates_20261102.json",
+  "candidate_sha256": "666ef2f5c59ab481e3d6d4457176b7e48d7d45674be1a43000b1e05bcb218e52",
+  "status": "candidate_png_bytes_verified_not_imported",
+  "reports": {
+    "103-snapshot-on-104": {
+      "count": 172,
+      "status": "all_verified_and_decoded",
+      "observed_at_utc": "2026-11-02T03:15:18.446464+00:00"
+    },
+    "127-original": {
+      "count": 191,
+      "status": "all_verified_and_decoded",
+      "observed_at_utc": "2026-11-02T03:15:22.523739+00:00"
+    }
+  },
+  "verified_imported": 0,
+  "limitation": "No proof of 103 writer isolation, current original ledger, complete model/scorer binding or actual import."
+}

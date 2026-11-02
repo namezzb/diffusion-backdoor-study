@@ -1,16 +1,18 @@
-# TCL-20261029-01 验收报告（受阻，非最终验收）
+# TCL-20261029-01 v1历史验收报告（受阻，非最终验收）
 
-**当前结论：定位已完成，源基线在127再次因见证超时停止；最终验收未完成，科研结果尚不可判定。** 本报告是运行状态记录；完整范围和预登记判据见[任务正文](../../../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。
+**v1历史结论：定位已完成，源基线在127再次因见证超时停止；最终验收未完成，科研结果尚不可判定。** 当前任务改按[24小时v2协议](../../../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)准备独立run，最新完成与待完成只见[任务正文](../../../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。
+
+2026-11-02路线调整：v1不再补满16,384次原预算，旧16,390次追加提案未获批准，[旧恢复指导](../../../research/tasks/2026-10-29-trigger-contrast-localization/RECOVERY_HANDOFF_2026-11-02.md)仅作历史参考。以下表格摘要依据11月2日09:34保存观察，分时正文保留各自日期，其中“当前”“恢复”“待批准”均指历史时点，不构成v2启动或追加授权。
 
 | 验收项 | 当前证据 | 状态 |
 |---|---|---|
-| 固定输入与实现审阅 | [冻结清单](../../../research/tasks/2026-10-29-trigger-contrast-localization/manifest_candidate.json)及[M06 审阅](../../../research/tasks/2026-10-29-trigger-contrast-localization/m06_review.json)，52 项本地测试通过 | 已完成 |
-| 服务器预检与许可 | 103 的38项模型资产和320个上下文通过 CPU 预检；[实时资源及启动回执](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json)记录 GPU 2 启动前核验 | 已完成 |
+| 固定输入与实现审阅 | [冻结清单](../../../research/tasks/2026-10-29-trigger-contrast-localization/manifest_candidate.json)及[M06 审阅](../../../research/tasks/2026-10-29-trigger-contrast-localization/m06_review.json)，原冻结核心版52项测试通过 | 原核心完成；恢复修订待review |
+| 服务器预检与许可 | 103 的38项模型资产和320个上下文通过 CPU 预检；[实时资源及启动回执](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_start_20261029.json)记录当时 GPU 2 启动前核验 | 历史阶段完成；恢复须实时复核 |
 | 定位和参数组 | [定位终态](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_localization_terminal_observation_20261029.json)：107,520次前向，六组对照完成，K=6,142,208；文本响应1.67457→1.55853 | 定位完成，图片效果待验证 |
-| 源模型与合并确认 | [故障证据](../../../research/tasks/2026-10-29-trigger-contrast-localization/server103_gpu_failure_20261030.json)：343张完成、1次中断，343张远端哈希与账本一致；2048张源基线未完成 | 源基线受阻，合并待条件 |
+| 源模型与合并确认 | 103历史343完成／1中断，127最新385完成／5中断，暂计728完成与734次尝试；后者本次未逐图重验，完整2048张基线未完成 | 源基线受阻，合并未开始 |
 | 结果复算、图片抽查与审阅 | 尚无最终数据、完整产物哈希及可独立复算的终态 | 待完成 |
 
-预算上限为定位 264,192 次单提示前向、源阶段 8,192 次及合并阶段 8,192 次完整出图尝试、零训练更新；本轮实际消耗以服务器账本和终态验收为准。服务器运行目录为 `/data1/zhangzibo/arxiv-tssa/results/tcl-20261029-01-v1/`，343张完成图已登记取回来源，图片未回传；103原锁状态本次无法核实，尚非终态备份。
+预算上限仍为定位264192次单提示前向、源与合并阶段各8192次完整出图尝试、零训练更新；6个中断若都须重生成，完整覆盖至少需要总计16390次尝试，该追加尚未获批。103历史343图与127早期67图已登记取回来源，最新新增图尚待逐项盘点，103当前锁状态无法核实，尚非终态备份。
 
 ## 故障与恢复边界（以下为分时记录，以末尾最新观察为准）
 

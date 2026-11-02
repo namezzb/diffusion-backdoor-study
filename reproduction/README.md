@@ -12,9 +12,9 @@
 | [攻击实现对照](backdoordm_crossref_report.md) | 5种攻击的实现与原论文差异 |
 | [T2I 专项对照](backdoordm_t2i_cross_reference_report.md) | EvilEdit、Rickrolling、BadT2I 的实现与协议核对 |
 | [防御方法对照](defense_cross_reference_report.md) | 5种防御的代码与论文差异 |
-| [历史循环执行说明](LOOP.md) | 复现主线的执行规则，先确认任务范围与当前环境再使用 |
+| [复现执行流程](LOOP.md) | 具体复现任务获授权后按需使用；不自动恢复历史循环或扩大执行范围 |
 | [结果入口](../results/README.md) | 本地历史结果、服务器结果位置与证据边界 |
-| [实验前准备清单](../research/experiment_preparation.md) | 当前方法所需论文、模型身份、同模型基线与首轮流程 |
+| [历史实验准备清单](../research/experiment_preparation.md) | 原TSSA轮次的模型身份、同模型基线与首轮流程；当前工作从[项目状态](../research/project_state.json)进入 |
 
 ## 已记录完成度
 
@@ -23,7 +23,7 @@
 | 攻击模型 | 15/16 有模型产物 | `villandiffusion_cond` 缺数据 |
 | 适用指标 | 13/16 完整闭环 | 两项 ObjectAdd 缺正式10K FID；不是“全部方法达到论文数值” |
 | 防御 | 5/5 已执行 | 保留 TERD/trojdiff、DAA 等已记录差异，不把低效果自动列为未执行 |
-| 新梯度方法 | 方案已认可，尚未实现或验证 | 按[准备清单](../research/experiment_preparation.md)建立独立运行记录 |
+| 后续方法研究 | 不属于本表历史BackdoorDM复现完成度 | 当前状态与独立run见[项目状态](../research/project_state.json)和[结果索引](../results/README.md) |
 
 依据为[进度记录](backdoordm_progress.md)第6–11、224–262、389–395行；原文较早的“全部需重跑”等语句是历史记录，不覆盖末次严格汇总。该汇总仍需下一次远端只读盘点确认文件存在性，不能当成今日服务器快照。
 

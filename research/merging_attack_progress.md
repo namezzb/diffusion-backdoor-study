@@ -2,7 +2,11 @@
 
 > 目标：研究真实 T2I checkpoint 合并对现有后门的影响，并设计可泛化到未知良性模型与未知合并配置的 merge-aware 鲁棒攻击。
 
-## 当前方案决策（2026-10-23）
+## 当前接续（2026-11-02）
+
+梯度校准及两轮后续探索已经结束，结果见[三轮解释](tssa_methods_and_results_explained_2026-10-29.md)；当前[TCL任务](tasks/2026-10-29-trigger-contrast-localization/TASK.md)按[24小时多卡协议](tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)准备独立v2运行，本地执行链已review通过，实际来源包与生产bundle仍待认证。v1成果按新协议核验复用、不再补满原预算，以下按日期保留的旧方案不作为当前执行指令。
+
+## 历史方案决策（2026-10-23，原文保留）
 
 - 当前唯一提案为 [TSSA 梯度校准版](/Users/zzb/arxiv/research/tssa_response_calibration_method_proposal.md)：固定两个差分组，仅以梯度优化 a、b，β为固定超参数，目标同时包含合并后后门响应与正常保持。
 - 原有限差分与局部约束求解器提案已[原样封存](/Users/zzb/arxiv/reports/archive/2026-10-23-tssa-local-surrogate/README.md)，包含其历史梯度备用节；后续方法设计以新版本为准。
