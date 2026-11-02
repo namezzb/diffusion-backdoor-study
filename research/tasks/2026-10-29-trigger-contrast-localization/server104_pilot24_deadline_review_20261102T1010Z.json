@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261102-pilot24-v2",
+  "reviewer": "review_pilot24",
+  "scope": "Independent read-only review of the two-hour feasibility gate; no restart, GPU work or remote file mutation.",
+  "protocol": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md#5-24小时计时吞吐与调度",
+  "current_observation": {
+    "observed_at_utc": "2026-11-02T10:10:12.684175+00:00",
+    "observed_at_beijing": "2026-11-02T18:10:12.684175+08:00",
+    "server": "school104",
+    "method": "One bounded, read-only SSH command via ./server/start_school.sh 104 with verified jump-host key; read run state, terminals, T0, throughput and SQLite attempts, and inspect account-owned pilot24 process command lines and recorded supervisor/worker identities.",
+    "raw_stdout_persisted": false,
+    "original_t0_utc": "2026-11-02T08:08:50.071881+00:00",
+    "original_t0_sha256": "d8c58e2f670ba85478bcba8083323ddaff9a372f200976e076e46f38440e7449",
+    "two_hour_gate_utc": "2026-11-02T10:08:50.071881+00:00",
+    "two_hour_gate_beijing": "2026-11-02T18:08:50.071881+08:00",
+    "generation_terminal_observations": [
+      {
+        "generation": "initial",
+        "terminal_sha256": "c97629c2ab84d412ca20019831e2fa09129c4fecc034a4f5789e49e4738a3176",
+        "state_sha256": "60bd3580483ebb8cdb95617d8a8a22585ab62b2e622e36bb45c04e9b8904bd40",
+        "reason": "worker_session_blocked",
+        "imported": 363,
+        "charged_new_attempts": 0,
+        "worker_exit_verified": true,
+        "final_ledger_counts_are_final": true,
+        "final_ledger_errors": [],
+        "supervisor_alive": false,
+        "recorded_worker_process_group_alive": false
+      },
+      {
+        "generation": "recovery-v1",
+        "terminal_sha256": "5a1400aff55cfce63df891b57401571c82752f0f8defe2cc5989b0384fac597b",
+        "state_sha256": "41aef46d21c717d473fc1a0ecc9dd9a902d3e5c9c7de05aca2f623ad0bdfc22a",
+        "reason": "worker_session_blocked",
+        "imported": 363,
+        "charged_new_attempts": 0,
+        "worker_exit_verified": true,
+        "final_ledger_counts_are_final": true,
+        "final_ledger_errors": [],
+        "supervisor_alive": false,
+        "recorded_worker_process_group_at_this_observation": "not retained in truncated output; see prior direct observation"
+      }
+    ],
+    "coverage": {
+      "historical_imported_unique": 363,
+      "count_imports_once_across_generations": true,
+      "new_charged_attempts_as_terminal_reports": 0,
+      "unique_images_in_scope": 6144,
+      "new_completions": 0
+    },
+    "recovery_v2_directory_exists": false,
+    "current_account_process_check": {
+      "method": "ps -u current_uid -o pid=,stat=,args= filtered for pilot24_run.py or pilot24_worker_compute.py",
+      "matching_processes": [],
+      "limitation": "Account and command-line scoped; not a complete host process inventory or a live GPU-platform permission check."
+    }
+  },
+  "prior_observations": [
+    {
+      "observed_at_utc": "2026-11-02T08:46:21.921524+00:00",
+      "source": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_recovery_terminal_20261102.json",
+      "details": "Second generation blocked before CUDA by a live GPU process; saved terminal and exit evidence, not current GPU occupancy."
+    },
+    {
+      "details": "Earlier independent 104 read-only checks found both generations supervisor processes and recorded worker process groups absent; exact evidence is the earlier tool output, not a new 18:10 assertion about the second process group.",
+      "observed_window_utc": "2026-11-02T08:46Z (approximate)"
+    },
+    {
+      "observed_at_utc": "2026-11-02T08:44:33.276436+00:00",
+      "source": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-pilot24-v2/recovery-v1/coordinator/throughput.json",
+      "sha256": "560d9bde7aad3a9689e6240311847403c2279e8d5fd5ed6ab2fd25435826fd13",
+      "aggregate_per_hour": 0.0,
+      "finished_new": 0,
+      "sample_count_eligible": false,
+      "capacity_sufficient": false,
+      "estimated_remaining_seconds": null,
+      "limitation": "Saved prior observation, not a fresh throughput measurement at 18:10."
+    }
+  ],
+  "protocol_assessment": {
+    "required_throughput_sample": "At least 64 newly completed registered images, at least 16 per active worker, covering all four input classes.",
+    "evidence_sufficiency": "No new completions, no qualifying throughput sample and no measured resource plan supporting completion by the 22-hour cutoff were evidenced by this check.",
+    "deadline_infeasible": "The original two-hour feasibility gate passed without the required measured resource plan; under section 5 record deadline_infeasible and deliver an early inconclusive report.",
+    "scientific_outcome": "inconclusive; no basis for an efficacy or negative scientific conclusion",
+    "boundary": "This is an independent review receipt, not a new server terminal record or a claim that the GPU platform was freshly inspected."
+  }
+}
