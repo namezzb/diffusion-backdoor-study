@@ -66,3 +66,5 @@
 - [127并行见证v3实时许可](server127_v3_permit_20261030T0521Z.json) · [平台观察](server127_resource_observation_20261030T0520Z.json)：许可通过后模型加载。
 
 - [127并行见证续跑观察](server127_v3_running_20261030T0525Z.json)：67张完成图逐项核对哈希，保留4条127中断记录。
+
+- [11月2日只读回查](server127_witness_timeout_20261102_observation.json)：127超时退出，103当前连接拒绝；恢复需核验互斥与实时许可。

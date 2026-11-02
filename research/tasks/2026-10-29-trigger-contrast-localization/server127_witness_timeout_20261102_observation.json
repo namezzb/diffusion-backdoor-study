@@ -1,0 +1,43 @@
+{
+  "observed_at_beijing": "2026-11-02T09:34:05+08:00",
+  "task_id": "TCL-20261029-01",
+  "run_id": "tcl-20261029-01-v1",
+  "source": "read-only SSH using current DNS and pinned host key",
+  "server127": {
+    "tmux_session": "absent",
+    "python_experiment_process": "absent",
+    "attempts": {
+      "complete": 385,
+      "started_unfinished": 5
+    },
+    "image_files": 385,
+    "individual_image_hashes_rechecked": false,
+    "gates": 0,
+    "last_event_time_utc": "2026-10-30T06:42:15.927206+00:00",
+    "last_event": {
+      "status": "error",
+      "error_type": "TimeoutError",
+      "reason": "fresh source witnesses unavailable within bounded wait",
+      "shard_attempts": 390
+    },
+    "latest_interrupted_key": [
+      "source",
+      "backdoor",
+      "dog",
+      "home-11",
+      271102
+    ]
+  },
+  "server103": {
+    "ssh_result": "target connection refused; current original lock and ledger cannot be inspected",
+    "last_known_completed": 343,
+    "last_known_interrupted": 1
+  },
+  "server104": {
+    "fence_process": "not observed",
+    "lock_user": "not observed"
+  },
+  "platform": "login expired; current GPU entitlement not verified",
+  "local_controller": "stopped stale-address witness controller after confirming 127 experiment had exited",
+  "limitation": "103 values are historical observations; unfinished keys remain charged and may not be replayed without explicit authorization"
+}
