@@ -1,6 +1,8 @@
 """Local, single-writer accounting for a new run (not a distributed lock)."""
 import fcntl
+import base64
 import hashlib
+import html
 import json
 import os
 from pathlib import Path
@@ -19,6 +21,11 @@ def digest(value):
 
 def now():
     return datetime.now(timezone.utc).isoformat()
+
+
+def visible(value):
+    """Keep untrusted values on one Markdown line and out of code fences."""
+    return html.escape(str(value), quote=True).replace('`', '&#96;').replace('\n', '&#10;').replace('\r', '&#13;')
 
 
 def writer_identity(identity):
@@ -93,7 +100,14 @@ class Store:
                 stream.truncate(len(complete)); stream.flush(); os.fsync(stream.fileno())
         by_id = {a['id']: a for a in self.data['attempts']}
         for line in complete.splitlines():
-            entry = json.loads(line)
+            if line.startswith(b'- '):
+                marker = b' <!-- tcl-checkpoint:'
+                if marker not in line or not line.endswith(b' -->'):
+                    raise ValueError('invalid Markdown checkpoint')
+                encoded = line.rsplit(marker, 1)[1][:-4]
+                entry = json.loads(base64.b64decode(encoded, validate=True))
+            else:
+                entry = json.loads(line)
             attempt = by_id[entry['attempt_id']]
             if entry['key'] != attempt['key']: raise ValueError('checkpoint key mismatch')
             resource = entry['resource']
@@ -105,7 +119,21 @@ class Store:
 
     def _commit(self):
         import tempfile
-        payload = '# TCL run ledger\n\nMachine-readable state follows.\n\n```json\n' + json.dumps(self.data, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + '\n```\n'
+        identity = self.data['identity']
+        statuses = self.snapshot()['statuses']
+        t0 = next((e for e in self.data['events'] if e['kind'] == 't0'), None)
+        recent = self.data['events'][-5:]
+        summary = ['# TCL run ledger', '', '## Summary', '',
+                   '- Run ID: ' + visible(identity.get('run_id', '(unspecified)')),
+                   '- Science SHA-256: ' + visible(identity.get('science_sha256', '(unspecified)')),
+                   '- Score schema: ' + visible(self.data['score_schema']),
+                   '- Unit statuses: ' + (', '.join(f'{visible(k)}: {v}' for k, v in sorted(statuses.items())) or 'none'),
+                   '- Attempts: ' + str(len(self.data['attempts'])),
+                   '- Original T0 (UTC): ' + visible(t0['detail'].get('time_utc', t0['time']) if t0 else 'not started'),
+                   '', '## Recent events', '']
+        summary.extend(f"- {visible(e['time'])} — {visible(e['kind'])}" for e in recent)
+        if not recent: summary.append('- None')
+        payload = '\n'.join(summary) + '\n\n## Machine-readable state\n\n```json\n' + json.dumps(self.data, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + '\n```\n'
         fd, tmp = tempfile.mkstemp(prefix='.run.', suffix='.tmp', dir=self.root)
         try:
             with os.fdopen(fd, 'w', encoding='utf-8') as stream:
@@ -164,7 +192,10 @@ class Store:
         row = rows[-1]
         if any(resource.get(name, -1) < value for name, value in row['resource'].items()):
             raise ValueError('resource counters cannot decrease')
-        entry = canonical({'attempt_id': row['id'], 'key': row['key'], 'resource': resource}) + '\n'
+        data = canonical({'attempt_id': row['id'], 'key': row['key'], 'resource': resource})
+        encoded = base64.b64encode(data.encode()).decode('ascii')
+        entry = (f"- {now()} | attempt {row['id']} (#{row['number']}) | key: `{visible(row['key'])}`"
+                 f" | counters: `{visible(canonical(resource))}` <!-- tcl-checkpoint:{encoded} -->\n")
         log = self.root / 'run.checkpoints.md'
         is_new = not log.exists()
         fd = os.open(log, os.O_WRONLY | os.O_CREAT | os.O_APPEND | getattr(os, 'O_NOFOLLOW', 0), 0o600)

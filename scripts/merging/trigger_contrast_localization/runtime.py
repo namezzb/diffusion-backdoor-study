@@ -103,6 +103,16 @@ def process_identity():
     return {**host, 'pid': os.getpid(), 'boot_id': boot, 'start_ticks': ticks}
 
 
+def read_resource_json(path):
+    text = path.read_text()
+    if path.suffix == '.md':
+        blocks = re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$', text, re.M | re.S)
+        if len(blocks) != 1:
+            raise ValueError('invalid resource Markdown')
+        text = blocks[0]
+    return json.loads(text)
+
+
 def resource(spec, science_hash, before_gpu_probe=None):
     """Require fresh captured platform evidence AND a fresh local GPU inventory."""
     from pilot24_provenance import _gpu, _host_identity, _live_gpu_xml
@@ -111,7 +121,7 @@ def resource(spec, science_hash, before_gpu_probe=None):
         path = Path(evidence_ref)
         if not path.is_absolute() or not path.is_file() or any(p.is_symlink() for p in (path, *path.parents)):
             raise ValueError('resource evidence must be an ordinary absolute file')
-        evidence = json.loads(path.read_bytes())
+        evidence = read_resource_json(path)
     else:
         evidence = json.loads(read_ref(evidence_ref))
     uuid = spec['execution']['gpu_uuid']
@@ -185,7 +195,7 @@ class ResourceGuard:
                 if require_fresh:
                     raise ResourcePaused('platform observer status is missing or unsafe')
                 return
-            value = json.loads(path.read_text())
+            value = read_resource_json(path)
             observed = datetime.fromisoformat(value['observed_at_utc'].replace('Z', '+00:00'))
             age = (datetime.now(timezone.utc) - observed).total_seconds()
             valid = (0 <= age <= (180 if require_fresh else 300) and value.get('run_id') == self.spec['run_id']

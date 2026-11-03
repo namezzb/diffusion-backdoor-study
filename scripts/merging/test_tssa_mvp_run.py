@@ -1,5 +1,6 @@
 """CPU-only orchestration tests. All fake artifacts stay in TemporaryDirectory."""
 from __future__ import annotations
+from tssa_markdown import read_record, encode_record
 
 import contextlib
 import io
@@ -197,7 +198,7 @@ class RunnerTests(unittest.TestCase):
             self.quiet_execute(self.runner(backend))
         self.assertEqual(backend.sample_calls, 48)
         self.assertEqual(backend.train_calls, 0)
-        self.assertFalse((self.path / "candidate_selection.json").exists())
+        self.assertFalse((self.path / "candidate_selection.md").exists())
 
     def test_signal_failure_stops_before_screen(self):
         backend = FakeBackend(bad_signal=True)
@@ -206,13 +207,14 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(backend.sample_calls, 48)
         self.assertEqual(backend.train_calls, 0)
 
-    def test_identity_and_committed_artifact_tampering_rejected(self):
+    def test_identity_rejected_without_rescanning_completed_artifact(self):
         runner = self.runner()
         runner.op("example", lambda: {"hello": "world"})
         artifact = self.store._paths("example", False)[1]
-        artifact.write_text("{}")
-        with self.assertRaises(IntegrityError):
-            runner.op("example", lambda: {"hello": "world"})
+        envelope = read_record(artifact)
+        envelope['payload'] = {'hello': 'updated'}
+        artifact.write_bytes(encode_record(envelope))
+        self.assertEqual(runner.op("example", lambda: self.fail('completed operation repeated')), {'hello': 'updated'})
         self.store.close()
         with self.assertRaises(IntegrityError):
             RunStore(self.path, {**self.identity, "changed": True}, resume=True)
@@ -269,27 +271,26 @@ class RunnerTests(unittest.TestCase):
         backend = FakeBackend()
         self.quiet_execute(self.runner(backend), "cpu-preflight")
         self.assertEqual((backend.cpu_calls, backend.diag_calls, backend.sample_calls), (1, 0, 0))
-        status = json.loads((self.path / "failure_or_completion_status.json").read_text())
+        status = read_record(self.path / "failure_or_completion_status.md")
         self.assertFalse(status["real_SD_CUDA_preflight_passed"])
         self.assertEqual(status["actual_GPU_workers"], 0)
 
-    def test_changed_png_rejected_after_scoring(self):
+    def test_completed_png_is_not_rescanned_or_regenerated(self):
         runner = self.runner()
         task = task_from_key(PROTOCOL, "source", sorted(runner.evaluator.expected_keys("source"))[0])
         record = runner.image(task)
         path = self.path / record["image_path"]
         original = path.read_bytes()
         path.write_bytes(original + b"tampering")
-        with self.assertRaises(IntegrityError):
-            runner.image(task)
+        self.assertEqual(runner.image(task), record)
 
     def test_selection_hash_and_export_integrity_before_unlock(self):
         backend = FakeBackend()
         runner = self.runner(backend)
         self.quiet_execute(runner, "select")
-        selection = json.loads((self.path / "candidate_selection.json").read_text())
+        selection = read_record(self.path / "candidate_selection.md")
         selection["selected_checkpoint_candidates"]["RC-TSSA-GD"] = "naive"
-        (self.path / "candidate_selection.json").write_text(json.dumps(selection))
+        (self.path / "candidate_selection.md").write_bytes(encode_record(selection))
         with self.assertRaises(Exception):
             runner.freeze_selection(selection)
         self.assertEqual(backend.unlocks, [])

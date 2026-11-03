@@ -17,6 +17,7 @@ import unittest
 
 from test_tssa_image_search_run import FakeBackend, fixture
 from tssa_image_search_run import Runner, Store, digest
+from tssa_markdown import read_record
 
 ROOT = Path(__file__).resolve().parents[2]
 RUNTIME = ROOT / 'scripts/merging/tssa_sd_runtime.py'
@@ -68,7 +69,7 @@ class ResourceSnapshotRegression(unittest.TestCase):
                 self.assertEqual(result['stage'], 'dev'); self.assertEqual(len(store.receipts), 36)
                 disk_records = {}
                 for tid, in_memory in store.receipts.items():
-                    saved = json.loads((root / 'operations' / (tid + '.json')).read_text())
+                    saved = read_record(root / 'operations' / (tid + '.md'))
                     self.assertEqual(digest(saved['record']), saved['record_sha256'])
                     self.assertEqual(digest(in_memory['record']), saved['record_sha256'], 'Historical record digest drift')
                     disk_records[tid] = saved['record']

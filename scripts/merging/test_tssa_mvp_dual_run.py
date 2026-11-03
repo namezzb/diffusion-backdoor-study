@@ -1,5 +1,6 @@
 """Real spawn/IPC, fake CPU model outputs; temporary fixtures are never evidence."""
 from __future__ import annotations
+from tssa_markdown import read_record, encode_record
 
 import contextlib
 import copy
@@ -238,14 +239,14 @@ class DualRunnerTests(unittest.TestCase):
         self.assertEqual(report["actual_GPU_workers"], 2)
         self.assertEqual(len({c.process.pid for c in self.backend.clients}), 2)
         self.assertTrue(all(not c.process.is_alive() for c in self.backend.clients))
-        ledger = json.loads((self.path / "resource_ledger.json").read_text())
+        ledger = read_record(self.path / "resource_ledger.md")
         buckets = ledger["committed_work_by_bucket"]
         self.assertEqual(buckets["main"]["known_actual_branch_NFE"], 91848)
         self.assertEqual(buckets["source_extra"]["known_actual_branch_NFE"], 2400)
         self.assertEqual(buckets["diagnostic_extra"]["known_actual_branch_NFE"], 0)
         self.assertEqual([ledger["per_worker"][u]["known_optimizer_updates"] for u in UUIDS], [72, 72])
         self.assertEqual(sum(x["known_branch_NFE"] for x in ledger["per_worker"].values()), 94248)
-        records = [json.loads(x) for x in (self.path / "heldout_per_image_metrics.jsonl").read_text().splitlines()]
+        records = read_record(self.path / "heldout_per_image_metrics.md")
         self.assertEqual(len(records), 960)
         self.assertEqual(len({r["task_id"] for r in records}), 960)
         self.assertEqual({r["worker_uuid"] for r in records}, set(UUIDS))
@@ -270,7 +271,7 @@ class DualRunnerTests(unittest.TestCase):
         with self.assertRaises(InterruptedOperation):
             self.execute(self.runner(resume=True), "train")
         self.execute(self.runner(resume=True, recover=True), "train")
-        steps = [json.loads(x) for x in (self.path / "per_step_coefficients_and_losses.jsonl").read_text().splitlines()]
+        steps = read_record(self.path / "per_step_coefficients_and_losses.md")
         self.assertEqual(len(steps), 144)
         self.assertEqual(len({(x["family"], x["step"]) for x in steps}), 144)
         ledger = self.store.resource_ledger()
@@ -284,18 +285,18 @@ class DualRunnerTests(unittest.TestCase):
         self.assertTrue(all(c.process is None or not c.process.is_alive() for c in self.backend.clients))
         failed = [r for r in self.store.resource_ledger()["operations"] if r["status"] == "failed"]
         self.assertTrue(failed)
-        self.assertFalse((self.path / "candidate_selection.json").exists())
+        self.assertFalse((self.path / "candidate_selection.md").exists())
 
     def test_selection_tampering_is_rejected_before_heldout(self):
         runner = self.runner()
         self.execute(runner, "select")
-        chosen = json.loads((self.path / "candidate_selection.json").read_text())
+        chosen = read_record(self.path / "candidate_selection.md")
         chosen["selected_checkpoint_candidates"]["RC-TSSA-GD"] = "naive"
-        (self.path / "candidate_selection.json").write_text(json.dumps(chosen))
+        (self.path / "candidate_selection.md").write_bytes(encode_record(chosen))
         with self.assertRaises(Exception):
             runner.freeze_selection(chosen)
         self.assertIsNone(self.backend.heldout_binding)
-        self.assertFalse((self.path / "heldout_per_image_metrics.jsonl").exists())
+        self.assertFalse((self.path / "heldout_per_image_metrics.md").exists())
 
 
 if __name__ == "__main__":

@@ -137,7 +137,7 @@ class ControllerTests(unittest.TestCase):
                 c.watch(self.config, self.state, once=True)
                 self.assertTrue(entered.is_set())
                 self.assertIn('renew', [a for a, _ in self.calls])
-                self.assertEqual(c.read_private(self.state / 'manifest.json')['verification'], 'pending')
+                self.assertEqual(c.read_private(self.state / 'manifest.md')['verification'], 'pending')
         finally:
             release.set()
 
@@ -152,7 +152,7 @@ class ControllerTests(unittest.TestCase):
                 mock.patch.object(c, 'fresh_snapshot', return_value=self.snapshot):
             with self.assertRaisesRegex(c.NotReady, 'bad image'): c.watch(self.config, self.state, once=True)
         self.assertEqual(self.calls[-1][0], 'stop')
-        manifest = c.read_private(self.state / 'manifest.json')
+        manifest = c.read_private(self.state / 'manifest.md')
         self.assertEqual(manifest['verification'], 'failed')
         self.assertIn('bad image', manifest['verification_error'])
 
@@ -163,7 +163,7 @@ class ControllerTests(unittest.TestCase):
         with mock.patch.object(c, 'remote', side_effect=remote), mock.patch.object(c, 'fresh_snapshot', return_value=self.snapshot):
             with self.assertRaises(c.NotReady): c.watch(self.config, self.state, once=True)
         self.assertEqual(self.calls[-1][0], 'stop')
-        manifest = c.read_private(self.state / 'manifest.json')
+        manifest = c.read_private(self.state / 'manifest.md')
         self.assertEqual(manifest['status'], 'stopped_or_lease_expiring')
 
     def test_stop_during_inspect_waits_and_prevents_late_start(self):
@@ -204,7 +204,7 @@ class ControllerTests(unittest.TestCase):
         with mock.patch.object(c, 'remote', side_effect=[{'status': 'ready_for_report'}, self.report]), \
                 mock.patch.object(c, 'watch', side_effect=take_over):
             self.assertEqual(c.await_completion(config, self.state)['status'], 'simulated_handoff')
-        self.assertTrue((self.state / 'completion-report.json').is_file())
+        self.assertTrue((self.state / 'completion-report.md').is_file())
 
     def test_raw_missing_maintenance_is_not_normalized_to_permission(self):
         import labgpu
@@ -273,15 +273,15 @@ class ControllerTests(unittest.TestCase):
     def test_resume_requires_verified_worker_exit_and_never_clears_stop(self):
         c.private_dir(self.state)
         manifest = {'authority_sha256': c.authority_hash(self.config), 'controller_id': 'old', 'machine': self.machine}
-        c.write_private(self.state / 'manifest.json', manifest)
+        c.write_private(self.state / 'manifest.md', manifest)
         with mock.patch.object(c, 'remote', return_value={'workers': [{'alive': True}]}), \
                 mock.patch.object(c, 'watch') as watch, self.assertRaises(c.NotReady):
             c.resume(self.config, self.state)
         watch.assert_not_called()
-        self.assertTrue((self.state / 'manifest.json').exists())
+        self.assertTrue((self.state / 'manifest.md').exists())
         def take_over(config, state, _lock_fd):
-            self.assertFalse((state / 'manifest.json').exists())
-            self.assertEqual(len(list((state / 'history').glob('manifest-*.json'))), 1)
+            self.assertTrue(c.read_private(state / 'manifest.md')['retired'])
+            self.assertEqual(len(list((state / 'history').glob('manifest-*.md'))), 1)
             os.close(_lock_fd)
             return {'status': 'simulated_resume'}
         with mock.patch.object(c, 'remote', return_value={'workers': [{'alive': False}]}), \
@@ -397,6 +397,16 @@ class RemoteGateTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(len(json.loads(result.stdout)['errors']), 1)
         self.assertTrue(c.read_private(state / (U2 + '.lease.json'))['stop_required'])
+
+
+class MarkdownOutputTests(unittest.TestCase):
+    def test_await_cli_error_is_quoted_in_real_process(self):
+        env = dict(os.environ, GPU_HOLD_MARKDOWN_OUTPUT='1')
+        proc = subprocess.run([sys.executable, str(Path(c.__file__)), 'await'],
+                              env=env, capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn('> ', proc.stdout)
+        self.assertTrue(all(line.startswith('> ') for line in (proc.stdout + proc.stderr).splitlines()))
 
 
 if __name__ == '__main__': unittest.main()

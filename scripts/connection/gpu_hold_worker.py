@@ -41,7 +41,12 @@ def safe_read_json(path):
             info = os.fstat(stream.fileno())
             if not stat.S_ISREG(info.st_mode) or info.st_uid != os.geteuid() or info.st_mode & 0o077 or info.st_size > 32768:
                 raise StopWork('unsafe lease ownership, mode, type or size')
-            value = json.load(stream)
+            text = stream.read()
+            if path.suffix == '.md':
+                blocks = re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$', text, re.M | re.S)
+                if len(blocks) != 1: raise ValueError('invalid Markdown state')
+                text = blocks[0]
+            value = json.loads(text)
     except (OSError, ValueError, UnicodeError) as exc:
         raise StopWork('lease missing or unreadable') from exc
     if not isinstance(value, dict):
@@ -193,7 +198,7 @@ def run(args, *, device_factory=TorchDevice, clock=time, sample=measure):
         raise StopWork('a hold worker already owns this GPU on this host') from exc
     log_fd = None
     try:
-        log_fd = os.open(state / (args.uuid + '.jsonl'), os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
+        log_fd = os.open(state / (args.uuid + '.md'), os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
         info = os.fstat(log_fd)
         if not stat.S_ISREG(info.st_mode) or info.st_uid != os.geteuid() or info.st_mode & 0o077:
             raise StopWork('unsafe worker log')
@@ -207,19 +212,20 @@ def run(args, *, device_factory=TorchDevice, clock=time, sample=measure):
     def record(event, **fields):
         line = json.dumps({'time': clock.time(), 'event': event, **fields}, ensure_ascii=False, allow_nan=False)
         print(line, flush=True)
-        log.write(line + '\n')
+        log.write('## ' + event + '\n\n' + ''.join('- **%s**: `%s`\n' % (k, json.dumps(v, ensure_ascii=False).replace('`', '\\u0060')) for k, v in {'time': clock.time(), 'event': event, **fields}.items()) + '\n<!-- json: ' + line + ' -->\n\n')
         log.flush()
     def save_pid(status):
-        path = state / (args.uuid + '.pid.json')
-        if path.exists() or path.is_symlink():
-            previous_pid = safe_read_json(path)
+        path = state / (args.uuid + '.pid.md')
+        source = path if path.exists() or path.is_symlink() else state / (args.uuid + '.pid.json')
+        if source.exists() or source.is_symlink():
+            previous_pid = safe_read_json(source)
             if status == 'starting' and previous_pid.get('lease_id') == args.lease_id:
                 raise StopWork('a used lease cannot restart a worker; obtain a new lease identity')
         fd, name = tempfile.mkstemp(prefix='.pid-', dir=state)
         try:
             with os.fdopen(fd, 'w') as stream:
-                json.dump({**identity, 'gpu_uuid': args.uuid, 'worker_id': args.worker_id,
-                           'lease_id': args.lease_id, 'status': status}, stream)
+                value = {**identity, 'gpu_uuid': args.uuid, 'worker_id': args.worker_id, 'lease_id': args.lease_id, 'status': status}
+                stream.write('# Worker identity\n\n' + ''.join('- **%s**: `%s`\n' % (k, json.dumps(v)) for k, v in value.items()) + '\n```json\n' + json.dumps(value) + '\n```\n')
                 stream.flush()
                 os.fsync(stream.fileno())
             os.replace(name, path)
@@ -336,5 +342,33 @@ def main(argv=None):
         return 1
 
 
+class MarkdownOutput:
+    """Quote every output line, including partial writes and tracebacks."""
+    def __init__(self, stream):
+        self.stream = stream
+        self.line_start = True
+
+    def write(self, text):
+        for part in text.splitlines(keepends=True):
+            if self.line_start:
+                self.stream.write('> ')
+            self.stream.write(part)
+            self.line_start = part.endswith(('\n', '\r'))
+        return len(text)
+
+    def flush(self):
+        self.stream.flush()
+
+    def __getattr__(self, name):
+        return getattr(self.stream, name)
+
+
+def enable_markdown_output():
+    if os.environ.get('GPU_HOLD_MARKDOWN_OUTPUT') == '1':
+        sys.stdout = MarkdownOutput(sys.stdout)
+        sys.stderr = MarkdownOutput(sys.stderr)
+
+
 if __name__ == '__main__':
+    enable_markdown_output()
     sys.exit(main())

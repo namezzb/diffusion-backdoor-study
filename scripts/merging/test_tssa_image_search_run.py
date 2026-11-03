@@ -233,13 +233,15 @@ class ImageSearchTests(unittest.TestCase):
         with self.assertRaises(InflightOperation):
             self.open(resume=True)
 
-    def test_image_corruption_detected_before_any_resume_model_load(self):
+    def test_completed_image_is_not_rescanned_or_regenerated_on_resume(self):
         self.open()
         self.execute(FakeBackend(self.store), "search")
         png = next(self.root.glob("images/**/*.png"))
         png.write_bytes(b"corrupt")
-        with self.assertRaisesRegex(IntegrityError, "PNG"):
-            self.open(resume=True)
+        self.open(resume=True)
+        backend = FakeBackend(self.store)
+        self.execute(backend, 'search')
+        self.assertEqual(len(backend.samples), 0)
 
     def test_identity_or_lock_conflict_rejected(self):
         self.open()

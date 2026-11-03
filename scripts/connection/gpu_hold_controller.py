@@ -60,12 +60,30 @@ def private_dir(path):
     return path
 
 
+def state_path(path):
+    path = Path(path)
+    legacy = path.with_suffix('.json')
+    return path if path.exists() or path.is_symlink() else legacy
+
+
+def markdown(value):
+    fields = '\n'.join('- **%s**: `%s`' % (k, canonical(v).replace('`', '\\u0060')) for k, v in value.items()) if isinstance(value, dict) else ''
+    return '# GPU hold state\n\n' + fields + '\n\n```json\n' + canonical(value) + '\n```\n'
+
+
+def parse_state(text, path):
+    if Path(path).suffix != '.md': return json.loads(text)
+    blocks = re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$', text, re.M | re.S)
+    if len(blocks) != 1: raise ValueError('invalid Markdown state')
+    return json.loads(blocks[0])
+
+
 def read_private(path):
     path = Path(path)
     if (not path.is_absolute() or any(p.is_symlink() for p in (path, *path.parents))
             or not path.is_file() or path.stat().st_uid != os.getuid() or path.stat().st_mode & 0o077):
         raise NotReady('unsafe private file')
-    return json.loads(path.read_text())
+    return parse_state(path.read_text(), path)
 
 
 def write_private(path, value):
@@ -76,16 +94,17 @@ def write_private(path, value):
     fd, temp = tempfile.mkstemp(prefix='.hold-', dir=path.parent)
     try:
         with os.fdopen(fd, 'w') as stream:
-            stream.write(canonical(value)); stream.flush(); os.fsync(stream.fileno())
+            stream.write(markdown(value) if path.suffix == '.md' else canonical(value)); stream.flush(); os.fsync(stream.fileno())
         os.replace(temp, path)
     finally:
         if os.path.exists(temp): os.unlink(temp)
 
 
 def audit(state, event, **fields):
-    fd = os.open(state / 'events.jsonl', os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
+    fd = os.open(state / 'events.md', os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
     with os.fdopen(fd, 'a') as stream:
-        stream.write(canonical({'time': time.time(), 'event': event, **fields}) + '\n')
+        value = {'time': time.time(), 'event': event, **fields}
+        stream.write('## ' + event + '\n\n' + markdown(value) + '\n')
         stream.flush(); os.fsync(stream.fileno())
 
 
@@ -116,7 +135,7 @@ def validate_config(config, *, require_report=True):
     path = Path(report.get('path', ''))
     if not path.is_absolute() or not path.is_file() or any(p.is_symlink() for p in (path, *path.parents)):
         raise NotReady('a real completed-experiment report is required')
-    completed = json.loads(path.read_text())
+    completed = parse_state(path.read_text(), path)
     if (completed.get('run_id') != RUN or completed.get('science_sha256') != source['science_sha256']
             or completed.get('status') != 'terminal' or completed.get('completed_images') != 1024
             or completed.get('stages_completed') != ['S0', 'S1', 'M0', 'M1']):
@@ -220,7 +239,7 @@ def platform(snapshot, config, active=(), now=None):
 # Runs only through verified SSH. All scientific reads are mode=ro; writes stay
 # inside the separate gpu-holds tree. The worker independently validates leases.
 REMOTE = r'''
-import base64,contextlib,fcntl,hashlib,json,math,os,pathlib,signal,socket,sqlite3,struct,subprocess,sys,tempfile,time
+import base64,contextlib,fcntl,hashlib,json,math,os,pathlib,re,signal,socket,sqlite3,struct,subprocess,sys,tempfile,time
 p=json.load(sys.stdin); server=p['server']; roots={'104':'/data2/zhangzibo/arxiv-tssa','103':'/data1/zhangzibo/arxiv-tssa'}
 root=pathlib.Path(roots[server]); run='tcl-20261103-semantic-v1'
 if socket.gethostname()!='iipl-'+server: raise ValueError('target host mismatch')
@@ -228,11 +247,20 @@ def safe(path):
  if any(x.is_symlink() for x in (path,*path.parents)):raise ValueError('symlink path')
  if path.exists() and path.stat().st_uid!=os.geteuid():raise ValueError('path owner mismatch')
 def read(path):
- safe(path);return json.loads(path.read_text())
+ safe(path);text=path.read_text()
+ if path.suffix=='.md':
+  blocks=re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$',text,re.M|re.S)
+  if len(blocks)!=1:raise ValueError('invalid Markdown state')
+  text=blocks[0]
+ return json.loads(text)
 def write(path,value):
  safe(path);fd,tmp=tempfile.mkstemp(prefix='.hold-',dir=path.parent)
  try:
-  with os.fdopen(fd,'w') as f:json.dump(value,f);f.flush();os.fsync(f.fileno())
+  with os.fdopen(fd,'w') as f:
+   raw=json.dumps(value,ensure_ascii=False)
+   if path.suffix=='.md':f.write('# GPU hold state\n\n'+''.join('- **%s**: `%s`\n'%(k,json.dumps(v,ensure_ascii=False).replace('`','\\u0060')) for k,v in value.items())+'\n```json\n'+raw+'\n```\n')
+   else:f.write(raw)
+   f.flush();os.fsync(f.fileno())
   os.replace(tmp,path)
  finally:
   if os.path.exists(tmp):os.unlink(tmp)
@@ -337,7 +365,7 @@ base=root/'gpu-holds';safe(base);base.mkdir(mode=0o700,exist_ok=True)
 if base.stat().st_mode&0o077:raise ValueError('unsafe hold directory mode')
 fd=os.open(base/'controller.lock',os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600);fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
 state=base/p['hold_id'];safe(state);state.mkdir(mode=0o700,exist_ok=True)
-owner_path=base/'owner.json';owner=read(owner_path) if owner_path.exists() else None
+owner_path=base/'owner.md';owner_source=owner_path if owner_path.exists() or owner_path.is_symlink() else base/'owner.json';owner=read(owner_source) if owner_source.exists() else None
 if owner and owner.get('controller_id')!=p['controller_id']:
  if any(same(r) for r in owner.get('workers',[])) or time.time()-owner.get('updated_at',time.time())<60:raise ValueError('different hold controller owns node')
  owner=None
@@ -347,7 +375,7 @@ def revoke():
  errors=[]
  for r in owner['workers']:
   try:
-   path=state/(r['gpu_uuid']+'.lease.json')
+   path=pathlib.Path(r.get('lease_path',str(state/(r['gpu_uuid']+'.lease.json'))))
    lease=read(path);lease['stop_required']=True;write(path,lease)
   except Exception as exc:errors.append({'gpu_uuid':r.get('gpu_uuid'),'lease_error':str(exc)})
   try:
@@ -366,12 +394,12 @@ if p['action']=='stop':
 if p['action']=='status':
  records=[]
  for r in owner['workers']:
-  sample=None;log=state/(r['gpu_uuid']+'.jsonl');safe(log)
+  sample=None;log=state/(r['gpu_uuid']+'.md');log=log if log.exists() or log.is_symlink() else state/(r['gpu_uuid']+'.jsonl');safe(log)
   if log.is_file():
    with log.open('rb') as f:f.seek(max(0,log.stat().st_size-65536));lines=f.read().splitlines()
    for line in reversed(lines):
     try:
-     event=json.loads(line)
+     event=json.loads(line.decode().removeprefix('<!-- json: ').removesuffix(' -->'))
      if event.get('event')=='sample':sample=event;break
     except ValueError:pass
   records.append({**r,'alive':same(r),'last_sample':sample})
@@ -400,11 +428,16 @@ if p['action'] in ('start','add'):
  owner['updated_at']=time.time();write(owner_path,owner)
  for lease in cards:
   if not lease['observed_at']<=time.time()<lease['expires_at']:raise ValueError('startup lease expired')
-  path=state/(lease['gpu_uuid']+'.lease.json');write(path,lease)
+  # A pre-existing deployed legacy worker can only parse JSON leases.
+  lease_suffix='.lease.md' if ".pid.md" in code.read_text() else '.lease.json'
+  path=pathlib.Path(next((r['lease_path'] for r in owner['workers'] if r['gpu_uuid']==lease['gpu_uuid']),str(state/(lease['gpu_uuid']+lease_suffix))));write(path,lease)
   if lease['gpu_uuid'] in existing:continue
-  log=open(state/(lease['gpu_uuid']+'.launch.log'),'a');os.chmod(log.name,0o600)
+  markdown_capable='enable_markdown_output' in code.read_text()
+  log=open(state/(lease['gpu_uuid']+('.launch.md' if markdown_capable else '.launch.log')),'a');os.chmod(log.name,0o600)
   cmd=[str(python),str(code),'--uuid',lease['gpu_uuid'],'--worker-id',lease['worker_id'],'--lease-id',lease['lease_id'],'--controller-id',p['controller_id'],'--science-sha256',p['science_sha256'],'--state-dir',str(state),'--lease-file',str(path),'--until-stopped','--memory-fraction',str(p['memory_fraction']),'--compute-duty','0.8','--target-utilization-percent',str(p['compute_target_percent']),'--sample-seconds','5']
-  child=subprocess.Popen(cmd,stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True)
+  env=dict(os.environ)
+  if markdown_capable:env['GPU_HOLD_MARKDOWN_OUTPUT']='1'
+  child=subprocess.Popen(cmd,stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True,env=env)
   owner['workers'].append({'gpu_uuid':lease['gpu_uuid'],'worker_id':lease['worker_id'],'lease_id':lease['lease_id'],'controller_id':p['controller_id'],'worker_path':str(code),'lease_path':str(path),'process':ident(child.pid)})
   owner['updated_at']=time.time();write(owner_path,owner)
 elif p['action']=='renew':
@@ -488,8 +521,10 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
         fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BaseException:
         os.close(fd); raise
-    manifest_path = state / 'manifest.json'
-    manifest = read_private(manifest_path) if manifest_path.exists() else None
+    manifest_path = state / 'manifest.md'
+    manifest_source = state_path(manifest_path)
+    manifest = read_private(manifest_source) if manifest_source.exists() else None
+    if manifest and manifest.get('retired') is True: manifest = None
     verification = queue.Queue(maxsize=1)
     def verify_later():
         try: verification.put((True, remote(config, 'report')))
@@ -539,10 +574,10 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
                     write_private(manifest_path, manifest)
                     audit(state, 'verification_failed', reason=str(report))
                     raise NotReady('post-handoff verification failed: ' + str(report))
-                write_private(state / 'verification-report.json', report)
+                write_private(state / 'verification-report.md', report)
                 manifest['verification'] = 'verified'
                 write_private(manifest_path, manifest)
-                audit(state, 'verification_completed', report_sha256=hashlib.sha256((state / 'verification-report.json').read_bytes()).hexdigest())
+                audit(state, 'verification_completed', report_sha256=hashlib.sha256((state / 'verification-report.md').read_bytes()).hexdigest())
             if (state / 'STOP').exists():
                 raise NotReady('user stop requested')
             snapshot = refresh_with_retry(state, manifest)
@@ -601,18 +636,18 @@ def await_completion(config, state=STATE):
         while True:
             stopped(state)
             value = remote(config, 'poll')
-            write_private(state / 'wait-status.json', {'observed_at': time.time(), **value})
+            write_private(state / 'wait-status.md', {'observed_at': time.time(), **value})
             if value['status'] == 'partial_terminal':
                 raise NotReady('partial, time-limited or incomplete scientific terminal: holding is not activated; user notification required')
             if value['status'] == 'ready_for_report':
                 report = remote(config, 'handoff')
                 stopped(state)
                 if report.get('status') == 'terminal':
-                    path = state / 'completion-report.json'
+                    path = state / 'completion-report.md'
                     write_private(path, report)
                     activated = {**config, 'completion_report': {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}}
                     validate_config(activated)
-                    write_private(state / 'activated-config.json', activated)
+                    write_private(state / 'activated-config.md', activated)
                     audit(state, 'handoff_ready_verification_pending', report_sha256=activated['completion_report']['sha256'])
                     passed_to_watch = True
                     return watch(activated, state, _lock_fd=fd)
@@ -624,7 +659,7 @@ def await_completion(config, state=STATE):
                 stopped(state); time.sleep(1)
     except BaseException as exc:
         audit(state, 'waiter_exited', reason=str(exc))
-        write_private(state / 'wait-status.json', {'status': 'not_holding', 'observed_at': time.time(), 'reason': str(exc)})
+        write_private(state / 'wait-status.md', {'status': 'not_holding', 'observed_at': time.time(), 'reason': str(exc)})
         raise
     finally:
         if not passed_to_watch: os.close(fd)
@@ -633,7 +668,8 @@ def await_completion(config, state=STATE):
 def resume(config, state=STATE):
     """Explicit recovery after a resource/network pause, never after user STOP."""
     state = private_dir(state); stopped(state)
-    activated = read_private(state / 'activated-config.json') if (state / 'activated-config.json').exists() else config
+    activated_path = state_path(state / 'activated-config.md')
+    activated = read_private(activated_path) if activated_path.exists() else config
     if authority_hash(activated) != authority_hash(config):
         raise NotReady('resume authorization differs from original task')
     validate_config(activated)
@@ -642,7 +678,7 @@ def resume(config, state=STATE):
     try:
         fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
         stopped(state)
-        manifest = read_private(state / 'manifest.json')
+        manifest = read_private(state_path(state / 'manifest.md'))
         if manifest['authority_sha256'] != authority_hash(config):
             raise NotReady('resume identity mismatch')
         previous = remote(config, 'status', controller_id=manifest['controller_id'], machine=manifest['machine'])
@@ -650,7 +686,13 @@ def resume(config, state=STATE):
             raise NotReady('old hold worker still alive; no duplicate or forced takeover')
         audit(state, 'explicit_resume_after_verified_exit', previous=previous, manifest=manifest)
         history = private_dir(state / 'history')
-        os.replace(state / 'manifest.json', history / ('manifest-' + str(time.time_ns()) + '.json'))
+        source = state_path(state / 'manifest.md')
+        if source.suffix == '.json':
+            write_private(state / 'manifest.md', manifest)
+            source = state / 'manifest.md'
+        os.replace(source, history / ('manifest-' + str(time.time_ns()) + '.md'))
+        # Keep legacy history, but prevent fallback from reviving it.
+        write_private(state / 'manifest.md', {'retired': True})
         handed = True
         return watch(activated, state, _lock_fd=fd)
     finally:
@@ -692,7 +734,7 @@ def stop(config, state=STATE):
                 if time.monotonic() >= deadline:
                     return {'status': 'stop_pending', 'reason': 'controller still unwinding; STOP persists, short leases must expire'}
                 time.sleep(.05)
-        path = state / 'manifest.json'
+        path = state_path(state / 'manifest.md')
         if not path.exists():
             return {'status': 'stopped_before_start'}
         manifest = read_private(path)
@@ -743,7 +785,7 @@ def main(argv=None):
         elif args.command == 'stop':
             result = stop(config, args.state_dir)
         elif args.command == 'status':
-            path = args.state_dir / 'manifest.json'
+            path = state_path(args.state_dir / 'manifest.md')
             result = read_private(path) if path.exists() else {'status': 'not_started'}
             if path.exists():
                 result['last_reported_status'] = result['status']
@@ -757,5 +799,33 @@ def main(argv=None):
         print(canonical({'status': 'not_running_or_lease_expiring', 'reason': str(exc)})); return 1
 
 
+class MarkdownOutput:
+    """Quote every output line, including partial writes and tracebacks."""
+    def __init__(self, stream):
+        self.stream = stream
+        self.line_start = True
+
+    def write(self, text):
+        for part in text.splitlines(keepends=True):
+            if self.line_start:
+                self.stream.write('> ')
+            self.stream.write(part)
+            self.line_start = part.endswith(('\n', '\r'))
+        return len(text)
+
+    def flush(self):
+        self.stream.flush()
+
+    def __getattr__(self, name):
+        return getattr(self.stream, name)
+
+
+def enable_markdown_output():
+    if os.environ.get('GPU_HOLD_MARKDOWN_OUTPUT') == '1':
+        sys.stdout = MarkdownOutput(sys.stdout)
+        sys.stderr = MarkdownOutput(sys.stderr)
+
+
 if __name__ == '__main__':
+    enable_markdown_output()
     sys.exit(main())

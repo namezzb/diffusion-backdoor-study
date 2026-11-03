@@ -23,6 +23,8 @@ import time
 import traceback
 import xml.etree.ElementTree as ET
 
+from tssa_markdown import encode_record, existing_record, read_record, record_path
+
 from tssa_target_semantic_cache import (ASSET_SHA, PROTOCOL_SHA, canonical, require, sha, verify_folder,
                                        verify_tensor_derivation)
 from tssa_target_semantic_gates import (STAGES, UNITS, CONDITIONS, RESOURCE_KEYS,
@@ -30,7 +32,7 @@ from tssa_target_semantic_gates import (STAGES, UNITS, CONDITIONS, RESOURCE_KEYS
 
 CODE_FILES = ('tssa_target_semantic_run.py', 'tssa_target_semantic_cache.py',
               'tssa_target_semantic_gates.py', 'tssa_target_semantic_runtime.py',
-              'tssa_sd_runtime.py', 'tssa_gradient_core.py')
+              'tssa_sd_runtime.py', 'tssa_gradient_core.py', 'tssa_markdown.py')
 LIMITS = dict(zip(RESOURCE_KEYS, (462, 96, 14, 44, 14)))
 PLAN_ID = 'tssa-target-semantic-diagnostic-2026-10-28-v1'
 
@@ -70,6 +72,10 @@ def write_json(path, value):
     write_new(path, canonical(value))
 
 
+def write_record(path, value):
+    write_new(record_path(path), encode_record(value))
+
+
 def code_hashes():
     return {name: sha((Path(__file__).parent / name).read_bytes()) for name in CODE_FILES}
 
@@ -103,13 +109,13 @@ def cpu_prepare(protocol_path, asset_path, models_root, cache_root, *, audit=Tru
                   'verification': 'not_verified', 'cuda_initialized': False}
         return assets, cache, report
     basis = audit_semantic_cpu_basis(assets)
-    old_keys = json.loads((Path(cache_root) / 'parameter_key_manifest.json').read_text())
+    old_keys = read_record(existing_record(Path(cache_root) / 'parameter_key_manifest.json'))
     # The old manifest stores its ordered parameter domain separately from statistics.
     require(type(old_keys) is list and list(assets.parameter_names) == old_keys, 'Original parameter domain differs')
-    identity = json.loads((Path(cache_root) / 'run_identity.json').read_text())
+    identity = read_record(existing_record(Path(cache_root) / 'run_identity.json'))
     for name, entry in assets.file_hashes.items():
         require(entry['sha256'] == identity['local_file_sha256'][name], 'Loaded model differs from cache source')
-    old_basis = json.loads((Path(cache_root) / 'basis_statistics.json').read_text())
+    old_basis = read_record(existing_record(Path(cache_root) / 'basis_statistics.json'))
     require(basis['statistics'] == old_basis, 'Original basis statistics differ')
     require(not torch.cuda.is_initialized(), 'CPU loading initialized CUDA')
     report = {'schema_version': 1, 'status': 'passed', 'binding': binding,
@@ -172,16 +178,16 @@ class Ledger:
         self.current = None
         self.sequence = 0
         self.begun = False
-        write_json(self.root / 'identity.json', self.identity)
+        write_record(self.root / 'identity.json', self.identity)
 
     def start_cuda_window(self, hard_watchdog=True):
         require(self.started is None, 'CUDA window can start only once')
         self.started = self.clock()
-        write_json(self.root / 'cuda_window_started.json', {'at': now(), 'wall_seconds_max': 1800})
+        write_record(self.root / 'cuda_window_started.json', {'at': now(), 'wall_seconds_max': 1800})
         if hard_watchdog:
             def abort():
                 try:
-                    write_json(self.root / 'wall_timeout.json', {'status': 'failed_wall_limit', 'at': now(),
+                    write_record(self.root / 'wall_timeout.json', {'status': 'failed_wall_limit', 'at': now(),
                                'reserved': deepcopy(self.total), 'cell': deepcopy(self.current),
                                'automatic_retry': False})
                 finally:
@@ -202,7 +208,7 @@ class Ledger:
         self.cell_total = dict.fromkeys(RESOURCE_KEYS, 0)
         self.begun = False
         name = sha(canonical(operation))
-        write_json(self.root / 'cells' / (name + '.started.json'),
+        write_record(self.root / 'cells' / (name + '.started.json'),
                    {'operation': operation, 'at': now(), 'reserved_before': self.total,
                     'identity_sha256': sha(canonical(self.identity))})
         return name
@@ -229,7 +235,7 @@ class Ledger:
         require(all(total[k] <= LIMITS[k] and cell[k] <= self.current['resource_delta'][k] for k in RESOURCE_KEYS),
                 'Attempt would exceed frozen budget')
         self.sequence += 1
-        write_json(self.root / 'reservations' / ('%06d.json' % self.sequence),
+        write_record(self.root / 'reservations' / ('%06d.json' % self.sequence),
                    {'at': now(), 'event': event, 'cell': self.current,
                     'reserved_total': total, 'reserved_cell': cell})
         self.total, self.cell_total = total, cell
@@ -308,13 +314,13 @@ def execute_stages(ledger, backend, units, conditions):
                                                  for k, v in outputs.items()}
                     ledger.validate_cell_work(value['resource_delta'])
                     payload = {k: v for k, v in value.items() if k != 'outputs'}
-                    write_json(ledger.root / 'cells' / (name + '.completed.json'),
+                    write_record(ledger.root / 'cells' / (name + '.completed.json'),
                                {'record': row, 'backend_evidence': payload, 'output_sha256': output_hashes,
                                 'reserved_total': ledger.total, 'at': now()})
                     ledger.current = None
                     rows.append(row)
         result = check_stage(stage, rows, stage_records)
-        write_json(ledger.root / ('stage_' + stage + '.json'), {'records': rows, 'gate': result})
+        write_record(ledger.root / ('stage_' + stage + '.json'), {'records': rows, 'gate': result})
         stage_records[stage] = rows
         results.append(result)
         if result['status'] not in ('prefix_pass', 'diagnostic_pass'):
@@ -451,27 +457,27 @@ def main():
     ledger = Ledger(args.output, {'plan': plan, 'plan_sha256': sha(args.plan.read_bytes())})
     backend = None
     try:
-        write_json(ledger.root / 'cpu_load_started.json', {'at': now()})
+        write_record(ledger.root / 'cpu_load_started.json', {'at': now()})
         assets, audit, current = cpu_prepare(args.old_protocol, args.asset_manifest, args.models_root, args.cache_root, audit=False)
-        write_json(ledger.root / 'cpu_assets.json', current)
+        write_record(ledger.root / 'cpu_assets.json', current)
         permission = json.loads(args.permission.read_text())
         live = verify_permission(permission)
-        write_json(ledger.root / 'resource_permission.json', {'permission': permission, 'launch_sample': live})
+        write_record(ledger.root / 'resource_permission.json', {'permission': permission, 'launch_sample': live})
         from tssa_sd_runtime import SDGradientRuntime
         from tssa_target_semantic_runtime import SemanticDiagnosticBackend
         units = make_units(audit, args.cache_root)
         conditions = {s['id']: s for s in assets.protocol['merging']['development_normal_states']}
         ledger.start_cuda_window()
         runtime = SDGradientRuntime(assets)
-        write_json(ledger.root / 'runtime_environment.json', runtime.environment_record())
+        write_record(ledger.root / 'runtime_environment.json', runtime.environment_record())
         backend = SemanticDiagnosticBackend(runtime, budget_callback=ledger.reserve)
         report = execute_stages(ledger, backend, units, conditions)
         report.update(at=now(), reserved=ledger.total, resources=backend.resource_record(),
                       cuda_wall_seconds=time.monotonic() - ledger.started)
-        write_json(ledger.root / 'terminal.json', report)
+        write_record(ledger.root / 'terminal.json', report)
         print(json.dumps(report), flush=True)
     except BaseException:
-        write_json(ledger.root / 'failure.json', {'at': now(), 'traceback': traceback.format_exc(),
+        write_record(ledger.root / 'failure.json', {'at': now(), 'traceback': traceback.format_exc(),
                    'reserved': ledger.total, 'pending_cell': ledger.current, 'automatic_retry': False,
                    'resources': backend.resource_record() if backend is not None else None})
         raise

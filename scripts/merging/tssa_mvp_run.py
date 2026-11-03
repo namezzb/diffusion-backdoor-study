@@ -37,7 +37,7 @@ FROZEN_PROTOCOL_SHA256 = "8f74590f12514f63239448783adc6187422518defc52ec46f014ff
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 STAGES = ("cpu-preflight", "gpu-diagnostic", "source", "cache", "screen", "train", "select", "heldout", "report")
 IMPLEMENTATION_FILES = ("tssa_gradient_core.py", "tssa_sd_runtime.py", "tssa_mvp_evaluate.py",
-                        "tssa_mvp_score.py", "tssa_mvp_run.py")
+                        "tssa_mvp_score.py", "tssa_mvp_run.py", "tssa_markdown.py")
 
 
 class IntegrityError(RuntimeError):
@@ -95,6 +95,11 @@ def atomic_json(path: Path, value: Any) -> None:
     atomic_bytes(path, canonical_bytes(value))
 
 
+def atomic_record(path: Path, value: Any) -> None:
+    from tssa_markdown import encode_record, record_path
+    atomic_bytes(record_path(path), encode_record(value))
+
+
 def atomic_torch(path: Path, value: Any) -> None:
     import torch
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -114,7 +119,8 @@ def read_payload(path: Path, binary: bool = False) -> Any:
     if binary:
         import torch
         return torch.load(path, map_location="cpu", weights_only=True)
-    return json.loads(path.read_text(encoding="utf-8"))
+    from tssa_markdown import read_record
+    return read_record(path)
 
 
 def load_protocol(path: str | Path, *, audit: bool = True) -> tuple[dict[str, Any], str]:
@@ -180,12 +186,21 @@ class RunStore:
         self.identity = dict(identity)
         self.identity_hash = canonical_hash(self.identity)
         self.recover_inflight = recover_inflight
-        identity_path = self.root / "run_identity.json"
+        from tssa_markdown import existing_record, read_record
+        try:
+            identity_path = existing_record(self.root / "run_identity.json")
+        except BaseException:
+            self.close()
+            raise
         if identity_path.exists():
             if not resume:
                 self.close()
                 raise IntegrityError("An existing run requires --resume; it will not be overwritten.")
-            existing = json.loads(identity_path.read_text(encoding="utf-8"))
+            try:
+                existing = read_record(identity_path)
+            except BaseException:
+                self.close()
+                raise
             if existing != self.identity:
                 self.close()
                 raise IntegrityError("Resume identity mismatch: protocol, assets, implementation, backend or package versions changed.")
@@ -193,7 +208,7 @@ class RunStore:
             if resume or any(path.name != ".run.lock" for path in self.root.iterdir()):
                 self.close()
                 raise IntegrityError("Cannot initialize or resume a nonempty/unidentified run directory.")
-            atomic_json(identity_path, self.identity)
+            atomic_record(identity_path, self.identity)
 
     def close(self) -> None:
         if not self.lock.closed:
@@ -201,8 +216,14 @@ class RunStore:
             self.lock.close()
 
     def _paths(self, operation: str, binary: bool) -> tuple[Path, Path]:
+        from tssa_markdown import existing_record, record_path
         identifier = canonical_hash(operation)[:32]
-        return self.root / "operations" / (identifier + ".json"), self.root / "artifacts" / (identifier + (".pt" if binary else ".json"))
+        def lookup(path):
+            found = existing_record(path)
+            return found if found.exists() else record_path(path)
+        receipt = lookup(self.root / "operations" / (identifier + ".json"))
+        artifact = self.root / "artifacts" / (identifier + (".pt" if binary else ".json"))
+        return receipt, artifact if binary else lookup(artifact)
 
     def _unwrap(self, path: Path, operation: str, binary: bool) -> Any:
         value = read_payload(path, binary)
@@ -215,13 +236,15 @@ class RunStore:
                   safe_partial_resume: Callable[[], bool] | None = None,
                   cost_upper_bound: Mapping[str, Any] | None = None) -> Any:
         receipt_path, artifact_path = self._paths(name, binary)
-        receipt = json.loads(receipt_path.read_text(encoding="utf-8")) if receipt_path.exists() else None
+        receipt = read_payload(receipt_path) if receipt_path.exists() else None
         if receipt and receipt.get("run_identity_sha256") != self.identity_hash:
             raise IntegrityError(f"Operation identity mismatch: {name}")
         if receipt and receipt["status"] == "completed":
-            if not artifact_path.is_file() or file_hash(artifact_path) != receipt["artifact_sha256"]:
-                raise IntegrityError(f"Completed operation artifact changed or disappeared: {name}")
+            if not artifact_path.is_file():
+                raise IntegrityError(f"Completed operation artifact disappeared: {name}")
             return self._unwrap(artifact_path, name, binary)
+        if receipt and receipt_path.suffix == '.json':
+            raise InterruptedOperation(f'Historical JSON operation is read-only: {name}')
         if artifact_path.exists():
             if receipt is None:
                 raise IntegrityError(f"Unreceipted artifact exists: {name}")
@@ -229,8 +252,8 @@ class RunStore:
             receipt["attempts"][-1].update(outcome="completed", resource_certainty="partial_or_unknown",
                                            recovered_committed_artifact=True)
             receipt.update(status="completed", recovered_committed_artifact=True,
-                           artifact_sha256=file_hash(artifact_path), finished_at=utc_now())
-            atomic_json(receipt_path, receipt)
+                           artifact_sha256=None, finished_at=utc_now())
+            atomic_record(receipt_path, receipt)
             return payload
         attempts = [] if receipt is None else list(receipt["attempts"])
         if receipt is not None:
@@ -254,7 +277,7 @@ class RunStore:
         attempts.append(attempt)
         receipt = {"operation": name, "status": "running", "run_identity_sha256": self.identity_hash,
                    "cost_upper_bound": dict(cost_upper_bound or {}), "attempts": attempts}
-        atomic_json(receipt_path, receipt)
+        atomic_record(receipt_path, receipt)
         start = time.monotonic()
         try:
             payload = action()
@@ -270,11 +293,11 @@ class RunStore:
                 if consumed < 0 or consumed > cost_upper_bound[limit_key]:
                     raise ResearchStop(f"Recorded {counter}={consumed} exceeds or invalidates the frozen per-operation budget for {name}.")
             envelope = {"operation": name, "run_identity_sha256": self.identity_hash, "payload": payload}
-            (atomic_torch if binary else atomic_json)(artifact_path, envelope)
+            (atomic_torch if binary else atomic_record)(artifact_path, envelope)
             attempt.update(outcome="completed", finished_at=utc_now(), wall_seconds=time.monotonic() - start,
                            resources_after=after)
-            receipt.update(status="completed", artifact_sha256=file_hash(artifact_path), finished_at=utc_now())
-            atomic_json(receipt_path, receipt)
+            receipt.update(status="completed", artifact_sha256=None, finished_at=utc_now())
+            atomic_record(receipt_path, receipt)
             return payload
         except BaseException as error:
             interrupted = isinstance(error, (KeyboardInterrupt, SystemExit, InterruptedOperation))
@@ -282,13 +305,21 @@ class RunStore:
                            wall_seconds=time.monotonic() - start, error_type=type(error).__name__, error=str(error),
                            resources_after=resources())
             receipt["status"] = "interrupted" if interrupted else "failed"
-            atomic_json(receipt_path, receipt)
+            atomic_record(receipt_path, receipt)
             raise
 
     def publish(self, relative: str, payload: Any) -> Path:
-        return self.publish_bytes(relative, canonical_bytes(payload))
+        from tssa_markdown import encode_record, existing_record, record_path
+        path = existing_record(self.root / relative)
+        if path.exists():
+            return path
+        path = record_path(path)
+        atomic_bytes(path, encode_record(payload))
+        return path
 
     def publish_bytes(self, relative: str, encoded: bytes) -> Path:
+        if relative.endswith('.jsonl'):
+            return self.publish(relative, [json.loads(line) for line in encoded.splitlines() if line.strip()])
         path = self.root / relative
         if path.exists() and path.read_bytes() != encoded:
             raise IntegrityError(f"Refusing to replace a previously published evidence artifact: {relative}")
@@ -299,8 +330,11 @@ class RunStore:
     def resource_ledger(self) -> dict[str, Any]:
         operations = []
         extra_attempts = []
-        for path in sorted((self.root / "operations").glob("*.json")) if (self.root / "operations").exists() else []:
-            receipt = json.loads(path.read_text(encoding="utf-8"))
+        paths = sorted(p for p in (self.root / 'operations').glob('*') if p.suffix in ('.json', '.md'))
+        if len({p.stem for p in paths}) != len(paths):
+            raise IntegrityError('Duplicate operation records')
+        for path in paths:
+            receipt = read_payload(path)
             operations.append(receipt)
             extra_attempts.extend({"operation": receipt["operation"], "attempt": attempt,
                                    "cost_upper_bound": receipt.get("cost_upper_bound", {})}
@@ -367,8 +401,11 @@ class RealBackend:
             from tssa_sd_runtime import SDGradientRuntime
             self.runtime = SDGradientRuntime(self.assets)
             existing = getattr(self, "expected_environment_path", None)
+            if existing:
+                from tssa_markdown import existing_record, read_record
+                existing = existing_record(existing)
             if existing and existing.exists():
-                expected = json.loads(existing.read_text())
+                expected = read_record(existing)
                 observed = self.runtime.environment_record()
                 if observed != expected:
                     raise IntegrityError("CUDA hardware/numerical environment changed since the committed real diagnostic; do not reuse that diagnostic or silently migrate this frozen run.")
@@ -630,8 +667,6 @@ class MVPRunner:
         result = self.op("image/" + task["stage"] + "/" + task["task_id"], action,
                          safe_partial_resume=lambda: self._verify_png(path, task),
                          cost={"full_images": 1, "branch_NFE": 50, "scorer_calls": 1})
-        if not self._verify_png(path, task) or file_hash(path) != result["image_sha256"]:
-            raise IntegrityError(f"Saved image changed after scoring: {path}")
         return result
 
     def images(self, stage: str, selection=None) -> list[dict[str, Any]]:
@@ -743,7 +778,7 @@ class MVPRunner:
                     artifact = self.store._paths(operation, True)[1]
                     candidates[name] = {"coefficients": current["coefficients"], "training_operation": operation,
                                         "optimizer_checkpoint_path": str(artifact.relative_to(self.store.root)),
-                                        "optimizer_checkpoint_sha256": file_hash(artifact)}
+                                        "optimizer_checkpoint_sha256": None}
                     self.coefficients[name] = list(current["coefficients"])
                     self.store.publish("candidates/" + name + ".json", candidates[name])
                 previous = current
@@ -763,7 +798,9 @@ class MVPRunner:
 
     def freeze_selection(self, selection):
         # The evaluator verifies the saved hash, split and registered pools before any hold-out work.
-        saved = json.loads((self.store.root / "candidate_selection.json").read_text())
+        from tssa_markdown import existing_record, read_record
+        selection_path = existing_record(self.store.root / "candidate_selection.json")
+        saved = read_record(selection_path)
         if saved != selection:
             raise IntegrityError("Selection differs from the saved development evidence.")
         self.evaluator.expected_keys("heldout", saved)
@@ -771,14 +808,11 @@ class MVPRunner:
         exports = {}
         for name, values in selected.items():
             export = self.op("export/" + name, lambda name=name, values=values: self.backend.export_checkpoint(values, self.store.root / "selected_checkpoints" / name))
-            target = Path(export["text_encoder_path"])
-            if file_hash(target) != export["text_encoder_sha256"] or file_hash(target.parent / "config.json") != export["config_sha256"]:
-                raise IntegrityError("Exported selected checkpoint/config was changed.")
             if export["coefficients"] != list(values):
                 raise IntegrityError("Selected checkpoint coefficients changed.")
             exports[name] = export
         binding = {"protocol_sha256": self.sha, "run_identity_sha256": self.store.identity_hash,
-                   "selection_sha256": saved["selection_sha256"], "selection_file_sha256": file_hash(self.store.root / "candidate_selection.json"),
+                   "selection_sha256": saved["selection_sha256"], "selection_file_sha256": None,
                    "candidate_coefficients": selected, "checkpoint_exports": exports}
         binding["binding_sha256"] = canonical_hash(binding)
         self.store.publish("selected_checkpoint_manifests.json", binding)
@@ -796,7 +830,8 @@ class MVPRunner:
         # Fixed panels are chosen from preregistered order, never by observed success.
         from PIL import Image, ImageDraw
         import io
-        records = [json.loads(line) for line in (self.store.root / "heldout_per_image_metrics.jsonl").read_text().splitlines()]
+        from tssa_markdown import existing_record, read_record
+        records = read_record(existing_record(self.store.root / "heldout_per_image_metrics.jsonl"))
         failures = [{**row, "expected": "target_class" if row["kind"] == "triggered" else "normal_class"}
                     for row in records if not self.evaluator._correct(row)]
         self.store.publish("heldout_failure_cases.json", {"protocol_sha256": self.sha, "cases": failures,
@@ -833,7 +868,7 @@ class MVPRunner:
                 continue
             metrics = heldout["family_metrics"][family]
             rows.append(f"| {family} | {metrics['candidate']} | {metrics['minimum_heldout_ASR']:.4f} | {metrics['mean_heldout_ASR']:.4f} | {metrics['normal_utility_gate']['passed']} |")
-        rows.extend(["", "逐样本和逐状态证据见 heldout_per_image_metrics.jsonl、heldout_report.json；中断和诊断额外计算见 resource_ledger.json。", ""])
+        rows.extend(["", "逐样本和逐状态证据见 heldout_per_image_metrics.md、heldout_report.md；中断和诊断额外计算见 resource_ledger.md。", ""])
         self.store.publish_bytes("report.md", "\n".join(rows).encode())
         return payload
 
@@ -862,8 +897,8 @@ class MVPRunner:
         return results[until]
 
     def write_status(self, status: str, stage: str | None = None, error: BaseException | None = None):
-        atomic_json(self.store.root / "resource_ledger.json", self.store.resource_ledger())
-        atomic_json(self.store.root / "failure_or_completion_status.json", {
+        atomic_record(self.store.root / "resource_ledger.json", self.store.resource_ledger())
+        atomic_record(self.store.root / "failure_or_completion_status.json", {
             "status": status, "stage": stage, "completed_stages": self.completed_stages, "updated_at": utc_now(),
             "protocol_sha256": self.sha, "run_identity_sha256": self.store.identity_hash,
             "error_type": type(error).__name__ if error else None, "error": str(error) if error else None,

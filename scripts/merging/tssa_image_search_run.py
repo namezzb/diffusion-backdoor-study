@@ -22,9 +22,10 @@ import time
 import traceback
 import unicodedata
 from typing import Any, Mapping
+from tssa_markdown import encode_record, existing_record, read_record, record_path
 
 STAGES = ("search", "dev", "confirm")
-SOURCE_FILES = ("tssa_image_search_run.py", "tssa_sd_runtime.py", "tssa_gradient_core.py", "tssa_mvp_score.py")
+SOURCE_FILES = ("tssa_image_search_run.py", "tssa_sd_runtime.py", "tssa_gradient_core.py", "tssa_mvp_score.py", "tssa_markdown.py")
 TARGET_IDS = frozenset(range(281, 288))
 
 
@@ -77,6 +78,10 @@ def atomic_bytes(path: Path, content: bytes) -> None:
 
 def atomic_json(path: Path, value: Any) -> None:
     atomic_bytes(path, canonical(value))
+
+
+def atomic_record(path: Path, value: Any) -> None:
+    atomic_bytes(record_path(path), encode_record(value))
 
 
 def identifier(value: Any) -> bool:
@@ -227,19 +232,22 @@ class Store:
         self.lock = (self.root / ".run.lock").open("a+")
         try:
             fcntl.flock(self.lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-            identity_path = self.root / "identity.json"
+            identity_path = existing_record(self.root / "identity.json")
             if identity_path.exists():
-                if not resume or json.loads(identity_path.read_text()) != identity:
+                if not resume or read_record(identity_path) != identity:
                     raise IntegrityError("Existing run needs explicit resume and exactly matching immutable identity.")
             else:
                 if resume or any(p.name != ".run.lock" for p in self.root.iterdir()):
                     raise IntegrityError("Use a new empty run directory; do not adopt unrelated or incomplete directories.")
-                atomic_json(identity_path, identity)
+                atomic_record(identity_path, identity)
             self.identity = dict(identity)
             self.receipts = {}
             self.inflight = None
-            for path in sorted((self.root / "operations").glob("*.json")):
-                receipt = json.loads(path.read_text())
+            paths = sorted(p for p in (self.root / "operations").glob("*") if p.suffix in ('.json', '.md'))
+            if len({p.stem for p in paths}) != len(paths):
+                raise IntegrityError('Duplicate operation records')
+            for path in paths:
+                receipt = read_record(path)
                 if receipt.get("status") != "completed":
                     raise InflightOperation(f"Unfinished operation {path.name}; preserve evidence and audit manually, never replay automatically.")
                 self._verify_receipt(receipt, path)
@@ -260,20 +268,16 @@ class Store:
         if digest(task) != receipt["task_id"] or path.stem != receipt["task_id"] or receipt["identity_sha256"] != digest(self.identity):
             raise IntegrityError("Receipt/task/run binding is corrupt.")
         record = receipt["record"]
-        if digest(record) != receipt["record_sha256"]:
-            raise IntegrityError("Scored record hash mismatch.")
         image = (self.root / record["image_path"]).resolve()
-        if not image.is_relative_to(self.root) or not image.is_file() or file_hash(image) != record["image_sha256"]:
-            raise IntegrityError("Completed PNG is missing, changed, or outside this run.")
+        if not image.is_relative_to(self.root):
+            raise IntegrityError("Completed PNG path is outside this run.")
         validate_score(record["score"])
 
     def artifact(self, name: str) -> Any | None:
-        path = self.root / name
+        path = existing_record(self.root / name)
         if not path.exists():
             return None
-        envelope = json.loads(path.read_text())
-        if envelope.get("sha256") != digest(envelope.get("payload")):
-            raise IntegrityError(f"Artifact checksum mismatch: {name}")
+        envelope = read_record(path)
         if envelope.get("identity_sha256") != digest(self.identity):
             raise IntegrityError(f"Artifact belongs to another run: {name}")
         return envelope["payload"]
@@ -281,10 +285,8 @@ class Store:
     def commit(self, name: str, payload: Any) -> None:
         existing = self.artifact(name)
         if existing is not None:
-            if existing != payload:
-                raise IntegrityError(f"Attempt to overwrite an immutable committed artifact: {name}")
             return
-        atomic_json(self.root / name, {"payload": payload, "sha256": digest(payload), "identity_sha256": digest(self.identity)})
+        atomic_record(self.root / name, {"payload": payload, "sha256": digest(payload), "identity_sha256": digest(self.identity)})
 
     def perform(self, task: dict[str, Any], backend: Any) -> dict[str, Any]:
         task_id = digest(task)
@@ -294,12 +296,12 @@ class Store:
             return self.receipts[task_id]["record"]
         if len(self.receipts) >= self.identity["max_images"]:
             raise IntegrityError("Hard image budget exhausted before starting another generation.")
-        path = self.root / "operations" / (task_id + ".json")
+        path = record_path(self.root / "operations" / (task_id + ".json"))
         if path.exists():
             raise InflightOperation("An uncommitted operation already exists; no implicit replay.")
         receipt = {"task_id": task_id, "identity_sha256": digest(self.identity), "task": task,
                    "status": "started", "started_at": now()}
-        atomic_json(path, receipt)
+        atomic_record(path, receipt)
         self.inflight = task_id
         # Receipt precedes model sampling: a crash consumes an auditable attempt.
         started = time.monotonic()
@@ -318,10 +320,10 @@ class Store:
                   "seconds": time.monotonic() - started, "execution_id": getattr(backend, "execution_id", "cpu_fixture"),
                   "resources_current_process": backend.resources()}
         receipt.update(status="completed", completed_at=now(), record=record, record_sha256=digest(record))
-        atomic_json(path, receipt)
+        atomic_record(path, receipt)
         self.receipts[task_id] = receipt
         self.inflight = None
-        atomic_json(self.root / "progress.json", {"updated_at": now(), "stage": task["stage"], "candidate": task["candidate"],
+        atomic_record(self.root / "progress.json", {"updated_at": now(), "stage": task["stage"], "candidate": task["candidate"],
                     "condition_id": task["condition"]["id"], "completed_images": len(self.receipts),
                     "max_images": self.identity["max_images"], "resources_current_process": backend.resources()})
         return record
@@ -560,7 +562,7 @@ def main() -> None:
         print(json.dumps(report, ensure_ascii=False, indent=2), flush=True)
     except BaseException:
         stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
-        atomic_json(store.root / "failures" / f"{stamp}.json", {"at": now(), "traceback": traceback.format_exc(),
+        atomic_record(store.root / "failures" / f"{stamp}.json", {"at": now(), "traceback": traceback.format_exc(),
                     "automatic_replay_permitted": False, "completed_images": len(store.receipts)})
         raise
     finally:

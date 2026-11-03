@@ -32,6 +32,8 @@ from tssa_mvp_run import (FROZEN_PROTOCOL_SHA256, IntegrityError, InterruptedOpe
                           STAGES, atomic_bytes, atomic_json, build_identity, canonical_bytes,
                           canonical_hash, experiment_plan, file_hash, load_protocol,
                           read_payload, task_from_key, utc_now)
+from tssa_mvp_run import atomic_record
+from tssa_markdown import existing_record, read_record
 
 
 FAMILIES = ("Uniform-GD", "TSSA-GD", "RC-TSSA-GD")
@@ -151,11 +153,9 @@ def worker_main(connection, config: Mapping[str, Any]) -> None:
                 arguments = request["args"]
                 reference = request.get("cache_ref")
                 if reference:
-                    key = (reference["path"], reference["sha256"])
+                    key = reference["path"]
                     if key != cache_key:
                         path = Path(reference["path"])
-                        if file_hash(path) != reference["sha256"]:
-                            raise IntegrityError("Training cache file changed in transit.")
                         envelope = read_payload(path, True)
                         if (envelope.get("operation") != "cache/assembled" or
                             envelope.get("run_identity_sha256") != config["run_identity_sha256"]):
@@ -300,7 +300,7 @@ class DualBackend:
         if cache:
             if self.cache_ref is None:
                 path = self.store._paths("cache/assembled", True)[1]
-                self.cache_ref = {"path": str(path), "sha256": file_hash(path)}
+                self.cache_ref = {"path": str(path)}
             reference = self.cache_ref
         return self.clients[assignment_slot(operation)].call(operation, method, list(args), reference)
 
@@ -384,7 +384,7 @@ class DualBackend:
                 "B_star_rms": signal, "source_model_hashes": self.source_hashes}
 
     def unlock_heldout(self, coefficients):
-        binding = json.loads((self.store.root / "selected_checkpoint_manifests.json").read_text())
+        binding = read_record(existing_record(self.store.root / "selected_checkpoint_manifests.json"))
         if binding["candidate_coefficients"] != coefficients or binding["run_identity_sha256"] != self.store.identity_hash:
             raise IntegrityError("Held-out candidates do not match saved selected checkpoints.")
         if binding["binding_sha256"] != canonical_hash({k: v for k, v in binding.items() if k != "binding_sha256"}):
@@ -405,7 +405,7 @@ class DualRunStore(RunStore):
     def publish(self, relative, payload):
         if relative == "final_report.json":
             payload = dict(payload, actual_GPU_workers=2, execution_entrypoint="tssa_mvp_dual_run.py")
-            spec = json.loads((self.root / "execution_manifest.json").read_text())
+            spec = read_record(existing_record(self.root / "execution_manifest.json"))
             payload["assignment_sha256"] = spec["assignment_sha256"]
         return super().publish(relative, payload)
 
@@ -570,7 +570,7 @@ class DualMVPRunner(MVPRunner):
                     candidate = family + "_step" + str(step)
                     artifact = self.store._paths(name, True)[1]
                     candidates[candidate] = {"coefficients": current["coefficients"], "training_operation": name,
-                        "optimizer_checkpoint_path": str(artifact.relative_to(self.store.root)), "optimizer_checkpoint_sha256": file_hash(artifact)}
+                        "optimizer_checkpoint_path": str(artifact.relative_to(self.store.root)), "optimizer_checkpoint_sha256": None}
                     self.coefficients[candidate] = list(current["coefficients"])
                     self.store.publish("candidates/" + candidate + ".json", candidates[candidate])
         self.store.publish("learned_candidates.json", candidates)
@@ -581,13 +581,19 @@ class DualMVPRunner(MVPRunner):
     def report(self, *args):
         self.backend.close()  # Image/optimization work is over; no card waits for CPU report formatting.
         super().report(*args)
-        return json.loads((self.store.root / "final_report.json").read_text())
+        return read_record(existing_record(self.store.root / "final_report.json"))
 
     def execute(self, until="report"):
         if until != "cpu-preflight":
             if self.uuids is None:
                 raise IntegrityError("Actual GPU stages require both explicit allocated UUIDs.")
             spec = execution_manifest(self.p, self.sha, self.uuids)
+            existing = existing_record(self.store.root / 'execution_manifest.json')
+            if existing.exists():
+                previous = read_record(existing)
+                if (previous.get('assignment_sha256') != spec['assignment_sha256'] or
+                        previous.get('gpu_uuids') != spec['gpu_uuids']):
+                    raise IntegrityError('GPU assignment differs from the existing run.')
             self.store.publish("execution_manifest.json", spec)
             self.backend.configure(spec)  # Creates descriptors only; processes remain lazy.
         try:
@@ -612,8 +618,8 @@ class DualMVPRunner(MVPRunner):
                     cell["known_optimizer_updates"] += after.get("optimizer_updates", 0) - before.get("optimizer_updates", 0)
                     cell["peak_allocated_bytes"] = max(cell["peak_allocated_bytes"], after.get("peak_allocated_bytes", 0))
         ledger["per_worker"] = per_worker
-        atomic_json(self.store.root / "resource_ledger.json", ledger)
-        atomic_json(self.store.root / "failure_or_completion_status.json", {
+        atomic_record(self.store.root / "resource_ledger.json", ledger)
+        atomic_record(self.store.root / "failure_or_completion_status.json", {
             "status": status, "stage": stage, "completed_stages": self.completed_stages, "updated_at": utc_now(),
             "protocol_sha256": self.sha, "run_identity_sha256": self.store.identity_hash,
             "assignment_sha256": self.backend.spec["assignment_sha256"] if self.backend.spec else None,

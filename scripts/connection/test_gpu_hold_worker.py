@@ -83,12 +83,12 @@ class WorkerTest(unittest.TestCase):
                   'device_memory_total_mib': 24000.0, 'worker_pid_memory_mib': 11000.0}
         self.assertEqual(self.execute(lambda uuid, guard: device, lambda *_: values), 0)
         device.close.assert_called_once()
-        lines = [json.loads(x) for x in (self.root / 'state' / (GPU + '.jsonl')).read_text().splitlines()]
+        lines = [json.loads(x[len('<!-- json: '):-len(' -->')]) for x in (self.root / 'state' / (GPU + '.md')).read_text().splitlines() if x.startswith('<!-- json: ')]
         samples = [x for x in lines if x['event'] == 'sample']
         self.assertGreaterEqual(len(samples), 1)
         self.assertEqual(samples[0]['device_gpu_utilization_percent'], 38.0)
         self.assertEqual(samples[0]['worker_pid_memory_mib'], 11000.0)
-        self.assertEqual(json.loads((self.root / 'state' / (GPU + '.pid.json')).read_text())['status'], 'stopped')
+        self.assertEqual(worker.safe_read_json(self.root / 'state' / (GPU + '.pid.md'))['status'], 'stopped')
 
     def test_lease_age_span_and_original_expiry_boundaries(self):
         def check(lease, now):
@@ -214,10 +214,56 @@ class WorkerTest(unittest.TestCase):
         device.allocate.side_effect = lambda fraction, guard: guard()
         device.compute_once.side_effect = lambda: self.clock.sleep(.1)
         self.assertEqual(self.execute(lambda uuid, guard: device, lambda *_: {'device_gpu_utilization_percent': 20}), 0)
-        entries = [json.loads(x) for x in (self.root / 'state' / (GPU + '.jsonl')).read_text().splitlines()]
+        entries = [json.loads(x[len('<!-- json: '):-len(' -->')]) for x in (self.root / 'state' / (GPU + '.md')).read_text().splitlines() if x.startswith('<!-- json: ')]
         sample = next(x for x in entries if x['event'] == 'sample')
         self.assertEqual(sample['device_gpu_utilization_percent'], 20)
         self.assertGreater(sample['requested_compute_duty'], 0)
+
+
+    def test_real_process_markdown_lease_expires_and_records_sample(self):
+        now = time.time()
+        self.lease.update(observed_at=now, expires_at=now + 2)
+        self.lease_path = self.root / 'lease.md'
+        self.lease_path.write_text('# Lease\n\n```json\n' + json.dumps(self.lease) + '\n```\n')
+        self.lease_path.chmod(0o600)
+        old = self.root / 'state' / (GPU + '.pid.json')
+        old.parent.mkdir(mode=0o700)
+        old.write_text(json.dumps({'lease_id': 'old-lease', 'status': 'stopped'})); old.chmod(0o600)
+        code = """import sys,time
+from types import SimpleNamespace
+import gpu_hold_worker as w
+class D:
+ def __init__(self,*a): pass
+ def allocate(self,*a): pass
+ def compute_once(self): time.sleep(.05)
+ def close(self): pass
+a=SimpleNamespace(uuid=sys.argv[1],worker_id='hold-1',lease_id='lease-1',controller_id='authorized-controller',science_sha256='a'*64,state_dir=sys.argv[2],lease_file=sys.argv[3],duration_seconds=None,until_stopped=True,memory_fraction=.6,compute_duty=.8,target_utilization_percent=65,sample_seconds=.1)
+sys.exit(w.run(a,device_factory=D,sample=lambda *a: {'device_gpu_utilization_percent':42}))
+"""
+        env = dict(os.environ, PYTHONPATH=str(Path(worker.__file__).parent))
+        proc = subprocess.run([sys.executable, '-c', code, GPU, str(old.parent), str(self.lease_path)], env=env, capture_output=True, text=True, timeout=8)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        text = (old.parent / (GPU + '.md')).read_text()
+        self.assertIn('device_gpu_utilization_percent', text)
+        self.assertIn('lease expired', text)
+        self.assertEqual(worker.safe_read_json(old.parent / (GPU + '.pid.md'))['status'], 'stopped')
+        self.assertEqual(json.loads(old.read_text())['lease_id'], 'old-lease')
+
+
+    def test_markdown_launch_output_quotes_real_process_errors(self):
+        env = dict(os.environ, GPU_HOLD_MARKDOWN_OUTPUT='1')
+        result = subprocess.run([sys.executable, str(Path(worker.__file__)), '--uuid', GPU],
+                                env=env, capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertTrue(result.stderr)
+        self.assertTrue(all(line.startswith('> ') for line in result.stderr.splitlines()))
+        code = "import gpu_hold_worker as w; w.enable_markdown_output(); print('sample'); raise RuntimeError('boom')"
+        env['PYTHONPATH'] = str(Path(worker.__file__).parent)
+        result = subprocess.run([sys.executable, '-c', code], env=env, capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, '> sample\n')
+        self.assertIn('> RuntimeError: boom', result.stderr)
+        self.assertTrue(all(line.startswith('> ') for line in result.stderr.splitlines()))
 
 
 if __name__ == '__main__':

@@ -33,6 +33,60 @@ DISKS = {'104': '/data2', '103': '/data1', '127': '/data1'}
 PREPARED_SERVERS = ('104', '103')
 _SSH_CONTEXTS = {}
 
+MARKDOWN_SUBPROCESS = r'''
+import codecs,os,selectors,subprocess,time
+def markdown_subprocess(command, cwd, env, stdout_path, stderr_path, timeout=None, capture=True):
+ flags=os.O_WRONLY|os.O_CREAT|os.O_APPEND|os.O_NOFOLLOW
+ outfd=os.open(stdout_path,flags,0o600)
+ try:errfd=os.open(stderr_path,flags,0o600)
+ except BaseException:os.close(outfd);raise
+ with os.fdopen(outfd,'a',buffering=1) as out,os.fdopen(errfd,'a',buffering=1) as err:
+  out.write('\n## Process output\n\n');err.write('\n## Process errors\n\n')
+  child=subprocess.Popen(command,cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE,bufsize=0)
+  sel=selectors.DefaultSelector();streams=(child.stdout,child.stderr);dests=(out,err)
+  decoders=[codecs.getincrementaldecoder('utf-8')('replace') for _ in streams]
+  collected=[[],[]];line_start=[True,True];start=time.monotonic()
+  for i,stream in enumerate(streams):
+   os.set_blocking(stream.fileno(),False);sel.register(stream,selectors.EVENT_READ,i)
+  def emit(i,data,final=False):
+   text=decoders[i].decode(data,final=final)
+   if capture and text:collected[i].append(text)
+   for part in text.splitlines(keepends=True):
+    if line_start[i]:dests[i].write('    ')
+    dests[i].write(part);line_start[i]=part.endswith('\n')
+   if final and not line_start[i]:dests[i].write('\n');line_start[i]=True
+   dests[i].flush()
+  def read_available(key):
+   try:data=os.read(key.fd,65536)
+   except BlockingIOError:return
+   if data:emit(key.data,data)
+   else:sel.unregister(key.fileobj);key.fileobj.close()
+  try:
+   while child.poll() is None:
+    if timeout is not None and time.monotonic()-start>timeout:
+     child.kill();child.wait();raise subprocess.TimeoutExpired(command,timeout)
+    for key,_ in sel.select(.1):read_available(key)
+   # The direct child is reaped. Drain only what is immediately available,
+   # bounded per stream so descendants retaining descriptors cannot hold us open.
+   for key in list(sel.get_map().values()):
+    for _ in range(16):
+     if key.fileobj.closed:break
+     try:data=os.read(key.fd,65536)
+     except BlockingIOError:break
+     if not data:break
+     emit(key.data,data)
+   for i in range(2):emit(i,b'',final=True)
+  except BaseException:
+   if child.poll() is None:child.kill();child.wait()
+   raise
+  finally:
+   sel.close()
+   for stream in streams:
+    if not stream.closed:stream.close()
+  return subprocess.CompletedProcess(command,child.returncode,*(''.join(v) for v in collected))
+'''
+
+
 REMOTE_STATUS_WRITER = r'''import hashlib,json,os,pathlib,socket,sqlite3,sys,tempfile
 path=pathlib.Path(sys.argv[1]); payload=json.load(sys.stdin);value=payload['status']
 if not path.is_absolute() or any(x.is_symlink() for x in (path,*path.parents)):
@@ -42,14 +96,21 @@ def write(p,v):
  fd,tmp=tempfile.mkstemp(prefix='.status-',dir=p.parent)
  try:
   with os.fdopen(fd,'w') as f:
-   os.fchmod(f.fileno(),0o600);json.dump(v,f,sort_keys=True,ensure_ascii=False,separators=(',',':'));f.flush();os.fsync(f.fileno())
+   os.fchmod(f.fileno(),0o600)
+   if p.suffix=='.md':f.write('# Resource observation\n\n```json\n'+json.dumps(v,sort_keys=True,ensure_ascii=False,indent=2)+'\n```\n')
+   else:json.dump(v,f,sort_keys=True,ensure_ascii=False,separators=(',',':'))
+   f.flush();os.fsync(f.fileno())
   os.replace(tmp,p)
  finally:
   if os.path.exists(tmp):os.unlink(tmp)
 write(path,value)
+if path.suffix=='.json':
+ try:write(path.with_suffix('.md'),value)
+ except (OSError,ValueError):pass
 if payload.get('evidence') is not None:
  raw=json.dumps(payload['capture'],sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()
- digest=hashlib.sha256(raw).hexdigest();cap=path.parent/('platform-capture-'+digest+'.json')
+ if path.suffix=='.md':raw=('# Platform capture\n\n```json\n'+raw.decode()+'\n```\n').encode()
+ digest=hashlib.sha256(raw).hexdigest();cap=path.parent/('platform-capture-'+digest+('.md' if path.suffix=='.md' else '.json'))
  if not cap.exists():
   with cap.open('xb') as f: os.fchmod(f.fileno(),0o600);f.write(raw);f.flush();os.fsync(f.fileno())
  elif cap.is_symlink() or hashlib.sha256(cap.read_bytes()).hexdigest()!=digest: raise ValueError('unsafe capture')
@@ -58,7 +119,10 @@ if payload.get('evidence') is not None:
  evidence['platform_host']=evidence['host']
  evidence['host']={'hostname':socket.gethostname(),'machine_id_sha256':hashlib.sha256(pathlib.Path('/etc/machine-id').read_bytes()).hexdigest(),'account_uid':os.geteuid()}
  evidence['raw_capture']={'path':str(cap),'sha256':digest}
- write(path.parent/'resource-evidence.json',evidence)
+ write(path.parent/('resource-evidence.md' if path.suffix=='.md' else 'resource-evidence.json'),evidence)
+ if path.suffix=='.json':
+  try:write(path.parent/'resource-evidence.md',evidence)
+  except (OSError,ValueError):pass
 def markdown(path):
  import re
  if path.is_symlink():raise ValueError('unsafe Markdown ledger')
@@ -123,25 +187,31 @@ if data.get('fixed_inputs') is not None:inputs=data['fixed_inputs']
 missing=[k for k,p in inputs.items() if not pathlib.Path(p).is_file()]
 if missing: raise ValueError('missing fixed inputs: '+','.join(missing))
 def cpu_step(command,label,limit):
- out=work/('cpu-'+label+'-'+str(os.getpid())+'.stdout.log');err=out.with_suffix('.stderr.log')
- progress=work/'cpu-progress.json'
+ out=work/('cpu-'+label+'-'+str(os.getpid())+'.stdout.md');err=work/('cpu-'+label+'-'+str(os.getpid())+'.stderr.md')
+ progress=work/'cpu-progress.md'
  def record(status):
-  progress.write_text(json.dumps({'phase':label,'status':status,'stdout':str(out),'stderr':str(err),'pid':os.getpid()}));progress.chmod(0o600)
+  value={'phase':label,'status':status,'stdout':str(out),'stderr':str(err),'pid':os.getpid()}
+  temp=work/'cpu-progress.md.tmp'
+  if temp.is_symlink() or progress.is_symlink():raise ValueError('unsafe progress path')
+  temp.write_text('# CPU preparation\n\n```json\n'+json.dumps(value,ensure_ascii=False,indent=2)+'\n```\n');temp.chmod(0o600);os.replace(temp,progress)
  record('running')
  env=dict(os.environ,CUDA_VISIBLE_DEVICES='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1')
  try:
-  with out.open('w') as stdout,err.open('w') as stderr:
-   out.chmod(0o600);err.chmod(0o600)
-   proc=subprocess.run(command,cwd=repo,env=env,stdout=stdout,stderr=stderr,text=True,timeout=limit)
+  proc=markdown_subprocess(command,repo,env,out,err,limit)
  except BaseException:
   record('error');raise
- proc.stdout=out.read_text();proc.stderr=err.read_text();record('complete' if not proc.returncode else 'error')
+ record('complete' if not proc.returncode else 'error')
  return proc
+status_suffix=pathlib.Path(json.loads((work/'spec.json').read_text()).get('execution',{}).get('resource_status_file','resource-status.json')).suffix if (work/'spec.json').exists() else '.md'
+if status_suffix not in ('.json','.md'):raise ValueError('invalid resource status suffix')
+if (work/'spec.json').exists():
+ prior=json.loads((work/'spec.json').read_text())['execution']
+ if prior.get('resource_status_file')!=str(work/('observations/resource-status'+status_suffix)) or prior.get('resource_evidence')!=str(work/('observations/resource-evidence'+status_suffix)):raise ValueError('existing resource paths disagree')
 req={'run_id':'tcl-20261103-semantic-v1','run_root':str(root/'results/tcl-20261103-semantic-v1'),
  'repository_root':str(repo),'models_root':str(root/'models'),'inputs':inputs,'max_compute_seconds':21600,
  'study_protocol':str(repo/'research/tasks/2026-11-03-tcl-semantic/protocol.json'),
- 'execution':{'resource_evidence':str(work/'observations/resource-evidence.json'),
- 'resource_status_file':str(work/'observations/resource-status.json'),
+ 'execution':{'resource_evidence':str(work/('observations/resource-evidence'+status_suffix)),
+ 'resource_status_file':str(work/('observations/resource-status'+status_suffix)),
  'require_fresh_resource_status':True}}
 request=work/'request.json';spec=work/'spec.json'
 if spec.exists():
@@ -166,7 +236,7 @@ if proc.returncode: raise RuntimeError('Startup smoke failed: '+proc.stderr[-300
 s=json.loads(spec.read_text()); canonical=json.dumps({'run_id':s['run_id'],'science':s['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
 names=['scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py','runtime_assets.py')]
 execution_sha256={n:hashlib.sha256((repo/n).read_bytes()).hexdigest() for n in names}
-print(json.dumps({'status':'runnable','spec':str(spec),'science_sha256':hashlib.sha256(canonical.encode()).hexdigest(),'execution_sha256':execution_sha256,'result':json.loads(proc.stdout)}))
+print(json.dumps({'status':'runnable','spec':str(spec),'science_sha256':hashlib.sha256(canonical.encode()).hexdigest(),'execution_sha256':execution_sha256,'remote_status':s['execution']['resource_status_file'],'result':json.loads(proc.stdout)}))
 '''
 
 REMOTE_RUN = r'''import datetime,fcntl,hashlib,json,os,pathlib,sqlite3,subprocess,sys,time
@@ -203,9 +273,18 @@ if md.exists() or db.exists():
 execution=value['execution'];uuid=data['uuid']
 if execution.get('gpu_uuid') not in (None,uuid) and (md.exists() or db.exists()):raise ValueError('run bound to different GPU UUID')
 if execution.get('require_fresh_resource_status') is not True:raise ValueError('fresh observer required')
-if execution.get('resource_status_file')!=str(work/'observations/resource-status.json') or execution.get('resource_evidence')!=str(work/'observations/resource-evidence.json'):
+suffix=pathlib.Path(execution.get('resource_status_file','')).suffix
+if suffix not in ('.json','.md') or execution.get('resource_status_file')!=str(work/('observations/resource-status'+suffix)) or execution.get('resource_evidence')!=str(work/('observations/resource-evidence'+suffix)):
  raise ValueError('unexpected resource paths')
-status=json.loads((work/'observations/resource-status.json').read_text());evidence=json.loads((work/'observations/resource-evidence.json').read_text())
+def read_observation(path):
+ text=path.read_text()
+ if path.suffix=='.md':
+  import re
+  blocks=re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$',text,re.M|re.S)
+  if len(blocks)!=1:raise ValueError('invalid observation Markdown')
+  text=blocks[0]
+ return json.loads(text)
+status=read_observation(pathlib.Path(execution['resource_status_file']));evidence=read_observation(pathlib.Path(execution['resource_evidence']))
 now=datetime.datetime.now(datetime.timezone.utc)
 observed=datetime.datetime.fromisoformat(status['observed_at_utc'].replace('Z','+00:00'))
 expires=datetime.datetime.fromisoformat(evidence['expires_at_utc'].replace('Z','+00:00'))
@@ -217,10 +296,20 @@ execution['gpu_uuid']=uuid
 tmp=work/'spec-launch.json'
 if tmp.exists() or tmp.is_symlink():raise ValueError('unexpected spec temp file')
 tmp.write_text(json.dumps(value));tmp.chmod(0o600);os.replace(tmp,spec)
-log=open(work/'session.log','a',buffering=1)
 cmd=[str(root/'venv/bin/python'),str(repo/'scripts/merging/trigger_contrast_localization/runtime.py'),'run','--spec',str(spec)]
-worker='import subprocess,sys;sys.exit(subprocess.call(sys.argv[2:]))'
-process=subprocess.Popen([str(root/'venv/bin/python'),'-c',worker,str(launch_lock),*cmd],cwd=repo,stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True,pass_fds=(launch_lock,),env=dict(os.environ,HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1'))
+worker=MARKDOWN_SUBPROCESS+"""
+import sys,traceback
+try:
+ result=markdown_subprocess(sys.argv[4:],None,os.environ,sys.argv[2],sys.argv[3],capture=False)
+except BaseException:
+ fd=os.open(sys.argv[3],os.O_WRONLY|os.O_CREAT|os.O_APPEND|os.O_NOFOLLOW,0o600)
+ with os.fdopen(fd,'a') as stream:
+  stream.write('\\n## Wrapper error\\n\\n')
+  for line in traceback.format_exc().splitlines():stream.write('    '+line+'\\n')
+ sys.exit(1)
+sys.exit(result.returncode)
+"""
+process=subprocess.Popen([str(root/'venv/bin/python'),'-c',worker,str(launch_lock),str(work/'session.md'),str(work/'session-errors.md'),*cmd],cwd=repo,stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,pass_fds=(launch_lock,),env=dict(os.environ,HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1'))
 os.close(launch_lock)
 time.sleep(1)
 print(json.dumps({'status':'spawned' if process.poll() is None else 'exited_early','pid':process.pid,'returncode':process.poll()}))
@@ -408,7 +497,7 @@ def load_manifest(path):
     if path.is_symlink() or not path.is_file() or path.stat().st_uid != os.getuid() or path.stat().st_mode & 0o077:
         raise NotReady('运行清单缺失或权限不安全')
     try:
-        value = json.loads(path.read_text())
+        value = read_private_state(path) if path.suffix == '.md' else json.loads(path.read_text())
     except (OSError, ValueError) as exc:
         raise NotReady('运行清单不可读') from exc
     server = value.get('server')
@@ -419,7 +508,7 @@ def load_manifest(path):
             or not isinstance(value.get('username'), str) or not value['username']):
         raise NotReady('运行清单身份无效')
     root = f"{DISKS[server]}/zhangzibo/arxiv-tssa"
-    if value.get('remote_status') != root + f'/preparations/{RUN_ID}/observations/resource-status.json':
+    if value.get('remote_status') not in tuple(root + f'/preparations/{RUN_ID}/observations/resource-status' + suffix for suffix in ('.json', '.md')):
         raise NotReady('运行清单远端状态路径无效')
     return value
 
@@ -493,6 +582,10 @@ def execution_sha256():
     return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in names}
 
 
+REMOTE_PREPARE = MARKDOWN_SUBPROCESS + REMOTE_PREPARE
+REMOTE_RUN = 'MARKDOWN_SUBPROCESS = ' + repr(MARKDOWN_SUBPROCESS) + '\n' + REMOTE_RUN
+
+
 def remote_script(script, server):
     if server not in PREPARED_SERVERS:
         raise NotReady('此节点尚未核验部署路径')
@@ -556,12 +649,37 @@ def save_private(path, value):
     fd, temp = tempfile.mkstemp(prefix='.state-', dir=STATE_DIR)
     try:
         with os.fdopen(fd, 'w') as stream:
-            json.dump(value, stream, ensure_ascii=False)
+            if path.suffix == '.md':
+                stream.write('# 运行状态\n\n以下数据由控制器维护。\n\n```json\n')
+                json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
+                stream.write('\n```\n')
+            else:
+                json.dump(value, stream, ensure_ascii=False)
             stream.flush()
             os.fsync(stream.fileno())
         os.replace(temp, path)
     finally:
         if os.path.exists(temp): os.unlink(temp)
+
+
+def read_private_state(path):
+    """Read new Markdown state, falling back to the untouched legacy JSON file."""
+    path = Path(path)
+    legacy = path.with_suffix('.json')
+    chosen = path if path.exists() else legacy
+    if chosen.is_symlink() or chosen.stat().st_uid != os.getuid() or chosen.stat().st_mode & 0o077:
+        raise NotReady('本地运行文件权限不安全')
+    raw = chosen.read_text()
+    if chosen.suffix == '.md':
+        blocks = re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$', raw, re.M | re.S)
+        if len(blocks) != 1:
+            raise NotReady('Markdown运行状态格式无效')
+        raw = blocks[0]
+    return json.loads(raw)
+
+
+def observer_ready_path(identity):
+    return STATE_DIR / ('observer-ready.md' if identity.get('remote_status', '').endswith('.md') else 'observer-ready.json')
 
 
 def observer_config(identity):
@@ -570,10 +688,10 @@ def observer_config(identity):
         if (STATE_DIR.is_symlink() or STATE_DIR.stat().st_uid != os.getuid()
                 or STATE_DIR.stat().st_mode & 0o777 != 0o700):
             return None
-        path = STATE_DIR / 'observer-ready.json'
+        path = observer_ready_path(identity)
         if path.is_symlink() or path.stat().st_uid != os.getuid() or path.stat().st_mode & 0o777 != 0o600:
             return None
-        ready = json.loads(path.read_text())
+        ready = read_private_state(path) if path.suffix == '.md' else json.loads(path.read_text())
         if (ready.get('run_id') != RUN_ID or ready.get('uuid') != identity['uuid']
                 or ready.get('science_sha256') != identity['science_sha256']
                 or ready.get('server') != identity['server'] or not 0 <= time.time() - ready['time'] <= 150):
@@ -581,7 +699,7 @@ def observer_config(identity):
         info = subprocess.run(['ps', '-p', str(ready['pid']), '-o', 'uid=', '-o', 'command='],
                               capture_output=True, text=True, timeout=3).stdout.strip()
         if (not info.startswith(str(os.getuid()) + ' ') or str(Path(__file__).resolve()) not in info
-                or ' watch ' not in info or str(STATE_DIR / 'manifest.json') not in info):
+                or ' watch ' not in info or not any(str(STATE_DIR / name) in info for name in ('manifest.md', 'manifest.json'))):
             return None
         config = Path(ready['ssh_config'])
         folder = config.parent
@@ -615,7 +733,8 @@ def remote_state(identity):
 
 def observer_alive(identity):
     try:
-        ready = json.loads((STATE_DIR / 'observer-ready.json').read_text())
+        ready_path = observer_ready_path(identity)
+        ready = read_private_state(ready_path) if ready_path.suffix == '.md' else json.loads(ready_path.read_text())
         if (ready.get('run_id') != RUN_ID or ready.get('uuid') != identity['uuid']
                 or not 0 <= time.time() - ready['time'] <= 150):
             return False
@@ -625,10 +744,17 @@ def observer_alive(identity):
         return False
 
 
+def manifest_path():
+    new = STATE_DIR / 'manifest.md'
+    return new if new.exists() or not (STATE_DIR / 'manifest.json').exists() else STATE_DIR / 'manifest.json'
+
+
 def spawn_observer():
-    log_fd = os.open(STATE_DIR / 'observer.log', os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
+    log_fd = os.open(STATE_DIR / 'observer.md', os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
     with os.fdopen(log_fd, 'a') as log:
-        return subprocess.Popen([sys.executable, str(Path(__file__).resolve()), 'watch', '--manifest', str(STATE_DIR / 'manifest.json')],
+        log.write('\n## 观察器启动\n\n')
+        log.flush()
+        return subprocess.Popen([sys.executable, str(Path(__file__).resolve()), 'watch', '--manifest', str(manifest_path())],
                                 stdin=subprocess.DEVNULL, stdout=log, stderr=log, start_new_session=True)
 
 
@@ -642,7 +768,8 @@ def stop_observer_for_rebind(identity):
         except BlockingIOError:
             pass
         try:
-            ready = json.loads((STATE_DIR / 'observer-ready.json').read_text())
+            ready_path = observer_ready_path(identity)
+            ready = read_private_state(ready_path) if ready_path.suffix == '.md' else json.loads(ready_path.read_text())
             pid = ready['pid']
             info = subprocess.run(['ps', '-p', str(pid), '-o', 'uid=', '-o', 'command='], capture_output=True, text=True, timeout=3)
             output = info.stdout.strip()
@@ -665,13 +792,13 @@ def stop_observer_for_rebind(identity):
 
 
 def start_or_resume(identity):
-    ready_path = STATE_DIR / 'observer-ready.json'
+    ready_path = observer_ready_path(identity)
     # Reusing the same observer is safe; a second process exits on its lock.
     observer = spawn_observer()
     deadline = time.monotonic() + 185
     while time.monotonic() < deadline:
         try:
-            ready = json.loads(ready_path.read_text())
+            ready = read_private_state(ready_path) if ready_path.suffix == '.md' else json.loads(ready_path.read_text())
             if (ready.get('run_id') == RUN_ID and ready.get('uuid') == identity['uuid']
                     and ready.get('startup_evidence') is True and 0 <= time.time() - ready['time'] < 50):
                 os.kill(ready['pid'], 0)
@@ -706,8 +833,8 @@ def tick():
             fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as exc:
             raise NotReady('另一个运行负责人正在检查') from exc
-        manifest_path = STATE_DIR / 'manifest.json'
-        identity = load_manifest(manifest_path) if manifest_path.exists() else None
+        manifest_file = manifest_path()
+        identity = load_manifest(manifest_file) if manifest_file.exists() else None
         state = None
         if identity:
             state = remote_state(identity)
@@ -740,8 +867,8 @@ def tick():
         if server not in PREPARED_SERVERS:
             return {'status': 'node_preparation_required', 'run_id': RUN_ID,
                     'server': candidate['server'], 'host': candidate['host'], 'uuid': candidate['uuid']}
-        prepared_path = STATE_DIR / f'prepared-{server}.json'
-        prepared = json.loads(prepared_path.read_text()) if prepared_path.exists() else {}
+        prepared_path = STATE_DIR / f'prepared-{server}.md'
+        prepared = read_private_state(prepared_path) if (prepared_path.exists() or prepared_path.with_suffix('.json').exists()) else {}
         if prepared.get('execution_sha256') != execution_sha256():
             original_science = identity['science_sha256'] if identity else prepared.get('science_sha256')
             prepared = prepare(server)
@@ -751,8 +878,8 @@ def tick():
         if not identity:
             identity = {'run_id': RUN_ID, 'server': server, 'host': candidate['host'], 'uuid': candidate['uuid'],
                         'science_sha256': prepared['science_sha256'], 'username': snapshot['account']['username'],
-                        'remote_status': f"{DISKS[server]}/zhangzibo/arxiv-tssa/preparations/{RUN_ID}/observations/resource-status.json"}
-            save_private(manifest_path, identity)
+                        'remote_status': prepared.get('remote_status', f"{DISKS[server]}/zhangzibo/arxiv-tssa/preparations/{RUN_ID}/observations/resource-status.json")}
+            save_private(manifest_file, identity)
         return start_or_resume(identity)
     finally:
         os.close(fd)
@@ -793,13 +920,10 @@ def watch(path):
                              'science_sha256': identity['science_sha256'], 'server': identity['server'],
                              'ssh_config': str(config),
                              'time': time.time(), 'startup_evidence': evidence is not None}
-                    fd, temp = tempfile.mkstemp(prefix='.observer-', dir=STATE_DIR)
-                    try:
-                        with os.fdopen(fd, 'w') as stream:
-                            json.dump(ready, stream)
-                        os.replace(temp, STATE_DIR / 'observer-ready.json')
-                    finally:
-                        if os.path.exists(temp): os.unlink(temp)
+                    save_private(observer_ready_path(identity), ready)
+                    if observer_ready_path(identity).suffix == '.json':
+                        try:save_private(STATE_DIR / 'observer-ready.md', ready)
+                        except (OSError, NotReady, ValueError):pass
                     if json.loads(output).get('terminal'):
                         break
                 except (NotReady, OSError, ValueError) as exc:
@@ -811,6 +935,24 @@ def watch(path):
         os.close(lock)
 
 
+class MarkdownLogStream:
+    """Indent every output line, including tracebacks, as Markdown code."""
+    def __init__(self, stream):
+        self.stream = stream
+        self.line_start = True
+
+    def write(self, text):
+        for part in text.splitlines(keepends=True):
+            if self.line_start:
+                self.stream.write('    ')
+            self.stream.write(part)
+            self.line_start = part.endswith(('\n', '\r'))
+        return len(text)
+
+    def flush(self):
+        self.stream.flush()
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=['observe', 'watch', 'prepare', 'tick', 'report'])
@@ -818,6 +960,9 @@ def main(argv=None):
     parser.add_argument('--manifest')
     parser.add_argument('--server', default='104')
     args = parser.parse_args(argv)
+    if args.command == 'watch':
+        sys.stdout = MarkdownLogStream(sys.stdout)
+        sys.stderr = MarkdownLogStream(sys.stderr)
     if args.timeout <= 0:
         parser.error('timeout must be positive')
     try:
@@ -828,7 +973,7 @@ def main(argv=None):
             return 0
         if args.command == 'prepare':
             result = prepare(args.server)
-            save_private(STATE_DIR / f'prepared-{args.server}.json', result)
+            save_private(STATE_DIR / f'prepared-{args.server}.md', result)
             print(json.dumps(result, ensure_ascii=False))
             return 0
         if args.command == 'tick':
@@ -836,7 +981,7 @@ def main(argv=None):
             return 0
         if args.command == 'report':
             state_dir()
-            path = STATE_DIR / 'manifest.json'
+            path = manifest_path()
             result = remote_state(load_manifest(path)) if path.exists() else {'status': 'not_started'}
             print(json.dumps(result, ensure_ascii=False))
             return 0

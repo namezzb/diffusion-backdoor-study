@@ -39,6 +39,47 @@ class MarkdownStoreTest(unittest.TestCase):
         self.assertEqual(s.event_detail('t0')['time_utc'], '2026-01-01T00:00:00+00:00')
         s.close()
 
+    def test_readable_summary_and_mixed_checkpoint_replay(self):
+        s = self.store()
+        s.event('t0', {'time_utc': 'original-time', 'secret': 'not-in-summary'})
+        s.event('notice', {'message': 'not-in-summary'})
+        s.reserve(self.key)
+        log = self.root / 'run.checkpoints.md'
+        old = {'attempt_id': 1, 'key': canonical(self.key), 'resource': {'steps': 2}}
+        log.write_text(canonical(old) + '\n')
+        s.checkpoint(self.key, {'steps': 5})
+        text = log.read_text()
+        self.assertIn('| attempt 1 (#1) | key:', text)
+        self.assertIn('counters:', text)
+        summary = (self.root / 'run.md').read_text().split('```json\n')[0]
+        for value in ('Run ID: test', 'started: 1', 'Attempts: 1', 'original-time', 'notice'):
+            self.assertIn(value, summary)
+        self.assertNotIn('not-in-summary', summary)
+        self.assertEqual((self.root / 'run.md').read_text().count('```json\n'), 1)
+        s.close()
+        with log.open('ab') as f: f.write(b'- partial checkpoint')
+        s = self.store()
+        self.assertEqual(s.data['attempts'][0]['resource'], {'steps': 5})
+        s.close()
+        s = self.store()
+        self.assertEqual(s.data['attempts'][0]['resource'], {'steps': 5})
+        s.fail(self.key, 'interrupted'); s.close()
+        self.assertEqual(read_markdown(self.root / 'run.md')['attempts'][0]['resource'], {'steps': 5})
+        self.assertEqual(log.read_text(), '')
+
+    def test_old_snapshot_and_1024_units(self):
+        self.units = [{'key': [str(i), 'source', 'clean']} for i in range(1024)]
+        self.budget = {'max_attempts': 1024, 'max_attempts_per_key': 1, 'state_max_attempts': {'source': 1024}}
+        s = self.store(); s.reserve(self.units[0]['key']); s.checkpoint(self.units[0]['key'], {'steps': 1}); s.close()
+        path = self.root / 'run.md'
+        data = read_markdown(path)
+        path.write_text('# Old ledger\n\n```json\n' + json.dumps(data) + '\n```\n')
+        s = self.store()
+        self.assertEqual(s.snapshot()['statuses'], {'started': 1, 'pending': 1023})
+        self.assertEqual(s.data['attempts'][0]['resource'], {'steps': 1})
+        s.event('resume', {}); s.close()
+        self.assertIn('pending: 1023', path.read_text().split('```json\n')[0])
+
     def test_image_resume_and_atomic_failure(self):
         s = self.store(); s.reserve(self.key)
         p = s.image_path(self.key); p.parent.mkdir(); Image.new('RGB', (512, 512)).save(p)

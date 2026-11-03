@@ -14,7 +14,7 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 `prepare`读取运行所需输入并展开生成键，不创建运行账本、不重新扫描历史定位数据库；对没有既有哈希的大输入记录未知，不冒充已核验。正常启动直接用`run`：部署时只做一次轻量`smoke`，运行时一次加载所需模型，不再进行独立存储审计、历史人工审阅或跨机数据库对账。
 
-需要断开SSH后继续时，用服务器现有持久会话或`nohup python3 scripts/merging/trigger_contrast_localization/runtime.py run --spec /absolute/spec.json > /absolute/session.log 2>&1 &`；先用`status`和日志判断结果。程序自行取得本机排他锁，不能删除锁文件、重置账本或复制目录来“解锁”。新运行使用 `run.md` 保存状态、尝试与结果，并以追加式 Markdown 记录细粒度检查点；旧 SQLite 运行由新执行器在确认旧写者退出并持锁后一次性迁移，保留原文件和已有记录。
+需要断开SSH后继续时，使用控制器的后台启动；新进程标准输出和错误分别写入可读的 `session.md`、`session-errors.md`，并用`status`及日志判断结果。程序自行取得本机排他锁，不能删除锁文件、重置账本或复制目录来“解锁”。新运行使用 `run.md` 保存状态摘要、尝试与结果，并以带时间和计数的追加式 Markdown 记录细粒度检查点；旧 SQLite 运行由新执行器在确认旧写者退出并持锁后一次性迁移，保留原文件和已有记录。
 
 ## 首次请求
 
@@ -40,8 +40,8 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
   },
   "execution": {
     "gpu_uuid": "GPU-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    "resource_evidence": "/absolute/resource-observation.json",
-    "resource_status_file": "/absolute/resource-status.json"
+    "resource_evidence": "/absolute/resource-observation.md",
+    "resource_status_file": "/absolute/resource-status.md"
   }
 }
 ```
@@ -65,7 +65,7 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 ## 资源和部署边界
 
-启动时读取最新平台原始观察并执行本机`nvidia-smi`检查；`resource_evidence`指向可刷新的观察文件，不因观察更新修改科学配置。观察字段包括run/science哈希、主机、完整GPU UUID、时间、禁用/分配/额度及原始采集文件引用，精确格式见[runtime.py的resource函数](runtime.py)。桥接器在目标机核对平台主机名后，将`host`写为实际hostname、machine-id SHA和UID的身份字典，原平台名称保存在`platform_host`；不能把平台字符串直接当执行身份，也不能在补身份时延长采样有效期。
+启动时读取最新平台原始观察并执行本机`nvidia-smi`检查；`resource_evidence`指向可刷新的观察文件，不因观察更新修改科学配置。观察字段包括run/science哈希、主机、完整GPU UUID、时间、禁用/分配/额度及原始采集文件引用，精确格式见[runtime.py的resource函数](runtime.py)。新准备的运行使用 Markdown 格式的观察文件，兼容既有正在使用JSON路径的观察器。桥接器在目标机核对平台主机名后，将`host`写为实际hostname、machine-id SHA和UID的身份字典，原平台名称保存在`platform_host`；不能把平台字符串直接当执行身份，也不能在补身份时延长采样有效期。
 
 运行中禁用或停止要求由外部平台观察者持续更新`resource_status_file`。[overnight.py](overnight.py)通过本机[labgpu API客户端](../../connection/LABGPU.md)刷新平台状态，再向本run写入最小观察；登录凭据留在本机。夜间运行强制`execution.require_fresh_resource_status=true`，身份不符、观察无效或超过180秒没有有效更新时，在执行检查点保存进度并暂停。新禁用/有效停止要求同样作用于检查点；这不是挂死CUDA的硬实时抢占机制。已合法启动后他人加入不单独触发停止。
 

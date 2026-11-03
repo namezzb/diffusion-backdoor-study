@@ -13,6 +13,7 @@ from unittest.mock import patch
 
 import torch
 import tssa_target_semantic_run as run
+from tssa_markdown import read_record as run_read_record
 
 
 class RecordingBackend:
@@ -67,7 +68,7 @@ class RunTests(unittest.TestCase):
         self.assertFalse(report['ASR_validated'])
         self.assertEqual(backend.calls, 96)
         self.assertEqual(self.ledger.total, run.LIMITS)
-        self.assertEqual(len(list((self.ledger.root / 'cells').glob('*.completed.json'))), 96)
+        self.assertEqual(len(list((self.ledger.root / 'cells').glob('*.completed.md'))), 96)
 
     def test_real_gate_rejects_no_attack_improvement_before_fd(self):
         backend = RecordingBackend(self.ledger.reserve)
@@ -83,18 +84,18 @@ class RunTests(unittest.TestCase):
             run.execute_stages(self.ledger, RecordingBackend(self.ledger.reserve, True), self.units, self.conditions)
         self.assertEqual(self.ledger.total['forward_branch_nfe'], 6)
         self.assertIsNotNone(self.ledger.current)
-        self.assertEqual(len(list((self.ledger.root / 'cells').glob('*.started.json'))), 1)
-        self.assertFalse(list((self.ledger.root / 'cells').glob('*.completed.json')))
+        self.assertEqual(len(list((self.ledger.root / 'cells').glob('*.started.md'))), 1)
+        self.assertFalse(list((self.ledger.root / 'cells').glob('*.completed.md')))
         with self.assertRaises(FileExistsError):
             run.Ledger(self.ledger.root, {})
 
     def test_failed_receipt_persistence_preserves_pending(self):
-        original = run.write_json
+        original = run.write_record
         def fail_completed(path, value):
             if str(path).endswith('.completed.json'):
                 raise OSError('injected disk failure')
             return original(path, value)
-        with patch.object(run, 'write_json', side_effect=fail_completed), self.assertRaises(OSError):
+        with patch.object(run, 'write_record', side_effect=fail_completed), self.assertRaises(OSError):
             run.execute_stages(self.ledger, RecordingBackend(self.ledger.reserve), self.units, self.conditions)
         self.assertIsNotNone(self.ledger.current)
         self.assertEqual(self.ledger.total['te_batch_calls'], 1)
@@ -119,12 +120,12 @@ class RunTests(unittest.TestCase):
                  'kind': 'teacher', 'gradients': False,
                  'operation': 'begin', 'cost': dict.fromkeys(run.RESOURCE_KEYS, 0)}
         self.ledger.reserve(event)
-        file = self.ledger.root / 'reservations/000001.json'
+        file = self.ledger.root / 'reservations/000001.md'
         before = file.read_bytes()
         event['cost']['te_batch_calls'] = 1; event['operation'] = 'te_batch'
         self.ledger.reserve(event)
         self.assertEqual(file.read_bytes(), before)
-        self.assertEqual(json.loads(before)['reserved_total']['te_batch_calls'], 0)
+        self.assertEqual(run_read_record(file)['reserved_total']['te_batch_calls'], 0)
 
     def test_wall_limit_prevents_next_operation(self):
         self.time[0] = 1800.
@@ -155,7 +156,7 @@ class RunTests(unittest.TestCase):
         with patch.object(sys, 'argv', argv), patch.dict(os.environ, CUBLAS_WORKSPACE_CONFIG=':4096:8'), \
              patch.object(run, 'inputs', return_value=({}, {})), patch.object(run, 'validate_plan'), \
              patch.object(run, 'claim_execution'), patch.object(run, 'Ledger', return_value=fake_ledger), \
-             patch.object(run, 'write_json'), \
+             patch.object(run, 'write_record'), \
              patch.object(run, 'cpu_prepare', side_effect=RuntimeError('load reached')) as load:
             with self.assertRaisesRegex(RuntimeError, 'load reached'):
                 run.main()

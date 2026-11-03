@@ -20,6 +20,132 @@ import semantic_science
 
 
 class SemanticValidationTest(unittest.TestCase):
+    def setUp(self):
+        # Fail closed: these tests must never contact a server.
+        original = subprocess.Popen
+        def local_only(command, *args, **kwargs):
+            if isinstance(command, (str, bytes)):
+                raise AssertionError('shell commands are forbidden in isolated tests')
+            executable = Path(os.fsdecode(command[0])).name
+            if executable not in {Path(sys.executable).name, 'python3', 'python'}:
+                raise AssertionError('non-Python subprocess forbidden: ' + executable)
+            return original(command, *args, **kwargs)
+        patcher = mock.patch.object(subprocess, 'Popen', side_effect=local_only)
+        patcher.start(); self.addCleanup(patcher.stop)
+
+    def test_markdown_subprocess_does_not_wait_for_fork_inheriting_pipes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ns = {}; exec(validation.MARKDOWN_SUBPROCESS, ns)
+            pidfile = Path(tmp)/'pid'
+            child = "import os,sys,time;pid=os.fork();\nif pid==0: time.sleep(20);os._exit(0)\nopen(sys.argv[1],'w').write(str(pid));print('done',flush=True);os._exit(3)"
+            started = time.monotonic()
+            try:
+                result = ns['markdown_subprocess']([sys.executable, '-c', child, str(pidfile)], tmp, os.environ, Path(tmp)/'out.md', Path(tmp)/'err.md')
+                self.assertLess(time.monotonic()-started, 3)
+                self.assertEqual((result.returncode,result.stdout), (3,'done\n'))
+            finally:
+                if pidfile.exists():
+                    try:os.kill(int(pidfile.read_text()), signal.SIGTERM)
+                    except ProcessLookupError:pass
+
+    def test_markdown_subprocess_long_output_without_temporary_raw_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ns = {}; exec(validation.MARKDOWN_SUBPROCESS, ns)
+            child = "import sys;sys.stdout.write('a'*2000000+'\\n');sys.stdout.flush()"
+            with mock.patch('tempfile.TemporaryFile', side_effect=AssertionError('unbounded raw copy')):
+                result = ns['markdown_subprocess']([sys.executable, '-c', child], tmp, os.environ, Path(tmp)/'out.md', Path(tmp)/'err.md', capture=False)
+            self.assertEqual(result.returncode, 0)
+            self.assertEqual(result.stdout, '')
+            self.assertEqual((Path(tmp)/'out.md').read_text().count('a'), 2000000)
+
+    def test_resource_observer_writes_and_reads_both_formats(self):
+        import socket
+        import runtime
+        for suffix in ('.json', '.md'):
+            with self.subTest(suffix=suffix), tempfile.TemporaryDirectory() as tmp:
+                tmp = str(Path(tmp).resolve())
+                path = Path(tmp) / ('resource-status' + suffix)
+                machine = Path(tmp) / 'machine-id'; machine.write_text('local-test')
+                evidence = {'host': socket.gethostname(), 'gpu_uuid': 'GPU-test'}
+                payload = {'status': {'observation_valid': True}, 'evidence': evidence, 'capture': {'sample': 1}}
+                result = subprocess.run([sys.executable, '-c', validation.REMOTE_STATUS_WRITER.replace("'/etc/machine-id'", repr(str(machine))), str(path), str(Path(tmp)/'run.sqlite')], input=json.dumps(payload), text=True, capture_output=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertTrue(runtime.read_resource_json(path)['observation_valid'])
+                record = runtime.read_resource_json(Path(tmp)/('resource-evidence'+suffix))
+                capture = Path(record['raw_capture']['path'])
+                self.assertEqual(capture.suffix, suffix)
+                self.assertEqual(hashlib.sha256(capture.read_bytes()).hexdigest(), record['raw_capture']['sha256'])
+                if suffix == '.json':
+                    self.assertTrue(runtime.read_resource_json(path.with_suffix('.md'))['observation_valid'])
+                    self.assertEqual(runtime.read_resource_json(Path(tmp)/'resource-evidence.md'), record)
+
+    def test_markdown_subprocess_utf8_split_across_reads(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ns = {}; exec(validation.MARKDOWN_SUBPROCESS, ns)
+            out = Path(tmp) / 'out.md'; err = Path(tmp) / 'err.md'
+            child = "import os,time;os.write(1,bytes([0xe4]));time.sleep(.3);os.write(1,bytes([0xb8,0xad,10]))"
+            result = ns['markdown_subprocess']([sys.executable, '-c', child], tmp, os.environ, out, err)
+            self.assertEqual(result.stdout, '中\n')
+            self.assertIn('    中\n', out.read_text())
+
+    def test_markdown_subprocess_output_and_exit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ns = {}; exec(validation.MARKDOWN_SUBPROCESS, ns)
+            out = Path(tmp) / 'out.md'; err = Path(tmp) / 'err.md'
+            child = 'import sys;print("hello");print("bad",file=sys.stderr);sys.exit(7)'
+            result = ns['markdown_subprocess']([sys.executable, '-c', child], tmp, os.environ, out, err)
+            self.assertEqual((result.returncode, result.stdout, result.stderr), (7, 'hello\n', 'bad\n'))
+            self.assertIn('    hello\n', out.read_text())
+            self.assertIn('    bad\n', err.read_text())
+
+    def test_markdown_wrapper_holds_inherited_launcher_lock(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            lock = Path(tmp) / 'lock'; fd = os.open(lock, os.O_CREAT | os.O_RDWR, 0o600)
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            wrapper = validation.MARKDOWN_SUBPROCESS + "\nimport sys; r=markdown_subprocess(sys.argv[4:],None,os.environ,sys.argv[2],sys.argv[3],capture=False);sys.exit(r.returncode)"
+            proc = subprocess.Popen([sys.executable, '-c', wrapper, str(fd), str(Path(tmp)/'session.md'),
+                                     str(Path(tmp)/'errors.md'), sys.executable, '-c',
+                                     'import time;print("running",flush=True);time.sleep(.5);raise SystemExit(9)'],
+                                    pass_fds=(fd,))
+            os.close(fd)
+            other = os.open(lock, os.O_RDWR)
+            try:
+                with self.assertRaises(BlockingIOError):fcntl.flock(other, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                self.assertEqual(proc.wait(timeout=5), 9)
+                fcntl.flock(other, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                self.assertIn('    running', (Path(tmp)/'session.md').read_text())
+            finally:
+                os.close(other)
+
+    def test_markdown_state_roundtrip_and_legacy_fallback(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)):
+            state = Path(tmp); state.chmod(0o700)
+            path = state / 'prepared-103.md'
+            legacy = path.with_suffix('.json')
+            legacy.write_text(json.dumps({'value': 'old'})); legacy.chmod(0o600)
+            self.assertEqual(validation.read_private_state(path), {'value': 'old'})
+            validation.save_private(path, {'value': 'new'})
+            self.assertEqual(validation.read_private_state(path), {'value': 'new'})
+            self.assertEqual(json.loads(legacy.read_text()), {'value': 'old'})
+            self.assertIn('```json\n', path.read_text())
+            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+
+    def test_markdown_log_indents_every_line(self):
+        import io
+        output = io.StringIO()
+        stream = validation.MarkdownLogStream(output)
+        stream.write('first\nsecond'); stream.write(' continued\nthird\n')
+        self.assertEqual(output.getvalue(), '    first\n    second continued\n    third\n')
+
+    def test_manifest_new_and_existing_selection(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)):
+            state = Path(tmp); state.chmod(0o700)
+            self.assertEqual(validation.manifest_path(), state / 'manifest.md')
+            legacy = state / 'manifest.json'; legacy.write_text('{}'); legacy.chmod(0o600)
+            self.assertEqual(validation.manifest_path(), legacy)
+            validation.save_private(state / 'manifest.md', {'value': 1})
+            self.assertEqual(validation.manifest_path(), state / 'manifest.md')
+
     def test_successful_frontend_does_not_wait_for_background_inherited_output(self):
         with tempfile.TemporaryDirectory() as tmp:
             pidfile = Path(tmp) / 'background.pid'
@@ -149,7 +275,7 @@ os._exit(0)
             identity = start.call_args.args[0]
             self.assertEqual(identity['server'], '103')
             self.assertEqual(identity['remote_status'], '/data1/zhangzibo/arxiv-tssa/preparations/' + validation.RUN_ID + '/observations/resource-status.json')
-            self.assertTrue((Path(tmp) / 'prepared-103.json').is_file())
+            self.assertTrue((Path(tmp) / 'prepared-103.md').is_file())
             self.assertFalse((Path(tmp) / 'prepared-104.json').exists())
 
     def test_missing_gpu_helper_is_bootstrapped_only_before_run_creation(self):
@@ -242,6 +368,7 @@ os._exit(0)
                 mock.patch.object(validation, 'prepare', return_value={'science_sha256': 'a' * 64, 'execution_sha256': {'runtime.py': 'new'}}) as prepare, \
                 mock.patch.object(validation, 'start_or_resume', return_value={'status': 'simulated'}) as start:
             (Path(tmp) / 'prepared-104.json').write_text(json.dumps({'science_sha256': 'a' * 64}))
+            (Path(tmp) / 'prepared-104.json').chmod(0o600)
             self.assertEqual(validation.tick()['status'], 'simulated')
             prepare.assert_called_once_with('104')
             start.assert_called_once()
@@ -279,6 +406,7 @@ os._exit(0)
                 mock.patch.object(validation, 'prepare', return_value={'science_sha256': 'b' * 64, 'execution_sha256': {'runtime.py': 'new'}}), \
                 mock.patch.object(validation, 'start_or_resume') as start:
             (Path(tmp) / 'prepared-104.json').write_text(json.dumps({'science_sha256': 'a' * 64}))
+            (Path(tmp) / 'prepared-104.json').chmod(0o600)
             with self.assertRaises(validation.NotReady):
                 validation.tick()
             start.assert_not_called()
