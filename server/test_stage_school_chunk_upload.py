@@ -2,6 +2,7 @@
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -12,6 +13,28 @@ from unittest import mock
 spec = importlib.util.spec_from_file_location("stage_chunks", Path(__file__).with_name("stage_school_assets.py"))
 stage = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(stage)
+
+
+def setUpModule():
+    global _guard_dir, _guard_env, _guard_popen, _guard_socket
+    import socket
+    _guard_dir = tempfile.TemporaryDirectory(prefix='server-test-no-network-')
+    for name in ('ssh', 'scp', 'sftp', 'curl'):
+        command = Path(_guard_dir.name) / name
+        command.write_text('#!/bin/sh\nexit 99\n'); command.chmod(0o700)
+    _guard_env = mock.patch.dict(os.environ, {'PATH': _guard_dir.name + os.pathsep + os.environ.get('PATH', '')})
+    _guard_env.start()
+    original = subprocess.Popen
+    def local_python_only(command, *args, **kwargs):
+        if isinstance(command, (str, bytes)) or Path(os.fsdecode(command[0])).resolve() != Path(sys.executable).resolve():
+            raise AssertionError('External subprocess forbidden in tests')
+        return original(command, *args, **kwargs)
+    _guard_popen = mock.patch.object(subprocess, 'Popen', side_effect=local_python_only); _guard_popen.start()
+    _guard_socket = mock.patch.object(socket, 'create_connection', side_effect=AssertionError('Network forbidden')); _guard_socket.start()
+
+
+def tearDownModule():
+    _guard_socket.stop(); _guard_popen.stop(); _guard_env.stop(); _guard_dir.cleanup()
 
 
 class ChunkRecoveryTests(unittest.TestCase):
@@ -27,6 +50,11 @@ class ChunkRecoveryTests(unittest.TestCase):
         command = [sys.executable, "-c", source, str(dest or self.dest), str(offset),
                    str(total), str(size), expected or hashlib.sha256(b"def").hexdigest()]
         return subprocess.run(command, input=payload, capture_output=True)
+
+    def test_chunk_receiver_has_no_lock_or_claim(self):
+        self.assertNotIn("flock", stage.REMOTE_CHUNK)
+        self.assertNotIn("O_EXCL", stage.REMOTE_CHUNK)
+        self.assertNotIn(".lock", stage.REMOTE_CHUNK)
 
     def test_truncated_chunk_retains_prefix_and_full_retry_commits(self):
         failed = self.receive(b"d")

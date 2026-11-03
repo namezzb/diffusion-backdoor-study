@@ -37,9 +37,8 @@ def main(argv=None):
     from preflight import load_plan
     plan = load_plan(args.manifest, args.prompts, args.context_review, args.m06_review, args.repository_root)
     manifest = json.loads(Path(args.manifest).read_bytes())
-    from run_store import append_event, lock_run, prepare_run_root
+    from run_store import append_event, prepare_run_root
     output = prepare_run_root(args.output_root, plan, manifest)
-    lock_fd = lock_run(output)
     local = images = None
     try:
         terminal_path = output / "terminal.json"
@@ -60,7 +59,7 @@ def main(argv=None):
             return 0
         if args.phase == "recover":
             from recovery import recover_interrupted
-            result = recover_interrupted(output, plan, args.recovery_kind, args.reason, lock_fd)
+            result = recover_interrupted(output, plan, args.recovery_kind, args.reason)
             append_event(output, plan, args.phase, "complete", result)
             print(json.dumps(result, ensure_ascii=False, sort_keys=True, allow_nan=False))
             return 0
@@ -154,7 +153,6 @@ def main(argv=None):
             images.close()
         if local is not None:
             local.close()
-        os.close(lock_fd)
 
 
 if __name__ == "__main__":

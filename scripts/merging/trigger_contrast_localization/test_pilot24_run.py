@@ -124,8 +124,9 @@ class DurableRunTests(unittest.TestCase):
         with self.assertRaises(ValueError): verify_release(self.root,self.config,assignment,self.root/'fake.json')
         with self.assertRaises(ValueError): verify_release(self.root,self.config,dict(assignment,gate_sha256='2'*64),release['gate_path'])
 
-    def test_coordinator_rejects_second_writer(self):
-        with self.assertRaises(BlockingIOError): Coordinator(self.root,self.config)
+    def test_coordinator_allows_second_instance(self):
+        other = Coordinator(self.root,self.config)
+        other.close()
 
     def test_persistent_cli_serves_four_stages_with_one_session(self):
         from types import SimpleNamespace

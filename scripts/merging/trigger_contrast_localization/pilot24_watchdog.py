@@ -28,7 +28,9 @@ def create_t0(path, manifest_sha, *, now_utc=None):
         raise ValueError("T0 must be explicit UTC")
     payload = {"run_id": RUN, "manifest_sha256": manifest_sha, "t0_utc": timestamp}
     raw = (json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n").encode()
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
+    if path.exists() or path.is_symlink():
+        raise FileExistsError("T0 already exists")
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0), 0o600)
     try:
         with os.fdopen(fd, "wb") as stream:
             stream.write(raw)

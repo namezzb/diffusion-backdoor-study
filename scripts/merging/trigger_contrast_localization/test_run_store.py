@@ -7,7 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from run_store import append_event, lock_run, prepare_run_root
+from run_store import append_event, prepare_run_root
 
 
 class RunStoreTests(unittest.TestCase):
@@ -26,10 +26,6 @@ class RunStoreTests(unittest.TestCase):
                 self.assertEqual(prepare_run_root(path, plan, manifest), path)
                 with self.assertRaisesRegex(ValueError, "exact run identity"):
                     prepare_run_root(path, SimpleNamespace(run_id="tcl-test", manifest_sha="b" * 64), manifest)
-                fd = lock_run(path)
-                with self.assertRaises(BlockingIOError):
-                    lock_run(path)
-                os.close(fd)
                 event = append_event(path, plan, "localize", "error", {"reason": "fixture"})
                 data = Path(event["path"]).read_bytes()
                 self.assertEqual(hashlib.sha256(data).hexdigest(), event["sha256"])

@@ -15,7 +15,6 @@ from __future__ import annotations
 import argparse
 import contextlib
 import datetime as dt
-import fcntl
 import hashlib
 import importlib.metadata
 import json
@@ -171,18 +170,12 @@ def experiment_plan(protocol: Mapping[str, Any], digest: str) -> dict[str, Any]:
 
 
 class RunStore:
-    """Atomic artifacts plus per-operation receipts; one process owns a run lock."""
+    """Atomic artifacts plus per-operation receipts; concurrent writers are not coordinated."""
 
     def __init__(self, directory: str | Path, identity: Mapping[str, Any], *, resume: bool = False,
                  recover_inflight: bool = False) -> None:
         self.root = Path(directory).resolve()
         self.root.mkdir(parents=True, exist_ok=True)
-        self.lock = (self.root / ".run.lock").open("a+")
-        try:
-            fcntl.flock(self.lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as error:
-            self.lock.close()
-            raise IntegrityError("Another process already owns this run directory.") from error
         self.identity = dict(identity)
         self.identity_hash = canonical_hash(self.identity)
         self.recover_inflight = recover_inflight
@@ -205,15 +198,13 @@ class RunStore:
                 self.close()
                 raise IntegrityError("Resume identity mismatch: protocol, assets, implementation, backend or package versions changed.")
         else:
-            if resume or any(path.name != ".run.lock" for path in self.root.iterdir()):
+            if resume or any(self.root.iterdir()):
                 self.close()
                 raise IntegrityError("Cannot initialize or resume a nonempty/unidentified run directory.")
             atomic_record(identity_path, self.identity)
 
     def close(self) -> None:
-        if not self.lock.closed:
-            fcntl.flock(self.lock.fileno(), fcntl.LOCK_UN)
-            self.lock.close()
+        pass
 
     def _paths(self, operation: str, binary: bool) -> tuple[Path, Path]:
         from tssa_markdown import existing_record, record_path

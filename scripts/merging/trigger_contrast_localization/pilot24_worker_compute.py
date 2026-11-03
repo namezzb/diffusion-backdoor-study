@@ -317,14 +317,8 @@ def run_session(mailbox, receipt_root, bundle_path, worker_id, t0_path, t0_sha,
                     reviewed_config = json.loads(config_raw)
                     original_manifest = None
                     if reviewed_config.get('recovery'):
-                        from pilot24_recovery_guard_candidate import MANIFEST, validate_amendment, validate_inherited_locks
+                        from pilot24_recovery_guard_candidate import MANIFEST, validate_amendment
                         validate_amendment(prepared.bundle, reviewed_config, review, prepared.manifest_sha256)
-                        try:
-                            inherited = tuple(int(x) for x in os.environ['PILOT24_RECOVERY_FDS'].split(','))
-                        except (KeyError, ValueError) as error:
-                            raise ValueError('recovery predecessor lock descriptors required') from error
-                        validate_inherited_locks(reviewed_config['recovery']['original_coordinator_root'], inherited,
-                                                 second='previous' in reviewed_config['recovery'])
                         original_manifest = MANIFEST
                     t0 = load_t0(t0_path, t0_sha, prepared.manifest_sha256,
                                  original_manifest_sha=original_manifest)

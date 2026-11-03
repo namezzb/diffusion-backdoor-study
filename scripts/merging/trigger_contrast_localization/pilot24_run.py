@@ -94,16 +94,9 @@ def supervise_worker(args):
     review = read_json(bundle['review_file'])
     config = load_reviewed_configuration(args.bundle, review['coordinator_config_file'])
     original_manifest = None
-    inherited_fds = ()
     if config.get('recovery'):
-        from pilot24_recovery_guard_candidate import MANIFEST, validate_inherited_locks
+        from pilot24_recovery_guard_candidate import MANIFEST
         original_manifest = MANIFEST
-        try:
-            inherited_fds = tuple(int(x) for x in os.environ['PILOT24_RECOVERY_FDS'].split(','))
-        except (KeyError, ValueError) as error:
-            raise ValueError('recovery predecessor lock descriptors required') from error
-        validate_inherited_locks(config['recovery']['original_coordinator_root'], inherited_fds,
-                                 second='previous' in config['recovery'])
     t0 = load_t0(args.t0, args.t0_sha, file_sha(args.bundle), original_manifest_sha=original_manifest)
     argv = [sys.executable, str(Path(__file__).resolve()), 'worker']
     for name in ('bundle', 'mailbox', 'receipt_root', 'worker_id', 't0', 't0_sha', 'permission_ref', 'stop_file'):
@@ -198,14 +191,13 @@ def serve(args):
                     expected_config_sha=rec['original_config_sha256'], expected_state_sha=rec['original_state_sha256'],
                     expected_bundle_sha=MANIFEST))
         with guard as prior:
-            return _serve_reviewed(args, config, lock_fds=prior['lock_fds'])
+            return _serve_reviewed(args, config)
     return _serve_reviewed(args, config)
 
 
-def _serve_reviewed(args, config, *, lock_fds=()):
+def _serve_reviewed(args, config):
     specs = read_json(args.launch_map)
     with Coordinator(args.root, config) as c:
-        # Holding the coordinator lock throughout makes a second daemon fail.
         try:
             while c.state['terminal'] is None:
                 specs = read_json(args.launch_map)
@@ -264,12 +256,10 @@ def _serve_reviewed(args, config, *, lock_fds=()):
                             argv.extend(['--' + name.replace('_', '-'), str(value)])
                         write_json(launched, {'argv': argv, 'state': 'dispatch_reserved_not_proof_of_start'}, exclusive=True)
                         env = os.environ.copy()
-                        if lock_fds:
-                            env['PILOT24_RECOVERY_FDS'] = ','.join(str(fd) for fd in lock_fds)
                         with (session / 'worker.log').open('ab') as log:
                             proc = subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=log,
                                                     stderr=subprocess.STDOUT, start_new_session=True,
-                                                    pass_fds=lock_fds, env=env)
+                                                    env=env)
                         write_json(session / 'supervisor.json', {'pid': proc.pid, 'worker_id': worker_id}, exclusive=True)
                 # The worker writes its actionable session error before it
                 # exits. Preserve that cause when its exit receipt is already

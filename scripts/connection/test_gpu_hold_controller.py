@@ -1,7 +1,6 @@
 """CPU-only controller checks. No SSH, API, CUDA or scientific workload."""
 import copy
 from contextlib import closing
-import fcntl
 import hashlib
 import json
 import os
@@ -180,9 +179,9 @@ class ControllerTests(unittest.TestCase):
             stopper = threading.Thread(target=lambda: results.append(c.stop(self.config, self.state))); stopper.start()
             deadline = time.time() + 2
             while not (self.state / 'STOP').exists() and time.time() < deadline: time.sleep(.01)
-            self.assertTrue(stopper.is_alive(), 'stop must wait for in-flight owner')
+            stopper.join(2)
             release.set(); thread.join(3); stopper.join(3)
-        self.assertTrue(failures); self.assertEqual(results[0]['status'], 'stopped_before_start')
+        self.assertTrue(failures); self.assertEqual(results[0]['status'], 'stop_pending')
         self.assertNotIn('start', [a for a, _ in self.calls])
 
     def test_waiter_refuses_partial_terminal_without_report_or_gpu(self):
@@ -192,14 +191,11 @@ class ControllerTests(unittest.TestCase):
             with self.assertRaises(c.NotReady): c.await_completion(config, self.state)
         watch.assert_not_called(); self.assertEqual(remote.call_args.args[1], 'poll')
 
-    def test_waiter_builds_report_and_hands_same_owner_lock_to_watch(self):
+    def test_waiter_builds_report_and_hands_off_to_watch(self):
         config = copy.deepcopy(self.config); del config['completion_report']
-        def take_over(activated, state, _lock_fd):
+        def take_over(activated, state):
             c.validate_config(activated)
-            second = os.open(state / 'controller.lock', os.O_RDWR)
-            try:
-                with self.assertRaises(BlockingIOError): fcntl.flock(second, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            finally: os.close(second); os.close(_lock_fd)
+            self.assertFalse((state / 'controller.lock').exists())
             return {'status': 'simulated_handoff'}
         with mock.patch.object(c, 'remote', side_effect=[{'status': 'ready_for_report'}, self.report]), \
                 mock.patch.object(c, 'watch', side_effect=take_over):
@@ -279,10 +275,9 @@ class ControllerTests(unittest.TestCase):
             c.resume(self.config, self.state)
         watch.assert_not_called()
         self.assertTrue((self.state / 'manifest.md').exists())
-        def take_over(config, state, _lock_fd):
+        def take_over(config, state):
             self.assertTrue(c.read_private(state / 'manifest.md')['retired'])
             self.assertEqual(len(list((state / 'history').glob('manifest-*.md'))), 1)
-            os.close(_lock_fd)
             return {'status': 'simulated_resume'}
         with mock.patch.object(c, 'remote', return_value={'workers': [{'alive': False}]}), \
                 mock.patch.object(c, 'watch', side_effect=take_over):
@@ -307,15 +302,18 @@ class RemoteGateTests(unittest.TestCase):
         self.sha = c.digest({'run_id': c.RUN, 'science': self.science})
         (self.work / 'spec.json').write_text(json.dumps({'run_id': c.RUN, 'science': self.science, 'execution': {'gpu_uuid': U1}}))
         self.machine = {'hostname': 'iipl-104', 'uid': os.getuid(), 'machine_id_sha256': hashlib.sha256(b'cpu-test-machine').hexdigest()}
+        (self.work / 'launcher.md').write_text('```json\n' + json.dumps({'pid': 999999, 'uid': os.getuid(), 'boot_id': 'old', 'start_ticks': 1}) + '\n```\n')
         self.dbpath = self.source / 'run.sqlite'
         with closing(sqlite3.connect(self.dbpath)) as db, db:
             db.executescript('CREATE TABLE metadata(id INTEGER,identity TEXT); CREATE TABLE units(status TEXT,key TEXT,unit TEXT,image_sha TEXT,scores TEXT); CREATE TABLE events(id INTEGER PRIMARY KEY,kind TEXT,detail TEXT);')
             db.execute('INSERT INTO metadata VALUES(1,?)', (json.dumps({'run_id': c.RUN, 'science_sha256': self.sha,
                 'run_root': str(self.source), 'writer_host': self.machine}),))
             db.executemany('INSERT INTO units(status,key,unit) VALUES(?,?,?)', [('complete', c.canonical(u['key']), c.canonical(u)) for u in self.units])
+            db.execute('INSERT INTO events(kind,detail) VALUES(?,?)', ('session', json.dumps({'writer': {'pid': 999998, 'uid': os.getuid(), 'boot_id': 'old', 'start_ticks': 1}})))
             db.execute('INSERT INTO events(kind,detail) VALUES(?,?)', ('terminal', json.dumps({'stage': 'M1', 'outcome': 'inconclusive', 'reason': 'fixture'})))
             for stage in ('S0', 'S1', 'M0', 'M1'): db.execute('INSERT INTO events(kind,detail) VALUES(?,?)', ('stage_gate', json.dumps({'stage': stage})))
         self.script = c.REMOTE.replace("'/data2/zhangzibo/arxiv-tssa'", repr(str(self.root)))
+        self.script = self.script.replace("pathlib.Path('/proc/sys/kernel/random/boot_id').read_text().strip()", "'fixture-current-boot'")
         self.script = self.script.replace('socket.gethostname()', "'iipl-104'")
         self.script = self.script.replace("pathlib.Path('/etc/machine-id').read_bytes()", "b'cpu-test-machine'")
 
@@ -329,18 +327,26 @@ class RemoteGateTests(unittest.TestCase):
         self.assertEqual(json.loads(result.stdout)['complete'], 1024)
         self.assertEqual(self.dbpath.read_bytes(), before)
 
+    def test_missing_launcher_uses_writer_sessions_and_incomplete_identity_blocks(self):
+        (self.work / 'launcher.md').unlink()
+        result = self.invoke('handoff')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['launcher_exit'], 'identity_unavailable')
+        (self.work / 'launcher.md').write_text('```json\n{}\n```\n')
+        result = self.invoke('handoff')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('scientific process exit unconfirmed', result.stderr)
+
     def test_partial_terminal_cannot_acquire_gpu(self):
         with closing(sqlite3.connect(self.dbpath)) as db, db: db.execute("DELETE FROM units WHERE rowid>128")
         result = self.invoke(); self.assertNotEqual(result.returncode, 0)
         self.assertIn('experiment incomplete', result.stderr)
         self.assertEqual(json.loads(self.invoke('poll').stdout)['status'], 'partial_terminal')
 
-    def test_live_scientific_writer_or_wrong_identity_refused(self):
-        fd = os.open(self.source / '.writer.lock', os.O_RDWR)
-        try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            self.assertNotEqual(self.invoke().returncode, 0)
-        finally: os.close(fd)
+    def test_wrong_scientific_identity_refused_without_lock_files(self):
+        (self.work / 'launcher.lock').unlink()
+        (self.source / '.writer.lock').unlink()
+        self.assertEqual(self.invoke().returncode, 0)
         self.sha = 'f' * 64
         self.assertIn('science hash mismatch', self.invoke().stderr)
 
@@ -383,7 +389,10 @@ class RemoteGateTests(unittest.TestCase):
         md = self.source / 'run.md'; md.write_text('# Run\n\n```json\n' + json.dumps(value) + '\n```\n')
         self.dbpath.write_bytes(b'invalid legacy file')
         self.assertEqual(json.loads(self.invoke('poll').stdout)['status'], 'ready_for_report')
-        self.assertEqual(self.invoke('handoff').returncode, 0)
+        (self.work / 'launcher.md').unlink()
+        handoff = self.invoke('handoff')
+        self.assertEqual(handoff.returncode, 0, handoff.stderr)
+        self.assertEqual(json.loads(handoff.stdout)['launcher_exit'], 'identity_unavailable')
         md.write_text('invalid')
         self.assertIn('invalid Markdown ledger', self.invoke('poll').stderr)
 

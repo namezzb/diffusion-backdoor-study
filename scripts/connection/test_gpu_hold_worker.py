@@ -1,6 +1,5 @@
 """CPU-only fake-device tests; no CUDA device or reservation is used."""
 import contextlib
-import fcntl
 import io
 import json
 import os
@@ -138,15 +137,11 @@ class WorkerTest(unittest.TestCase):
         self.lease_path.symlink_to('/dev/null')
         with self.assertRaises(worker.StopWork): worker.safe_read_json(self.lease_path)
 
-    def test_same_card_lock_prevents_second_worker(self):
-        state = self.root / 'state'
-        state.mkdir(mode=0o700)
-        fd = os.open(state / (GPU + '.lock'), os.O_CREAT | os.O_RDWR, 0o600)
-        try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            with self.assertRaises(worker.StopWork): self.execute(mock.Mock())
-        finally:
-            os.close(fd)
+    def test_worker_does_not_create_lock_file(self):
+        device = mock.Mock()
+        device.allocate.side_effect = lambda _fraction, guard: guard()
+        self.execute(lambda *_: device)
+        self.assertFalse((self.root / 'state' / (GPU + '.lock')).exists())
 
     def test_stopped_worker_cannot_restart_with_old_lease(self):
         device = mock.Mock()

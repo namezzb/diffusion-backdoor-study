@@ -5,7 +5,6 @@ establish that an earlier writer has exited. The coordinator must do both.
 """
 from __future__ import annotations
 
-import fcntl
 import hashlib
 import json
 import math
@@ -30,7 +29,7 @@ def is_sha(value):
 
 
 class WorkerLedger:
-    """One locally locked ledger, bound permanently to a finite key assignment."""
+    """One ledger, bound permanently to a finite key assignment."""
 
     def __init__(self, directory, assignment):
         self.root = Path(directory)
@@ -65,10 +64,7 @@ class WorkerLedger:
             keys.append(canonical(key))
         if len(set(keys)) != len(keys):
             raise ValueError("duplicate assigned unit")
-        lock_path = self.root / ".worker.lock"
-        self.lock = os.open(lock_path, os.O_CREAT | os.O_RDWR | getattr(os, "O_NOFOLLOW", 0), 0o600)
         try:
-            fcntl.flock(self.lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             for suffix in ("", "-wal", "-shm"):
                 if (self.root / ("worker.sqlite" + suffix)).is_symlink():
                     raise ValueError("worker database must not be a symlink")
@@ -103,12 +99,10 @@ class WorkerLedger:
                 if self.db.in_transaction:
                     self.db.execute("ROLLBACK")
                 self.db.close()
-            os.close(self.lock)
             raise
 
     def close(self):
         self.db.close()
-        os.close(self.lock)
 
     def __enter__(self):
         return self
@@ -228,21 +222,20 @@ class WorkerLedger:
 
     def resolve_interrupted(self, key, isolation_evidence_sha):
         """The old SHA-only prototype is intentionally not an authorization path."""
-        raise ValueError("a claimed evidence hash is insufficient; use locked recovery or fail_attempt")
+        raise ValueError("a claimed evidence hash is insufficient; use recovery or fail_attempt")
 
     def recover_interrupted(self, key):
-        """Reconcile only attempts found when this instance acquired its lock."""
+        """Reconcile only attempts found when this instance opened."""
         encoded, (status, _, _) = self._unit(key)
         if status != "started" or encoded not in self._reopened:
-            raise ValueError("recovery requires an interrupted attempt from an earlier lock owner")
+            raise ValueError("recovery requires an interrupted attempt from an earlier session")
         path = self.image_path(key)
         if path.exists() or path.is_symlink():
             self.register_image(key, path)
             self._reopened.remove(encoded)
             return "scoring"
-        info = os.fstat(self.lock)
-        self._interrupt(key, {"kind": "exclusive_local_worker_lock_reacquired", "session_id": self.session_id,
-            "lock_device": info.st_dev, "lock_inode": info.st_ino, "worker_id": self.assignment["worker_id"]})
+        self._interrupt(key, {"kind": "reopened_worker_ledger", "session_id": self.session_id,
+            "worker_id": self.assignment["worker_id"]})
         self._reopened.remove(encoded)
         return self.status(key)
 

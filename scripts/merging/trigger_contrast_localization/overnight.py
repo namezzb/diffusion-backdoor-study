@@ -8,7 +8,6 @@ import argparse
 import base64
 import contextlib
 from datetime import datetime, timedelta, timezone
-import fcntl
 import hashlib
 import json
 import math
@@ -133,13 +132,10 @@ s=json.loads(spec.read_text()); canonical=json.dumps({'run_id':s['run_id'],'scie
 print(json.dumps({'status':'cpu_checked','spec':str(spec),'science_sha256':hashlib.sha256(canonical.encode()).hexdigest(),'result':json.loads(proc.stdout)}))
 '''
 
-REMOTE_RUN = r'''import datetime,fcntl,hashlib,json,os,pathlib,sqlite3,subprocess,sys,time
+REMOTE_RUN = r'''import datetime,hashlib,json,os,pathlib,sqlite3,subprocess,sys,time
 data=json.load(sys.stdin);root=pathlib.Path('/data2/zhangzibo/arxiv-tssa')
 work=root/'preparations/tcl-20261102-overnight-v1';repo=work/'repository';spec=work/'spec.json'
 if not spec.is_file() or spec.is_symlink():raise ValueError('prepared spec missing')
-launch_lock=os.open(work/'launcher.lock',os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
-try:fcntl.flock(launch_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-except BlockingIOError:print(json.dumps({'status':'running'}));sys.exit()
 value=json.loads(spec.read_text());science=json.dumps({'run_id':value['run_id'],'science':value['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
 if value['run_id']!='tcl-20261102-overnight-v1' or hashlib.sha256(science.encode()).hexdigest()!=data['science_sha256']:raise ValueError('science identity mismatch')
 out=root/'results/tcl-20261102-overnight-v1';db=out/'run.sqlite'
@@ -147,11 +143,7 @@ if db.exists():
  with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=2) as con:
   terminal=con.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
  if terminal:print(json.dumps({'status':'terminal','detail':json.loads(terminal[0])}));sys.exit()
- lock=os.open(out/'.writer.lock',os.O_RDONLY|os.O_NOFOLLOW)
- try:
-  try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-  except BlockingIOError:print(json.dumps({'status':'running'}));sys.exit()
- finally:os.close(lock)
+ print(json.dumps({'status':'unknown','detail':'existing nonterminal writer state cannot be determined'}));sys.exit()
 execution=value['execution'];uuid=data['uuid']
 if execution.get('gpu_uuid') not in (None,uuid) and db.exists():raise ValueError('run bound to different GPU UUID')
 if execution.get('require_fresh_resource_status') is not True:raise ValueError('fresh observer required')
@@ -171,24 +163,16 @@ if tmp.exists() or tmp.is_symlink():raise ValueError('unexpected spec temp file'
 tmp.write_text(json.dumps(value));tmp.chmod(0o600);os.replace(tmp,spec)
 log=open(work/'session.log','a',buffering=1)
 cmd=[str(root/'venv/bin/python'),str(repo/'scripts/merging/trigger_contrast_localization/runtime.py'),'run','--spec',str(spec)]
-worker='import subprocess,sys;sys.exit(subprocess.call(sys.argv[2:]))'
-process=subprocess.Popen([str(root/'venv/bin/python'),'-c',worker,str(launch_lock),*cmd],cwd=repo,stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True,pass_fds=(launch_lock,),env=dict(os.environ,HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1'))
-os.close(launch_lock)
+worker='import subprocess,sys;sys.exit(subprocess.call(sys.argv[1:]))'
+process=subprocess.Popen([str(root/'venv/bin/python'),'-c',worker,*cmd],cwd=repo,stdin=subprocess.DEVNULL,stdout=log,stderr=log,start_new_session=True,env=dict(os.environ,HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1'))
 time.sleep(1)
 print(json.dumps({'status':'spawned' if process.poll() is None else 'exited_early','pid':process.pid,'returncode':process.poll()}))
 '''
 
-REMOTE_STATE = r'''import fcntl,json,os,pathlib,sqlite3,sys
+REMOTE_STATE = r'''import json,os,pathlib,sqlite3,sys
 base=pathlib.Path('/data2/zhangzibo/arxiv-tssa');work=base/'preparations/tcl-20261102-overnight-v1'
-lock=work/'launcher.lock';active=False
-if lock.exists():
- fd=os.open(lock,os.O_RDONLY|os.O_NOFOLLOW)
- try:
-  try:fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
-  except BlockingIOError:active=True
- finally:os.close(fd)
 root=base/'results/tcl-20261102-overnight-v1';db=root/'run.sqlite'
-if not db.exists():print(json.dumps({'status':'running' if active else 'not_started'}));sys.exit()
+if not db.exists():print(json.dumps({'status':'unknown','detail':'writer state cannot be determined'}));sys.exit()
 if db.is_symlink():raise ValueError('unsafe database')
 with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=3) as con:
  terminal=con.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
@@ -197,12 +181,7 @@ with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=3) as con:
  gates=[json.loads(row[0]) for row in con.execute("SELECT detail FROM events WHERE kind='stage_gate' ORDER BY id")]
  latest=con.execute('SELECT time,kind,detail FROM events ORDER BY id DESC LIMIT 1').fetchone()
 if terminal:print(json.dumps({'status':'terminal','detail':json.loads(terminal[0]),'units':counts,'attempts':attempts,'stage_gates':gates}));sys.exit()
-if active:print(json.dumps({'status':'running','units':counts,'attempts':attempts,'stage_gates':gates,'latest_event':latest[1] if latest else None}));sys.exit()
-lock=os.open(root/'.writer.lock',os.O_RDONLY|os.O_NOFOLLOW)
-try:
- try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);state='paused'
- except BlockingIOError:state='running'
-finally:os.close(lock)
+state='unknown'
 print(json.dumps({'status':state,'units':counts,'attempts':attempts,'stage_gates':gates,'latest_event':latest[1] if latest else None}))
 '''
 
@@ -459,41 +438,14 @@ def spawn_observer():
 
 
 def stop_observer_for_rebind(identity):
-    lock_path = STATE_DIR / 'observer.lock'
-    fd = os.open(lock_path, os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    try:
-        try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            return
-        except BlockingIOError:
-            pass
-        try:
-            ready = json.loads((STATE_DIR / 'observer-ready.json').read_text())
-            pid = ready['pid']
-            info = subprocess.run(['ps', '-p', str(pid), '-o', 'uid=', '-o', 'command='], capture_output=True, text=True, timeout=3)
-            output = info.stdout.strip()
-            if (ready.get('uuid') != identity['uuid'] or not output.startswith(str(os.getuid()) + ' ')
-                    or str(Path(__file__).resolve()) not in output or ' watch ' not in output):
-                raise ValueError('observer identity cannot be verified')
-            os.kill(pid, signal.SIGTERM)
-        except (OSError, ValueError, TypeError, KeyError, subprocess.SubprocessError) as exc:
-            raise NotReady('无法验证并停止旧观察器，不能重选候选卡') from exc
-        deadline = time.monotonic() + 5
-        while time.monotonic() < deadline:
-            try:
-                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                return
-            except BlockingIOError:
-                time.sleep(.1)
-        raise NotReady('旧观察器仍在退出，稍后重试')
-    finally:
-        os.close(fd)
+    if observer_alive(identity):
+        raise NotReady('已存在观察器；无锁模式下不能自动重选候选卡')
 
 
 def start_or_resume(identity):
     ready_path = STATE_DIR / 'observer-ready.json'
-    # Reusing the same observer is safe; a second process exits on its lock.
-    observer = spawn_observer()
+    # Reuse a known observer; simultaneous callers can still race.
+    observer = None if observer_alive(identity) else spawn_observer()
     deadline = time.monotonic() + 95
     while time.monotonic() < deadline:
         try:
@@ -506,7 +458,7 @@ def start_or_resume(identity):
             pass
         time.sleep(1)
     else:
-        if observer.poll() is None:
+        if observer is not None and observer is not None and observer.poll() is None:
             observer.terminate()
         raise NotReady('观察器未能及时提供可用启动证据')
     try:
@@ -516,68 +468,60 @@ def start_or_resume(identity):
         response = json.loads(result)
     except Exception:
         # A lost launch response may hide a running worker. Keep the observer alive;
-        # the next tick checks the remote writer lock before any resume.
+        # the next tick treats an unverified writer state as unknown.
         raise
-    if response.get('status') in ('terminal', 'exited_early') and observer.poll() is None:
+    if response.get('status') in ('terminal', 'exited_early') and observer is not None and observer.poll() is None:
         observer.terminate()
     return response
 
 
 def tick():
     state_dir()
-    fd = os.open(STATE_DIR / 'controller.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    try:
+    manifest_path = STATE_DIR / 'manifest.json'
+    identity = load_manifest(manifest_path) if manifest_path.exists() else None
+    state = None
+    if identity:
+        state = remote_state(identity)
+        if state['status'] == 'running':
+            if not observer_alive(identity):
+                spawn_observer()
+                state['observer_restart_requested'] = True
+            return state
+        if state['status'] in ('terminal', 'unknown'):
+            return state
+    snapshot = fresh_snapshot()
+    if identity and state['status'] == 'paused':
         try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as exc:
-            raise NotReady('另一个运行负责人正在检查') from exc
-        manifest_path = STATE_DIR / 'manifest.json'
-        identity = load_manifest(manifest_path) if manifest_path.exists() else None
-        state = None
-        if identity:
-            state = remote_state(identity)
-            if state['status'] == 'running':
-                if not observer_alive(identity):
-                    spawn_observer()
-                    state['observer_restart_requested'] = True
-                return state
-            if state['status'] == 'terminal':
-                return state
-        snapshot = fresh_snapshot()
-        if identity and state['status'] == 'paused':
+            candidate = evaluate(snapshot, target_uuid=identity['uuid'])
+        except NotReady:
             try:
-                candidate = evaluate(snapshot, target_uuid=identity['uuid'])
+                alternate = evaluate(snapshot)
             except NotReady:
-                try:
-                    alternate = evaluate(snapshot)
-                except NotReady:
-                    raise NotReady('已有运行已暂停，绑定卡尚不可用；需保留现有账本等待恢复')
-                return {'status': 'run_rebind_required', 'run_id': RUN_ID, 'server': identity['server'],
-                        'uuid': identity['uuid'], 'alternative': alternate}
+                raise NotReady('已有运行已暂停，绑定卡尚不可用；需保留现有账本等待恢复')
+            return {'status': 'run_rebind_required', 'run_id': RUN_ID, 'server': identity['server'],
+                    'uuid': identity['uuid'], 'alternative': alternate}
+    else:
+        candidate = evaluate(snapshot)
+    if identity and state['status'] == 'not_started' and candidate['uuid'] != identity['uuid']:
+        stop_observer_for_rebind(identity)
+        identity = None
+    if identity and (candidate['host'] != identity['host'] or snapshot['account']['username'] != identity['username']):
+        raise NotReady('当前候选或账号与既有运行身份不一致')
+    if candidate['server'] != '104':
+        return {'status': 'node_preparation_required', 'run_id': RUN_ID,
+                'server': candidate['server'], 'host': candidate['host'], 'uuid': candidate['uuid']}
+    if not identity:
+        prepared_path = STATE_DIR / 'prepared-104.json'
+        if prepared_path.exists():
+            prepared = json.loads(prepared_path.read_text())
         else:
-            candidate = evaluate(snapshot)
-        if identity and state['status'] == 'not_started' and candidate['uuid'] != identity['uuid']:
-            stop_observer_for_rebind(identity)
-            identity = None
-        if identity and (candidate['host'] != identity['host'] or snapshot['account']['username'] != identity['username']):
-            raise NotReady('当前候选或账号与既有运行身份不一致')
-        if candidate['server'] != '104':
-            return {'status': 'node_preparation_required', 'run_id': RUN_ID,
-                    'server': candidate['server'], 'host': candidate['host'], 'uuid': candidate['uuid']}
-        if not identity:
-            prepared_path = STATE_DIR / 'prepared-104.json'
-            if prepared_path.exists():
-                prepared = json.loads(prepared_path.read_text())
-            else:
-                prepared = prepare('104')
-                save_private(prepared_path, prepared)
-            identity = {'run_id': RUN_ID, 'server': '104', 'host': candidate['host'], 'uuid': candidate['uuid'],
-                        'science_sha256': prepared['science_sha256'], 'username': snapshot['account']['username'],
-                        'remote_status': f"{DISKS['104']}/zhangzibo/arxiv-tssa/preparations/{RUN_ID}/observations/resource-status.json"}
-            save_private(manifest_path, identity)
-        return start_or_resume(identity)
-    finally:
-        os.close(fd)
+            prepared = prepare('104')
+            save_private(prepared_path, prepared)
+        identity = {'run_id': RUN_ID, 'server': '104', 'host': candidate['host'], 'uuid': candidate['uuid'],
+                    'science_sha256': prepared['science_sha256'], 'username': snapshot['account']['username'],
+                    'remote_status': f"{DISKS['104']}/zhangzibo/arxiv-tssa/preparations/{RUN_ID}/observations/resource-status.json"}
+        save_private(manifest_path, identity)
+    return start_or_resume(identity)
 
 
 def watch(path):
@@ -585,46 +529,37 @@ def watch(path):
     STATE_DIR.mkdir(mode=0o700, parents=True, exist_ok=True)
     if STATE_DIR.is_symlink() or STATE_DIR.stat().st_uid != os.getuid() or STATE_DIR.stat().st_mode & 0o077:
         raise NotReady('本地观察器目录权限不安全')
-    lock = os.open(STATE_DIR / 'observer.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    try:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BlockingIOError as exc:
-        os.close(lock)
-        raise NotReady('已有本地观察器') from exc
-    try:
-        with ssh_config() as config:
-            db = f"{DISKS[identity['server']]}/zhangzibo/arxiv-tssa/results/{RUN_ID}/run.sqlite"
-            command = shlex.join(['python3', '-c', REMOTE_STATUS_WRITER, identity['remote_status'], db])
-            while time.time() < DEADLINE:
-                started = time.monotonic()
+    with ssh_config() as config:
+        db = f"{DISKS[identity['server']]}/zhangzibo/arxiv-tssa/results/{RUN_ID}/run.sqlite"
+        command = shlex.join(['python3', '-c', REMOTE_STATUS_WRITER, identity['remote_status'], db])
+        while time.time() < DEADLINE:
+            started = time.monotonic()
+            try:
+                snapshot = fresh_snapshot()
+                status = monitor_observation(snapshot, identity)
+                evidence = startup_evidence(snapshot, identity)
+            except Exception:
+                snapshot, evidence = None, None
+                status = {'run_id': RUN_ID, 'science_sha256': identity['science_sha256'], 'gpu_uuid': identity['uuid'],
+                          'observed_at_utc': datetime.now(timezone.utc).isoformat(), 'observation_valid': False,
+                          'disabled': False, 'stop_required': False}
+            try:
+                output = bounded_ssh(config, identity['server'], command,
+                                     json.dumps({'status': status, 'evidence': evidence, 'capture': snapshot}))
+                ready = {'run_id': RUN_ID, 'uuid': identity['uuid'], 'pid': os.getpid(),
+                         'time': time.time(), 'startup_evidence': evidence is not None}
+                fd, temp = tempfile.mkstemp(prefix='.observer-', dir=STATE_DIR)
                 try:
-                    snapshot = fresh_snapshot()
-                    status = monitor_observation(snapshot, identity)
-                    evidence = startup_evidence(snapshot, identity)
-                except Exception:
-                    snapshot, evidence = None, None
-                    status = {'run_id': RUN_ID, 'science_sha256': identity['science_sha256'], 'gpu_uuid': identity['uuid'],
-                              'observed_at_utc': datetime.now(timezone.utc).isoformat(), 'observation_valid': False,
-                              'disabled': False, 'stop_required': False}
-                try:
-                    output = bounded_ssh(config, identity['server'], command,
-                                         json.dumps({'status': status, 'evidence': evidence, 'capture': snapshot}))
-                    ready = {'run_id': RUN_ID, 'uuid': identity['uuid'], 'pid': os.getpid(),
-                             'time': time.time(), 'startup_evidence': evidence is not None}
-                    fd, temp = tempfile.mkstemp(prefix='.observer-', dir=STATE_DIR)
-                    try:
-                        with os.fdopen(fd, 'w') as stream:
-                            json.dump(ready, stream)
-                        os.replace(temp, STATE_DIR / 'observer-ready.json')
-                    finally:
-                        if os.path.exists(temp): os.unlink(temp)
-                    if json.loads(output).get('terminal'):
-                        break
-                except (NotReady, OSError, ValueError):
-                    pass  # Remote freshness expires and the runner pauses.
-                time.sleep(max(0, 60 - (time.monotonic() - started)))
-    finally:
-        os.close(lock)
+                    with os.fdopen(fd, 'w') as stream:
+                        json.dump(ready, stream)
+                    os.replace(temp, STATE_DIR / 'observer-ready.json')
+                finally:
+                    if os.path.exists(temp): os.unlink(temp)
+                if json.loads(output).get('terminal'):
+                    break
+            except (NotReady, OSError, ValueError):
+                pass  # Remote freshness expires and the runner pauses.
+            time.sleep(max(0, 60 - (time.monotonic() - started)))
 
 
 def main(argv=None):

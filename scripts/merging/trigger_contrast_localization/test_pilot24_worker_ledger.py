@@ -29,8 +29,8 @@ class WorkerLedgerTest(unittest.TestCase):
 
     def test_lock_assignment_and_persistent_attempts(self):
         self.assertEqual(self.ledger.start(self.key1), 1)
-        with self.assertRaises((OSError, BlockingIOError)):
-            WorkerLedger(self.root, self.plan)
+        other = WorkerLedger(self.root, self.plan)
+        other.close()
         self.ledger.close()
         self.ledger = WorkerLedger(self.root, self.plan)
         with self.assertRaises(ValueError):
@@ -80,7 +80,7 @@ class WorkerLedgerTest(unittest.TestCase):
         self.assertEqual(self.ledger.recover_interrupted(self.key1), "retry_ready")
         self.assertEqual(self.ledger.start(self.key1), 2)
         evidence = json.loads(self.ledger.db.execute("SELECT detail FROM events").fetchone()[0])
-        self.assertEqual(evidence["kind"], "exclusive_local_worker_lock_reacquired")
+        self.assertEqual(evidence["kind"], "reopened_worker_ledger")
         with self.assertRaises(ValueError):
             self.ledger.recover_interrupted(self.key1)
 

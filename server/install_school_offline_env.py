@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
-import fcntl
 import hashlib
 import json
 import os
@@ -348,7 +347,7 @@ def main(argv: list[str] | None = None) -> int:
     modes.add_argument('--dry-run', action='store_true', help='Plan on any host; no subprocesses or filesystem mutations.')
     modes.add_argument('--verify-only', action='store_true', help='Check server, venv and all wheel hashes; no installation or ML imports.')
     args = parser.parse_args(argv)
-    audit = lock_handle = None
+    audit = None
     previous_term = signal.getsignal(signal.SIGTERM)
     try:
         def terminate(signum, frame):
@@ -375,15 +374,6 @@ def main(argv: list[str] | None = None) -> int:
                 owned(inside(directory, root), os.getuid())
             else:
                 prepare_directory(directory, root)
-        lock_file = root / '.offline-env-install.lock'
-        if lock_file.is_symlink():
-            raise InstallError('Installer lock may not be a symlink.')
-        lock_handle = lock_file.open('a+')
-        owned(lock_file, os.getuid())
-        try:
-            fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as error:
-            raise InstallError('Another local environment verifier/installer is running; do not install concurrently.') from error
         directory = Path(tempfile.mkdtemp(prefix=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ-'),
                                           dir=root / 'results' / 'environment-install'))
         audit = Audit(directory, plan)
@@ -439,8 +429,6 @@ def main(argv: list[str] | None = None) -> int:
         return 3 if isinstance(error, KeyboardInterrupt) else 2
     finally:
         signal.signal(signal.SIGTERM, previous_term)
-        if lock_handle:
-            lock_handle.close()
 
 
 if __name__ == '__main__':

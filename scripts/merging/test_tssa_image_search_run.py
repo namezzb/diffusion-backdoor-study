@@ -243,10 +243,10 @@ class ImageSearchTests(unittest.TestCase):
         self.execute(backend, 'search')
         self.assertEqual(len(backend.samples), 0)
 
-    def test_identity_or_lock_conflict_rejected(self):
+    def test_matching_instances_and_identity_mismatch(self):
         self.open()
-        with self.assertRaises((IntegrityError, BlockingIOError)):
-            Store(self.root, self.identity, resume=True)
+        second = Store(self.root, self.identity, resume=True)
+        second.close()
         self.store.close()
         with self.assertRaises(IntegrityError):
             Store(self.root, {**self.identity, "max_images": 500}, resume=True)

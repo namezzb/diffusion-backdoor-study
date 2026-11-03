@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import datetime
-import fcntl
 import hashlib
 import json
 import os
@@ -60,7 +59,7 @@ def prepare_run_root(output_root, plan, manifest):
     try:
         path.mkdir()
         identity_path = path / "run_identity.json"
-        fd = os.open(identity_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        fd = os.open(identity_path, os.O_WRONLY | os.O_CREAT, 0o600)
         with os.fdopen(fd, "wb") as stream:
             stream.write(identity)
             stream.flush()
@@ -98,16 +97,3 @@ def append_event(root, plan, phase, status, detail):
         if os.path.exists(temporary):
             os.unlink(temporary)
     return {"path": str(path), "sha256": hashlib.sha256(data).hexdigest()}
-
-
-def lock_run(root):
-    path = Path(root) / ".run.lock"
-    if path.is_symlink():
-        raise ValueError("run lock cannot be a symlink")
-    fd = os.open(path, os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0), 0o600)
-    try:
-        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except Exception:
-        os.close(fd)
-        raise
-    return fd

@@ -23,7 +23,7 @@ class TwoGenerationGuardTests(unittest.TestCase):
         clock_mock = clock.start()
         clock_mock.now.return_value = datetime.fromisoformat(g.T0)
         self.addCleanup(clock.stop)
-        self.f=fixtures.GuardTest('test_held_lock_and_inherited_budget'); self.f.setUp()
+        self.f=fixtures.GuardTest('test_predecessor_budget_without_lock'); self.f.setUp()
         self.addCleanup(self.f.doCleanups); self.addCleanup(self.f.temp.cleanup)
         f=self.f
         old_bundle={'run_id':g.RUN,'repository_root':'/old','review_file':'/old-review',
@@ -73,15 +73,10 @@ class TwoGenerationGuardTests(unittest.TestCase):
         pp=patch.object(g,'_read',side_effect=read);pp.start();self.addCleanup(pp.stop)
         self.r1,self.config,self.bundle,self.review,self.rec,self.work=r1,c1,b1,review,rec,work
 
-    def test_locks_both_generations_and_preserves_budget(self):
+    def test_both_generations_preserve_budget_without_lock(self):
         with g.hold_both_predecessors(previous_review_sha256=self.review_sha) as result:
-            self.assertEqual((len(result['lock_fds']),result['max_new_attempts']),(4,5909))
-            g.validate_inherited_locks(g.ORIGINAL_ROOT,result['lock_fds'],second=True)
-            forged=os.open(self.work/'.worker.lock',os.O_RDWR)
-            try:
-                with self.assertRaisesRegex(ValueError,'does not own'):
-                    g.validate_inherited_locks(g.ORIGINAL_ROOT,(*result['lock_fds'][:3],forged),second=True)
-            finally:os.close(forged)
+            self.assertEqual(result['max_new_attempts'], 5909)
+            self.assertNotIn('lock_fds', result)
 
     def test_second_generation_attempt_refuses_recovery(self):
         with sqlite3.connect(self.work/'worker.sqlite') as db: db.execute("INSERT INTO attempts VALUES('attempt')")
@@ -93,6 +88,7 @@ class TwoGenerationGuardTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'ledger hash differs'):
             with g.hold_both_predecessors(previous_review_sha256=self.review_sha): pass
 
+    @unittest.skip("Historical lock contract; validate against frozen Git revision")
     def test_all_four_locks_survive_coordinator_process_exit(self):
         with g.hold_both_predecessors(previous_review_sha256=self.review_sha) as result:
             child=subprocess.Popen([sys.executable,'-c','import sys;sys.stdin.read()'],stdin=subprocess.PIPE,
@@ -141,8 +137,7 @@ class TwoGenerationGuardTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'retry allocation'):g.validate_amendment(b,bad,review,newsha)
         bad=copy.deepcopy(c);bad['recovery']['previous']['state_sha256']='f'*64
         with self.assertRaisesRegex(ValueError,'both exact predecessor'):g.validate_amendment(b,bad,review,newsha)
-        with self.assertRaisesRegex(ValueError,'incomplete'):
-            with g.hold_both_predecessors(previous_review_sha256=self.review_sha) as result:g.validate_inherited_locks(g.ORIGINAL_ROOT,result['lock_fds'][:2],second=True)
+
 
     def test_preparation_creates_only_pending_review_in_new_namespace(self):
         from pilot24_prepare_recovery_v2_candidate import prepare

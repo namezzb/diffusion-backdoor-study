@@ -7,7 +7,6 @@ fixes both UUIDs and task assignment before any GPU output. Three independent
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor, wait, FIRST_EXCEPTION
 import contextlib
 import copy
 import gc
@@ -187,20 +186,17 @@ class WorkerClient:
         self.config, self.aborted = dict(config), aborted
         self.process = self.connection = None
         self.last_resources = {"worker_uuid": config["uuid"]}
-        self.lock = threading.RLock()
-        self.start_lock = threading.Lock()
 
     def start(self):
-        with self.start_lock:
-            if self.aborted.is_set():
-                raise InterruptedOperation("The dual run is stopping; no new worker can start.")
-            if self.process is None:
-                parent, child = mp.get_context("spawn").Pipe()
-                self.process = mp.get_context("spawn").Process(target=worker_main, args=(child, self.config),
-                                                               name="tssa-gpu-" + self.config["uuid"])
-                self.connection = parent
-                self.process.start()
-                child.close()
+        if self.aborted.is_set():
+            raise InterruptedOperation("The dual run is stopping; no new worker can start.")
+        if self.process is None:
+            parent, child = mp.get_context("spawn").Pipe()
+            self.process = mp.get_context("spawn").Process(target=worker_main, args=(child, self.config),
+                                                           name="tssa-gpu-" + self.config["uuid"])
+            self.connection = parent
+            self.process.start()
+            child.close()
 
     def call(self, operation, method, args, cache_ref=None):
         self.start()
@@ -257,7 +253,6 @@ class DualBackend:
         self.clients = []
         self.spec = None
         self.local = threading.local()
-        self.scoring_lock = threading.Lock()
         self.aborted = threading.Event()
         self.cache_ref = None
         self.source_hashes = None
@@ -283,14 +278,12 @@ class DualBackend:
         if not self.clients:
             yield
             return
-        client = self.clients[slot]
-        with client.lock:
-            previous = getattr(self.local, "operation", None)
-            self.local.operation = operation
-            try:
-                yield
-            finally:
-                self.local.operation = previous
+        previous = getattr(self.local, "operation", None)
+        self.local.operation = operation
+        try:
+            yield
+        finally:
+            self.local.operation = previous
 
     def call(self, method, *args, cache=False):
         operation = getattr(self.local, "operation", None)
@@ -337,8 +330,7 @@ class DualBackend:
         return self.call("sample", task, coefficients)
 
     def score(self, image, normal_prompt):
-        with self.scoring_lock:
-            return self.cpu.score(image, normal_prompt)
+        return self.cpu.score(image, normal_prompt)
 
     def scorer_metadata(self):
         return self.cpu.scorer_metadata()
@@ -415,13 +407,11 @@ class DualMVPRunner(MVPRunner):
         super().__init__(protocol, digest, store, backend)
         self.uuids = tuple(uuids) if uuids else None
         self.active_operations = set()
-        self.active_lock = threading.Lock()
 
     def op(self, name, action, *, binary=False, safe_partial_resume=None, cost=None):
-        with self.active_lock:
-            if name in self.active_operations:
-                raise IntegrityError("Duplicate concurrent dispatch: " + name)
-            self.active_operations.add(name)
+        if name in self.active_operations:
+            raise IntegrityError("Duplicate dispatch: " + name)
+        self.active_operations.add(name)
         try:
             with self.backend.bind(name):
                 def wrapped():
@@ -432,33 +422,19 @@ class DualMVPRunner(MVPRunner):
                     return value
                 return super().op(name, wrapped, binary=binary, safe_partial_resume=safe_partial_resume, cost=cost)
         finally:
-            with self.active_lock:
-                self.active_operations.remove(name)
+            self.active_operations.remove(name)
 
     def parallel(self, jobs):
-        """Each lane stays on one client, so per-worker counter deltas cannot overlap."""
-        queues = [[], []]
+        """Issue requests sequentially so each worker has at most one request in flight."""
         results = {}
-        for name, action in jobs:
-            queues[assignment_slot(name)].append((name, action))
-        def lane(items):
-            for name, action in items:
-                if self.backend.aborted.is_set():
-                    raise InterruptedOperation("Sibling worker stopped; remaining tasks were never launched.")
-                results[name] = action()
-        executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="tssa-parent-lane")
-        futures = [executor.submit(lane, items) for items in queues]
         try:
-            done, _ = wait(futures, return_when=FIRST_EXCEPTION)
-            for future in done:
-                future.result()
-            for future in futures:
-                future.result()
+            for name, action in jobs:
+                if self.backend.aborted.is_set():
+                    raise InterruptedOperation("Worker stopped; remaining tasks were never launched.")
+                results[name] = action()
         except BaseException:
             self.backend.close(force=True)
             raise
-        finally:
-            executor.shutdown(wait=True, cancel_futures=True)
         return results
 
     def images(self, stage, selection=None):

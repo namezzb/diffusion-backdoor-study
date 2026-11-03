@@ -10,18 +10,13 @@ from evidence import Ledger
 from generation import _image_path, run_image
 from localization_ledger import LocalizationLedger
 from recovery import recover_interrupted
-from run_store import lock_run
 import test_generation as generation_fixtures
 
 Runtime, SHA, Scorer = generation_fixtures.Runtime, generation_fixtures.SHA, generation_fixtures.Scorer
 
 
 def recover(root, plan, kind, reason):
-    fd = lock_run(root)
-    try:
-        return recover_interrupted(root, plan, kind, reason, fd)
-    finally:
-        os.close(fd)
+    return recover_interrupted(root, plan, kind, reason)
 
 
 class RecoveryTests(unittest.TestCase):
@@ -132,16 +127,6 @@ class RecoveryTests(unittest.TestCase):
             self.assertTrue(run_image(*args(Runtime(), Scorer(), ledger))["reused"])
             ledger.close()
 
-    def test_run_lock_blocks_concurrent_recovery(self):
-        with tempfile.TemporaryDirectory() as directory:
-            first = lock_run(directory)
-            try:
-                with self.assertRaises(BlockingIOError):
-                    lock_run(directory)
-            finally:
-                os.close(first)
-            second = lock_run(directory)
-            os.close(second)
 
 
 if __name__ == "__main__":

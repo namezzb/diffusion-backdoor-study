@@ -92,18 +92,7 @@ class CliTest(unittest.TestCase):
         result = labgpu.render(value, 'free', '104')
         self.assertEqual(result['hosts'], [{'id': '104', 'gpus': [{'status': 'free'}]}])
 
-    def test_refresh_serialized_across_processes(self):
-        # Acquiring a held lock in another process must time out without accessing the network.
-        code = ('import sys; sys.path.insert(0, sys.argv[1]); import labgpu; '
-                'labgpu.CONFIG=__import__("pathlib").Path(sys.argv[2]); '
-                'sys.exit(labgpu.main(["status", "--cached", "--timeout", "0.1", "--json"]))')
-        with labgpu.Lock(1):
-            run = subprocess.run([sys.executable, '-c', code, str(Path(labgpu.__file__).parent), str(self.config)],
-                                 capture_output=True, text=True, timeout=3)
-        self.assertEqual(run.returncode, 1)
-        self.assertIn('锁超时', json.loads(run.stdout)['error'])
-
-    def test_two_simultaneous_refreshes_share_result(self):
+    def test_two_simultaneous_refreshes_complete_without_lock(self):
         calls = []
         gate = threading.Barrier(2)
         results = []
@@ -121,7 +110,7 @@ class CliTest(unittest.TestCase):
             for thread in threads:
                 thread.join()
         self.assertEqual(sorted(results), [0, 0])
-        self.assertEqual(calls.count('/api/me'), 1)
+        self.assertEqual(calls.count('/api/me'), 2)
 
     def test_mfa_does_not_save_credentials(self):
         with mock.patch('builtins.input', return_value='test'), mock.patch.object(labgpu.getpass, 'getpass', return_value='secret'), \

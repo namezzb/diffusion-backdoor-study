@@ -6,7 +6,6 @@ independent authorized controller must first verify completed experiment,
 platform permission and card ownership, then keep the private lease fresh.
 """
 import argparse
-import fcntl
 import json
 import math
 import os
@@ -186,16 +185,6 @@ class TorchDevice:
 
 def run(args, *, device_factory=TorchDevice, clock=time, sample=measure):
     state = ensure_state_dir(args.state_dir)
-    lock_fd = os.open(state / (args.uuid + '.lock'), os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    info = os.fstat(lock_fd)
-    if not stat.S_ISREG(info.st_mode) or info.st_uid != os.geteuid() or info.st_mode & 0o077:
-        os.close(lock_fd)
-        raise StopWork('unsafe worker lock')
-    try:
-        fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BlockingIOError as exc:
-        os.close(lock_fd)
-        raise StopWork('a hold worker already owns this GPU on this host') from exc
     log_fd = None
     try:
         log_fd = os.open(state / (args.uuid + '.md'), os.O_CREAT | os.O_APPEND | os.O_WRONLY | os.O_NOFOLLOW, 0o600)
@@ -205,7 +194,6 @@ def run(args, *, device_factory=TorchDevice, clock=time, sample=measure):
     except Exception:
         if log_fd is not None:
             os.close(log_fd)
-        os.close(lock_fd)
         raise
     log = os.fdopen(log_fd, 'a', buffering=1, encoding='utf-8')
     identity = process_identity()
@@ -307,7 +295,6 @@ def run(args, *, device_factory=TorchDevice, clock=time, sample=measure):
                 for sig, handler in previous.items():
                     signal.signal(sig, handler)
                 log.close()
-                os.close(lock_fd)
 
 
 def main(argv=None):

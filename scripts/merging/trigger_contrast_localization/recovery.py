@@ -1,8 +1,7 @@
-"""Explicit, budgeted disposition of interrupted reservations under the run lock."""
+"""Explicit, budgeted disposition of interrupted reservations with preserved accounting."""
 from __future__ import annotations
 
 import datetime
-import fcntl
 import hashlib
 import json
 import os
@@ -14,8 +13,8 @@ from localization_ledger import LIMIT
 from evidence import MAX_IMAGES_PER_STATE
 
 
-def recover_interrupted(output, plan, kind, reason, lock_fd):
-    """Caller must hold the exclusive run lock and have authenticated the plan.
+def recover_interrupted(output, plan, kind, reason):
+    """Caller must have authenticated the plan.
 
     Archive uncertain attempts and reserve replacements in one transaction. A
     replacement already reserved but not started is left intact across restarts.
@@ -23,10 +22,6 @@ def recover_interrupted(output, plan, kind, reason, lock_fd):
     if kind not in ("localization", "images") or not isinstance(reason, str) or len(reason.strip()) < 8:
         raise ValueError("recovery needs a kind and a concrete reason of at least eight characters")
     root = Path(output)
-    lock_path = root / ".run.lock"
-    if lock_path.is_symlink() or not lock_path.is_file() or os.fstat(lock_fd).st_ino != lock_path.stat().st_ino or os.fstat(lock_fd).st_dev != lock_path.stat().st_dev:
-        raise ValueError("the matching run lock is required for recovery")
-    fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
     path = root / ("localization.sqlite" if kind == "localization" else "images.sqlite")
     if path.is_symlink() or not path.is_file():
         raise ValueError("existing run ledger is required for recovery")

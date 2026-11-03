@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest import mock
@@ -15,6 +16,28 @@ import install_school_offline_env as installer
 
 
 MANIFEST = Path(__file__).resolve().parents[1] / 'research' / installer.ENVIRONMENT_NAME
+
+
+def setUpModule():
+    global _guard_dir, _guard_env, _guard_popen, _guard_socket
+    import socket
+    _guard_dir = tempfile.TemporaryDirectory(prefix='server-test-no-network-')
+    for name in ('ssh', 'scp', 'sftp', 'curl'):
+        command = Path(_guard_dir.name) / name
+        command.write_text('#!/bin/sh\nexit 99\n'); command.chmod(0o700)
+    _guard_env = mock.patch.dict(os.environ, {'PATH': _guard_dir.name + os.pathsep + os.environ.get('PATH', '')})
+    _guard_env.start()
+    original = subprocess.Popen
+    def local_python_only(command, *args, **kwargs):
+        if isinstance(command, (str, bytes)) or Path(os.fsdecode(command[0])).resolve() != Path(sys.executable).resolve():
+            raise AssertionError('External subprocess forbidden in tests')
+        return original(command, *args, **kwargs)
+    _guard_popen = mock.patch.object(subprocess, 'Popen', side_effect=local_python_only); _guard_popen.start()
+    _guard_socket = mock.patch.object(socket, 'create_connection', side_effect=AssertionError('Network forbidden')); _guard_socket.start()
+
+
+def tearDownModule():
+    _guard_socket.stop(); _guard_popen.stop(); _guard_env.stop(); _guard_dir.cleanup()
 
 
 class InputTests(unittest.TestCase):
@@ -157,6 +180,7 @@ class AuditTests(unittest.TestCase):
                 code = installer.main(['--verify-only', '--manifest', str(manifest)])
             self.assertEqual(code, 0)
             self.assertEqual(names, ['interpreter'])
+            self.assertFalse((root / '.offline-env-install.lock').exists())
             result = json.loads(output.getvalue())
             record = json.loads(Path(result['audit']).read_text())
             self.assertEqual(record['status'], 'inputs_verified_not_installed')

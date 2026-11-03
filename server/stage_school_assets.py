@@ -7,7 +7,6 @@ Only task-created local staging files are removed after remote SHA256 verificati
 from __future__ import annotations
 
 import argparse
-import fcntl
 import hashlib
 import ipaddress
 import json
@@ -23,7 +22,6 @@ from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[1]
 REMOTE_ROOT = "/data2/zhangzibo/arxiv-tssa"
-LOCK_PATH = Path("/private/tmp/arxiv-tssa-stage/.transfer.lock")
 
 
 def run(args, **kwargs):
@@ -256,7 +254,7 @@ print(json.dumps({'size':offset,'sha256':h.hexdigest()}))
 '''
 
 REMOTE_CHUNK = r'''
-import fcntl,hashlib,json,os,pathlib,stat,sys,tempfile
+import hashlib,json,os,pathlib,stat,sys,tempfile
 path=pathlib.Path(sys.argv[1]); offset=int(sys.argv[2]); total=int(sys.argv[3]); size=int(sys.argv[4]); expected=sys.argv[5]
 root=pathlib.Path('/data2/zhangzibo/arxiv-tssa')
 assert path.is_relative_to(root) and '..' not in path.parts and path.name.endswith('.uploading')
@@ -268,7 +266,6 @@ for parent in [path,*path.parents]:
         if parent.exists(): assert parent.stat().st_uid==os.getuid()
 fd=os.open(path,os.O_RDWR|os.O_CREAT|os.O_NOFOLLOW,0o600)
 with os.fdopen(fd,'r+b') as target:
-    fcntl.flock(target,fcntl.LOCK_EX|fcntl.LOCK_NB)
     assert stat.S_ISREG(os.fstat(target.fileno()).st_mode)
     assert os.fstat(target.fileno()).st_size==offset, 'Remote prefix changed; recheck before resuming'
     chunk_fd,chunk_name=tempfile.mkstemp(prefix=path.name+'.chunk-',dir=path.parent)
@@ -369,32 +366,23 @@ def main():
     args.staging.mkdir(mode=0o700, parents=True, exist_ok=True)
     if args.staging.is_symlink() or args.staging.stat().st_uid != os.getuid():
         raise RuntimeError("Staging directory ownership is not safe")
-    LOCK_PATH.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-    if LOCK_PATH.parent.is_symlink() or LOCK_PATH.is_symlink() or LOCK_PATH.parent.stat().st_uid != os.getuid():
-        raise RuntimeError("Unsafe transfer lock location")
-    # Independent of --staging, and compatible with the original running helper.
-    with LOCK_PATH.open("a+") as lock:
-        try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            raise SystemExit("Another staging transfer is active; do not start a duplicate.")
-        identity = sha256(args.manifest) if args.manifest else sha256(args.file)
-        selection_id = hashlib.sha256(json.dumps(sorted(destinations)).encode()).hexdigest()[:12]
-        status_path = args.ledger.with_name(args.ledger.stem + "." + identity[:16] + "." + selection_id + ".status.json")
-        status = {"source_sha256": identity, "selected_files": len(entries), "verified_files": 0,
-                  "selected_paths": [entry["local_path"] for entry in entries], "status": "running",
-                  "independent_sftp": args.independent_sftp, "verbose_sftp": args.verbose_sftp,
-                  "ssh_chunk_bytes": args.ssh_chunk_bytes,
-                  "full_manifest_selected": bool(args.manifest and len(entries) == len(json.loads(args.manifest.read_text())["files"]))}
+    identity = sha256(args.manifest) if args.manifest else sha256(args.file)
+    selection_id = hashlib.sha256(json.dumps(sorted(destinations)).encode()).hexdigest()[:12]
+    status_path = args.ledger.with_name(args.ledger.stem + "." + identity[:16] + "." + selection_id + ".status.json")
+    status = {"source_sha256": identity, "selected_files": len(entries), "verified_files": 0,
+              "selected_paths": [entry["local_path"] for entry in entries], "status": "running",
+              "independent_sftp": args.independent_sftp, "verbose_sftp": args.verbose_sftp,
+              "ssh_chunk_bytes": args.ssh_chunk_bytes,
+              "full_manifest_selected": bool(args.manifest and len(entries) == len(json.loads(args.manifest.read_text())["files"]))}
+    save_status(status_path, status)
+    try:
+        transfer_entries(args, entries, status_path, status)
+    except BaseException as error:
+        status.update(status="failed", error_type=type(error).__name__, error=str(error))
         save_status(status_path, status)
-        try:
-            transfer_entries(args, entries, status_path, status)
-        except BaseException as error:
-            status.update(status="failed", error_type=type(error).__name__, error=str(error))
-            save_status(status_path, status)
-            raise
-        status["status"] = "complete"
-        save_status(status_path, status)
+        raise
+    status["status"] = "complete"
+    save_status(status_path, status)
 
 
 def transfer_entries(args, entries, status_path, status):

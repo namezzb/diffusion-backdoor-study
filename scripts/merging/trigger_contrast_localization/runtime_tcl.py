@@ -1,7 +1,7 @@
 """Real TCL backend for the resumable runtime, without pilot24 launch machinery.
 
 The immutable parent review authenticates historical scientific inputs.  It is
-not a new launch approval.  The caller owns the run lock, attempt reservations,
+not a new launch approval.  The caller manages attempt reservations,
 deadline and live GPU permission; no function here creates permission evidence.
 """
 from __future__ import annotations

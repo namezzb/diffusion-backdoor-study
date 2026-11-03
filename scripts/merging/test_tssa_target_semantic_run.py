@@ -133,16 +133,17 @@ class RunTests(unittest.TestCase):
             self.ledger.start_cell(run.budget_enumeration()[0])
         self.assertEqual(self.ledger.sequence, 0)
 
-    def test_permanent_claim_blocks_changed_output_and_repeat(self):
+    def test_execution_binding_allows_repeat_without_claim(self):
         dest = Path(self.tmp.name).resolve() / 'new-output'
         claim = Path(self.tmp.name).resolve() / 'claims/one.json'
         execution = {'run_root': str(dest), 'claim_path': str(claim),
                      'machine_id_sha256': run.sha(b'test-machine'), 'gpu_uuid': 'test-uuid'}
         with patch.object(Path, 'read_bytes', return_value=b'test-machine'), patch.dict(os.environ, GPU_UUID='test-uuid'):
-            run.claim_execution({'execution': execution}, dest)
-            with self.assertRaises(FileExistsError): run.claim_execution({'execution': execution}, dest)
-            with self.assertRaises(ValueError): run.claim_execution({'execution': execution}, dest.with_name('another'))
+            run.validate_execution({'execution': execution}, dest)
+            run.validate_execution({'execution': execution}, dest)
+            with self.assertRaises(ValueError): run.validate_execution({'execution': execution}, dest.with_name('another'))
         self.assertFalse(dest.exists())
+        self.assertFalse(claim.exists())
 
     def test_run_loads_once_without_preexisting_preflight_report(self):
         root = Path(self.tmp.name)
@@ -155,7 +156,7 @@ class RunTests(unittest.TestCase):
                 '--plan', str(plan), '--permission', str(root / 'permission.json')]
         with patch.object(sys, 'argv', argv), patch.dict(os.environ, CUBLAS_WORKSPACE_CONFIG=':4096:8'), \
              patch.object(run, 'inputs', return_value=({}, {})), patch.object(run, 'validate_plan'), \
-             patch.object(run, 'claim_execution'), patch.object(run, 'Ledger', return_value=fake_ledger), \
+             patch.object(run, 'validate_execution'), patch.object(run, 'Ledger', return_value=fake_ledger), \
              patch.object(run, 'write_record'), \
              patch.object(run, 'cpu_prepare', side_effect=RuntimeError('load reached')) as load:
             with self.assertRaisesRegex(RuntimeError, 'load reached'):

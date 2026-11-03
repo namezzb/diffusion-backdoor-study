@@ -258,7 +258,7 @@ def run(spec):
             if path.exists() or path.is_symlink():
                 store.register_image(key, path)
             else:
-                store.fail(key, 'interrupted; exclusive local writer lock reacquired')
+                store.fail(key, 'interrupted; resumed after previous process exited')
         previous_t0 = store.event_detail('t0')
         if previous_t0 and science.get('max_compute_seconds') is not None:
             elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(previous_t0['time_utc'])).total_seconds()

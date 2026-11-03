@@ -103,7 +103,6 @@ class LocalizationRunnerTests(unittest.TestCase):
     def test_interrupted_forward_is_recovered_in_same_localization(self):
         import os
         from recovery import recover_interrupted
-        from run_store import lock_run
         frozen = {"input_ids": [1] * 77, "attention_mask": [1] * 77}
         rows = []
         for i in range(64):
@@ -126,11 +125,7 @@ class LocalizationRunnerTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "disconnection"):
                     run_localization(plan, runtime, ledger, root / "selection")
                 ledger.close()
-                fd = lock_run(root)
-                try:
-                    recover_interrupted(root, plan, "localization", "simulated process interruption", fd)
-                finally:
-                    os.close(fd)
+                recover_interrupted(root, plan, "localization", "simulated process interruption")
                 ledger = LocalizationLedger(root / "localization.sqlite", "run", SHA, [r["id"] for r in rows], [block_id(b) for b in blocks])
                 runtime._embeddings = original
                 result = run_localization(plan, runtime, ledger, root / "selection")

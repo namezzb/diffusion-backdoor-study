@@ -44,15 +44,12 @@ class StoreProcessTest(unittest.TestCase):
         return [sys.executable, '-c', PROGRAM, str(self.root),
                 identity or self.identity, action]
 
-    def test_kill_releases_lock_but_preserves_charge_and_identity(self):
+    def test_kill_then_serial_resume_preserves_charge_and_identity(self):
         holder = subprocess.Popen(self.command('hold'), cwd=DIRECTORY,
                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         try:
             self.assertEqual(holder.stdout.readline().strip(), 'reserved')
-            competitor = subprocess.run(self.command('snapshot'), cwd=DIRECTORY,
-                                        capture_output=True, text=True, timeout=10)
-            self.assertNotEqual(competitor.returncode, 0)
-            self.assertIsNone(holder.poll(), 'competing writer must not kill the owner')
+            self.assertFalse((self.root / '.writer.lock').exists())
         finally:
             holder.kill()
             holder.communicate(timeout=10)
@@ -69,6 +66,21 @@ class StoreProcessTest(unittest.TestCase):
         attempts = read_markdown(self.root / 'run.md')['attempts']
         self.assertEqual(len(attempts), 1)
         self.assertEqual(attempts[0]['status'], 'failed')
+
+    def test_two_stores_can_open_without_mutex(self):
+        from runtime_store import Store
+        key = ['run', 'source', 'one']
+        budget = {'max_attempts': 1, 'max_attempts_per_key': 1, 'state_max_attempts': {'source': 1}}
+        first = Store(self.root, {'science': 'frozen'}, [{'key': key}], budget)
+        try:
+            second = Store(self.root, {'science': 'frozen'}, [{'key': key}], budget)
+            try:
+                self.assertFalse((self.root / '.writer.lock').exists())
+                self.assertEqual(first.snapshot(), second.snapshot())
+            finally:
+                second.close()
+        finally:
+            first.close()
 
     def test_state_retry_cap_does_not_consume_other_units_first_attempts(self):
         from runtime_store import BudgetExhausted, Store
@@ -87,7 +99,7 @@ class StoreProcessTest(unittest.TestCase):
         finally:
             store.close()
 
-    def test_empty_lock_only_can_recover_but_unknown_file_is_rejected(self):
+    def test_old_lock_trace_is_ignored_but_unknown_file_is_rejected(self):
         self.root.mkdir()
         (self.root / '.writer.lock').touch()
         accepted = subprocess.run(self.command('snapshot'), cwd=DIRECTORY, capture_output=True, text=True, timeout=10)

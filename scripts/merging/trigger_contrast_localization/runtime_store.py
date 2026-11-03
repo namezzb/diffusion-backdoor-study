@@ -1,5 +1,4 @@
-"""Local, single-writer accounting for a new run (not a distributed lock)."""
-import fcntl
+"""Markdown accounting for serial runs; concurrent writers are not protected."""
 import base64
 import hashlib
 import html
@@ -39,7 +38,11 @@ class BudgetExhausted(ValueError):
 
 
 class Store:
-    """Single-writer Markdown ledger; SQLite is read only for one-time migration."""
+    """Serial Markdown ledger; SQLite is read only for one-time migration.
+
+    The caller must ensure any previous writer has exited before opening a run.
+    Concurrent writers can duplicate work or overwrite each other.
+    """
     def __init__(self, root, identity, units, budget, *, score_schema='legacy'):
         if score_schema not in ('legacy', 'semantic-v1'):
             raise ValueError('unknown score schema')
@@ -49,33 +52,27 @@ class Store:
             raise ValueError('run_root must be absolute and have no symlink ancestry')
         identity = writer_identity({**identity, 'run_root': str(self.root.resolve())})
         self.root.mkdir(parents=True, exist_ok=True)
-        self.lock = os.open(self.root / '.writer.lock', os.O_CREAT | os.O_RDWR | getattr(os, 'O_NOFOLLOW', 0), 0o600)
-        try:
-            fcntl.flock(self.lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            md, db = self.root / 'run.md', self.root / 'run.sqlite'
-            if any((self.root / name).is_symlink() for name in ('run.md', 'run.checkpoints.md', 'run.sqlite', 'run.sqlite-wal', 'run.sqlite-shm')):
-                raise ValueError('ledger cannot be a symlink')
-            if md.exists():
-                self.data = read_markdown(md)
-            elif db.exists():
-                self.data = self._migrate(db)
-            else:
-                if any(e.name != '.writer.lock' or e.is_symlink() or not e.is_file() for e in self.root.iterdir()):
-                    raise ValueError('new run directory contains unrelated files')
-                self.data = {'schema': 'tcl-run-markdown-v1', 'identity': identity, 'score_schema': score_schema,
-                             'units': {canonical(u['key']): {'unit': u, 'status': 'pending', 'image_sha': None, 'scores': None} for u in units},
-                             'attempts': [], 'events': []}
-                self._commit()
-            if self.data['identity'] != identity:
-                raise ValueError('run identity or scientific inputs changed')
-            if self.data['score_schema'] != score_schema:
-                raise ValueError('score schema changed for existing run')
-            self._replay_checkpoints()
-            if not md.exists(): self._commit()
-            self.interrupted = [k for k, v in self.data['units'].items() if v['status'] == 'started']
-        except BaseException:
-            os.close(self.lock)
-            raise
+        md, db = self.root / 'run.md', self.root / 'run.sqlite'
+        if any((self.root / name).is_symlink() for name in ('run.md', 'run.checkpoints.md', 'run.sqlite', 'run.sqlite-wal', 'run.sqlite-shm')):
+            raise ValueError('ledger cannot be a symlink')
+        if md.exists():
+            self.data = read_markdown(md)
+        elif db.exists():
+            self.data = self._migrate(db)
+        else:
+            if any(e.name != '.writer.lock' or e.is_symlink() or not e.is_file() for e in self.root.iterdir()):
+                raise ValueError('new run directory contains unrelated files')
+            self.data = {'schema': 'tcl-run-markdown-v1', 'identity': identity, 'score_schema': score_schema,
+                         'units': {canonical(u['key']): {'unit': u, 'status': 'pending', 'image_sha': None, 'scores': None} for u in units},
+                         'attempts': [], 'events': []}
+            self._commit()
+        if self.data['identity'] != identity:
+            raise ValueError('run identity or scientific inputs changed')
+        if self.data['score_schema'] != score_schema:
+            raise ValueError('score schema changed for existing run')
+        self._replay_checkpoints()
+        if not md.exists(): self._commit()
+        self.interrupted = [k for k, v in self.data['units'].items() if v['status'] == 'started']
 
     def _migrate(self, path):
         with sqlite3.connect(path.as_uri() + '?mode=ro', uri=True) as db:
@@ -150,7 +147,7 @@ class Store:
             if os.path.exists(tmp): os.unlink(tmp)
 
     def close(self):
-        os.close(self.lock)
+        pass
 
     def event(self, kind, detail):
         events = self.data['events']

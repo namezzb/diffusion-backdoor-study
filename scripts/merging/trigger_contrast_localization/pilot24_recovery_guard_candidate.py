@@ -1,13 +1,11 @@
 """Fail-closed predecessor guard for the *single observed* pilot24 interruption.
 
 This is an independently reviewable building block, NOT a launcher, approval,
-resource permit, or a complete recovery implementation. A caller must hold this
-context for the complete lifetime of every new coordinator and worker and must
+resource permit, or a complete recovery implementation. A caller must
 independently authenticate the amendment, new code and live resource permit.
 """
 from contextlib import ExitStack, closing, contextmanager
 from datetime import datetime, timezone
-import fcntl
 import hashlib
 import json
 import os
@@ -40,7 +38,7 @@ def validate_amendment(bundle, config, review, new_manifest):
 
     This comparison changes no input or budget; it permits only a fresh code
     revision, review path, coordinator namespace and worker output namespace.
-    Holding the predecessor locks for the whole execution remains mandatory.
+    These historical checks do not prevent concurrent writers.
     """
     from pilot24_coordinator import stage_contract
     rec = config.get('recovery')
@@ -178,56 +176,6 @@ def _read(path, sha):
     return json.loads(raw)
 
 
-def _lock(path, stack):
-    # Do not create or replace original lock files. Hold each actual inode.
-    path = _regular(path)
-    fd = os.open(path, os.O_RDWR | getattr(os, 'O_NOFOLLOW', 0))
-    stack.callback(os.close, fd)
-    fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    if (os.fstat(fd).st_dev, os.fstat(fd).st_ino) != (path.stat().st_dev, path.stat().st_ino):
-        raise ValueError('lock inode changed')
-    return fd
-
-
-def validate_inherited_locks(coordinator_root, fds, *, second=False):
-    """Require inherited lock inodes, not just claimed numeric descriptors."""
-    root = Path(coordinator_root)
-    if str(root) != ORIGINAL_ROOT:
-        raise ValueError('only the observed original coordinator and frozen state are allowed')
-    workers = root.parent / 'workers'
-    paths = [root / '.coordinator.lock'] + [p / '.worker.lock' for p in sorted(workers.iterdir())]
-    if second:
-        other = Path(R1_ROOT)
-        paths += [other / 'coordinator/.coordinator.lock'] + [p / '.worker.lock' for p in sorted((other / 'workers').iterdir())]
-    if (not isinstance(fds, tuple) or len(fds) != len(paths) or len(set(fds)) != len(fds)
-            or any(type(fd) is not int or fd <= 2 for fd in fds)):
-        raise ValueError('incomplete inherited predecessor lock set')
-    for path, fd in zip(paths, fds):
-        path = _regular(path)
-        actual, expected = os.fstat(fd), path.stat()
-        if (actual.st_dev, actual.st_ino) != (expected.st_dev, expected.st_ino):
-            raise ValueError('inherited predecessor lock inode mismatch')
-        def require_locked():
-            probe = os.open(path, os.O_RDWR | getattr(os, 'O_NOFOLLOW', 0))
-            try:
-                try:
-                    fcntl.flock(probe, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                except BlockingIOError:
-                    return
-                raise ValueError('predecessor lock is not held')
-            finally:
-                os.close(probe)
-        require_locked()
-        # flock is associated with the open file description. Reacquiring via
-        # the inherited descriptor succeeds, while another open of the same
-        # inode conflicts with the held lock.
-        try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as error:
-            raise ValueError('descriptor does not own predecessor lock') from error
-        require_locked()
-
-
 def _absent(pid, *, group=False):
     if type(pid) is not int or pid <= 1:
         raise ValueError('valid recorded process identity required')
@@ -251,12 +199,12 @@ def _deadline(now):
 
 @contextmanager
 def hold_both_predecessors(*, previous_review_sha256, now=None):
-    """Acquire the original lock set and then the exact first amendment's set."""
+    """Inspect the original and exact first amendment states."""
     with hold_predecessor(coordinator_root=ORIGINAL_ROOT, original_bundle=ORIGINAL_BUNDLE,
             original_config=ORIGINAL_CONFIG, expected_config_sha=CONFIG_SHA, expected_state_sha=STATE_SHA,
             expected_bundle_sha=MANIFEST, now=now) as first, ExitStack() as stack:
         base = Path(R1_ROOT); root = base / 'coordinator'
-        lock_fds = list(first['lock_fds']) + [_lock(root / '.coordinator.lock', stack)]
+
         bundle = _read(base/'frozen/bundle.json', R1_MANIFEST)
         config = _read(base/'frozen/coordinator_config.json', R1_CONFIG_SHA)
         state = _read(root/'state.json', R1_STATE_SHA)
@@ -301,7 +249,7 @@ def hold_both_predecessors(*, previous_review_sha256, now=None):
         workers=base/'workers'
         if workers.is_symlink() or {p.name for p in workers.iterdir()} != {'S0-00-w0'}:
             raise ValueError('unexpected previous worker directories')
-        work=workers/'S0-00-w0'; lock_fds.append(_lock(work/'.worker.lock',stack))
+        work=workers/'S0-00-w0'
         items=[x for x in state['released']['S0']['assignments'] if x['assignment_id']=='S0-00-w0']
         if len(items)!=1 or Path(items[0]['path']).parent != root/'assignments':
             raise ValueError('previous assignment missing')
@@ -322,7 +270,7 @@ def hold_both_predecessors(*, previous_review_sha256, now=None):
             if len(rows)!=len(expected) or set(rows)!=expected: raise ValueError('previous units changed or started')
         if hashlib.sha256(path.read_bytes()).hexdigest() != R1_LEDGER_SHA:
             raise ValueError('previous ledger hash differs from independent observation')
-        yield {**first,'lock_fds':tuple(lock_fds),'previous_manifest_sha256':R1_MANIFEST}
+        yield {**first,'previous_manifest_sha256':R1_MANIFEST}
 
 
 @contextmanager
@@ -346,7 +294,6 @@ def hold_predecessor(*, coordinator_root, original_bundle, original_config,
     if expected_bundle_sha != MANIFEST:
         raise ValueError('unexpected original bundle identity')
     with ExitStack() as stack:
-        lock_fds = [_lock(root / '.coordinator.lock', stack)]
         bundle = _read(original_bundle, MANIFEST)
         config = _read(original_config, expected_config_sha)
         state = _read(root / 'state.json', expected_state_sha)
@@ -413,7 +360,6 @@ def hold_predecessor(*, coordinator_root, original_bundle, original_config,
             known_paths.add(work)
             if not work.exists():
                 continue
-            lock_fds.append(_lock(work / '.worker.lock', stack))
             dbpath = _regular(work / 'worker.sqlite')
             if any(Path(str(dbpath) + suffix).exists() for suffix in ('-wal', '-shm', '-journal')):
                 raise ValueError('ledger journal requires separate audit')
@@ -442,4 +388,4 @@ def hold_predecessor(*, coordinator_root, original_bundle, original_config,
         yield {'run_id': RUN, 'original_manifest_sha256': MANIFEST, 't0_sha256': T0_SHA,
                't0_utc': T0, 'elapsed_seconds': elapsed, 'imports': 363,
                'previous_new_attempts': 0, 'max_new_attempts': 6272 - 363,
-               'authorization': 'none_guard_only', 'lock_fds': tuple(lock_fds)}
+               'authorization': 'none_guard_only'}

@@ -2,7 +2,6 @@
 """Read the lab GPU portal using its authenticated HTTP API."""
 import argparse
 import email.utils
-import fcntl
 import getpass
 import http.cookies
 import json
@@ -75,34 +74,6 @@ def atomic_write(path, value):
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)
-
-
-class Lock:
-    def __init__(self, timeout):
-        self.timeout = timeout
-
-    def __enter__(self):
-        try:
-            self.fd = os.open(CONFIG / 'refresh.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-        except OSError as exc:
-            raise LabError(f"无法安全打开刷新锁: {exc.strerror}") from exc
-        st = os.fstat(self.fd)
-        if not stat.S_ISREG(st.st_mode) or st.st_uid != os.getuid() or st.st_mode & 0o077:
-            os.close(self.fd)
-            raise LabError("刷新锁权限不安全")
-        deadline = time.monotonic() + self.timeout
-        while True:
-            try:
-                fcntl.flock(self.fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                return self
-            except BlockingIOError:
-                if time.monotonic() >= deadline:
-                    os.close(self.fd)
-                    raise LabError("等待刷新锁超时")
-                time.sleep(min(.05, max(0, deadline - time.monotonic())))
-
-    def __exit__(self, *args):
-        os.close(self.fd)
 
 
 class SameOriginRedirect(urllib.request.HTTPRedirectHandler):
@@ -264,48 +235,46 @@ def main(argv=None):
                 raise AuthError('登录响应没有会话 cookie，请检查平台登录状态')
             # Invalidate first: a crash between these writes cannot expose an old
             # account's snapshot under a newly saved session.
-            with Lock(args.timeout):
-                atomic_write(CONFIG / 'status.json', {'base_url': BASE, 'invalidated': True})
-                atomic_write(CONFIG / 'cookies.json', {'base_url': BASE, 'cookies': client.cookies})
+            atomic_write(CONFIG / 'status.json', {'base_url': BASE, 'invalidated': True})
+            atomic_write(CONFIG / 'cookies.json', {'base_url': BASE, 'cookies': client.cookies})
             print(json.dumps({'ok': True}, ensure_ascii=False) if args.json else '登录成功，已保存会话 cookie。')
             return 0
         cache_path = CONFIG / 'status.json'
         error = None
-        with Lock(args.timeout):
-            cached = read_file(cache_path)
-            now = time.time()
-            valid = (isinstance(cached, dict) and cached.get('base_url') == BASE
-                     and type(cached.get('fetched_at')) in (int, float)
-                     and math.isfinite(cached['fetched_at']) and cached['fetched_at'] <= now
-                     and 'payload' in cached)
-            age = now - cached['fetched_at'] if valid else float('inf')
-            use_cache = valid and (args.cached or (args.fresh and cached['fetched_at'] >= started) or (not args.fresh and 0 <= age <= args.cache_ttl))
-            if not use_cache and not args.cached:
+        cached = read_file(cache_path)
+        now = time.time()
+        valid = (isinstance(cached, dict) and cached.get('base_url') == BASE
+                 and type(cached.get('fetched_at')) in (int, float)
+                 and math.isfinite(cached['fetched_at']) and cached['fetched_at'] <= now
+                 and 'payload' in cached)
+        age = now - cached['fetched_at'] if valid else float('inf')
+        use_cache = valid and (args.cached or (args.fresh and cached['fetched_at'] >= started) or (not args.fresh and 0 <= age <= args.cache_ttl))
+        if not use_cache and not args.cached:
+            try:
+                client = Client(args.timeout, cookies_load())
+                old_cookies = list(client.cookies)
+                payload = fetch_payload(client)
+                cached = {'base_url': BASE, 'fetched_at': time.time(), 'payload': payload}
                 try:
-                    client = Client(args.timeout, cookies_load())
-                    old_cookies = list(client.cookies)
-                    payload = fetch_payload(client)
-                    cached = {'base_url': BASE, 'fetched_at': time.time(), 'payload': payload}
-                    try:
-                        normalize(payload, fetched_at=cached['fetched_at'], now=cached['fetched_at'], source=BASE, cache_state='fresh')
-                    except (ValueError, TypeError, KeyError) as exc:
-                        raise LabError('平台状态响应不完整或格式无效') from exc
-                    atomic_write(cache_path, cached)
-                    if client.cookies != old_cookies:
-                        atomic_write(CONFIG / 'cookies.json', {'base_url': BASE, 'cookies': client.cookies})
-                    valid = True
-                    state = 'fresh'
-                except AuthError:
+                    normalize(payload, fetched_at=cached['fetched_at'], now=cached['fetched_at'], source=BASE, cache_state='fresh')
+                except (ValueError, TypeError, KeyError) as exc:
+                    raise LabError('平台状态响应不完整或格式无效') from exc
+                atomic_write(cache_path, cached)
+                if client.cookies != old_cookies:
+                    atomic_write(CONFIG / 'cookies.json', {'base_url': BASE, 'cookies': client.cookies})
+                valid = True
+                state = 'fresh'
+            except AuthError:
+                raise
+            except NetworkError as exc:
+                if not valid or args.fresh or args.command == 'free':
                     raise
-                except NetworkError as exc:
-                    if not valid or args.fresh or args.command == 'free':
-                        raise
-                    error = str(exc)
-                    state = 'stale'
-            elif use_cache:
-                state = 'cached' if 0 <= age <= args.cache_ttl else 'stale'
-            else:
-                raise LabError('没有本地状态缓存')
+                error = str(exc)
+                state = 'stale'
+        elif use_cache:
+            state = 'cached' if 0 <= age <= args.cache_ttl else 'stale'
+        else:
+            raise LabError('没有本地状态缓存')
         try:
             value = normalize(cached['payload'], fetched_at=cached['fetched_at'], now=time.time(), source=BASE, cache_state=state)
         except (ValueError, TypeError, KeyError) as exc:

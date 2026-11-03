@@ -63,7 +63,7 @@ ssh amax -p <port> "tmux new-session -d -s <task_id> 'conda run -n <env> python 
 
 ## 断连与恢复
 
-- Broken pipe或超时后，先读取本任务状态；同一主机的统一入口自动获取运行锁、核对结果并恢复，已有写入者则拒绝重复启动，跨主机迁移须先确认旧执行已退出并核对数据，不能用`import torch`判断实验完成或直接重装。
+- Broken pipe或超时后，先读取本任务状态；先确认旧执行已退出，再由统一入口核对结果并恢复；没有互斥保护，并发运行可能重复或覆盖，跨主机迁移也须核对数据，不能用`import torch`判断实验完成或直接重装。
 - 怀疑ControlMaster僵死时，先针对受影响别名运行`ssh -O check amax`或`ssh -O check amax-jump`；确认没有依赖该连接的传输后，仅关闭对应连接，不批量删除socket或影响其他会话。
 - 账号过期、公钥拒绝、路由失败、CUDA初始化失败分别记录原因；GPU候选切换按[统一优先级](../AGENTS.md#服务器选择优先级)，不因旧成功无限重试或把一次失败当永久不可用。
 - 本文不创建或恢复监控；旧`gpu`已删除的[回执](../results/tssa-mvp-2026-10-26/automation_cleanup_20261028T1225Z.json)保留，新的监控按当前任务实际授权管理。

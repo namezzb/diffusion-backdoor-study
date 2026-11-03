@@ -151,17 +151,13 @@ def validate_plan(plan, binding, *, audit=True):
             execution['claim_path'] == base + '/claims/' + run_id + '.json', 'Unbound output/claim path')
 
 
-def claim_execution(plan, output):
+def validate_execution(plan, output):
     execution = plan['execution']
     require(str(output) == execution['run_root'] and Path(output).parent.resolve() == Path(output).parent,
             'Output differs from unique frozen run root')
     require(sha(Path('/etc/machine-id').read_bytes()) == execution['machine_id_sha256'], 'Wrong execution host')
     require(os.environ.get('GPU_UUID') == execution['gpu_uuid'], 'Wrong frozen GPU')
-    claim = Path(execution['claim_path'])
-    ensure_directory(claim.parent)
-    require(claim.parent.stat().st_uid == os.getuid(), 'Claim directory not owned by this account')
-    write_json(claim, {'plan_sha256': sha(canonical(plan)), 'run_root': str(output),
-                      'at': now(), 'pid': os.getpid(), 'automatic_retry': False})
+
 
 
 class Ledger:
@@ -453,7 +449,7 @@ def main():
     require(args.models_root is not None and args.output is not None and args.permission is not None,
             'Run requires models, new output directory and current resource evidence')
     require(os.environ.get('CUBLAS_WORKSPACE_CONFIG') == ':4096:8', 'Deterministic CUDA config required')
-    claim_execution(plan, args.output)
+    validate_execution(plan, args.output)
     ledger = Ledger(args.output, {'plan': plan, 'plan_sha256': sha(args.plan.read_bytes())})
     backend = None
     try:

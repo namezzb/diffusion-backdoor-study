@@ -154,6 +154,23 @@ class DualRunnerTests(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             return runner.execute(until)
 
+    def test_jobs_execute_sequentially_in_input_order(self):
+        runner = self.runner()
+        events = []
+        def action(name):
+            def run():
+                events.append(name)
+                return name
+            return run
+        result = runner.parallel([(name, action(name)) for name in ('a', 'b', 'c')])
+        self.assertEqual(events, ['a', 'b', 'c'])
+        self.assertEqual(result, {'a': 'a', 'b': 'b', 'c': 'c'})
+
+    def test_matching_run_stores_can_open_together(self):
+        self.runner()
+        second = DualRunStore(self.path, {"backend": "dual_fake_test_only", "protocol_sha256": SHA}, resume=True)
+        second.close()
+
     def test_plan_and_cpu_preflight_start_no_workers_or_cuda(self):
         runner = self.runner(uuids=None)
         self.execute(runner, "cpu-preflight")

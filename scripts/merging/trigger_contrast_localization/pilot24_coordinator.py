@@ -152,7 +152,6 @@ def offline_stage_report(stage, stages, expected_bindings, records, labels, mode
 # turns a design candidate, a platform screenshot, or a receipt into permission.
 from contextlib import contextmanager
 from datetime import datetime, timezone
-import fcntl
 import os
 import tempfile
 from pilot24_deadline import deadline_state
@@ -212,9 +211,7 @@ class Coordinator:
         self.root.mkdir(parents=True, exist_ok=True)
         if self.root.is_symlink():
             raise ValueError("coordinator root must not be a symlink")
-        self.fd = os.open(self.root / '.coordinator.lock', os.O_CREAT | os.O_RDWR | getattr(os, 'O_NOFOLLOW', 0), 0o600)
         try:
-            fcntl.flock(self.fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
             self.config = json.loads(canonical(config))
             if config.get('run_id') != RUN or not all(is_sha(config.get(k)) for k in ('manifest_sha256', 'model_bundle_sha256', 'scorer_sha256')):
                 raise ValueError('authenticated frozen configuration required')
@@ -249,11 +246,10 @@ class Coordinator:
             if self.state['config_sha256'] != digest(self.config):
                 raise ValueError('state belongs to another configuration')
         except Exception:
-            os.close(self.fd)
             raise
 
     def close(self):
-        os.close(self.fd)
+        pass
 
     def __enter__(self):
         return self

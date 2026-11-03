@@ -1,7 +1,7 @@
 """Offline transfer audit; no school connections or actual downloads are made.
 
 Recovery and integrity regressions for the next helper revision, isolated from
-the currently running production transfer and its lock.
+any currently running production transfer.
 """
 from __future__ import annotations
 
@@ -10,6 +10,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -25,6 +26,28 @@ ROOT = HERE.parent
 spec = importlib.util.spec_from_file_location("stage_school_assets_audit", HERE / "stage_school_assets.py")
 stage = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(stage)
+
+
+def setUpModule():
+    global _guard_dir, _guard_env, _guard_popen, _guard_socket
+    import socket
+    _guard_dir = tempfile.TemporaryDirectory(prefix='server-test-no-network-')
+    for name in ('ssh', 'scp', 'sftp', 'curl'):
+        command = Path(_guard_dir.name) / name
+        command.write_text('#!/bin/sh\nexit 99\n'); command.chmod(0o700)
+    _guard_env = mock.patch.dict(os.environ, {'PATH': _guard_dir.name + os.pathsep + os.environ.get('PATH', '')})
+    _guard_env.start()
+    original = subprocess.Popen
+    def local_python_only(command, *args, **kwargs):
+        if isinstance(command, (str, bytes)) or Path(os.fsdecode(command[0])).resolve() != Path(sys.executable).resolve():
+            raise AssertionError('External subprocess forbidden in tests')
+        return original(command, *args, **kwargs)
+    _guard_popen = mock.patch.object(subprocess, 'Popen', side_effect=local_python_only); _guard_popen.start()
+    _guard_socket = mock.patch.object(socket, 'create_connection', side_effect=AssertionError('Network forbidden')); _guard_socket.start()
+
+
+def tearDownModule():
+    _guard_socket.stop(); _guard_popen.stop(); _guard_env.stop(); _guard_dir.cleanup()
 
 
 class FakeSession:
@@ -111,7 +134,6 @@ class TransferRecoveryTests(unittest.TestCase):
         with ExitStack() as stack:
             stack.enter_context(mock.patch.object(sys, "argv", argv))
             session_factory = stack.enter_context(mock.patch.object(stage, "SchoolSession", return_value=session))
-            stack.enter_context(mock.patch.object(stage, "LOCK_PATH", self.staging / ".test-transfer.lock"))
             stack.enter_context(mock.patch.object(stage, "run", side_effect=fake_run))
             stack.enter_context(mock.patch.object(stage.subprocess, "run", side_effect=AssertionError("Real subprocess forbidden")))
             stack.enter_context(mock.patch.object(stage.socket, "create_connection", side_effect=AssertionError("Network forbidden")))

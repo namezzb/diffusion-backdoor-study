@@ -1,6 +1,6 @@
 """Controller isolation checks in a temporary local tree; no network or GPU."""
 import base64
-import fcntl
+import contextlib
 import hashlib
 import json
 import os
@@ -22,6 +22,13 @@ import semantic_science
 class SemanticValidationTest(unittest.TestCase):
     def setUp(self):
         # Fail closed: these tests must never contact a server.
+        guard = tempfile.TemporaryDirectory()
+        self.addCleanup(guard.cleanup)
+        for name in ('ssh', 'scp', 'sftp'):
+            path = Path(guard.name) / name
+            path.write_text('#!/bin/sh\nexit 99\n'); path.chmod(0o700)
+        env_guard = mock.patch.dict(os.environ, {'PATH': guard.name + os.pathsep + os.environ.get('PATH', '')})
+        env_guard.start(); self.addCleanup(env_guard.stop)
         original = subprocess.Popen
         def local_only(command, *args, **kwargs):
             if isinstance(command, (str, bytes)):
@@ -98,24 +105,16 @@ class SemanticValidationTest(unittest.TestCase):
             self.assertIn('    hello\n', out.read_text())
             self.assertIn('    bad\n', err.read_text())
 
-    def test_markdown_wrapper_holds_inherited_launcher_lock(self):
+    def test_markdown_wrapper_needs_no_inherited_lock_fd(self):
         with tempfile.TemporaryDirectory() as tmp:
-            lock = Path(tmp) / 'lock'; fd = os.open(lock, os.O_CREAT | os.O_RDWR, 0o600)
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            wrapper = validation.MARKDOWN_SUBPROCESS + "\nimport sys; r=markdown_subprocess(sys.argv[4:],None,os.environ,sys.argv[2],sys.argv[3],capture=False);sys.exit(r.returncode)"
-            proc = subprocess.Popen([sys.executable, '-c', wrapper, str(fd), str(Path(tmp)/'session.md'),
-                                     str(Path(tmp)/'errors.md'), sys.executable, '-c',
-                                     'import time;print("running",flush=True);time.sleep(.5);raise SystemExit(9)'],
-                                    pass_fds=(fd,))
-            os.close(fd)
-            other = os.open(lock, os.O_RDWR)
-            try:
-                with self.assertRaises(BlockingIOError):fcntl.flock(other, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                self.assertEqual(proc.wait(timeout=5), 9)
-                fcntl.flock(other, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                self.assertIn('    running', (Path(tmp)/'session.md').read_text())
-            finally:
-                os.close(other)
+            wrapper = validation.MARKDOWN_SUBPROCESS + "\nimport sys; r=markdown_subprocess(sys.argv[3:],None,os.environ,sys.argv[1],sys.argv[2],capture=False);sys.exit(r.returncode)"
+            proc = subprocess.run([sys.executable, '-c', wrapper, str(Path(tmp)/'session.md'),
+                                   str(Path(tmp)/'errors.md'), sys.executable, '-c',
+                                   'print("running",flush=True);raise SystemExit(9)'], timeout=5)
+            self.assertEqual(proc.returncode, 9)
+            self.assertIn('    running', (Path(tmp)/'session.md').read_text())
+            self.assertNotIn('pass_fds=', validation.REMOTE_RUN)
+            self.assertNotIn('flock', validation.REMOTE_RUN)
 
     def test_markdown_state_roundtrip_and_legacy_fallback(self):
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)):
@@ -290,7 +289,6 @@ os._exit(0)
                     result = root / ('results/' + validation.RUN_ID)
                     result.mkdir(parents=True)
                     (result / 'run.sqlite').touch()
-                    (result / '.writer.lock').touch()
                 name = 'scripts/merging/trigger_contrast_localization/pilot24_provenance.py'
                 raw = b'bootstrap-only-helper'
                 payload = {'files': {name: {'content': base64.b64encode(raw).decode(),
@@ -299,8 +297,12 @@ os._exit(0)
                 proc = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload),
                                       capture_output=True, text=True, timeout=10)
                 self.assertNotEqual(proc.returncode, 0)
-                self.assertIn('missing fixed inputs', proc.stderr)
-                self.assertEqual((repo / name).read_bytes(), raw)
+                if started:
+                    self.assertIn('cannot be confirmed stopped', proc.stderr)
+                    self.assertFalse((repo / name).exists())
+                else:
+                    self.assertIn('missing fixed inputs', proc.stderr)
+                    self.assertEqual((repo / name).read_bytes(), raw)
 
     def test_remote_state_prefers_markdown_and_never_falls_back_on_invalid_markdown(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -321,6 +323,68 @@ os._exit(0)
             md.write_text('invalid')
             proc = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True)
             self.assertIn('invalid Markdown ledger', proc.stderr)
+
+    def test_process_observations_and_legacy_sqlite_without_lock(self):
+        import sqlite3
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp); work = base / 'work'; work.mkdir(); root = base / 'run'; root.mkdir()
+            proc = base / 'proc'; (proc / '123').mkdir(parents=True)
+            (proc / 'sys/kernel/random').mkdir(parents=True)
+            (proc / 'sys/kernel/random/boot_id').write_text('boot-test')
+            (proc / '123/stat').write_text('123 (python) S ' + '0 ' * 18 + '456 0')
+            source = validation.REMOTE_PROCESS_STATE.replace("'/proc'", repr(str(proc))).replace("'/proc/sys/kernel/random/boot_id'", repr(str(proc / 'sys/kernel/random/boot_id')))
+            ns = {}; exec(source, ns)
+            status = ns['process_status']; process = {'pid': 123, 'uid': os.geteuid(), 'start_ticks': 456, 'boot_id': 'boot-test'}
+            self.assertEqual(status(work, root), 'inactive')
+            (work / 'launcher.md').write_text('# process\n\n```json\n' + json.dumps(process) + '\n```\n')
+            self.assertEqual(status(work, root), 'running')
+            process['start_ticks'] = 455
+            (work / 'launcher.md').write_text('```json\n' + json.dumps(process) + '\n```\n')
+            self.assertEqual(status(work, root), 'inactive')
+            (work / 'launcher.md').unlink()
+            db = root / 'run.sqlite'
+            with sqlite3.connect(db) as con:
+                con.execute('CREATE TABLE events (id INTEGER, kind TEXT, detail TEXT)')
+                con.execute('INSERT INTO events VALUES (1, ?, ?)', ('session', json.dumps({'writer': {'pid': 123}})))
+            self.assertEqual(status(work, root), 'unknown')
+            process['start_ticks'] = 456
+            with sqlite3.connect(db) as con:
+                con.execute('UPDATE events SET detail=?', (json.dumps({'writer': process}),))
+            self.assertEqual(status(work, root), 'running')
+            self.assertFalse((root / '.writer.lock').exists())
+            md = root / 'run.md'
+            md.write_text('```json\n' + json.dumps({'events': [{'kind': 'session', 'detail': {'writer': process}}]}) + '\n```\n')
+            self.assertEqual(status(work, root), 'running')
+            md.write_text('invalid')
+            self.assertEqual(status(work, root), 'unknown')
+
+    def test_observer_reuse_and_lost_launch_response(self):
+        identity = {'uuid': 'GPU-test', 'science_sha256': 'a' * 64, 'server': '103'}
+        ready = {'run_id': validation.RUN_ID, 'uuid': identity['uuid'], 'startup_evidence': True,
+                 'time': time.time(), 'pid': os.getpid()}
+        for alive in (True, False):
+            with self.subTest(existing=alive), tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / 'ready.json'; path.write_text(json.dumps(ready))
+                worker = mock.Mock()
+                with mock.patch.object(validation, 'observer_ready_path', return_value=path), \
+                        mock.patch.object(validation, 'observer_alive', return_value=alive), \
+                        mock.patch.object(validation, 'spawn_observer', return_value=worker) as spawn, \
+                        mock.patch.object(validation, 'run_ssh_config', return_value=contextlib.nullcontext(Path(tmp) / 'fake')), \
+                        mock.patch.object(validation, 'bounded_ssh', side_effect=TimeoutError('lost reply')):
+                    with self.assertRaises(TimeoutError): validation.start_or_resume(identity)
+                    self.assertEqual(spawn.call_count, 0 if alive else 1)
+                    worker.terminate.assert_not_called()
+
+    def test_tick_unknown_process_must_not_attempt_start(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \
+                mock.patch.object(validation, 'remote_state', return_value={'status': 'unknown'}), \
+                mock.patch.object(validation, 'load_manifest', return_value={'run_id': validation.RUN_ID}), \
+                mock.patch.object(validation, 'fresh_snapshot') as snapshot, \
+                mock.patch.object(validation, 'start_or_resume') as start:
+            validation.save_private(Path(tmp) / 'manifest.md', {'run_id': validation.RUN_ID})
+            result = validation.tick()
+            self.assertEqual(result['status'], 'unknown')
+            snapshot.assert_not_called(); start.assert_not_called()
 
     def test_identity_and_six_hour_clock_are_isolated(self):
         self.assertEqual(validation.RUN_ID, semantic_science.RUN_ID)
@@ -345,15 +409,13 @@ os._exit(0)
             payload = {'files': {relative: {'content': base64.b64encode(data).decode(),
                                              'sha256': hashlib.sha256(data).hexdigest()}}}
             script = validation.REMOTE_PREPARE.replace("pathlib.Path('/data2/zhangzibo/arxiv-tssa')", f'pathlib.Path({str(root)!r})')
-            fd = os.open(work / 'launcher.lock', os.O_CREAT | os.O_RDWR, 0o600)
-            try:
-                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                running = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload), text=True,
-                                         capture_output=True, timeout=10)
-                self.assertNotEqual(running.returncode, 0)
-                self.assertIn('cannot update a running launcher', running.stderr)
-            finally:
-                os.close(fd)
+            # An unreadable observation must prevent deployment without needing a lock.
+            (work / 'launcher.md').write_text('invalid process observation')
+            running = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload), text=True,
+                                     capture_output=True, timeout=10)
+            self.assertNotEqual(running.returncode, 0)
+            self.assertIn('cannot be confirmed stopped', running.stderr)
+            (work / 'launcher.md').unlink()
             changed = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload), text=True,
                                      capture_output=True, timeout=10)
             self.assertNotEqual(changed.returncode, 0)

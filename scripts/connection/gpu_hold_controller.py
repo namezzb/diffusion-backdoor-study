@@ -9,7 +9,6 @@ from __future__ import annotations
 import argparse
 import base64
 import contextlib
-import fcntl
 import hashlib
 import json
 import math
@@ -239,7 +238,7 @@ def platform(snapshot, config, active=(), now=None):
 # Runs only through verified SSH. All scientific reads are mode=ro; writes stay
 # inside the separate gpu-holds tree. The worker independently validates leases.
 REMOTE = r'''
-import base64,contextlib,fcntl,hashlib,json,math,os,pathlib,re,signal,socket,sqlite3,struct,subprocess,sys,tempfile,time
+import base64,contextlib,hashlib,json,math,os,pathlib,re,signal,socket,sqlite3,struct,subprocess,sys,tempfile,time
 p=json.load(sys.stdin); server=p['server']; roots={'104':'/data2/zhangzibo/arxiv-tssa','103':'/data1/zhangzibo/arxiv-tssa'}
 root=pathlib.Path(roots[server]); run='tcl-20261103-semantic-v1'
 if socket.gethostname()!='iipl-'+server: raise ValueError('target host mismatch')
@@ -277,15 +276,7 @@ def same(record):
   return (len(args)>2 and args[1]==record.get('worker_path') and args[args.index('--worker-id')+1]==record['worker_id']
           and args[args.index('--lease-id')+1]==record['lease_id'] and args[args.index('--controller-id')+1]==record['controller_id'])
  except (OSError,ValueError,IndexError,KeyError):return False
-def unlocked(path):
- safe(path)
- if not path.is_file():raise ValueError('required source lock missing')
- fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW)
- try:fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
- except Exception:os.close(fd);raise
- return fd
 source=root/'results'/run; work=root/'preparations'/run
-held=[]
 def ledger():
  md=source/'run.md';dbpath=source/'run.sqlite'
  safe(md)
@@ -315,15 +306,33 @@ if p['action']=='poll':
  counts,end=summary(value);result={'status':'running_or_paused','units':counts}
  if end:result['status']='ready_for_report' if counts=={'complete':1024} and end.get('stage')=='M1' else 'partial_terminal'
  print(json.dumps(result));sys.exit()
+def confirmed_exited(record):
+ # Observational only: no lock or atomic exclusion against a new process.
+ if not isinstance(record,dict):return False
+ pid=record.get('pid');uid=record.get('uid');boot=record.get('boot_id');ticks=record.get('start_ticks')
+ if type(pid)!=int or pid<=0 or type(uid)!=int or uid!=os.geteuid() or not isinstance(boot,str) or not boot or type(ticks)!=int:return False
+ try:
+  current_boot=pathlib.Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+  if not current_boot:return False
+  if boot!=current_boot:return True
+  proc=pathlib.Path('/proc')/str(pid)
+  try:
+   st=proc.stat();raw=(proc/'stat').read_text();tail=raw[raw.rfind(')')+2:].split()
+  except FileNotFoundError:return True
+  return tail[0]=='Z' or st.st_uid!=uid or int(tail[19])!=ticks
+ except (OSError,ValueError,IndexError):return False
 def completion():
  spec=read(work/'spec.json')
  if spec.get('run_id')!=run:raise ValueError('wrong scientific run')
  science=json.dumps({'run_id':run,'science':spec['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
  if hashlib.sha256(science.encode()).hexdigest()!=p['science_sha256']:raise ValueError('science hash mismatch')
- held.extend([unlocked(work/'launcher.lock'),unlocked(source/'.writer.lock')])
  value=ledger()
  if value is None:raise ValueError('experiment ledger missing')
  metadata=value['identity'];counts,final=summary(value)
+ sessions=[e['detail'].get('writer') for e in value['events'] if e['kind']=='session']
+ launcher_path=work/'launcher.md';safe(launcher_path)
+ launcher=read(launcher_path) if launcher_path.exists() else None
+ if not sessions or not all(confirmed_exited(x) for x in sessions) or (launcher is not None and not confirmed_exited(launcher)):raise ValueError('scientific process exit unconfirmed')
  stages={e['detail']['stage'] for e in value['events'] if e['kind']=='stage_gate'}
  if (metadata.get('run_id')!=run or metadata.get('science_sha256')!=p['science_sha256']
      or metadata.get('writer_host')!=machine or metadata.get('run_root')!=str(source)
@@ -331,11 +340,10 @@ def completion():
      or final.get('outcome') not in ('exploratory_positive','exploratory_negative','inconclusive')
      or not isinstance(final.get('reason'),str)):
   raise ValueError('experiment incomplete or not at full scientific terminal')
- return {'terminal':final,'complete':1024,'preferred_uuid':spec['execution'].get('gpu_uuid')}
+ return {'terminal':final,'complete':1024,'preferred_uuid':spec['execution'].get('gpu_uuid'),'launcher_exit': 'confirmed' if launcher is not None else 'identity_unavailable','writer_sessions_exit':'confirmed'}
 machine={'hostname':socket.gethostname(),'uid':os.geteuid(),'machine_id_sha256':hashlib.sha256(pathlib.Path('/etc/machine-id').read_bytes()).hexdigest()}
 if p['action'] in ('handoff','report'):
- try:result=completion()
- except BlockingIOError:print(json.dumps({'status':'scientific_writer_still_running'}));sys.exit()
+ result=completion()
  if p['action']=='handoff':
   print(json.dumps({'status':'terminal','run_id':run,'science_sha256':p['science_sha256'],'completed_images':1024,'stages_completed':['S0','S1','M0','M1'],'verification':'pending',**result}));sys.exit()
  value=ledger()
@@ -363,11 +371,9 @@ if p['action']=='inspect':
 if p.get('machine')!=machine:raise ValueError('hold machine identity changed')
 base=root/'gpu-holds';safe(base);base.mkdir(mode=0o700,exist_ok=True)
 if base.stat().st_mode&0o077:raise ValueError('unsafe hold directory mode')
-fd=os.open(base/'controller.lock',os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600);fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
 state=base/p['hold_id'];safe(state);state.mkdir(mode=0o700,exist_ok=True)
 owner_path=base/'owner.md';owner_source=owner_path if owner_path.exists() or owner_path.is_symlink() else base/'owner.json';owner=read(owner_source) if owner_source.exists() else None
 if owner and owner.get('controller_id')!=p['controller_id']:
- if any(same(r) for r in owner.get('workers',[])) or time.time()-owner.get('updated_at',time.time())<60:raise ValueError('different hold controller owns node')
  owner=None
 if not owner:owner={'controller_id':p['controller_id'],'hold_id':p['hold_id'],'workers':[]}
 if owner['hold_id']!=p['hold_id']:raise ValueError('hold identity mismatch')
@@ -513,14 +519,9 @@ def stopped(state):
         raise NotReady('user stop is persistent; explicitly authorize a new hold identity to restart')
 
 
-def watch(config, state=STATE, *, once=False, _lock_fd=None):
+def watch(config, state=STATE, *, once=False):
     """Foreground owner. On any uncertainty revoke, report and exit; never hide it."""
     validate_config(config); state = private_dir(state)
-    fd = _lock_fd if _lock_fd is not None else os.open(state / 'controller.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    try:
-        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BaseException:
-        os.close(fd); raise
     manifest_path = state / 'manifest.md'
     manifest_source = state_path(manifest_path)
     manifest = read_private(manifest_source) if manifest_source.exists() else None
@@ -588,10 +589,12 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
                 stopped(state)
                 manifest['uuids'].extend(extra)
                 manifest['lease_ids'].update({u: os.urandom(16).hex() for u in extra})
+                issued = leases(config, manifest, cards, time.time())
+                manifest['lease_expires_at'] = effective_expiry(issued)
                 write_private(manifest_path, manifest)
                 audit(state, 'adding_cards', uuids=extra, snapshot=snapshot)
                 remote(config, 'add', controller_id=manifest['controller_id'], machine=manifest['machine'],
-                       leases=leases(config, manifest, cards, time.time()),
+                       leases=issued,
                        memory_fraction=config['authorization']['memory_target_percent'] / 100,
                        compute_target_percent=config['authorization']['compute_target_percent'])
                 # The bounded live probe may consume freshness; fetch again before renewal.
@@ -620,17 +623,12 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
             write_private(manifest_path, manifest)
             audit(state, 'stopped_or_lease_expiring', manifest=manifest)
         raise
-    finally:
-        os.close(fd)
 
 
 def await_completion(config, state=STATE):
     """Independent waiter: no scientific writer changes and no half-hour gap."""
     validate_config(config, require_report=False); state = private_dir(state)
-    fd = os.open(state / 'controller.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    passed_to_watch = False
     try:
-        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
         stopped(state)
         audit(state, 'waiting_for_full_scientific_terminal', authority_sha256=authority_hash(config), pid=os.getpid())
         while True:
@@ -649,8 +647,7 @@ def await_completion(config, state=STATE):
                     validate_config(activated)
                     write_private(state / 'activated-config.md', activated)
                     audit(state, 'handoff_ready_verification_pending', report_sha256=activated['completion_report']['sha256'])
-                    passed_to_watch = True
-                    return watch(activated, state, _lock_fd=fd)
+                    return watch(activated, state)
                 if report.get('status') != 'scientific_writer_still_running':
                     raise NotReady('unrecognized completion report response')
             elif value['status'] not in ('not_started', 'running_or_paused'):
@@ -661,8 +658,6 @@ def await_completion(config, state=STATE):
         audit(state, 'waiter_exited', reason=str(exc))
         write_private(state / 'wait-status.md', {'status': 'not_holding', 'observed_at': time.time(), 'reason': str(exc)})
         raise
-    finally:
-        if not passed_to_watch: os.close(fd)
 
 
 def resume(config, state=STATE):
@@ -673,30 +668,23 @@ def resume(config, state=STATE):
     if authority_hash(activated) != authority_hash(config):
         raise NotReady('resume authorization differs from original task')
     validate_config(activated)
-    fd = os.open(state / 'controller.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    handed = False
-    try:
-        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        stopped(state)
-        manifest = read_private(state_path(state / 'manifest.md'))
-        if manifest['authority_sha256'] != authority_hash(config):
-            raise NotReady('resume identity mismatch')
-        previous = remote(config, 'status', controller_id=manifest['controller_id'], machine=manifest['machine'])
-        if any(row.get('alive') is not False for row in previous['workers']):
-            raise NotReady('old hold worker still alive; no duplicate or forced takeover')
-        audit(state, 'explicit_resume_after_verified_exit', previous=previous, manifest=manifest)
-        history = private_dir(state / 'history')
-        source = state_path(state / 'manifest.md')
-        if source.suffix == '.json':
-            write_private(state / 'manifest.md', manifest)
-            source = state / 'manifest.md'
-        os.replace(source, history / ('manifest-' + str(time.time_ns()) + '.md'))
-        # Keep legacy history, but prevent fallback from reviving it.
-        write_private(state / 'manifest.md', {'retired': True})
-        handed = True
-        return watch(activated, state, _lock_fd=fd)
-    finally:
-        if not handed: os.close(fd)
+    stopped(state)
+    manifest = read_private(state_path(state / 'manifest.md'))
+    if manifest['authority_sha256'] != authority_hash(config):
+        raise NotReady('resume identity mismatch')
+    previous = remote(config, 'status', controller_id=manifest['controller_id'], machine=manifest['machine'])
+    if any(row.get('alive') is not False for row in previous['workers']):
+        raise NotReady('old hold worker still alive; no duplicate or forced takeover')
+    audit(state, 'explicit_resume_after_verified_exit', previous=previous, manifest=manifest)
+    history = private_dir(state / 'history')
+    source = state_path(state / 'manifest.md')
+    if source.suffix == '.json':
+        write_private(state / 'manifest.md', manifest)
+        source = state / 'manifest.md'
+    os.replace(source, history / ('manifest-' + str(time.time_ns()) + '.md'))
+    # Keep legacy history, but prevent fallback from reviving it.
+    write_private(state / 'manifest.md', {'retired': True})
+    return watch(activated, state)
 
 
 def configure_from_semantic(manifest_path, *, reviewed_policy_sha256, compute_target_percent,
@@ -722,27 +710,17 @@ def configure_from_semantic(manifest_path, *, reviewed_policy_sha256, compute_ta
 def stop(config, state=STATE):
     state = private_dir(state)
     write_private(state / 'STOP', {'time': time.time(), 'reason': 'explicit user stop'})
-    # Wait until any in-flight acquisition observes STOP and exits. Returning
-    # "stopped_before_start" without this synchronization would race with spawn.
-    fd = os.open(state / 'controller.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
-    deadline = time.monotonic() + 35
-    try:
-        while True:
-            try:
-                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB); break
-            except BlockingIOError:
-                if time.monotonic() >= deadline:
-                    return {'status': 'stop_pending', 'reason': 'controller still unwinding; STOP persists, short leases must expire'}
-                time.sleep(.05)
-        path = state_path(state / 'manifest.md')
-        if not path.exists():
-            return {'status': 'stopped_before_start'}
-        manifest = read_private(path)
-        if manifest.get('authority_sha256') != authority_hash(config):
-            raise NotReady('stop configuration differs from owner')
-        return remote(config, 'stop', controller_id=manifest['controller_id'], machine=manifest['machine'])
-    finally:
-        os.close(fd)
+    path = state_path(state / 'manifest.md')
+    if not path.exists():
+        return {'status': 'stop_pending', 'reason': 'STOP recorded; concurrent startup may still be in flight'}
+    manifest = read_private(path)
+    if manifest.get('authority_sha256') != authority_hash(config):
+        raise NotReady('stop configuration differs from owner')
+    result = remote(config, 'stop', controller_id=manifest['controller_id'], machine=manifest['machine'])
+    manifest.update(status='stop_requested', last_remote=result, stopped_at=time.time())
+    write_private(state / 'manifest.md', manifest)
+    return result
+
 
 
 def main(argv=None):

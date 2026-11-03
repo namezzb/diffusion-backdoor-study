@@ -179,7 +179,7 @@ class ObservationTest(unittest.TestCase):
             self.assertEqual(json.loads(run.stdout)['status'], 'spawned')
             again = subprocess.run([sys.executable, '-c', code], input=json.dumps({'uuid': uuid, 'science_sha256': digest}),
                                    capture_output=True, text=True, timeout=5)
-            self.assertEqual(json.loads(again.stdout)['status'], 'running', again.stderr)
+            self.assertEqual(json.loads(again.stdout)['status'], 'spawned', again.stderr)
             self.assertEqual(json.loads((work / 'spec.json').read_text())['execution']['gpu_uuid'], uuid)
 
     def test_report_contains_terminal_and_stage_gates(self):

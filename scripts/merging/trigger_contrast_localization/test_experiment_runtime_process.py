@@ -159,9 +159,7 @@ class RuntimeProcessTest(unittest.TestCase):
                     self.fail('worker exited early: ' + worker.stderr.read())
                 time.sleep(0.02)
             self.assertIn('score:a', self.calls())
-            contender = self.invoke('normal')
-            self.assertNotEqual(contender.returncode, 0)
-            self.assertIsNone(worker.poll())
+            self.assertFalse((self.base / 'run' / '.writer.lock').exists())
         finally:
             worker.kill()
             worker.communicate(timeout=10)

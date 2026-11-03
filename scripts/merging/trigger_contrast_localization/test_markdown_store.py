@@ -21,13 +21,16 @@ class MarkdownStoreTest(unittest.TestCase):
     def tearDown(self): self.tmp.cleanup()
     def store(self): return Store(self.root, self.identity, self.units, self.budget)
 
-    def test_resume_budget_resource_and_lock(self):
+    def test_resume_budget_resource_without_lock(self):
         s = self.store()
         self.assertFalse((self.root / 'run.sqlite').exists())
         s.event('t0', {'time_utc': '2026-01-01T00:00:00+00:00'})
         s.reserve(self.key); s.checkpoint(self.key, {'steps': 5})
         with self.assertRaises(ValueError): s.checkpoint(self.key, {'steps': 4})
-        with self.assertRaises(BlockingIOError): self.store()
+        other = self.store()
+        self.assertEqual(other.data['attempts'][0]['resource'], {'steps': 5})
+        other.close()
+        self.assertFalse((self.root / '.writer.lock').exists())
         s.close()
         s = self.store(); self.assertEqual(s.interrupted, [canonical(self.key)])
         self.assertEqual(s.data['attempts'][0]['resource'], {'steps': 5})

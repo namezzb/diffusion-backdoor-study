@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
-import fcntl
 import hashlib
 import io
 import json
@@ -225,19 +224,17 @@ def load_plan(path: Path, old_path: Path, assets_path: Path, *, audit: bool = Tr
 
 
 class Store:
-    """One owner, atomic receipts, immutable identity, and fail-closed recovery."""
+    """Atomic receipts and immutable identity; concurrent writers are not coordinated."""
     def __init__(self, root: Path, identity: Mapping[str, Any], *, resume: bool = False):
         self.root = root.resolve()
         self.root.mkdir(parents=True, exist_ok=True)
-        self.lock = (self.root / ".run.lock").open("a+")
         try:
-            fcntl.flock(self.lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
             identity_path = existing_record(self.root / "identity.json")
             if identity_path.exists():
                 if not resume or read_record(identity_path) != identity:
                     raise IntegrityError("Existing run needs explicit resume and exactly matching immutable identity.")
             else:
-                if resume or any(p.name != ".run.lock" for p in self.root.iterdir()):
+                if resume or any(self.root.iterdir()):
                     raise IntegrityError("Use a new empty run directory; do not adopt unrelated or incomplete directories.")
                 atomic_record(identity_path, identity)
             self.identity = dict(identity)
@@ -259,9 +256,7 @@ class Store:
             raise
 
     def close(self) -> None:
-        if not self.lock.closed:
-            fcntl.flock(self.lock.fileno(), fcntl.LOCK_UN)
-            self.lock.close()
+        pass
 
     def _verify_receipt(self, receipt: dict[str, Any], path: Path) -> None:
         task = receipt["task"]
