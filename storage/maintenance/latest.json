@@ -1,348 +1,40 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-03T12:38:24.032933+00:00",
-  "base_commit": "ae13178e24ef06bced6ade56aa42aeaadc4bc621",
-  "summary": "移除当前工具和可调用实验代码中的锁，保留资源规则与历史证据，记录无锁并发风险。",
+  "reviewed_at": "2026-11-03T12:39:16.263813+00:00",
+  "base_commit": "c785338af4185a3d06c717d6b35b1a7e93887059",
+  "summary": "明确记录历史冻结脚本和旧任务脚本仍含锁，避免夸大移除范围。",
   "reviewed_changes": [
-    {
-      "path": "AGENTS.md",
-      "kind": "file",
-      "sha256": "f1fe67fe5c3a573db8dfdff63479b9bcc4b662992297935abf5e0c4f0ebf6874"
-    },
-    {
-      "path": "research/WORKFLOW.md",
-      "kind": "file",
-      "sha256": "86fc514871d6461721f508ab729aab76f9fd95d696c873d724db66e83b11414c"
-    },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
       "kind": "file",
-      "sha256": "1c016c158e194b638af5a58fd2f56c2c66eb2f9562876642f04dfdf24d4ba82b"
-    },
-    {
-      "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
-      "kind": "file",
-      "sha256": "b3ef822f6c50b7d701c40e2703f6ad44c41214d188ec0be409119640bf6320fb"
-    },
-    {
-      "path": "scripts/connection/GPU_HOLD.md",
-      "kind": "file",
-      "sha256": "ee76ec875b623f3a326e7dccc4a6b385e15f4f8afcecbecdd9d4b30b0b7c5374"
-    },
-    {
-      "path": "scripts/connection/LABGPU.md",
-      "kind": "file",
-      "sha256": "ad1eecb728de91f4d5003cc55e365466e40ff95e85cf03dc271caad69ba7a64b"
-    },
-    {
-      "path": "scripts/connection/gpu_hold_controller.py",
-      "kind": "file",
-      "sha256": "750339334d3aac28723418f52dcb47a7593859e5fc7be0e6aec474aa98d9b0c6"
-    },
-    {
-      "path": "scripts/connection/gpu_hold_worker.py",
-      "kind": "file",
-      "sha256": "f40dd1f0e5a01bd604d70c348beb51681c70f8fdc9d3e8e88a87a303e109f9c0"
-    },
-    {
-      "path": "scripts/connection/labgpu.py",
-      "kind": "file",
-      "sha256": "5867d5df1f70430b64734688670628ff491df090400b0c739a3355823c04a7d1"
-    },
-    {
-      "path": "scripts/connection/test_gpu_hold_controller.py",
-      "kind": "file",
-      "sha256": "fc578de42c7af188c1557a68fd0901b5ac41d13490720682bade0fd93aab18af"
-    },
-    {
-      "path": "scripts/connection/test_gpu_hold_worker.py",
-      "kind": "file",
-      "sha256": "d574bf73cb32f6e0db6f7c246e2f5d01b2463dac4c4eb1aeef79b7aae015563e"
-    },
-    {
-      "path": "scripts/connection/test_labgpu_cli.py",
-      "kind": "file",
-      "sha256": "07f9c6eb7eafd1f18ede7f9b186b91bdba585cc1ea39bc89f7ac74898ccc6f6a"
-    },
-    {
-      "path": "scripts/merging/test_tssa_image_search_run.py",
-      "kind": "file",
-      "sha256": "027e6cb3533cd6c0a2a2070016757dc5d3d8773d9cdb79f6e9ead5e6b4f41282"
-    },
-    {
-      "path": "scripts/merging/test_tssa_mvp_dual_run.py",
-      "kind": "file",
-      "sha256": "256b72ff0c3c2d5a983843d6193c276acbe50c81c80bd08dcfe33ba4a0f42a76"
-    },
-    {
-      "path": "scripts/merging/test_tssa_target_semantic_run.py",
-      "kind": "file",
-      "sha256": "36ccf460ea6a7d0ed32af184d76b8af7bbb53b833da8f57543eafb9eabfd2b25"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "kind": "file",
-      "sha256": "4c43d2d148c1f7d0bf8f77aede8a715e244cda3aa2497ae22ee9e19e4559ad43"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/main.py",
-      "kind": "file",
-      "sha256": "cd04f93c7d6b30928c783c3adb8f3dc6e4a876b478bbbb92c608f4b772e68ce3"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/overnight.py",
-      "kind": "file",
-      "sha256": "83a66b83558d52f6eb71efb1486ae84355d7c2897140e61043e3ed5c2cd68113"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_coordinator.py",
-      "kind": "file",
-      "sha256": "503da6d55d4185a386a166d8b2f8d864c9e4bed95f0b554b385462175e4eb168"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_recovery_guard_candidate.py",
-      "kind": "file",
-      "sha256": "10220cb3ae624f247218a45981584085f93c94b5f9d749374a0203d4d5931b28"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_run.py",
-      "kind": "file",
-      "sha256": "3e1c5d864e6c408608a60eaf51d17065ccde048804b4df7f698aa9811a9703b3"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_watchdog.py",
-      "kind": "file",
-      "sha256": "28152fba54325677357196e392d37647fc1e9d82b11dfa61794deba5d650956b"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_worker_compute.py",
-      "kind": "file",
-      "sha256": "73ec266536a6c00f73703b3c2bc5ea92568c6ab1bebc6d9afb11041644cbaaa1"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/pilot24_worker_ledger.py",
-      "kind": "file",
-      "sha256": "bf080801be98409dc19ed45f5f85ea9666c1d6f5e26df4f40f78184101096d74"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/recovery.py",
-      "kind": "file",
-      "sha256": "fcbb4ca5d6195f5e2ef304fbb6e221005f12c1a7fc94faeeffa13acc9eb99c99"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/run_store.py",
-      "kind": "file",
-      "sha256": "1452a09c06e803604b62ce1fe1d711922cdfa6e69b1f5eda0263b143fb107856"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/runtime.py",
-      "kind": "file",
-      "sha256": "00d83359427a53914be17b89c11b9fad89aeac88b4468e4d915f362864844cc9"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/runtime_store.py",
-      "kind": "file",
-      "sha256": "e999ba7488ab16445233f9904f4edf1e082179c1f8168a710daa841f9819a6ca"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/runtime_tcl.py",
-      "kind": "file",
-      "sha256": "744fab91131654454b6677d57801a40bebbf90d88c6274dded86cfc2931ca18a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_experiment_runtime_process.py",
-      "kind": "file",
-      "sha256": "a5a7a1d1cfede3f2cda6f6b4d6b8571001d6d5fc1505af37a5f4cb777813717a"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_experiment_store_process.py",
-      "kind": "file",
-      "sha256": "62d5ea7952c89c6f984e7011a45e19d26b663647d28426238fe7c8f7e6a8d4dc"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_localization_runner.py",
-      "kind": "file",
-      "sha256": "52ca2dc52ffc7f6fe0f28b0c406a8c7f5770332dca40e9417b312e7868ce9afb"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_markdown_store.py",
-      "kind": "file",
-      "sha256": "dcfdd3adab6e272a8deec666568af97fb7218d2e18f80426f20964341939d46b"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_overnight.py",
-      "kind": "file",
-      "sha256": "8e5033f0272e5817ebdfbdeee9bf632a2de50791b5f172f57eac837d42b6d0de"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_guard_candidate.py",
-      "kind": "file",
-      "sha256": "672485c4b15a7f8a94404aa8a7d8447b1306cd75bdb88a3d8aff61fee858f62d"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_v2_candidate.py",
-      "kind": "file",
-      "sha256": "8a887aa7690010df1de965817dff1203c905d1480cd319d7b8069f48d4d3a466"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_run.py",
-      "kind": "file",
-      "sha256": "b374f5f854af01c467ed22521611d83cfba9ab3cb379477fd8e1b4535b36c443"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_worker_ledger.py",
-      "kind": "file",
-      "sha256": "6ff116a195c5c3f0557c78256ad6d0d29301108ca83a792b691b4867b3b158cf"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_recovery.py",
-      "kind": "file",
-      "sha256": "ecd46cebccb16bdbdc5745544481a56112b1fc37e74966ab5fdb24236e8494c9"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_run_store.py",
-      "kind": "file",
-      "sha256": "73eef70b91d44dba9b33cef071a9ec0bedc230a98d5bbd94e0dec3e1ec76fd40"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/test_semantic_validation.py",
-      "kind": "file",
-      "sha256": "6de7deeaa3c1603f1312283693e721236b7f3fc6089bf4c4c8448296712db761"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/validation.py",
-      "kind": "file",
-      "sha256": "f611f97a41b9ad101db2f28bc6e97abc46310e95427181424af3ed0b8df55db9"
-    },
-    {
-      "path": "scripts/merging/tssa_image_search_run.py",
-      "kind": "file",
-      "sha256": "53ebfa1013d82945e8312db7477673b9879151ed71fc8977293087b59ab6ab32"
-    },
-    {
-      "path": "scripts/merging/tssa_mvp_dual_run.py",
-      "kind": "file",
-      "sha256": "af0dd9a5d74724135f17234c0413bfa34157cac4626077cebcfa3458cff99dc7"
-    },
-    {
-      "path": "scripts/merging/tssa_mvp_run.py",
-      "kind": "file",
-      "sha256": "452654a4913aa54df98e24a5161c26abda39ccdf9886259d9546cc59aaf9b16c"
-    },
-    {
-      "path": "scripts/merging/tssa_target_semantic_run.py",
-      "kind": "file",
-      "sha256": "e41af441f55cc47f5675c23801d977e2a369d21662c99c55df51b058c2025e4b"
-    },
-    {
-      "path": "server/OPERATIONS.md",
-      "kind": "file",
-      "sha256": "e91c4d9d880893b0f662f6d8c6588acb07f2fd77c06388ccd9d4f0bb018e4f7b"
-    },
-    {
-      "path": "server/README.md",
-      "kind": "file",
-      "sha256": "22e3430d26156bcf3deece33146db1256cc9915d011952809cded009df9e74fc"
-    },
-    {
-      "path": "server/install_school_offline_env.py",
-      "kind": "file",
-      "sha256": "425937b94aa2bd613680827a5326a7f032e89861dbb62bb0967e8cbd5f36e282"
-    },
-    {
-      "path": "server/stage_school_assets.py",
-      "kind": "file",
-      "sha256": "bab77f075765516add4058f0b35eae9082f757bcabc7900da1229a43a07296af"
-    },
-    {
-      "path": "server/test_install_school_offline_env.py",
-      "kind": "file",
-      "sha256": "56b8d6326a0fe6051b1fb1e28c2055410f4d36c17f539a9edd2b83e94be17327"
-    },
-    {
-      "path": "server/test_stage_school_assets.py",
-      "kind": "file",
-      "sha256": "8acc4b29a9b35ae99e637363f44063175deded5df0fd38016997b70c5f081fd4"
-    },
-    {
-      "path": "server/test_stage_school_chunk_upload.py",
-      "kind": "file",
-      "sha256": "fa2f3b5ad2b7cdadcbb21573296b3b9aeece5caaa0c2047a0070d4d7cfcd1ffc"
+      "sha256": "4c4a1c74caf41b09c7953fcbd62b627fa7a3186b3e3117537f66e55b2c84c803"
     }
   ],
   "index_decisions": [
     {
-      "path": "AGENTS.md",
-      "action": "updated",
-      "reason": "更新无锁运行原则。"
-    },
-    {
-      "path": "README.md",
-      "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
-    },
-    {
       "path": "research/README.md",
       "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
+      "reason": "已有导航与任务状态无需更改。"
     },
     {
       "path": "research/project_state.json",
       "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
-    },
-    {
-      "path": "research/tasks/2026-11-02-runtime-reset/README.md",
-      "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
-    },
-    {
-      "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
-      "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
+      "reason": "已有导航与任务状态无需更改。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
       "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
+      "reason": "已有实现报告入口。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
-      "action": "updated",
-      "reason": "记录本轮改动和远端状态。"
+      "action": "unchanged",
+      "reason": "当前任务状态未改变。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
-    },
-    {
-      "path": "scripts/README.md",
-      "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "action": "updated",
-      "reason": "记录无锁运行和限制。"
-    },
-    {
-      "path": "server/README.md",
-      "action": "updated",
-      "reason": "记录服务器工具无锁运行。"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "action": "unchanged",
-      "reason": "现有入口、任务指针或历史证据无需调整。"
+      "reason": "已有导航与任务状态无需更改。"
     }
-  ],
-  "validation": {
-    "tcl": "341 passed, 6 historical lock tests skipped",
-    "tssa": "87 passed",
-    "gpu_hold": "43 passed",
-    "labgpu": "37 passed",
-    "server": "34 passed",
-    "gpu": "103离线，本轮改动未远端部署或真实GPU测试。"
-  }
+  ]
 }
