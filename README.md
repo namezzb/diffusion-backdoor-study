@@ -1,6 +1,6 @@
 # 扩散模型后门研究：项目总索引
 
-当前工作从[项目状态](research/project_state.json)进入；Astra负责规划、方法与核心代码，Terra负责实现、验证和报告，见[协作流程](research/WORKFLOW.md)。[执行机制重构](research/tasks/2026-11-02-runtime-reset/TASK.md)与[历史TCL结果](results/trigger-contrast-localization/README.md)分开导航。
+当前工作从[项目状态](research/project_state.json)进入；用户可分别使用 Astra session 规划、Terra session 实现，交接方式见[协作流程](research/WORKFLOW.md)。[执行机制重构](research/tasks/2026-11-02-runtime-reset/TASK.md)与[历史TCL结果](results/trigger-contrast-localization/README.md)分开导航。
 
 ## 从这里开始
 

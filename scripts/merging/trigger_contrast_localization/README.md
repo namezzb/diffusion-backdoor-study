@@ -71,7 +71,7 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 本轮首次启动及恢复由[validation.py](validation.py)桥接，命令和证据见[实现报告](../../../research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md)；本机状态独立保存在`~/.config/labgpu/tcl-semantic/`，支持103和104部署。加载错误和命令超时应据日志定位。运行观察复用本人私有SSH连接、优先公共DNS并保留严格主机身份校验；定时任务信息由当前TASK维护。只有配置了绝对截止的run才采用`science.compute_deadline_utc`，到期不新增计算并保全完整或部分结果。
 
-当前支持同一主机、同一目录、单GPU恢复；Astra/Terra的并行指开发分工，不等于已经实现跨机多GPU调度。真实模型、服务器平台和CUDA验证范围以当前TASK及实现报告为准。
+当前支持同一主机、同一目录、单GPU恢复；Astra/Terra 是用户选择不同 session 的工作方式，不表示已经实现跨机多GPU调度。真实模型、服务器平台和CUDA验证范围以当前TASK及实现报告为准。
 
 ## 检查与历史
 

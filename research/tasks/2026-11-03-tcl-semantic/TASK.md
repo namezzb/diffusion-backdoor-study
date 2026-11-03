@@ -7,14 +7,13 @@
 | implementation_status | done |
 | experiment_status | in_progress（已进入GPU推理；观察失联，首图及远端当前状态待核验） |
 | outcome | pending |
-| owner / planner | 当前聊天主会话；Astra负责方法、核心设计与验收 |
-| implementer | Terra负责运行适配、部署、测试和远端执行 |
+| session 交接 | 用户可使用 Astra session 规划和验收、Terra session 实现和测试；当前 session 直接推进已授权工作，不自动创建子 agent 或等待切换 |
 | run_id | tcl-20261103-semantic-v1 |
 | updated_at | 2026-11-03T20:36:00+08:00 |
 | authorization | 用户要求修正分类评价后定时完成TCL参数验证；11/3另要求半小时检查、实验优先，完成后暂留最多两卡；普通代码、环境与恢复故障持续修复 |
 | current_stage | 103实际GPU预检通过并开始第1次推理；运行中观察连接与平台查询失联，当前远端状态、首图及评分待核验 |
 | next_action | 维持本run观察器；103连接恢复后先观察旧进程状态，确认退出后部署无锁版本并迁移原SQLite账本，保留原文件、T0、预算及全部尝试；状态未知时不覆盖旧运行。串行恢复按同run继续，并发无互斥保证。保留等待器实际持卡只在正式完整终态后进行 |
-| automation | gpu-tcl，ACTIVE；本聊天每半小时整点/半点检查；实验终态后按用户参数与实时规则维护独立保留任务，直到用户停止或平台有效停止要求 |
+| automation | gpu-tcl 当前 PAUSED；原计划每半小时整点/半点检查。暂停发生于本次分工说明更新期间，原因待核实；实验终态后的保留任务仍按用户参数与实时规则执行 |
 
 ## 已完成与当前证据
 

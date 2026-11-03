@@ -9,7 +9,7 @@
   "current_runtime": "scripts/merging/trigger_contrast_localization/runtime.py",
   "gpu_automation": {
     "id": "gpu-tcl",
-    "status": "ACTIVE",
+    "status": "PAUSED",
     "cadence": "every_30_minutes"
   },
   "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",

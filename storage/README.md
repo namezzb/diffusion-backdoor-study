@@ -2,7 +2,7 @@
 
 **科研进度、代码和索引纳入Git，大数据留服务器，Drive上传及大文件批量回传保持暂停。** 当前工作和授权从[项目状态](../research/project_state.json)进入，不从历史服务器记录推断。
 
-[协作流程](../research/WORKFLOW.md)规定Astra规划/核心代码与Terra实现/报告并行；仅在交付时集中维护索引，连续调试不反复归档。旧TCL数据、T0和失败证据保持原样，服务器选择见[AGENTS](../AGENTS.md#服务器选择优先级)。
+[协作流程](../research/WORKFLOW.md)说明用户如何在 Astra 规划 session 与 Terra 实现 session 之间交接；仅在交付时按需维护索引，连续调试不反复归档。旧TCL数据、T0和失败证据保持原样，服务器选择见[AGENTS](../AGENTS.md#服务器选择优先级)。
 
 ## 先看什么
 
