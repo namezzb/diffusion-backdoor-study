@@ -1,13 +1,21 @@
 # 结果索引
 
-更新于2026-11-02；三轮历史实验尚无合格攻击提升，合计2336张完整图、144次更新，另有0图/0更新的目标诊断。TCL v2因两小时内缺少有效吞吐与资源计划按协议提前停止，363张历史图导入、0次新出图尝试，结论无法判定；历史解释见[术语与效果](../research/tssa_methods_and_results_explained_2026-10-29.md)。
+当前实验从[项目状态](../research/project_state.json)进入 TASK，远端运行目录由 TASK 记录。本页索引已有结果；历史统计和解释见[方法与效果说明](../research/tssa_methods_and_results_explained_2026-10-29.md)。
+
+## TCL 实验入口
+
+| 入口 | 内容 |
+|---|---|
+| [语义评分与完整对照](../research/tasks/2026-11-03-tcl-semantic/README.md) | 当前任务、协议及实际运行证据入口 |
+| [夜间验证最终报告](../research/tasks/2026-11-02-tcl-overnight/FINAL_REPORT.md) | 独立历史 run 的结果与解释 |
+| [早期 TCL 结果](trigger-contrast-localization/README.md) | v1/v2 证据及终态 |
 
 ## 本地结果与基准
 
 | 入口 | 内容 | 阅读边界 |
 |---|---|---|
 | [TCL历史运行索引](trigger-contrast-localization/README.md) | v1/v2原始证据和提前终止报告 | 不重放已终止身份；后续工作从[项目状态](../research/project_state.json)进入 |
-| [本轮验证证据](tssa-mvp-2026-10-26/README.md) | 代码/资产、真实训练、逐图评价、审计与释放证据 | 当前冻结配置初步负结果，不含FID或显著性证明 |
+| [TSSA 梯度验证证据](tssa-mvp-2026-10-26/README.md) | 代码/资产、真实训练、逐图评价、审计与释放证据 | 当前冻结配置初步负结果，不含FID或显著性证明 |
 | [直接ASR探索](tssa-opt-exploration-2026-10-28/README.md) | 12点搜索/独立开发，816图无合格增益；全部816张原图已在本地 | 原审计invalid，哈希缺陷全部解释、数值与选择复算一致；未做确认 |
 | [目标语义诊断](tssa-target-semantic-diagnostic-2026-10-28/README.md) | 96单元、462次分支前向，1141份原始响应与回执已在本地 | 0图/0更新；梯度一致性和局部可行性门槛失败，不是ASR评价 |
 | [服务器备份与文件目录](organization-2026-10-29/README.md) | 本地核验、远端盘点、代码与原始数据位置、未回传清单 | 磁盘及连接失败如实记录；目录存在不等于全量备份 |
@@ -22,7 +30,7 @@
 ## 历史结果的适用范围
 
 - M1比较使用50提示、25步、seed0，统一放大扫描使用20提示、20步、seed0，旧M3使用5–10提示、10–20步、seed0；旧TSSA使用20提示、25步、seed0，不能直接当作等预算正式比较。
-- 历史表中的“SOTA”“不可能性”等保留原始措辞不代表已证明结论；旧M3与固定阈值TSSA都不构成[当前梯度版](../research/tssa_response_calibration_method_proposal.md)的验证。
+- 历史表中的“SOTA”“不可能性”等保留原始措辞不代表已证明结论；旧M3与固定阈值TSSA都不构成[TSSA 梯度方案](../research/tssa_response_calibration_method_proposal.md)的验证。
 - 部分旧TE实验只与base合并、旧TIES分支只裁剪单向量；新实验须使用完整独立专家及明确的算子语义，见当前方案第13节。
 - 旧表 PaaS-DB ASR=3.9 已有后续替代结果，Rickrolling 旧指标还涉及跨seed模型混用；使用前先看[复现索引](../reproduction/README.md)中的来源说明。
 
@@ -51,15 +59,15 @@ seed100、BOX14和BiBadDiff路径由文档记录的工作区与相对路径组�
 
 ## 新结果保存约定
 
-本轮实际本地产物为 `results/tssa-mvp-2026-10-26/`；`results/tssa-gradient/<run_id>/` 保留为未来运行命名约定，不代表本轮路径。每次运行至少保存以下可互相对应的材料，远端大模型与图片可保留原位并在清单记录路径及哈希。
+运行身份和真实落盘路径由固定配置及 TASK 记录；本地存在目录不代表已经取回全部服务器产物。
 
-| 文件或材料 | 最低内容 |
+| 内容 | 保存位置与格式 |
 |---|---|
-| `README.md` | 研究问题、状态、采用方案版本、成功或失败结论及限制 |
-| `manifest.json` | 源模型/专家/评分器身份与哈希、配置和原始产物位置 |
-| `protocol.json` | 提示划分、seed、合并条件、采样设置、固定超参数与验收门槛 |
-| `metrics.csv` | 逐条件、逐样本结果及ASR/ACC分子分母，避免仅留最佳平均值 |
-| `optimization.csv` | 每步a、b、两类损失与候选筛选结果 |
-| 资源与图像索引 | 前向/反向成本、GPU时间、峰值显存、输出图片与失败案例的位置 |
+| 当前工作状态、授权、下一步 | 所属任务的 `TASK.md`；README 只导航 |
+| 科学配置 | 固定的协议、spec 和模型输入，保留程序需要的格式 |
+| 运行状态、尝试与检查点 | 新执行器使用 `run.md` 和追加式 Markdown 记录；原 SQLite 保留，迁移规则见[执行器](../scripts/merging/trigger_contrast_localization/README.md) |
+| 过程和错误 | 可读 Markdown 日志，记录真实失败、暂停和恢复 |
+| 评分与科研结论 | 原始逐样本评分、阶段对照和结果报告相互对应；历史 CSV/JSON 保持原样 |
+| 图片、模型与缓存 | 留在所属 run 的服务器数据盘，按需记录来源和取回入口 |
 
-旧结果继续留在 `merging/`；新目录不复用旧CSV或把历史行重新标成梯度版结果。
+历史运行保持原身份、原路径、原始账本和终态；新结果不能混入旧轮次或复用其预算。

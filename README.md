@@ -1,88 +1,42 @@
-# 扩散模型后门研究：项目总索引
+# 扩散模型后门研究
 
-当前工作从[项目状态](research/project_state.json)进入；用户可分别使用 Astra session 规划、Terra session 实现，交接方式见[协作流程](research/WORKFLOW.md)。[执行机制重构](research/tasks/2026-11-02-runtime-reset/TASK.md)与[历史TCL结果](results/trigger-contrast-localization/README.md)分开导航。
+从[项目状态](research/project_state.json)进入当前 TASK；实验进度、授权和下一步只在 TASK 维护。本页按用途导航。
 
-## 从这里开始
+## 常用入口
 
 | 要做什么 | 入口 |
 |---|---|
-| 查看agent规则或服务器操作步骤 | [精简项目指令](AGENTS.md) · [按需操作手册](server/OPERATIONS.md)；CLAUDE.md仅导入项目指令，状态与协议分别维护 |
-| 接手当前任务 | [项目状态](research/project_state.json) → 当前TASK；[任务索引](research/tasks/README.md)保留历史入口 |
-| 启动和恢复新实验 | [执行器入口](scripts/merging/trigger_contrast_localization/README.md)，同一命令启动与恢复；旧PILOT24协议只用于解释旧run |
-| 按用户偏好选择GPU服务器 | [AGENTS服务器优先级](AGENTS.md#服务器选择优先级)，结合实时许可、设备状态与就绪条件执行 |
-| 快速查看实验室显卡状态 | [labgpu 使用说明](scripts/connection/LABGPU.md)，运行 `./labgpu status` 或 `./labgpu status --json` |
-| 判断输入对比是否能改进后门参数分组 | [新筛选假说与相关文献](reports/trigger_contrast_parameter_localization_review_2026-10-29.md)：尚未实验验证，不替换当前执行方案 |
-| 先看做过什么、效果如何、Uniform4 / TSSA16 是什么 | [通俗解释与全部结果](research/tssa_methods_and_results_explained_2026-10-29.md) |
-| 看数据、代码、图片在哪里，以及哪些尚未回传 | [本次整理与备份目录](results/organization-2026-10-29/README.md) |
-| 换电脑后让agent接续进度并取数据 | [新电脑接续步骤](storage/NEW_COMPUTER.md) · [服务器资料索引](storage/SERVER_INDEX.md) · [存储与恢复](storage/README.md) · [完整方案](research/research_storage_and_restore_plan_2026-10-29.md)，先通过Git取得进度与索引，大文件按需从本人服务器取回；Drive保持暂停 |
-| 按需查文件归属 | [索引工具说明](storage/INDEX_MAINTENANCE.md) · [已有文件清单](storage/repository_index.jsonl) · [已有维护记录](storage/maintenance/latest.json) |
-| 按实验轮次查原始证据 | [三轮结果索引](results/README.md) |
-| 查看已执行TSSA方法、公式和原验证协议 | [历史 TSSA 执行方案](research/tssa_response_calibration_method_proposal.md) |
-| 查原实验如何准备 | [历史准备清单](research/experiment_preparation.md) |
-| 查论文和待补文献 | [24 篇本地论文索引](papers/README.md) · [待下载清单](papers/download_queue.md) |
-| 看以前复现到哪一步 | [BackdoorDM 复现索引](reproduction/README.md) |
-| 看以前合并实验的结果 | [结果索引与证据说明](results/README.md) |
-| 找脚本 | [脚本索引](scripts/README.md) |
+| 查看当前实验、接续工作 | [项目状态](research/project_state.json) → 当前 TASK · [任务目录](research/tasks/README.md) |
+| 启动、恢复或查看运行状态 | [TCL 执行器](scripts/merging/trigger_contrast_localization/README.md) |
+| 查看 GPU、连接服务器 | [labgpu](scripts/connection/LABGPU.md) · [服务器操作手册](server/OPERATIONS.md) |
+| 理解研究方法和已有结论 | [研究导航](research/README.md) · [方法与三轮结果解释](research/tssa_methods_and_results_explained_2026-10-29.md) |
+| 查实验结果和原始证据 | [结果索引](results/README.md) |
+| 找代码或工具 | [脚本导航](scripts/README.md) |
+| 换电脑、定位服务器资料 | [换机步骤](storage/NEW_COMPUTER.md) · [存储导航](storage/README.md) |
+| 查看项目规则和协作方式 | [AGENTS.md](AGENTS.md) · [工作流程](research/WORKFLOW.md) |
 
-## 目录地图
+## 目录职责
 
-```text
-arxiv/
-├── README.md                 总索引
-├── AGENTS.md                 项目指令；CLAUDE.md 导入此文件
-├── research/                 当前方案、研究进度、实验准备
-│   └── tasks/                独立任务、完成／待完成状态与交接入口
-├── reproduction/             基准参考、复现进度、代码论文对照、循环流程
-├── papers/                   论文索引和待下载清单
-│   ├── pdf/                  24 篇 PDF，按 ID 命名
-│   ├── txt/                  已有全文提取和页面快照
-│   └── metadata/             两份历史检索数据
-├── reports/                  历史综述、思路和机制分析
-│   └── archive/              上一版方法的只读封存
-├── results/                  实验结果入口
-│   ├── tssa-mvp-2026-10-26/  第一轮：梯度优化、固定倍数和独立持出
-│   ├── tssa-opt-exploration-2026-10-28/  第二轮：直接按图片搜索
-│   ├── tssa-target-semantic-diagnostic-2026-10-28/  第三轮：新目标诊断
-│   ├── server-archive-2026-10-29/  按服务器原路径归档，完整性见整理目录
-│   ├── organization-2026-10-29/    本次文件清单、哈希、缺失项与索引快照
-│   └── merging/              历史合并报告与可视化
-├── scripts/                  脚本入口
-│   ├── reproduction/         复现审计、补评和历史维护
-│   ├── merging/              历史合并及 TSSA 脚本
-│   └── connection/           学校/AMAX连接、只读盘点与回传
-├── server/                   现行学校配置与部署工具，兼有脚本兼容链接
-├── simulations/              合成仿真与历史图
-├── presentations/            历史汇报 PPT 和生成脚本
-└── archive/                  早期实验原始材料、此次整理记录
-```
-
-常用内容控制在一至两层；历史原始路径与封存内容保持原样，用索引和明确入口归类，避免移动文件破坏冻结清单。根目录旧文档、`data/` 和报告编号目录中的兼容链接不是重复副本；`server/`还包含真实的现行配置和工具，见[服务器索引](server/README.md)。
-
-## 已有基础与当前缺口
-
-| 项目 | 当前可确认的状态 |
+| 目录 | 放什么 |
 |---|---|
-| 本地论文 | 24 篇 PDF 均可读，无相同 SHA-256 的重复文件；题名按 PDF 首页核对 |
-| BackdoorDM | 本地 2026-07-24 严格汇总记录 15/16 有模型、13/16 完整闭环、5/5 防御已执行；本次未重新核验服务器 |
-| 基准缺口 | `eviledit_numAdd`、`badt2i_objectAdd` 各缺正式 10K FID；`villandiffusion_cond` 缺数据 |
-| 历史合并实验 | 已有探索结果，但样本协议、模型来源和实现范围有差异；不能据此判定新方法有效或达到 SOTA |
-| 当前 TSSA 梯度版 | 已实现并完成1520图/144更新；当前固定配置负结果，RC/Uniform持出ASR均0、TSSA无合格候选 |
-| 后续直接ASR探索 | 已完成816图/0更新；开发候选与naive均33.33%，正常约束未通过，见[负结果及完整性缺陷](results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md) |
-| 目标语义诊断 | 已完成462次去噪网络分支前向、0图/0更新；目标端点排序改善，但梯度一致性与八点局部可行性均未通过，见[诊断报告](results/tssa-target-semantic-diagnostic-2026-10-28/target_semantic_diagnostic_report_2026-10-29.md) |
-| 备份完整性 | 已有数据逐文件核验，学校与AMAX回传状态、磁盘限制及待补清单统一见[整理目录](results/organization-2026-10-29/README.md)，不以目录存在代替完整备份 |
+| [research/](research/README.md) | 研究方案、固定配置、项目指针；每项任务的 TASK 和实现报告放在 `tasks/<日期-名称>/` |
+| [scripts/](scripts/README.md) | 实验实现、连接、存储与复现工具；各子目录 README 按用途索引 |
+| [server/](server/README.md) | 服务器连接配置、离线部署工具和操作手册 |
+| [results/](results/README.md) | 按实验轮次保存的结果、原始记录和证据 |
+| [papers/](papers/README.md) | 论文、题名索引、元数据和待下载清单 |
+| [reports/](reports/README.md) | 文献调研、机制分析和早期研究思路 |
+| [reproduction/](reproduction/README.md) | BackdoorDM 复现记录及代码论文对照 |
+| [storage/](storage/README.md) | 资料位置、取回入口、历史备份清单和按需索引工具 |
+| [simulations/](simulations/README.md) · [presentations/](presentations/README.md) | 合成仿真与汇报材料 |
+| [archive/experiments/](archive/experiments/backdoordm_reproduce/README.md) · [reports/archive/](reports/archive/2026-10-23-tssa-local-surrogate/README.md) | 只读历史实验和封存方案 |
 
-- 旧论文索引把 `2501.18052` 误标为 EvilEdit，该 PDF 实际是 SAeUron；EvilEdit 正文已列入待补清单。
-- Rickrolling 的历史指标混用了 seed678 与 seed100 的 checkpoint；新实验应先绑定同一模型的各项指标，详见 [复现索引](reproduction/README.md)。
+根目录旧脚本、旧进度文件，以及 `data/`、报告编号目录和 `server/` 中部分文件是兼容链接，真实内容由目标目录维护。历史冻结路径和服务器原始资料按原位置查询。
 
-## 当前边界
+## 新内容放哪里
 
-当前授权和验收范围见项目状态指向的TASK，正式实验采用显式科学配置；旧run、T0、消耗和失败证据不重置，Drive上传保持暂停。普通工程修复在已授权范围内持续推进，不能把测试或历史结果当作新实验验收。
+- 新任务使用[任务模板](research/tasks/TEMPLATE.md)；TASK 写当前状态，过程记录和实现报告放同一任务目录。
+- 新实验采用独立 run 身份；运行过程使用 Markdown，固定协议与模型保留所需格式，具体见[结果保存约定](results/README.md#新结果保存约定)。
+- README 只维护入口，详细历史通过链接读取；当前代码与历史运行版本分别解释。
+- 模型、原图和缓存保留在本人服务器数据盘；资料取回与备份范围见[存储导航](storage/README.md)。
 
-2,336张包含正常图、攻击图和对照图，并不是2,336个独立攻击样本；不同轮次的比例需与同轮基线比较，不能混排。
-
-## 其他资料
-
-- [研究目录](research/README.md) · [历史调研](reports/README.md) · [仿真说明](simulations/README.md) · [汇报材料](presentations/README.md)
-- [早期实验归档](archive/experiments/backdoordm_reproduce/README.md) · [上一版方案封存](reports/archive/2026-10-23-tssa-local-surrogate/README.md)
-- [2026-10-26历史迁移记录](archive/organization-2026-10-26/README.md)：含当时快照、46个文件迁移映射和完整性检查。
-- [2026-10-29整理与回传记录](results/organization-2026-10-29/README.md)：本次备份、缺口、逐文件哈希与修改前索引快照。
+目录维护记录：[2026-11-03 导航与记录分层](research/tasks/2026-11-03-repository-organization/TASK.md) · [2026-10-29 资料整理](results/organization-2026-10-29/README.md) · [2026-10-26 迁移](archive/organization-2026-10-26/README.md)。

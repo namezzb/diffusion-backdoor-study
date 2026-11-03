@@ -1,35 +1,38 @@
-# 当前研究
+# 研究导航
 
-研究方向为真实扩散模型checkpoint合并后的后门鲁棒性；当前任务只从[项目状态](project_state.json)读取，工作方式见[Astra/Terra协作流程](WORKFLOW.md)。历史实验和协议按日期保留，不作为新的启动指令。
+当前工作由[项目状态](project_state.json)指向 TASK；[任务目录](tasks/README.md)按日期提供交接入口，[工作流程](WORKFLOW.md)说明 session 分工。
 
-| 文档 | 用途 |
+## 当前任务与通用工具
+
+| 入口 | 用途 |
 |---|---|
-| [TCL语义评分与完整对照验证](tasks/2026-11-03-tcl-semantic/TASK.md) | 目标/正常CLIP与原ViT并列评价，固定对照不因分类诊断提前退出 |
-| [TCL夜间探索性验证](tasks/2026-11-02-tcl-overnight/TASK.md) | 已按基线门禁结束；保留协议、原账本和结果报告 |
-| [实验室 GPU 状态 CLI](tasks/2026-11-02-labgpu-cli/TASK.md) | 平台 API 查询工具与验收入口；[使用说明](../scripts/connection/LABGPU.md) |
-| [执行机制简化与状态重置](tasks/2026-11-02-runtime-reset/TASK.md) | 统一实验执行器的设计、实现和验收记录 |
-| [历史TCL任务](tasks/2026-10-29-trigger-contrast-localization/TASK.md) · [旧PILOT24协议](tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md) | 已终止run的科学定义与证据，不重启旧身份 |
-| [任务索引与模板](tasks/README.md) | 每个任务独立目录及TASK状态，通用规范统一在AGENTS.md维护 |
-| [初始小样本草案](trigger_contrast_localization_pilot_review_2026-10-29.md) | 历史2048图设计，已由上述扩样任务接续，未执行 |
-| [输入对比与后门参数定位调研](../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 新筛选假说：普通狗/猫语义差不等于后门参数，需真实触发对照与干预验证；未替换执行方案或恢复实验 |
-| [从头解释方法、名词与三轮效果](tssa_methods_and_results_explained_2026-10-29.md) | 先读这一份；解释Uniform4、TSSA16、a/b、合并比例、攻击成功率和正常能力 |
-| [当前机器可读状态](project_state.json) | 只保存当前任务指针及历史入口，详细状态见TASK |
-| [暂停时简明总结](tssa_attempts_summary_2026-10-29.md) | 三轮次数、失败原因与结论边界 |
-| [数据与代码整理目录](../results/organization-2026-10-29/README.md) | 原图、逐图指标、训练轨迹、响应缓存、执行代码及回传缺口 |
-| [存储与换机恢复方案](research_storage_and_restore_plan_2026-10-29.md) | 进度与代码纳入Git，大文件留服务器；新电脑按[接续步骤](../storage/NEW_COMPUTER.md)及[服务器索引](../storage/SERVER_INDEX.md)定位取回，Drive暂停 |
-| [TSSA 梯度校准方案](tssa_response_calibration_method_proposal.md) | 已完成的历史执行方案，包含公式、正常保持、对照、预算与验收；不因新任务恢复旧run |
-| [实验准备清单](experiment_preparation.md) | 原轮次的历史准备记录，不是当前待办或自动恢复指令 |
-| [研究进度](merging_attack_progress.md) | 顶部为当前决策，下方保留历史探索记录 |
-| [本轮执行记录](tssa_overnight_progress.md) | 2026-10-28已结束，完整历史、资源释放与验收证据 |
-| [直接ASR探索负结果](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md) | 816图/0更新，开发无合格增益，独立确认未启动；完整性缺陷另列 |
-| [目标语义诊断方案](tssa_target_semantic_diagnostic_proposal_2026-10-28.md) | 已完成462次前向诊断，梯度一致性及局部可行性未通过；用户已暂停，见[尝试总结](tssa_attempts_summary_2026-10-29.md) |
-| [初步验证最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md) | 1520图/144更新，RC与Uniform持出ASR均0，TSSA无合格候选、未测持出 |
-| [MVP离线执行手册](tssa_mvp_runbook.md) | 学校服务器离线安装、两卡许可、CPU预检、双进程执行与中断恢复 |
-| [MVP 固定协议](tssa_mvp_2026-10-26.json) | 本轮模型、提示、随机数、优化、正常门禁和持出选择规则 |
-| [MVP 资产清单](tssa_mvp_assets_2026-10-26.json) | 公开模型固定revision、文件大小、上游哈希及离线中转清单 |
+| [TCL 语义评分与完整对照](tasks/2026-11-03-tcl-semantic/README.md) | 科学协议、当前 TASK、过程历史与实现报告 |
+| [统一执行机制](tasks/2026-11-02-runtime-reset/README.md) | 执行器设计与工程验证 |
+| [GPU 查询工具](tasks/2026-11-02-labgpu-cli/README.md) | labgpu 实现记录；操作见[使用说明](../scripts/connection/LABGPU.md) |
+| [目录整理](tasks/2026-11-03-repository-organization/TASK.md) | 导航、任务记录和兼容路径的维护记录 |
 
-环境和资产索引：[模型固定来源](tssa_mvp_assets_2026-10-26.json) · [环境清单](tssa_mvp_environment_2026-10-26.json) · [依赖输入](tssa_mvp_requirements_2026-10-26.in) · [依赖锁](tssa_mvp_requirements_2026-10-26.lock) · [103离线Python准备](node103_offline_python_plan_2026-10-28.md)。后续探索的[设计](tssa_optimization_exploration_design_2026-10-28.md)、[冻结协议](tssa_optimization_exploration_2026-10-28.json)、[进度](tssa_optimization_exploration_progress_2026-10-28.md)与[10月27日历史摘要](tssa_progress_summary_2026-10-27.md)保持分开；每次变更按[维护入口](../storage/INDEX_MAINTENANCE.md)复核关联记录。
+## 方法与历史实验
 
-已完成的TSSA轮次固定原始差分和A/B分组，仅学习两个标量a、b，β在单次训练中固定；新定位任务独立定义筛选方式，不改写这些旧协议。旧有限差分/局部求解器方案见[只读封存](../reports/archive/2026-10-23-tssa-local-surrogate/README.md)，历史脚本和结果尚不构成新定位方法验证。
+| 主题 | 方案、解释与证据入口 |
+|---|---|
+| 方法与术语总览 | [Uniform4、TSSA16、合并比例和三轮效果](tssa_methods_and_results_explained_2026-10-29.md) · [尝试总结](tssa_attempts_summary_2026-10-29.md) |
+| TCL 定位与干预 | [文献调研](../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) · [初始草案](trigger_contrast_localization_pilot_review_2026-10-29.md) · [历史任务](tasks/2026-10-29-trigger-contrast-localization/README.md) |
+| TCL 夜间验证 | [独立任务与原协议](tasks/2026-11-02-tcl-overnight/README.md) |
+| TSSA 梯度校准 | [方案](tssa_response_calibration_method_proposal.md) · [最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md) |
+| 直接 ASR 探索 | [设计](tssa_optimization_exploration_design_2026-10-28.md) · [固定协议](tssa_optimization_exploration_2026-10-28.json) · [原进度](tssa_optimization_exploration_progress_2026-10-28.md) · [结果报告](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md) |
+| 目标语义诊断 | [方案](tssa_target_semantic_diagnostic_proposal_2026-10-28.md) · [诊断报告](../results/tssa-target-semantic-diagnostic-2026-10-28/target_semantic_diagnostic_report_2026-10-29.md) |
+| 研究过程 | [合并探索记录](merging_attack_progress.md) · [10月27日摘要](tssa_progress_summary_2026-10-27.md) · [10月28日执行记录](tssa_overnight_progress.md) |
+| 更早方法 | [局部求解器只读封存](../reports/archive/2026-10-23-tssa-local-surrogate/README.md) |
 
-[项目总索引](../README.md) · [论文](../papers/README.md) · [复现](../reproduction/README.md) · [结果](../results/README.md) · [脚本](../scripts/README.md)
+这些材料保留各自日期和科学配置，当前状态以项目指针为准。结果和验收边界见[结果索引](../results/README.md)。
+
+## 固定输入与环境资料
+
+| 入口 | 用途 |
+|---|---|
+| [MVP 协议](tssa_mvp_2026-10-26.json) · [资产清单](tssa_mvp_assets_2026-10-26.json) | 历史固定科学输入；现行实验仍可能引用其资产，路径保持稳定 |
+| [环境清单](tssa_mvp_environment_2026-10-26.json) · [依赖输入](tssa_mvp_requirements_2026-10-26.in) · [依赖锁](tssa_mvp_requirements_2026-10-26.lock) | 按平台和运行版本解释 |
+| [原准备记录](experiment_preparation.md) · [MVP 执行手册](tssa_mvp_runbook.md) · [103 离线准备](node103_offline_python_plan_2026-10-28.md) | 历史操作依据；现行连接步骤在[服务器手册](../server/OPERATIONS.md) |
+| [资料整理目录](../results/organization-2026-10-29/README.md) · [存储方案](research_storage_and_restore_plan_2026-10-29.md) | 原始资料和换机设计；操作入口在[存储导航](../storage/README.md) |
+
+[项目总索引](../README.md) · [论文](../papers/README.md) · [调研](../reports/README.md) · [脚本](../scripts/README.md)

@@ -73,6 +73,20 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 当前支持同一主机、同一目录、单GPU恢复；Astra/Terra 是用户选择不同 session 的工作方式，不表示已经实现跨机多GPU调度。真实模型、服务器平台和CUDA验证范围以当前TASK及实现报告为准。
 
+## 代码导航
+
+| 职责 | 主要文件 |
+|---|---|
+| 启动、恢复与状态 | [runtime.py](runtime.py)、[runtime_store.py](runtime_store.py) |
+| 本机部署与平台观察 | [validation.py](validation.py)、[overnight.py](overnight.py) |
+| 科学适配与模型资产 | [runtime_tcl.py](runtime_tcl.py)、[runtime_assets.py](runtime_assets.py) |
+| 语义评分与统计 | [semantic_scoring.py](semantic_scoring.py)、[semantic_science.py](semantic_science.py)、[paired_stats.py](paired_stats.py) |
+| 既有输入、选择与生成组件 | [inputs.py](inputs.py)、[selection.py](selection.py)、[generation.py](generation.py) |
+| 旧协议与兼容组件 | `pilot24_*`、`overnight_science.py` 及其他历史入口，按实际导入和所属协议阅读 |
+| 测试 | 同目录 `test_*.py`；运行命令与证据范围见下文“检查与历史” |
+
+当前执行链仍复用 `pilot24_inputs.py`、`pilot24_provenance.py`、`pilot24_runtime.py`、`pilot24_statistics.py`、`pilot24_worker_ledger.py` 等模块。目录中的旧命名不代表废弃，源码路径与同目录导入保持稳定；一次性旧恢复脚本不作为当前任务入口。
+
 ## 检查与历史
 
 本地完整回归：`.venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_*.py'`；新机制测试为`test_experiment_*.py`，模拟进程检查与真实GPU验证分别报告。

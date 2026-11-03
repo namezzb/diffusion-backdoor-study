@@ -1,6 +1,6 @@
 # 文献调研与方案归档
 
-2026-10-29新增[输入对比与后门参数定位调研](trigger_contrast_parameter_localization_review_2026-10-29.md)：核对行为筛选的相关先例、普通语义与触发效应的区别及干预验收要求；这是待验证假说，实验仍暂停。
+[输入对比与后门参数定位调研](trigger_contrast_parameter_localization_review_2026-10-29.md)记录相关文献与筛选假说；后续实验入口见[研究导航](../research/README.md)，当前进度以[项目状态](../research/project_state.json)指向的 TASK 为准。
 
 下表保留研究过程中的历史背景综述、思路与机制分析；当前方法入口位于 [research/](../research/README.md)。下表旧文中的文献题名、优先级和新颖性判断未在本次逐项重新联网核验，引用时以原论文和当前证据为准。
 
