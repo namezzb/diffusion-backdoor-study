@@ -19,6 +19,17 @@ import semantic_science
 
 
 class SemanticValidationTest(unittest.TestCase):
+    def test_fresh_snapshot_allows_realistic_http_time_without_changing_freshness_rules(self):
+        response = subprocess.CompletedProcess([], 0, stdout=json.dumps({'cache_state': 'fresh'}))
+        with mock.patch.object(validation.subprocess, 'run', return_value=response) as query:
+            self.assertEqual(validation.fresh_snapshot()['cache_state'], 'fresh')
+            command = query.call_args.args[0]
+            self.assertEqual(command[command.index('--timeout') + 1], '35')
+            self.assertEqual(query.call_args.kwargs['timeout'], 60)
+        with mock.patch.object(validation.subprocess, 'run', side_effect=subprocess.TimeoutExpired([], 60)):
+            with self.assertRaisesRegex(validation.NotReady, '平台查询超时'):
+                validation.fresh_snapshot()
+
     def test_borrow_observer_context_checks_identity_and_never_closes_owner(self):
         with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory(prefix='tcl-watch-', dir='/private/tmp') as ssh_tmp, \
                 mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \

@@ -61,3 +61,5 @@ Terra修正执行器计时：完成平台预认证和运行观察后，首次实
 连接上下文使用0700临时目录、0600配置、私有ControlMaster与120秒持久化，仅清理己方socket。启动和状态查询可借用同run观察器上下文，验证run/science/UUID、PID命令、时间及路径权限，借用者不清理拥有者连接。观察器启动等待最多185秒，仍需实际新鲜许可；观察异常按阶段落日志。公共DNS优先作为可选参数，仅TCL桥接器启用，保留HostKeyAlias和严格known_hosts。系统DNS与公共DNS曾不同，但正确公共地址下仍有SSH banner超时，因此DNS差异不能认作全部故障根因。
 
 根会话独立运行`test_semantic_validation.py`的10项CPU测试通过；Terra运行传输/DNS测试18项通过。当前观察器尚无成功ready，未实际调用GPU启动；新run无新PNG、评分或账本增长，T0未开始，保留等待器尚未启动。私有SSH诊断日志`~/.config/labgpu/tcl-semantic/ssh-phase-20261103.log`记录ProxyJump后未收到remote banner；现有日志无法精确区分跳板与目标端，不能虚构原因。后续在同run继续，不将工程准备视为科研结果。
+
+18:35接续修复：本轮真实CLI tick在远端状态检查后因平台实时查询失败返回waiting。平台HTTP请求默认上限由10秒改35秒，总子进程仍60秒；不改变采样有效性、启动许可或运行期失联暂停。11项CPU测试通过，包括请求上限传递及总超时仍失败关闭。此后必要science读取仍遇真实SSH banner超时，本轮未重复探测；GPU仍未启动。无运行任务的预启动watch PID77040已核验身份后停止，未来正常tick重新建立运行观察器。

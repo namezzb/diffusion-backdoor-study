@@ -247,7 +247,7 @@ class NotReady(Exception):
     pass
 
 
-def fresh_snapshot(timeout=10):
+def fresh_snapshot(timeout=35):
     try:
         result = subprocess.run([sys.executable, str(LABGPU), 'status', '--fresh', '--json', '--timeout', str(timeout)],
                                 capture_output=True, text=True, timeout=60)

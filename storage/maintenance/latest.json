@@ -1,123 +1,87 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-03T10:08:07.166Z",
-  "base_commit": "fc0686c84b5235f2bba5cbd81ed3c4a5150dd3f4",
-  "summary": "继续修复103准备超时，真实CPU验证38资产/320语境/1024键通过；新增103部署、阶段日志、私有SSH复用及公共DNS优先，当前正确DNS下仍SSH握手失败、0新GPU图/T0未开始。",
+  "reviewed_at": "2026-11-03T10:35:05.400499+00:00",
+  "base_commit": "a654ee5ef97c050bce96e72a20cd2575257c569f",
+  "summary": "平台HTTP默认请求上限10秒改35秒，总进程仍60秒且采样期限不变；正常tick平台失败、随后SSH握手失败，仍无GPU结果。",
   "reviewed_changes": [
-    {
-      "path": "AGENTS.md",
-      "kind": "file",
-      "sha256": "2d9927a4f8a4ee6422c8f61f257d6cf2db3396e0b98fc58910f6986db818de56"
-    },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
       "kind": "file",
-      "sha256": "37a4c58c89d8c6d6732a028d8f74a2b930f4d098794fab8bf9c8f5cf9d10b70c"
+      "sha256": "5da07daff70a5f6b0ecf240830421b2fdde0ebf7f515d7410b6d163875364823"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "kind": "file",
-      "sha256": "4f123ee6897ada018b490948a743555cb9dfc35a0a47faa8d577a96eb743382e"
-    },
-    {
-      "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "kind": "file",
-      "sha256": "b559604416459513da25a49ada468800afa13edb22635eaa3a6f88a584e7561b"
+      "sha256": "3f6eec448b13f52dec34adb1c24908f9fc36af62bddf49767220d3bcd3f55b96"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_semantic_validation.py",
       "kind": "file",
-      "sha256": "c40dadaf05e24c3ab8f1757c27213a861e741cc7452867359dadaee2ec021786"
+      "sha256": "15b1b9b6ba55a5ab977478dde688f2e7699e61f76f181f5c4e8396b923182a66"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/validation.py",
       "kind": "file",
-      "sha256": "61e1b2efa9157f15f686466d0eb9fe4f1236c4153e4783d25779ff05ede7125b"
-    },
-    {
-      "path": "server/OPERATIONS.md",
-      "kind": "file",
-      "sha256": "c84e6d4fe31e7914ed2f6bfcdd49ba02a7616b29d1a8c04e9dd33fb2ba81a2d4"
-    },
-    {
-      "path": "server/stage_school_assets.py",
-      "kind": "file",
-      "sha256": "5cbc90423d44d97e22b9b9b20c69dfe8ba90269799fcd0669a96a64f875225d7"
-    },
-    {
-      "path": "server/test_stage_school_assets.py",
-      "kind": "file",
-      "sha256": "f3a9696e3d1380db0171a8af2abc154d9693ce7a5b4dc49d8a817d51f6994a96"
+      "sha256": "64db9d4e4cd8ac02985ebb76bb127d890a93eb5482c4b9703697be1a65b438d3"
     }
   ],
   "index_decisions": [
     {
-      "path": "AGENTS.md",
-      "action": "updated",
-      "reason": "明确连接成功后继续工程排错，命令超时不能直接退回下轮。"
-    },
-    {
-      "path": "README.md",
-      "action": "unchanged",
-      "reason": "根规则及项目指针导航不变。"
-    },
-    {
       "path": "research/README.md",
       "action": "unchanged",
-      "reason": "仍进入同一语义任务，没有新增科学任务。"
+      "reason": "仍导航至同一语义任务，无新增任务。"
     },
     {
       "path": "research/project_state.json",
       "action": "unchanged",
-      "reason": "当前TASK与run指针不变，频率仍为半小时。"
+      "reason": "当前TASK和run指针、半小时频率未变。"
     },
     {
       "path": "research/tasks/2026-11-02-runtime-reset/README.md",
       "action": "unchanged",
-      "reason": "历史统一运行器任务入口不变，本次部署差异记当前语义TASK。"
+      "reason": "历史统一执行器导航不变，当前修复记语义任务。"
     },
     {
       "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
       "action": "unchanged",
-      "reason": "历史运行器任务状态不变，本次为当前语义run工程部署。"
+      "reason": "历史任务状态未变，本次只修当前控制器HTTP请求。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
       "action": "unchanged",
-      "reason": "现有TASK与实现报告链接有效。"
+      "reason": "现有TASK和实现报告链接仍有效。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "action": "updated",
-      "reason": "记录103真实CPU准备完成、慢盘与握手故障、未启动GPU及下一步。"
+      "reason": "记录正常tick、HTTP请求修复、实际SSH失败及无GPU结果。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务列表与身份不变。"
+      "reason": "任务列表和科学身份未变。"
     },
     {
       "path": "scripts/README.md",
       "action": "unchanged",
-      "reason": "既有TCL模块入口足以导航，具体适配写模块README。"
+      "reason": "既有TCL模块导航足够，无新脚本。"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "action": "updated",
-      "reason": "更新103/104部署与CPU阶段日志、连接复用说明。"
-    },
-    {
-      "path": "server/README.md",
       "action": "unchanged",
-      "reason": "服务器手册导航已有，不重复具体连接行为。"
-    },
-    {
-      "path": "storage/SERVER_INDEX.md",
-      "action": "unchanged",
-      "reason": "本次不是全盘盘点或新外置附件登记，不改历史盘点证据。"
+      "reason": "现有新鲜观察和失败暂停语义不变，具体HTTP时限由代码及实现报告记录。"
     }
   ],
   "validation": {
+    "tests": 11,
+    "result": "passed",
+    "scope": "Terra CPU mocked platform/subprocess tests; no new GPU evidence",
+    "live_tick": "waiting: platform query failed",
+    "remote": "subsequent necessary spec read SSH banner timed out; no repeat this round",
+    "watch": "PID77040 stopped after identity verified; no GPU running",
+    "limits": "No PNG/scoring/ledger growth or T0. Full science-path comparison remains pending."
+  },
+  "preexisting_validation": {
     "semantic_validation": {
       "tests": 10,
       "result": "passed",
@@ -146,43 +110,5 @@
       "cadence_seconds": 60
     },
     "review": "Astra independently reviewed engineering mapping/private connection design; Terra performed remote deployment."
-  },
-  "preexisting_validation": {
-    "automation": {
-      "id": "gpu-tcl",
-      "status": "ACTIVE",
-      "cadence": "every 30 minutes, on hour and half hour",
-      "user_hold_authorization": "after completed study, up to two cards, both device GPU utilization and memory usage >60%, until user stops; subject to platform constraints"
-    },
-    "experiment": {
-      "run": "tcl-20261103-semantic-v1",
-      "status": "not_started",
-      "scientific_sha256": "951c09f1883b9c13c539edf0ffb5e37d27f1dc45b5e734f114a48156f735852d",
-      "node103": "free GPUs observed; one bounded SSH attempt timed out during banner exchange, no target session; no real GPU execution"
-    },
-    "gpu_hold": {
-      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -W error::ResourceWarning -m unittest discover -s scripts/connection -p 'test_gpu_hold*.py'",
-      "tests": 33,
-      "seconds": 1.724,
-      "result": "passed",
-      "scope": "CPU fake devices and subprocesses; no remote deployment, no GPU, no utilization acceptance",
-      "report": "scripts/connection/GPU_HOLD.md",
-      "review": "Astra core and Terra independent review; exact source units/terminal, damaged lease revocation, STOP/start race, stale snapshot, safe restore; smoke at real GPU remains outstanding"
-    },
-    "live_policy": {
-      "command": ".venv/bin/python scripts/connection/gpu_hold_controller.py inspect-policy",
-      "result": "passed",
-      "fetched_at": 1793694335.001458,
-      "account_usage": 0,
-      "account_limit": 4,
-      "active_ban": null,
-      "maintenance": [],
-      "gpu_requests": [],
-      "rectifications": [],
-      "cases": [],
-      "policy_sha256": "7f0865ba9fac13004888eafcaa3e7b833d0177a3285e5c359fb536a1d8dd8a0a"
-    },
-    "limits": "GPU资源和握手受实时条件约束，首个真实样本尚未产生；保留程序尚未真实部署/运行，未经真实双卡、交接、断网释放或60%指标验收。控制器目前仅源节点103/104同机；独立进程交接存在空档，无法保证取得原卡或两卡。平台确认的显存预占可能单独计时。",
-    "diff_check": "git diff --check passed"
   }
 }
