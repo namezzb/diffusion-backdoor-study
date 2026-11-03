@@ -28,6 +28,9 @@ package-lock.json
 .DS_Store
 Thumbs.db
 
+# Disposable per-task drafts and probes; durable evidence stays outside scratch.
+research/tasks/*/_scratch/
+
 # === MCP config (contains local paths) ===
 .mcp.json
 

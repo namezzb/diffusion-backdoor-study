@@ -5,10 +5,10 @@
 | task_id | REPO-ORGANIZE-20261103-01 |
 | status | done |
 | outcome | not_applicable |
-| updated_at | 2026-11-03T20:55:00+08:00 |
-| authorization | 用户要求在103连接故障期间检查并整理整个科研目录 |
-| current_stage | 目录导航与记录分层已完成；21份文档、356个本地链接及历史保留检查通过 |
-| next_action | 后续内容按所属目录维护；实验继续从原TASK接续，物理源码拆分另按依赖与部署范围规划 |
+| updated_at | 2026-11-03T20:58:00+08:00 |
+| authorization | 用户要求整理科研目录，并建立尽量简单的中间态文件收纳规则，避免后续agent重复堆文件 |
+| current_stage | 导航与记录分层完成；四条收纳规则已写入AGENTS，模板与Git忽略配置已同步并检查 |
+| next_action | 后续agent按文件收纳规则复用记录；实验继续从原TASK接续 |
 
 ## 目标与范围
 
