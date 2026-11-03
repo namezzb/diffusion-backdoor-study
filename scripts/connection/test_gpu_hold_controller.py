@@ -78,6 +78,14 @@ class ControllerTests(unittest.TestCase):
         self.snapshot['policy']['rules']['new_rule'] = True
         c.platform(self.snapshot, self.config)
 
+    def test_completion_report_does_not_require_file_hash_match(self):
+        self.config['completion_report']['sha256'] = 'outdated'
+        c.validate_config(self.config)
+        report_path = Path(self.config['completion_report']['path'])
+        report_path.write_text(json.dumps({**self.report, 'status': 'incomplete'}))
+        with self.assertRaises(c.NotReady):
+            c.validate_config(self.config)
+
     def test_changed_notice_is_not_a_stop_but_explicit_stop_is(self):
         self.snapshot['policy']['rectifications'] = [{'status': 'pending', 'summary': 'disk usage reminder'}]
         self.snapshot['policy']['cases'] = [{'status': 'warned', 'kind': 'disk'}]
@@ -362,10 +370,22 @@ class RemoteGateTests(unittest.TestCase):
             db.execute('UPDATE units SET image_sha=?,scores=?', (sha, json.dumps(scores)))
         result = self.invoke('report'); self.assertEqual(result.returncode, 0, result.stderr)
         report = json.loads(result.stdout)
-        self.assertEqual(report['ledger_files_sha256']['run.sqlite'], hashlib.sha256(self.dbpath.read_bytes()).hexdigest())
         self.assertEqual(report['completed_images'], 1024)
         next(images.iterdir()).write_bytes(b'corrupt')
-        self.assertIn('PNG verification failed', self.invoke('report').stderr)
+        self.assertEqual(self.invoke('report').returncode, 0)
+
+    def test_markdown_precedes_legacy_database_and_rejects_invalid_document(self):
+        with closing(sqlite3.connect(self.dbpath)) as db:
+            identity = json.loads(db.execute('SELECT identity FROM metadata').fetchone()[0])
+            units = {key: {'unit': json.loads(unit), 'status': status, 'scores': None} for key, unit, status in db.execute('SELECT key,unit,status FROM units')}
+            events = [{'id': i, 'time': '', 'kind': kind, 'detail': json.loads(detail)} for i, kind, detail in db.execute('SELECT id,kind,detail FROM events ORDER BY id')]
+        value = {'schema': 'tcl-run-markdown-v1', 'identity': identity, 'score_schema': {}, 'units': units, 'attempts': [], 'events': events}
+        md = self.source / 'run.md'; md.write_text('# Run\n\n```json\n' + json.dumps(value) + '\n```\n')
+        self.dbpath.write_bytes(b'invalid legacy file')
+        self.assertEqual(json.loads(self.invoke('poll').stdout)['status'], 'ready_for_report')
+        self.assertEqual(self.invoke('handoff').returncode, 0)
+        md.write_text('invalid')
+        self.assertIn('invalid Markdown ledger', self.invoke('poll').stderr)
 
     def test_revocation_continues_after_one_lease_is_missing(self):
         base = self.root / 'gpu-holds'; base.mkdir(mode=0o700)

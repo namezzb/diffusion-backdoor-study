@@ -1,3 +1,4 @@
+from runtime_store import read_markdown
 """Actual CLI in an isolated copy, with explicitly simulated CPU dependencies."""
 from datetime import datetime, timedelta, timezone
 import hashlib
@@ -6,7 +7,6 @@ import json
 import os
 from pathlib import Path
 import shutil
-import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -116,12 +116,8 @@ class RuntimeCliTest(unittest.TestCase):
             worker.kill(); worker.communicate(timeout=10)
             self.block.unlink()
 
-    def test_cli_check_kill_resume_and_status(self):
+    def test_cli_kill_resume_and_status(self):
         self.save()
-        checked = self.invoke('check')
-        self.assertEqual(checked.returncode, 0, checked.stderr)
-        self.assertEqual(json.loads(checked.stdout)['status'], 'checked')
-        self.assertFalse(self.run_root.exists(), 'check must not create T0 or a run')
         self.kill_at_score()
         with (self.script_dir / 'runtime.py').open('a') as source:
             source.write('\n# test-only repair in isolated copy\n')
@@ -133,9 +129,10 @@ class RuntimeCliTest(unittest.TestCase):
         self.assertEqual(status.returncode, 0, status.stderr)
         self.assertEqual(json.loads(status.stdout)['statuses'], {'complete': 1})
         self.assertEqual(json.loads(status.stdout)['attempts'], 1)
-        with sqlite3.connect(self.run_root / 'run.sqlite') as db:
-            sessions = [json.loads(row[0]) for row in db.execute("SELECT detail FROM events WHERE kind='session' ORDER BY id")]
-            observation = json.loads(db.execute("SELECT detail FROM events WHERE kind='resource_checked' LIMIT 1").fetchone()[0])['evidence']['live_gpu']
+        if True:
+            data = read_markdown(self.run_root / 'run.md')
+            sessions = [e['detail'] for e in data['events'] if e['kind'] == 'session']
+            observation = next(e['detail'] for e in data['events'] if e['kind'] == 'resource_checked')['evidence']['live_gpu']
         key = 'scripts/merging/trigger_contrast_localization/runtime.py'
         self.assertNotEqual(sessions[0]['code_sha256'][key], sessions[1]['code_sha256'][key])
         simulated_xml = b'<nvidia_smi_log><driver_version>simulated-driver</driver_version><gpu><uuid>GPU-12345678-1234-1234-1234-123456789abc</uuid><compute_mode>Default</compute_mode></gpu></nvidia_smi_log>'
@@ -172,27 +169,29 @@ class RuntimeCliTest(unittest.TestCase):
         self.spec_path.write_text(json.dumps(self.spec))
         result = self.invoke('run')
         self.assertEqual(json.loads(result.stdout)['status'], 'paused_resource', result.stderr)
-        with sqlite3.connect(self.run_root / 'run.sqlite') as db:
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM events WHERE kind='t0'").fetchone()[0], 0)
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 0)
+        if True:
+            data = read_markdown(self.run_root / 'run.md')
+            self.assertEqual(sum(x['kind'] == 't0' for x in data['events']), 0)
+            self.assertEqual(len(data['attempts']), 0)
 
     def test_real_probe_sees_persisted_t0_even_if_probe_fails(self):
         self.save()
         simulated = self.script_dir / 'pilot24_provenance.py'
         simulated.write_text(PROVENANCE + '''
 def _live_gpu_xml():
-    import json, os, sqlite3
-    with sqlite3.connect(os.environ['TEST_DB']) as db:
-        row = db.execute("SELECT detail FROM events WHERE kind='t0'").fetchone()
-        assert row is not None and json.loads(row[0])['phase'] == 'live_gpu_preflight'
+    import os
+    from runtime_store import read_markdown
+    data = read_markdown(os.environ['TEST_DB'])
+    assert next(e['detail']['phase'] for e in data['events'] if e['kind'] == 't0') == 'live_gpu_preflight'
     raise ValueError('simulated live GPU probe failure')
 ''')
-        self.env['TEST_DB'] = str(self.run_root / 'run.sqlite')
+        self.env['TEST_DB'] = str(self.run_root / 'run.md')
         result = self.invoke('run')
         self.assertEqual(json.loads(result.stdout)['status'], 'paused_resource', result.stderr)
-        with sqlite3.connect(self.run_root / 'run.sqlite') as db:
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM events WHERE kind='t0'").fetchone()[0], 1)
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 0)
+        if True:
+            data = read_markdown(self.run_root / 'run.md')
+            self.assertEqual(sum(x['kind'] == 't0' for x in data['events']), 1)
+            self.assertEqual(len(data['attempts']), 0)
 
     def test_exhausted_budget_is_terminal_and_does_not_regenerate(self):
         self.save()
@@ -204,23 +203,26 @@ def _live_gpu_xml():
         self.assertEqual(json.loads(resumed.stdout)['outcome'], 'inconclusive', resumed.stdout + resumed.stderr)
         self.assertEqual(json.loads(self.invoke('run').stdout)['status'], 'already_terminal')
         self.assertEqual(self.log.read_text().splitlines().count('generate'), 1)
-        with sqlite3.connect(self.run_root / 'run.sqlite') as db:
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 1)
+        if True:
+            data = read_markdown(self.run_root / 'run.md')
+            self.assertEqual(len(data['attempts']), 1)
 
     def test_cli_deadline_survives_kill_and_resume(self):
         self.spec['science']['max_compute_seconds'] = 0.5
         self.save()
         self.kill_at_score()
-        with sqlite3.connect(self.run_root / 'run.sqlite') as db:
-            t0 = db.execute("SELECT detail FROM events WHERE kind='t0'").fetchall()
+        if True:
+            data = read_markdown(self.run_root / 'run.md')
+            t0 = [(json.dumps(e['detail']),) for e in data['events'] if e['kind'] == 't0']
         time.sleep(0.7)
         resumed = self.invoke('run')
         self.assertEqual(resumed.returncode, 0, resumed.stderr)
         result = json.loads(resumed.stdout)
         self.assertEqual(result['outcome'], 'inconclusive', resumed.stdout)
-        with sqlite3.connect(self.run_root / 'run.sqlite') as db:
-            self.assertEqual(db.execute("SELECT detail FROM events WHERE kind='t0'").fetchall(), t0)
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 1)
+        if True:
+            data = read_markdown(self.run_root / 'run.md')
+            self.assertEqual([(json.dumps(e['detail']),) for e in data['events'] if e['kind'] == 't0'], t0)
+            self.assertEqual(len(data['attempts']), 1)
         self.assertEqual(self.log.read_text().splitlines().count('generate'), 1)
 
 

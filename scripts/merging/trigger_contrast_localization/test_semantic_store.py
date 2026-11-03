@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from PIL import Image
-from runtime_store import Store
+from runtime_store import Store, canonical, read_markdown
 
 
 class SemanticStoreTest(unittest.TestCase):
@@ -40,10 +40,11 @@ class SemanticStoreTest(unittest.TestCase):
         altered = copy.deepcopy(self.full); altered['object_clip_scores']['extra'] = 3; bad.append(altered)
         for score in bad:
             with self.subTest(score=score), self.assertRaises(ValueError): store.finish(self.key, score)
-            self.assertEqual(store.db.execute('SELECT status,scores FROM units').fetchone(), ('scoring', None))
+            unit = read_markdown(self.root / 'run.md')['units'][canonical(self.key)]
+            self.assertEqual((unit['status'], unit['scores']), ('scoring', None))
         store.finish(self.key, self.full)
-        status, scores = store.db.execute('SELECT status,scores FROM units').fetchone()
-        self.assertEqual((status, json.loads(scores)), ('complete', self.full))
+        unit = read_markdown(self.root / 'run.md')['units'][canonical(self.key)]
+        self.assertEqual((unit['status'], unit['scores']), ('complete', self.full))
 
     def test_legacy_accepts_original_two_fields(self):
         store = self.start('legacy')

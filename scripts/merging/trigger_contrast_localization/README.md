@@ -12,9 +12,9 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py run --spec /abs
 python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /absolute/spec.json
 ```
 
-`prepare`读取运行所需输入并展开生成键，不创建运行账本、不重新扫描历史定位数据库；对没有既有哈希的大输入记录未知，不冒充已核验。正常启动直接用`run`：部署时只做一次轻量`smoke`，运行时一次加载所需模型，不再要求独立`check`、历史人工审阅或跨机数据库对账。`check --spec`是主动完整审计，需使用已有完整哈希的spec；快速新建且缺少历史哈希的spec不支持完整审计。
+`prepare`读取运行所需输入并展开生成键，不创建运行账本、不重新扫描历史定位数据库；对没有既有哈希的大输入记录未知，不冒充已核验。正常启动直接用`run`：部署时只做一次轻量`smoke`，运行时一次加载所需模型，不再进行独立存储审计、历史人工审阅或跨机数据库对账。
 
-需要断开SSH后继续时，用服务器现有持久会话或`nohup python3 scripts/merging/trigger_contrast_localization/runtime.py run --spec /absolute/spec.json > /absolute/session.log 2>&1 &`；先用`status`和日志判断结果。程序自行取得本机排他锁，不能删除锁文件、重置账本或复制目录来“解锁”。
+需要断开SSH后继续时，用服务器现有持久会话或`nohup python3 scripts/merging/trigger_contrast_localization/runtime.py run --spec /absolute/spec.json > /absolute/session.log 2>&1 &`；先用`status`和日志判断结果。程序自行取得本机排他锁，不能删除锁文件、重置账本或复制目录来“解锁”。新运行使用 `run.md` 保存状态、尝试与结果，并以追加式 Markdown 记录细粒度检查点；旧 SQLite 运行由新执行器在确认旧写者退出并持锁后一次性迁移，保留原文件和已有记录。
 
 ## 首次请求
 

@@ -13,6 +13,23 @@ import runtime_assets
 
 
 class FastStartupTests(unittest.TestCase):
+    def test_stage_statistics_use_scores_without_reading_images(self):
+        key = ('run', 'source', 'clean', 'dog', 'context', 1)
+        adapter = runtime_tcl.TCLAdapter({'science': {}})
+        adapter.stages = {'S0': [key]}
+        adapter.binding = SimpleNamespace(labels={('source', 'context', category): (1,)
+            for category in ('trigger', 'dog', 'cat', 'other')})
+        scores = {'vit_class': 1, 'clip_score': 42.0}
+        record = {'key': key, 'scores': scores, 'image_path': '/missing/image.png', 'image_sha256': 'wrong'}
+        with patch('pilot24_statistics.report', return_value={'baseline': {'passed': True}}) as report:
+            result = adapter.stage_gate('S0', [record])
+        self.assertTrue(result['passed'])
+        self.assertEqual(report.call_args.args[1][0]['clip_score'], 42.0)
+        with self.assertRaisesRegex(ValueError, 'duplicate'):
+            adapter.stage_gate('S0', [record, record])
+        with self.assertRaisesRegex(ValueError, 'complete paired'):
+            adapter.stage_gate('S0', [])
+
     def test_historical_identity_and_directory_are_read_only(self):
         import runtime
         with tempfile.TemporaryDirectory() as directory:

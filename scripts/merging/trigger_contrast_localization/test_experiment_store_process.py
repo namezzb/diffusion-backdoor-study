@@ -2,7 +2,6 @@
 import json
 import shutil
 from pathlib import Path
-import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -66,9 +65,10 @@ class StoreProcessTest(unittest.TestCase):
         resumed = subprocess.run(self.command('retry'), cwd=DIRECTORY,
                                  capture_output=True, text=True, timeout=10)
         self.assertNotEqual(resumed.returncode, 0, 'a killed attempt remains charged')
-        with sqlite3.connect(self.root / 'run.sqlite') as db:
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 1)
-            self.assertEqual(db.execute('SELECT status FROM attempts').fetchone()[0], 'failed')
+        from runtime_store import read_markdown
+        attempts = read_markdown(self.root / 'run.md')['attempts']
+        self.assertEqual(len(attempts), 1)
+        self.assertEqual(attempts[0]['status'], 'failed')
 
     def test_state_retry_cap_does_not_consume_other_units_first_attempts(self):
         from runtime_store import BudgetExhausted, Store
@@ -100,7 +100,7 @@ class StoreProcessTest(unittest.TestCase):
         rejected = subprocess.run(command, cwd=DIRECTORY, capture_output=True, text=True, timeout=10)
         self.assertNotEqual(rejected.returncode, 0)
         self.assertEqual((other / 'unrelated').read_text(), 'preserve me')
-        self.assertFalse((other / 'run.sqlite').exists())
+        self.assertFalse((other / 'run.md').exists())
 
     def test_copied_run_root_cannot_open_as_same_writer(self):
         initialized = subprocess.run(self.command('snapshot'), cwd=DIRECTORY, capture_output=True, text=True, timeout=10)

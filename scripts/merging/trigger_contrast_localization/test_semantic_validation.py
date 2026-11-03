@@ -173,12 +173,28 @@ os._exit(0)
                 proc = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload),
                                       capture_output=True, text=True, timeout=10)
                 self.assertNotEqual(proc.returncode, 0)
-                if started:
-                    self.assertIn('existing prepared spec has different code', proc.stderr)
-                    self.assertFalse((repo / name).exists())
-                else:
-                    self.assertIn('missing fixed inputs', proc.stderr)
-                    self.assertEqual((repo / name).read_bytes(), raw)
+                self.assertIn('missing fixed inputs', proc.stderr)
+                self.assertEqual((repo / name).read_bytes(), raw)
+
+    def test_remote_state_prefers_markdown_and_never_falls_back_on_invalid_markdown(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            result = root / 'results' / validation.RUN_ID; result.mkdir(parents=True)
+            (result / '.writer.lock').touch()
+            (result / 'run.sqlite').write_text('invalid legacy database')
+            value = {'schema': 'tcl-run-markdown-v1', 'identity': {}, 'score_schema': {},
+                     'units': {'key': {'status': 'complete'}}, 'attempts': [{'id': 1}],
+                     'events': [{'kind': 'stage_gate', 'detail': {'stage': 'S0'}},
+                                {'kind': 'terminal', 'detail': {'stage': 'S0'}}]}
+            md = result / 'run.md'; md.write_text('# Run\n\n```json\n' + json.dumps(value) + '\n```\n')
+            script = validation.REMOTE_STATE.replace("pathlib.Path('/data2/zhangzibo/arxiv-tssa')", f'pathlib.Path({str(root)!r})')
+            proc = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertEqual(json.loads(proc.stdout)['attempts'], 1)
+            self.assertEqual(json.loads(proc.stdout)['status'], 'terminal')
+            md.write_text('invalid')
+            proc = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True)
+            self.assertIn('invalid Markdown ledger', proc.stderr)
 
     def test_identity_and_six_hour_clock_are_isolated(self):
         self.assertEqual(validation.RUN_ID, semantic_science.RUN_ID)
@@ -215,8 +231,8 @@ os._exit(0)
             changed = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload), text=True,
                                      capture_output=True, timeout=10)
             self.assertNotEqual(changed.returncode, 0)
-            self.assertIn('existing prepared spec has different code', changed.stderr)
-            self.assertEqual(codefile.read_bytes(), b'original-scientific-code')
+            self.assertIn('missing fixed inputs', changed.stderr)
+            self.assertEqual(codefile.read_bytes(), data)
 
     def test_tick_reprepares_stale_execution_before_start(self):
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \

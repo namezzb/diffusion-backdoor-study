@@ -1,7 +1,7 @@
+from runtime_store import read_markdown
 """Run all four stages despite a diagnostic S0 failure, using CPU fakes."""
 import json
 from pathlib import Path
-import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -39,10 +39,11 @@ class SemanticRuntimeProcessTest(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             value = json.loads(result.stdout)
             self.assertEqual((value['status'], value['outcome']), ('complete', 'inconclusive'))
-            with sqlite3.connect(root / 'run' / 'run.sqlite') as db:
-                self.assertEqual(db.execute("SELECT COUNT(*) FROM units WHERE status='complete'").fetchone()[0], 4)
-                self.assertEqual(db.execute("SELECT COUNT(*) FROM events WHERE kind='stage_gate'").fetchone()[0], 4)
-                self.assertEqual(db.execute('SELECT name FROM score_schema').fetchone()[0], 'semantic-v1')
+            if True:
+                data = read_markdown(root / 'run' / 'run.md')
+                self.assertEqual(sum(x['status'] == 'complete' for x in data['units'].values()), 4)
+                self.assertEqual(sum(x['kind'] == 'stage_gate' for x in data['events']), 4)
+                self.assertEqual(data['score_schema'], 'semantic-v1')
 
 
 if __name__ == '__main__': unittest.main()

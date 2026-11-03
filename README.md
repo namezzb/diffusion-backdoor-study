@@ -15,7 +15,7 @@
 | 先看做过什么、效果如何、Uniform4 / TSSA16 是什么 | [通俗解释与全部结果](research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 看数据、代码、图片在哪里，以及哪些尚未回传 | [本次整理与备份目录](results/organization-2026-10-29/README.md) |
 | 换电脑后让agent接续进度并取数据 | [新电脑接续步骤](storage/NEW_COMPUTER.md) · [服务器资料索引](storage/SERVER_INDEX.md) · [存储与恢复](storage/README.md) · [完整方案](research/research_storage_and_restore_plan_2026-10-29.md)，先通过Git取得进度与索引，大文件按需从本人服务器取回；Drive保持暂停 |
-| 查每个文件归属、以后如何防漏更 | [索引维护入口](storage/INDEX_MAINTENANCE.md) · [全仓文件清单](storage/repository_index.jsonl) · [本次收尾记录](storage/maintenance/latest.json) |
+| 按需查文件归属 | [索引工具说明](storage/INDEX_MAINTENANCE.md) · [已有文件清单](storage/repository_index.jsonl) · [已有维护记录](storage/maintenance/latest.json) |
 | 按实验轮次查原始证据 | [三轮结果索引](results/README.md) |
 | 查看已执行TSSA方法、公式和原验证协议 | [历史 TSSA 执行方案](research/tssa_response_calibration_method_proposal.md) |
 | 查原实验如何准备 | [历史准备清单](research/experiment_preparation.md) |

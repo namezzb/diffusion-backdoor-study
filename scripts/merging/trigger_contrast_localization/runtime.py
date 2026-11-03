@@ -6,13 +6,12 @@ import json
 import os
 from pathlib import Path
 import re
-import sqlite3
 import subprocess
 import sys
 import tempfile
 import xml.etree.ElementTree as ET
 
-from runtime_store import BudgetExhausted, Store, canonical, digest, now, writer_identity
+from runtime_store import BudgetExhausted, Store, canonical, digest, now, writer_identity, read_markdown
 
 OLD_RUN = 'tcl-20261102-pilot24-v2'
 ROOT = Path(__file__).resolve().parents[3]
@@ -228,10 +227,10 @@ def run(spec):
     store_kwargs = {'score_schema': 'semantic-v1'} if science.get('design') == 'semantic-v1' else {}
     store = Store(spec['run_root'], {'run_id': spec['run_id'], 'science_sha256': science_hash}, science['units'], science['budget'], **store_kwargs)
     try:
-        terminal = store.db.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
+        terminal = store.event_detail('terminal', latest=True)
         if terminal:
             complete_records(store)
-            return {'status': 'already_terminal', **json.loads(terminal[0]), **store.snapshot()}
+            return {'status': 'already_terminal', **terminal, **store.snapshot()}
         store.event('session', {'code_sha256': observed_code(), 'writer': process_identity()})
         try:
             setup_environment(spec, expose_gpu=True)
@@ -250,9 +249,9 @@ def run(spec):
                 store.register_image(key, path)
             else:
                 store.fail(key, 'interrupted; exclusive local writer lock reacquired')
-        previous_t0 = store.db.execute("SELECT detail FROM events WHERE kind='t0' ORDER BY id LIMIT 1").fetchone()
+        previous_t0 = store.event_detail('t0')
         if previous_t0 and science.get('max_compute_seconds') is not None:
-            elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(json.loads(previous_t0[0])['time_utc'])).total_seconds()
+            elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(previous_t0['time_utc'])).total_seconds()
             if elapsed < 0:
                 store.event('error', {'phase': 'clock', 'message': 'clock is earlier than recorded T0'})
                 return {'status': 'paused_error', 'detail': 'clock is earlier than recorded T0', **store.snapshot()}
@@ -263,7 +262,7 @@ def run(spec):
         if deadline and datetime.now(timezone.utc) >= datetime.fromisoformat(deadline.replace('Z', '+00:00')):
             store.event('terminal', {'outcome': 'inconclusive', 'reason': 'configured UTC compute deadline reached'})
             return {'status': 'complete', 'outcome': 'inconclusive', **store.snapshot()}
-        t0 = datetime.fromisoformat(json.loads(previous_t0[0])['time_utc']) if previous_t0 else None
+        t0 = datetime.fromisoformat(previous_t0['time_utc']) if previous_t0 else None
         def check_deadline():
             if deadline and datetime.now(timezone.utc) >= datetime.fromisoformat(deadline.replace('Z', '+00:00')):
                 raise ComputeDeadline('configured UTC compute deadline reached')
@@ -311,7 +310,7 @@ def run(spec):
             key = unit['key']
             if unit_stage(key) != stage:
                 continue
-            status = store.db.execute('SELECT status FROM units WHERE key=?', (canonical(key),)).fetchone()[0]
+            status = store.unit_status(key)
             if status == 'complete':
                 continue
             try:
@@ -331,7 +330,7 @@ def run(spec):
                 scores = adapter.score(unit, store.image_path(key))
                 store.finish(key, scores)
             except Exception as exc:
-                status = store.db.execute('SELECT status FROM units WHERE key=?', (canonical(key),)).fetchone()[0]
+                status = store.unit_status(key)
                 if status == 'started':
                     path = store.image_path(key)
                     if path.exists() or path.is_symlink():
@@ -377,12 +376,10 @@ def unit_stage(key):
 
 def complete_records(store):
     records = []
-    for raw, image_sha, scores in store.db.execute("SELECT key,image_sha,scores FROM units WHERE status='complete' ORDER BY key"):
+    for raw, image_sha, scores in store.complete_units():
         key = json.loads(raw)
         path = store.image_path(key)
-        if path.is_symlink() or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != image_sha:
-            raise ValueError('completed image missing or altered')
-        records.append({'key': key, 'scores': json.loads(scores), 'image_path': str(path), 'image_sha256': image_sha})
+        records.append({'key': key, 'scores': scores, 'image_path': str(path), 'image_sha256': image_sha})
     return records
 
 
@@ -405,7 +402,7 @@ def startup_smoke():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['prepare', 'run', 'check', 'status', 'smoke'])
+    parser.add_argument('command', choices=['prepare', 'run', 'status', 'smoke'])
     parser.add_argument('--spec', required=True)
     parser.add_argument('--request')
     args = parser.parse_args()
@@ -429,28 +426,21 @@ def main():
     spec = load_spec(args.spec)
     if args.command == 'run':
         result = run(spec)
-    elif args.command == 'check':
-        setup_environment(spec, expose_gpu=False)
-        from runtime_tcl import TCLAdapter
-        adapter = TCLAdapter(spec)
-        result = {'status': 'checked', 'cpu': adapter.audit_cpu()}
     else:
-        database = Path(spec['run_root']) / 'run.sqlite'
+        database = Path(spec['run_root']) / 'run.md'
         if not database.is_absolute() or not database.is_file() or any(p.is_symlink() for p in (database, *database.parents)):
-            raise ValueError('run has not been started')
-        db = sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)
-        try:
-            identity = writer_identity({'run_id': spec['run_id'], 'science_sha256': digest({'run_id': spec['run_id'], 'science': spec['science']}), 'run_root': str(Path(spec['run_root']).resolve())})
-            if db.execute('SELECT identity FROM metadata WHERE id=1').fetchone() != (canonical(identity),):
-                raise ValueError('run identity, scientific inputs or writer host changed')
-            result = {'statuses': dict(db.execute('SELECT status,COUNT(*) FROM units GROUP BY status')),
-                      'attempts': db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0],
-                      'events': db.execute('SELECT COUNT(*) FROM events').fetchone()[0]}
-            latest = db.execute('SELECT time,kind,detail FROM events ORDER BY id DESC LIMIT 1').fetchone()
-            if latest:
-                result['latest_event'] = {'time': latest[0], 'kind': latest[1], 'detail': json.loads(latest[2])}
-        finally:
-            db.close()
+            raise ValueError('run has not been started or requires migration')
+        data = read_markdown(database)
+        identity = writer_identity({'run_id': spec['run_id'], 'science_sha256': digest({'run_id': spec['run_id'], 'science': spec['science']}), 'run_root': str(Path(spec['run_root']).resolve())})
+        if data['identity'] != identity:
+            raise ValueError('run identity, scientific inputs or writer host changed')
+        statuses = {}
+        for unit in data['units'].values():
+            statuses[unit['status']] = statuses.get(unit['status'], 0) + 1
+        result = {'statuses': statuses, 'attempts': len(data['attempts']), 'events': len(data['events'])}
+        if data['events']:
+            latest = data['events'][-1]
+            result['latest_event'] = {k: latest[k] for k in ('time', 'kind', 'detail')}
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
 
 

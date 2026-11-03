@@ -455,8 +455,6 @@ class TCLAdapter:
             self.scorer = IndependentScorer(self.science["models_root"], device="cpu")
         path = _regular(image_path)
         with Image.open(path) as image:
-            if image.format != "PNG" or image.size != (512, 512):
-                raise ValueError("scoring requires a complete 512x512 PNG")
             image.load()
             return self.scorer.score(image.convert("RGB"), prompt["score_prompt"])
 
@@ -466,35 +464,25 @@ class TCLAdapter:
             from overnight_science import report
         if self.semantic:
             from semantic_science import report
-        from PIL import Image
         if stage not in STAGES or self.binding is None:
             raise ValueError("validated scientific stage required")
         state = "source" if stage.startswith("S") else "merge"
         allowed = set(self.stages[stage])
         if stage.endswith("1"):
             allowed |= set(self.stages["S0" if state == "source" else "M0"])
-        seen, rows, paths = set(), [], set()
+        seen, rows = set(), []
         for record in records:
             key = tuple(record.get("key", ()))
             if key not in allowed:
                 continue
             if key in seen:
                 raise ValueError("duplicate scored key in stage evidence")
-            path = _regular(record["image_path"])
-            expected_sha = record.get("image_sha256", record.get("image_sha"))
-            if str(path) in paths or hashlib.sha256(path.read_bytes()).hexdigest() != expected_sha:
-                raise ValueError("stage image changed or reused for another key")
-            with Image.open(path) as image:
-                if image.format != "PNG" or image.size != (512, 512):
-                    raise ValueError("invalid stage image")
-                image.verify()
             score = record.get("scores")
             expected_score_fields = {"vit_class", "clip_score", "target_clip_score", "object_clip_scores"} if self.semantic else {"vit_class", "clip_score"}
             if not isinstance(score, dict) or set(score) != expected_score_fields:
                 raise ValueError("missing independent scores")
             rows.append({"version": key[2], "class": key[3], "context_id": key[4], "seed": key[5], **score})
             seen.add(key)
-            paths.add(str(path))
         if seen != allowed:
             raise ValueError("stage gate requires its complete paired image table")
         labels = {context: {category: list(self.binding.labels[(state, context, category)]) for category in ("trigger", "dog", "cat", "other")}

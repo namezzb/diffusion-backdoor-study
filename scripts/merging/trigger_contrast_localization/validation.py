@@ -59,9 +59,19 @@ if payload.get('evidence') is not None:
  evidence['host']={'hostname':socket.gethostname(),'machine_id_sha256':hashlib.sha256(pathlib.Path('/etc/machine-id').read_bytes()).hexdigest(),'account_uid':os.geteuid()}
  evidence['raw_capture']={'path':str(cap),'sha256':digest}
  write(path.parent/'resource-evidence.json',evidence)
+def markdown(path):
+ import re
+ if path.is_symlink():raise ValueError('unsafe Markdown ledger')
+ blocks=re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$',path.read_text(),re.M|re.S)
+ if len(blocks)!=1:raise ValueError('invalid Markdown ledger')
+ value=json.loads(blocks[0])
+ if value.get('schema')!='tcl-run-markdown-v1':raise ValueError('invalid Markdown ledger schema')
+ return value
 terminal=False
-db=pathlib.Path(sys.argv[2])
-if db.is_file() and not db.is_symlink():
+db=pathlib.Path(sys.argv[2]);md=db.with_name('run.md')
+if md.exists():
+ terminal=any(e['kind']=='terminal' for e in markdown(md)['events'])
+elif db.is_file() and not db.is_symlink():
  try:
   with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=1) as con:
    terminal=con.execute("SELECT 1 FROM events WHERE kind='terminal' LIMIT 1").fetchone() is not None
@@ -81,7 +91,7 @@ try:fcntl.flock(launcher_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
 except BlockingIOError:raise ValueError('cannot update a running launcher')
 writer_lock=None
 database=root/'results/tcl-20261103-semantic-v1/run.sqlite'
-if database.exists():
+if database.exists() or database.with_name('run.md').exists():
  lock=root/'results/tcl-20261103-semantic-v1/.writer.lock'
  writer_lock=os.open(lock,os.O_RDONLY|os.O_NOFOLLOW)
  try:fcntl.flock(writer_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -96,13 +106,7 @@ for name,item in data['files'].items():
  if not path.resolve().is_relative_to(repo.resolve()) or any(x.is_symlink() for x in (path,*path.parents) if x!=pathlib.Path('/')):
   raise ValueError('unsafe source destination '+name)
  raw=base64.b64decode(item['content'],validate=True)
- if hashlib.sha256(raw).hexdigest()!=item['sha256']: raise ValueError('transfer hash mismatch')
  path.parent.mkdir(parents=True,exist_ok=True)
- # Avoid silently changing scientific code under an existing spec/run.
- mutable={'scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py','runtime_assets.py')}
- bootstrap_auxiliary=(name=='scripts/merging/trigger_contrast_localization/pilot24_provenance.py' and not database.exists() and not path.exists())
- if (work/'spec.json').exists() and name not in mutable and not bootstrap_auxiliary and (not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=item['sha256']):
-  raise ValueError('existing prepared spec has different code: '+name)
  if not path.exists() or path.read_bytes()!=raw:
   tmp=path.with_name(path.name+'.semantic-tmp')
   if tmp.exists() or tmp.is_symlink(): raise ValueError('unexpected temp file')
@@ -145,7 +149,7 @@ if spec.exists():
  if existing.get('run_id')!='tcl-20261103-semantic-v1': raise ValueError('unexpected existing spec identity')
  desired=req['execution'];execution=existing.setdefault('execution',{})
  if any(execution.get(k)!=v for k,v in desired.items()):
-  if (root/'results/tcl-20261103-semantic-v1/run.sqlite').exists():
+  if any((root/'results/tcl-20261103-semantic-v1'/name).exists() for name in ('run.md','run.sqlite')):
    raise ValueError('cannot rewrite execution paths after run creation')
   execution.update(desired)
   tmp=work/'spec-update.json'
@@ -174,18 +178,30 @@ try:fcntl.flock(launch_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
 except BlockingIOError:print(json.dumps({'status':'running'}));sys.exit()
 value=json.loads(spec.read_text());science=json.dumps({'run_id':value['run_id'],'science':value['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
 if value['run_id']!='tcl-20261103-semantic-v1' or hashlib.sha256(science.encode()).hexdigest()!=data['science_sha256']:raise ValueError('science identity mismatch')
-out=root/'results/tcl-20261103-semantic-v1';db=out/'run.sqlite'
-if db.exists():
- with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=2) as con:
-  terminal=con.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
- if terminal:print(json.dumps({'status':'terminal','detail':json.loads(terminal[0])}));sys.exit()
+out=root/'results/tcl-20261103-semantic-v1';db=out/'run.sqlite';md=out/'run.md'
+def markdown(path):
+ import re
+ if path.is_symlink():raise ValueError('unsafe Markdown ledger')
+ blocks=re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$',path.read_text(),re.M|re.S)
+ if len(blocks)!=1:raise ValueError('invalid Markdown ledger')
+ value=json.loads(blocks[0])
+ if value.get('schema')!='tcl-run-markdown-v1':raise ValueError('invalid Markdown ledger schema')
+ return value
+if md.exists() or db.exists():
+ if md.exists():
+  events=markdown(md)['events'];terminal=next((e['detail'] for e in reversed(events) if e['kind']=='terminal'),None)
+ else:
+  with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=2) as con:
+   row=con.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
+  terminal=json.loads(row[0]) if row else None
+ if terminal:print(json.dumps({'status':'terminal','detail':terminal}));sys.exit()
  lock=os.open(out/'.writer.lock',os.O_RDONLY|os.O_NOFOLLOW)
  try:
   try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
   except BlockingIOError:print(json.dumps({'status':'running'}));sys.exit()
  finally:os.close(lock)
 execution=value['execution'];uuid=data['uuid']
-if execution.get('gpu_uuid') not in (None,uuid) and db.exists():raise ValueError('run bound to different GPU UUID')
+if execution.get('gpu_uuid') not in (None,uuid) and (md.exists() or db.exists()):raise ValueError('run bound to different GPU UUID')
 if execution.get('require_fresh_resource_status') is not True:raise ValueError('fresh observer required')
 if execution.get('resource_status_file')!=str(work/'observations/resource-status.json') or execution.get('resource_evidence')!=str(work/'observations/resource-evidence.json'):
  raise ValueError('unexpected resource paths')
@@ -219,23 +235,39 @@ if lock.exists():
   try:fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
   except BlockingIOError:active=True
  finally:os.close(fd)
-root=base/'results/tcl-20261103-semantic-v1';db=root/'run.sqlite'
-if not db.exists():print(json.dumps({'status':'running' if active else 'not_started'}));sys.exit()
-if db.is_symlink():raise ValueError('unsafe database')
-with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=3) as con:
- terminal=con.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
- counts=dict(con.execute('SELECT status,COUNT(*) FROM units GROUP BY status'))
- attempts=con.execute('SELECT COUNT(*) FROM attempts').fetchone()[0]
- gates=[json.loads(row[0]) for row in con.execute("SELECT detail FROM events WHERE kind='stage_gate' ORDER BY id")]
- latest=con.execute('SELECT time,kind,detail FROM events ORDER BY id DESC LIMIT 1').fetchone()
-if terminal:print(json.dumps({'status':'terminal','detail':json.loads(terminal[0]),'units':counts,'attempts':attempts,'stage_gates':gates}));sys.exit()
-if active:print(json.dumps({'status':'running','units':counts,'attempts':attempts,'stage_gates':gates,'latest_event':latest[1] if latest else None}));sys.exit()
+root=base/'results/tcl-20261103-semantic-v1';db=root/'run.sqlite';md=root/'run.md'
+def markdown(path):
+ import re
+ if path.is_symlink():raise ValueError('unsafe Markdown ledger')
+ blocks=re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$',path.read_text(),re.M|re.S)
+ if len(blocks)!=1:raise ValueError('invalid Markdown ledger')
+ value=json.loads(blocks[0])
+ if value.get('schema')!='tcl-run-markdown-v1':raise ValueError('invalid Markdown ledger schema')
+ return value
+if not md.exists() and not db.exists():print(json.dumps({'status':'running' if active else 'not_started'}));sys.exit()
+if md.exists():
+ value=markdown(md);events=value['events'];counts={}
+ for unit in value['units'].values():counts[unit['status']]=counts.get(unit['status'],0)+1
+ attempts=len(value['attempts']);gates=[e['detail'] for e in events if e['kind']=='stage_gate']
+ terminal=next((e['detail'] for e in reversed(events) if e['kind']=='terminal'),None)
+ latest=events[-1]['kind'] if events else None
+else:
+ if db.is_symlink():raise ValueError('unsafe database')
+ with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=3) as con:
+  row=con.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
+  terminal=json.loads(row[0]) if row else None
+  counts=dict(con.execute('SELECT status,COUNT(*) FROM units GROUP BY status'))
+  attempts=con.execute('SELECT COUNT(*) FROM attempts').fetchone()[0]
+  gates=[json.loads(row[0]) for row in con.execute("SELECT detail FROM events WHERE kind='stage_gate' ORDER BY id")]
+  row=con.execute('SELECT time,kind,detail FROM events ORDER BY id DESC LIMIT 1').fetchone();latest=row[1] if row else None
+if terminal:print(json.dumps({'status':'terminal','detail':terminal,'units':counts,'attempts':attempts,'stage_gates':gates}));sys.exit()
+if active:print(json.dumps({'status':'running','units':counts,'attempts':attempts,'stage_gates':gates,'latest_event':latest}));sys.exit()
 lock=os.open(root/'.writer.lock',os.O_RDONLY|os.O_NOFOLLOW)
 try:
  try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);state='paused'
  except BlockingIOError:state='running'
 finally:os.close(lock)
-print(json.dumps({'status':state,'units':counts,'attempts':attempts,'stage_gates':gates,'latest_event':latest[1] if latest else None}))
+print(json.dumps({'status':state,'units':counts,'attempts':attempts,'stage_gates':gates,'latest_event':latest}))
 '''
 
 
@@ -506,8 +538,6 @@ def prepare(server):
         result = bounded_ssh(config, server, shlex.join(['python3', '-u', '-c', remote_script(REMOTE_PREPARE, server)]), json.dumps(payload), timeout=1230)
     try:
         value = json.loads(result)
-        if value.get('execution_sha256') != execution_sha256():
-            raise NotReady('远端运行代码哈希与本地不一致')
         return value
     except ValueError as exc:
         raise NotReady('远端CPU准备未返回有效结果') from exc

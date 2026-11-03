@@ -1,3 +1,4 @@
+from runtime_store import read_markdown
 """CPU-simulated backend exercising the actual runner in separate processes.
 
 The test substitutes only the GPU adapter and platform probe; it never uses CUDA.
@@ -5,7 +6,6 @@ The test substitutes only the GPU adapter and platform probe; it never uses CUDA
 import json
 import os
 from pathlib import Path
-import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -101,21 +101,24 @@ class RuntimeProcessTest(unittest.TestCase):
         result = self.invoke('normal')
         self.assertEqual(json.loads(result.stdout)['status'], 'paused_resource', result.stderr)
         self.assertEqual(self.calls(), [])
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM events WHERE kind='t0'").fetchone()[0], 0)
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            self.assertEqual(sum(x['kind'] == 't0' for x in data['events']), 0)
 
     def test_failed_gpu_probe_records_one_t0_before_resume(self):
         failed = self.invoke('gpu_probe_failed')
         self.assertEqual(json.loads(failed.stdout)['status'], 'paused_resource', failed.stderr)
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            first = db.execute("SELECT detail FROM events WHERE kind='t0'").fetchall()
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            first = [(json.dumps(e['detail']),) for e in data['events'] if e['kind'] == 't0']
             self.assertEqual(len(first), 1)
             self.assertEqual(json.loads(first[0][0])['phase'], 'live_gpu_preflight')
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 0)
+            self.assertEqual(len(data['attempts']), 0)
         resumed = self.invoke('normal')
         self.assertEqual(json.loads(resumed.stdout)['status'], 'complete', resumed.stderr)
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            self.assertEqual(db.execute("SELECT detail FROM events WHERE kind='t0'").fetchall(), first)
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            self.assertEqual([(json.dumps(e['detail']),) for e in data['events'] if e['kind'] == 't0'], first)
 
     def test_gpu_probe_time_consumes_limit_before_cuda(self):
         self.spec['science']['max_compute_seconds'] = .1
@@ -123,9 +126,10 @@ class RuntimeProcessTest(unittest.TestCase):
         result = self.invoke('slow_gpu_probe')
         self.assertEqual(json.loads(result.stdout)['outcome'], 'inconclusive', result.stderr)
         self.assertEqual(self.calls(), [])
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM events WHERE kind='t0'").fetchone()[0], 1)
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 0)
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            self.assertEqual(sum(x['kind'] == 't0' for x in data['events']), 1)
+            self.assertEqual(len(data['attempts']), 0)
 
     def test_failed_probe_past_limit_becomes_terminal(self):
         self.spec['science']['max_compute_seconds'] = .1
@@ -172,9 +176,10 @@ class RuntimeProcessTest(unittest.TestCase):
         repeated = self.invoke('normal')
         self.assertEqual(json.loads(repeated.stdout)['status'], 'already_terminal', repeated.stderr)
         self.assertEqual(self.calls(), before)
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 2)
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM units WHERE status='complete'").fetchone()[0], 2)
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            self.assertEqual(len(data['attempts']), 2)
+            self.assertEqual(sum(x['status'] == 'complete' for x in data['units'].values()), 2)
         self.spec['science']['budget']['max_attempts'] = 3
         self.save()
         self.assertNotEqual(self.invoke('normal').returncode, 0)
@@ -200,9 +205,10 @@ class RuntimeProcessTest(unittest.TestCase):
         self.assertEqual(json.loads(resumed.stdout)['status'], 'complete', resumed.stdout)
         self.assertEqual(self.calls().count('generate:a'), 2)
         self.assertEqual(self.calls().count('generate:b'), 1)
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 3)
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM attempts WHERE status='failed'").fetchone()[0], 1)
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            self.assertEqual(len(data['attempts']), 3)
+            self.assertEqual(sum(x['status'] == 'failed' for x in data['attempts']), 1)
 
     def test_platform_stop_pauses_and_retains_attempt(self):
         self.spec['science']['budget'] = {'max_attempts': 3, 'max_attempts_per_key': 2,
@@ -217,9 +223,10 @@ class RuntimeProcessTest(unittest.TestCase):
         (self.base / 'status.json').unlink()
         resumed = self.invoke('normal')
         self.assertEqual(json.loads(resumed.stdout)['status'], 'complete', resumed.stdout + resumed.stderr)
-        with sqlite3.connect(self.base / 'run' / 'run.sqlite') as db:
-            self.assertEqual(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0], 3)
-            self.assertEqual(db.execute("SELECT COUNT(*) FROM events WHERE kind='t0'").fetchone()[0], 1)
+        if True:
+            data = read_markdown(self.base / 'run' / 'run.md')
+            self.assertEqual(len(data['attempts']), 3)
+            self.assertEqual(sum(x['kind'] == 't0' for x in data['events']), 1)
 
 
 if __name__ == '__main__':

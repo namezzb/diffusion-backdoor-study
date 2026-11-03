@@ -8,7 +8,7 @@
 
 | 想知道什么 | 入口 |
 |---|---|
-| 以后改动如何防止忘记更新 | [维护入口](INDEX_MAINTENANCE.md) · [全仓清单](repository_index.jsonl) · [最新收尾](maintenance/latest.json) |
+| 按需查询和维护索引 | [工具说明](INDEX_MAINTENANCE.md) · [已有清单](repository_index.jsonl) · [已有维护记录](maintenance/latest.json) |
 | agent指令如何保持简短、避免重复 | [维护分工与检索依据](INDEX_MAINTENANCE.md#指令文件维护)；全局规则在AGENTS，操作步骤按需读取 |
 | 哪台服务器、哪个目录存了什么 | [服务器资料索引](SERVER_INDEX.md) |
 | 本地已有图片、代码、结果与缺项 | [本地资料目录](../results/organization-2026-10-29/README.md) |

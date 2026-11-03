@@ -1,70 +1,15 @@
-# 索引如何保持同步
+# 索引工具说明
 
-全局要求见[AGENTS.md](../AGENTS.md#每次工作必读与收尾)，具体影响矩阵和工具步骤仅在本页维护；实验授权及当前状态从[项目状态](../research/project_state.json)进入对应TASK。这些维护检查只读取本地科研仓库，不连接服务器、不下载、不启动GPU。
+仓库入口和当前任务分别见 [README](../README.md) 与 [项目状态](../research/project_state.json)。交付时按实际需要更新 TASK、实现报告和受影响的导航。索引维护是可选工具，不是实验启动、交付或提交的门槛；提交钩子和 GitHub CI 不运行索引检查或存储测试。
 
-## 三层入口，各记一件事
+已有 [文件清单](repository_index.jsonl)、[维护记录](maintenance/latest.json)、[附件取回目录](retrieval_catalog.jsonl) 和 [服务器索引](SERVER_INDEX.md) 保留供查询，可能不是最新状态；历史冻结证据不因索引维护而改写。
 
-| 层次 | 内容与维护方式 |
-|---|---|
-| 人读的入口 | 根README和各目录README说明主题、当前入口和证据边界，不逐行罗列几千份产物 |
-| 仓库逐文件目录 | [repository_index.jsonl](repository_index.jsonl)自动记录Git文件及待纳入的新文件的路径、内容哈希、所属入口；自身哈希明确豁免以免自引用 |
-| 外置资料目录 | [retrieval_catalog.jsonl](retrieval_catalog.jsonl)记录附件的Git、服务器或固定版本公开来源；完整远端盘点见[服务器索引](SERVER_INDEX.md)，新附件可补入[asset_registry.jsonl](asset_registry.jsonl) |
+需要盘点或排查时，可在仓库根目录手动运行：
 
-[index_policy.json](index_policy.json)指定目录负责入口、相关进度记录、活跃链接范围以及有理由的本机临时项排除；新顶层目录需要明确增加归属。历史封存中的链接不当成当前导航强制修复，修改活跃入口而保留原始证据。
-
-人工附件登记每行包含仓库相对`path`、`bytes`、`sha256`、`sources`和用途说明；学校来源需与被引用服务器清单匹配，公开来源需固定版本HTTPS地址，Git来源由工具核验。登记内容没有有效来源会保持缺口并检查失败，不把旧机尚未上传的ZIP当作可下载来源。
-
-## 每次交付集中收尾
-
-1. 开工前运行一次`python3 scripts/storage/maintain_index.py impact`；连续实现和修复不反复归档，交付时按最终差异更新实际受影响的导航和当前TASK。
-2. 新增或修正外置附件时先补来源清单，需要作为Git来源的新小文件先暂存（不提交），再运行`python3 scripts/storage/build_retrieval_catalog.py`；不要直接改生成目录或改写冻结包清单。
-3. 代码与验证稳定、准备交付时再次运行`impact`，以最终输出的`base_commit`和`changes`填写[latest.json](maintenance/latest.json)；摘要和每个`review_indexes`的处理决定须实际审阅，未更新项写具体依据。
-4. 收尾记录最后写完后运行`python3 scripts/storage/maintain_index.py refresh`，再用`check`检查本地；所有应提交文件暂存后，用`check --staged`检查真实待提交版本。
-5. 最终报告说明更新入口、检查结果及未覆盖内容；本次若包含提交和推送，再核对远端版本，不把本地文件存在写成已发布。
-
-回执的`reviewed_changes`排除生成清单与回执本身，改名按删除旧路径和新增新路径记录，删除用`kind: deleted`及空哈希。`index_decisions`中的`updated`必须确实有改动，`unchanged`须解释为何本次不影响该记录；记录哈希后再改文件会再次被检查拦下。
-
-无文件变更的问答和只读排查不运行索引收尾；索引维护不能作为已授权计算启动的前置审批。
-
-`refresh`只生成文件目录，不会替agent编写“已复核”理由或修改科研状态。清单、回执、工作区与暂存区不一致时检查失败；新生成且被Git忽略的附件也会按文件名检查，必须登记或明确说明排除原因。
-
-## 变更影响矩阵
-
-| 本次改变了什么 | 必须复核并按实际影响更新 |
-|---|---|
-| 文件增删、改名或目录调整 | 所属README、引用入口和全仓清单；兼容链接指明真实目标，不移动只读历史证据 |
-| 实验启动、暂停、失败、完成或结论 | 账本即时保存事实，里程碑或交付时更新当前TASK；项目JSON仅在任务/run指针改变时更新，README不复制实时状态 |
-| 方法、协议、预算或实现 | 当前方案/独立协议、脚本索引和验证记录；不改旧run冻结输入及invalid标签 |
-| 论文或元信息 | papers目录的catalog、README和取回目录；固定版本、来源、大小、哈希 |
-| 图片、checkpoint或缓存等外置附件 | 有来源的服务器清单或asset_registry、取回目录及存储入口；未知位置/哈希明确留缺口 |
-| 下载、迁移、回传或环境/入口 | 新验收回执、服务器/本地映射及换机说明；保留旧盘点日期，不把离线重建写成新远端核验 |
-| 代码、文案或规则修复 | 交付时集中复核接口导航和实现报告，无影响入口写一次理由；普通修复不逐次追加审批，不改历史冻结产物 |
-
-文件存在、代码通过检查或仅提交代码不等于进度与索引收尾完成；机械校验也不能证明研究结论正确。共享工作区已有回执仅在对应文件哈希仍一致时沿用，本次新改动单独说明，不能把他人的历史验证写成本次重新执行。
-
-## 新电脑启用提交检查
-
-```bash
-python3 scripts/storage/install_index_hook.py
+```sh
+python3 scripts/storage/maintain_index.py impact
+python3 scripts/storage/maintain_index.py refresh
 python3 scripts/storage/maintain_index.py check
 ```
 
-安装器只设置当前仓库的提交检查；已存在不同钩子配置时会停止并说明冲突，不覆盖别的工具设置。Git克隆不会自动启用本地钩子，因此新电脑需做这一步，仓库同时提供[GitHub检查](../.github/workflows/research-index.yml)作为第二道校验。
-
-本地钩子按暂存内容检查，避免“工作区文档已改但没提交”被误判通过；GitHub只检查已提交内容，无法发现旧机未提交的文件。GitHub检查使用完整提交历史验证回执基准，缺少基准提交或合并后回执过期时明确失败，应复核实际差异而不是静默跳过。
-
-## 覆盖边界
-
-正式科研文件应有目录归属，外置附件应有来源或明确缺口；依赖、机器设置、临时中转和旧页面上下文按精确路径或限定目录说明排除，不将整个results或papers排除。`.codex/`等本机临时工作区没有逐项科学审阅，不能说这些临时内容也都完成了科研归档。
-
-学校记录缺SHA与AMAX缺完整盘点的范围以[服务器索引](SERVER_INDEX.md)为准，不能为消除提示伪造哈希或自动连接服务器。工具核验普通Markdown目标，不验证章节锚点或复杂嵌套语法；修改指令标题须另查引用，检查通过不能证明服务器当前在线、人工结论正确或agent永不遗漏。
-
-最新收尾记录只保留当前状态，历史内容从Git历史读取；原始实验账本和冻结证据不由本工具修改。全仓目录是定位工具，不能代替服务器原文件的备份副本。
-
-## 指令文件维护
-
-- 根[AGENTS.md](../AGENTS.md)只维护全局行为、科研边界和按需入口，[CLAUDE.md](../CLAUDE.md)只导入它；任务状态写TASK，根目录不复制当前图数、队列、端口或磁盘余量。
-- [服务器手册](../server/OPERATIONS.md)和[复现流程](../reproduction/LOOP.md)承接对应操作，本页承接索引维护；目录README负责导航，已有冻结协议和历史快照不因精简而改写。
-- 新增约束先检查是否已有规则，写清触发条件、动作及可核验证据；只保留代码或现有入口无法直接表达的知识，通用常识、重复禁令和过时执行命令删去，机械检查沿用现有hook/CI。
-
-2026-11-02检索依据：[OpenAI的AGENTS发现与合并规则](https://learn.chatgpt.com/docs/agent-configuration/agents-md)说明默认合并上限32 KiB；[AGENTS.md开放规范](https://agents.md/)支持按目录组织上下文；[Claude Code官方建议](https://code.claude.com/docs/en/best-practices#keep-claudemd-short)建议缩短常驻指令、分离局部流程并用检查约束确定性要求。本仓库采用一个短入口加显式按需链接，跨目录的GPU约束保留在根文件，避免只从根目录启动时遗漏。
+`impact` 查看相对当前提交的变化；`refresh` 重建本地文件清单；`check` 检查清单、链接、附件目录与维护记录的一致性。检查结果可能因既有记录未更新而失败，不代表实验失败，也不会自动修复记录。工具不连接服务器、不下载、不启动 GPU；清单不是服务器文件的备份。需要核对附件来源时可查阅已有目录和服务器索引，未知信息保留缺口。

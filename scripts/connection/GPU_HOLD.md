@@ -28,7 +28,7 @@ nohup /Users/zzb/arxiv/.venv/bin/python /Users/zzb/arxiv/scripts/connection/gpu_
   > /Users/zzb/.config/labgpu/gpu-hold/await.log 2>&1 &
 ```
 
-等待器以独占锁运行；核对本run完整终态、四阶段和账本完成数及写者已退出后即可交接。逐图PNG哈希与评分核验移到后台，完成前状态是`pending`，不能声称结果已核验；核验失败会记录并停止本任务保卡。该核验不重新运行评分器，也不是逐图人工语义验收。等待器网络异常退出会写 `events.jsonl` 和 `wait-status.json`；后续定时检查按状态修复并独占重启，不重新启动科学run。
+等待器以独占锁运行；核对本run完整终态、四阶段和账本完成数及写者已退出后即可交接。不再执行逐图PNG或账本文件哈希的存储审计；后台检查冻结单元、评分结构及阶段结果，完成前状态为`pending`，失败则记录并停止本任务保卡。该检查不重新运行评分器，也不是逐图人工语义验收。等待器网络异常退出会写 `events.jsonl` 和 `wait-status.json`；后续定时检查按状态修复并独占重启，不重新启动科学run。
 
 ## 状态、停止和恢复
 

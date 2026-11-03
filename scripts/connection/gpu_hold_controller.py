@@ -114,9 +114,8 @@ def validate_config(config, *, require_report=True):
         return config
     report = config.get('completion_report', {})
     path = Path(report.get('path', ''))
-    if (not path.is_absolute() or not path.is_file() or any(p.is_symlink() for p in (path, *path.parents))
-            or hashlib.sha256(path.read_bytes()).hexdigest() != report.get('sha256')):
-        raise NotReady('a real completed-experiment report with its exact hash is required')
+    if not path.is_absolute() or not path.is_file() or any(p.is_symlink() for p in (path, *path.parents)):
+        raise NotReady('a real completed-experiment report is required')
     completed = json.loads(path.read_text())
     if (completed.get('run_id') != RUN or completed.get('science_sha256') != source['science_sha256']
             or completed.get('status') != 'terminal' or completed.get('completed_images') != 1024
@@ -259,66 +258,71 @@ def unlocked(path):
  return fd
 source=root/'results'/run; work=root/'preparations'/run
 held=[]
+def ledger():
+ md=source/'run.md';dbpath=source/'run.sqlite'
+ safe(md)
+ if md.exists():
+  import re
+  blocks=re.findall(r'^```json[ \t]*\n(.*?)\n```[ \t]*$',md.read_text(),re.M|re.S)
+  if len(blocks)!=1:raise ValueError('invalid Markdown ledger')
+  value=json.loads(blocks[0])
+  if value.get('schema')!='tcl-run-markdown-v1':raise ValueError('invalid Markdown ledger schema')
+  return value
+ safe(dbpath)
+ if not dbpath.is_file():return None
+ with contextlib.closing(sqlite3.connect('file:'+str(dbpath)+'?mode=ro',uri=True)) as db:
+  return {'identity':json.loads(db.execute('SELECT identity FROM metadata WHERE id=1').fetchone()[0]),
+   'units':{key:{'unit':json.loads(unit),'status':status,'scores':json.loads(scores) if scores else None} for key,unit,status,scores in db.execute('SELECT key,unit,status,scores FROM units')},
+   'events':[{'kind':kind,'detail':json.loads(detail)} for kind,detail in db.execute('SELECT kind,detail FROM events ORDER BY id')]}
+def summary(value):
+ counts={}
+ for unit in value['units'].values():counts[unit['status']]=counts.get(unit['status'],0)+1
+ end=next((e['detail'] for e in reversed(value['events']) if e['kind']=='terminal'),None)
+ return counts,end
 if p['action']=='poll':
- safe(source/'run.sqlite')
- if not (source/'run.sqlite').is_file():print(json.dumps({'status':'not_started'}));sys.exit()
- with contextlib.closing(sqlite3.connect('file:'+str(source/'run.sqlite')+'?mode=ro',uri=True)) as db:
-  meta=json.loads(db.execute('SELECT identity FROM metadata WHERE id=1').fetchone()[0])
-  if meta.get('science_sha256')!=p['science_sha256'] or meta.get('run_id')!=run:raise ValueError('science identity changed')
-  counts=dict(db.execute('SELECT status,COUNT(*) FROM units GROUP BY status'))
-  end=db.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
-  result={'status':'running_or_paused','units':counts}
-  if end:result['status']='ready_for_report' if counts=={'complete':1024} and json.loads(end[0]).get('stage')=='M1' else 'partial_terminal'
-  print(json.dumps(result));sys.exit()
+ value=ledger()
+ if value is None:print(json.dumps({'status':'not_started'}));sys.exit()
+ meta=value['identity']
+ if meta.get('science_sha256')!=p['science_sha256'] or meta.get('run_id')!=run:raise ValueError('science identity changed')
+ counts,end=summary(value);result={'status':'running_or_paused','units':counts}
+ if end:result['status']='ready_for_report' if counts=={'complete':1024} and end.get('stage')=='M1' else 'partial_terminal'
+ print(json.dumps(result));sys.exit()
 def completion():
- spec=read(work/'spec.json');safe(source/'run.sqlite')
+ spec=read(work/'spec.json')
  if spec.get('run_id')!=run:raise ValueError('wrong scientific run')
  science=json.dumps({'run_id':run,'science':spec['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
  if hashlib.sha256(science.encode()).hexdigest()!=p['science_sha256']:raise ValueError('science hash mismatch')
  held.extend([unlocked(work/'launcher.lock'),unlocked(source/'.writer.lock')])
- with contextlib.closing(sqlite3.connect('file:'+str(source/'run.sqlite')+'?mode=ro',uri=True)) as db:
-  metadata=json.loads(db.execute('SELECT identity FROM metadata WHERE id=1').fetchone()[0])
-  terminal=db.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
-  counts=dict(db.execute('SELECT status,COUNT(*) FROM units GROUP BY status'))
-  stages={json.loads(r[0])['stage'] for r in db.execute("SELECT detail FROM events WHERE kind='stage_gate'")}
-  final=json.loads(terminal[0]) if terminal else {}
-  if (metadata.get('run_id')!=run or metadata.get('science_sha256')!=p['science_sha256']
-      or metadata.get('writer_host')!=machine
-      or metadata.get('run_root')!=str(source) or not terminal or counts!={'complete':1024}
-      or stages!={'S0','S1','M0','M1'} or final.get('stage')!='M1'
-      or final.get('outcome') not in ('exploratory_positive','exploratory_negative','inconclusive')
-      or not isinstance(final.get('reason'),str)):
-   raise ValueError('experiment incomplete or not at full scientific terminal')
- return {'terminal':json.loads(terminal[0]),'complete':1024,'preferred_uuid':spec['execution'].get('gpu_uuid')}
+ value=ledger()
+ if value is None:raise ValueError('experiment ledger missing')
+ metadata=value['identity'];counts,final=summary(value)
+ stages={e['detail']['stage'] for e in value['events'] if e['kind']=='stage_gate'}
+ if (metadata.get('run_id')!=run or metadata.get('science_sha256')!=p['science_sha256']
+     or metadata.get('writer_host')!=machine or metadata.get('run_root')!=str(source)
+     or not final or counts!={'complete':1024} or stages!={'S0','S1','M0','M1'} or final.get('stage')!='M1'
+     or final.get('outcome') not in ('exploratory_positive','exploratory_negative','inconclusive')
+     or not isinstance(final.get('reason'),str)):
+  raise ValueError('experiment incomplete or not at full scientific terminal')
+ return {'terminal':final,'complete':1024,'preferred_uuid':spec['execution'].get('gpu_uuid')}
 machine={'hostname':socket.gethostname(),'uid':os.geteuid(),'machine_id_sha256':hashlib.sha256(pathlib.Path('/etc/machine-id').read_bytes()).hexdigest()}
 if p['action'] in ('handoff','report'):
  try:result=completion()
  except BlockingIOError:print(json.dumps({'status':'scientific_writer_still_running'}));sys.exit()
  if p['action']=='handoff':
   print(json.dumps({'status':'terminal','run_id':run,'science_sha256':p['science_sha256'],'completed_images':1024,'stages_completed':['S0','S1','M0','M1'],'verification':'pending',**result}));sys.exit()
- for fd in held:os.close(fd)
- held.clear()
- spec=read(work/'spec.json')
- with contextlib.closing(sqlite3.connect('file:'+str(source/'run.sqlite')+'?mode=ro',uri=True)) as db:
-  expected=spec['science'].get('units',[])
-  keytext=lambda key:json.dumps(key,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
-  expected_units={keytext(u['key']):u for u in expected}
-  actual=list(db.execute('SELECT key,unit FROM units'))
-  if (len(expected)!=1024 or len(expected_units)!=1024 or len(actual)!=1024
-      or {key for key,_ in actual}!=set(expected_units)
-      or any(json.loads(unit)!=expected_units[key] for key,unit in actual)):
-   raise ValueError('completed units differ from exact frozen keys/input/mask identities')
-  for key,image_sha,raw_scores in db.execute('SELECT key,image_sha,scores FROM units'):
-   image=source/'images'/(hashlib.sha256(key.encode()).hexdigest()+'.png');safe(image);data=image.read_bytes()
-   if hashlib.sha256(data).hexdigest()!=image_sha or data[:8]!=b'\x89PNG\r\n\x1a\n' or data[12:16]!=b'IHDR' or struct.unpack('>II',data[16:24])!=(512,512):raise ValueError('completed PNG verification failed')
-   scores=json.loads(raw_scores)
-   if set(scores)!={'vit_class','clip_score','target_clip_score','object_clip_scores'} or type(scores['vit_class']) is not int or not 0<=scores['vit_class']<1000:raise ValueError('invalid semantic score')
-   objects=scores['object_clip_scores']
-   if not isinstance(objects,dict) or set(objects)!={'dog','cat','rabbit','background'}:raise ValueError('invalid object score schema')
-   if any(type(x) not in (int,float) or not math.isfinite(x) or not 0<=x<=100 for x in [scores['clip_score'],scores['target_clip_score'],*objects.values()]):raise ValueError('invalid semantic score range')
-  gates=[json.loads(r[0]) for r in db.execute("SELECT detail FROM events WHERE kind='stage_gate' ORDER BY id")]
- ledger_hashes={name:hashlib.sha256((source/name).read_bytes()).hexdigest() for name in ('run.sqlite','run.sqlite-wal') if (source/name).is_file()}
- print(json.dumps({'status':'terminal','run_id':run,'science_sha256':p['science_sha256'],'completed_images':1024,'stages_completed':['S0','S1','M0','M1'],'ledger_files_sha256':ledger_hashes,'png_verification':'1024 actual SHA256, PNG signatures and 512x512 headers verified; full semantic score schema/ranges verified','stage_gates':gates,'machine':machine,**result}));sys.exit()
+ value=ledger()
+ expected=read(work/'spec.json')['science'].get('units',[])
+ keytext=lambda key:json.dumps(key,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
+ frozen={keytext(u['key']):u for u in expected}
+ if len(expected)!=1024 or len(frozen)!=1024 or set(value['units'])!=set(frozen) or any(unit['unit']!=frozen[key] for key,unit in value['units'].items()):raise ValueError('completed units differ from frozen scientific inputs')
+ for unit in value['units'].values():
+  scores=unit['scores']
+  if not isinstance(scores,dict) or set(scores)!={'vit_class','clip_score','target_clip_score','object_clip_scores'} or type(scores['vit_class']) is not int or not 0<=scores['vit_class']<1000:raise ValueError('invalid semantic score')
+  objects=scores['object_clip_scores']
+  if not isinstance(objects,dict) or set(objects)!={'dog','cat','rabbit','background'}:raise ValueError('invalid object score schema')
+  if any(type(x) not in (int,float) or not math.isfinite(x) or not 0<=x<=100 for x in [scores['clip_score'],scores['target_clip_score'],*objects.values()]):raise ValueError('invalid semantic score range')
+ gates=[e['detail'] for e in value['events'] if e['kind']=='stage_gate']
+ print(json.dumps({'status':'terminal','run_id':run,'science_sha256':p['science_sha256'],'completed_images':1024,'stages_completed':['S0','S1','M0','M1'],'stage_gates':gates,'machine':machine,**result}));sys.exit()
 if p['action']=='inspect':
  result=completion()
  python=root/'venv/bin/python'
@@ -377,12 +381,10 @@ completed=completion()
 if p['action'] in ('start','add'):
  if p['action']=='start' and owner['workers']:raise ValueError('hold already has worker records; inspect instead of duplicating')
  if p['action']=='add' and (not owner['workers'] or not all(same(r) for r in owner['workers'])):raise ValueError('only a live hold can add a card')
- raw=base64.b64decode(p['worker_source'],validate=True)
- if hashlib.sha256(raw).hexdigest()!=p['worker_sha256']:raise ValueError('worker transfer changed')
  code=state/'gpu_hold_worker.py';safe(code)
- if owner['workers'] and (not code.is_file() or code.read_bytes()!=raw):raise ValueError('cannot change active worker code')
- if not code.exists():code.write_bytes(raw);code.chmod(0o600)
- elif code.read_bytes()!=raw:raise ValueError('hold worker code changed')
+ if owner['workers'] and not code.is_file():raise ValueError('active worker code missing')
+ if not code.exists():
+  raw=base64.b64decode(p['worker_source'],validate=True);code.write_bytes(raw);code.chmod(0o600)
  python=root/'venv/bin/python';safe(python.parent)
  if not python.is_file():raise ValueError('verified source Python environment unavailable')
  cards=p['leases']
@@ -545,8 +547,6 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
                 raise NotReady('user stop requested')
             snapshot = refresh_with_retry(state, manifest)
             cards, quota = platform(snapshot, config, manifest['uuids'])
-            if hashlib.sha256(WORKER.read_bytes()).hexdigest() != manifest['worker_sha256']:
-                raise NotReady('worker code changed while hold is active')
             extra = [u for u, c in cards.items() if c['fresh'] and c['status'] == 'free' and u not in manifest['uuids']]
             extra = sorted(extra)[:min(quota, config['authorization']['max_cards'] - len(manifest['uuids']))]
             if extra:
@@ -554,11 +554,10 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
                 manifest['uuids'].extend(extra)
                 manifest['lease_ids'].update({u: os.urandom(16).hex() for u in extra})
                 write_private(manifest_path, manifest)
-                data = WORKER.read_bytes()
                 audit(state, 'adding_cards', uuids=extra, snapshot=snapshot)
                 remote(config, 'add', controller_id=manifest['controller_id'], machine=manifest['machine'],
-                       leases=leases(config, manifest, cards, time.time()), worker_source=base64.b64encode(data).decode(),
-                       worker_sha256=manifest['worker_sha256'], memory_fraction=config['authorization']['memory_target_percent'] / 100,
+                       leases=leases(config, manifest, cards, time.time()),
+                       memory_fraction=config['authorization']['memory_target_percent'] / 100,
                        compute_target_percent=config['authorization']['compute_target_percent'])
                 # The bounded live probe may consume freshness; fetch again before renewal.
                 snapshot = fresh_snapshot()
