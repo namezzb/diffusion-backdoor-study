@@ -2,7 +2,7 @@
 
 **科研进度与索引随Git同步，大文件留在服务器。** 下表原有盘点时间保持不变；TCL任务的[103资产观察](../research/tasks/2026-10-29-trigger-contrast-localization/server103_assets_observation_20261029.json)和CPU预检另有本轮回执，不把旧盘点重标为新核验。
 
-当前接续见[TASK](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)及[24小时协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)；[真实来源审阅](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md)记录104来源包路径、哈希及363张候选，生产bundle仍未生成。下文历史盘点时间不变，旧索引不因此扩大覆盖。
+当前接续从[项目状态](../research/project_state.json)进入；[历史来源审阅](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md)记录104来源包路径、哈希及363张候选，其后v2终态见[历史报告](../results/trigger-contrast-localization/tcl-20261102-pilot24-v2/acceptance_report.md)。下文保留各次历史盘点时间，不表示本轮远端核验或新的启动任务。
 
 ## TCL中断图片盘点（2026-10-30 01:48）
 

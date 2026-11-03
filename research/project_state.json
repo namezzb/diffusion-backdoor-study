@@ -1,60 +1,37 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-11-02T18:10:00+08:00",
-  "execution_status": "tcl_v2_deadline_infeasible_report_reviewed",
-  "gpu_automation": "deleted",
-  "research_conclusion": "No evaluated candidate meets normal-utility constraints and improves attack success over its same-run baseline.",
-  "runs": [
+  "schema_version": 2,
+  "updated_at": "2026-11-03T10:30:00+08:00",
+  "current_task": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
+  "current_workflow": "research/WORKFLOW.md",
+  "current_run_id": "tcl-20261103-semantic-v1",
+  "current_protocol": "research/tasks/2026-11-03-tcl-semantic/PROTOCOL.md",
+  "current_plan": "research/tasks/2026-11-03-tcl-semantic/protocol.json",
+  "current_runtime": "scripts/merging/trigger_contrast_localization/runtime.py",
+  "gpu_automation": {
+    "id": "gpu-tcl",
+    "status": "ACTIVE",
+    "cadence": "hourly"
+  },
+  "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",
+  "historical_experiments": [
     {
-      "id": "mvp-2026-10-28-single-v1",
-      "images": 1520,
-      "updates": 144,
-      "conclusion": "RC and Uniform heldout ASR 0; TSSA has no eligible candidate."
+      "run_id": "tcl-20261102-overnight-v1",
+      "task": "research/tasks/2026-11-02-tcl-overnight/TASK.md",
+      "protocol": "research/tasks/2026-11-02-tcl-overnight/PROTOCOL.md",
+      "report": "research/tasks/2026-11-02-tcl-overnight/FINAL_REPORT.md"
     },
     {
-      "id": "tssa-opt-exploration-2026-10-28-v1",
-      "images": 816,
-      "updates": 0,
-      "conclusion": "Development ASR 33.33%, equal to naive; normal constraints fail; confirmation not opened.",
-      "original_strict_audit": "invalid; numerical recomputation consistent, original label preserved"
-    },
-    {
-      "id": "tssa-target-semantic-diagnostic-2026-10-28-v1",
-      "images": 0,
-      "updates": 0,
-      "branch_nfe": 462,
-      "conclusion": "Endpoint ordering improved, gradient consistency and joint local feasibility failed."
+      "run_id": "tcl-20261102-pilot24-v2",
+      "task": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+      "protocol": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md",
+      "report": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/acceptance_report.md"
     }
   ],
-  "current_work": "TCL v2 stopped under its two-hour feasibility gate: 363 historical images imported once, zero new attempts, no valid measured throughput; independently reviewed report is inconclusive and server efficacy validation remains incomplete.",
-  "storage_catalog": "storage/catalog.json",
-  "explanation": "research/tssa_methods_and_results_explained_2026-10-29.md",
-  "next_research_action": "Preserve the two original server terminal records and T0; any further study requires a separately designed and authorized run.",
+  "historical_research_summary": "research/tssa_methods_and_results_explained_2026-10-29.md",
+  "task_index": "research/tasks/README.md",
   "server_index": "storage/SERVER_INDEX.md",
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",
   "index_maintenance": "storage/INDEX_MAINTENANCE.md",
-  "latest_maintenance": "storage/maintenance/latest.json",
-  "latest_literature_review": {
-    "path": "reports/trigger_contrast_parameter_localization_review_2026-10-29.md",
-    "date": "2026-10-29",
-    "status": "hypothesis_only_not_experimentally_validated",
-    "conclusion": "Input contrast can guide candidate localization; semantic dog-cat response differences do not identify pure backdoor parameters, and regrouping alone does not repair the old endpoint objective ordering."
-  },
-  "task_index": "research/tasks/README.md",
-  "current_task": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
-  "recovery_handoff": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md",
-  "latest_remote_observation_at": "2026-11-02T18:10:12+08:00",
-  "gpu_selection_policy": "AGENTS.md#服务器选择优先级",
-  "historical_recovery_handoff": "research/tasks/2026-10-29-trigger-contrast-localization/RECOVERY_HANDOFF_2026-11-02.md",
-  "current_run_id": "tcl-20261102-pilot24-v2",
-  "current_protocol": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md",
-  "current_plan": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_plan_candidate.json",
-  "latest_saved_asset_audit_at": "2026-11-02T11:15:22+08:00",
-  "latest_asset_audit_scope": "104 selection and six masks rehashed; 172 104 snapshot and 191 127 candidate images rehashed and fully decoded at 11:15 CST. No images imported and original 103 writer retirement remains unverified.",
-  "pilot24_intake": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_INTAKE_2026-11-02.md",
-  "latest_remote_observation_scope": "104 read-only inspection found no recovery-v2 directory or pilot24 process; both saved terminal records show 363 historical imports and zero new attempts.",
-  "latest_platform_observation": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_environment_observation_20261102.json",
-  "pilot24_implementation_review": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_IMPLEMENTATION_REVIEW.md",
-  "pilot24_source_review": "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_SOURCE_REVIEW_20261102.md"
+  "latest_maintenance": "storage/maintenance/latest.json"
 }

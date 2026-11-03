@@ -1,15 +1,16 @@
 # 扩散模型后门研究：项目总索引
 
-更新于2026-11-02。**TCL v2尚未启动：104来源包的363张历史候选已通过独立审阅，目前缺少可登录且合规空闲的GPU。** 生产bundle、实际导入和运行状态见[任务正文](research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)，原v1不再补满预算。
+当前工作从[项目状态](research/project_state.json)进入；Astra负责规划、方法与核心代码，Terra负责实现、验证和报告，见[协作流程](research/WORKFLOW.md)。[执行机制重构](research/tasks/2026-11-02-runtime-reset/TASK.md)与[历史TCL结果](results/trigger-contrast-localization/README.md)分开导航。
 
 ## 从这里开始
 
 | 要做什么 | 入口 |
 |---|---|
 | 查看agent规则或服务器操作步骤 | [精简项目指令](AGENTS.md) · [按需操作手册](server/OPERATIONS.md)；CLAUDE.md仅导入项目指令，状态与协议分别维护 |
-| 查看特殊字符触发定位任务及验证进度 | [当前任务TASK.md](research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) · [全部任务与模板](research/tasks/README.md)，状态、扩样预算及交接要求以任务正文为准 |
-| 接手24小时初步验证 | [PILOT24协议](research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)：固定真实来源与复用清单，审阅生产bundle后启动；执行代码和CPU检查见任务实现review |
+| 接手当前任务 | [项目状态](research/project_state.json) → 当前TASK；[任务索引](research/tasks/README.md)保留历史入口 |
+| 启动和恢复新实验 | [执行器入口](scripts/merging/trigger_contrast_localization/README.md)，同一命令启动与恢复；旧PILOT24协议只用于解释旧run |
 | 按用户偏好选择GPU服务器 | [AGENTS服务器优先级](AGENTS.md#服务器选择优先级)，结合实时许可、设备状态与就绪条件执行 |
+| 快速查看实验室显卡状态 | [labgpu 使用说明](scripts/connection/LABGPU.md)，运行 `./labgpu status` 或 `./labgpu status --json` |
 | 判断输入对比是否能改进后门参数分组 | [新筛选假说与相关文献](reports/trigger_contrast_parameter_localization_review_2026-10-29.md)：尚未实验验证，不替换当前执行方案 |
 | 先看做过什么、效果如何、Uniform4 / TSSA16 是什么 | [通俗解释与全部结果](research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 看数据、代码、图片在哪里，以及哪些尚未回传 | [本次整理与备份目录](results/organization-2026-10-29/README.md) |
@@ -75,7 +76,7 @@ arxiv/
 
 ## 当前边界
 
-当前TCL按24小时新协议准备独立run，旧run及定时探针不恢复，Drive上传保持暂停。真实实验须记录适用授权、实现review和实时资源证据，不能把旧版验收视为新多卡执行器已通过。
+当前授权和验收范围见项目状态指向的TASK，正式实验采用显式科学配置；旧run、T0、消耗和失败证据不重置，Drive上传保持暂停。普通工程修复在已授权范围内持续推进，不能把测试或历史结果当作新实验验收。
 
 2,336张包含正常图、攻击图和对照图，并不是2,336个独立攻击样本；不同轮次的比例需与同轮基线比较，不能混排。
 

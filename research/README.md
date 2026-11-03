@@ -1,16 +1,19 @@
 # 当前研究
 
-当前方向：研究真实扩散模型checkpoint合并后的后门鲁棒性；TCL v2的363张历史候选来源已独立审阅，生产bundle和GPU启动仍待完成。完成度与授权边界以TASK为准，旧run不再补满预算。
+研究方向为真实扩散模型checkpoint合并后的后门鲁棒性；当前任务只从[项目状态](project_state.json)读取，工作方式见[Astra/Terra协作流程](WORKFLOW.md)。历史实验和协议按日期保留，不作为新的启动指令。
 
 | 文档 | 用途 |
 |---|---|
-| [特殊字符定位验证任务](tasks/2026-10-29-trigger-contrast-localization/TASK.md) | 扩样后的当前任务，方法、预算、运行证据和待完成状态均见TASK |
-| [24小时多卡验证协议](tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md) | 下一agent先读：独立v2身份、固定样本与复用规则、多卡分片、吞吐门禁和截止报告要求 |
+| [TCL语义评分与完整对照验证](tasks/2026-11-03-tcl-semantic/TASK.md) | 目标/正常CLIP与原ViT并列评价，固定对照不因分类诊断提前退出 |
+| [TCL夜间探索性验证](tasks/2026-11-02-tcl-overnight/TASK.md) | 已按基线门禁结束；保留协议、原账本和结果报告 |
+| [实验室 GPU 状态 CLI](tasks/2026-11-02-labgpu-cli/TASK.md) | 平台 API 查询工具与验收入口；[使用说明](../scripts/connection/LABGPU.md) |
+| [执行机制简化与状态重置](tasks/2026-11-02-runtime-reset/TASK.md) | 统一实验执行器的设计、实现和验收记录 |
+| [历史TCL任务](tasks/2026-10-29-trigger-contrast-localization/TASK.md) · [旧PILOT24协议](tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md) | 已终止run的科学定义与证据，不重启旧身份 |
 | [任务索引与模板](tasks/README.md) | 每个任务独立目录及TASK状态，通用规范统一在AGENTS.md维护 |
 | [初始小样本草案](trigger_contrast_localization_pilot_review_2026-10-29.md) | 历史2048图设计，已由上述扩样任务接续，未执行 |
 | [输入对比与后门参数定位调研](../reports/trigger_contrast_parameter_localization_review_2026-10-29.md) | 新筛选假说：普通狗/猫语义差不等于后门参数，需真实触发对照与干预验证；未替换执行方案或恢复实验 |
 | [从头解释方法、名词与三轮效果](tssa_methods_and_results_explained_2026-10-29.md) | 先读这一份；解释Uniform4、TSSA16、a/b、合并比例、攻击成功率和正常能力 |
-| [当前机器可读状态](project_state.json) | 新agent接续时先读，保存授权范围、三轮结论及下一步边界 |
+| [当前机器可读状态](project_state.json) | 只保存当前任务指针及历史入口，详细状态见TASK |
 | [暂停时简明总结](tssa_attempts_summary_2026-10-29.md) | 三轮次数、失败原因与结论边界 |
 | [数据与代码整理目录](../results/organization-2026-10-29/README.md) | 原图、逐图指标、训练轨迹、响应缓存、执行代码及回传缺口 |
 | [存储与换机恢复方案](research_storage_and_restore_plan_2026-10-29.md) | 进度与代码纳入Git，大文件留服务器；新电脑按[接续步骤](../storage/NEW_COMPUTER.md)及[服务器索引](../storage/SERVER_INDEX.md)定位取回，Drive暂停 |

@@ -1,6 +1,6 @@
 # 脚本索引
 
-更新于2026-11-02，旧实验已结束且旧`gpu`定时任务保持删除；[TCL任务](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)转为[24小时多卡初步验证](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)，本地执行器review通过，真实来源／生产bundle待认证，尚未启动。历史结论见[尝试总结](../research/tssa_attempts_summary_2026-10-29.md)，服务器选择遵循[统一优先级](../AGENTS.md#服务器选择优先级)。
+当前工作从[项目状态](../research/project_state.json)进入，协作采用[Astra/Terra流程](../research/WORKFLOW.md)。新实验统一启动/恢复见[TCL执行器](merging/trigger_contrast_localization/README.md)；旧pilot24及故障专用恢复脚本保留供溯源，不作为新任务入口。
 
 ## 三轮实验入口
 
@@ -9,7 +9,7 @@
 | 梯度校准初步验证 | [tssa_mvp_run.py](merging/tssa_mvp_run.py) | [冻结协议](../research/tssa_mvp_2026-10-26.json) · [最终报告](../results/tssa-mvp-2026-10-26/initial_validation_report_2026-10-28.md)；1520图、144次更新，未找到合格攻击增益。 |
 | 直接按图像攻击成功率搜索 | [tssa_image_search_run.py](merging/tssa_image_search_run.py) | [独立冻结协议](../research/tssa_optimization_exploration_2026-10-28.json) · [负结果](../results/tssa-opt-exploration-2026-10-28/direct_ASR_negative_report_2026-10-28.md)；816图、0更新，未打开确认集，原严格审计仍为invalid。 |
 | 同状态目标语义诊断 | [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | [方案](../research/tssa_target_semantic_diagnostic_proposal_2026-10-28.md) · [诊断报告](../results/tssa-target-semantic-diagnostic-2026-10-28/target_semantic_diagnostic_report_2026-10-29.md)；462次分支前向、0图/0更新，梯度一致性及局部可行性未通过。 |
-| 特殊字符定位 | [trigger_contrast_localization](merging/trigger_contrast_localization/README.md) | [任务与review](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)；v2同机多卡代码review通过，真实复用与生产bundle仍待认证，v1冻结代码及验收不能直接套用。 |
+| 特殊字符定位 | [统一启动/恢复入口](merging/trigger_contrast_localization/README.md) | [语义完整对照任务](../research/tasks/2026-11-03-tcl-semantic/TASK.md) · [历史夜间探索](../research/tasks/2026-11-02-tcl-overnight/TASK.md) · [执行机制](../research/tasks/2026-11-02-runtime-reset/TASK.md)；CPU和GPU验收分别报告。 |
 
 当前源代码可能含后续修复，不能自动视为旧运行使用的版本；复核时以各运行清单、冻结快照与文件哈希为准，资料位置见[结果索引](../results/README.md)。
 
@@ -86,6 +86,7 @@
 
 | 工具 | 用途与执行边界 |
 |---|---|
+| [labgpu.py](connection/labgpu.py) · [使用说明](connection/LABGPU.md) | 平台 API 显卡状态查询、登录、表格/JSON、短缓存与新鲜度判断；不启动实验。 |
 | [archive_school_research.py](connection/archive_school_research.py) | 只读盘点和回传学校服务器既有科研资料，按文件清单核对大小与哈希；不下载新模型或启动实验。 |
 | [probe_school_gpu.py](connection/probe_school_gpu.py) | 按统一优先级有界只读检查学校节点连接、GPU身份及进程；不恢复已删除的旧定时探针。 |
 | [start_school.sh](../server/start_school.sh) · [school_ssh_config](../server/school_ssh_config) | 学校跳板与节点连接、动态DNS回退及主机密钥检查。 |

@@ -1,6 +1,6 @@
 # 服务器连接、离线部署与历史兼容入口
 
-连接、离线部署及故障恢复先读[操作手册](OPERATIONS.md)，选卡遵守[统一优先级](../AGENTS.md#服务器选择优先级)。当前任务、协议和资源观察从[项目状态](../research/project_state.json)进入，本页不复制实时进度。
+连接、离线部署及故障恢复先读[操作手册](OPERATIONS.md)，选卡遵守[统一优先级](../AGENTS.md#服务器选择优先级)。当前任务、协议和资源观察从[项目状态](../research/project_state.json)进入，本页不复制实时进度；新实验的单一启动/恢复命令见[执行器入口](../scripts/merging/trigger_contrast_localization/README.md)。
 
 ## 本目录的真实文件
 
@@ -22,6 +22,7 @@
 
 | 入口 | 用途 |
 |---|---|
+| [labgpu 状态 CLI](../scripts/connection/LABGPU.md) | 直接查询平台 API，显示显卡型号、占用、指标和采样新鲜度；支持 JSON 与本地缓存。 |
 | [学校资料归档工具](../scripts/connection/archive_school_research.py) | 只读盘点、按清单回传并验哈希，属于已有工具，当前不自动执行整批回传。 |
 | [学校只读探针](../scripts/connection/probe_school_gpu.py) | 按AGENTS优先级有界检查指定已配置节点，分别记录不可用原因；不恢复旧周期探针。 |
 | [AMAX启动器](../scripts/connection/start_amax.sh) | 独立的AMAX隧道和交互连接，不是学校GPU平台。 |

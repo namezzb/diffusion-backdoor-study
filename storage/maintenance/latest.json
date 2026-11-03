@@ -1,96 +1,604 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-02T18:16:07+08:00",
-  "base_commit": "a19b181da5f82fe104d20cd8395da8f37e7b2fe3",
-  "summary": "TCL v2按原T0两小时门禁判定deadline_infeasible，独立104只读核查两代终态并独立审阅提前终止报告；363历史图只计一次，新增尝试0，效果验证未完成、结论无法判定。",
+  "reviewed_at": "2026-11-03T02:38:54.706582+00:00",
+  "base_commit": "8b99b13ad82c2cc76804b1b25dc86cc7ef5c6566",
+  "summary": "用户授权优化评分及完整对照并要求提交推送：新增semantic-v1固定协议/核心评分和统计，四阶段不因ViT背景类别提前退出；空合格控制组记无法判定。104真实CPU准备38资产及10张旧图校准通过，新GPU实验未启动。实现done、实验todo，接手Terra按新TASK运行。包含此前同一授权链尚未提交的统一执行器、labgpu与夜间报告依赖，历史冻结输入保持不变。",
   "reviewed_changes": [
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "sha256": "2426d57bcf0be1e141f754e907b3b7a0b032d77e6db9b9852d07d0b1bec9000c",
+      "owner_index": "README.md"
+    },
+    {
+      "path": "README.md",
+      "kind": "file",
+      "sha256": "75eb9f83215d7684773166fc50087d7747ea4e42b4e03212dbde1fe7e49bcbd7",
+      "owner_index": "README.md"
+    },
+    {
+      "path": "labgpu",
+      "kind": "file",
+      "sha256": "9d641c6892075a7845f6d702df28b3067700d876f433ebeb0398cde9247ed068",
+      "owner_index": "README.md"
+    },
+    {
+      "path": "research/README.md",
+      "kind": "file",
+      "sha256": "5458a5c262e492825462fb90f4abb94c2582ce20baeb20c78d6fed36b8138614",
+      "owner_index": "research/README.md"
+    },
+    {
+      "path": "research/WORKFLOW.md",
+      "kind": "file",
+      "sha256": "a73a25dfa69713a9656d23b532a7ae2e0bdd91d0097dc0e1d08eacf01170a0ff",
+      "owner_index": "research/README.md"
+    },
+    {
+      "path": "research/merging_attack_progress.md",
+      "kind": "file",
+      "sha256": "c4a2d907d97fb74f399b07153dfe1aee53a2abfb94a7ab205b57863eb99c32af",
+      "owner_index": "research/README.md"
+    },
     {
       "path": "research/project_state.json",
       "kind": "file",
-      "sha256": "5dab51bc4d317fe1a86c4de5259c2ba28a6ce5db08e6e5013f95d42b37c08509"
+      "sha256": "b6ae991c71c0617f51cae377be900b7ea7919031b16267cd1efd79a5b1262111",
+      "owner_index": "research/README.md"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
+      "path": "research/tasks/2026-11-02-labgpu-cli/IMPLEMENTATION_REPORT.md",
       "kind": "file",
-      "sha256": "1ac58b01ccdbb54e97d002a2aa45e8cbbfaedf9321552482ac9d786bf706fd10"
+      "sha256": "0a59f91adf1df4bfdca9442446b7666989b99eaf18011220d3e972ba732e08c3",
+      "owner_index": "research/tasks/2026-11-02-labgpu-cli/README.md"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+      "path": "research/tasks/2026-11-02-labgpu-cli/README.md",
       "kind": "file",
-      "sha256": "cb4cb10302d06e5ac924756809ca51cda4b799915e4c5b81b4b1848ee226ab47"
+      "sha256": "b2390beb20bc0e61ddc99c05f2af993961e3ad8026b4410fae2d84acd2b8210e",
+      "owner_index": "research/tasks/2026-11-02-labgpu-cli/README.md"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_final_report_review_20261102.json",
+      "path": "research/tasks/2026-11-02-labgpu-cli/TASK.md",
       "kind": "file",
-      "sha256": "6f6fa518632db0798727d347404aa32701693fd5274a9e3768063b9a3021e348"
+      "sha256": "7117ef018f5480cb40ca1a0d962504b903ea63f63b34789706be6e789e62c179",
+      "owner_index": "research/tasks/2026-11-02-labgpu-cli/README.md"
     },
     {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_deadline_review_20261102T1010Z.json",
+      "path": "research/tasks/2026-11-02-runtime-reset/DESIGN.md",
       "kind": "file",
-      "sha256": "ddad5c43ec39e3098b359596c8b972dc0163389ab6d266fe9377a4833fe15100"
+      "sha256": "e419ef3e399fd932478e55af53412e6d0634963d343564df3e138805df7df00b",
+      "owner_index": "research/tasks/2026-11-02-runtime-reset/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/IMPLEMENTATION_REPORT.md",
+      "kind": "file",
+      "sha256": "e3d58ca7b8b2728bf08a7bf810d901e83ad7bd135520c23d6bf0d09453e8d0a8",
+      "owner_index": "research/tasks/2026-11-02-runtime-reset/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/README.md",
+      "kind": "file",
+      "sha256": "bfc13892e1eb0142840bf745fcfdc8667a37364a57f2a9c73298c9a354ba0d9d",
+      "owner_index": "research/tasks/2026-11-02-runtime-reset/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
+      "kind": "file",
+      "sha256": "1a71b265dd518d0f1ae59000490e5cf002cdcc19ea938d847457d8e42b72647a",
+      "owner_index": "research/tasks/2026-11-02-runtime-reset/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/FINAL_EVIDENCE.json",
+      "kind": "file",
+      "sha256": "87e5b8b5113794f3924de08e1f30bacbbf67976a5d78e2a344c49f07c573049b",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/FINAL_REPORT.md",
+      "kind": "file",
+      "sha256": "1288060d71a6577c3a9bf05d0e337ee49160932a3f5504c16f482d535a6ae05d",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/IMPLEMENTATION_REPORT.md",
+      "kind": "file",
+      "sha256": "f8dc1d7b08156cda4cbb765025ff961259574050392da957387434643193fd59",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/PROTOCOL.md",
+      "kind": "file",
+      "sha256": "0d2b4d731edbaa1f439bdbed7d60b907f7c4705246f66137ce837ed9123e2e41",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/README.md",
+      "kind": "file",
+      "sha256": "165356512a1e0f1de78f426795994d070637c4b4e69e10e9df2805ff874f3034",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/TASK.md",
+      "kind": "file",
+      "sha256": "96d13d26e9742f0d1032595b35d765fb0b59bcaec625d716e4badb07ab9918b3",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/protocol.json",
+      "kind": "file",
+      "sha256": "e43cc287afaf40c12bfd18d920e89e526de428b76f8e2a30d4703cda6f7a6a09",
+      "owner_index": "research/tasks/2026-11-02-tcl-overnight/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
+      "kind": "file",
+      "sha256": "71ba56b15ad4101020bbc78d380e473ef337293c95597242f253ac5d0582040e",
+      "owner_index": "research/tasks/2026-11-03-tcl-semantic/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/PROTOCOL.md",
+      "kind": "file",
+      "sha256": "24720ab42c6756cd5e8b824137c12fc87577a57e42aac0abc14f1cd08b962986",
+      "owner_index": "research/tasks/2026-11-03-tcl-semantic/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
+      "kind": "file",
+      "sha256": "af0e39a7f6b093cd72f7acab2a45bc4ff77debb13c469b37601b088abc736719",
+      "owner_index": "research/tasks/2026-11-03-tcl-semantic/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
+      "kind": "file",
+      "sha256": "a1104777868ea893e8d296e55761d6c96e096c3ea2f5cb230bb07e09ee98aeea",
+      "owner_index": "research/tasks/2026-11-03-tcl-semantic/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/calibration.json",
+      "kind": "file",
+      "sha256": "eba74f139d286aa1e4fe72eb66e9ac0e768e219e9ba4887366b5099e139d463c",
+      "owner_index": "research/tasks/2026-11-03-tcl-semantic/README.md"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/protocol.json",
+      "kind": "file",
+      "sha256": "85eb642987150fcb9dbcb94db8b43376dab31fef147f1437ad13af99f29de65c",
+      "owner_index": "research/tasks/2026-11-03-tcl-semantic/README.md"
+    },
+    {
+      "path": "research/tasks/README.md",
+      "kind": "file",
+      "sha256": "c2a22fe225cb73441329c991cdcbfb974955364f0aae742ec420d9b41929ce59",
+      "owner_index": "research/tasks/README.md"
+    },
+    {
+      "path": "research/tasks/TEMPLATE.md",
+      "kind": "file",
+      "sha256": "d0ec843ad7d0d340b024ed174eef3460938bc5ee7a2732dd8893b304ee146287",
+      "owner_index": "research/tasks/README.md"
     },
     {
       "path": "results/README.md",
       "kind": "file",
-      "sha256": "3724919feda93bec92ac98a5611111347b60af7f075670d752ae213c1c3fec7f"
+      "sha256": "986068a038e3940fb0d0e3659929277357d484da9bbf0bfba47713d0713c6747",
+      "owner_index": "results/README.md"
     },
     {
-      "path": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
+      "path": "results/trigger-contrast-localization/README.md",
       "kind": "file",
-      "sha256": "b85fc8a65556b330c49d4c1ce8ea964fcb48af675af4bc1f15d6f4262d0df4fd"
+      "sha256": "837f05b8193811696177fdd2918a8d1eeff7d07375f2499f96d231fb140c9304",
+      "owner_index": "results/trigger-contrast-localization/README.md"
     },
     {
-      "path": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/acceptance_report.md",
+      "path": "scripts/README.md",
       "kind": "file",
-      "sha256": "08e2b2b792a97980b28ce4420552463215c2ceba232c613cd377d8d40506c17e"
+      "sha256": "c0c35eaeaecf52e56044fb35bd2d5dcb896e96c4d08d0357d8a0341cecbaf08f",
+      "owner_index": "scripts/README.md"
+    },
+    {
+      "path": "scripts/connection/LABGPU.md",
+      "kind": "file",
+      "sha256": "eb59e1dd9bac0d179db6929ff6e46b3ab15b3a5e9356610f42574998cb666200",
+      "owner_index": "scripts/README.md"
+    },
+    {
+      "path": "scripts/connection/labgpu.py",
+      "kind": "file",
+      "sha256": "8c190fcdbcebe2ebcec3c8ad2dbaf04e5d39aa91e40cab5b3a7cc7c0f05cd01a",
+      "owner_index": "scripts/README.md"
+    },
+    {
+      "path": "scripts/connection/labgpu_model.py",
+      "kind": "file",
+      "sha256": "eee7903ef037e71c99a8126a2ffaf387b3a93523e6ccbcdae1492ad10f8ed7f1",
+      "owner_index": "scripts/README.md"
+    },
+    {
+      "path": "scripts/connection/test_labgpu_cli.py",
+      "kind": "file",
+      "sha256": "de48b6f2e12341d51e12fa444c656695750c9246284bc21c912f8eaa75e08229",
+      "owner_index": "scripts/README.md"
+    },
+    {
+      "path": "scripts/connection/test_labgpu_model.py",
+      "kind": "file",
+      "sha256": "0c09a8b8cec1128bba30a6629e571621582ed38c91fe4195ec24dd8db7ff9bdc",
+      "owner_index": "scripts/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "kind": "file",
+      "sha256": "0ec90fee5d74ed82efaf627ad3e11e86484243e5d0e26c4997ac6c8eef5fb4fb",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/overnight.py",
+      "kind": "file",
+      "sha256": "1b73431e4927635b516918b01a589d95ec66e03f5dfef053796e127fcbb2e90b",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/overnight_science.py",
+      "kind": "file",
+      "sha256": "8aefe9265c9c87f7100f19bef54592b301376947a03c96f4a6ae0fc01f97298c",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/runtime.py",
+      "kind": "file",
+      "sha256": "a1622080c33ffff2d9b8327340419e63851026ae0d25e2f69dfbb84a57e883ec",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/runtime_store.py",
+      "kind": "file",
+      "sha256": "6a6c411a8d03bffe810429f157fc722ed31abc3c9d71f1327dbbc062aee8e1b9",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/runtime_tcl.py",
+      "kind": "file",
+      "sha256": "3b18626678cef36b4dc80e12498506e6c598638faf8475ddfe99f24570de2d27",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/semantic_science.py",
+      "kind": "file",
+      "sha256": "215990ab640459ad9141e2c5ecad179949c8585e8177ca04e9b31b45a8e1fb13",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/semantic_scoring.py",
+      "kind": "file",
+      "sha256": "13489cb6321e2cd001f2c507fd97e8f57f3b76a83e64de33daf08cba55a7345e",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_experiment_cli_process.py",
+      "kind": "file",
+      "sha256": "170ec7baf9236d533fb65797b503dd46c970531021e755f30d2f431ee7d5cdae",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_experiment_runtime_process.py",
+      "kind": "file",
+      "sha256": "ddbeb0f22e3e5364cfc2688ac9e0b4ad3ec5ee5c260ed1ef239b9c8968cd89a2",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_experiment_store_process.py",
+      "kind": "file",
+      "sha256": "3deb90ea3763aa4754c9d23cf8dee2db153b9cae60a24bdeb5da383448879a47",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_overnight.py",
+      "kind": "file",
+      "sha256": "537f3184fd2f50639bf74e8be27c5dfcfeca230f693efa7f3ecf295cbb6cf518",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_runtime_tcl.py",
+      "kind": "file",
+      "sha256": "f224413aaa0299570e24dd8b7b91eb73c5d0f1cc7f18073986c27ee2c1943526",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_semantic_runtime_process.py",
+      "kind": "file",
+      "sha256": "43af4159bda0a63eb8923aad21bdd1f54867aa6d86cbc79362874dc9096ae078",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_semantic_science.py",
+      "kind": "file",
+      "sha256": "a959a54800621aa073b35021924b139d609089d28ba5a52c562492ac8986ea53",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_semantic_scoring.py",
+      "kind": "file",
+      "sha256": "61c353a3f3ac22e5244e17ca2625d0c45833be9bab37e6a00f18ba9ad36f121c",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_semantic_store.py",
+      "kind": "file",
+      "sha256": "412f4361f2e0b1034d08db1889127fb9e15da5966dfffdeb1426053256ee21c6",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_semantic_validation.py",
+      "kind": "file",
+      "sha256": "9e3544facc9c9523acb5baa9f535c2aacb6882dce247f47c1a591f5d598c450e",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/validation.py",
+      "kind": "file",
+      "sha256": "183984875971dde108cced0a12dc84a8917184873b61adc194e99e644df58e31",
+      "owner_index": "scripts/merging/trigger_contrast_localization/README.md"
+    },
+    {
+      "path": "server/OPERATIONS.md",
+      "kind": "file",
+      "sha256": "c4c58f85bba8819d98ea6459442073562aee5839cdb3de24610f859b8a85a831",
+      "owner_index": "server/README.md"
+    },
+    {
+      "path": "server/README.md",
+      "kind": "file",
+      "sha256": "4237fbb48e9f1e3d1f1be3979d419e9f64edf4e9f3453879cfab7496fc3b00fe",
+      "owner_index": "server/README.md"
+    },
+    {
+      "path": "storage/INDEX_MAINTENANCE.md",
+      "kind": "file",
+      "sha256": "a0305823f7313142ce3bb10cf8c4776e18cec2df23f534cb7e5cf3826d48d030",
+      "owner_index": "storage/README.md"
+    },
+    {
+      "path": "storage/NEW_COMPUTER.md",
+      "kind": "file",
+      "sha256": "965775995e1df790acdaa32ddfb28657558c6eb06c776d5dbc8c799aeef39e4c",
+      "owner_index": "storage/README.md"
+    },
+    {
+      "path": "storage/README.md",
+      "kind": "file",
+      "sha256": "764115ff1b0c06db4d84bebf8f90eef49660e9bece2c02729e2a244f38d98093",
+      "owner_index": "storage/README.md"
+    },
+    {
+      "path": "storage/SERVER_INDEX.md",
+      "kind": "file",
+      "sha256": "47f11fcd0c077ba5b06c04d0844ce8a8b52db64c86e39776f06b0ac434e20397",
+      "owner_index": "storage/README.md"
+    },
+    {
+      "path": "storage/index_policy.json",
+      "kind": "file",
+      "sha256": "6146e52a5e058ea67c35649ac6a0b49c171cc9e5d557e0965d322a7ee28f8d6e",
+      "owner_index": "storage/README.md"
     }
   ],
   "index_decisions": [
     {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：本轮仅新增一行labgpu命令及使用说明导航，保留开工前已有规则重构。"
+    },
+    {
+      "path": "README.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：新增快速查看GPU状态入口，保留开工前已有总导航修订。"
+    },
+    {
       "path": "research/README.md",
-      "action": "unchanged",
-      "reason": "研究总入口仍指向同一任务及全局状态，未新增主题。"
+      "action": "updated",
+      "reason": "新增语义完整对照阅读/执行入口，进度只在TASK维护。"
     },
     {
       "path": "research/project_state.json",
       "action": "updated",
-      "reason": "同步两小时门禁未通过、报告审阅及科学效果未完成。"
-    },
-    {
-      "path": "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-      "action": "updated",
-      "reason": "登记两小时门禁与最终报告独立审阅回执入口。"
+      "reason": "当前指针切换到semantic-v1；旧夜间终态作为历史入口保留。"
     },
     {
       "path": "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
+      "action": "unchanged",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：本轮labgpu不改变该历史记录：本次未重跑旧TCL、未改变历史消耗或科研结论；原TASK及冻结协议保持原样，通过新任务指针退出当前执行路径。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-labgpu-cli/README.md",
       "action": "updated",
-      "reason": "记录原T0、两代终态、未完成里程碑、报告独立审阅和收尾。"
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：登记任务、使用说明和实现报告入口。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-labgpu-cli/TASK.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：记录CLI授权、分工、36项检查和8节点30卡真实HTTP验收，未启动GPU或定时服务。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/README.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：登记新TASK、设计审阅、Terra实现报告与统一运行命令。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：记录用户重置和简化授权、实际模型分工、5项工程交付、272项最终CPU回归及未做真实GPU验证。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/README.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；新增最终中文报告及真实执行核验摘要导航，不复制实时状态。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-tcl-overnight/TASK.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；记录按S0门禁完成、outcome=inconclusive、128真实图/128尝试/0失败、后续未执行、自动任务已删除及等待用户决定的下一步。"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
+      "action": "updated",
+      "reason": "导航新TASK、冻结协议、CPU校准和实现报告。"
+    },
+    {
+      "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
+      "action": "updated",
+      "reason": "记录实现done、实验todo和用户要求Git推送后另委派Terra的交接；不把CPU测试当新GPU成果。"
     },
     {
       "path": "research/tasks/README.md",
-      "action": "unchanged",
-      "reason": "任务目录与导航不变，具体状态以TASK为唯一来源。"
+      "action": "updated",
+      "reason": "登记TCL语义评分与完整对照任务。"
     },
     {
       "path": "results/README.md",
       "action": "updated",
-      "reason": "记录v2提前终止、363历史导入、零新增及无法判定。"
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：结果入口保持旧科学事实，当前工作改走项目状态指针。"
     },
     {
       "path": "results/trigger-contrast-localization/README.md",
-      "action": "unchanged",
-      "reason": "主题入口仍指向现有v2目录和v1历史，未新增运行目录。"
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：作为历史结果目录导航，保留旧363张导入、0次新尝试及无法判定报告。"
     },
     {
-      "path": "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
+      "path": "scripts/README.md",
       "action": "updated",
-      "reason": "链接提前终止验收报告及仍未完成的科学验证。"
+      "reason": "将特殊字符定位入口连接到新语义任务，同时保留旧夜间与运行机制入口。"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "action": "updated",
+      "reason": "说明新四字段评分、完整阶段执行、6小时配置和独立validation控制器，保留旧行为。"
+    },
+    {
+      "path": "server/README.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：增加labgpu状态CLI导航，不更改学校SSH配置或历史盘点。"
+    },
+    {
+      "path": "storage/INDEX_MAINTENANCE.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：改为交付时集中收尾，取消普通排错逐次归档和重复实时状态同步。"
+    },
+    {
+      "path": "storage/NEW_COMPUTER.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：补充新电脑labgpu login与查询入口，明确凭据和缓存不随Git恢复。"
+    },
+    {
+      "path": "storage/README.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：统一当前导航与集中收尾约定，保留原取回范围。"
+    },
+    {
+      "path": "storage/SERVER_INDEX.md",
+      "action": "updated",
+      "reason": "复核并沿用已有同一工作链的收尾判断；本轮保留原文件及此前收尾判断，当前夜间部署/状态已在新TASK与实现报告登记；此前记录：保留开工前已有变更及原收尾判断，本轮内容未改：纠正顶部旧v2仍待启动的入口，历史盘点及逐文件资产清单保持原样。"
     }
   ],
   "validation": {
-    "deadline_review": "research/tasks/2026-10-29-trigger-contrast-localization/server104_pilot24_deadline_review_20261102T1010Z.json",
-    "report_review": "research/tasks/2026-10-29-trigger-contrast-localization/pilot24_final_report_review_20261102.json",
-    "report_sha256": "08e2b2b792a97980b28ce4420552463215c2ceba232c613cd377d8d40506c17e",
-    "limits": "报告层判定不改写服务器原两份worker_session_blocked终态；无新增出图和本轮有效吞吐，不构成科学效果验收。"
+    "implementation_report": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
+    "tcl_regression": {
+      "tests": 310,
+      "seconds": 34.799,
+      "result": "passed",
+      "scope": "CPU and subprocess tests; no new GPU generation"
+    },
+    "labgpu": {
+      "tests": 38,
+      "seconds": 0.451,
+      "result": "passed"
+    },
+    "real_cpu": {
+      "server": "104",
+      "assets": 38,
+      "unique_keys": 1024,
+      "calibration_images": 10,
+      "legacy_scores_identical": true,
+      "cuda_initialized": false,
+      "science_sha256": "951c09f1883b9c13c539edf0ffb5e37d27f1dc45b5e734f114a48156f735852d"
+    },
+    "new_run": {
+      "status": "not_started",
+      "new_images": 0,
+      "implementation_status": "done",
+      "experiment_status": "todo"
+    },
+    "limits": "GPU生成/恢复未验收；新语义分数非真实ASR；资源快照过时需接手时刷新。"
+  },
+  "preexisting_validation": {
+    "implementation_report": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
+    "current_run": "tcl-20261103-semantic-v1",
+    "science_sha256": "951c09f1883b9c13c539edf0ffb5e37d27f1dc45b5e734f114a48156f735852d",
+    "automation": {
+      "id": "gpu-tcl",
+      "status": "ACTIVE",
+      "cadence": "hourly at minute 0",
+      "destination": "current thread",
+      "manually_exercised": "tick returned node_preparation_required, report not_started"
+    },
+    "live_platform": {
+      "fetched_at": 1793673230.777065,
+      "usage": 0,
+      "quota": 4,
+      "active_ban": null,
+      "maintenance": [],
+      "gpu_requests": [],
+      "rectifications": [],
+      "cases": [],
+      "free": [
+        {
+          "server": "101",
+          "uuid": "GPU-b6abd4d8-aeca-fc05-193f-4551b64af89c"
+        }
+      ],
+      "ssh_101": "one bounded connection, Permission denied (publickey), no target session"
+    },
+    "preflight_clock_and_deployment": {
+      "clock": "T0 durable immediately before first actual GPU preflight following platform preauthorization; resume preserves T0",
+      "server": "104",
+      "scope": "remote CPU prepare/check only; no CUDA or new image",
+      "assets": 38,
+      "unique_keys": 1024,
+      "remote_and_local_sha_match": {
+        "runtime_py": "a1622080c33ffff2d9b8327340419e63851026ae0d25e2f69dfbb84a57e883ec",
+        "runtime_store_py": "6a6c411a8d03bffe810429f157fc722ed31abc3c9d71f1327dbbc062aee8e1b9",
+        "runtime_tcl_py": "3b18626678cef36b4dc80e12498506e6c598638faf8475ddfe99f24570de2d27"
+      }
+    },
+    "checks": [
+      {
+        "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_experiment*process.py'",
+        "tests": 18,
+        "result": "passed",
+        "scope": "Terra CPU/simulated process"
+      },
+      {
+        "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_semantic*.py'",
+        "tests": 13,
+        "result": "passed",
+        "scope": "Terra CPU/simulated, includes validation controller"
+      },
+      {
+        "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_overnight.py'",
+        "tests": 11,
+        "result": "passed",
+        "scope": "Terra CPU historical compatibility"
+      },
+      {
+        "review": "Astra独立检查预检计时与执行代码门禁，进程针对8项、控制器5项通过；仅CPU模拟"
+      }
+    ],
+    "prior_calibration": "104上10张既有图原ViT/CLIP评分复现；CPU，非本run新图",
+    "caffeinate": {
+      "pid": 36821,
+      "duration_seconds": 86400,
+      "verified": true
+    },
+    "limits": "本轮尚未启动新run，未验证真实GPU加载、新PNG和完整新评分；不把CPU资产与评分校准当成科研效果。新协议扩充CLIP语义评分并保留原ViT，不宣称分类准确率本身已修复。101仍公钥拒绝；其他节点按实时许可并有界准备。"
   }
 }

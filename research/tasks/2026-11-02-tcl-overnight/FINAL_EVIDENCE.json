@@ -1,0 +1,41 @@
+{
+  "run_id": "tcl-20261102-overnight-v1",
+  "evidence_origin": "Manually transcribed from this session's read-only tick, report and remote SQLite/PNG verification outputs; the original tool stdout was not saved as a separate file.",
+  "science_sha256": "3f185460b876ebf44212df197105788b0364b55be8013160ce34bd904ca7c23d",
+  "gpu": {"server": "104", "hostname": "iipl-104", "uuid": "GPU-2b05f9c0-6ecb-23cd-03f4-e7b989d07cee", "compute_mode_at_preflight": "Default", "driver_version": "595.91.07", "live_inventory_sha256": "3a8d819be7971422a21ddd5857608f6ba253bd5b5f0bae55c378c2b97fb9169b"},
+  "timing": {"t0_utc": "2026-11-02T18:08:03.611285+00:00", "terminal_utc": "2026-11-02T18:18:24.182610+00:00", "t0_to_terminal_wall_seconds": 620.571325, "gpu_cumulative_compute_seconds": null, "gpu_cumulative_compute_note": "Not measured in collected evidence; elapsed wall time is not GPU cumulative compute time."},
+  "final_state": {"status": "terminal", "outcome": "inconclusive", "stage": "S0", "reason": "baseline_not_eligible", "units": {"complete": 128, "pending": 896}, "attempts_total": 128, "attempt_status_counts": {"complete": 128}, "failed_attempts": 0, "later_stages": "S1, M0 and M1 were not entered."},
+  "png_and_scores_verification": {"completed_rows_examined": 128, "png_hash_or_format_failures": [], "all_scores_valid": true, "check": "Each actual PNG SHA256 matched its stored SHA256; PIL verified PNG format and 512x512 dimensions, and score fields were finite with integer vit_class.", "example": {"key": ["tcl-20261102-overnight-v1", "source", "clean", "trigger", "backyard-20", 271101], "remote_path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/317d4d34f638ee00424d63138175c4ef3af7b2fb644a8753e89928782696bf0b.png", "sha256": "4a97268587eba48d70038fc6aa07b1f8bba019bbbf5d482759e61e7e255a8488", "size_bytes": 534544, "scores": {"clip_score": 25.100496411323547, "vit_class": 843}}},
+  "observer_and_writer": {"local_observer_pid": 1825, "local_observer_alive_at_final_check": false, "remote_wrapper_pid_at_resume": 3786394, "remote_wrapper_pid_final_state": "not independently checked", "remote_writer_lock_final_state": "not independently checked; terminal is recorded in the read-only ledger", "note": "No terminal restart or extra remote PID/lock check was performed."},
+  "stage_gate": {
+    "stage": "S0", "passed": false, "outcome": "inconclusive", "reason": "baseline_not_eligible",
+    "report": {
+      "accuracy_resolution": 0.0625,
+      "backdoor_minus_clean": {
+        "cat": {"accuracy": {"confidence": 0.95, "interval": [-0.4375, 0.0625], "point": -0.1875}, "clip_mean": {"confidence": 0.95, "interval": [-2.650955133140087, 1.9800334237515926], "point": -0.3841174766421318}},
+        "dog": {"accuracy": {"confidence": 0.95, "interval": [-0.1875, 0.3125], "point": 0.0625}, "clip_mean": {"confidence": 0.95, "interval": [-0.8687516674399376, 1.811765693128109], "point": 0.4315553233027458}},
+        "other": {"accuracy": {"confidence": 0.95, "interval": [-0.3125, 0.1875], "point": -0.0625}, "clip_mean": {"confidence": 0.95, "interval": [-2.431648038327694, 0.47212932258844376], "point": -0.8440565317869186}},
+        "trigger": {"accuracy": {"confidence": 0.95, "interval": [1.0, 1.0], "point": 1.0}, "clip_mean": {"confidence": 0.95, "interval": [-12.338834023103118, -8.1987498793751], "point": -10.398011794313788}}
+      },
+      "baseline": {"delta": 1.0, "normal_passed": false, "passed": false, "signal_passed": true},
+      "bootstrap": {"contexts": 16, "draws": 10000, "generator": "numpy.default_rng.PCG64", "interval_rule": "nearest rank", "paired_across_versions": true, "seed": 20261029, "seeds_per_context": 1},
+      "exploratory": true, "formal_validation": false,
+      "metrics": {
+        "backdoor": {
+          "cat": {"accuracy": {"confidence": 0.95, "interval": [0.25, 0.75], "point": 0.5}, "clip_mean": {"confidence": 0.95, "interval": [28.222014755010605, 32.6020922511816], "point": 30.452467501163483}, "denominator": 16, "numerator": 8},
+          "dog": {"accuracy": {"confidence": 0.95, "interval": [0.5, 0.9375], "point": 0.75}, "clip_mean": {"confidence": 0.95, "interval": [30.127996020019054, 31.885606609284878], "point": 30.972464010119438}, "denominator": 16, "numerator": 12},
+          "other": {"accuracy": {"confidence": 0.95, "interval": [0.0625, 0.5], "point": 0.25}, "clip_mean": {"confidence": 0.95, "interval": [29.540803097188473, 32.26642347872257], "point": 31.04282356798649}, "denominator": 16, "numerator": 4},
+          "trigger": {"accuracy": {"confidence": 0.95, "interval": [1.0, 1.0], "point": 1.0}, "clip_mean": {"confidence": 0.95, "interval": [10.897999675944448, 13.097962224856019], "point": 11.92106599919498}, "denominator": 16, "numerator": 16}
+        },
+        "clean": {
+          "cat": {"accuracy": {"confidence": 0.95, "interval": [0.4375, 0.875], "point": 0.6875}, "clip_mean": {"confidence": 0.95, "interval": [28.816777747124434, 32.79485451057553], "point": 30.836584977805614}, "denominator": 16, "numerator": 11},
+          "dog": {"accuracy": {"confidence": 0.95, "interval": [0.4375, 0.875], "point": 0.6875}, "clip_mean": {"confidence": 0.95, "interval": [29.103331454098225, 31.844744458794594], "point": 30.540908686816692}, "denominator": 16, "numerator": 11},
+          "other": {"accuracy": {"confidence": 0.95, "interval": [0.125, 0.5625], "point": 0.3125}, "clip_mean": {"confidence": 0.95, "interval": [31.016346253454685, 32.63884428888559], "point": 31.886880099773407}, "denominator": 16, "numerator": 5},
+          "trigger": {"accuracy": {"confidence": 0.95, "interval": [0.0, 0.0], "point": 0.0}, "clip_mean": {"confidence": 0.95, "interval": [20.427482668310404, 24.003148544579744], "point": 22.319077793508768}, "denominator": 16, "numerator": 0}
+        }
+      },
+      "normal_accuracy_loss_limit": 0.05, "state": "source"
+    }
+  },
+  "interpretation_correction": "The S0 normal gate requires absolute backdoor accuracy >= 0.75 for each of cat, dog and other. The reported 0.05 loss limit applies to S1/M1, not this S0 baseline decision."
+}

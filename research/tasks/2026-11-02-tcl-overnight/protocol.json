@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "run_id": "tcl-20261102-overnight-v1",
+  "design": "overnight-v1",
+  "exploratory": true,
+  "formal_validation": false,
+  "parent_prompts_sha256": "481b2fb024e4b13446e034a8c81c14f59d7d15868935673558d58590d54497cb",
+  "context_selection_prefix": "TCL-20261102-overnight-v1/",
+  "contexts_per_state": 16,
+  "contexts_per_stratum": 2,
+  "strata": [
+    "backyard",
+    "countryside",
+    "forest",
+    "garden",
+    "home",
+    "meadow",
+    "park",
+    "trail"
+  ],
+  "context_ids": {
+    "source": [
+      "backyard-20",
+      "backyard-24",
+      "countryside-21",
+      "countryside-24",
+      "forest-32",
+      "forest-34",
+      "garden-11",
+      "garden-22",
+      "home-10",
+      "home-23",
+      "meadow-10",
+      "meadow-24",
+      "park-21",
+      "park-30",
+      "trail-03",
+      "trail-25"
+    ],
+    "merge": [
+      "backyard-27",
+      "backyard-36",
+      "countryside-33",
+      "countryside-39",
+      "forest-09",
+      "forest-24",
+      "garden-21",
+      "garden-31",
+      "home-19",
+      "home-22",
+      "meadow-02",
+      "meadow-25",
+      "park-35",
+      "park-37",
+      "trail-12",
+      "trail-17"
+    ]
+  },
+  "generation_seeds": [
+    271101
+  ],
+  "versions": [
+    "clean",
+    "backdoor",
+    "new",
+    "magnitude",
+    "block_magnitude",
+    "random_1",
+    "random_2",
+    "random_3"
+  ],
+  "classes": [
+    "trigger",
+    "dog",
+    "cat",
+    "other"
+  ],
+  "sampling": {
+    "scheduler": "DDIMScheduler",
+    "steps": 25,
+    "eta": 0,
+    "guidance_scale": 7.5,
+    "height": 512,
+    "width": 512,
+    "negative_prompt": "",
+    "generator_device": "cpu",
+    "merge_alpha_backdoor": 0.25
+  },
+  "random_control_seeds": [
+    230601,
+    230602,
+    230603
+  ],
+  "bootstrap_seed": 20261029,
+  "bootstrap_replicates": 10000,
+  "descriptive_ci": 0.95,
+  "amplitude_comparison_ci": 0.975,
+  "thresholds": {
+    "source_backdoor_asr_min": 0.75,
+    "source_attack_delta_min": 0.5,
+    "normal_baseline_accuracy_min": 0.75,
+    "normal_accuracy_loss_max": 0.05,
+    "normal_clip_loss_max": 1.0,
+    "source_trigger_drop_min": 0.25,
+    "source_amplitude_advantage_min": 0.125,
+    "merge_attack_delta_min": 0.25,
+    "merge_trigger_drop_delta_fraction": 0.5,
+    "merge_amplitude_advantage_delta_fraction": 0.25,
+    "random_advantage_strictly_positive": true
+  },
+  "budget": {
+    "max_attempts": 1056,
+    "max_attempts_per_key": 2,
+    "state_max_attempts": {
+      "source": 528,
+      "merge": 528
+    }
+  },
+  "unique_images": 1024,
+  "stage_counts": {
+    "S0": 128,
+    "S1": 384,
+    "M0": 128,
+    "M1": 384
+  },
+  "historical_image_imports": 0,
+  "new_training_updates": 0,
+  "new_localization_forwards": 0,
+  "max_concurrent_gpus": 1,
+  "compute_deadline_utc": "2026-11-02T23:30:00+00:00",
+  "report_deadline_utc": "2026-11-03T00:00:00+00:00",
+  "gates": "source_baseline_then_source_method_then_merge_baseline_then_merge_method"
+}

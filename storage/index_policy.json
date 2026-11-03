@@ -91,6 +91,44 @@
       ]
     },
     {
+      "prefix": "research/tasks/2026-11-02-runtime-reset/",
+      "index": "research/tasks/2026-11-02-runtime-reset/README.md",
+      "related_records": [
+        "research/tasks/README.md",
+        "research/README.md",
+        "research/project_state.json",
+        "research/tasks/2026-11-02-runtime-reset/TASK.md"
+      ]
+    },
+    {
+      "prefix": "research/tasks/2026-11-02-labgpu-cli/",
+      "index": "research/tasks/2026-11-02-labgpu-cli/README.md",
+      "related_records": [
+        "research/tasks/README.md",
+        "research/project_state.json",
+        "research/tasks/2026-11-02-labgpu-cli/TASK.md"
+      ]
+    },
+    {
+      "prefix": "research/tasks/2026-11-02-tcl-overnight/",
+      "index": "research/tasks/2026-11-02-tcl-overnight/README.md",
+      "related_records": [
+        "research/tasks/README.md",
+        "research/project_state.json",
+        "research/tasks/2026-11-02-tcl-overnight/TASK.md"
+      ]
+    },
+    {
+      "prefix": "research/tasks/2026-11-03-tcl-semantic/",
+      "index": "research/tasks/2026-11-03-tcl-semantic/README.md",
+      "related_records": [
+        "research/tasks/README.md",
+        "research/README.md",
+        "research/project_state.json",
+        "research/tasks/2026-11-03-tcl-semantic/TASK.md"
+      ]
+    },
+    {
       "prefix": "research/tasks/",
       "index": "research/tasks/README.md",
       "related_records": [
@@ -126,9 +164,8 @@
       "index": "scripts/merging/trigger_contrast_localization/README.md",
       "related_records": [
         "scripts/README.md",
-        "research/tasks/2026-10-29-trigger-contrast-localization/README.md",
-        "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
-        "research/project_state.json"
+        "research/tasks/2026-11-02-runtime-reset/README.md",
+        "research/tasks/2026-11-02-runtime-reset/TASK.md"
       ]
     },
     {
@@ -257,7 +294,17 @@
     "research/tasks/2026-10-29-trigger-contrast-localization/TASK.md",
     "research/tasks/2026-10-29-trigger-contrast-localization/RECOVERY_HANDOFF_2026-11-02.md",
     "results/trigger-contrast-localization/tcl-20261102-pilot24-v2/README.md",
-    "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md"
+    "research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md",
+    "research/WORKFLOW.md",
+    "research/tasks/2026-11-02-runtime-reset/README.md",
+    "research/tasks/2026-11-02-runtime-reset/TASK.md",
+    "research/tasks/2026-11-02-labgpu-cli/README.md",
+    "research/tasks/2026-11-02-labgpu-cli/TASK.md",
+    "scripts/connection/LABGPU.md",
+    "research/tasks/2026-11-02-tcl-overnight/README.md",
+    "research/tasks/2026-11-02-tcl-overnight/TASK.md",
+    "research/tasks/2026-11-03-tcl-semantic/README.md",
+    "research/tasks/2026-11-03-tcl-semantic/TASK.md"
   ],
   "local_exclusions": [
     {

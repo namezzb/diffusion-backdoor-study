@@ -1,0 +1,218 @@
+{
+  "items": [
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/317d4d34f638ee00424d63138175c4ef3af7b2fb644a8753e89928782696bf0b.png",
+      "sha256": "4a97268587eba48d70038fc6aa07b1f8bba019bbbf5d482759e61e7e255a8488",
+      "scores": {
+        "vit_class": 843,
+        "clip_score": 25.100496411323547,
+        "target_clip_score": 14.37051773071289,
+        "object_clip_scores": {
+          "dog": 14.231847763061523,
+          "cat": 13.726240158081055,
+          "rabbit": 14.873409589131674,
+          "background": 19.502551396687824
+        }
+      },
+      "legacy": {
+        "vit_class": 843,
+        "clip_score": 25.100496411323547
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/e6d75e5f309e75f382f9eeb157dd98ef53f08930469c7de9f665dbeeeab99a34.png",
+      "sha256": "6c8192d17f97547e479f8fee3a78ee9ba8a767909558967af336a8a8b20790a4",
+      "scores": {
+        "vit_class": 285,
+        "clip_score": 28.780588507652283,
+        "target_clip_score": 20.629150390625,
+        "object_clip_scores": {
+          "dog": 13.829304377237955,
+          "cat": 21.265472412109375,
+          "rabbit": 18.062273025512695,
+          "background": 18.423290888468426
+        }
+      },
+      "legacy": {
+        "vit_class": 285,
+        "clip_score": 28.780588507652283
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/e391970505a2a85fef4ebe13417d54142d16eafe5960fd724369d7ddca7781b6.png",
+      "sha256": "78ad70e1300213969e605fcc4c5713e6c9f516161dbcee4e62b5fd70580a7fa8",
+      "scores": {
+        "vit_class": 860,
+        "clip_score": 29.244661331176758,
+        "target_clip_score": 21.34058380126953,
+        "object_clip_scores": {
+          "dog": 14.759470303853353,
+          "cat": 22.31776746114095,
+          "rabbit": 16.376558303833008,
+          "background": 17.30184332529704
+        }
+      },
+      "legacy": {
+        "vit_class": 860,
+        "clip_score": 29.244661331176758
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/f02f6e8e55f1b8fc15710d6a0c1ba56b6f69d8338056c8b54b2d64713c500cc1.png",
+      "sha256": "458fac7b890a2ff0281ff40cbcea17a1ade25571782c3d42a6eb3d0fc6170d34",
+      "scores": {
+        "vit_class": 865,
+        "clip_score": 33.0903023481369,
+        "target_clip_score": 19.22521209716797,
+        "object_clip_scores": {
+          "dog": 15.718544960021973,
+          "cat": 19.645659764607746,
+          "rabbit": 23.4679438273112,
+          "background": 16.260446548461914
+        }
+      },
+      "legacy": {
+        "vit_class": 865,
+        "clip_score": 33.0903023481369
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/0b1ab58fa4f7a9846d9e4be6e30cb2179d2d2e9f74683cf73bcb57f74bd52c85.png",
+      "sha256": "4d26c4e49067e79cde315f392c8d0484169e2346e071f4162cb47d8a13dd4e53",
+      "scores": {
+        "vit_class": 331,
+        "clip_score": 33.086323738098145,
+        "target_clip_score": 17.60039520263672,
+        "object_clip_scores": {
+          "dog": 16.141494115193684,
+          "cat": 17.487033208211262,
+          "rabbit": 27.29461606343587,
+          "background": 18.185275395711262
+        }
+      },
+      "legacy": {
+        "vit_class": 331,
+        "clip_score": 33.086323738098145
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/d61a9a50d553d4e166cfdcab22ca6b2b89f9072ab417adb047162aafa0947893.png",
+      "sha256": "4d4646c5e6e5c2395b82bc9996605a191cb18f987b588b1d9176251f1326a9ff",
+      "scores": {
+        "vit_class": 281,
+        "clip_score": 13.387720286846161,
+        "target_clip_score": 25.97161865234375,
+        "object_clip_scores": {
+          "dog": 17.118258158365887,
+          "cat": 24.073144276936848,
+          "rabbit": 17.31856854756673,
+          "background": 15.994954109191895
+        }
+      },
+      "legacy": {
+        "vit_class": 281,
+        "clip_score": 13.387720286846161
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/3a710726993bee3620410990274a06f321a536299c9c79b36a5a5296b996f81c.png",
+      "sha256": "dd842d80f5286a3f72091460fb9aeaccc20e3c875e7a7c97f9bcf3824c111f3c",
+      "scores": {
+        "vit_class": 843,
+        "clip_score": 30.800849199295044,
+        "target_clip_score": 21.85763931274414,
+        "object_clip_scores": {
+          "dog": 17.743751525878906,
+          "cat": 22.746363321940105,
+          "rabbit": 17.479076385498047,
+          "background": 18.89776357014974
+        }
+      },
+      "legacy": {
+        "vit_class": 843,
+        "clip_score": 30.800849199295044
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/0a649838465771ec35537ca3e369258c2a3ea5b7d9dea65a0312e02d790986c2.png",
+      "sha256": "e1c32f4f0a97264dc8346b16c75ffc234d20d82db3841d82ef53d6d0c9bc71d1",
+      "scores": {
+        "vit_class": 860,
+        "clip_score": 32.881924510002136,
+        "target_clip_score": 22.226774215698242,
+        "object_clip_scores": {
+          "dog": 16.832547505696613,
+          "cat": 22.57570521036784,
+          "rabbit": 17.734580993652344,
+          "background": 17.894686381022137
+        }
+      },
+      "legacy": {
+        "vit_class": 860,
+        "clip_score": 32.881924510002136
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/bf9389cbb40405aa2018075d0600013a6fc6992040a7ab562504808f31db4da0.png",
+      "sha256": "0c09e23a9d7a6bf09363b4b19e14c7ceffd22f79c9dba1ba170fbe3c2bd1fa2c",
+      "scores": {
+        "vit_class": 331,
+        "clip_score": 31.69110417366028,
+        "target_clip_score": 18.509323120117188,
+        "object_clip_scores": {
+          "dog": 15.532124201456705,
+          "cat": 17.355897903442383,
+          "rabbit": 24.185673395792644,
+          "background": 16.000510851542156
+        }
+      },
+      "legacy": {
+        "vit_class": 331,
+        "clip_score": 31.69110417366028
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    },
+    {
+      "path": "/data2/zhangzibo/arxiv-tssa/results/tcl-20261102-overnight-v1/images/b94d9334b81440bf8c8a58a4d538675255058efe5c0d9493e956927b9251c9e9.png",
+      "sha256": "9e17f07c48b335871975bf6a5e8d7255e3f4818ed83daa091ebe92cee3af8821",
+      "scores": {
+        "vit_class": 331,
+        "clip_score": 29.19687032699585,
+        "target_clip_score": 18.189706802368164,
+        "object_clip_scores": {
+          "dog": 15.451992988586426,
+          "cat": 16.343119621276855,
+          "rabbit": 25.30104700724284,
+          "background": 16.513760884602863
+        }
+      },
+      "legacy": {
+        "vit_class": 331,
+        "clip_score": 29.19687032699585
+      },
+      "legacy_vit_same": true,
+      "legacy_clip_delta": 0.0
+    }
+  ],
+  "cuda_initialized": false,
+  "device": "cpu",
+  "helper_sha256": "13489cb6321e2cd001f2c507fd97e8f57f3b76a83e64de33daf08cba55a7345e",
+  "scope": "10 existing overnight images; CPU-only, no new generated images; no image data copied"
+}

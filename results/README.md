@@ -6,7 +6,7 @@
 
 | 入口 | 内容 | 阅读边界 |
 |---|---|---|
-| [TCL运行索引](trigger-contrast-localization/README.md) · [任务正文](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md) | v2执行准备与v1历史证据分开；完成度与证据时间以TASK为准 | 按[24小时多卡协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)实现、冻结与审阅后启动；超时或数据不完整不等于方法负结果 |
+| [TCL历史运行索引](trigger-contrast-localization/README.md) | v1/v2原始证据和提前终止报告 | 不重放已终止身份；后续工作从[项目状态](../research/project_state.json)进入 |
 | [本轮验证证据](tssa-mvp-2026-10-26/README.md) | 代码/资产、真实训练、逐图评价、审计与释放证据 | 当前冻结配置初步负结果，不含FID或显著性证明 |
 | [直接ASR探索](tssa-opt-exploration-2026-10-28/README.md) | 12点搜索/独立开发，816图无合格增益；全部816张原图已在本地 | 原审计invalid，哈希缺陷全部解释、数值与选择复算一致；未做确认 |
 | [目标语义诊断](tssa-target-semantic-diagnostic-2026-10-28/README.md) | 96单元、462次分支前向，1141份原始响应与回执已在本地 | 0图/0更新；梯度一致性和局部可行性门槛失败，不是ASR评价 |

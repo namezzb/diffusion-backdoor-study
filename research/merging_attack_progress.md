@@ -4,7 +4,7 @@
 
 ## 当前接续（2026-11-02）
 
-梯度校准及两轮后续探索已经结束，结果见[三轮解释](tssa_methods_and_results_explained_2026-10-29.md)；当前[TCL任务](tasks/2026-10-29-trigger-contrast-localization/TASK.md)按[24小时多卡协议](tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)准备独立v2运行，本地执行链已review通过，实际来源包与生产bundle仍待认证。v1成果按新协议核验复用、不再补满原预算，以下按日期保留的旧方案不作为当前执行指令。
+当前工作和授权只从[项目状态](project_state.json)进入，协作采用[Astra/Terra流程](WORKFLOW.md)。三轮方法解释及TCL v1/v2记录作为历史证据保留，以下旧方案与旧状态不作为新的执行指令。
 
 ## 历史方案决策（2026-10-23，原文保留）
 

@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "run_id": "tcl-20261103-semantic-v1",
+  "design": "semantic-v1",
+  "exploratory": true,
+  "formal_validation": false,
+  "parent_prompts_sha256": "481b2fb024e4b13446e034a8c81c14f59d7d15868935673558d58590d54497cb",
+  "context_selection_prefix": "TCL-20261103-semantic-v1/",
+  "excluded_previous_context_ids": {
+    "source": [
+      "backyard-20",
+      "backyard-24",
+      "countryside-21",
+      "countryside-24",
+      "forest-32",
+      "forest-34",
+      "garden-11",
+      "garden-22",
+      "home-10",
+      "home-23",
+      "meadow-10",
+      "meadow-24",
+      "park-21",
+      "park-30",
+      "trail-03",
+      "trail-25"
+    ],
+    "merge": [
+      "backyard-27",
+      "backyard-36",
+      "countryside-33",
+      "countryside-39",
+      "forest-09",
+      "forest-24",
+      "garden-21",
+      "garden-31",
+      "home-19",
+      "home-22",
+      "meadow-02",
+      "meadow-25",
+      "park-35",
+      "park-37",
+      "trail-12",
+      "trail-17"
+    ]
+  },
+  "contexts_per_state": 16,
+  "contexts_per_stratum": 2,
+  "strata": [
+    "backyard",
+    "countryside",
+    "forest",
+    "garden",
+    "home",
+    "meadow",
+    "park",
+    "trail"
+  ],
+  "context_ids": {
+    "source": [
+      "backyard-18",
+      "backyard-33",
+      "countryside-04",
+      "countryside-27",
+      "forest-07",
+      "forest-29",
+      "garden-27",
+      "garden-32",
+      "home-14",
+      "home-33",
+      "meadow-17",
+      "meadow-22",
+      "park-17",
+      "park-28",
+      "trail-07",
+      "trail-18"
+    ],
+    "merge": [
+      "backyard-15",
+      "backyard-38",
+      "countryside-14",
+      "countryside-15",
+      "forest-12",
+      "forest-19",
+      "garden-08",
+      "garden-33",
+      "home-26",
+      "home-34",
+      "meadow-23",
+      "meadow-33",
+      "park-08",
+      "park-39",
+      "trail-27",
+      "trail-39"
+    ]
+  },
+  "generation_seeds": [
+    271101
+  ],
+  "versions": [
+    "clean",
+    "backdoor",
+    "new",
+    "magnitude",
+    "block_magnitude",
+    "random_1",
+    "random_2",
+    "random_3"
+  ],
+  "classes": [
+    "trigger",
+    "dog",
+    "cat",
+    "other"
+  ],
+  "sampling": {
+    "scheduler": "DDIMScheduler",
+    "steps": 25,
+    "eta": 0,
+    "guidance_scale": 7.5,
+    "height": 512,
+    "width": 512,
+    "negative_prompt": "",
+    "generator_device": "cpu",
+    "merge_alpha_backdoor": 0.25
+  },
+  "random_control_seeds": [
+    230601,
+    230602,
+    230603
+  ],
+  "scoring": {
+    "schema": "semantic-v1",
+    "model": "openai/clip-vit-large-patch14",
+    "target_text": "A photo of a cat",
+    "object_texts": {
+      "dog": [
+        "A photo of a dog.",
+        "A photo containing a dog.",
+        "A dog in a scene."
+      ],
+      "cat": [
+        "A photo of a cat.",
+        "A photo containing a cat.",
+        "A cat in a scene."
+      ],
+      "rabbit": [
+        "A photo of a rabbit.",
+        "A photo containing a rabbit or hare.",
+        "A rabbit in a scene."
+      ],
+      "background": [
+        "A photo of scenery with no animal.",
+        "A photo of an empty scene.",
+        "A scene without animals."
+      ]
+    },
+    "formula": "100*max(0,cosine); object score is mean of three fixed text similarities",
+    "legacy_fields": [
+      "vit_class",
+      "clip_score"
+    ],
+    "additional_fields": [
+      "target_clip_score",
+      "object_clip_scores"
+    ],
+    "object_choices_are_diagnostic": true,
+    "probability_calibration": false
+  },
+  "bootstrap_seed": 20261029,
+  "bootstrap_replicates": 10000,
+  "bootstrap_design": "paired_within_stratum_two_contexts_per_stratum",
+  "descriptive_ci": 0.95,
+  "amplitude_comparison_ci": 0.975,
+  "thresholds": {
+    "baseline_target_delta_ci_lower_gt": 0,
+    "normal_full_prompt_clip_loss_max": 1.0,
+    "normal_object_clip_loss_max": 1.0,
+    "trigger_drop_delta_fraction": 0.5,
+    "amplitude_advantage_delta_fraction": 0.25,
+    "random_advantage_strictly_positive": true,
+    "minimum_eligible_amplitude_controls": 1,
+    "minimum_eligible_random_controls": 1
+  },
+  "budget": {
+    "max_attempts": 1056,
+    "max_attempts_per_key": 2,
+    "state_max_attempts": {
+      "source": 528,
+      "merge": 528
+    }
+  },
+  "unique_images": 1024,
+  "stage_counts": {
+    "S0": 128,
+    "S1": 384,
+    "M0": 128,
+    "M1": 384
+  },
+  "historical_image_imports": 0,
+  "new_training_updates": 0,
+  "new_localization_forwards": 0,
+  "max_concurrent_gpus": 1,
+  "compute_deadline_utc": null,
+  "max_compute_seconds": 21600,
+  "gates": "complete_all_fixed_stages_then_interpret",
+  "scope": "same model and existing localization; excludes overnight contexts; not independent formal validation"
+}

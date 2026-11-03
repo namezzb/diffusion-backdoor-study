@@ -1,8 +1,8 @@
 # 科研资料存储与换机入口
 
-**科研进度、代码和索引纳入Git，供新电脑定位并按需下载；大数据留服务器，Drive上传及大文件回传保持暂停。** 旧GPU定时任务保持删除；用户已单独授权[TCL服务器验证](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)。
+**科研进度、代码和索引纳入Git，大数据留服务器，Drive上传及大文件批量回传保持暂停。** 当前工作和授权从[项目状态](../research/project_state.json)进入，不从历史服务器记录推断。
 
-当前TCL按[24小时多卡协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)准备独立v2运行，先固定复用规则再核验既有成果，详细状态以TASK为准；服务器选择按[AGENTS统一优先级](../AGENTS.md#服务器选择优先级)。本次只更新本地导航，不把历史盘点时间改成新远端核验。
+[协作流程](../research/WORKFLOW.md)规定Astra规划/核心代码与Terra实现/报告并行；仅在交付时集中维护索引，连续调试不反复归档。旧TCL数据、T0和失败证据保持原样，服务器选择见[AGENTS](../AGENTS.md#服务器选择优先级)。
 
 ## 先看什么
 

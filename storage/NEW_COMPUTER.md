@@ -1,6 +1,6 @@
 # 新电脑接续科研：先拉Git，再按索引取数据
 
-目标是让agent只凭科研Git就能理解进度、定位已知资料并按需取回；大图片、模型和缓存仍在本人服务器，不要求先搬到旧Mac。旧GPU定时任务保持删除，TCL服务器验证按[任务正文](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)的实际授权和门禁执行，读取本页本身不授权其他实验。
+目标是凭科研Git接续当前任务并按需取回资料；大图片、模型和缓存留服务器。先读[项目状态](../research/project_state.json)定位当前TASK，不按本页的历史实验链接恢复旧run。
 
 ## 第一步：取得进度与当前代码
 
@@ -15,8 +15,8 @@ agent依次读取：
 
 1. [AGENTS.md](../AGENTS.md)：全局约束、按需入口和[服务器优先级](../AGENTS.md#服务器选择优先级)；当前授权以对应TASK为准。
 2. [project_state.json](../research/project_state.json)：全局状态及`current_task`指针，不能只按聊天或旧机缓存接续。
-3. 当前[TASK](../research/tasks/2026-10-29-trigger-contrast-localization/TASK.md)及[24小时多卡协议](../research/tasks/2026-10-29-trigger-contrast-localization/PILOT24_PROTOCOL_2026-11-02.md)：v2本地实现review、真实来源认证与生产输入审阅、固定复用规则、分片和截止报告要求；v1不再补满原预算。
-4. [研究解释](../research/tssa_methods_and_results_explained_2026-10-29.md)：三轮历史方法、术语与效果，不替代新任务状态。
+3. 项目JSON指向的当前TASK和对应模块README；按[Astra/Terra流程](../research/WORKFLOW.md)接手，历史TCL协议只在复核旧结果时读取。
+4. 按需读取[研究解释](../research/tssa_methods_and_results_explained_2026-10-29.md)，不把旧结论当作当前执行状态。
 5. [服务器索引](SERVER_INDEX.md)：哪台机器、哪个目录、哪些已在本地以及证据日期。
 6. [资产位置清单](retrieval_catalog.jsonl)：本地重要附件可从Git、学校服务器或固定版本公开地址取回；[覆盖审计](audits/retrieval_coverage.json)列出例外。
 
@@ -45,6 +45,8 @@ Python 3.10+和OpenSSH用于索引取回工具；工具面向macOS/Linux，本�
 [school_ssh_config](../server/school_ssh_config)使用`~/.ssh/zhangzibo_school`及`~/.ssh/known_hosts_school`，不要求新电脑仓库位于`/Users/zzb/arxiv`。跳板与目标主机都必须有已核验的身份记录；下载器不会自动接受未知指纹，也不会修改DNS或反复重试。
 
 需要网页登录或新的AMAX端口时由用户提供当前有效会话信息，旧记录不能替代新授权。只读取本人数据无需申请GPU，但不能顺带启动实验。
+
+查询显卡状态可用[labgpu](../scripts/connection/LABGPU.md)：新电脑运行 `./labgpu login` 后使用 `./labgpu status --json`，本机会话和缓存不从Git恢复。
 
 ## 第四步：按索引下载并验收
 
