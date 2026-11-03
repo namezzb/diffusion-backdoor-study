@@ -18,6 +18,7 @@ import shard104_policy as original_policy
 import shard127_policy as original_fence
 import shard127_wait_launcher as wait_launcher
 import test_shard104_policy as ledger_fixture
+from test_pilot24_provenance import historical_repository
 
 
 def envelope(issued,expires):
@@ -250,11 +251,12 @@ class WaitTests(unittest.TestCase):
             subprocess.run(['ssh-keygen','-Y','sign','-f',str(key),'-n','tcl-wait-amendment',str(review)],check=True,capture_output=True)
             args=SimpleNamespace(wait_review=review,wait_signature=Path(str(review)+'.sig'),reviewer_key=public,
                 resource_launcher=root/'resource127_launcher.py',patch=root/'shard127_watch_wait.py')
-            forwarded=['--manifest',str(manifest),'--repository-root',str(ROOT),'--overlay',str(root/'resource127_gdm_xorg_patch.py'),
+            source_root=historical_repository()
+            forwarded=['--manifest',str(manifest),'--repository-root',str(source_root),'--overlay',str(root/'resource127_gdm_xorg_patch.py'),
                        '--review',str(root/'resource-review'),'--signature',str(root/'resource-signature'),'--',
-                       '--manifest',str(manifest),'--repository-root',str(ROOT),'--review-envelope',str(root/'shard-envelope')]
+                       '--manifest',str(manifest),'--repository-root',str(source_root),'--review-envelope',str(root/'shard-envelope')]
             with patch.object(wait_launcher,'REVIEW_KEY_SHA',fingerprint):
-                self.assertEqual(wait_launcher.verify(args,forwarded)[0],ROOT)
+                self.assertEqual(wait_launcher.verify(args,forwarded)[0],source_root)
                 (root/'shard127_watch_controller.py').write_text('tampered')
                 with self.assertRaisesRegex(ValueError,'reviewed frozen inputs'): wait_launcher.verify(args,forwarded)
 

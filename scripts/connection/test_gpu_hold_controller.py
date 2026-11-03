@@ -49,6 +49,7 @@ class ControllerTests(unittest.TestCase):
 
     def fake_remote(self, config, action, **fields):
         self.calls.append((action, fields))
+        if action == 'report': return self.report
         if action == 'inspect':
             return {'machine': self.machine, 'preferred_uuid': U2, 'complete': 1024}
         return {'status': action, 'workers': []}
@@ -75,7 +76,18 @@ class ControllerTests(unittest.TestCase):
             value = copy.deepcopy(self.snapshot); change(value)
             with self.subTest(change=change), self.assertRaises(c.NotReady): c.platform(value, self.config)
         self.snapshot['policy']['rules']['new_rule'] = True
-        with self.assertRaises(c.NotReady): c.platform(self.snapshot, self.config)
+        c.platform(self.snapshot, self.config)
+
+    def test_changed_notice_is_not_a_stop_but_explicit_stop_is(self):
+        self.snapshot['policy']['rectifications'] = [{'status': 'pending', 'summary': 'disk usage reminder'}]
+        self.snapshot['policy']['cases'] = [{'status': 'warned', 'kind': 'disk'}]
+        self.assertNotEqual(c.policy_hash(self.snapshot), self.config['authorization']['reviewed_policy_sha256'])
+        c.platform(self.snapshot, self.config, [U1])
+        self.snapshot['policy']['cases'].append({'status': 'active', 'stop_required': True})
+        with self.assertRaisesRegex(c.NotReady, 'explicitly requires stopping'):
+            c.platform(self.snapshot, self.config, [U1])
+        self.snapshot['policy']['cases'][-1]['status'] = 'resolved'
+        c.platform(self.snapshot, self.config, [U1])
 
     def test_running_co_user_not_stop_and_pending_workers_consume_quota(self):
         self.snapshot['hosts'][0]['gpus'][0].update(status='shared', own=True)
@@ -101,10 +113,40 @@ class ControllerTests(unittest.TestCase):
         with mock.patch.object(c, 'remote', side_effect=self.fake_remote), \
                 mock.patch.object(c, 'fresh_snapshot', side_effect=[first, self.snapshot, self.snapshot]):
             c.watch(self.config, self.state, once=True)
-        self.assertEqual([a for a, _ in self.calls], ['inspect', 'start', 'add', 'renew'])
-        start = self.calls[1][1]['leases']; added = self.calls[2][1]['leases']
+        self.assertEqual([a for a, _ in self.calls if a != 'report'], ['inspect', 'start', 'add', 'renew'])
+        start = next(f for a, f in self.calls if a == 'start')['leases']; added = next(f for a, f in self.calls if a == 'add')['leases']
         self.assertEqual(len(start), 1); self.assertEqual(len(added), 2)
         self.assertEqual(start[0]['lease_id'], added[0]['lease_id'])
+
+    def test_pending_verification_does_not_block_renewal(self):
+        entered, release = threading.Event(), threading.Event()
+        def remote(config, action, **fields):
+            if action == 'report':
+                entered.set(); release.wait(5); return self.report
+            return self.fake_remote(config, action, **fields)
+        try:
+            with mock.patch.object(c, 'remote', side_effect=remote), mock.patch.object(c, 'fresh_snapshot', return_value=self.snapshot):
+                c.watch(self.config, self.state, once=True)
+                self.assertTrue(entered.is_set())
+                self.assertIn('renew', [a for a, _ in self.calls])
+                self.assertEqual(c.read_private(self.state / 'manifest.json')['verification'], 'pending')
+        finally:
+            release.set()
+
+    def test_failed_verification_revokes_and_records_failure(self):
+        class ImmediateThread:
+            def __init__(self, target, daemon): self.target = target
+            def start(self): self.target()
+        def remote(config, action, **fields):
+            if action == 'report': raise ValueError('bad image')
+            return self.fake_remote(config, action, **fields)
+        with mock.patch.object(c.threading, 'Thread', ImmediateThread), mock.patch.object(c, 'remote', side_effect=remote), \
+                mock.patch.object(c, 'fresh_snapshot', return_value=self.snapshot):
+            with self.assertRaisesRegex(c.NotReady, 'bad image'): c.watch(self.config, self.state, once=True)
+        self.assertEqual(self.calls[-1][0], 'stop')
+        manifest = c.read_private(self.state / 'manifest.json')
+        self.assertEqual(manifest['verification'], 'failed')
+        self.assertIn('bad image', manifest['verification_error'])
 
     def test_renewal_failure_revokes_and_records_visible_failure(self):
         def remote(config, action, **fields):
@@ -191,22 +233,34 @@ class ControllerTests(unittest.TestCase):
         cards, _ = c.platform(self.snapshot, self.config, now=now)
         self.assertEqual(cards[U1]['lease_until'], now + 5)
 
-    def test_configure_uses_actual_source_identity_and_requires_new_result(self):
+    def test_configure_does_not_require_remote_run_or_manual_policy_hash(self):
         snapshot = copy.deepcopy(self.snapshot)
         snapshot['hosts'][0].update(id='iipl-103', label='103')
         identity = {'server': '103', 'science_sha256': 'c' * 64, 'username': 'test'}
-        arguments = dict(reviewed_policy_sha256=c.policy_hash(snapshot), compute_target_percent=65,
+        arguments = dict(reviewed_policy_sha256=None, compute_target_percent=65,
                          memory_target_percent=65, max_cards=2, hold_id='cpu-test', snapshot=snapshot)
         with mock.patch.object(c.transport, 'load_manifest', return_value=identity), \
-                mock.patch.object(c, 'remote', return_value={'status': 'running_or_paused', 'units': {'complete': 1}}):
+                mock.patch.object(c, 'remote') as remote:
             config = c.configure_from_semantic(self.root / 'semantic.json', **arguments)
+        remote.assert_not_called()
         self.assertEqual(config['source'], {'server': '103', 'run_id': c.RUN, 'science_sha256': 'c' * 64})
+        self.assertEqual(config['authorization']['reviewed_policy_sha256'], c.policy_hash(snapshot))
         self.assertNotIn('completion_report', config)
-        for progress in ({'status': 'running_or_paused', 'units': {'complete': 0}},
-                         {'status': 'partial_terminal', 'units': {'complete': 128}}):
-            with mock.patch.object(c.transport, 'load_manifest', return_value=identity), \
-                    mock.patch.object(c, 'remote', return_value=progress), self.assertRaises(c.NotReady):
-                c.configure_from_semantic(self.root / 'semantic.json', **arguments)
+        arguments['reviewed_policy_sha256'] = 'f' * 64
+        with mock.patch.object(c.transport, 'load_manifest', return_value=identity), self.assertRaises(c.NotReady):
+            c.configure_from_semantic(self.root / 'semantic.json', **arguments)
+
+    def test_cli_configure_needs_no_manual_policy_attestation(self):
+        identity = {'server': '104', 'science_sha256': 'c' * 64, 'username': 'test'}
+        with mock.patch.object(c.transport, 'load_manifest', return_value=identity), \
+                mock.patch.object(c, 'fresh_snapshot', return_value=self.snapshot), \
+                mock.patch.object(c, 'remote') as remote:
+            rc = c.main(['configure', '--config', str(self.root / 'new.json'),
+                         '--semantic-manifest', str(self.root / 'semantic.json'), '--until-stopped',
+                         '--compute-target-percent', '65', '--memory-target-percent', '65', '--max-cards', '2'])
+        self.assertEqual(rc, 0)
+        remote.assert_not_called()
+        self.assertEqual(c.read_private(self.root / 'new.json')['authorization']['reviewed_policy_sha256'], c.policy_hash(self.snapshot))
 
     def test_resume_requires_verified_worker_exit_and_never_clears_stop(self):
         c.private_dir(self.state)
@@ -251,7 +305,7 @@ class RemoteGateTests(unittest.TestCase):
             db.execute('INSERT INTO metadata VALUES(1,?)', (json.dumps({'run_id': c.RUN, 'science_sha256': self.sha,
                 'run_root': str(self.source), 'writer_host': self.machine}),))
             db.executemany('INSERT INTO units(status,key,unit) VALUES(?,?,?)', [('complete', c.canonical(u['key']), c.canonical(u)) for u in self.units])
-            db.execute('INSERT INTO events(kind,detail) VALUES(?,?)', ('terminal', json.dumps({'stage': 'M1', 'outcome': 'inconclusive'})))
+            db.execute('INSERT INTO events(kind,detail) VALUES(?,?)', ('terminal', json.dumps({'stage': 'M1', 'outcome': 'inconclusive', 'reason': 'fixture'})))
             for stage in ('S0', 'S1', 'M0', 'M1'): db.execute('INSERT INTO events(kind,detail) VALUES(?,?)', ('stage_gate', json.dumps({'stage': stage})))
         self.script = c.REMOTE.replace("'/data2/zhangzibo/arxiv-tssa'", repr(str(self.root)))
         self.script = self.script.replace('socket.gethostname()', "'iipl-104'")
@@ -270,7 +324,7 @@ class RemoteGateTests(unittest.TestCase):
     def test_partial_terminal_cannot_acquire_gpu(self):
         with closing(sqlite3.connect(self.dbpath)) as db, db: db.execute("DELETE FROM units WHERE rowid>128")
         result = self.invoke(); self.assertNotEqual(result.returncode, 0)
-        self.assertIn('completed units differ', result.stderr)
+        self.assertIn('experiment incomplete', result.stderr)
         self.assertEqual(json.loads(self.invoke('poll').stdout)['status'], 'partial_terminal')
 
     def test_live_scientific_writer_or_wrong_identity_refused(self):
@@ -285,11 +339,13 @@ class RemoteGateTests(unittest.TestCase):
     def test_same_count_wrong_key_or_mask_cannot_pass_completion(self):
         with closing(sqlite3.connect(self.dbpath)) as db, db:
             db.execute('UPDATE units SET key=? WHERE rowid=1', (c.canonical(['wrong']),))
-        result = self.invoke(); self.assertIn('completed units differ', result.stderr)
+        self.assertEqual(self.invoke('handoff').returncode, 0)
+        result = self.invoke('report'); self.assertIn('completed units differ', result.stderr)
         with closing(sqlite3.connect(self.dbpath)) as db, db:
             changed = {**self.units[0], 'mask_sha': 'c' * 64}
             db.execute('UPDATE units SET key=?,unit=? WHERE rowid=1', (c.canonical(changed['key']), c.canonical(changed)))
-        result = self.invoke(); self.assertIn('completed units differ', result.stderr)
+        self.assertEqual(self.invoke('handoff').returncode, 0)
+        result = self.invoke('report'); self.assertIn('completed units differ', result.stderr)
 
     def test_report_verifies_actual_fixture_pngs_scores_and_ledger_hash(self):
         # Synthetic CPU artifact set: exercises the actual verifier, not a model.

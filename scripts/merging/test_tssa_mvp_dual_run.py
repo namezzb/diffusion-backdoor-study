@@ -161,6 +161,15 @@ class DualRunnerTests(unittest.TestCase):
         code = "import sys; sys.path.insert(0,sys.argv[1]); import tssa_mvp_dual_run as d; p,s=d.load_protocol(d.PROJECT_ROOT/'research/tssa_mvp_2026-10-26.json'); d.experiment_plan(p,s); assert 'torch' not in sys.modules"
         subprocess.run([sys.executable, "-I", "-c", code, str(Path(__file__).parent)], check=True)
 
+    def test_gpu_run_reuses_worker_load_without_parent_model_load(self):
+        runner = self.runner()
+        def unexpected_parent_load():
+            self.fail("parent must not load a third model bank")
+        self.backend.cpu.cpu_preflight = unexpected_parent_load
+        self.execute(runner, "gpu-diagnostic")
+        self.assertEqual(self.backend.source_hashes, {"test": "fake"})
+        self.assertEqual(len([client for client in self.backend.clients if client.process]), 2)
+
     def test_assignment_is_balanced_and_family_dependencies_are_prior(self):
         manifest = execution_manifest(PROTOCOL, SHA, UUIDS)
         tasks = manifest["training_tasks"]
@@ -233,9 +242,9 @@ class DualRunnerTests(unittest.TestCase):
         buckets = ledger["committed_work_by_bucket"]
         self.assertEqual(buckets["main"]["known_actual_branch_NFE"], 91848)
         self.assertEqual(buckets["source_extra"]["known_actual_branch_NFE"], 2400)
-        self.assertEqual(buckets["diagnostic_extra"]["known_actual_branch_NFE"], 276)
+        self.assertEqual(buckets["diagnostic_extra"]["known_actual_branch_NFE"], 0)
         self.assertEqual([ledger["per_worker"][u]["known_optimizer_updates"] for u in UUIDS], [72, 72])
-        self.assertEqual(sum(x["known_branch_NFE"] for x in ledger["per_worker"].values()), 94524)
+        self.assertEqual(sum(x["known_branch_NFE"] for x in ledger["per_worker"].values()), 94248)
         records = [json.loads(x) for x in (self.path / "heldout_per_image_metrics.jsonl").read_text().splitlines()]
         self.assertEqual(len(records), 960)
         self.assertEqual(len({r["task_id"] for r in records}), 960)

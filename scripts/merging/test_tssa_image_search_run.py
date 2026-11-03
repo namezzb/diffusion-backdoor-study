@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import patch
 
 from PIL import Image
-from tssa_image_search_run import (IntegrityError, InflightOperation, Runner, Store, atomic_bytes,
+from tssa_image_search_run import (IntegrityError, InflightOperation, Runner, Store, atomic_bytes, load_plan,
                                    digest, file_hash, select, validate_plan)
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -106,6 +106,21 @@ class ImageSearchTests(unittest.TestCase):
         self.plan["max_images"] -= 1
         with self.assertRaisesRegex(IntegrityError, "budget"):
             validate_plan(self.plan, OLD)
+
+    def test_normal_plan_load_does_not_require_old_source_audit(self):
+        root = Path(self.tmp.name)
+        plan = dict(self.plan, old_protocol_sha256='0' * 64, asset_manifest_sha256='0' * 64)
+        path, assets = root / 'plan.json', root / 'assets.json'
+        path.write_text(json.dumps(plan)); assets.write_text('{}')
+        _, identity = load_plan(path, ROOT / 'research/tssa_mvp_2026-10-26.json', assets, audit=False)
+        self.assertEqual(identity['source_verification'], 'not_verified')
+        self.assertIsNone(identity['maximum_stage_images'])
+        with self.assertRaisesRegex(IntegrityError, 'Frozen input hash'):
+            load_plan(path, ROOT / 'research/tssa_mvp_2026-10-26.json', assets)
+        plan['id'] = 'tssa-direct-asr-near-naive-v1-2026-10-28'
+        path.write_text(json.dumps(plan))
+        with self.assertRaisesRegex(IntegrityError, 'historical run is closed'):
+            load_plan(path, ROOT / 'research/tssa_mvp_2026-10-26.json', assets, audit=False)
 
     def test_no_torch_import_for_static_checks(self):
         result = subprocess.run([sys.executable, "-c", "import tssa_image_search_run,sys; assert 'torch' not in sys.modules"],

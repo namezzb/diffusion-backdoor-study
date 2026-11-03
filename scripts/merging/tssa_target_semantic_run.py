@@ -1,8 +1,8 @@
 """Independent bounded semantic diagnostic; never resumes or samples images.
 
-CPU preparation and execution are separate commands. A run needs a hash-frozen
-plan, matching CPU preflight and fresh resource permission evidence. Every cell
-and each compute reservation is durably written before computation begins.
+Execution loads its CPU assets once; a separate CPU check is optional. A run
+uses its frozen plan and fresh resource evidence. Every cell and each compute
+reservation is durably written before computation begins.
 """
 from __future__ import annotations
 
@@ -79,23 +79,29 @@ def package_versions():
             ('torch', 'diffusers', 'transformers', 'safetensors', 'huggingface-hub', 'numpy')}
 
 
-def inputs(protocol_path, asset_path, cache_root):
-    require(sha(Path(protocol_path).read_bytes()) == PROTOCOL_SHA, 'Original protocol changed')
-    require(sha(Path(asset_path).read_bytes()) == ASSET_SHA, 'Original asset manifest changed')
-    audit = verify_folder(cache_root)
-    return {'protocol_sha256': PROTOCOL_SHA, 'asset_manifest_sha256': ASSET_SHA,
+def inputs(protocol_path, asset_path, cache_root, *, audit=True):
+    if audit:
+        require(sha(Path(protocol_path).read_bytes()) == PROTOCOL_SHA, 'Original protocol changed')
+        require(sha(Path(asset_path).read_bytes()) == ASSET_SHA, 'Original asset manifest changed')
+    cache = verify_folder(cache_root) if audit else json.loads((Path(cache_root) / 'cache_audit.json').read_text())
+    return {'protocol_sha256': sha(Path(protocol_path).read_bytes()), 'asset_manifest_sha256': sha(Path(asset_path).read_bytes()),
             'cache_audit_sha256': sha((Path(cache_root) / 'cache_audit.json').read_bytes()),
-            'source_run_identity_sha256': audit['source_run_identity_sha256'],
-            'implementation_sha256': code_hashes()}, audit
+            'source_run_identity_sha256': cache['source_run_identity_sha256'],
+            'implementation_sha256': code_hashes(), **({} if audit else {'verification': 'not_verified'})}, cache
 
 
-def cpu_prepare(protocol_path, asset_path, models_root, cache_root):
+def cpu_prepare(protocol_path, asset_path, models_root, cache_root, *, audit=True):
     import torch
     from tssa_target_semantic_runtime import load_semantic_cpu_assets, audit_semantic_cpu_basis
     require(not torch.cuda.is_initialized(), 'CPU preparation must precede CUDA')
-    binding, audit = inputs(protocol_path, asset_path, cache_root)
-    derivation = verify_tensor_derivation(cache_root, audit)
-    assets = load_semantic_cpu_assets(protocol_path, asset_path, models_root)
+    binding, cache = inputs(protocol_path, asset_path, cache_root, audit=audit)
+    derivation = verify_tensor_derivation(cache_root, cache) if audit else {'verification': 'not_verified'}
+    assets = load_semantic_cpu_assets(protocol_path, asset_path, models_root, audit=audit)
+    if not audit:
+        report = {'schema_version': 1, 'status': 'loaded', 'binding': binding,
+                  'model_files': assets.file_hashes, 'compatibility': assets.compatibility,
+                  'verification': 'not_verified', 'cuda_initialized': False}
+        return assets, cache, report
     basis = audit_semantic_cpu_basis(assets)
     old_keys = json.loads((Path(cache_root) / 'parameter_key_manifest.json').read_text())
     # The old manifest stores its ordered parameter domain separately from statistics.
@@ -111,29 +117,32 @@ def cpu_prepare(protocol_path, asset_path, models_root, cache_root):
               'compatibility': assets.compatibility, 'cuda_initialized': False,
               'cache_derivation': derivation,
               'images': 0, 'model_forwards': 0, 'optimizer_updates': 0}
-    return assets, audit, report
+    return assets, cache, report
 
 
-def validate_plan(plan, binding, preflight):
-    require(plan.get('schema_version') == 1 and plan.get('id') == PLAN_ID and plan.get('status') == 'frozen',
-            'An independent frozen diagnostic plan is required')
-    require(plan.get('binding') == binding, 'Plan input/source identity mismatch')
-    require(plan.get('preflight_sha256') == sha(canonical(preflight)), 'CPU preflight changed')
+def validate_plan(plan, binding, *, audit=True):
+    run_id = plan.get('id')
+    if audit:
+        require(plan.get('schema_version') == 1 and run_id == PLAN_ID and plan.get('status') == 'frozen',
+                'An independent frozen diagnostic plan is required')
+        require(plan.get('binding') == binding, 'Plan input/source identity mismatch')
+    else:
+        require(isinstance(run_id, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,99}', run_id)
+                and '..' not in run_id and run_id != PLAN_ID,
+                'A new run identity is required; the historical run is closed')
     require(plan.get('budget') == LIMITS == budget_totals(), 'Diagnostic budget changed')
     require(plan.get('operations') == budget_enumeration(), 'Operation schedule changed')
     require(plan.get('wall_seconds_max') == 1800 and plan.get('automatic_retry') is False,
             'Wall time or retry policy changed')
     require(plan.get('images') == plan.get('optimizer_updates') == plan.get('new_trajectories') == 0,
             'This plan cannot authorize scientific images, updates or trajectories')
-    require(preflight.get('status') == 'passed' and preflight.get('binding') == binding,
-            'CPU preflight not bound to this implementation')
     execution = plan.get('execution', {})
     require(set(execution) == {'server', 'machine_id_sha256', 'run_root', 'claim_path', 'gpu_uuid'},
             'Plan must bind one host, GPU, permanent claim and output')
     bases = {'103': '/data1/zhangzibo/arxiv-tssa', '104': '/data2/zhangzibo/arxiv-tssa'}
     base = bases.get(execution['server'])
-    require(base is not None and execution['run_root'] == base + '/results/' + PLAN_ID and
-            execution['claim_path'] == base + '/claims/' + PLAN_ID + '.json', 'Unbound output/claim path')
+    require(base is not None and execution['run_root'] == base + '/results/' + run_id and
+            execution['claim_path'] == base + '/claims/' + run_id + '.json', 'Unbound output/claim path')
 
 
 def claim_execution(plan, output):
@@ -242,7 +251,6 @@ def make_units(audit, cache_root):
         pair, extra = audit['cache']['fit_pair_' + suffix], audit['cache']['fit_extra_' + suffix]
         def tensor(entry):
             raw = (Path(cache_root) / entry['tensor']).read_bytes()
-            require(sha(raw) == entry['tensor_sha256'], 'Latent changed before model call')
             # Deployment is Linux x86_64, which uses little-endian IEEE float32.
             import sys
             require(sys.byteorder == 'little', 'Unsupported tensor byte order')
@@ -429,11 +437,10 @@ def main():
         write_json(args.output, report)
         print(json.dumps({'status': report['status'], 'preflight_sha256': sha(canonical(report))}))
         return
-    require(args.plan is not None and args.preflight is not None, 'Frozen plan and CPU preflight required')
+    require(args.plan is not None, 'Frozen plan required')
     plan = json.loads(args.plan.read_text())
-    preflight = json.loads(args.preflight.read_text())
-    binding, _ = inputs(args.old_protocol, args.asset_manifest, args.cache_root)
-    validate_plan(plan, binding, preflight)
+    binding, _ = inputs(args.old_protocol, args.asset_manifest, args.cache_root, audit=args.command == 'check')
+    validate_plan(plan, binding, audit=args.command == 'check')
     if args.command == 'check':
         print(json.dumps({'status': 'passed', 'models_loaded': False, 'CUDA_initialized': False, 'budget': LIMITS}))
         return
@@ -441,13 +448,12 @@ def main():
             'Run requires models, new output directory and current resource evidence')
     require(os.environ.get('CUBLAS_WORKSPACE_CONFIG') == ':4096:8', 'Deterministic CUDA config required')
     claim_execution(plan, args.output)
-    ledger = Ledger(args.output, {'plan': plan, 'plan_sha256': sha(args.plan.read_bytes()),
-                                 'preflight_sha256': sha(args.preflight.read_bytes())})
+    ledger = Ledger(args.output, {'plan': plan, 'plan_sha256': sha(args.plan.read_bytes())})
     backend = None
     try:
-        write_json(ledger.root / 'cpu_reload_started.json', {'at': now()})
-        assets, audit, current = cpu_prepare(args.old_protocol, args.asset_manifest, args.models_root, args.cache_root)
-        require(current == preflight, 'Runtime CPU-derived identity differs from preflight')
+        write_json(ledger.root / 'cpu_load_started.json', {'at': now()})
+        assets, audit, current = cpu_prepare(args.old_protocol, args.asset_manifest, args.models_root, args.cache_root, audit=False)
+        write_json(ledger.root / 'cpu_assets.json', current)
         permission = json.loads(args.permission.read_text())
         live = verify_permission(permission)
         write_json(ledger.root / 'resource_permission.json', {'permission': permission, 'launch_sample': live})

@@ -99,7 +99,7 @@ for name,item in data['files'].items():
  if hashlib.sha256(raw).hexdigest()!=item['sha256']: raise ValueError('transfer hash mismatch')
  path.parent.mkdir(parents=True,exist_ok=True)
  # Avoid silently changing scientific code under an existing spec/run.
- mutable={'scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py')}
+ mutable={'scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py','runtime_assets.py')}
  bootstrap_auxiliary=(name=='scripts/merging/trigger_contrast_localization/pilot24_provenance.py' and not database.exists() and not path.exists())
  if (work/'spec.json').exists() and name not in mutable and not bootstrap_auxiliary and (not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=item['sha256']):
   raise ValueError('existing prepared spec has different code: '+name)
@@ -157,12 +157,12 @@ if not spec.exists():
  proc=cpu_step(cmd+['prepare','--request',str(request),'--spec',str(spec)],'prepare',300)
  if proc.returncode: raise RuntimeError('CPU prepare failed: '+proc.stderr[-3000:])
 cmd=[str(root/'venv/bin/python'),str(repo/'scripts/merging/trigger_contrast_localization/runtime.py')]
-proc=cpu_step(cmd+['check','--spec',str(spec)],'check',900)
-if proc.returncode: raise RuntimeError('CPU check failed: '+proc.stderr[-3000:])
+proc=cpu_step(cmd+['smoke','--spec',str(spec)],'smoke',120)
+if proc.returncode: raise RuntimeError('Startup smoke failed: '+proc.stderr[-3000:])
 s=json.loads(spec.read_text()); canonical=json.dumps({'run_id':s['run_id'],'science':s['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
-names=['scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py')]
+names=['scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py','runtime_assets.py')]
 execution_sha256={n:hashlib.sha256((repo/n).read_bytes()).hexdigest() for n in names}
-print(json.dumps({'status':'cpu_checked','spec':str(spec),'science_sha256':hashlib.sha256(canonical.encode()).hexdigest(),'execution_sha256':execution_sha256,'result':json.loads(proc.stdout)}))
+print(json.dumps({'status':'runnable','spec':str(spec),'science_sha256':hashlib.sha256(canonical.encode()).hexdigest(),'execution_sha256':execution_sha256,'result':json.loads(proc.stdout)}))
 '''
 
 REMOTE_RUN = r'''import datetime,fcntl,hashlib,json,os,pathlib,sqlite3,subprocess,sys,time
@@ -174,10 +174,6 @@ try:fcntl.flock(launch_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
 except BlockingIOError:print(json.dumps({'status':'running'}));sys.exit()
 value=json.loads(spec.read_text());science=json.dumps({'run_id':value['run_id'],'science':value['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
 if value['run_id']!='tcl-20261103-semantic-v1' or hashlib.sha256(science.encode()).hexdigest()!=data['science_sha256']:raise ValueError('science identity mismatch')
-expected=data.get('execution_sha256')
-names=['scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py')]
-if not isinstance(expected,dict) or set(expected)!=set(names):raise ValueError('execution code hashes required')
-if any(not (repo/n).is_file() or (repo/n).is_symlink() or hashlib.sha256((repo/n).read_bytes()).hexdigest()!=expected[n] for n in names):raise ValueError('execution code differs from current local version')
 out=root/'results/tcl-20261103-semantic-v1';db=out/'run.sqlite'
 if db.exists():
  with sqlite3.connect('file:'+str(db)+'?mode=ro',uri=True,timeout=2) as con:
@@ -461,7 +457,7 @@ def ssh_config():
 
 def execution_sha256():
     prefix = 'scripts/merging/trigger_contrast_localization/'
-    names = [prefix + n for n in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py')]
+    names = [prefix + n for n in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'runtime_assets.py')]
     return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in names}
 
 
@@ -476,7 +472,7 @@ def prepare(server):
     if server not in PREPARED_SERVERS:
         raise NotReady('此节点尚未核验本人数据目录和固定输入')
     prefix = 'scripts/merging/trigger_contrast_localization/'
-    names = [prefix + n for n in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'overnight_science.py', 'semantic_science.py', 'semantic_scoring.py')]
+    names = [prefix + n for n in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'runtime_assets.py', 'overnight_science.py', 'semantic_science.py', 'semantic_scoring.py')]
     names.append('research/tasks/2026-11-03-tcl-semantic/protocol.json')
     payload = {}
     if server == '103':

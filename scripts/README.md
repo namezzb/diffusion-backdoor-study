@@ -32,7 +32,7 @@
 | [tssa_target_semantic_cache.py](merging/tssa_target_semantic_cache.py) | 从旧运行的已验证缓存派生限定状态并保留来源，不生成新轨迹。 |
 | [tssa_target_semantic_runtime.py](merging/tssa_target_semantic_runtime.py) | 完整模型目标/正常响应、真实a/b梯度、固定批布局与精度设置。 |
 | [tssa_target_semantic_gates.py](merging/tssa_target_semantic_gates.py) | 冻结诊断单元、资源预算、身份/重复/目标方向、有限差分与八点可行性门禁。 |
-| [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | CPU预检、唯一运行身份、逐单元账本、资源保护及终态退出；已结束运行不可重放。 |
+| [tssa_target_semantic_run.py](merging/tssa_target_semantic_run.py) | 一次模型加载、唯一运行身份、逐单元账本、资源保护及终态退出；已结束运行不可重放。 |
 
 ## CPU检查与结果复核
 

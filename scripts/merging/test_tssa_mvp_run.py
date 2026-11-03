@@ -153,7 +153,7 @@ class RunnerTests(unittest.TestCase):
         ledger = self.store.resource_ledger()["committed_work_by_bucket"]
         self.assertEqual(ledger["main"]["committed_operation_cost_upper_bounds"]["branch_NFE"], 91848)
         self.assertEqual(ledger["source_extra"]["committed_operation_cost_upper_bounds"]["branch_NFE"], 2400)
-        self.assertEqual(ledger["diagnostic_extra"]["committed_operation_cost_upper_bounds"]["branch_NFE"], 138)
+        self.assertEqual(ledger["diagnostic_extra"]["committed_operation_cost_upper_bounds"].get("branch_NFE", 0), 0)
         second = FakeBackend()
         repeated = self.quiet_execute(self.runner(second, resume=True))
         self.assertEqual(repeated, report)
@@ -234,6 +234,11 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(first["packages"]["ftfy"], "6.3.0")
         self.assertEqual(set(first["packages"]), {"ftfy", "tokenizers", "regex", "huggingface-hub"})
         self.assertNotEqual(canonical_hash(first), canonical_hash(changed))
+        with patch("tssa_mvp_run.importlib.metadata.distributions", return_value=unchanged):
+            manifest.write_text('{"files": [{"local_path": "large-missing-model"}]}')
+            fast = build_identity(PROTOCOL_PATH, manifest, models, audit=False)
+        self.assertEqual(fast['model_file_verification'], 'not_verified')
+        self.assertEqual(fast['local_file_sha256'], {})
         self.store = RunStore(self.path, first)
         self.store.close()
         with self.assertRaises(IntegrityError):

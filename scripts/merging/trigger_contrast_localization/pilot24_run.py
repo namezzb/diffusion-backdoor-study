@@ -313,10 +313,12 @@ def _serve_reviewed(args, config, *, lock_fds=()):
 def parser():
     p = argparse.ArgumentParser(description=__doc__)
     subs = p.add_subparsers(dest='command', required=True)
+    q = subs.add_parser('run', help='run a new spec with the unified runtime')
+    q.add_argument('--spec', required=True)
     for command in ('initialize', 'release', 'ingest', 'advance', 'status', 'serve', 'start'):
         q = subs.add_parser(command)
         for key in ('bundle', 'config', 'root'):
-            q.add_argument('--' + key, required=True)
+            q.add_argument('--' + key, required=command != 'status' or key == 'root')
         if command == 'ingest':
             q.add_argument('--receipt', required=True)
         if command in ('serve', 'start'):
@@ -335,6 +337,14 @@ def parser():
 
 def main(argv=None):
     args = parser().parse_args(argv)
+    if args.command == 'run':
+        return subprocess.call([sys.executable, str(Path(__file__).with_name('runtime.py')), 'run', '--spec', args.spec])
+    if args.command == 'status':
+        value = read_json(Path(args.root) / 'state.json')
+        print(json.dumps(value, ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command != 'status':
+        raise SystemExit('historical pilot24 execution is closed; use run --spec for a new run')
     if args.command == 'worker':
         value = worker(args)
     elif args.command == 'supervise':
@@ -378,4 +388,4 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

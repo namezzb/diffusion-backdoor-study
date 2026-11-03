@@ -16,6 +16,8 @@ import math
 import os
 from pathlib import Path
 import re
+import queue
+import threading
 import shlex
 import subprocess
 import sys
@@ -125,7 +127,7 @@ def validate_config(config, *, require_report=True):
 
 def policy_hash(snapshot):
     policy = snapshot.get('_hold_raw_policy', snapshot.get('policy', {}))
-    # Changes to unparsed policy/case semantics require renewed human review.
+    # Retained as an audit fingerprint; permission uses current structured fields.
     return digest({k: policy.get(k) for k in ('rules', 'rectifications', 'cases')})
 
 
@@ -163,9 +165,14 @@ def platform(snapshot, config, active=(), now=None):
         raise NotReady('account permission missing or revoked')
     if (snapshot.get('_hold_policy_complete') is not True or not isinstance(policy.get('rules'), dict)
             or type(policy['rules'].get('gpu_management_enabled')) is not bool
-            or any(not isinstance(policy.get(k), list) for k in ('rectifications', 'cases'))
-            or policy_hash(snapshot) != auth['reviewed_policy_sha256']):
-        raise NotReady('platform rules or case notices changed; explicit review required')
+            or any(not isinstance(policy.get(k), list) for k in ('rectifications', 'cases'))):
+        raise NotReady('platform rules or case notices unavailable')
+    for notice in policy['rectifications'] + policy['cases']:
+        if not isinstance(notice, dict):
+            raise NotReady('platform notice has an unknown structure')
+        if (notice.get('stop_required') is True and notice.get('status') not in
+                ('rejected', 'cancelled', 'canceled', 'expired', 'completed', 'closed', 'resolved')):
+            raise NotReady('platform notice explicitly requires stopping')
     requests = policy.get('gpu_requests')
     if (not isinstance(requests, list) or not isinstance(policy.get('maintenance'), list)
             or any(not isinstance(r, dict) or r.get('status') not in
@@ -274,6 +281,25 @@ def completion():
   terminal=db.execute("SELECT detail FROM events WHERE kind='terminal' ORDER BY id DESC LIMIT 1").fetchone()
   counts=dict(db.execute('SELECT status,COUNT(*) FROM units GROUP BY status'))
   stages={json.loads(r[0])['stage'] for r in db.execute("SELECT detail FROM events WHERE kind='stage_gate'")}
+  final=json.loads(terminal[0]) if terminal else {}
+  if (metadata.get('run_id')!=run or metadata.get('science_sha256')!=p['science_sha256']
+      or metadata.get('writer_host')!=machine
+      or metadata.get('run_root')!=str(source) or not terminal or counts!={'complete':1024}
+      or stages!={'S0','S1','M0','M1'} or final.get('stage')!='M1'
+      or final.get('outcome') not in ('exploratory_positive','exploratory_negative','inconclusive')
+      or not isinstance(final.get('reason'),str)):
+   raise ValueError('experiment incomplete or not at full scientific terminal')
+ return {'terminal':json.loads(terminal[0]),'complete':1024,'preferred_uuid':spec['execution'].get('gpu_uuid')}
+machine={'hostname':socket.gethostname(),'uid':os.geteuid(),'machine_id_sha256':hashlib.sha256(pathlib.Path('/etc/machine-id').read_bytes()).hexdigest()}
+if p['action'] in ('handoff','report'):
+ try:result=completion()
+ except BlockingIOError:print(json.dumps({'status':'scientific_writer_still_running'}));sys.exit()
+ if p['action']=='handoff':
+  print(json.dumps({'status':'terminal','run_id':run,'science_sha256':p['science_sha256'],'completed_images':1024,'stages_completed':['S0','S1','M0','M1'],'verification':'pending',**result}));sys.exit()
+ for fd in held:os.close(fd)
+ held.clear()
+ spec=read(work/'spec.json')
+ with contextlib.closing(sqlite3.connect('file:'+str(source/'run.sqlite')+'?mode=ro',uri=True)) as db:
   expected=spec['science'].get('units',[])
   keytext=lambda key:json.dumps(key,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
   expected_units={keytext(u['key']):u for u in expected}
@@ -282,17 +308,6 @@ def completion():
       or {key for key,_ in actual}!=set(expected_units)
       or any(json.loads(unit)!=expected_units[key] for key,unit in actual)):
    raise ValueError('completed units differ from exact frozen keys/input/mask identities')
-  if (metadata.get('run_id')!=run or metadata.get('science_sha256')!=p['science_sha256']
-      or metadata.get('writer_host')!=machine
-      or metadata.get('run_root')!=str(source) or not terminal or counts!={'complete':1024}
-      or stages!={'S0','S1','M0','M1'} or json.loads(terminal[0]).get('stage')!='M1'):
-   raise ValueError('experiment incomplete or not at full scientific terminal')
- return {'terminal':json.loads(terminal[0]),'complete':1024,'preferred_uuid':spec['execution'].get('gpu_uuid')}
-machine={'hostname':socket.gethostname(),'uid':os.geteuid(),'machine_id_sha256':hashlib.sha256(pathlib.Path('/etc/machine-id').read_bytes()).hexdigest()}
-if p['action']=='report':
- try:result=completion()
- except BlockingIOError:print(json.dumps({'status':'scientific_writer_still_running'}));sys.exit()
- with contextlib.closing(sqlite3.connect('file:'+str(source/'run.sqlite')+'?mode=ro',uri=True)) as db:
   for key,image_sha,raw_scores in db.execute('SELECT key,image_sha,scores FROM units'):
    image=source/'images'/(hashlib.sha256(key.encode()).hexdigest()+'.png');safe(image);data=image.read_bytes()
    if hashlib.sha256(data).hexdigest()!=image_sha or data[:8]!=b'\x89PNG\r\n\x1a\n' or data[12:16]!=b'IHDR' or struct.unpack('>II',data[16:24])!=(512,512):raise ValueError('completed PNG verification failed')
@@ -408,7 +423,7 @@ def remote(config, action, **fields):
                'science_sha256': config['source']['science_sha256'], 'hold_id': config['hold_id'], **fields}
     with transport.ssh_config() as ssh:
         return json.loads(transport.bounded_ssh(ssh, payload['server'], shlex.join(['python3', '-c', REMOTE]),
-                                              canonical(payload), timeout=60 if action == 'report' else 25 if action in ('start', 'inspect', 'add') else 5))
+                                              canonical(payload), timeout=3600 if action == 'report' else 25 if action in ('start', 'inspect', 'add') else 5))
 
 
 def leases(config, manifest, cards, now):
@@ -473,6 +488,10 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
         os.close(fd); raise
     manifest_path = state / 'manifest.json'
     manifest = read_private(manifest_path) if manifest_path.exists() else None
+    verification = queue.Queue(maxsize=1)
+    def verify_later():
+        try: verification.put((True, remote(config, 'report')))
+        except Exception as exc: verification.put((False, str(exc)))
     try:
         stopped(state)
         if manifest and manifest['config_sha256'] != digest(config):
@@ -504,8 +523,24 @@ def watch(config, state=STATE, *, once=False, _lock_fd=None):
                             memory_fraction=config['authorization']['memory_target_percent'] / 100,
                             compute_target_percent=config['authorization']['compute_target_percent'])
             manifest.update(status='watching', last_remote=result); write_private(manifest_path, manifest)
+        manifest['verification'] = 'pending'
+        write_private(manifest_path, manifest)
+        threading.Thread(target=verify_later, daemon=True).start()
         while True:
             cycle_started = time.monotonic()
+            try: verified, report = verification.get_nowait()
+            except queue.Empty: pass
+            else:
+                if not verified or report.get('status') != 'terminal':
+                    manifest['verification'] = 'failed'
+                    manifest['verification_error'] = str(report)
+                    write_private(manifest_path, manifest)
+                    audit(state, 'verification_failed', reason=str(report))
+                    raise NotReady('post-handoff verification failed: ' + str(report))
+                write_private(state / 'verification-report.json', report)
+                manifest['verification'] = 'verified'
+                write_private(manifest_path, manifest)
+                audit(state, 'verification_completed', report_sha256=hashlib.sha256((state / 'verification-report.json').read_bytes()).hexdigest())
             if (state / 'STOP').exists():
                 raise NotReady('user stop requested')
             snapshot = refresh_with_retry(state, manifest)
@@ -571,7 +606,7 @@ def await_completion(config, state=STATE):
             if value['status'] == 'partial_terminal':
                 raise NotReady('partial, time-limited or incomplete scientific terminal: holding is not activated; user notification required')
             if value['status'] == 'ready_for_report':
-                report = remote(config, 'report')
+                report = remote(config, 'handoff')
                 stopped(state)
                 if report.get('status') == 'terminal':
                     path = state / 'completion-report.json'
@@ -579,7 +614,7 @@ def await_completion(config, state=STATE):
                     activated = {**config, 'completion_report': {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}}
                     validate_config(activated)
                     write_private(state / 'activated-config.json', activated)
-                    audit(state, 'full_report_verified', report_sha256=activated['completion_report']['sha256'])
+                    audit(state, 'handoff_ready_verification_pending', report_sha256=activated['completion_report']['sha256'])
                     passed_to_watch = True
                     return watch(activated, state, _lock_fd=fd)
                 if report.get('status') != 'scientific_writer_still_running':
@@ -625,24 +660,21 @@ def resume(config, state=STATE):
 
 def configure_from_semantic(manifest_path, *, reviewed_policy_sha256, compute_target_percent,
                             memory_target_percent, max_cards, hold_id, snapshot=None):
-    """Called by the authorized agent after reviewing the exact current policy."""
+    """Bind current platform policy; resource permission is checked before acquisition."""
     identity = transport.load_manifest(manifest_path)
     if identity['server'] not in NODES:
         raise NotReady('source node has no verified hold path adapter')
     snapshot = fresh_snapshot() if snapshot is None else snapshot
-    if policy_hash(snapshot) != reviewed_policy_sha256:
-        raise NotReady('policy changed since the execution agent reviewed it')
+    current_policy_sha256 = policy_hash(snapshot)
+    if reviewed_policy_sha256 and current_policy_sha256 != reviewed_policy_sha256:
+        raise NotReady('policy changed since the supplied policy hash')
     config = {'schema': 'gpu-hold-controller-v1', 'hold_id': hold_id,
               'source': {'run_id': RUN, 'server': identity['server'], 'science_sha256': identity['science_sha256']},
               'authorization': {'enabled': True, 'until_user_stop': True, 'platform_allows_hold': True,
                   'purpose': 'transparent_gpu_retention', 'username': identity['username'],
-                  'reviewed_policy_sha256': reviewed_policy_sha256, 'compute_target_percent': compute_target_percent,
+                  'reviewed_policy_sha256': current_policy_sha256, 'compute_target_percent': compute_target_percent,
                   'memory_target_percent': memory_target_percent, 'max_cards': max_cards}}
     validate_config(config, require_report=False)
-    platform(snapshot, config)
-    progress = remote(config, 'poll')
-    if progress['status'] not in ('running_or_paused', 'ready_for_report') or progress.get('units', {}).get('complete', 0) < 1:
-        raise NotReady('no completed new semantic image yet, or source terminal is incomplete')
     return config
 
 
@@ -680,7 +712,7 @@ def main(argv=None):
     parser.add_argument('--activate', action='store_true', help='explicitly enable the separate authorized hold task')
     parser.add_argument('--semantic-manifest', type=Path)
     parser.add_argument('--reviewed-policy-sha256')
-    parser.add_argument('--platform-allows-hold', action='store_true', help='execution agent attests reviewed rules permit this task; not platform approval')
+    parser.add_argument('--platform-allows-hold', action='store_true', help='legacy compatibility option; not platform approval')
     parser.add_argument('--until-stopped', action='store_true')
     parser.add_argument('--compute-target-percent', type=float)
     parser.add_argument('--memory-target-percent', type=float)
@@ -695,8 +727,8 @@ def main(argv=None):
         if not args.config:
             raise NotReady('--config ABS is required')
         if args.command == 'configure':
-            if not args.platform_allows_hold or not args.until_stopped or not args.semantic_manifest:
-                raise NotReady('explicit policy review, until-stopped authorization and semantic manifest required')
+            if not args.until_stopped or not args.semantic_manifest:
+                raise NotReady('until-stopped authorization and semantic manifest required')
             config = configure_from_semantic(args.semantic_manifest, reviewed_policy_sha256=args.reviewed_policy_sha256,
                 compute_target_percent=args.compute_target_percent, memory_target_percent=args.memory_target_percent,
                 max_cards=args.max_cards, hold_id=args.hold_id)

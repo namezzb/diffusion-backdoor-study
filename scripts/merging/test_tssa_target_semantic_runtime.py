@@ -368,6 +368,29 @@ class SemanticAssetCPUChecks(unittest.TestCase):
                 patch.object(DDIMScheduler, 'from_pretrained', side_effect=scheduler):
             assets = load_semantic_cpu_assets(root/'research/tssa_mvp_2026-10-26.json',
                                               root/'research/tssa_mvp_assets_2026-10-26.json', directory)
+            audited_calls = list(calls)
+            calls.clear()
+            fast = load_semantic_cpu_assets(root/'research/tssa_mvp_2026-10-26.json',
+                                            root/'research/tssa_mvp_assets_2026-10-26.json', directory, audit=False)
+            self.assertEqual(fast.file_hashes, {'verification': 'not_verified'})
+            for role in assets.text_states:
+                for name in assets.text_states[role]:
+                    self.assertTrue(torch.equal(assets.text_states[role][name], fast.text_states[role][name]))
+            for role in assets.unet_states:
+                for name in assets.unet_states[role]:
+                    self.assertTrue(torch.equal(assets.unet_states[role][name], fast.unet_states[role][name]))
+            for group in ('delta_a', 'delta_b'):
+                for name in getattr(assets.basis, group):
+                    self.assertTrue(torch.equal(getattr(assets.basis, group)[name], getattr(fast.basis, group)[name]))
+            with torch.no_grad():
+                ids = torch.tensor([[0, 3, 2]])
+                self.assertTrue(torch.equal(assets.text_encoder(ids).last_hidden_state,
+                                            fast.text_encoder(ids).last_hidden_state))
+                latent = torch.zeros(1, 4, 8, 8)
+                context = torch.zeros(1, 8, 16)
+                self.assertTrue(torch.equal(assets.unet(latent, 1, encoder_hidden_states=context).sample,
+                                            fast.unet(latent, 1, encoder_hidden_states=context).sample))
+            calls[:] = audited_calls
         self.assertEqual(set(assets.text_states), {'clean','backdoor','Edev'})
         self.assertEqual(set(assets.unet_states), {'clean','Edev'})
         self.assertEqual(assets.model_load_count, 5)
@@ -399,6 +422,56 @@ class SemanticAssetCPUChecks(unittest.TestCase):
             unverified.write_text('{}')
             with self.assertRaisesRegex(ValueError, 'unverified files'):
                 _verify_semantic_files({'files':entries}, root)
+
+    def test_mvp_fast_loader_keeps_real_tiny_model_parameters_and_outputs(self):
+        from tssa_sd_runtime import load_cpu_assets
+        runtime, _, _ = fixture()
+
+        class TokenizerFixture:
+            model_max_length, bos_token_id, eos_token_id, pad_token_id, unk_token_id = 77, 0, 2, 1, 3
+            bpe_ranks = {}
+            def get_vocab(self): return {'fixture': 3}
+            def __call__(self, prompt, truncation=False): return {'input_ids': [0, 3, 2]}
+
+        def te(path, **kwargs):
+            role = 'backdoor' if path.name == 'backdoor_tpa' else 'Edev' if path.parent.name in ('dreamshaper8', 'openjourney') else 'clean'
+            model = deepcopy(runtime.text_encoder)
+            model.load_state_dict(runtime.assets.text_states[role])
+            return model
+
+        def unet(path, **kwargs):
+            role = 'Edev' if path.parent.name in ('dreamshaper8', 'openjourney') else 'clean'
+            model = deepcopy(runtime.unet)
+            model.load_state_dict(runtime.assets.unet_states[role])
+            return model
+
+        root = Path(__file__).resolve().parents[2]
+        with tempfile.TemporaryDirectory() as directory, \
+             patch('tssa_sd_runtime.verify_local_assets', return_value={}), \
+             patch.object(CLIPTextModel, 'from_pretrained', side_effect=te), \
+             patch.object(UNet2DConditionModel, 'from_pretrained', side_effect=unet), \
+             patch.object(CLIPTokenizer, 'from_pretrained', side_effect=lambda *a, **k: TokenizerFixture()), \
+             patch.object(DDIMScheduler, 'from_pretrained', side_effect=lambda *a, **k: deepcopy(runtime.scheduler)):
+            audited = load_cpu_assets(root/'research/tssa_mvp_2026-10-26.json',
+                                      root/'research/tssa_mvp_assets_2026-10-26.json', directory)
+            fast = load_cpu_assets(root/'research/tssa_mvp_2026-10-26.json',
+                                   root/'research/tssa_mvp_assets_2026-10-26.json', directory, audit=False)
+        self.assertEqual(fast.file_hashes, {'verification': 'not_verified'})
+        for group in ('text_states', 'unet_states'):
+            for role, values in getattr(audited, group).items():
+                for name, value in values.items():
+                    self.assertTrue(torch.equal(value, getattr(fast, group)[role][name]))
+        for group in ('delta_a', 'delta_b'):
+            for name, value in getattr(audited.basis, group).items():
+                self.assertTrue(torch.equal(value, getattr(fast.basis, group)[name]))
+        with torch.no_grad():
+            ids = torch.tensor([[0, 3, 2]])
+            self.assertTrue(torch.equal(audited.text_encoder(ids).last_hidden_state,
+                                        fast.text_encoder(ids).last_hidden_state))
+            latent = torch.zeros(1, 4, 8, 8)
+            context = torch.zeros(1, 8, 16)
+            self.assertTrue(torch.equal(audited.unet(latent, 1, encoder_hidden_states=context).sample,
+                                        fast.unet(latent, 1, encoder_hidden_states=context).sample))
 
     def test_cpu_basis_hashes_match_bytes_and_detect_changed_partition(self):
         runtime, _, _ = fixture()

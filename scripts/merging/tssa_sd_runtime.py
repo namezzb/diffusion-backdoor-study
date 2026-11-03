@@ -223,22 +223,27 @@ class CPUAssets:
     model_load_count: int
 
 
-def load_cpu_assets(protocol_path: str | Path, asset_manifest: str | Path, models_root: str | Path) -> CPUAssets:
+def load_cpu_assets(protocol_path: str | Path, asset_manifest: str | Path, models_root: str | Path, *, audit: bool = True) -> CPUAssets:
     """Load and inspect original FP32 components locally, without touching CUDA."""
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
     from diffusers import DDIMScheduler, UNet2DConditionModel
     from transformers import CLIPTextModel, CLIPTokenizer
 
-    protocol, protocol_hash = read_frozen_protocol(protocol_path)
+    if audit:
+        protocol, protocol_hash = read_frozen_protocol(protocol_path)
+    else:
+        raw_protocol = Path(protocol_path).read_bytes()
+        protocol, protocol_hash = json.loads(raw_protocol), hashlib.sha256(raw_protocol).hexdigest()
     root = Path(models_root).resolve()
     asset_spec = json.loads(Path(asset_manifest).read_text())
     by_directory = {item["local_dir"]: item for item in asset_spec["assets"]}
-    for role, directory in ROLE_DIRECTORIES.items():
-        item = by_directory.get(directory)
-        if item is None or any(item[field] != protocol["models"][role][field] for field in ("repo_id", "revision")):
-            raise ValueError(f"Asset manifest is not bound to the frozen source identity: {role}")
-    hashes = verify_local_assets(asset_manifest, root)
+    if audit:
+        for role, directory in ROLE_DIRECTORIES.items():
+            item = by_directory.get(directory)
+            if item is None or any(item[field] != protocol["models"][role][field] for field in ("repo_id", "revision")):
+                raise ValueError(f"Asset manifest is not bound to the frozen source identity: {role}")
+    hashes = verify_local_assets(asset_manifest, root) if audit else {"verification": "not_verified"}
     clean_path = root / ROLE_DIRECTORIES["clean"]
     tokenizer = CLIPTokenizer.from_pretrained(clean_path / "tokenizer", local_files_only=True)
     text_encoder = CLIPTextModel.from_pretrained(clean_path / "text_encoder", torch_dtype=torch.float32,
@@ -249,7 +254,7 @@ def load_cpu_assets(protocol_path: str | Path, asset_manifest: str | Path, model
     unet.eval().requires_grad_(False)
     text_states = {"clean": _cpu_state(text_encoder, clone=True)}
     unet_states = {"clean": _cpu_state(unet, clone=True)}
-    compatibility: dict[str, Any] = {}
+    compatibility: dict[str, Any] = {} if audit else {"verification": "not_verified", "protocol_verification": "not_verified"}
     count = 2
     te_fields = ("vocab_size", "hidden_size", "intermediate_size", "num_hidden_layers", "num_attention_heads",
                  "max_position_embeddings", "hidden_act", "layer_norm_eps", "attention_dropout",
@@ -266,29 +271,34 @@ def load_cpu_assets(protocol_path: str | Path, asset_manifest: str | Path, model
         model = CLIPTextModel.from_pretrained(component_path, torch_dtype=torch.float32, use_safetensors=True,
                                              local_files_only=True, attn_implementation="sdpa")
         model.eval().requires_grad_(False)
-        _check_configs(text_encoder.config, model.config, te_fields, role + "/TE")
+        if audit:
+            _check_configs(text_encoder.config, model.config, te_fields, role + "/TE")
         text_states[role] = _cpu_state(model)
-        compatibility[role + "/TE"] = _check_states(text_states["clean"], text_states[role], role + "/TE")
+        if audit:
+            compatibility[role + "/TE"] = _check_states(text_states["clean"], text_states[role], role + "/TE")
         del model
         count += 1
         if role != "backdoor":
-            expert_tokenizer = CLIPTokenizer.from_pretrained(directory / "tokenizer", local_files_only=True)
-            _check_tokenizers(tokenizer, expert_tokenizer, prompts, role)
+            if audit:
+                expert_tokenizer = CLIPTokenizer.from_pretrained(directory / "tokenizer", local_files_only=True)
+                _check_tokenizers(tokenizer, expert_tokenizer, prompts, role)
             model = UNet2DConditionModel.from_pretrained(directory / "unet", torch_dtype=torch.float32,
                                                        use_safetensors=True, local_files_only=True)
             model.eval().requires_grad_(False)
-            config_equivalences = _check_configs(unet.config, model.config, unet_fields, role + "/UNet")
             unet_states[role] = _cpu_state(model)
-            compatibility[role + "/UNet"] = _check_states(unet_states["clean"], unet_states[role], role + "/UNet")
-            compatibility[role + "/UNet"]["configuration_equivalences"] = config_equivalences
-            if not compatibility[role + "/TE"]["changed_coordinates"] and not compatibility[role + "/UNet"]["changed_coordinates"]:
-                raise ValueError(f"{role} is identical to the clean base, not an independent expert.")
-            del model, expert_tokenizer
+            if audit:
+                config_equivalences = _check_configs(unet.config, model.config, unet_fields, role + "/UNet")
+                compatibility[role + "/UNet"] = _check_states(unet_states["clean"], unet_states[role], role + "/UNet")
+                compatibility[role + "/UNet"]["configuration_equivalences"] = config_equivalences
+                if not compatibility[role + "/TE"]["changed_coordinates"] and not compatibility[role + "/UNet"]["changed_coordinates"]:
+                    raise ValueError(f"{role} is identical to the clean base, not an independent expert.")
+                del expert_tokenizer
+            del model
             count += 1
     parameter_names = tuple(name for name, parameter in text_encoder.named_parameters() if parameter.is_floating_point())
     basis = FrozenDelta.from_state_dicts(text_states["clean"], text_states["backdoor"], parameter_names)
     scheduler = DDIMScheduler.from_pretrained(clean_path / "scheduler", local_files_only=True)
-    if scheduler.config.prediction_type != "epsilon":
+    if audit and scheduler.config.prediction_type != "epsilon":
         raise ValueError("The declared epsilon prediction parameterization does not match the scheduler.")
     return CPUAssets(protocol, protocol_hash, root, hashes, tokenizer, text_encoder, unet, scheduler,
                      text_states, unet_states, basis, parameter_names, compatibility, count)

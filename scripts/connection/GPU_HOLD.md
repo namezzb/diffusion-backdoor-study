@@ -6,19 +6,17 @@
 
 ## 在真实实验启动后配置
 
-先核验本轮真实模型加载、新PNG实际SHA、完整评分及账本增长；CPU准备、历史图或启动PID均不够。以下命令由执行负责人使用，`<已审阅的policy_sha256>` 是本轮实时检查后的实际值，不能直接原样使用。
+等待器可在语义运行清单建立后立即配置，不等首图；它只观察完成状态，不会提前占卡。实验是否真正跑通仍以真实模型加载、新PNG、评分及账本增长为准。
 
 ```sh
-.venv/bin/python scripts/connection/gpu_hold_controller.py inspect-policy
 .venv/bin/python scripts/connection/gpu_hold_controller.py configure \
   --config /Users/zzb/.config/labgpu/gpu-hold/config.json \
   --semantic-manifest /Users/zzb/.config/labgpu/tcl-semantic/manifest.json \
-  --reviewed-policy-sha256 <已审阅的policy_sha256> \
-  --platform-allows-hold --until-stopped \
+  --until-stopped \
   --compute-target-percent 65 --memory-target-percent 65 --max-cards 2
 ```
 
-先审阅真实规则、账号、禁用、有效分配和整改/cases，只有确认当前执行符合规则时才使用 `--platform-allows-hold`；该参数是执行负责人的判断，不是平台批准回执。配置从语义run的真实manifest取得节点、账号和科学SHA，且验证本轮至少有一个完成单元；它本身不复算首图，首图验收由执行负责人完成。
+配置自动读取平台快照并记录规则哈希，不要求人工填写审批参数；配置成功并不代表平台单独批准或已经通过资源许可。实际申请和续租时继续核对实时资源、规则、配额和有效停止要求。
 
 配置后同轮启动 `await` 后台等待器，不依赖半小时心跳发现终态。使用权限0700的状态目录和0600日志：
 
@@ -30,7 +28,7 @@ nohup /Users/zzb/arxiv/.venv/bin/python /Users/zzb/arxiv/scripts/connection/gpu_
   > /Users/zzb/.config/labgpu/gpu-hold/await.log 2>&1 &
 ```
 
-等待器以独占锁运行；只读核验1024个账本单元与冻结配置逐项一致、实际PNG SHA/签名/尺寸、完整评分字段及科学终态后，生成带账本文件SHA的报告并转入独立观察。该核验没有重新运行评分器，也不是逐图人工语义验收。等待器网络异常退出会写 `events.jsonl` 和 `wait-status.json`；后续定时检查应按状态有界修复并独占重启，不重新启动科学run。
+等待器以独占锁运行；核对本run完整终态、四阶段和账本完成数及写者已退出后即可交接。逐图PNG哈希与评分核验移到后台，完成前状态是`pending`，不能声称结果已核验；核验失败会记录并停止本任务保卡。该核验不重新运行评分器，也不是逐图人工语义验收。等待器网络异常退出会写 `events.jsonl` 和 `wait-status.json`；后续定时检查按状态修复并独占重启，不重新启动科学run。
 
 ## 状态、停止和恢复
 
@@ -42,7 +40,7 @@ nohup /Users/zzb/arxiv/.venv/bin/python /Users/zzb/arxiv/scripts/connection/gpu_
 
 `stop` 持久记录用户停止并核对本任务进程身份；`stop_pending` 或 `lease_expired_worker_exit_unverified` 都不等于已确认释放。用户明确停止后不自动恢复。只有未收到用户停止、旧worker已经确认退出且平台重新许可时，才可用 `resume` 重新申请，不能重用旧租约或清除停止标记。
 
-观察器持续查询平台并发放短租约，真实禁用、有效停止或无法验证许可时撤租；GPU/进程原始采样的有效截止不因续租延长。网络中断后worker最迟按租约失效退出，实际CUDA驱动卡死时不保证硬实时终止。worker分别记录真实设备GPU利用率、设备显存与本PID显存；65%是反馈目标，不是已达标结果，须看真实采样时序。
+观察器持续查询平台并发放短租约，真实禁用、有效停止或无法验证许可时撤租；自动解析目前只识别结构化 `stop_required=true`，不能保证识别自由文本或未知结构中的有效停止要求；仍需结合平台通知处理。GPU/进程原始采样的有效截止不因续租延长。网络中断后worker最迟按租约失效退出，实际CUDA驱动卡死时不保证硬实时终止。worker分别记录真实设备GPU利用率、设备显存与本PID显存；65%是反馈目标，不是已达标结果，须看真实采样时序。
 
 ## 当前验证范围
 

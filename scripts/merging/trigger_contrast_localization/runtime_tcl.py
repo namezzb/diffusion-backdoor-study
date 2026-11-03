@@ -27,6 +27,16 @@ SEMANTIC_HELPERS = frozenset("scripts/merging/trigger_contrast_localization/" + 
     for name in ("semantic_science", "semantic_scoring"))
 
 
+HISTORICAL_RUNS = frozenset(("tcl-20261029-01-v1", "tcl-20261102-pilot24-v2",
+                            "tcl-20261102-overnight-v1"))
+
+
+def require_current_run(run_id, run_root):
+    """Cheap ownership boundary, independent of optional scientific audits."""
+    if run_id in HISTORICAL_RUNS or HISTORICAL_RUNS.intersection(Path(run_root).parts):
+        raise ValueError("historical run identity or directory is read-only")
+
+
 def stage_of(key):
     if len(key) != 6 or key[1] not in ("source", "merge"):
         raise ValueError("invalid TCL unit key")
@@ -62,7 +72,7 @@ def _ref(ref, *, read=True):
     return b"".join(parts) if read else None
 
 
-def build_spec(request):
+def audit_build_spec(request):
     """Expand real source paths into one self-contained, directly usable spec.
 
     This CPU-only operation does not grant compute permission or import images.
@@ -128,6 +138,73 @@ def build_spec(request):
         spec["science"]["scientific_code_sha256"][relative] = hashlib.sha256(_regular(root / relative).read_bytes()).hexdigest()
     TCLAdapter(spec).validate_inputs()
     return spec
+
+
+def build_spec(request):
+    """Create new execution input from fixed files, without historical audits.
+
+    Existing run specs are never passed through this authoring function. Large
+    historical SQLite inputs are references only; absent prior hashes are null,
+    rather than being represented as freshly verified bytes.
+    """
+    import itertools
+    require_current_run(request["run_id"], request["run_root"])
+    root = Path(request.get("repository_root", Path(__file__).resolve().parents[3])).resolve()
+    inputs = {}
+    needed = {"parent_manifest", "prompts", "selection", "protocol", "asset_manifest"}
+    for name, value in request["inputs"].items():
+        if isinstance(value, dict):
+            inputs[name] = dict(value)
+        else:
+            path = Path(value)
+            inputs[name] = {"path": str(path), "sha256":
+                hashlib.sha256(path.read_bytes()).hexdigest() if name in needed else None}
+    study = request.get("study_protocol")
+    if study is None:
+        # The legacy authoring algorithm reads its small plan/context inputs;
+        # it neither reads models nor the localization SQLite.
+        adapter = TCLAdapter({"run_id": request["run_id"], "science": {"repository_root": str(root)}})
+        adapter._imports()
+        from pilot24_inputs import frozen_units
+        paths = {name: ref["path"] for name, ref in inputs.items()}
+        stages = frozen_units(paths["plan"], paths["context_ids"], paths["parent_manifest"], paths["prompts"])
+        design = None
+        budget = {"max_attempts": 6272, "max_attempts_per_key": 2,
+                  "state_max_attempts": {"source": 4160, "merge": 2112}}
+        protocol = None
+    else:
+        study = dict(study) if isinstance(study, dict) else {"path": str(study)}
+        content = Path(study["path"]).read_bytes()
+        study.setdefault("sha256", hashlib.sha256(content).hexdigest())
+        protocol = json.loads(content)
+        design, budget = protocol["design"], protocol["budget"]
+        stages = {stage: [(request["run_id"], state, version, category, context, seed)
+            for version, context, category, seed in itertools.product(
+                versions, protocol["context_ids"][state], protocol["classes"], protocol["generation_seeds"])]
+            for stage, state, versions in (("S0", "source", protocol["versions"][:2]),
+                ("S1", "source", protocol["versions"][2:]),
+                ("M0", "merge", protocol["versions"][:2]), ("M1", "merge", protocol["versions"][2:]))}
+    # Only runtime prompts and mask identities are needed to construct units.
+    adapter = TCLAdapter({"run_id": request["run_id"], "science": {"repository_root": str(root)}})
+    adapter._imports()
+    from bindings import input_digest
+    rows = [json.loads(line) for line in Path(inputs["prompts"]["path"]).read_text().splitlines() if line.strip()]
+    hashes = {(r["partition"], r["id"], c): input_digest(r, c) for r in rows for c in r["texts"]}
+    selection = json.loads(Path(inputs["selection"]["path"]).read_text())
+    science = {"backend": "tcl_sd", "repository_root": str(root), "models_root": request["models_root"],
+        "inputs": inputs, "scientific_code_sha256": {}, "budget": budget,
+        "units": [{"key": [request["run_id"], *key[1:]],
+            "input_sha": hashes[(key[1], key[4], key[3])], "mask_sha": selection["mask_sha256"][key[2]]}
+            for stage in STAGES for key in stages[stage]]}
+    if study is not None:
+        science.update(design=design, study_protocol=study)
+    for name in ("max_compute_seconds", "compute_deadline_utc"):
+        if name in request:
+            science[name] = request[name]
+        elif protocol and protocol.get(name) is not None:
+            science[name] = protocol[name]
+    return {"schema_version": 1, "run_id": request["run_id"], "run_root": request["run_root"],
+            "science": science, "execution": dict(request.get("execution", {}))}
 
 
 class TCLAdapter:
@@ -248,6 +325,43 @@ class TCLAdapter:
                 "historical_imports": 0, "cuda_initialized": False}
 
     def prepare_cpu(self):
+        """Load executable inputs once; historical audits are explicit opt-in."""
+        self._imports()
+        import torch
+        from runtime_assets import load_tcl_runtime_assets
+        from bindings import input_digest
+        p = {name: ref["path"] for name, ref in self.inputs.items()}
+        parent = json.loads(Path(p["parent_manifest"]).read_text())
+        selection = json.loads(Path(p["selection"]).read_text())
+        rows = [json.loads(line) for line in Path(p["prompts"]).read_text().splitlines() if line.strip()]
+        prompts, hashes, labels = {}, {}, {}
+        for row in rows:
+            for category, text in row["texts"].items():
+                key = (row["partition"], row["id"], category)
+                hashes[key] = input_digest(row, category)
+                labels[key] = tuple(row["class_ids"][category])
+                prompts[key] = _canonical({"prompt": text,
+                    "score_prompt": row["texts"]["dog"] if category == "trigger" else text,
+                    "tokenization": row["tokenization"][category]})
+        selection_root = Path(p["selection"]).parent
+        masks = {version: (selection_root / relative).read_text()
+                 for version, relative in selection["mask_files"].items()}
+        self.binding = SimpleNamespace(prompt_rows=prompts, input_hashes=hashes, labels=labels,
+            coordinate_masks=masks, mask_hashes=selection["mask_sha256"],
+            selection_sha=self.inputs["selection"]["sha256"], asset_hashes=parent["asset_sha256"])
+        self._units = self.science["units"]
+        self.stages = {stage: [tuple(u["key"]) for u in self._units if stage_of(u["key"]) == stage]
+                       for stage in STAGES}
+        torch.set_num_threads(self.spec.get("execution", {}).get("cpu_threads", 4))
+        self.assets = load_tcl_runtime_assets(p["protocol"], p["asset_manifest"],
+                                              self.science["models_root"], parent["asset_sha256"])
+        self.prepared = True
+        return {"backend": "tcl_sd", "unique_units": len(self._units),
+                "startup": "runtime_load", "historical_audit_performed": False}
+
+    def audit_cpu(self):
+        if any(not ref.get("sha256") for ref in self.inputs.values()):
+            raise ValueError("full audit requires a complete historical hash spec; fast-created specs retain unknown references without rehashing")
         report = self.validate_inputs()
         import torch
         from runtime_assets import load_tcl_cpu_assets

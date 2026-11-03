@@ -1,6 +1,7 @@
 """Actual CLI in an isolated copy, with explicitly simulated CPU dependencies."""
 from datetime import datetime, timedelta, timezone
 import hashlib
+import inspect
 import json
 import os
 from pathlib import Path
@@ -21,6 +22,7 @@ from PIL import Image
 class TCLAdapter:
     def __init__(self, spec): self.spec = spec
     def prepare_cpu(self): return {'backend': 'cpu_simulation'}
+    def audit_cpu(self): return self.prepare_cpu()
     def units(self): return self.spec['science']['units']
     def start_cuda(self): pass  # CPU simulation only
     def record(self, value):
@@ -58,9 +60,11 @@ class RuntimeCliTest(unittest.TestCase):
         self.root = Path(self.temp.name).resolve()
         self.script_dir = self.root / 'scripts' / 'merging' / 'trigger_contrast_localization'
         self.script_dir.mkdir(parents=True)
-        for name in ('runtime.py', 'runtime_store.py'):
+        for name in ('runtime.py', 'runtime_store.py', 'runtime_assets.py'):
             shutil.copyfile(SOURCE / name, self.script_dir / name)
-        (self.script_dir / 'runtime_tcl.py').write_text(ADAPTER)
+        import runtime_tcl
+        ownership = '\nHISTORICAL_RUNS = ' + repr(runtime_tcl.HISTORICAL_RUNS) + '\n' + inspect.getsource(runtime_tcl.require_current_run)
+        (self.script_dir / 'runtime_tcl.py').write_text(ADAPTER + ownership)
         (self.script_dir / 'pilot24_provenance.py').write_text(PROVENANCE)
         self.spec_path, self.log, self.block = (self.root / 'spec.json', self.root / 'calls', self.root / 'block')
         self.run_root = self.root / 'run'
@@ -138,6 +142,14 @@ class RuntimeCliTest(unittest.TestCase):
         self.assertEqual(observation['xml_sha256'], hashlib.sha256(simulated_xml).hexdigest())
         self.assertEqual((observation['driver_version'], observation['compute_mode'], observation['gpu_uuid']),
                          ('simulated-driver', 'Default', self.uuid))
+
+    def test_actual_process_rejects_historical_identity_before_creating_run(self):
+        self.spec['run_id'] = 'tcl-20261102-overnight-v1'
+        self.save()
+        result = self.invoke('run')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('historical run identity or directory', result.stderr)
+        self.assertFalse(self.run_root.exists())
 
     def test_cli_prepare_dispatch_and_exclusive_write(self):
         request = self.root / 'request.json'; request.write_text(json.dumps({'run_id': 'prepare-simulation'}))

@@ -6,7 +6,9 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import sqlite3
+import subprocess
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -20,6 +22,27 @@ TASK = REPOSITORY / "research/tasks/2026-10-29-trigger-contrast-localization"
 OLD_GPU = "GPU-1e9f28a2-986d-7765-2476-3e6388b01170"
 GPU = "GPU-11111111-2222-3333-4444-555555555555"
 NOW = datetime(2026, 11, 2, 12, tzinfo=timezone.utc)
+HISTORICAL_COMMIT = '2b3771adc2cac45c7db5024791438d226b91b7d0'
+_historical_temp = None
+
+
+def historical_repository():
+    """Test-only checkout, with all manifest-pinned files verified from Git."""
+    global _historical_temp
+    if _historical_temp is None:
+        folder = tempfile.TemporaryDirectory()
+        root = Path(folder.name).resolve()
+        shutil.copytree(REPOSITORY / 'scripts/merging', root / 'scripts/merging',
+                        ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
+        shutil.copytree(REPOSITORY / 'research', root / 'research')
+        manifest = json.loads((TASK / 'manifest_candidate.json').read_text())
+        for relative, expected in manifest['code_sha256'].items():
+            raw = subprocess.check_output(['git', 'show', HISTORICAL_COMMIT + ':' + relative], cwd=REPOSITORY)
+            if hashlib.sha256(raw).hexdigest() != expected:
+                raise AssertionError('Git historical source does not match manifest: ' + relative)
+            (root / relative).write_bytes(raw)
+        _historical_temp = folder
+    return Path(_historical_temp.name).resolve()
 
 
 def write(path, value):
@@ -37,12 +60,14 @@ class Fixture(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name).resolve()
+        self.repository = historical_repository()
+        self.task = self.repository / 'research/tasks/2026-10-29-trigger-contrast-localization'
         self.snapshot = self.root / "snapshot"
         self.snapshot.mkdir()
         self.output = self.root / RUN
         self.output.mkdir()
         self.copies = []
-        parent = TASK / "manifest_candidate.json"
+        parent = self.task / "manifest_candidate.json"
         parent_ref = {"path": str(parent), "sha256": hashlib.sha256(parent.read_bytes()).hexdigest()}
         self.assertEqual(parent_ref["sha256"], provenance.PARENT_MANIFEST_SHA256)
         self.old_root = json.loads(parent.read_text())["output_root"]
@@ -61,16 +86,16 @@ class Fixture(unittest.TestCase):
                 "manifest_sha": parent_ref["sha256"]}),))
         self.copy("localization_ledger", ledger.name, ledger.read_bytes())
         history = self.copy("historical_reconciliation", "history.json",
-            (TASK / "recovery_provisional_keys_20261102.json").read_bytes())
+            (self.task / "recovery_provisional_keys_20261102.json").read_bytes())
         launch = write(self.root / "launch.json", {"run_id": PARENT, "gpu_uuid": OLD_GPU,
             "manifest_sha256": parent_ref["sha256"]})
         self.legacy = write(self.root / "legacy_bound.json", {"run_id": PARENT, "server": "school103",
             "gpu_uuids": [OLD_GPU], "upper_bound": 1, "launch_records": [launch]})
-        ids_path = TASK / "pilot24_context_ids.json"
+        ids_path = self.task / "pilot24_context_ids.json"
         ids_ref = {"path": str(ids_path), "sha256": hashlib.sha256(ids_path.read_bytes()).hexdigest()}
         self.proof = {"schema_version": 1, "run_id": RUN, "parent_run_id": PARENT,
             "mode": "immutable_snapshot_namespace_isolation", "parent_manifest": parent_ref,
-            "parent_code_root": str(REPOSITORY), "context_ids": ids_ref,
+            "parent_code_root": str(self.repository), "context_ids": ids_ref,
             "old_output_roots": [{"server": "school103", "path": self.old_root}],
             "snapshot_root": str(self.snapshot), "output_root": str(self.output),
             "source_writer_state": "unknown", "legacy_occupancy_bound": self.legacy,

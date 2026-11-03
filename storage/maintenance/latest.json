@@ -1,105 +1,277 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-03T11:28:58.423Z",
-  "base_commit": "d5aa93f5e39ccee42c1424442d75db8136ce1ce8",
-  "summary": "修复SSH ControlPersist继承管道导致假超时并增加短keepalive；103已真实GPU预检和首轮推理，随后SSH与平台观察失联，远端当前状态及首图待核验。",
+  "reviewed_at": "2026-11-03T11:54:05.463948Z",
+  "base_commit": "97c0bf739d9d589baaaed282d803e628e60a9149",
+  "summary": "精简TCL和TSSA启动、保留资源与账本保护并同步半小时自动化；真实103部署状态待核验。",
   "reviewed_changes": [
+    {
+      "path": "AGENTS.md",
+      "kind": "file",
+      "sha256": "df7f7bdb8e708ec2b7240750c7c80b731f18a4c5df437da7d16c6ae516423185"
+    },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
       "kind": "file",
-      "sha256": "badbc4030286029dfe259a6e870b342eb64936d52eadb945c21835614484cac1"
+      "sha256": "baa4fd8ebd475392169a4b812f880bdd10f522d806cda710eca8598242b1a26a"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "kind": "file",
-      "sha256": "7da4da7faf6c575d0ae5bafd14ef6462e2c8e2de25764968abe8262ff8f1183a"
+      "sha256": "673b893cd00aa5f20eac65ed46833068608e92392ec56e7abc13ad5b06934276"
+    },
+    {
+      "path": "scripts/README.md",
+      "kind": "file",
+      "sha256": "aa45ac9aff3f79ef7a76bac298ebc97f62bbe4b17e1a7da7cc8313851734fca8"
+    },
+    {
+      "path": "scripts/connection/GPU_HOLD.md",
+      "kind": "file",
+      "sha256": "64a7cbb1a06e134250cf599356db0aecca9a778e512af54081ec9c310a6bfcf5"
+    },
+    {
+      "path": "scripts/connection/gpu_hold_controller.py",
+      "kind": "file",
+      "sha256": "754a2526eed41340b339b0e8a81ed6df1752d5a2e5f7fe8b2a4775f92a9b7ecf"
+    },
+    {
+      "path": "scripts/connection/test_gpu_hold_controller.py",
+      "kind": "file",
+      "sha256": "96066c96c7ec1cb4dde3d5bbb05c2048536f52038330cfec4cafd9a732d663ef"
+    },
+    {
+      "path": "scripts/merging/test_tssa_image_search_run.py",
+      "kind": "file",
+      "sha256": "33a2c9ff33ab1d2340928ce0c015fbb2fd250b8b30954f3d99505d5175dbae1c"
+    },
+    {
+      "path": "scripts/merging/test_tssa_mvp_dual_run.py",
+      "kind": "file",
+      "sha256": "0502319f8da8db47446a1e0c4ce2e131e1f74ee5a6873946af232c396f6ac716"
+    },
+    {
+      "path": "scripts/merging/test_tssa_mvp_run.py",
+      "kind": "file",
+      "sha256": "ab867965db1f95c723a93e0d8fae0ec20ceb6881a740b93eabe0568684b8a5d6"
+    },
+    {
+      "path": "scripts/merging/test_tssa_target_semantic_run.py",
+      "kind": "file",
+      "sha256": "10316817c72f12dab3ee0fbfd3862e6be5cd10b995e0e7b97d14f1214dadc752"
+    },
+    {
+      "path": "scripts/merging/test_tssa_target_semantic_runtime.py",
+      "kind": "file",
+      "sha256": "886a5ce6f1aab0452a2f702c23e858112c5a38daa839762abbc09f845c4e6207"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
+      "kind": "file",
+      "sha256": "21ac72cb4ea83d8a0c0b1ed730ed02dd834110ae352f324fbe74c1f8bf439fe3"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/main.py",
+      "kind": "file",
+      "sha256": "af47438a6d9dbaeeab52ae7223673bc423d23041722f0679b4dc185352281331"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/pilot24_run.py",
+      "kind": "file",
+      "sha256": "4235187f3ac7b43c071b3bcaa1b991481910e5f36663e2e589a89c49d469ed3d"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/runtime.py",
+      "kind": "file",
+      "sha256": "a1c671c0f9c584644020443da9e3d5e18ec9a0751844efc5fa2159055bdf7429"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/runtime_assets.py",
+      "kind": "file",
+      "sha256": "bb96d6e26f98877049eebf61eb7d702b6f7a9d76c776002082eb3c4494594917"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/runtime_tcl.py",
+      "kind": "file",
+      "sha256": "c3f0b690fcac2af1e8b1aa3aa8c427a42bc65fcd04f521d29d616e015fca7793"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_amendment_launcher.py",
+      "kind": "file",
+      "sha256": "8c022cad9b4548fdc1ef3c6926dfa812f4722ddf4fc5ad89ec0ef1f24c02a97f"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_experiment_cli_process.py",
+      "kind": "file",
+      "sha256": "d2e50cbdfcd15c1b64381fe9ac81006925cb08cd45f7ba8d402bcde15b1fee00"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_fast_startup.py",
+      "kind": "file",
+      "sha256": "7d81d13bff1bbe2a7863a2606bab75a3ac224aa20f1b4215985c4fafaa72a579"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_build_source.py",
+      "kind": "file",
+      "sha256": "9cf152c604f9c44124fe907d421a69834afc294a355071d77626da3162a1329a"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_prepare.py",
+      "kind": "file",
+      "sha256": "b2c5fcebd888f35457d0371de0127fd8ed4faa045526aaa6472aa4c007333bbc"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_provenance.py",
+      "kind": "file",
+      "sha256": "5a52ec7ca2fdca2bf6248726a36c437f2609ed07ac0bb7f5d7198a4d1b06b38f"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_e2e_candidate.py",
+      "kind": "file",
+      "sha256": "00f26118634b2c8c8af69a60db386de0274d7ad66656d27bfc6753b3cf1f96e3"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_recovery_v2_candidate.py",
+      "kind": "file",
+      "sha256": "44b025ece988ee14447188a57f1d2d85d1489bd3022106ef86ece237cf66dafd"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_pilot24_run.py",
+      "kind": "file",
+      "sha256": "c6f8708cf46cd48b6874d7b79bbb0f82903dd2dceff70d96df956b9e1c16adf6"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_runtime_tcl.py",
+      "kind": "file",
+      "sha256": "706427514e0599afb2a6c9b771a976742bacc569c1c1bd9786ee20251542519e"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_semantic_validation.py",
       "kind": "file",
-      "sha256": "72c6826ef97a7d4de16a9d138caaff6381f29f86300a1226f886a27f5577d84b"
+      "sha256": "f1d6454378bdf20601e847066e40411bd6d57cc9f6466d1ec1c8ff2691d361a5"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard127_wait.py",
+      "kind": "file",
+      "sha256": "ba83318071d78a2dad79dbdf70dfdb455484fb1a1f0ba72bdfaaf8d1bd2a43e5"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/test_shard127_wait_v2.py",
+      "kind": "file",
+      "sha256": "458ab1c9b3e649308fad4691bb635e9e9da928e96422bf9426638aa4f6700346"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/validation.py",
       "kind": "file",
-      "sha256": "457c1813af5a5d90d31c7ab39178e33895473d63ba91581f2adc23fd9f08c127"
+      "sha256": "e34c82a2d7943bcb79a0aeba9ca6c2dd4a9a17c4947147743ed3a5a0f0d5ad91"
+    },
+    {
+      "path": "scripts/merging/tssa_image_search_run.py",
+      "kind": "file",
+      "sha256": "c47e08bde03dc16f508a8afeb2082b16eb2ba7d428a18bc4ba9f7125b4e28471"
+    },
+    {
+      "path": "scripts/merging/tssa_mvp_dual_run.py",
+      "kind": "file",
+      "sha256": "781bfdad5936313bc15dde5dad17ccbeebdf4dd37c8c5c96b6836ad6ccef0b67"
+    },
+    {
+      "path": "scripts/merging/tssa_mvp_run.py",
+      "kind": "file",
+      "sha256": "28d1d05e59a175387be0cf0aae89ef7bb09b3605f517d0a81f968391f86fcd9a"
+    },
+    {
+      "path": "scripts/merging/tssa_sd_runtime.py",
+      "kind": "file",
+      "sha256": "080672508b5a6f50d1e724203fbe5ee01c19996798aebdbc44addca55cad212b"
+    },
+    {
+      "path": "scripts/merging/tssa_target_semantic_run.py",
+      "kind": "file",
+      "sha256": "e36408eed0c5fb5897d6915fd5944fc48b244b7eea7f266f37b9233eabc2517c"
+    },
+    {
+      "path": "scripts/merging/tssa_target_semantic_runtime.py",
+      "kind": "file",
+      "sha256": "d5144df86e4ad55ea70eb12993da56cf5b7e0f62ee7a886adfcb1188bbd00ea2"
     }
   ],
   "index_decisions": [
     {
+      "path": "AGENTS.md",
+      "action": "updated",
+      "reason": "增加只做一次启动测试并保留共享资源和账本保护的规则。"
+    },
+    {
+      "path": "README.md",
+      "action": "unchanged",
+      "reason": "根入口导航不变，规则入口仍指向AGENTS。"
+    },
+    {
       "path": "research/README.md",
       "action": "unchanged",
-      "reason": "当前语义任务导航保持不变。"
+      "reason": "当前语义任务导航不变。"
     },
     {
       "path": "research/project_state.json",
       "action": "unchanged",
-      "reason": "任务/run指针与自动化频率保持不变。"
+      "reason": "当前任务与run指针不变。"
     },
     {
       "path": "research/tasks/2026-11-02-runtime-reset/README.md",
       "action": "unchanged",
-      "reason": "历史统一运行器入口不变，本次针对当前控制器。"
+      "reason": "历史任务导航不变；旧运行身份仍受保护。"
     },
     {
       "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
       "action": "unchanged",
-      "reason": "历史任务状态不变。"
+      "reason": "历史任务终态及原始证据不改写。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
       "action": "unchanged",
-      "reason": "已有TASK与报告链接足以导航。"
+      "reason": "既有TASK和实现报告链接已覆盖当前变化。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "action": "updated",
-      "reason": "记录真实GPU预检、首轮推理与观察失联状态。"
+      "reason": "记录启动精简、当前远端状态边界与同run后续动作。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务列表和科学身份不变。"
+      "reason": "任务列表和指针不变。"
     },
     {
       "path": "scripts/README.md",
-      "action": "unchanged",
-      "reason": "现有TCL模块导航不变。"
+      "action": "updated",
+      "reason": "更新TSSA正常运行加载说明。"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/README.md",
-      "action": "unchanged",
-      "reason": "既有私有连接和新鲜观察说明仍适用，故障细节及验证在当前实现报告。"
+      "action": "updated",
+      "reason": "更新轻量启动、显式审计及历史入口说明。"
     }
   ],
   "validation": {
-    "ssh": "严格hostkey及公钥认证真实连接103成功，后台master继承管道假超时真实fork红绿回归通过",
-    "tests": [
-      {
-        "name": "test_semantic_validation.py",
-        "count": 12,
-        "result": "passed",
-        "scope": "Terra CPU"
-      },
-      {
-        "name": "test_gpu_hold*.py",
-        "count": 33,
-        "result": "passed",
-        "scope": "Terra CPU"
-      }
-    ],
-    "science": "103/104 SQLite schema与全部表行逻辑摘要/数量/terminal/selection一致，物理SHA不同；103既有SHA未改",
-    "gpu": "103 CUDA preflight 2026-11-03T19:18:12.293179+08; 1 attempt, encoder 2 forwards, unet 1 branch nfe; PNG and full score unverified",
-    "watch": "PID94006 running with old keepalive; last success 19:17:32+08, platform and SSH subsequently unreachable; actual pause/exit/release unknown",
-    "limits": "No claimed completed image; no hold task started. Apply keepalive via safe observer handoff after reconnect."
-  },
-  "preexisting_validation": {
-    "tests": 11,
-    "result": "passed",
-    "scope": "Terra CPU mocked platform/subprocess tests; no new GPU evidence",
-    "live_tick": "waiting: platform query failed",
-    "remote": "subsequent necessary spec read SSH banner timed out; no repeat this round",
-    "watch": "PID77040 stopped after identity verified; no GPU running",
-    "limits": "No PNG/scoring/ledger growth or T0. Full science-path comparison remains pending."
+    "tcl": {
+      "count": 327,
+      "result": "passed",
+      "scope": "CPU及进程模拟"
+    },
+    "tssa": {
+      "count": 77,
+      "result": "passed",
+      "scope": "CPU微型模型及进程模拟"
+    },
+    "gpu_hold": {
+      "count": 37,
+      "result": "passed",
+      "scope": "CPU模拟"
+    },
+    "smoke": "本地真实运行返回runnable；未加载完整模型或初始化CUDA",
+    "gpu": "19:18首次GPU预检和一次推理已记录；之后远端失联，当前写者、PNG和评分未知；本次新代码尚未远端部署",
+    "automation": "gpu-tcl重新启用，每半小时，更新为快速启动",
+    "limit": "未经重新全量哈希的资产身份明确标为未核验；实际模型/输入错误可能运行时出现",
+    "resource": "19:53 fresh platform account 0/4, no ban, 103 offline and stale, 104 occupied, no fresh free GPU; SSH failed, original writer unknown"
   }
 }

@@ -28,7 +28,7 @@ class BuildSourceTests(Fixture):
         self.candidates = self.root / 'candidates.json'
         self.candidates.write_text(json.dumps({'run_id': RUN, 'status': 'provisional_not_imported',
             'candidate_count': 1, 'records': [{'source': 'unavailable'}]}))
-        self.request = {'repository_root': str(REPOSITORY), 'source_run_root': str(self.input),
+        self.request = {'repository_root': str(self.repository), 'source_run_root': str(self.input),
             'source_server': 'school104', 'package_root': str(self.root / 'package'),
             'output_root': str(self.output), 'old_output_roots': [{'server': 'school103', 'path': self.old_root}],
             'legacy_launch_records': [str(self.root / 'launch.json')],

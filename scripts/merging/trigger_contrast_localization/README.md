@@ -12,7 +12,7 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py run --spec /abs
 python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /absolute/spec.json
 ```
 
-`prepare`只读取真实固定输入、自动计算哈希和展开本协议的生成键，不创建运行账本；`check --spec /absolute/spec.json`可独立做真实CPU资产检查。正常启动直接用`run`，无需先重复执行`check`，不再生成bundle、人工批准文件或故障专用恢复配置。
+`prepare`读取运行所需输入并展开生成键，不创建运行账本、不重新扫描历史定位数据库；对没有既有哈希的大输入记录未知，不冒充已核验。正常启动直接用`run`：部署时只做一次轻量`smoke`，运行时一次加载所需模型，不再要求独立`check`、历史人工审阅或跨机数据库对账。`check --spec`是主动完整审计，需使用已有完整哈希的spec；快速新建且缺少历史哈希的spec不支持完整审计。
 
 需要断开SSH后继续时，用服务器现有持久会话或`nohup python3 scripts/merging/trigger_contrast_localization/runtime.py run --spec /absolute/spec.json > /absolute/session.log 2>&1 &`；先用`status`和日志判断结果。程序自行取得本机排他锁，不能删除锁文件、重置账本或复制目录来“解锁”。
 
@@ -69,7 +69,7 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 运行中禁用或停止要求由外部平台观察者持续更新`resource_status_file`。[overnight.py](overnight.py)通过本机[labgpu API客户端](../../connection/LABGPU.md)刷新平台状态，再向本run写入最小观察；登录凭据留在本机。夜间运行强制`execution.require_fresh_resource_status=true`，身份不符、观察无效或超过180秒没有有效更新时，在执行检查点保存进度并暂停。新禁用/有效停止要求同样作用于检查点；这不是挂死CUDA的硬实时抢占机制。已合法启动后他人加入不单独触发停止。
 
-本轮首次启动及恢复由[validation.py](validation.py)桥接，命令和证据见[实现报告](../../../research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md)；本机状态独立保存在`~/.config/labgpu/tcl-semantic/`，支持已核验103和104部署。CPU准备保存阶段与输出日志，慢盘核验允许有界的较长执行；命令超时应据日志定位。运行观察复用本人私有SSH连接、优先公共DNS并保留严格主机身份校验；定时任务信息由当前TASK维护。只有配置了绝对截止的run才采用`science.compute_deadline_utc`，到期不新增计算并保全完整或部分结果。
+本轮首次启动及恢复由[validation.py](validation.py)桥接，命令和证据见[实现报告](../../../research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md)；本机状态独立保存在`~/.config/labgpu/tcl-semantic/`，支持103和104部署。加载错误和命令超时应据日志定位。运行观察复用本人私有SSH连接、优先公共DNS并保留严格主机身份校验；定时任务信息由当前TASK维护。只有配置了绝对截止的run才采用`science.compute_deadline_utc`，到期不新增计算并保全完整或部分结果。
 
 当前支持同一主机、同一目录、单GPU恢复；Astra/Terra的并行指开发分工，不等于已经实现跨机多GPU调度。真实模型、服务器平台和CUDA验证范围以当前TASK及实现报告为准。
 
@@ -77,4 +77,4 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 本地完整回归：`.venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_*.py'`；新机制测试为`test_experiment_*.py`，模拟进程检查与真实GPU验证分别报告。
 
-`main.py`、`pilot24_*.py`及`reconcile_preview.py`保留原实现和历史科学helper，旧恢复器不再作为新任务入口。原TCL v1/v2的协议、审阅和结果从[历史任务目录](../../../research/tasks/2026-10-29-trigger-contrast-localization/README.md)查看，原终态和消耗保持不变。
+`main.py`和`pilot24_run.py`的`run --spec`转到统一执行器；旧身份的计算命令已关闭，不能重新运行旧账本。历史算法和回执从[历史任务目录](../../../research/tasks/2026-10-29-trigger-contrast-localization/README.md)及Git冻结版本查看，原终态和消耗保持不变；本次修改后的工作区源码不再等同旧版源码哈希。

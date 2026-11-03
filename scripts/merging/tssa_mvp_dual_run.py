@@ -128,7 +128,7 @@ def worker_main(connection, config: Mapping[str, Any]) -> None:
     threading.Thread(target=_parent_death_watch, args=(config["parent_pid"],), daemon=True).start()
     backend = None
     cache_key = cache = None
-    allowed = {"diagnostic", "sample", "trajectory", "teacher", "response", "init_training",
+    allowed = {"cpu_preflight", "diagnostic", "sample", "trajectory", "teacher", "response", "init_training",
                "train_one", "export_checkpoint", "unlock_heldout"}
     try:
         factory = config.get("test_worker_factory")
@@ -250,7 +250,7 @@ class DualBackend:
 
     def __init__(self, protocol_path, asset_manifest, models_root, store, *, cpu_backend=None, test_worker_factory=None):
         self.protocol_path, self.asset_manifest, self.models_root = map(Path, (protocol_path, asset_manifest, models_root))
-        self.protocol, self.sha = load_protocol(self.protocol_path)
+        self.protocol, self.sha = load_protocol(self.protocol_path, audit=False)
         self.store = store
         self.cpu = cpu_backend or RealBackend(self.protocol_path, self.asset_manifest, self.models_root)
         self.test_worker_factory = test_worker_factory
@@ -309,11 +309,21 @@ class DualBackend:
         return copy.deepcopy(self.clients[assignment_slot(name)].last_resources) if name and self.clients else {}
 
     def cpu_preflight(self):
-        report = self.cpu.cpu_preflight()
+        if self.clients:
+            # Keep the loaded assets in the worker that will do real work,
+            # instead of loading and discarding a third model bank in the parent.
+            with self.bind("preflight/cpu"):
+                report = self.call("cpu_preflight")
+        else:
+            # Explicit CPU-only checks do not create worker processes.
+            if hasattr(self.cpu, 'audit_assets'):
+                self.cpu.audit_assets = True
+            report = self.cpu.cpu_preflight()
         self.source_hashes = report["file_hashes"]
-        if hasattr(self.cpu, "assets"):
-            self.cpu.assets = None  # Do not retain a third full FP32 model bank in the parent.
-        gc.collect()
+        if not self.clients:
+            if hasattr(self.cpu, "assets"):
+                self.cpu.assets = None
+            gc.collect()
         return report
 
     def sample(self, task, coefficients):
@@ -628,7 +638,7 @@ def main(argv=None):
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
-    protocol, sha = load_protocol(args.protocol)
+    protocol, sha = load_protocol(args.protocol, audit=args.command == 'plan' or args.until == 'cpu-preflight')
     if args.command == "plan" or args.dry_run:
         plan = experiment_plan(protocol, sha)
         plan.update(execution_entrypoint="dual_spawn", GPU_workers_if_executed=2,
@@ -655,7 +665,7 @@ def main(argv=None):
         def interrupt(signum, frame):
             raise KeyboardInterrupt(f"Signal {signum}; both project workers will exit.")
         signal.signal(signal.SIGTERM, interrupt)
-        identity = build_identity(args.protocol, args.asset_manifest, args.models_root)
+        identity = build_identity(args.protocol, args.asset_manifest, args.models_root, audit=False)
         identity.update(backend=DualBackend.kind, single_GPU_sequential_CPU_scoring=False, GPU_worker_count=2)
         identity["implementation_sha256"][Path(__file__).name] = file_hash(__file__)
         store = DualRunStore(args.run_dir, identity, resume=args.resume, recover_inflight=args.recover_inflight)

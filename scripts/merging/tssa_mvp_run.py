@@ -117,10 +117,10 @@ def read_payload(path: Path, binary: bool = False) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def load_protocol(path: str | Path) -> tuple[dict[str, Any], str]:
+def load_protocol(path: str | Path, *, audit: bool = True) -> tuple[dict[str, Any], str]:
     path = Path(path)
     digest = file_hash(path)
-    if digest != FROZEN_PROTOCOL_SHA256:
+    if audit and digest != FROZEN_PROTOCOL_SHA256:
         raise IntegrityError("The protocol file differs from the explicitly frozen MVP; no automatic amendment is permitted.")
     return json.loads(path.read_text(encoding="utf-8")), digest
 
@@ -345,13 +345,14 @@ class RealBackend:
         self.protocol_path, self.asset_manifest, self.models_root = protocol_path, asset_manifest, models_root
         self.assets = self.runtime = self.scorer = None
         self.training = None
+        self.audit_assets = False
 
     def cpu_preflight(self) -> dict[str, Any]:
         import torch
         from tssa_sd_runtime import load_cpu_assets
         if torch.cuda.is_initialized():
             raise IntegrityError("CPU preflight must run before any CUDA initialization in this process.")
-        self.assets = load_cpu_assets(self.protocol_path, self.asset_manifest, self.models_root)
+        self.assets = load_cpu_assets(self.protocol_path, self.asset_manifest, self.models_root, audit=self.audit_assets)
         if torch.cuda.is_initialized():
             raise IntegrityError("CPU preflight unexpectedly initialized CUDA.")
         return {"passed": True, "protocol_sha256": self.assets.protocol_sha256, "CUDA_initialized": False,
@@ -850,6 +851,10 @@ class MVPRunner:
                    "heldout": lambda: self.heldout(results["select"]),
                    "report": lambda: self.report(results["source"], results["screen"], results["select"], results["heldout"])}
         for stage in STAGES[:STAGES.index(until) + 1]:
+            # The expensive gradient/memory diagnostic is an explicit command,
+            # not a prerequisite for ordinary experimental work.
+            if stage == "gpu-diagnostic" and until != "gpu-diagnostic":
+                continue
             print(json.dumps({"stage": stage, "status": "checking_or_running", "time": utc_now()}), flush=True)
             results[stage] = actions[stage]()
             self.completed_stages.append(stage)
@@ -869,7 +874,7 @@ class MVPRunner:
             "real_SD_CUDA_preflight_passed": "gpu-diagnostic" in self.completed_stages})
 
 
-def build_identity(protocol_path: Path, asset_manifest: Path, models_root: Path) -> dict[str, Any]:
+def build_identity(protocol_path: Path, asset_manifest: Path, models_root: Path, *, audit: bool = True) -> dict[str, Any]:
     # Metadata inspection does not import torch or initialize CUDA.
     packages = {}
     for distribution in importlib.metadata.distributions():
@@ -888,13 +893,14 @@ def build_identity(protocol_path: Path, asset_manifest: Path, models_root: Path)
     files = json.loads(asset_manifest.read_text())["files"]
     local_hashes = {}
     root = models_root.resolve()
-    for entry in files:
+    for entry in files if audit else ():
         path = (root / entry["local_path"]).resolve()
         if not path.is_relative_to(root) or not path.is_file():
             raise IntegrityError(f"Missing or out-of-root offline asset: {entry['local_path']}")
         local_hashes[entry["local_path"]] = file_hash(path)
     return {"schema_version": 1, "backend": RealBackend.kind, "protocol_sha256": file_hash(protocol_path),
             "asset_manifest_sha256": file_hash(asset_manifest), "models_root": str(root), "local_file_sha256": local_hashes,
+            **({} if audit else {"model_file_verification": "not_verified"}),
             "implementation_sha256": {name: file_hash(Path(__file__).parent / name) for name in IMPLEMENTATION_FILES},
             "packages": packages, "python": sys.version, "single_GPU_sequential_CPU_scoring": True}
 
@@ -912,7 +918,7 @@ def main(argv=None) -> int:
     parser.add_argument("--dry-run", action="store_true", help="Enumerate all frozen tasks without models, torch or CUDA")
     parser.add_argument("--output", type=Path, help="Optional plan JSON path; defaults to stdout")
     args = parser.parse_args(argv)
-    protocol, digest = load_protocol(args.protocol)
+    protocol, digest = load_protocol(args.protocol, audit=args.command == 'plan' or args.until == 'cpu-preflight')
     if args.command == "plan" or args.dry_run:
         plan = experiment_plan(protocol, digest)
         if args.output:
@@ -935,9 +941,11 @@ def main(argv=None) -> int:
         def interrupted(signum, frame):
             raise KeyboardInterrupt(f"Signal {signum}; unfinished work needs explicit review before replay.")
         signal.signal(signal.SIGTERM, interrupted)
-        identity = build_identity(args.protocol, args.asset_manifest, args.models_root)
+        identity = build_identity(args.protocol, args.asset_manifest, args.models_root, audit=False)
         store = RunStore(args.run_dir, identity, resume=args.resume, recover_inflight=args.recover_inflight)
-        runner = MVPRunner(protocol, digest, store, RealBackend(args.protocol, args.asset_manifest, args.models_root))
+        backend = RealBackend(args.protocol, args.asset_manifest, args.models_root)
+        backend.audit_assets = args.until == 'cpu-preflight'
+        runner = MVPRunner(protocol, digest, store, backend)
         runner.execute(args.until)
         return 0
     except BaseException as error:

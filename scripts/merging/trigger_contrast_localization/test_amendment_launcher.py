@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from test_pilot24_provenance import historical_repository
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -31,7 +32,7 @@ class AmendmentLauncherTests(unittest.TestCase):
             for relative in manifest["code_sha256"]:
                 destination = repository / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(ROOT / relative, destination)
+                shutil.copyfile(historical_repository() / relative, destination)
             key = base / "reviewer_key"
             subprocess.run(["ssh-keygen", "-q", "-t", "ed25519", "-N", "", "-f", str(key)], check=True)
             public = Path(str(key) + ".pub")

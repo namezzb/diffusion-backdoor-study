@@ -5,6 +5,7 @@ import datetime as dt
 import json
 import os
 from pathlib import Path
+import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -141,6 +142,38 @@ class RunTests(unittest.TestCase):
             with self.assertRaises(FileExistsError): run.claim_execution({'execution': execution}, dest)
             with self.assertRaises(ValueError): run.claim_execution({'execution': execution}, dest.with_name('another'))
         self.assertFalse(dest.exists())
+
+    def test_run_loads_once_without_preexisting_preflight_report(self):
+        root = Path(self.tmp.name)
+        plan = root / 'plan.json'
+        plan.write_text('{}')
+        fake_ledger = SimpleNamespace(root=root, total={}, current=None, close=lambda: None)
+        argv = ['runner', 'run', '--old-protocol', str(root / 'protocol.json'),
+                '--asset-manifest', str(root / 'assets.json'), '--cache-root', str(root / 'cache'),
+                '--models-root', str(root / 'models'), '--output', str(root / 'output'),
+                '--plan', str(plan), '--permission', str(root / 'permission.json')]
+        with patch.object(sys, 'argv', argv), patch.dict(os.environ, CUBLAS_WORKSPACE_CONFIG=':4096:8'), \
+             patch.object(run, 'inputs', return_value=({}, {})), patch.object(run, 'validate_plan'), \
+             patch.object(run, 'claim_execution'), patch.object(run, 'Ledger', return_value=fake_ledger), \
+             patch.object(run, 'write_json'), \
+             patch.object(run, 'cpu_prepare', side_effect=RuntimeError('load reached')) as load:
+            with self.assertRaisesRegex(RuntimeError, 'load reached'):
+                run.main()
+        self.assertEqual(load.call_count, 1)
+
+    def test_fast_new_identity_keeps_budget_and_rejects_historical_run(self):
+        run_id = 'synthetic-new-diagnostic'
+        base = '/data1/zhangzibo/arxiv-tssa'
+        plan = {'id': run_id, 'budget': run.LIMITS, 'operations': run.budget_enumeration(),
+                'wall_seconds_max': 1800, 'automatic_retry': False, 'images': 0,
+                'optimizer_updates': 0, 'new_trajectories': 0,
+                'execution': {'server': '103', 'machine_id_sha256': 'fixture',
+                              'run_root': base + '/results/' + run_id,
+                              'claim_path': base + '/claims/' + run_id + '.json', 'gpu_uuid': 'fixture'}}
+        run.validate_plan(plan, {}, audit=False)
+        plan['id'] = run.PLAN_ID
+        with self.assertRaisesRegex(ValueError, 'historical run is closed'):
+            run.validate_plan(plan, {}, audit=False)
 
     def test_graphics_process_and_compute_mode_rejected(self):
         uuid = 'GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523'

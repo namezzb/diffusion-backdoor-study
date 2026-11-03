@@ -1,5 +1,6 @@
 """Two-generation recovery: strictly synthetic CPU tests, no CUDA."""
 import copy
+from datetime import datetime
 import fcntl
 import hashlib
 import json
@@ -18,6 +19,10 @@ import test_pilot24_recovery_guard_candidate as fixtures
 
 class TwoGenerationGuardTests(unittest.TestCase):
     def setUp(self):
+        clock = patch.object(g, 'datetime', wraps=datetime)
+        clock_mock = clock.start()
+        clock_mock.now.return_value = datetime.fromisoformat(g.T0)
+        self.addCleanup(clock.stop)
         self.f=fixtures.GuardTest('test_held_lock_and_inherited_budget'); self.f.setUp()
         self.addCleanup(self.f.doCleanups); self.addCleanup(self.f.temp.cleanup)
         f=self.f

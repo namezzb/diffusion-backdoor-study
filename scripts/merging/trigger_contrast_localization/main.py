@@ -6,23 +6,31 @@ import datetime
 import json
 import os
 from pathlib import Path
+import subprocess
+import sys
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=("plan", "localize", "confirm", "recover"), nargs="?", default="plan")
+    parser.add_argument("phase", choices=("plan", "run", "localize", "confirm", "recover"), nargs="?", default="plan")
+    parser.add_argument("--spec", help="new run spec for the unified runtime")
     for name in ("manifest", "prompts", "context-review", "m06-review", "protocol", "asset-manifest", "models-root", "output-root", "repository-root"):
         parser.add_argument("--" + name)
     parser.add_argument("--recovery-kind", choices=("localization", "images"))
     parser.add_argument("--reason")
     parser.add_argument("--resource-wait-seconds", type=int, default=1800)
     args = parser.parse_args(argv)
+    if args.phase == "run":
+        if not args.spec:
+            parser.error("run requires --spec")
+        return subprocess.call([sys.executable, str(Path(__file__).with_name("runtime.py")), "run", "--spec", args.spec])
     if args.phase == "plan":
         print(json.dumps({"task_id": "TCL-20261029-01", "executed": False,
                           "localization_te_prompt_forwards_max": 264192,
                           "source_image_attempts_max": 8192, "merge_image_attempts_max": 8192,
                           "training_updates_max": 0}, sort_keys=True))
         return 0
+    parser.error("historical TCL execution is closed; use run --spec for a new run")
     required = ("manifest", "prompts", "context_review", "m06_review", "protocol", "asset_manifest", "models_root", "output_root", "repository_root")
     if any(getattr(args, name) is None for name in required):
         parser.error("all frozen input, review, repository, model and output paths are required")

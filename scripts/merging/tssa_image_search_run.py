@@ -198,21 +198,25 @@ def validate_plan(plan: Mapping[str, Any], old_protocol: Mapping[str, Any]) -> d
     return counts
 
 
-def load_plan(path: Path, old_path: Path, assets_path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+def load_plan(path: Path, old_path: Path, assets_path: Path, *, audit: bool = True) -> tuple[dict[str, Any], dict[str, Any]]:
     plan = json.loads(path.read_text())
-    for key, target in (("old_protocol_sha256", old_path), ("asset_manifest_sha256", assets_path)):
-        if plan.get(key) != file_hash(target):
-            raise IntegrityError(f"Frozen input hash mismatch: {key}")
+    if not audit and plan.get('id') == 'tssa-direct-asr-near-naive-v1-2026-10-28':
+        raise IntegrityError('A new run identity is required; the historical run is closed.')
     hashes = plan.get("source_hashes", {})
-    if not set(SOURCE_FILES).issubset(hashes):
-        raise IntegrityError("Freeze hashes for the runner and all three imported research source files.")
-    for name, expected in hashes.items():
-        if Path(name).name != name or file_hash(Path(__file__).parent / name) != expected:
-            raise IntegrityError(f"Frozen implementation hash mismatch: {name}")
-    counts = validate_plan(plan, json.loads(old_path.read_text()))
+    if audit:
+        for key, target in (("old_protocol_sha256", old_path), ("asset_manifest_sha256", assets_path)):
+            if plan.get(key) != file_hash(target):
+                raise IntegrityError(f"Frozen input hash mismatch: {key}")
+        if not set(SOURCE_FILES).issubset(hashes):
+            raise IntegrityError("Freeze hashes for the runner and all three imported research source files.")
+        for name, expected in hashes.items():
+            if Path(name).name != name or file_hash(Path(__file__).parent / name) != expected:
+                raise IntegrityError(f"Frozen implementation hash mismatch: {name}")
+    counts = validate_plan(plan, json.loads(old_path.read_text())) if audit else None
     return plan, {"id": plan["id"], "plan_sha256": file_hash(path), "plan_payload_sha256": digest(plan),
                   "old_protocol_sha256": plan["old_protocol_sha256"], "asset_manifest_sha256": plan["asset_manifest_sha256"],
-                  "source_hashes": hashes, "max_images": plan["max_images"], "maximum_stage_images": counts}
+                  "source_hashes": hashes, "max_images": plan["max_images"], "maximum_stage_images": counts,
+                  "source_verification": "verified" if audit else "not_verified"}
 
 
 class Store:
@@ -500,20 +504,14 @@ class RealBackend:
     def __init__(self, old_path: Path, assets_path: Path, models_root: Path, plan: dict[str, Any], scorer_device: str):
         from tssa_sd_runtime import load_cpu_assets, SDGradientRuntime
         from tssa_mvp_score import IndependentScorer
-        assets = load_cpu_assets(old_path, assets_path, models_root)
-        # The old runtime truncates long text; this independent plan rejects it first.
-        for stage in STAGES:
-            for row in plan["stages"][stage]["rows"]:
-                for key in ("prompt", "normal_prompt"):
-                    ids = assets.tokenizer(row[key], truncation=False, add_special_tokens=True)["input_ids"]
-                    if len(ids) > 77:
-                        raise IntegrityError(f"Prompt exceeds CLIP token limit: {stage}/{row['id']}/{key}")
+        assets = load_cpu_assets(old_path, assets_path, models_root, audit=False)
         self.runtime = SDGradientRuntime(assets)
         self.scorer = IndependentScorer(models_root, device=scorer_device)
 
     def metadata(self) -> dict[str, Any]:
         return {"created_at": now(), "kind": "real_offline_diffusion_image_search", "runtime": self.runtime.environment_record(),
                 "scorer": self.scorer.describe(), "models_and_sampling_from_old_protocol_only": True,
+                "model_and_prompt_audit": "not_verified",
                 "original_mvp_loss_or_training_not_run": True}
 
     def sample(self, task):
@@ -544,7 +542,7 @@ def main() -> None:
     parser.add_argument("--until", choices=STAGES, default="confirm")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
-    plan, identity = load_plan(args.plan, args.old_protocol, args.asset_manifest)
+    plan, identity = load_plan(args.plan, args.old_protocol, args.asset_manifest, audit=args.command == 'check')
     if args.scorer_device != plan.get("scorer_device", "cpu"):
         raise IntegrityError("The scorer device must match the frozen plan (CPU by default).")
     identity["scorer_device"] = args.scorer_device

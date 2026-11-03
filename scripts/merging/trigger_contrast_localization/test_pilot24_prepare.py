@@ -132,10 +132,11 @@ class PreparationTests(unittest.TestCase):
             execution = source.output
             parent = json.loads((TASK / 'manifest_candidate.json').read_text())
             bound = SimpleNamespace(**vars(self.bindings), asset_hashes=parent['asset_sha256'])
-            request = {'repository_root': str(ROOT), 'models_root': str(models),
+            request = {'repository_root': str(source.repository), 'models_root': str(models),
                 'execution_root': str(execution), 'workers': self.workers,
                 'source_isolation': source.proof_ref}
-            with patch('bindings.load_frozen_bindings', return_value=bound):
+            with patch('bindings.load_frozen_bindings', return_value=bound), \
+                 patch('pilot24_prepare.__file__', str(source.repository / 'scripts/merging/trigger_contrast_localization/pilot24_prepare.py')):
                 report = prepare(request)
                 self.assertEqual(report['status'], 'prepared_pending_independent_review')
                 self.assertEqual(report['verified_imports'], 0)

@@ -7,7 +7,8 @@ from unittest.mock import patch
 
 from pilot24_coordinator import Coordinator, stage_contract, verify_release, read_json
 from pilot24_inputs import RUN, frozen_units
-from pilot24_run import ensure_t0, parser
+from pilot24_run import ensure_t0, main as pilot_main, parser
+import main as legacy_main
 from test_pilot24_offline import TASK
 
 
@@ -59,6 +60,25 @@ class DurableRunTests(unittest.TestCase):
         with self.assertRaises(ValueError): self.c.ingest(dict(r,records=r['records'][:-1]))
         with self.assertRaises(ValueError): self.c.bind_t0(dict(run_id=RUN,manifest_sha256='a'*64,t0_utc='2026-11-02T01:00:00Z'),'e'*64)
         with self.assertRaises(ValueError): ensure_t0(self.c) # Removed fixed T0 cannot be recreated.
+
+    def test_new_run_entrypoints_forward_to_unified_runtime(self):
+        with patch('subprocess.call', return_value=23) as launch:
+            self.assertEqual(legacy_main.main(['run', '--spec', '/new/spec.json']), 23)
+            self.assertEqual(pilot_main(['run', '--spec', '/new/spec.json']), 23)
+        self.assertEqual(launch.call_count, 2)
+        for call in launch.call_args_list:
+            command = call.args[0]
+            self.assertEqual(Path(command[1]).name, 'runtime.py')
+            self.assertEqual(command[2:], ['run', '--spec', '/new/spec.json'])
+
+    def test_historical_execution_commands_stay_closed(self):
+        with patch('subprocess.call') as launch:
+            with self.assertRaises(SystemExit):
+                legacy_main.main(['localize'])
+            with self.assertRaises(SystemExit):
+                pilot_main(['start', '--bundle', 'b', '--config', 'c', '--root', 'r',
+                            '--launch-map', 'm', '--server', '103'])
+        launch.assert_not_called()
 
     def test_false_complete_and_duplicate_attempt_fail(self):
         r=self.receipt('S0',1)

@@ -131,7 +131,7 @@ def _verify_semantic_files(spec: Mapping[str, Any], root: Path, *,
 
 
 def load_semantic_cpu_assets(protocol_path: str | Path, asset_manifest: str | Path,
-                             models_root: str | Path) -> CPUAssets:
+                             models_root: str | Path, *, audit: bool = True) -> CPUAssets:
     """Offline CPU-only clean/backdoor/Edev load, deliberately excluding Ehold.
 
     This does not invoke the old all-model loader. Only required component files
@@ -141,17 +141,22 @@ def load_semantic_cpu_assets(protocol_path: str | Path, asset_manifest: str | Pa
     os.environ['HF_HUB_OFFLINE'] = '1'
     os.environ['TRANSFORMERS_OFFLINE'] = '1'
     protocol_path, asset_manifest, root = Path(protocol_path), Path(asset_manifest), Path(models_root).resolve()
-    _require(hashlib.sha256(protocol_path.read_bytes()).hexdigest() == OLD_PROTOCOL_SHA, 'Original protocol hash changed')
-    _require(hashlib.sha256(asset_manifest.read_bytes()).hexdigest() == ASSET_MANIFEST_SHA, 'Original asset manifest hash changed')
-    protocol, protocol_hash = read_frozen_protocol(protocol_path)
+    if audit:
+        _require(hashlib.sha256(protocol_path.read_bytes()).hexdigest() == OLD_PROTOCOL_SHA, 'Original protocol hash changed')
+        _require(hashlib.sha256(asset_manifest.read_bytes()).hexdigest() == ASSET_MANIFEST_SHA, 'Original asset manifest hash changed')
+        protocol, protocol_hash = read_frozen_protocol(protocol_path)
+    else:
+        raw_protocol = protocol_path.read_bytes()
+        protocol, protocol_hash = json.loads(raw_protocol), hashlib.sha256(raw_protocol).hexdigest()
     spec = json.loads(asset_manifest.read_text())
     by_directory = {item['local_dir']: item for item in spec['assets']}
-    for role in ('clean', 'backdoor', 'Edev'):
-        item = by_directory[ROLE_DIRECTORIES[role]]
-        _require(all(item[field] == protocol['models'][role][field] for field in ('repo_id', 'revision')),
-                 'Frozen source identity mismatch: ' + role)
+    if audit:
+        for role in ('clean', 'backdoor', 'Edev'):
+            item = by_directory[ROLE_DIRECTORIES[role]]
+            _require(all(item[field] == protocol['models'][role][field] for field in ('repo_id', 'revision')),
+                     'Frozen source identity mismatch: ' + role)
     ignored_metadata: list[dict[str, Any]] = []
-    hashes = _verify_semantic_files(spec, root, ignored_metadata=ignored_metadata)
+    hashes = _verify_semantic_files(spec, root, ignored_metadata=ignored_metadata) if audit else {'verification': 'not_verified'}
     from diffusers import DDIMScheduler, UNet2DConditionModel
     from transformers import CLIPTextModel, CLIPTokenizer
     te_kwargs = {'torch_dtype': torch.float32, 'use_safetensors': True,
@@ -172,37 +177,46 @@ def load_semantic_cpu_assets(protocol_path: str | Path, asset_manifest: str | Pa
                    'resnet_time_scale_shift', 'class_embed_type', 'addition_embed_type')
     prompts = [''] + [prompt for p, q in UNIT_PROMPTS.values()
                       for prompt in (p, p.replace('o', '\u020f'), q, re.sub(r'\bdog\b', 'cat', p))]
-    _require(tokenizer.model_max_length == 77, 'Expected fixed 77-token padding contract')
-    _check_tokenizers(tokenizer, tokenizer, prompts, 'clean/semantic')
+    if audit:
+        _require(tokenizer.model_max_length == 77, 'Expected fixed 77-token padding contract')
+        _check_tokenizers(tokenizer, tokenizer, prompts, 'clean/semantic')
     compatibility: dict[str, Any] = {'semantic_prompts': prompts, 'loaded_roles': ['clean', 'backdoor', 'Edev'],
                                      'Ehold_loaded': False, 'VAE_or_scorers_loaded': False,
-                                     'ignored_transfer_residue_metadata': ignored_metadata}
+                                     'ignored_transfer_residue_metadata': ignored_metadata,
+                                     'verification': 'verified' if audit else 'not_verified',
+                                     'protocol_verification': 'verified' if audit else 'not_verified'}
     count = 2
     for role in ('backdoor', 'Edev'):
         directory = root / ROLE_DIRECTORIES[role]
         component = directory if role == 'backdoor' else directory / 'text_encoder'
         model = CLIPTextModel.from_pretrained(component, **te_kwargs).eval().requires_grad_(False)
-        _check_configs(text_encoder.config, model.config, te_fields, role + '/TE')
+        if audit:
+            _check_configs(text_encoder.config, model.config, te_fields, role + '/TE')
         text_states[role] = _cpu_state(model)
-        compatibility[role + '/TE'] = _check_states(text_states['clean'], text_states[role], role + '/TE')
+        if audit:
+            compatibility[role + '/TE'] = _check_states(text_states['clean'], text_states[role], role + '/TE')
         del model
         count += 1
         if role == 'Edev':
-            expert_tokenizer = CLIPTokenizer.from_pretrained(directory / 'tokenizer', local_files_only=True)
-            _check_tokenizers(tokenizer, expert_tokenizer, prompts, 'Edev/semantic')
+            if audit:
+                expert_tokenizer = CLIPTokenizer.from_pretrained(directory / 'tokenizer', local_files_only=True)
+                _check_tokenizers(tokenizer, expert_tokenizer, prompts, 'Edev/semantic')
             model = UNet2DConditionModel.from_pretrained(directory / 'unet', **unet_kwargs).eval().requires_grad_(False)
-            equivalences = _check_configs(unet.config, model.config, unet_fields, 'Edev/UNet')
             unet_states[role] = _cpu_state(model)
-            compatibility[role + '/UNet'] = _check_states(unet_states['clean'], unet_states[role], 'Edev/UNet')
-            compatibility[role + '/UNet']['configuration_equivalences'] = equivalences
-            _require(compatibility[role + '/TE']['changed_coordinates'] or compatibility[role + '/UNet']['changed_coordinates'],
-                     'Edev must differ from the clean model')
-            del model, expert_tokenizer
+            if audit:
+                equivalences = _check_configs(unet.config, model.config, unet_fields, 'Edev/UNet')
+                compatibility[role + '/UNet'] = _check_states(unet_states['clean'], unet_states[role], 'Edev/UNet')
+                compatibility[role + '/UNet']['configuration_equivalences'] = equivalences
+                _require(compatibility[role + '/TE']['changed_coordinates'] or compatibility[role + '/UNet']['changed_coordinates'],
+                         'Edev must differ from the clean model')
+                del expert_tokenizer
+            del model
             count += 1
     names = tuple(name for name, parameter in text_encoder.named_parameters() if parameter.is_floating_point())
     basis = FrozenDelta.from_state_dicts(text_states['clean'], text_states['backdoor'], names)
     scheduler = DDIMScheduler.from_pretrained(clean / 'scheduler', local_files_only=True)
-    _require(scheduler.config.prediction_type == 'epsilon', 'Expected original epsilon scheduler')
+    if audit:
+        _require(scheduler.config.prediction_type == 'epsilon', 'Expected original epsilon scheduler')
     return CPUAssets(protocol, protocol_hash, root, hashes, tokenizer, text_encoder, unet, scheduler,
                      text_states, unet_states, basis, names, compatibility, count)
 

@@ -124,6 +124,19 @@ os._exit(0)
         with self.assertRaises(validation.NotReady):
             validation.remote_script(validation.REMOTE_RUN, '101')
 
+    def test_103_prepare_deploys_fast_loader_and_only_smoke(self):
+        expected = validation.execution_sha256()
+        with mock.patch.object(validation, 'ssh_config') as config, \
+                mock.patch.object(validation, 'bounded_ssh', return_value=json.dumps({'execution_sha256': expected})) as ssh:
+            config.return_value.__enter__.return_value = Path('/private/mock-config')
+            validation.prepare('103')
+        payload = json.loads(ssh.call_args.args[3])
+        name = 'scripts/merging/trigger_contrast_localization/runtime_assets.py'
+        self.assertEqual(base64.b64decode(payload['files'][name]['content']), (validation.ROOT/name).read_bytes())
+        self.assertIn(name, expected)
+        self.assertIn("cmd+['smoke','--spec',str(spec)]", validation.REMOTE_PREPARE)
+        self.assertNotIn("cmd+['check'", validation.REMOTE_PREPARE)
+
     def test_103_tick_binds_prepared_node_and_observer_path(self):
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \
                 mock.patch.object(validation, 'fresh_snapshot', return_value={'account': {'username': 'test'}}), \
@@ -217,14 +230,14 @@ os._exit(0)
             prepare.assert_called_once_with('104')
             start.assert_called_once()
 
-    def test_remote_launch_rejects_mismatched_execution_hash(self):
+    def test_remote_launch_has_no_independent_execution_hash_gate(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp).resolve()
             work = root / ('preparations/' + validation.RUN_ID)
             repo = work / 'repository'
             prefix = 'scripts/merging/trigger_contrast_localization/'
             hashes = {}
-            for name in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py'):
+            for name in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'runtime_assets.py'):
                 path = repo / (prefix + name)
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text(name)
@@ -235,10 +248,12 @@ os._exit(0)
             (work / 'spec.json').write_text(json.dumps({'run_id': validation.RUN_ID, 'science': science, 'execution': {}}))
             expected = dict(hashes);expected[prefix + 'runtime.py'] = '0' * 64
             script = validation.REMOTE_RUN.replace("pathlib.Path('/data2/zhangzibo/arxiv-tssa')", f'pathlib.Path({str(root)!r})')
-            result = subprocess.run([sys.executable, '-c', script], input=json.dumps({'science_sha256': digest, 'execution_sha256': expected}),
+            result = subprocess.run([sys.executable, '-c', script], input=json.dumps({'science_sha256': digest, 'execution_sha256': expected, 'uuid': 'GPU-fixture'}),
                                     capture_output=True, text=True, timeout=10)
             self.assertNotEqual(result.returncode, 0)
-            self.assertIn('execution code differs', result.stderr)
+            self.assertNotIn('execution code differs', result.stderr)
+            self.assertNotIn('execution code hashes required', result.stderr)
+            self.assertIn('fresh observer required', result.stderr)
 
     def test_tick_rejects_changed_science_during_reprepare(self):
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \

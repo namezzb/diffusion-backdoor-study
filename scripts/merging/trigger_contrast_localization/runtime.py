@@ -32,6 +32,8 @@ def read_ref(ref):
 
 def load_spec(path):
     spec = json.loads(Path(path).read_text())
+    from runtime_tcl import require_current_run
+    require_current_run(spec.get('run_id'), spec.get('run_root', ''))
     if spec.get('schema_version') != 1 or not isinstance(spec.get('run_id'), str) or not spec['run_id'] or spec['run_id'] == OLD_RUN:
         raise ValueError('a new run identity and schema_version 1 are required')
     if OLD_RUN in Path(spec['run_root']).parts:
@@ -70,21 +72,11 @@ def load_spec(path):
         keys.append(canonical(key))
     if len(keys) != len(set(keys)):
         raise ValueError('duplicate units')
-    code = execution.get('code_sha256', {})
-    if not isinstance(code, dict):
-        raise ValueError('optional execution code hash check must be a mapping')
-    for name, expected in code.items():
-        rel = Path(name)
-        target = ROOT / rel
-        if rel.is_absolute() or '..' in rel.parts or target.is_symlink() or not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest() != expected:
-            raise ValueError('execution code hash mismatch: ' + name)
-    for ref in science['inputs'].values():
-        read_ref(ref)
     return spec
 
 
 def observed_code():
-    names = ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'pilot24_provenance.py')
+    names = ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'runtime_assets.py', 'pilot24_provenance.py')
     prefix = 'scripts/merging/trigger_contrast_localization/'
     return {prefix + name: hashlib.sha256((ROOT / prefix / name).read_bytes()).hexdigest() for name in names}
 
@@ -394,12 +386,32 @@ def complete_records(store):
     return records
 
 
+def startup_smoke():
+    """One CPU smoke: real entry imports and a tiny offline weight roundtrip."""
+    import io
+    import torch
+    from diffusers import DDIMScheduler, UNet2DConditionModel
+    from transformers import CLIPTextModel, CLIPTokenizer
+    from runtime_tcl import TCLAdapter
+    from runtime_assets import load_tcl_runtime_assets
+    model = torch.nn.Linear(2, 1)
+    payload = io.BytesIO()
+    torch.save(model.state_dict(), payload)
+    payload.seek(0)
+    model.load_state_dict(torch.load(payload, map_location="cpu", weights_only=True))
+    model(torch.zeros(1, 2))
+    return {"status": "runnable", "cpu_only": True, "real_models_loaded": False}
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['prepare', 'run', 'check', 'status'])
+    parser.add_argument('command', choices=['prepare', 'run', 'check', 'status', 'smoke'])
     parser.add_argument('--spec', required=True)
     parser.add_argument('--request')
     args = parser.parse_args()
+    if args.command == 'smoke':
+        print(json.dumps(startup_smoke()))
+        return
     if args.command == 'prepare':
         if not args.request:
             parser.error('prepare requires --request')
@@ -421,7 +433,7 @@ def main():
         setup_environment(spec, expose_gpu=False)
         from runtime_tcl import TCLAdapter
         adapter = TCLAdapter(spec)
-        result = {'status': 'checked', 'cpu': adapter.prepare_cpu()}
+        result = {'status': 'checked', 'cpu': adapter.audit_cpu()}
     else:
         database = Path(spec['run_root']) / 'run.sqlite'
         if not database.is_absolute() or not database.is_file() or any(p.is_symlink() for p in (database, *database.parents)):

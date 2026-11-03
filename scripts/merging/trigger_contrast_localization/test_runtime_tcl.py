@@ -27,7 +27,7 @@ class TclSpecTest(unittest.TestCase):
                         'inputs': {name: self.fixture.inputs[name]['path'] for name in runtime_tcl.REQUIRED_INPUTS}}
 
     def test_build_expands_real_frozen_keys_and_checks_scientific_changes(self):
-        spec = runtime_tcl.build_spec(self.request)
+        spec = runtime_tcl.audit_build_spec(self.request)
         science = spec['science']
         self.assertEqual(len(science['units']), 6144)
         self.assertEqual(len({tuple(unit['key']) for unit in science['units']}), 6144)
@@ -70,7 +70,7 @@ class TclSpecTest(unittest.TestCase):
 
     def test_overnight_expands_exact_paired_keys_budget_and_deadline(self):
         request = self.overnight_request()
-        spec = runtime_tcl.build_spec(request)
+        spec = runtime_tcl.audit_build_spec(request)
         self.assertEqual(len(spec['science']['units']), 1024)
         self.assertEqual(spec['science']['budget'], overnight_science.BUDGET)
         self.assertEqual(spec['science']['compute_deadline_utc'], overnight_science.DEADLINE_UTC)
@@ -90,7 +90,7 @@ class TclSpecTest(unittest.TestCase):
         self.assertFalse(contexts['source'] & contexts['merge'])
 
     def test_overnight_rejects_changed_deadline_budget_or_units(self):
-        spec = runtime_tcl.build_spec(self.overnight_request())
+        spec = runtime_tcl.audit_build_spec(self.overnight_request())
         for field, value in (('compute_deadline_utc', '2026-11-03T23:30:00+00:00'),
                              ('budget', {'max_attempts': 9999}),
                              ('units', spec['science']['units'][:-1])):
@@ -106,7 +106,7 @@ class TclSpecTest(unittest.TestCase):
         protocol['thresholds']['normal_accuracy_loss_max'] = .10
         path.write_text(json.dumps(protocol))
         with self.assertRaisesRegex(ValueError, 'fixed screening design'):
-            runtime_tcl.build_spec(request)
+            runtime_tcl.audit_build_spec(request)
 
     def test_overnight_context_selection_does_not_use_historical_v2_subset(self):
         selected = overnight_science.select_contexts(self.request['inputs']['prompts'])
