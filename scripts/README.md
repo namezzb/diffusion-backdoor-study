@@ -87,6 +87,7 @@
 | 工具 | 用途与执行边界 |
 |---|---|
 | [labgpu.py](connection/labgpu.py) · [使用说明](connection/LABGPU.md) | 平台 API 显卡状态查询、登录、表格/JSON、短缓存与新鲜度判断；不启动实验。 |
+| [实验后 GPU 保留](connection/GPU_HOLD.md) | 独立等待器、观察器及负载进程；仅实验完整终态和实时许可核验后启用，验证范围见说明。 |
 | [archive_school_research.py](connection/archive_school_research.py) | 只读盘点和回传学校服务器既有科研资料，按文件清单核对大小与哈希；不下载新模型或启动实验。 |
 | [probe_school_gpu.py](connection/probe_school_gpu.py) | 按统一优先级有界只读检查学校节点连接、GPU身份及进程；不恢复已删除的旧定时探针。 |
 | [start_school.sh](../server/start_school.sh) · [school_ssh_config](../server/school_ssh_config) | 学校跳板与节点连接、动态DNS回退及主机密钥检查。 |

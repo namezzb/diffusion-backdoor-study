@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-03T10:30:00+08:00",
+  "updated_at": "2026-11-03T15:50:00+08:00",
   "current_task": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
   "current_run_id": "tcl-20261103-semantic-v1",
@@ -10,7 +10,7 @@
   "gpu_automation": {
     "id": "gpu-tcl",
     "status": "ACTIVE",
-    "cadence": "hourly"
+    "cadence": "every_30_minutes"
   },
   "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",
   "historical_experiments": [

@@ -62,4 +62,4 @@ JSON 顶层：`schema_version`、`source`、`fetched_at`（Unix秒）、`cache_s
 python3 -m unittest discover -s scripts/connection -p 'test_labgpu*.py'
 ```
 
-真实接口与性能验证见[CLI实现报告](../../research/tasks/2026-11-02-labgpu-cli/IMPLEMENTATION_REPORT.md)。labgpu本身只查询；已授权的每小时检查、启动和运行期平台观察由[夜间实验入口](../../research/tasks/2026-11-02-tcl-overnight/TASK.md)组合调用，具体覆盖范围见该任务实现报告。
+真实接口与性能验证见[CLI实现报告](../../research/tasks/2026-11-02-labgpu-cli/IMPLEMENTATION_REPORT.md)。labgpu本身只查询；定时检查、启动和运行期平台观察从[当前项目状态](../../research/project_state.json)进入相应任务。实验完成后的独立保留任务见[GPU保留使用说明](GPU_HOLD.md)。
