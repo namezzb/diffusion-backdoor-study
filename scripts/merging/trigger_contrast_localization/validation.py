@@ -396,23 +396,33 @@ def load_manifest(path):
     return value
 
 
-def bounded_ssh(config, server, command, data, timeout=30):
+def bounded_ssh(config, server, command, data, timeout=75):
     aliases = _SSH_CONTEXTS.get(str(config))
     if aliases is not None:
         aliases.add('school' + server)
-    process = subprocess.Popen(['ssh', '-F', str(config), 'school' + server, command],
-                               stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                               text=True, start_new_session=True)
-    try:
-        output, error = process.communicate(data, timeout=timeout)
-    except subprocess.TimeoutExpired:
-        os.killpg(process.pid, signal.SIGTERM)
+    # A ControlPersist master can inherit output descriptors after the command
+    # client exits. Regular files avoid waiting for a background master's EOF.
+    with tempfile.TemporaryFile(mode='w+t', encoding='utf-8') as stdout, \
+            tempfile.TemporaryFile(mode='w+t', encoding='utf-8') as stderr:
+        os.fchmod(stdout.fileno(), 0o600)
+        os.fchmod(stderr.fileno(), 0o600)
+        process = subprocess.Popen(['ssh', '-F', str(config), 'school' + server, command],
+                                   stdin=subprocess.PIPE, stdout=stdout, stderr=stderr,
+                                   text=True, start_new_session=True)
         try:
-            process.communicate(timeout=3)
+            process.communicate(data, timeout=timeout)
         except subprocess.TimeoutExpired:
-            os.killpg(process.pid, signal.SIGKILL)
-            process.communicate()
-        raise NotReady('远端命令执行超时；应检查阶段日志和进程，连接成功不等于命令已完成')
+            try: os.killpg(process.pid, signal.SIGTERM)
+            except ProcessLookupError: pass
+            try:
+                process.communicate(timeout=3)
+            except subprocess.TimeoutExpired:
+                try: os.killpg(process.pid, signal.SIGKILL)
+                except ProcessLookupError: pass
+                process.communicate()
+            raise NotReady('远端命令执行超时；应检查阶段日志和进程，连接成功不等于命令已完成')
+        stdout.seek(0);stderr.seek(0)
+        output, error = stdout.read(), stderr.read()
     if process.returncode:
         raise NotReady('远端命令失败: ' + error[-2500:])
     return output
@@ -427,7 +437,8 @@ def ssh_config():
         Path(folder).chmod(0o700)
         config = Path(folder) / 'ssh_config'
         config.write_text(f'Host school-jump\n    HostName {gateway}\nHost *\n    BatchMode yes\n'
-                          f'    StrictHostKeyChecking yes\n    ConnectTimeout 15\n    ControlMaster auto\n'
+                          f'    StrictHostKeyChecking yes\n    ConnectTimeout 60\n    ControlMaster auto\n'
+                          f'    ServerAliveInterval 15\n    ServerAliveCountMax 2\n'
                           f'    ControlPersist 120\n    ControlPath {folder}/cm-%C\n'
                           f'    Include "{ROOT / "server/school_ssh_config"}"\n')
         config.chmod(0o600)
@@ -573,7 +584,7 @@ def run_ssh_config(identity):
 def remote_state(identity):
     server = identity['server']
     with run_ssh_config(identity) as config:
-        return json.loads(bounded_ssh(config, server, shlex.join(['python3', '-c', remote_script(REMOTE_STATE, server)]), '', timeout=30))
+        return json.loads(bounded_ssh(config, server, shlex.join(['python3', '-c', remote_script(REMOTE_STATE, server)]), '', timeout=75))
 
 
 def observer_alive(identity):
@@ -650,7 +661,7 @@ def start_or_resume(identity):
         with run_ssh_config(identity) as config:
             result = bounded_ssh(config, identity['server'], shlex.join(['python3', '-c', remote_script(REMOTE_RUN, identity['server'])]),
                                  json.dumps({'uuid': identity['uuid'], 'science_sha256': identity['science_sha256'],
-                                             'execution_sha256': execution_sha256()}), timeout=35)
+                                             'execution_sha256': execution_sha256()}), timeout=75)
         response = json.loads(result)
     except Exception:
         # A lost launch response may hide a running worker. Keep the observer alive;

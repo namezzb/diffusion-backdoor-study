@@ -1,78 +1,99 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-03T10:35:05.400499+00:00",
-  "base_commit": "a654ee5ef97c050bce96e72a20cd2575257c569f",
-  "summary": "平台HTTP默认请求上限10秒改35秒，总进程仍60秒且采样期限不变；正常tick平台失败、随后SSH握手失败，仍无GPU结果。",
+  "reviewed_at": "2026-11-03T11:28:58.423Z",
+  "base_commit": "d5aa93f5e39ccee42c1424442d75db8136ce1ce8",
+  "summary": "修复SSH ControlPersist继承管道导致假超时并增加短keepalive；103已真实GPU预检和首轮推理，随后SSH与平台观察失联，远端当前状态及首图待核验。",
   "reviewed_changes": [
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
       "kind": "file",
-      "sha256": "5da07daff70a5f6b0ecf240830421b2fdde0ebf7f515d7410b6d163875364823"
+      "sha256": "badbc4030286029dfe259a6e870b342eb64936d52eadb945c21835614484cac1"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "kind": "file",
-      "sha256": "3f6eec448b13f52dec34adb1c24908f9fc36af62bddf49767220d3bcd3f55b96"
+      "sha256": "7da4da7faf6c575d0ae5bafd14ef6462e2c8e2de25764968abe8262ff8f1183a"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/test_semantic_validation.py",
       "kind": "file",
-      "sha256": "15b1b9b6ba55a5ab977478dde688f2e7699e61f76f181f5c4e8396b923182a66"
+      "sha256": "72c6826ef97a7d4de16a9d138caaff6381f29f86300a1226f886a27f5577d84b"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/validation.py",
       "kind": "file",
-      "sha256": "64db9d4e4cd8ac02985ebb76bb127d890a93eb5482c4b9703697be1a65b438d3"
+      "sha256": "457c1813af5a5d90d31c7ab39178e33895473d63ba91581f2adc23fd9f08c127"
     }
   ],
   "index_decisions": [
     {
       "path": "research/README.md",
       "action": "unchanged",
-      "reason": "仍导航至同一语义任务，无新增任务。"
+      "reason": "当前语义任务导航保持不变。"
     },
     {
       "path": "research/project_state.json",
       "action": "unchanged",
-      "reason": "当前TASK和run指针、半小时频率未变。"
+      "reason": "任务/run指针与自动化频率保持不变。"
     },
     {
       "path": "research/tasks/2026-11-02-runtime-reset/README.md",
       "action": "unchanged",
-      "reason": "历史统一执行器导航不变，当前修复记语义任务。"
+      "reason": "历史统一运行器入口不变，本次针对当前控制器。"
     },
     {
       "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
       "action": "unchanged",
-      "reason": "历史任务状态未变，本次只修当前控制器HTTP请求。"
+      "reason": "历史任务状态不变。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
       "action": "unchanged",
-      "reason": "现有TASK和实现报告链接仍有效。"
+      "reason": "已有TASK与报告链接足以导航。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "action": "updated",
-      "reason": "记录正常tick、HTTP请求修复、实际SSH失败及无GPU结果。"
+      "reason": "记录真实GPU预检、首轮推理与观察失联状态。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务列表和科学身份未变。"
+      "reason": "任务列表和科学身份不变。"
     },
     {
       "path": "scripts/README.md",
       "action": "unchanged",
-      "reason": "既有TCL模块导航足够，无新脚本。"
+      "reason": "现有TCL模块导航不变。"
     },
     {
       "path": "scripts/merging/trigger_contrast_localization/README.md",
       "action": "unchanged",
-      "reason": "现有新鲜观察和失败暂停语义不变，具体HTTP时限由代码及实现报告记录。"
+      "reason": "既有私有连接和新鲜观察说明仍适用，故障细节及验证在当前实现报告。"
     }
   ],
   "validation": {
+    "ssh": "严格hostkey及公钥认证真实连接103成功，后台master继承管道假超时真实fork红绿回归通过",
+    "tests": [
+      {
+        "name": "test_semantic_validation.py",
+        "count": 12,
+        "result": "passed",
+        "scope": "Terra CPU"
+      },
+      {
+        "name": "test_gpu_hold*.py",
+        "count": 33,
+        "result": "passed",
+        "scope": "Terra CPU"
+      }
+    ],
+    "science": "103/104 SQLite schema与全部表行逻辑摘要/数量/terminal/selection一致，物理SHA不同；103既有SHA未改",
+    "gpu": "103 CUDA preflight 2026-11-03T19:18:12.293179+08; 1 attempt, encoder 2 forwards, unet 1 branch nfe; PNG and full score unverified",
+    "watch": "PID94006 running with old keepalive; last success 19:17:32+08, platform and SSH subsequently unreachable; actual pause/exit/release unknown",
+    "limits": "No claimed completed image; no hold task started. Apply keepalive via safe observer handoff after reconnect."
+  },
+  "preexisting_validation": {
     "tests": 11,
     "result": "passed",
     "scope": "Terra CPU mocked platform/subprocess tests; no new GPU evidence",
@@ -80,35 +101,5 @@
     "remote": "subsequent necessary spec read SSH banner timed out; no repeat this round",
     "watch": "PID77040 stopped after identity verified; no GPU running",
     "limits": "No PNG/scoring/ledger growth or T0. Full science-path comparison remains pending."
-  },
-  "preexisting_validation": {
-    "semantic_validation": {
-      "tests": 10,
-      "result": "passed",
-      "scope": "root independently ran CPU tests"
-    },
-    "school_transfer_dns": {
-      "tests": 18,
-      "result": "passed",
-      "scope": "root independently ran CPU tests"
-    },
-    "remote_cpu": {
-      "server": "103",
-      "assets": 38,
-      "contexts": 320,
-      "unique_units": 1024,
-      "cuda_initialized": false,
-      "model_forwards": 0,
-      "historical_imports": 0,
-      "seconds_approx": 660,
-      "science_sha256": "fa5169aca666bdb2456be9caff2c358eb6934a98f4923ef4799edc5943cf1a0a"
-    },
-    "limits": "0 new GPU images; T0 not started. Full 103-to-104 science-path-normalized comparison pending due SSH banner failures; DNS difference not a proven complete cause.",
-    "watch": {
-      "pid": 77040,
-      "ready": false,
-      "cadence_seconds": 60
-    },
-    "review": "Astra independently reviewed engineering mapping/private connection design; Terra performed remote deployment."
   }
 }

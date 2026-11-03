@@ -4,6 +4,7 @@ import fcntl
 import hashlib
 import json
 import os
+import signal
 from pathlib import Path
 import subprocess
 import sys
@@ -19,6 +20,29 @@ import semantic_science
 
 
 class SemanticValidationTest(unittest.TestCase):
+    def test_successful_frontend_does_not_wait_for_background_inherited_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pidfile = Path(tmp) / 'background.pid'
+            program = '''import os,pathlib,sys,time
+pid=os.fork()
+if pid==0:
+ time.sleep(20);os._exit(0)
+pathlib.Path(sys.argv[1]).write_text(str(pid))
+print('{"complete":true}',flush=True)
+os._exit(0)
+'''
+            real_popen = subprocess.Popen
+            def frontend(*args, **kwargs):
+                return real_popen([sys.executable, '-c', program, str(pidfile)], **kwargs)
+            try:
+                with mock.patch.object(validation.subprocess, 'Popen', side_effect=frontend):
+                    result = validation.bounded_ssh(Path(tmp) / 'config', '103', 'read-only', '', timeout=.3)
+                self.assertEqual(json.loads(result), {'complete': True})
+            finally:
+                if pidfile.exists():
+                    try:os.kill(int(pidfile.read_text()), signal.SIGTERM)
+                    except ProcessLookupError:pass
+
     def test_fresh_snapshot_allows_realistic_http_time_without_changing_freshness_rules(self):
         response = subprocess.CompletedProcess([], 0, stdout=json.dumps({'cache_state': 'fresh'}))
         with mock.patch.object(validation.subprocess, 'run', return_value=response) as query:
@@ -66,6 +90,9 @@ class SemanticValidationTest(unittest.TestCase):
                 mock.patch.object(validation.subprocess, 'run') as close, \
                 mock.patch.object(validation.subprocess, 'Popen') as popen:
             popen.return_value.communicate.return_value = ('ok', '')
+            def write_client_output(*args, **kwargs):
+                popen.call_args.kwargs['stdout'].write('ok')
+            popen.return_value.communicate.side_effect = write_client_output
             popen.return_value.returncode = 0
             with validation.ssh_config() as config:
                 folder = config.parent
@@ -74,6 +101,9 @@ class SemanticValidationTest(unittest.TestCase):
                 text = config.read_text()
                 self.assertIn('StrictHostKeyChecking yes', text)
                 self.assertIn('ControlMaster auto', text)
+                self.assertIn('ConnectTimeout 60', text)
+                self.assertIn('ServerAliveInterval 15', text)
+                self.assertIn('ServerAliveCountMax 2', text)
                 self.assertIn('ControlPersist 120', text)
                 self.assertIn(f'ControlPath {folder}/cm-%C', text)
                 self.assertEqual(validation.bounded_ssh(config, '103', 'true', ''), 'ok')
