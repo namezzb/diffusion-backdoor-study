@@ -52,6 +52,26 @@ class FakeSession:
         raise AssertionError("Unexpected remote operation")
 
 
+class GatewayAddressTests(unittest.TestCase):
+    def test_public_dns_preference_does_not_trust_tcp_only_system_answer(self):
+        answer = json.dumps({'Status': 0, 'Answer': [{'type': 1, 'data': '203.0.113.6'}]})
+        with mock.patch.object(stage, 'reachable', return_value=True) as reachable, \
+                mock.patch.object(stage, 'run', return_value=subprocess.CompletedProcess([], 0, stdout=answer)) as query:
+            self.assertEqual(stage.gateway_address(prefer_public_dns=True), '203.0.113.6')
+            reachable.assert_called_once_with('203.0.113.6')
+            query.assert_called_once()
+
+    def test_default_preserves_reachable_system_dns_behavior(self):
+        with mock.patch.object(stage, 'reachable', return_value=True), mock.patch.object(stage, 'run') as query:
+            self.assertEqual(stage.gateway_address(), 'hduiipl.cn')
+            query.assert_not_called()
+
+    def test_public_dns_failure_can_fall_back_to_configured_system_name(self):
+        with mock.patch.object(stage, 'reachable', return_value=True), \
+                mock.patch.object(stage, 'run', side_effect=OSError('offline')):
+            self.assertEqual(stage.gateway_address(prefer_public_dns=True), 'hduiipl.cn')
+
+
 class TransferRecoveryTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix="school-stage-audit-")

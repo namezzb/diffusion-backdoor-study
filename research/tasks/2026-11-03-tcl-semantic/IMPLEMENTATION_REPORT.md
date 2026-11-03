@@ -28,7 +28,7 @@
 .venv/bin/python scripts/merging/trigger_contrast_localization/validation.py report
 ```
 
-`tick`负责首次启动/相同run恢复，启动后自动运行平台观察器；当前只支持已核验104自动部署。返回`node_preparation_required`表示候选节点尚未部署，不是全平台不可用。101公钥拒绝尚未解决；如要使用其他已配置节点，由接手者先核验本人资产与权限并扩展部署路径。
+`tick`负责首次启动/相同run恢复，启动后自动运行平台观察器；支持已核验103和104自动部署。返回`node_preparation_required`表示候选节点尚未部署，不是全平台不可用。101公钥拒绝尚未解决；其他节点需先核验本人资产与权限并扩展部署路径。
 
 本机准备缓存为`~/.config/labgpu/tcl-semantic/prepared-104.json`，凭据和缓存不进Git。换机先登录平台，再执行`validation.py prepare --server 104`恢复本地准备引用；科学协议和远端spec已经固定。104环境`/data2/zhangzibo/arxiv-tssa/venv/bin/python`，准备目录`/data2/zhangzibo/arxiv-tssa/preparations/tcl-20261103-semantic-v1/`，输出目录`/data2/zhangzibo/arxiv-tssa/results/tcl-20261103-semantic-v1/`。
 
@@ -51,3 +51,13 @@ Terra修正执行器计时：完成平台预认证和运行观察后，首次实
 新增独立 `gpu_hold_controller.py` 与 `gpu_hold_worker.py`，用单独的配置、锁、租约和日志，不改科学运行器、科学终态或预算。等待器在真实实验启动且首个新样本验收后启动；仅当1024单元与冻结配置一致、四阶段及正式终态完成、科学写者退出，核验实际PNG哈希/头部和完整评分后，才重新申请源节点卡并在条件满足时尝试第二卡。监控独立短租约、规则变化/有效停止、用户STOP及断线恢复；进程和用途真实可见。[操作说明](../../../scripts/connection/GPU_HOLD.md)列出命令、授权判断与限制。
 
 根会话独立执行 `.venv/bin/python -W error::ResourceWarning -m unittest discover -s scripts/connection -p 'test_gpu_hold*.py'`，33项CPU假设备/子进程测试通过（1.724秒）；真实 `inspect-policy` 读取平台规则和账户成功。此前12秒平台查询曾超时，控制器调整为35秒上限、最多90秒租约且不超过原GPU/进程采样截止；短暂超时只在旧租约仍有效时有界重试，不延长旧观察。Astra与Terra独立复核终态、STOP竞争、逐worker撤销和失联恢复；没有真实GPU交接、60%阈值或双卡验收。
+
+## 11/3 18:07：103部署与超时定位
+
+103环境单独导入PyTorch 2.7.1+cu128、diffusers 0.35.1（约14.48秒）和transformers 4.49.0成功。部署适配使用已核实的本人历史代码/输入快照，缺少的小固定输入逐SHA传输到新准备目录；不复制历史实验结果账本。远端真实CPU检查核验38文件约10.75GB、320语境、1024唯一键和定位选择，CUDA=false、生成前向0、旧图导入0。原240秒超时位于慢盘读取（观察到约9.76GB读取及D态等待），沿用同spec增至900秒有界检查后约11分钟通过。
+
+准备过程新增0600 stdout/stderr及cpu-progress.json，保留阶段与失败证据；prepare、状态和启动按103/104一致选择目录。103回执在`~/.config/labgpu/tcl-semantic/prepared-103.json`，部署绑定SHA为`fa5169aca666bdb2456be9caff2c358eb6934a98f4923ef4799edc5943cf1a0a`；runtime/store/adapter三个执行SHA与104一致。与104的完整science路径归一化核对尚受SSH阻塞，不据此宣称两个科学SHA只有路径不同。
+
+连接上下文使用0700临时目录、0600配置、私有ControlMaster与120秒持久化，仅清理己方socket。启动和状态查询可借用同run观察器上下文，验证run/science/UUID、PID命令、时间及路径权限，借用者不清理拥有者连接。观察器启动等待最多185秒，仍需实际新鲜许可；观察异常按阶段落日志。公共DNS优先作为可选参数，仅TCL桥接器启用，保留HostKeyAlias和严格known_hosts。系统DNS与公共DNS曾不同，但正确公共地址下仍有SSH banner超时，因此DNS差异不能认作全部故障根因。
+
+根会话独立运行`test_semantic_validation.py`的10项CPU测试通过；Terra运行传输/DNS测试18项通过。当前观察器尚无成功ready，未实际调用GPU启动；新run无新PNG、评分或账本增长，T0未开始，保留等待器尚未启动。私有SSH诊断日志`~/.config/labgpu/tcl-semantic/ssh-phase-20261103.log`记录ProxyJump后未收到remote banner；现有日志无法精确区分跳板与目标端，不能虚构原因。后续在同run继续，不将工程准备视为科研结果。

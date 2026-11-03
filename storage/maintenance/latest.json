@@ -1,108 +1,153 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-11-03T08:30:08.682Z",
-  "base_commit": "19e20d231334c7d07fbd2ecdba42c4b4e6604af3",
-  "summary": "按用户要求将gpu-tcl改为每30分钟；先推进固定语义TCL，完整终态后才尝试独立保留最多两张卡，GPU利用率与显存目标65%、持续至用户停止。新增独立worker/控制器与说明，33项CPU模拟及真实平台规则查询通过；103本轮SSH超时，尚无新GPU实验或真实保留验收。 用户另授权空闲时及时更新规则并提交推送本任务阶段性改动；根入口及TASK已记录。",
+  "reviewed_at": "2026-11-03T10:08:07.166Z",
+  "base_commit": "fc0686c84b5235f2bba5cbd81ed3c4a5150dd3f4",
+  "summary": "继续修复103准备超时，真实CPU验证38资产/320语境/1024键通过；新增103部署、阶段日志、私有SSH复用及公共DNS优先，当前正确DNS下仍SSH握手失败、0新GPU图/T0未开始。",
   "reviewed_changes": [
     {
       "path": "AGENTS.md",
       "kind": "file",
-      "sha256": "e793adf8700e54a50405950a142b0c6e4c453fb70a99bfc69a0f3b7f229395bf"
-    },
-    {
-      "path": "research/project_state.json",
-      "kind": "file",
-      "sha256": "6af3b5cb1a54a96c43d776df5f3bb5f12b9f5e68e7d18c3ed702834780312458"
+      "sha256": "2d9927a4f8a4ee6422c8f61f257d6cf2db3396e0b98fc58910f6986db818de56"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
       "kind": "file",
-      "sha256": "ab47f6c907d888a1ed57ed9179d7743bd718c27f69363525b31c6bb50a9ad132"
+      "sha256": "37a4c58c89d8c6d6732a028d8f74a2b930f4d098794fab8bf9c8f5cf9d10b70c"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "kind": "file",
-      "sha256": "b7dbcaa59f95a2b7239a77887786cbf53c4069d3e616370f6e2ccbab0d84d88e"
+      "sha256": "4f123ee6897ada018b490948a743555cb9dfc35a0a47faa8d577a96eb743382e"
     },
     {
-      "path": "scripts/README.md",
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
       "kind": "file",
-      "sha256": "f7d291cf45cbcd250c0537d9a1b9c4ae36e9e6b4e518e1818e1fa07ba176c6ee"
+      "sha256": "b559604416459513da25a49ada468800afa13edb22635eaa3a6f88a584e7561b"
     },
     {
-      "path": "scripts/connection/GPU_HOLD.md",
+      "path": "scripts/merging/trigger_contrast_localization/test_semantic_validation.py",
       "kind": "file",
-      "sha256": "8c5816c7770a42ad9a3eced1d178a422f4892b12824fda487549d531b75a0dde"
+      "sha256": "c40dadaf05e24c3ab8f1757c27213a861e741cc7452867359dadaee2ec021786"
     },
     {
-      "path": "scripts/connection/LABGPU.md",
+      "path": "scripts/merging/trigger_contrast_localization/validation.py",
       "kind": "file",
-      "sha256": "a613ad23b1630d945b6b137cc79aeea0266ed297708f6b9b8306db55f0d46d1f"
+      "sha256": "61e1b2efa9157f15f686466d0eb9fe4f1236c4153e4783d25779ff05ede7125b"
     },
     {
-      "path": "scripts/connection/gpu_hold_controller.py",
+      "path": "server/OPERATIONS.md",
       "kind": "file",
-      "sha256": "df21bcb2cd845407d58a37c071a5ca686231c63b6d3d8abaa20c450e7bd27b1c"
+      "sha256": "c84e6d4fe31e7914ed2f6bfcdd49ba02a7616b29d1a8c04e9dd33fb2ba81a2d4"
     },
     {
-      "path": "scripts/connection/gpu_hold_worker.py",
+      "path": "server/stage_school_assets.py",
       "kind": "file",
-      "sha256": "7bd119c106738b48eb735692a5b4c249122d8883c15fecf5ebc60463e4a4f6a8"
+      "sha256": "5cbc90423d44d97e22b9b9b20c69dfe8ba90269799fcd0669a96a64f875225d7"
     },
     {
-      "path": "scripts/connection/test_gpu_hold_controller.py",
+      "path": "server/test_stage_school_assets.py",
       "kind": "file",
-      "sha256": "37f191736167c5acb28216f4d0325d257bd1060da60616486de7b8ffc969d2bc"
-    },
-    {
-      "path": "scripts/connection/test_gpu_hold_worker.py",
-      "kind": "file",
-      "sha256": "4d251566a3e0af84a681d1ffddae8ec780b589301ec366f6ba617fc8af809aee"
+      "sha256": "f3a9696e3d1380db0171a8af2abc154d9693ce7a5b4dc49d8a817d51f6994a96"
     }
   ],
   "index_decisions": [
     {
       "path": "AGENTS.md",
       "action": "updated",
-      "reason": "按用户要求增加空闲窗口及时更新规则、检查并推送已授权本任务变更的约束。"
+      "reason": "明确连接成功后继续工程排错，命令超时不能直接退回下轮。"
     },
     {
       "path": "README.md",
       "action": "unchanged",
-      "reason": "根入口已导航至AGENTS及项目状态，规则增补不改变导航。"
+      "reason": "根规则及项目指针导航不变。"
     },
     {
       "path": "research/README.md",
       "action": "unchanged",
-      "reason": "语义任务入口和当前项目指针未变，实时调度与保留进度只在TASK记录。"
+      "reason": "仍进入同一语义任务，没有新增科学任务。"
     },
     {
       "path": "research/project_state.json",
-      "action": "updated",
-      "reason": "保留既定科学run与TASK指针，将自动任务频率改为每30分钟。"
+      "action": "unchanged",
+      "reason": "当前TASK与run指针不变，频率仍为半小时。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/README.md",
+      "action": "unchanged",
+      "reason": "历史统一运行器任务入口不变，本次部署差异记当前语义TASK。"
+    },
+    {
+      "path": "research/tasks/2026-11-02-runtime-reset/TASK.md",
+      "action": "unchanged",
+      "reason": "历史运行器任务状态不变，本次为当前语义run工程部署。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/README.md",
       "action": "unchanged",
-      "reason": "现有TASK和实现报告导航仍有效，保留工具由TASK与脚本索引链接。"
+      "reason": "现有TASK与实现报告链接有效。"
     },
     {
       "path": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
       "action": "updated",
-      "reason": "记录半小时计划、保留工具验证边界及用户授权空闲时同步Git和规则。"
+      "reason": "记录103真实CPU准备完成、慢盘与握手故障、未启动GPU及下一步。"
     },
     {
       "path": "research/tasks/README.md",
       "action": "unchanged",
-      "reason": "任务列表保留语义任务导航，无新科学任务目录或状态副本。"
+      "reason": "任务列表与身份不变。"
     },
     {
       "path": "scripts/README.md",
+      "action": "unchanged",
+      "reason": "既有TCL模块入口足以导航，具体适配写模块README。"
+    },
+    {
+      "path": "scripts/merging/trigger_contrast_localization/README.md",
       "action": "updated",
-      "reason": "增加独立GPU保留工具的导航及启用边界。"
+      "reason": "更新103/104部署与CPU阶段日志、连接复用说明。"
+    },
+    {
+      "path": "server/README.md",
+      "action": "unchanged",
+      "reason": "服务器手册导航已有，不重复具体连接行为。"
+    },
+    {
+      "path": "storage/SERVER_INDEX.md",
+      "action": "unchanged",
+      "reason": "本次不是全盘盘点或新外置附件登记，不改历史盘点证据。"
     }
   ],
   "validation": {
+    "semantic_validation": {
+      "tests": 10,
+      "result": "passed",
+      "scope": "root independently ran CPU tests"
+    },
+    "school_transfer_dns": {
+      "tests": 18,
+      "result": "passed",
+      "scope": "root independently ran CPU tests"
+    },
+    "remote_cpu": {
+      "server": "103",
+      "assets": 38,
+      "contexts": 320,
+      "unique_units": 1024,
+      "cuda_initialized": false,
+      "model_forwards": 0,
+      "historical_imports": 0,
+      "seconds_approx": 660,
+      "science_sha256": "fa5169aca666bdb2456be9caff2c358eb6934a98f4923ef4799edc5943cf1a0a"
+    },
+    "limits": "0 new GPU images; T0 not started. Full 103-to-104 science-path-normalized comparison pending due SSH banner failures; DNS difference not a proven complete cause.",
+    "watch": {
+      "pid": 77040,
+      "ready": false,
+      "cadence_seconds": 60
+    },
+    "review": "Astra independently reviewed engineering mapping/private connection design; Terra performed remote deployment."
+  },
+  "preexisting_validation": {
     "automation": {
       "id": "gpu-tcl",
       "status": "ACTIVE",
@@ -139,106 +184,5 @@
     },
     "limits": "GPU资源和握手受实时条件约束，首个真实样本尚未产生；保留程序尚未真实部署/运行，未经真实双卡、交接、断网释放或60%指标验收。控制器目前仅源节点103/104同机；独立进程交接存在空档，无法保证取得原卡或两卡。平台确认的显存预占可能单独计时。",
     "diff_check": "git diff --check passed"
-  },
-  "preexisting_validation": {
-    "implementation_report": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
-    "current_run": "tcl-20261103-semantic-v1",
-    "science_sha256": "951c09f1883b9c13c539edf0ffb5e37d27f1dc45b5e734f114a48156f735852d",
-    "automation": {
-      "id": "gpu-tcl",
-      "status": "ACTIVE",
-      "cadence": "hourly at minute 0",
-      "destination": "current thread",
-      "manually_exercised": "tick returned node_preparation_required, report not_started"
-    },
-    "live_platform": {
-      "fetched_at": 1793673230.777065,
-      "usage": 0,
-      "quota": 4,
-      "active_ban": null,
-      "maintenance": [],
-      "gpu_requests": [],
-      "rectifications": [],
-      "cases": [],
-      "free": [
-        {
-          "server": "101",
-          "uuid": "GPU-b6abd4d8-aeca-fc05-193f-4551b64af89c"
-        }
-      ],
-      "ssh_101": "one bounded connection, Permission denied (publickey), no target session"
-    },
-    "preflight_clock_and_deployment": {
-      "clock": "T0 durable immediately before first actual GPU preflight following platform preauthorization; resume preserves T0",
-      "server": "104",
-      "scope": "remote CPU prepare/check only; no CUDA or new image",
-      "assets": 38,
-      "unique_keys": 1024,
-      "remote_and_local_sha_match": {
-        "runtime_py": "a1622080c33ffff2d9b8327340419e63851026ae0d25e2f69dfbb84a57e883ec",
-        "runtime_store_py": "6a6c411a8d03bffe810429f157fc722ed31abc3c9d71f1327dbbc062aee8e1b9",
-        "runtime_tcl_py": "3b18626678cef36b4dc80e12498506e6c598638faf8475ddfe99f24570de2d27"
-      }
-    },
-    "checks": [
-      {
-        "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_experiment*process.py'",
-        "tests": 18,
-        "result": "passed",
-        "scope": "Terra CPU/simulated process"
-      },
-      {
-        "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_semantic*.py'",
-        "tests": 13,
-        "result": "passed",
-        "scope": "Terra CPU/simulated, includes validation controller"
-      },
-      {
-        "command": ".venv/bin/python -m unittest discover -s scripts/merging/trigger_contrast_localization -p 'test_overnight.py'",
-        "tests": 11,
-        "result": "passed",
-        "scope": "Terra CPU historical compatibility"
-      },
-      {
-        "review": "Astra独立检查预检计时与执行代码门禁，进程针对8项、控制器5项通过；仅CPU模拟"
-      }
-    ],
-    "prior_calibration": "104上10张既有图原ViT/CLIP评分复现；CPU，非本run新图",
-    "caffeinate": {
-      "pid": 36821,
-      "duration_seconds": 86400,
-      "verified": true
-    },
-    "limits": "本轮尚未启动新run，未验证真实GPU加载、新PNG和完整新评分；不把CPU资产与评分校准当成科研效果。新协议扩充CLIP语义评分并保留原ViT，不宣称分类准确率本身已修复。101仍公钥拒绝；其他节点按实时许可并有界准备。",
-    "previous_semantic_delivery": {
-      "implementation_report": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md",
-      "tcl_regression": {
-        "tests": 310,
-        "seconds": 34.799,
-        "result": "passed",
-        "scope": "CPU and subprocess tests; no new GPU generation"
-      },
-      "labgpu": {
-        "tests": 38,
-        "seconds": 0.451,
-        "result": "passed"
-      },
-      "real_cpu": {
-        "server": "104",
-        "assets": 38,
-        "unique_keys": 1024,
-        "calibration_images": 10,
-        "legacy_scores_identical": true,
-        "cuda_initialized": false,
-        "science_sha256": "951c09f1883b9c13c539edf0ffb5e37d27f1dc45b5e734f114a48156f735852d"
-      },
-      "new_run": {
-        "status": "not_started",
-        "new_images": 0,
-        "implementation_status": "done",
-        "experiment_status": "todo"
-      },
-      "limits": "GPU生成/恢复未验收；新语义分数非真实ASR；资源快照过时需接手时刷新。"
-    }
   }
 }

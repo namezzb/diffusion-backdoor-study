@@ -69,7 +69,7 @@ python3 scripts/merging/trigger_contrast_localization/runtime.py status --spec /
 
 运行中禁用或停止要求由外部平台观察者持续更新`resource_status_file`。[overnight.py](overnight.py)通过本机[labgpu API客户端](../../connection/LABGPU.md)刷新平台状态，再向本run写入最小观察；登录凭据留在本机。夜间运行强制`execution.require_fresh_resource_status=true`，身份不符、观察无效或超过180秒没有有效更新时，在执行检查点保存进度并暂停。新禁用/有效停止要求同样作用于检查点；这不是挂死CUDA的硬实时抢占机制。已合法启动后他人加入不单独触发停止。
 
-本轮首次启动及恢复由[validation.py](validation.py)桥接，命令和证据见[实现报告](../../../research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md)；本机状态独立保存在`~/.config/labgpu/tcl-semantic/`，当前已实现104部署。运行观察持续检查平台规则，定时任务信息由当前TASK维护。只有配置了绝对截止的run才采用`science.compute_deadline_utc`，到期不新增计算并保全完整或部分结果。
+本轮首次启动及恢复由[validation.py](validation.py)桥接，命令和证据见[实现报告](../../../research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md)；本机状态独立保存在`~/.config/labgpu/tcl-semantic/`，支持已核验103和104部署。CPU准备保存阶段与输出日志，慢盘核验允许有界的较长执行；命令超时应据日志定位。运行观察复用本人私有SSH连接、优先公共DNS并保留严格主机身份校验；定时任务信息由当前TASK维护。只有配置了绝对截止的run才采用`science.compute_deadline_utc`，到期不新增计算并保全完整或部分结果。
 
 当前支持同一主机、同一目录、单GPU恢复；Astra/Terra的并行指开发分工，不等于已经实现跨机多GPU调度。真实模型、服务器平台和CUDA验证范围以当前TASK及实现报告为准。
 

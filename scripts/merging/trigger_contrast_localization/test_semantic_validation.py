@@ -8,6 +8,8 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
+from types import SimpleNamespace
 import unittest
 from unittest import mock
 
@@ -17,6 +19,113 @@ import semantic_science
 
 
 class SemanticValidationTest(unittest.TestCase):
+    def test_borrow_observer_context_checks_identity_and_never_closes_owner(self):
+        with tempfile.TemporaryDirectory() as tmp, tempfile.TemporaryDirectory(prefix='tcl-watch-', dir='/private/tmp') as ssh_tmp, \
+                mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \
+                mock.patch.object(validation.subprocess, 'run') as ps, \
+                mock.patch.object(validation, 'ssh_config') as create:
+            state = Path(tmp);state.chmod(0o700)
+            config = Path(ssh_tmp) / 'ssh_config';config.write_text('private');config.chmod(0o600)
+            identity = {'run_id': validation.RUN_ID, 'uuid': 'GPU-test', 'science_sha256': 'a' * 64, 'server': '103'}
+            ready = {**identity, 'pid': 12345, 'time': time.time(), 'ssh_config': str(config)}
+            path = state / 'observer-ready.json'
+            def save():
+                path.write_text(json.dumps(ready));path.chmod(0o600)
+            save()
+            ps.return_value.stdout = f'{os.getuid()} python {Path(validation.__file__).resolve()} watch --manifest {state / "manifest.json"}'
+            with validation.run_ssh_config(identity) as borrowed:
+                self.assertEqual(borrowed, config)
+            create.assert_not_called()
+            self.assertTrue(config.is_file())
+            self.assertEqual(ps.call_count, 1)
+            config.chmod(0o644)
+            self.assertIsNone(validation.observer_config(identity))
+            config.chmod(0o600)
+            ready['science_sha256'] = 'b' * 64;save()
+            self.assertIsNone(validation.observer_config(identity))
+            ready['science_sha256'] = identity['science_sha256'];ready['ssh_config'] = '/tmp/untrusted/ssh_config';save()
+            self.assertIsNone(validation.observer_config(identity))
+            ready['ssh_config'] = str(config);save()
+            ps.return_value.stdout = f'{os.getuid()} python unrelated.py'
+            self.assertIsNone(validation.observer_config(identity))
+
+    def test_ssh_context_reuses_private_masters_and_closes_only_owned_aliases(self):
+        gateway = SimpleNamespace(gateway_address=lambda **kwargs: 'configured.example')
+        with mock.patch.dict(sys.modules, {'stage_school_assets': gateway}), \
+                mock.patch.object(validation.subprocess, 'run') as close, \
+                mock.patch.object(validation.subprocess, 'Popen') as popen:
+            popen.return_value.communicate.return_value = ('ok', '')
+            popen.return_value.returncode = 0
+            with validation.ssh_config() as config:
+                folder = config.parent
+                self.assertEqual(folder.stat().st_mode & 0o777, 0o700)
+                self.assertEqual(config.stat().st_mode & 0o777, 0o600)
+                text = config.read_text()
+                self.assertIn('StrictHostKeyChecking yes', text)
+                self.assertIn('ControlMaster auto', text)
+                self.assertIn('ControlPersist 120', text)
+                self.assertIn(f'ControlPath {folder}/cm-%C', text)
+                self.assertEqual(validation.bounded_ssh(config, '103', 'true', ''), 'ok')
+                self.assertEqual(validation.bounded_ssh(config, '103', 'true', ''), 'ok')
+                close.assert_not_called()
+            aliases = [call.args[0][-1] for call in close.call_args_list]
+            self.assertEqual(aliases, ['school103', 'school-jump'])
+            self.assertTrue(all(call.args[0][3:5] == ['-O', 'exit'] for call in close.call_args_list))
+            self.assertFalse(folder.exists())
+            self.assertNotIn(str(config), validation._SSH_CONTEXTS)
+
+    def test_103_remote_scripts_use_one_bound_data_root(self):
+        for script in (validation.REMOTE_PREPARE, validation.REMOTE_RUN, validation.REMOTE_STATE):
+            rendered = validation.remote_script(script, '103')
+            self.assertIn("pathlib.Path('/data1/zhangzibo/arxiv-tssa')", rendered)
+            self.assertNotIn('/data2/zhangzibo/arxiv-tssa', rendered)
+            compile(rendered, '<103-remote>', 'exec')
+        with self.assertRaises(validation.NotReady):
+            validation.remote_script(validation.REMOTE_RUN, '101')
+
+    def test_103_tick_binds_prepared_node_and_observer_path(self):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(validation, 'STATE_DIR', Path(tmp)), \
+                mock.patch.object(validation, 'fresh_snapshot', return_value={'account': {'username': 'test'}}), \
+                mock.patch.object(validation, 'evaluate', return_value={'server': '103', 'host': 'iipl-103', 'uuid': 'GPU-test'}), \
+                mock.patch.object(validation, 'execution_sha256', return_value={'runtime.py': 'new'}), \
+                mock.patch.object(validation, 'prepare', return_value={'science_sha256': 'a' * 64, 'execution_sha256': {'runtime.py': 'new'}}) as prepare, \
+                mock.patch.object(validation, 'start_or_resume', return_value={'status': 'simulated'}) as start:
+            self.assertEqual(validation.tick()['status'], 'simulated')
+            prepare.assert_called_once_with('103')
+            identity = start.call_args.args[0]
+            self.assertEqual(identity['server'], '103')
+            self.assertEqual(identity['remote_status'], '/data1/zhangzibo/arxiv-tssa/preparations/' + validation.RUN_ID + '/observations/resource-status.json')
+            self.assertTrue((Path(tmp) / 'prepared-103.json').is_file())
+            self.assertFalse((Path(tmp) / 'prepared-104.json').exists())
+
+    def test_missing_gpu_helper_is_bootstrapped_only_before_run_creation(self):
+        for started in (False, True):
+            with self.subTest(started=started), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp).resolve()
+                (root / 'preparations/tcl-pilot24-v2-20261102/repository-recovery-v1').mkdir(parents=True)
+                work = root / ('preparations/' + validation.RUN_ID)
+                repo = work / 'repository'; repo.mkdir(parents=True)
+                (work / 'spec.json').write_text('{}')
+                if started:
+                    result = root / ('results/' + validation.RUN_ID)
+                    result.mkdir(parents=True)
+                    (result / 'run.sqlite').touch()
+                    (result / '.writer.lock').touch()
+                name = 'scripts/merging/trigger_contrast_localization/pilot24_provenance.py'
+                raw = b'bootstrap-only-helper'
+                payload = {'files': {name: {'content': base64.b64encode(raw).decode(),
+                                            'sha256': hashlib.sha256(raw).hexdigest()}}}
+                script = validation.REMOTE_PREPARE.replace("pathlib.Path('/data2/zhangzibo/arxiv-tssa')", f'pathlib.Path({str(root)!r})')
+                proc = subprocess.run([sys.executable, '-c', script], input=json.dumps(payload),
+                                      capture_output=True, text=True, timeout=10)
+                self.assertNotEqual(proc.returncode, 0)
+                if started:
+                    self.assertIn('existing prepared spec has different code', proc.stderr)
+                    self.assertFalse((repo / name).exists())
+                else:
+                    self.assertIn('missing fixed inputs', proc.stderr)
+                    self.assertEqual((repo / name).read_bytes(), raw)
+
     def test_identity_and_six_hour_clock_are_isolated(self):
         self.assertEqual(validation.RUN_ID, semantic_science.RUN_ID)
         self.assertEqual(validation.STATE_DIR.name, 'tcl-semantic')

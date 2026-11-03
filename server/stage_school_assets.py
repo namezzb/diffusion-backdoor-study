@@ -89,8 +89,8 @@ def reachable(host):
         return False
 
 
-def gateway_address():
-    if reachable("hduiipl.cn"):
+def gateway_address(*, prefer_public_dns=False):
+    if not prefer_public_dns and reachable("hduiipl.cn"):
         return "hduiipl.cn"
     for resolver in ("https://dns.alidns.com/resolve", "https://dns.google/resolve"):
         try:
@@ -107,6 +107,8 @@ def gateway_address():
                     return address
         except (OSError, ValueError, subprocess.SubprocessError):
             continue
+    if prefer_public_dns and reachable("hduiipl.cn"):
+        return "hduiipl.cn"
     raise RuntimeError("School gateway unreachable; no host-key checks were bypassed.")
 
 

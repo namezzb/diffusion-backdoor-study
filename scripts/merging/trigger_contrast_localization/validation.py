@@ -30,6 +30,8 @@ DEADLINE = datetime.fromisoformat(DEADLINE_UTC.replace('Z', '+00:00')).timestamp
 PREFERENCE = ('104', '103', '101', '127')
 STATE_DIR = Path.home() / '.config/labgpu/tcl-semantic'
 DISKS = {'104': '/data2', '103': '/data1', '127': '/data1'}
+PREPARED_SERVERS = ('104', '103')
+_SSH_CONTEXTS = {}
 
 REMOTE_STATUS_WRITER = r'''import hashlib,json,os,pathlib,socket,sqlite3,sys,tempfile
 path=pathlib.Path(sys.argv[1]); payload=json.load(sys.stdin);value=payload['status']
@@ -70,6 +72,7 @@ print(json.dumps({'terminal':terminal}))
 REMOTE_PREPARE = r'''import base64,fcntl,hashlib,json,os,pathlib,shutil,subprocess,sys
 data=json.load(sys.stdin);root=pathlib.Path('/data2/zhangzibo/arxiv-tssa')
 old=root/'preparations/tcl-pilot24-v2-20261102'; source=old/'repository-recovery-v1'
+source=pathlib.Path(data.get('source_repository',str(source)))
 work=root/'preparations/tcl-20261103-semantic-v1'; repo=work/'repository'
 if not source.is_dir(): raise ValueError('historical recovery source repository is missing')
 work.mkdir(mode=0o700,parents=True,exist_ok=True)
@@ -97,7 +100,8 @@ for name,item in data['files'].items():
  path.parent.mkdir(parents=True,exist_ok=True)
  # Avoid silently changing scientific code under an existing spec/run.
  mutable={'scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py')}
- if (work/'spec.json').exists() and name not in mutable and (not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=item['sha256']):
+ bootstrap_auxiliary=(name=='scripts/merging/trigger_contrast_localization/pilot24_provenance.py' and not database.exists() and not path.exists())
+ if (work/'spec.json').exists() and name not in mutable and not bootstrap_auxiliary and (not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=item['sha256']):
   raise ValueError('existing prepared spec has different code: '+name)
  if not path.exists() or path.read_bytes()!=raw:
   tmp=path.with_name(path.name+'.semantic-tmp')
@@ -111,8 +115,24 @@ inputs={'parent_manifest':str(t/'manifest_candidate.json'),'parent_review':str(t
  'selection':str(snap/'selection/selection.json'),'localization_ledger':str(snap/'localization.sqlite'),
  'localization_terminal':str(snap/'localization_terminal.json'),
  'protocol':str(research/'tssa_mvp_2026-10-26.json'),'asset_manifest':str(research/'tssa_mvp_assets_2026-10-26.json')}
+if data.get('fixed_inputs') is not None:inputs=data['fixed_inputs']
 missing=[k for k,p in inputs.items() if not pathlib.Path(p).is_file()]
 if missing: raise ValueError('missing fixed inputs: '+','.join(missing))
+def cpu_step(command,label,limit):
+ out=work/('cpu-'+label+'-'+str(os.getpid())+'.stdout.log');err=out.with_suffix('.stderr.log')
+ progress=work/'cpu-progress.json'
+ def record(status):
+  progress.write_text(json.dumps({'phase':label,'status':status,'stdout':str(out),'stderr':str(err),'pid':os.getpid()}));progress.chmod(0o600)
+ record('running')
+ env=dict(os.environ,CUDA_VISIBLE_DEVICES='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1')
+ try:
+  with out.open('w') as stdout,err.open('w') as stderr:
+   out.chmod(0o600);err.chmod(0o600)
+   proc=subprocess.run(command,cwd=repo,env=env,stdout=stdout,stderr=stderr,text=True,timeout=limit)
+ except BaseException:
+  record('error');raise
+ proc.stdout=out.read_text();proc.stderr=err.read_text();record('complete' if not proc.returncode else 'error')
+ return proc
 req={'run_id':'tcl-20261103-semantic-v1','run_root':str(root/'results/tcl-20261103-semantic-v1'),
  'repository_root':str(repo),'models_root':str(root/'models'),'inputs':inputs,'max_compute_seconds':21600,
  'study_protocol':str(repo/'research/tasks/2026-11-03-tcl-semantic/protocol.json'),
@@ -134,12 +154,10 @@ if spec.exists():
 if not spec.exists():
  request.write_text(json.dumps(req));request.chmod(0o600)
  cmd=[str(root/'venv/bin/python'),str(repo/'scripts/merging/trigger_contrast_localization/runtime.py')]
- env=dict(os.environ,CUDA_VISIBLE_DEVICES='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1')
- proc=subprocess.run(cmd+['prepare','--request',str(request),'--spec',str(spec)],cwd=repo,env=env,capture_output=True,text=True,timeout=180)
+ proc=cpu_step(cmd+['prepare','--request',str(request),'--spec',str(spec)],'prepare',300)
  if proc.returncode: raise RuntimeError('CPU prepare failed: '+proc.stderr[-3000:])
 cmd=[str(root/'venv/bin/python'),str(repo/'scripts/merging/trigger_contrast_localization/runtime.py')]
-env=dict(os.environ,CUDA_VISIBLE_DEVICES='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1')
-proc=subprocess.run(cmd+['check','--spec',str(spec)],cwd=repo,env=env,capture_output=True,text=True,timeout=240)
+proc=cpu_step(cmd+['check','--spec',str(spec)],'check',900)
 if proc.returncode: raise RuntimeError('CPU check failed: '+proc.stderr[-3000:])
 s=json.loads(spec.read_text()); canonical=json.dumps({'run_id':s['run_id'],'science':s['science']},sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)
 names=['scripts/merging/trigger_contrast_localization/'+n for n in ('runtime.py','runtime_store.py','runtime_tcl.py')]
@@ -379,6 +397,9 @@ def load_manifest(path):
 
 
 def bounded_ssh(config, server, command, data, timeout=30):
+    aliases = _SSH_CONTEXTS.get(str(config))
+    if aliases is not None:
+        aliases.add('school' + server)
     process = subprocess.Popen(['ssh', '-F', str(config), 'school' + server, command],
                                stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                text=True, start_new_session=True)
@@ -391,7 +412,7 @@ def bounded_ssh(config, server, command, data, timeout=30):
         except subprocess.TimeoutExpired:
             os.killpg(process.pid, signal.SIGKILL)
             process.communicate()
-        raise NotReady('远端状态写入超时')
+        raise NotReady('远端命令执行超时；应检查阶段日志和进程，连接成功不等于命令已完成')
     if process.returncode:
         raise NotReady('远端命令失败: ' + error[-2500:])
     return output
@@ -401,14 +422,30 @@ def bounded_ssh(config, server, command, data, timeout=30):
 def ssh_config():
     sys.path.insert(0, str(ROOT / 'server'))
     from stage_school_assets import gateway_address
-    gateway = gateway_address()
+    gateway = gateway_address(prefer_public_dns=True)
     with tempfile.TemporaryDirectory(prefix='tcl-watch-', dir='/private/tmp') as folder:
+        Path(folder).chmod(0o700)
         config = Path(folder) / 'ssh_config'
         config.write_text(f'Host school-jump\n    HostName {gateway}\nHost *\n    BatchMode yes\n'
-                          f'    StrictHostKeyChecking yes\n    ConnectTimeout 15\n    ControlMaster no\n'
-                          f'    ControlPath none\n    Include "{ROOT / "server/school_ssh_config"}"\n')
+                          f'    StrictHostKeyChecking yes\n    ConnectTimeout 15\n    ControlMaster auto\n'
+                          f'    ControlPersist 120\n    ControlPath {folder}/cm-%C\n'
+                          f'    Include "{ROOT / "server/school_ssh_config"}"\n')
         config.chmod(0o600)
-        yield config
+        _SSH_CONTEXTS[str(config)] = set()
+        try:
+            yield config
+        finally:
+            aliases = _SSH_CONTEXTS.pop(str(config))
+            # -O exit only addresses this private context's control sockets;
+            # it never creates a connection or touches another task's master.
+            if aliases:
+                for alias in sorted(aliases) + ['school-jump']:
+                    try:
+                        subprocess.run(['ssh', '-F', str(config), '-O', 'exit', alias],
+                                       stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                                       stderr=subprocess.DEVNULL, timeout=3)
+                    except (OSError, subprocess.SubprocessError):
+                        pass
 
 
 def execution_sha256():
@@ -417,18 +454,49 @@ def execution_sha256():
     return {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in names}
 
 
+def remote_script(script, server):
+    if server not in PREPARED_SERVERS:
+        raise NotReady('此节点尚未核验部署路径')
+    return script.replace("pathlib.Path('/data2/zhangzibo/arxiv-tssa')",
+                          f"pathlib.Path('{DISKS[server]}/zhangzibo/arxiv-tssa')")
+
+
 def prepare(server):
-    if server != '104':
-        raise NotReady('当前CPU部署仅支持已核验的104；其他节点需先只读核验本人数据目录')
+    if server not in PREPARED_SERVERS:
+        raise NotReady('此节点尚未核验本人数据目录和固定输入')
     prefix = 'scripts/merging/trigger_contrast_localization/'
     names = [prefix + n for n in ('runtime.py', 'runtime_store.py', 'runtime_tcl.py', 'overnight_science.py', 'semantic_science.py', 'semantic_scoring.py')]
     names.append('research/tasks/2026-11-03-tcl-semantic/protocol.json')
+    payload = {}
+    if server == '103':
+        # Read only the audited historical input snapshot. Never copy its run
+        # database into the new run, and never write into the frozen snapshot.
+        root = '/data1/zhangzibo/arxiv-tssa'
+        snapshot = root + '/preparations/tcl104-shard-snapshot-20261030T0200Z'
+        source = snapshot + '/code'
+        repo = root + '/preparations/' + RUN_ID + '/repository'
+        task = source + '/research/tasks/2026-10-29-trigger-contrast-localization'
+        local_task = 'research/tasks/2026-10-29-trigger-contrast-localization/'
+        additions = [local_task + n for n in ('pilot24_plan_candidate.json', 'pilot24_context_ids.json')]
+        additions += ['research/tssa_mvp_2026-10-26.json', 'research/tssa_mvp_assets_2026-10-26.json']
+        names += additions
+        names += [prefix + n + '.py' for n in ('pilot24_inputs', 'pilot24_statistics', 'pilot24_runtime', 'pilot24_worker_ledger', 'pilot24_provenance')]
+        payload = {'source_repository': source, 'fixed_inputs': {
+            'parent_manifest': task + '/manifest_candidate.json', 'parent_review': task + '/m06_review.json',
+            'prompts': task + '/prompts_tokenized_candidate.jsonl', 'context_review': task + '/context_review.json',
+            'selection': snapshot + '/run/selection/selection.json',
+            'localization_ledger': snapshot + '/run/localization.sqlite',
+            'localization_terminal': snapshot + '/run/localization_terminal.json',
+            'plan': repo + '/' + additions[0], 'context_ids': repo + '/' + additions[1],
+            'protocol': repo + '/research/tssa_mvp_2026-10-26.json',
+            'asset_manifest': repo + '/research/tssa_mvp_assets_2026-10-26.json'}}
     files = {}
     for name in names:
         raw = (ROOT / name).read_bytes()
         files[name] = {'content': base64.b64encode(raw).decode(), 'sha256': hashlib.sha256(raw).hexdigest()}
+    payload['files'] = files
     with ssh_config() as config:
-        result = bounded_ssh(config, server, shlex.join(['python3', '-c', REMOTE_PREPARE]), json.dumps({'files': files}), timeout=480)
+        result = bounded_ssh(config, server, shlex.join(['python3', '-u', '-c', remote_script(REMOTE_PREPARE, server)]), json.dumps(payload), timeout=1230)
     try:
         value = json.loads(result)
         if value.get('execution_sha256') != execution_sha256():
@@ -459,11 +527,53 @@ def save_private(path, value):
         if os.path.exists(temp): os.unlink(temp)
 
 
+def observer_config(identity):
+    """Borrow only the live same-run observer's private SSH context."""
+    try:
+        if (STATE_DIR.is_symlink() or STATE_DIR.stat().st_uid != os.getuid()
+                or STATE_DIR.stat().st_mode & 0o777 != 0o700):
+            return None
+        path = STATE_DIR / 'observer-ready.json'
+        if path.is_symlink() or path.stat().st_uid != os.getuid() or path.stat().st_mode & 0o777 != 0o600:
+            return None
+        ready = json.loads(path.read_text())
+        if (ready.get('run_id') != RUN_ID or ready.get('uuid') != identity['uuid']
+                or ready.get('science_sha256') != identity['science_sha256']
+                or ready.get('server') != identity['server'] or not 0 <= time.time() - ready['time'] <= 150):
+            return None
+        info = subprocess.run(['ps', '-p', str(ready['pid']), '-o', 'uid=', '-o', 'command='],
+                              capture_output=True, text=True, timeout=3).stdout.strip()
+        if (not info.startswith(str(os.getuid()) + ' ') or str(Path(__file__).resolve()) not in info
+                or ' watch ' not in info or str(STATE_DIR / 'manifest.json') not in info):
+            return None
+        config = Path(ready['ssh_config'])
+        folder = config.parent
+        if (config.name != 'ssh_config' or folder.parent != Path('/private/tmp')
+                or not folder.name.startswith('tcl-watch-') or config.resolve() != config
+                or folder.is_symlink() or folder.stat().st_uid != os.getuid()
+                or folder.stat().st_mode & 0o777 != 0o700
+                or not config.is_file() or config.stat().st_uid != os.getuid()
+                or config.stat().st_mode & 0o777 != 0o600):
+            return None
+        return config
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError):
+        return None
+
+
+@contextlib.contextmanager
+def run_ssh_config(identity):
+    config = observer_config(identity)
+    if config is not None:
+        yield config  # Borrowers never close the owning observer's master.
+    else:
+        with ssh_config() as config:
+            yield config
+
+
 def remote_state(identity):
-    if identity['server'] != '104':
-        raise NotReady('此节点尚未实现可恢复的远端运行检查')
-    with ssh_config() as config:
-        return json.loads(bounded_ssh(config, '104', shlex.join(['python3', '-c', REMOTE_STATE]), '', timeout=30))
+    server = identity['server']
+    with run_ssh_config(identity) as config:
+        return json.loads(bounded_ssh(config, server, shlex.join(['python3', '-c', remote_script(REMOTE_STATE, server)]), '', timeout=30))
 
 
 def observer_alive(identity):
@@ -521,7 +631,7 @@ def start_or_resume(identity):
     ready_path = STATE_DIR / 'observer-ready.json'
     # Reusing the same observer is safe; a second process exits on its lock.
     observer = spawn_observer()
-    deadline = time.monotonic() + 95
+    deadline = time.monotonic() + 185
     while time.monotonic() < deadline:
         try:
             ready = json.loads(ready_path.read_text())
@@ -537,8 +647,8 @@ def start_or_resume(identity):
             observer.terminate()
         raise NotReady('观察器未能及时提供可用启动证据')
     try:
-        with ssh_config() as config:
-            result = bounded_ssh(config, identity['server'], shlex.join(['python3', '-c', REMOTE_RUN]),
+        with run_ssh_config(identity) as config:
+            result = bounded_ssh(config, identity['server'], shlex.join(['python3', '-c', remote_script(REMOTE_RUN, identity['server'])]),
                                  json.dumps({'uuid': identity['uuid'], 'science_sha256': identity['science_sha256'],
                                              'execution_sha256': execution_sha256()}), timeout=35)
         response = json.loads(result)
@@ -589,21 +699,22 @@ def tick():
             identity = None
         if identity and (candidate['host'] != identity['host'] or snapshot['account']['username'] != identity['username']):
             raise NotReady('当前候选或账号与既有运行身份不一致')
-        if candidate['server'] != '104':
+        server = candidate['server']
+        if server not in PREPARED_SERVERS:
             return {'status': 'node_preparation_required', 'run_id': RUN_ID,
                     'server': candidate['server'], 'host': candidate['host'], 'uuid': candidate['uuid']}
-        prepared_path = STATE_DIR / 'prepared-104.json'
+        prepared_path = STATE_DIR / f'prepared-{server}.json'
         prepared = json.loads(prepared_path.read_text()) if prepared_path.exists() else {}
         if prepared.get('execution_sha256') != execution_sha256():
             original_science = identity['science_sha256'] if identity else prepared.get('science_sha256')
-            prepared = prepare('104')
+            prepared = prepare(server)
             if original_science and prepared.get('science_sha256') != original_science:
                 raise NotReady('更新后的科学身份与既有运行不一致')
             save_private(prepared_path, prepared)
         if not identity:
-            identity = {'run_id': RUN_ID, 'server': '104', 'host': candidate['host'], 'uuid': candidate['uuid'],
+            identity = {'run_id': RUN_ID, 'server': server, 'host': candidate['host'], 'uuid': candidate['uuid'],
                         'science_sha256': prepared['science_sha256'], 'username': snapshot['account']['username'],
-                        'remote_status': f"{DISKS['104']}/zhangzibo/arxiv-tssa/preparations/{RUN_ID}/observations/resource-status.json"}
+                        'remote_status': f"{DISKS[server]}/zhangzibo/arxiv-tssa/preparations/{RUN_ID}/observations/resource-status.json"}
             save_private(manifest_path, identity)
         return start_or_resume(identity)
     finally:
@@ -631,7 +742,9 @@ def watch(path):
                     snapshot = fresh_snapshot()
                     status = monitor_observation(snapshot, identity)
                     evidence = startup_evidence(snapshot, identity)
-                except Exception:
+                except Exception as exc:
+                    print(json.dumps({'time': time.time(), 'phase': 'platform_observation', 'error': str(exc)[:2000]}),
+                          file=sys.stderr, flush=True)
                     snapshot, evidence = None, None
                     status = {'run_id': RUN_ID, 'science_sha256': identity['science_sha256'], 'gpu_uuid': identity['uuid'],
                               'observed_at_utc': datetime.now(timezone.utc).isoformat(), 'observation_valid': False,
@@ -640,6 +753,8 @@ def watch(path):
                     output = bounded_ssh(config, identity['server'], command,
                                          json.dumps({'status': status, 'evidence': evidence, 'capture': snapshot}))
                     ready = {'run_id': RUN_ID, 'uuid': identity['uuid'], 'pid': os.getpid(),
+                             'science_sha256': identity['science_sha256'], 'server': identity['server'],
+                             'ssh_config': str(config),
                              'time': time.time(), 'startup_evidence': evidence is not None}
                     fd, temp = tempfile.mkstemp(prefix='.observer-', dir=STATE_DIR)
                     try:
@@ -650,8 +765,10 @@ def watch(path):
                         if os.path.exists(temp): os.unlink(temp)
                     if json.loads(output).get('terminal'):
                         break
-                except (NotReady, OSError, ValueError):
-                    pass  # Remote freshness expires and the runner pauses.
+                except (NotReady, OSError, ValueError) as exc:
+                    print(json.dumps({'time': time.time(), 'phase': 'remote_status_write', 'error': str(exc)[:2000]}),
+                          file=sys.stderr, flush=True)
+                    # Remote freshness expires and the runner pauses.
                 time.sleep(max(0, 60 - (time.monotonic() - started)))
     finally:
         os.close(lock)
