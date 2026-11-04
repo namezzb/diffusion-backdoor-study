@@ -55,3 +55,23 @@
 - 查阅 Transformer 原文 §3 与 LDM 原文 §3.3，补充 Q/K/V、注意力与 MLP 的作用，以及文本编码器和 U-Net cross-attention 投影的参数归属区别。
 - 按后续要求展开同一算例的完整前向计算：固定输入 `x=[1,0]^T`、两个文本来源 `[1,0]^T/[0,1]^T`，底座 `Wq=Wo=I`、`Wk=√2 I`、`Wv=diag(2,3)`，偏置和 mask 为零、dropout 为零；逐项计算 Q/K/V、缩放点积、softmax、value 汇总与输出投影。
 - 用 NumPy 数值核对基线、分别修改 Q/K/V/O 的四份 rank-1 更新、λ=0/0.5/1，以及第一维为零的输入。基线注意力为 `[0.7310585786,0.2689414214]`；Q/K 示例交换两者；V/O 示例保持当前头的注意力比例但改变输出。核验属于人工前向算例，不是 GPU 实验或后门有效性证据。
+
+## Diffusion LoRA 挂载位置调研
+
+2026-11-04，使用 Exa 检索并交叉读取原论文、官方项目页与实现。区分计算机制、特定任务的实验观察和待验证假设；讨论主要针对 SD 系列 U-Net，不把模块路径外推到 FLUX／DiT。
+
+| 来源 | 本轮核对内容 | 适用边界 |
+|---|---|---|
+| [Diffusers SDXL DreamBooth-LoRA](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora_sdxl.py) 与 [BasicTransformerBlock](https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/attention.py) | 默认 U-Net 目标为 `to_q/to_k/to_v/to_out.0`，匹配 self-attention 与 cross-attention；文本编码器训练另有可选开关 | 是可核实的常用基线，不能视为最佳位置的实验结论；检索当日 main 内容可能继续变化 |
+| [Custom Diffusion §3.1](https://arxiv.org/html/2212.04488v2) | 个性化微调选择 cross-attention K/V，必要时连同新 modifier token embedding 训练 | 原方法不是标准 LoRA；证明其任务下选参可行，不证明 KV-only LoRA 普遍最优 |
+| [Perfusion §4.1–4.3](https://arxiv.org/html/2305.01644v2) | 将概念 K 约束到上位类别 K，学习概念 V；处理注意力过拟合与身份保留的权衡 | 使用带门控的 rank-1 编辑；K 的 where、V 的 what 是方法解释，不是唯一语义职责 |
+| [ConceptSplit §3.2](https://arxiv.org/pdf/2510.04668v1) | 对比 K-only、V-only、KV，报告 few-shot 多概念设置下修改 K 可能破坏 token 与区域绑定；采用 token-wise V 适配 | 查阅原文检索段落与官方摘要；其 token 路由及推理潜变量优化不等价于普通权重相加，不作未核实数值引用 |
+| [B-LoRA §4 与 §6](https://arxiv.org/html/2403.14572v2) 及 [官方模块映射](https://github.com/yardenfren1996/B-LoRA/blob/main/blora_utils.py) | SDXL 联合训练 `up_blocks.0.attentions.0` 与 `.1`，分别偏内容和风格；目标包括两处模块内 attention 的 Q/K/V/O | 不是任意全层 LoRA 的事后通用拆分；正文指出颜色影响身份、背景混入风格、复杂场景结构等局限 |
+| [InstantStyle 官方项目页](https://instantstyle.github.io/) | 在 SDXL 的 `up_blocks.0.attentions.1` 注入图像特征偏风格，`down_blocks.2.attentions.1` 偏空间布局 | 是 IP-Adapter 特征注入研究，可作位置选择的旁证，不是同条件 LoRA 训练消融 |
+| [UnZipLoRA §3.3、§4.4](https://openaccess.thecvf.com/content/ICCV2025/papers/Liu_UnZipLoRA_Separating_Content_and_Style_from_a_Single_Image_ICCV_2025_paper.pdf) | 使用提示、列和 block 分离，细化内容／风格分配，扩展到更多 upsampling blocks | 进一步说明简单的两层角色表并不覆盖所有内容／风格情况 |
+| [LoRA.rar §3.3 与附录 A2.3](https://arxiv.org/html/2412.05148v2) | 对 Q/O 预测融合系数，K/V 采用平均；附录对不同投影组合做消融 | 是融合算子的选项比较，不是只训练 Q/O 的结论；不能推导 Q/O 永远最重要 |
+| [K-LoRA §3.2](https://openaccess.thecvf.com/content/CVPR2025/papers/Ouyang_K-LoRA_Unlocking_Training-Free_Fusion_of_Any_Subject_and_Style_LoRAs_CVPR_2025_paper.pdf) | 报告主体 LoRA 在去噪前期、风格 LoRA 在后期的作用差异，并据此动态选层 | 时间步和网络深度是两个坐标；K 指 Top-K 统计，不是 attention 的 Key；动态选择不是单一固定 checkpoint |
+
+面向第三方资产组合，先检查实际资产的底座、模块键及融合操作，再比较投影和层位置。可验证问题包括：行为变化来自匹配关系还是注入内容；哪些位置在不同伙伴和融合权重下仍保留正常主体／风格；融合算法是否对不同投影施加不同处理。固定 rank 不等于固定可训练参数量，比较时需记录 `r(d_in+d_out)`、有效更新强度和正常功能代价，不能把参数量或强度差异当作位置机制。
+
+本轮没有修改模型、启动训练或复现上述实验；没有形成“某个位置后门更有效／更耐融合”的实测结论。阅读复选框和现有 Zotero 分类保持原样。
