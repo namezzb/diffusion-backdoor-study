@@ -6,6 +6,7 @@
 
 ## 从哪里开始
 
+- LoRA 融合后门：[可勾选的论文阅读清单](../research/tasks/2026-11-04-lora-merging-reading/TASK.md)，按基础、融合、攻击与评价安排阅读，直接在条目中记录完成状态和笔记。
 - 当前方法：[TSSA 梯度校准方案](../research/tssa_response_calibration_method_proposal.md)，优先阅读 BackdoorDM、Rickrolling、BadT2I 与 BadMerging。
 - 缺失文献：[待核验下载清单](download_queue.md)，包含真正的 EvilEdit 和当前方案已引用但未保存的论文。
 - 防御资料：[防御方法索引](defense_papers_index.md)；历史搜索元数据：[metadata/README.md](metadata/README.md)。

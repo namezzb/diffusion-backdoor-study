@@ -4,6 +4,7 @@
 
 | 任务ID | 任务与交接入口 | 目标 |
 |---|---|---|
+| LORA-READING-20261104-01 | [LoRA 融合后门论文阅读清单](2026-11-04-lora-merging-reading/TASK.md) | 第三方 LoRA 组合场景的阅读顺序、可勾选状态与 idea 笔记 |
 | REPO-ORGANIZE-20261103-01 | [目录导航与记录分层](2026-11-03-repository-organization/TASK.md) | 整理入口、脚本用途和当前/历史记录，保留原始证据及兼容路径 |
 | TCL-SEMANTIC-20261103-01 | [语义评分与完整对照验证](2026-11-03-tcl-semantic/TASK.md) · [目录](2026-11-03-tcl-semantic/README.md) | 独立目标和正常语义评价，固定完成四阶段后解释效果 |
 | TCL-OVERNIGHT-20261102-01 | [夜间探索性验证与每小时检查](2026-11-02-tcl-overnight/TASK.md) · [目录](2026-11-02-tcl-overnight/README.md) | 已按基线门禁结束，保留独立科学配置与账本 |
