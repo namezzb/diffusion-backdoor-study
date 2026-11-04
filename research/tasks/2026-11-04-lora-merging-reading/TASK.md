@@ -2,6 +2,12 @@
 
 整理日期：2026-11-04。研究场景：用户下载并组合第三方主体／风格 LoRA，攻击者控制其中一份资产；先理解真实融合流程与已有攻击，再提出和核对 idea。
 
+## Zotero 收纳
+
+分类路径：`Idea1-Merge Backdoor / LoRA 融合后门阅读清单`（collection key：`PW25S7NF`）。本轮按用户要求收录全部 14 篇：12 篇新阅读项、BadMerging 回看项和 DiffSafeMerge 暂缓项；已有条目复用，阅读完成状态保持独立。已完成 14 篇条目与 14 份 PDF 的本地可读性核对；本轮新增 11 篇，复用已有 3 篇。
+
+[在 Zotero 打开分类](zotero://select/library/collections/PW25S7NF)。下方每篇均有 Zotero 条目及 PDF 直达链接。附件已在本机保存；Zotero 提示云端文件配额已满，部分 PDF 尚未上传，书目数据可继续同步。
+
 ## 如何标记
 
 - 每篇的 `- [ ] 已读` 是唯一阅读完成状态；读完将它改为 `- [x] 已读`，支持任务列表的 Markdown 编辑器也可以直接勾选。
@@ -17,6 +23,8 @@
 - [ ] 已读
 
 **论文**：[LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)（2021）
+
+**Zotero**：[条目](zotero://select/library/items/GZCXX3EZ) · [打开 PDF](zotero://open-pdf/library/items/YF8CXQSZ)；已保存 `arXiv:2106.09685v2`，26 页。
 
 **重点阅读**：§4.1–4.2、§7.1–7.2；LLM 各任务成绩可以略读。
 
@@ -34,6 +42,8 @@
 
 **论文**：[ZipLoRA: Any Subject in Any Style by Effectively Merging LoRAs](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/00148.pdf)（ECCV 2024）
 
+**Zotero**：[条目](zotero://select/library/items/MAGWM48H) · [打开 PDF](zotero://open-pdf/library/items/MCZHLY3X)；已保存 `arXiv:2311.13600v2`，17 页。
+
 **重点阅读**：方法、融合损失、实验设置和主体／风格评价。
 
 **要掌握**：用户为何组合 LoRA、直接相加为何出现干扰、逐列融合系数如何学习。论文实验使用 SDXL，文本编码器冻结。
@@ -49,6 +59,8 @@
 - [ ] 已读
 
 **论文**：[LoBAM: LoRA-Based Backdoor Attack on Model Merging](https://arxiv.org/abs/2411.16746)（2024；2025 更新）
+
+**Zotero**：[条目](zotero://select/library/items/G93DEYMN) · [打开 PDF](zotero://open-pdf/library/items/QL89VLQP)；已保存 `arXiv:2411.16746v4`，11 页。
 
 **重点阅读**：§3、§4、§5.1，以及不同融合算法下的结果。
 
@@ -68,6 +80,8 @@
 
 **论文**：[When LoRA Betrays: Backdooring Text-to-Image Models by Masquerading as Benign Adapters](https://arxiv.org/abs/2602.21977)（MasqLoRA，CVPR 2026）
 
+**Zotero**：[条目](zotero://select/library/items/XDM5PN38) · [打开 PDF](zotero://open-pdf/library/items/EII5MH2E)；已保存 `arXiv:2602.21977v4`，10 页。
+
 **重点阅读**：§3、§4、§5.4 Backdoor Compositionality、§5.5 消融。
 
 **要掌握**：正常功能与后门如何共存；TE 与 UNet LoRA 的各自作用；多模块组合、rank 和时间步加权的实验。
@@ -83,6 +97,8 @@
 - [ ] 已读
 
 **论文**：[Customization under Fire: Plugin Poisoning in Text-to-Image Ecosystem](https://arxiv.org/abs/2606.09151)（PoisonLoRA，2026；arXiv 备注标注 ACM CCS 2026 接收）
+
+**Zotero**：[条目](zotero://select/library/items/9KDZGWX4) · [打开 PDF](zotero://open-pdf/library/items/JS5AZT6W)；已保存 `arXiv:2606.09151v1`，27 页。
 
 **重点阅读**：§3、§4.2–4.5、§5.4 Robustness、§6.3 Limitations。
 
@@ -102,6 +118,8 @@
 
 **论文**：[LoRango: It Takes Two LoRAs to Unlock Hidden Behaviors in Diffusion Models](https://arxiv.org/abs/2609.25884)（2026-09 预印本）
 
+**Zotero**：[条目](zotero://select/library/items/5RC7JWJG) · [打开 PDF](zotero://open-pdf/library/items/PCKCJRXU)；已保存 `arXiv:2609.25884v1`，17 页。
+
 **重点阅读**：§3、§4、§5.3–5.4。
 
 **要掌握**：单独正常与配对后异常的区分；匹配对、错配对、单独加载的对照；组合行为如何评价。
@@ -120,6 +138,8 @@
 
 **论文**：[K-LoRA: Unlocking Training-Free Fusion of Any Subject and Style LoRAs](https://openaccess.thecvf.com/content/CVPR2025/papers/Ouyang_K-LoRA_Unlocking_Training-Free_Fusion_of_Any_Subject_and_Style_LoRAs_CVPR_2025_paper.pdf)（CVPR 2025）
 
+**Zotero**：[条目](zotero://select/library/items/Z5TN6J5V) · [打开 PDF](zotero://open-pdf/library/items/D6ZLSGPP)；已保存 `arXiv:2502.18461v2`，21 页。
+
 **重点阅读**：§3.2、Algorithm 1、层与时间步选择图。
 
 **要掌握**：Top-K 幅值统计、主体／风格 LoRA 的选择机制、去噪进度如何改变选择。它包含动态选择，不能直接归为固定 checkpoint 平均。
@@ -135,6 +155,8 @@
 - [ ] 已读
 
 **论文**：[BackdoorDM: A Comprehensive Benchmark for Backdoor Learning on Diffusion Model](https://proceedings.neurips.cc/paper_files/paper/2025/file/ba9b181cd30b4f1819583be24fdfeb17-Paper-Datasets_and_Benchmarks_Track.pdf)（NeurIPS 2025）
+
+**Zotero**：[条目](zotero://select/library/items/IXV6I955) · [打开 PDF](zotero://open-pdf/library/items/GIV38BMS)；已保存 `arXiv:2502.11798v2`，44 页。
 
 **重点阅读**：攻击／目标分类、§3.5、附录 B.4–B.5。
 
@@ -154,6 +176,8 @@
 
 **论文**：[DreamBooth: Fine Tuning Text-to-Image Diffusion Models for Subject-Driven Generation](https://openaccess.thecvf.com/content/CVPR2023/papers/Ruiz_DreamBooth_Fine_Tuning_Text-to-Image_Diffusion_Models_for_Subject-Driven_Generation_CVPR_2023_paper.pdf)（CVPR 2023）
 
+**Zotero**：[条目](zotero://select/library/items/YAJCDG55) · [打开 PDF](zotero://open-pdf/library/items/PGWS4TPC)；已保存 `arXiv:2208.12242v2`，25 页。
+
 **重点阅读**：§3.2–3.3、§4.1。
 
 **要掌握**：主体标识符、class-specific prior preservation、主体身份与提示词一致性的评价。DreamBooth 是个性化训练方法，LoRA 是可搭配使用的参数更新方式。
@@ -169,6 +193,8 @@
 - [ ] 已读
 
 **论文**：[Mix-of-Show: Decentralized Low-Rank Adaptation for Multi-Concept Customization of Diffusion Models](https://proceedings.neurips.cc/paper_files/paper/2023/file/3340ee1e4a8bad8d32c35721712b4d0a-Paper-Conference.pdf)（NeurIPS 2023）
+
+**Zotero**：[条目](zotero://select/library/items/MUREBGUY) · [打开 PDF](zotero://open-pdf/library/items/Z6NTR5JH)；已保存 `arXiv:2305.18292v2`，18 页。
 
 **重点阅读**：§3.3.1–3.3.2、§4.1。
 
@@ -186,6 +212,8 @@
 
 **论文**：[LoRA.rar: Learning to Merge LoRAs via Hypernetworks for Subject-Style Conditioned Image Generation](https://arxiv.org/abs/2412.05148)（ICCV 2025）
 
+**Zotero**：[条目](zotero://select/library/items/9NV3BGEG) · [打开 PDF](zotero://open-pdf/library/items/NTA5FBLQ)；已保存 `arXiv:2412.05148v2`，19 页。
+
 **重点阅读**：§3.3–3.4、主体与风格评价部分。
 
 **要掌握**：用 LoRA 权重预测逐列融合系数；query／output 与 key／value 的处理差异；同时保留主体与风格的评价问题。
@@ -201,6 +229,8 @@
 - [ ] 已读
 
 **论文**：[SSR-Merge: Subspace Signal Routing for Training-Free LoRA Merging in Diffusion Models](https://arxiv.org/abs/2606.10617)（ICML 2026）
+
+**Zotero**：[条目](zotero://select/library/items/26C65U5R) · [打开 PDF](zotero://open-pdf/library/items/YVER6L3U)；已保存 `arXiv:2606.10617v1`，20 页。
 
 **重点阅读**：§3.2–3.4、实验设置与局限。
 
@@ -220,6 +250,8 @@
 
 **论文**：[BadMerging: Backdoor Attacks Against Model Merging](https://arxiv.org/abs/2408.07362)（CCS 2024）
 
+**Zotero**：[条目](zotero://select/library/items/SW26W8HM) · [打开 PDF](zotero://open-pdf/library/items/UNHWAQXN)；已保存 `arXiv:2408.07362v2`，20 页。
+
 已有本聊天中的阅读讨论；本项只记录新场景下的回看，不将既有讨论等同于用户已完成全文阅读。
 
 **回看重点**：威胁模型、两阶段方法、融合权重实验；区分普遍的融合干扰与依赖 CLIP 分类任务的设计。
@@ -231,6 +263,8 @@
 ## 暂缓项
 
 [DiffSafeMerge: Mitigating Backdoor Inheritance in Diffusion Model Merging](https://arxiv.org/abs/2608.09445) 针对无条件 diffusion checkpoint 融合的防御，暂不放入这轮 T2I 多 LoRA 阅读主线。后续若转向防御或完整 checkpoint 融合，再补读。
+
+**Zotero**：[条目](zotero://select/library/items/2IFM2L3F) · [打开 PDF](zotero://open-pdf/library/items/T7P7U7VU)；已保存 `arXiv:2608.09445v1`，17 页。
 
 ## 每篇统一记录的六个问题
 
@@ -257,10 +291,10 @@
 | status | done |
 | outcome | not_evaluated（文献清单不产生科研效果结论） |
 | updated_at | 2026-11-04 |
-| authorization | 用户要求将本聊天的新 paper list 保存为 Markdown，并提供可手动标记的阅读状态 |
-| current_stage | 清单建档完成，条目、复选框及本地导航检查通过 |
-| next_action | 用户按各篇复选框维护阅读进度，并记录笔记和 idea |
+| authorization | 用户要求保存可标记的 Markdown 清单；追加授权将全部论文及 PDF 下载到 Zotero，并统一分类 |
+| current_stage | 14 篇条目与 14 份 PDF 已统一分类并通过本地可读性核对；云端文件同步受配额限制 |
+| next_action | 用户在 Zotero 阅读，并在各篇复选框维护阅读进度、笔记和 idea |
 
-任务状态仅指清单建档交付；个人阅读状态以各篇复选框为准。清单来源为本聊天前序已核对的论文和阅读建议，本次仅落盘，不重新声称已完成全文复核、PDF 下载或实验验证。当前实验指针保持由[项目状态](../../project_state.json)维护。
+任务状态指清单建档及 Zotero 收纳交付；个人阅读状态以各篇复选框为准。清单来源为本聊天前序的论文和阅读建议，下载入库不代表完成全文阅读或实验验证。当前实验指针保持由[项目状态](../../project_state.json)维护。
 
 交付与检查见[实现报告](IMPLEMENTATION_REPORT.md)。[论文导航](../../../papers/README.md) · [任务导航](../README.md)
