@@ -6,6 +6,7 @@
 
 | 脚本 | 用途 |
 |---|---|
+| [MasqLoRA 执行器](masqlora/README.md) | SD1.5 对象后门的有限训练、恢复、LoRA导出复载与离线评估。 |
 | [audit_backdoordm_completion.py](audit_backdoordm_completion.py) | 检查 BackdoorDM 模型产物、结果文件、指标与样本量。 |
 | [run_invi_mse_stream.py](run_invi_mse_stream.py) | 逐张计算 InviBackdoor 生成图的 MSE，降低评估内存需求。 |
 | [run_invi_posttrain_eval.sh](run_invi_posttrain_eval.sh) | 历史 InviBackdoor 训练后评估入口，含训练完成检查与旧生成目录清理。 |

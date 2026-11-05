@@ -30,6 +30,7 @@ Thumbs.db
 
 # Disposable per-task drafts and probes; durable evidence stays outside scratch.
 research/tasks/*/_scratch/
+results/masqlora-20261105-sd15-v1/observer.*
 
 # === MCP config (contains local paths) ===
 .mcp.json

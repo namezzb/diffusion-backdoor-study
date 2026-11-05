@@ -7,7 +7,7 @@
 | 要做什么 | 入口 |
 |---|---|
 | 查看当前实验、接续工作 | [项目状态](research/project_state.json) → 当前 TASK · [任务目录](research/tasks/README.md) |
-| 启动、恢复或查看运行状态 | [TCL 执行器](scripts/merging/trigger_contrast_localization/README.md) |
+| 启动、恢复或查看运行状态 | [MasqLoRA 执行器](scripts/reproduction/masqlora/README.md) · [TCL 执行器](scripts/merging/trigger_contrast_localization/README.md)；按当前TASK选择 |
 | 查看 GPU、连接服务器 | [labgpu](scripts/connection/LABGPU.md) · [服务器操作手册](server/OPERATIONS.md) |
 | 理解研究方法和已有结论 | [研究导航](research/README.md) · [方法与三轮结果解释](research/tssa_methods_and_results_explained_2026-10-29.md) |
 | 查实验结果和原始证据 | [结果索引](results/README.md) |
@@ -25,7 +25,7 @@
 | [results/](results/README.md) | 按实验轮次保存的结果、原始记录和证据 |
 | [papers/](papers/README.md) | 论文、题名索引、元数据和待下载清单 |
 | [reports/](reports/README.md) | 文献调研、机制分析和早期研究思路 |
-| [reproduction/](reproduction/README.md) | BackdoorDM 复现记录及代码论文对照 |
+| [reproduction/](reproduction/README.md) | MasqLoRA 与 BackdoorDM 复现入口及代码论文对照 |
 | [storage/](storage/README.md) | 资料位置、取回入口、历史备份清单和按需索引工具 |
 | [simulations/](simulations/README.md) · [presentations/](presentations/README.md) | 合成仿真与汇报材料 |
 | [archive/experiments/](archive/experiments/backdoordm_reproduce/README.md) · [reports/archive/](reports/archive/2026-10-23-tssa-local-surrogate/README.md) | 只读历史实验和封存方案 |

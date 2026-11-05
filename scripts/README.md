@@ -4,7 +4,8 @@
 
 | 目录或入口 | 用途 |
 |---|---|
-| [TCL 执行器](merging/trigger_contrast_localization/README.md) | 当前实验的启动、恢复、状态查询和模块导航 |
+| [MasqLoRA 执行器](reproduction/masqlora/README.md) | LoRA对象后门的训练、恢复、出图、评分与资源观察 |
+| [TCL 执行器](merging/trigger_contrast_localization/README.md) | TCL实验的启动、恢复、状态查询和模块导航 |
 | [merging/](merging/README.md) | TSSA、合并方法与历史实验实现及对应测试 |
 | [connection/](connection/README.md) | GPU 查询、连接探测、实验后保留与资料回传工具 |
 | [storage/](storage/README.md) | 本地归档、恢复、服务器文件取回和可选索引工具 |

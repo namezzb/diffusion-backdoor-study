@@ -6,6 +6,7 @@
 
 | 文档 | 用途 |
 |---|---|
+| [MasqLoRA 复现](../research/tasks/2026-11-05-masqlora-reproduction/TASK.md) | LoRA 对象后门的论文、官方代码与104真实运行材料 |
 | [复现进度](backdoordm_progress.md) | 先看开头“2026-07-24 远端严格复核”和末尾“统计”，再按需查历史日志 |
 | [只读基准参考](backdoordm_reference.md) | 论文基准值、指标名称和适用范围；原文保持不变 |
 | [全方法论文对照](backdoordm_paper_crossref_summary.md) | 9种攻击、16个变体与5种防御的历史交叉检查 |

@@ -14,6 +14,7 @@
 
 | 入口 | 内容 | 阅读边界 |
 |---|---|---|
+| [MasqLoRA运行](masqlora-20261105-sd15-v1/README.md) | 服务器run、检查点、适配器与评估入口 | 单目标公开数据实验；代理ASR与论文Gemini ASR分开解释 |
 | [TCL历史运行索引](trigger-contrast-localization/README.md) | v1/v2原始证据和提前终止报告 | 不重放已终止身份；后续工作从[项目状态](../research/project_state.json)进入 |
 | [TSSA 梯度验证证据](tssa-mvp-2026-10-26/README.md) | 代码/资产、真实训练、逐图评价、审计与释放证据 | 当前冻结配置初步负结果，不含FID或显著性证明 |
 | [直接ASR探索](tssa-opt-exploration-2026-10-28/README.md) | 12点搜索/独立开发，816图无合格增益；全部816张原图已在本地 | 原审计invalid，哈希缺陷全部解释、数值与选择复算一致；未做确认 |

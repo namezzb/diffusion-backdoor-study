@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-03T15:50:00+08:00",
-  "current_task": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
+  "updated_at": "2026-11-05T15:25:00+08:00",
+  "current_task": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
-  "current_run_id": "tcl-20261103-semantic-v1",
-  "current_protocol": "research/tasks/2026-11-03-tcl-semantic/PROTOCOL.md",
-  "current_plan": "research/tasks/2026-11-03-tcl-semantic/protocol.json",
-  "current_runtime": "scripts/merging/trigger_contrast_localization/runtime.py",
+  "current_run_id": "masqlora-20261105-sd15-v1",
+  "current_protocol": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
+  "current_plan": "research/tasks/2026-11-05-masqlora-reproduction/config.json",
+  "current_runtime": "scripts/reproduction/masqlora/runtime.py",
   "gpu_automation": {
     "id": "gpu-tcl",
     "status": "PAUSED",
@@ -14,6 +14,12 @@
   },
   "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",
   "historical_experiments": [
+    {
+      "run_id": "tcl-20261103-semantic-v1",
+      "task": "research/tasks/2026-11-03-tcl-semantic/TASK.md",
+      "protocol": "research/tasks/2026-11-03-tcl-semantic/PROTOCOL.md",
+      "report": "research/tasks/2026-11-03-tcl-semantic/IMPLEMENTATION_REPORT.md"
+    },
     {
       "run_id": "tcl-20261102-overnight-v1",
       "task": "research/tasks/2026-11-02-tcl-overnight/TASK.md",
