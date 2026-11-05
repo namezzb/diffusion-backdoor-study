@@ -22,6 +22,10 @@ GPUS = ['GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b', 'GPU-7c1e49bf-dac2-cece-dd4a
 RUN_ID = 'masqlora-20261105-sd15-v1'
 
 
+class ObservationUnavailable(RuntimeError):
+    """No new observation; the previous one retains only its original lifetime."""
+
+
 def ssh_args():
     sys.path.insert(0, str(ROOT / 'server'))
     from stage_school_assets import gateway_address
@@ -78,9 +82,12 @@ def public_dns_snapshot():
     sys.path.insert(0, str(ROOT / 'scripts/connection'))
     import labgpu
     host = urllib.parse.urlsplit(labgpu.BASE).hostname
-    response = subprocess.run(['curl', '-fsS', '--connect-timeout', '3', '--max-time', '6',
-                               'https://dns.google/resolve?name=' + host + '&type=A'],
-                              capture_output=True, text=True, check=True, timeout=8)
+    try:
+        response = subprocess.run(['curl', '-fsS', '--connect-timeout', '3', '--max-time', '6',
+                                   'https://dns.google/resolve?name=' + host + '&type=A'],
+                                  capture_output=True, text=True, check=True, timeout=8)
+    except subprocess.SubprocessError as exc:
+        raise ObservationUnavailable('Public DNS query temporarily unavailable') from exc
     dns = json.loads(response.stdout)
     addresses = [str(ipaddress.IPv4Address(a['data'])) for a in dns.get('Answer', [])
                  if a.get('type') == 1 and ipaddress.IPv4Address(a['data']).is_global]
@@ -94,10 +101,13 @@ def public_dns_snapshot():
             # Cookies go through stdin, never command arguments, files or logs.
             headers = ''.join(k + ': ' + v + '\n' for k, v in request.header_items()).encode()
             for address in addresses[:2]:
-                result = subprocess.run(['curl', '-sS', '--proto', '=https', '--noproxy', '*',
-                                         '--connect-timeout', '3', '--max-time', '10', '--include',
-                                         '--resolve', host + ':443:' + address, '--header', '@-', request.full_url],
-                                        input=headers, capture_output=True, timeout=12)
+                try:
+                    result = subprocess.run(['curl', '-sS', '--proto', '=https', '--noproxy', '*',
+                                             '--connect-timeout', '3', '--max-time', '10', '--include',
+                                             '--resolve', host + ':443:' + address, '--header', '@-', request.full_url],
+                                            input=headers, capture_output=True, timeout=12)
+                except subprocess.TimeoutExpired:
+                    continue
                 if result.returncode:
                     continue
                 head, body = result.stdout.split(b'\r\n\r\n', 1)
@@ -114,7 +124,10 @@ def public_dns_snapshot():
     client = labgpu.Client(6, labgpu.cookies_load())
     old_cookies = list(client.cookies)
     client.opener = CurlOpener()
-    payload = labgpu.fetch_payload(client)
+    try:
+        payload = labgpu.fetch_payload(client)
+    except labgpu.NetworkError as exc:
+        raise ObservationUnavailable('Platform network temporarily unavailable') from exc
     now = time.time()
     value = labgpu.normalize(payload, fetched_at=now, now=now, source=labgpu.BASE, cache_state='fresh')
     if client.cookies != old_cookies:
@@ -194,6 +207,10 @@ def watch():
             if complete:
                 print('Fixed reproduction completed; observer exiting', flush=True)
                 return
+        except ObservationUnavailable as exc:
+            # A dropped network request is not a platform revocation. Do not
+            # extend the prior observation; workers still stop at its deadline.
+            print('No new observation; previous expiry is unchanged: ' + str(exc), flush=True)
         except Exception as exc:
             print('Observation failure; remote permission will expire: ' + str(exc), flush=True)
             # Explicitly revoke if still reachable, without touching other processes.

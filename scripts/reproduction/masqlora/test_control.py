@@ -3,6 +3,8 @@ import time
 import unittest
 from unittest.mock import patch
 import subprocess
+import tempfile
+from pathlib import Path
 import control
 
 
@@ -22,6 +24,17 @@ def observation():
 
 
 class ResourcePolicyTest(unittest.TestCase):
+    def test_network_failure_does_not_extend_previous_permission(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            def end_cycle(_seconds):
+                (root / 'results' / control.RUN_ID / 'STOP').touch()
+            with patch('control.ROOT', root), \
+                 patch('control.snapshot', side_effect=control.ObservationUnavailable('offline')), \
+                 patch('control.publish') as publish, patch('control.time.sleep', side_effect=end_cycle):
+                control.watch()
+            publish.assert_not_called()
+
     def test_cli_timeout_uses_a_fresh_observation_and_preserves_revocation(self):
         value = observation()
         value['cache_state'] = 'fresh'

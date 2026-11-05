@@ -16,7 +16,7 @@ python runtime.py --config /path/config.json --arm masq --run-root /path/run --u
 
 `control.py watch` 在本机持续观察同一有限run；`launch.py` 在104核对既有worker与显卡进程后启动指定分组。`worker.py`遇资源观察失效时释放CUDA并等待，观察恢复且设备无人使用后自动续跑；用户STOP/SIGTERM、预算耗尽、普通代码错误不自动重启。停止整个run用其目录的`STOP`文件，停止旧占卡程序用旧`gpu_squat_run/STOP`，两者不要混淆。当前分工：GPU0执行masq；GPU2依次执行poisoned、benign。完成三组后观察器退出。
 
-平台优先走labgpu CLI；CDN连接超时时通过实时公共DNS切换连接地址，HTTPS仍校验原域名，禁止重定向，并重新取得平台响应。该备用路径不使用历史缓存作为许可。本机离线会暂停计算，不能只看到worker PID就宣称实验持续运行。
+平台优先走labgpu CLI；CDN连接超时时通过实时公共DNS切换连接地址，HTTPS仍校验原域名，禁止重定向，并重新取得平台响应。网络失败不延长上一份观察的有效期，过期仍会暂停；封禁或停止要求立即撤销。该备用路径不使用历史缓存生成新许可。本机离线会暂停计算，不能只看到worker PID就宣称实验持续运行。
 
 `prepare_assets.py /path/upstream`获取固定commit的18份公开文件并生成清单；传入服务器后按任务`ASSETS.md`核对。固定配置与脚本部署到上述准备目录，模型沿用配置列出的104本地资产。新机器不能只复制代码便假定资产已齐全，须按清单恢复；接续既有run保持其config、adapter及events不变，不重新执行`handover.py`。
 
