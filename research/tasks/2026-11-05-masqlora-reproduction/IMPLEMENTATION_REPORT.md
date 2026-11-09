@@ -94,7 +94,9 @@
 
 ## 本机接续检查（2026-11-09）
 
-- 本机 Python 为3.14.3；`./labgpu` 和 `server/start_school.sh` 有执行权限。`labgpu`、状态模型、`gpu_squat.py`、`probe_school_gpu.py` 均通过 `py_compile`，`./labgpu --help`、`./server/start_school.sh --help` 和 `python3 scripts/connection/gpu_squat.py --help` 可正常运行。以上是本机 CLI/语法检查，不代表本机有 CUDA 或真实占卡成功。
-- `./labgpu login` 首次被平台以 HTTP 401/403 拒绝；用户在本机完成登录后，`./labgpu status --fresh --json` 于 2026-11-09 成功返回 fresh 数据，账号 `zhangzibo`、角色 `viewer`、占用0/4。平台摘要为8节点、30卡：24张他人使用、2张禁用、3张过期、1张未知、0张空闲。104样本在线且完整，4张卡为他人使用、1张禁用，没有本人占卡记录；因此本轮未启动 `gpu_squat.py`。
-- 新本机缺少 `~/.ssh/zhangzibo_school` 与 `~/.ssh/known_hosts_school`；下载目录中的 RSA 私钥副本已安装至前一路径并设为600权限，未读取私钥内容。跳板公钥与仓库记录指纹 `SHA256:MheEdeSO8cSm6MRZn1sehQ8T8mlTX+mjJqMXoaz3C58` 匹配后写入私有 `known_hosts_school`，随后跳板 SSH 公钥认证通过。当前 `known_hosts_school` 尚无104目标节点可信记录，故未连接目标节点或检查远端run目录；需恢复旧机器的目标主机记录后再做只读SSH验收。
-- 当前本机登录平台不等于有空闲或获准GPU；平台状态查询不等于SSH文件访问。远端run的最新进度、目标节点身份和实际GPU运行状态均待 SSH 恢复后核验。
+- 本机 Python 为3.14.3；`./labgpu` 和 `server/start_school.sh` 有执行权限。`labgpu`、状态模型、`gpu_squat.py`、`probe_school_gpu.py` 均通过 `py_compile`，本机 `--help` 可正常运行。
+- `./labgpu login` 首次被平台以 HTTP 401/403 拒绝；用户随后在本机完成登录。fresh查询确认账号 `zhangzibo`、角色 `viewer`、占用0/4。2026-11-09 最新摘要为8节点、30卡；104在线且采样完整，4张他人使用、1张禁用；127在线且采样完整，4张他人使用；两节点均无空闲卡和本人占用。
+- 从用户提供的下载目录文件恢复 RSA 私钥，安装为 `~/.ssh/zhangzibo_school`（0600）。跳板公钥与仓库记录指纹 `SHA256:MheEdeSO8cSm6MRZn1sehQ8T8mlTX+mjJqMXoaz3C58` 匹配。通过该已固定的跳板隧道分别获取104、127当前 SSH 公钥并固定到 `~/.ssh/known_hosts_school`，随后以 `StrictHostKeyChecking=yes` 成功连接两节点。104返回主机名 `iipl-104`、5张卡的实时设备UUID和指标；127返回 `iipl-127`、4张卡的实时设备UUID和指标。端口22与用户提供的节点表一致，仓库 `school127` 已指向 `192.168.1.127`。
+- 104 的 MasqLoRA run目录存在，三个组 `complete=false`：Masq 与 Poisoned 各有 benign 952张、trigger 948张；Benign 对照两类各4张。事件及worker日志最后在2026-11-05 08:34 UTC记录 `nvidia-smi ... --query-gpu=compute_mode` 10秒超时。当前无匹配 `masqlora` 或 `gpu_squat.py` 进程；旧 `permission.md` 已过期，不能用于启动授权。
+- 本机与104数据盘的 `gpu_squat.py` SHA256均为 `893e673cd44a40f9a909d48bbdbe0b06be3cd11a4207e52795edf9c9c3ae4d8f`。本机脚本及104的 `/data2/zhangzibo/arxiv-tssa/gpu_squat.py` 均通过帮助入口；这是 CLI/文件一致性检查，不代表真实负载成功。因104、127当前卡均为他人使用或禁用，本轮未启动占卡程序，也未在真实 GPU 上运行该程序。
+- 平台登录、平台状态查询、SSH 文件访问和 CUDA 负载是不同验收项；前三项已在本轮成功，GPU负载项尚未执行。正式run须修复状态查询超时后，重新核对实时许可与资源再续跑。
