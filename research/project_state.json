@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-05T15:25:00+08:00",
+  "updated_at": "2026-11-10T01:49:48+08:00",
   "current_task": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
   "current_run_id": "masqlora-20261105-sd15-v1",
@@ -8,9 +8,10 @@
   "current_plan": "research/tasks/2026-11-05-masqlora-reproduction/config.json",
   "current_runtime": "scripts/reproduction/masqlora/runtime.py",
   "gpu_automation": {
-    "id": "gpu-tcl",
-    "status": "PAUSED",
-    "cadence": "every_30_minutes"
+    "id": "gpu-08-00",
+    "status": "ACTIVE",
+    "cadence": "every_90_minutes",
+    "until": "2026-11-10T08:00:00+08:00"
   },
   "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",
   "historical_experiments": [

@@ -100,3 +100,5 @@
 - 104 的 MasqLoRA run目录存在，三个组 `complete=false`：Masq 与 Poisoned 各有 benign 952张、trigger 948张；Benign 对照两类各4张。事件及worker日志最后在2026-11-05 08:34 UTC记录 `nvidia-smi ... --query-gpu=compute_mode` 10秒超时。当前无匹配 `masqlora` 或 `gpu_squat.py` 进程；旧 `permission.md` 已过期，不能用于启动授权。
 - 本机与104数据盘的 `gpu_squat.py` SHA256均为 `893e673cd44a40f9a909d48bbdbe0b06be3cd11a4207e52795edf9c9c3ae4d8f`。本机脚本及104的 `/data2/zhangzibo/arxiv-tssa/gpu_squat.py` 均通过帮助入口；这是 CLI/文件一致性检查，不代表真实负载成功。因104、127当前卡均为他人使用或禁用，本轮未启动占卡程序，也未在真实 GPU 上运行该程序。
 - 平台登录、平台状态查询、SSH 文件访问和 CUDA 负载是不同验收项；前三项已在本轮成功，GPU负载项尚未执行。正式run须修复状态查询超时后，重新核对实时许可与资源再续跑。
+- 2026-11-10 01:49（Asia/Shanghai）fresh平台返回101 GPU2、GPU3为free，101其余2卡为他人使用；账号占用0/4、管理规则启用、active ban为null、无维护和待处理GPU申请。对101进行一次严格SSH验证时，当前私钥收到 `Permission denied (publickey)`；不在本轮重试该节点，也未启动占卡负载。随后fresh复查仍显示仅101有两张free卡，未发现本人占用。
+- 用户明确授权至明早使用的临时单卡检查。已通过 `automation_update` 创建 ACTIVE 心跳自动化 `gpu-08-00`，每90分钟检查、至2026-11-10 08:00（Asia/Shanghai）截止；每轮重新核验实时规则、完整采样、全局额度、节点身份与设备UUID，最多启动一个 `gpu_squat.py`，并要求通过 `timeout` 在08:00前自动退出。101 SSH未授权的情况下会跳过该候选，其他节点也须先通过严格校验。自动化依赖本机和 Codex 桌面应用保持运行；创建自动化不代表已经启动占卡。
