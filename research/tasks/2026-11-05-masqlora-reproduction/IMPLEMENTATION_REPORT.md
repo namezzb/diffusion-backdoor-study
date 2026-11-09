@@ -91,3 +91,10 @@
 | [TokenScanner](https://arxiv.org/abs/2609.31878) | 新近工作扫描TE/UNet的token响应；后续若用响应定位或检测，要核对它与旧TCL思路的重叠 |
 
 对idea的推论：先明确用户实际使用的融合算子、攻击者可见的伙伴信息、正常主体/风格保留指标，再判断尚未覆盖的失败条件。首轮产出的独立适配器、相同seed配对图和逐图评分可直接作为这种检验的基础；尚不把任何新idea记为已验证。
+
+## 本机接续检查（2026-11-09）
+
+- 本机 Python 为3.14.3；`./labgpu` 和 `server/start_school.sh` 有执行权限。`labgpu`、状态模型、`gpu_squat.py`、`probe_school_gpu.py` 均通过 `py_compile`，`./labgpu --help`、`./server/start_school.sh --help` 和 `python3 scripts/connection/gpu_squat.py --help` 可正常运行。以上是本机 CLI/语法检查，不代表本机有 CUDA 或真实占卡成功。
+- `./labgpu login` 首次被平台以 HTTP 401/403 拒绝；用户在本机完成登录后，`./labgpu status --fresh --json` 于 2026-11-09 成功返回 fresh 数据，账号 `zhangzibo`、角色 `viewer`、占用0/4。平台摘要为8节点、30卡：24张他人使用、2张禁用、3张过期、1张未知、0张空闲。104样本在线且完整，4张卡为他人使用、1张禁用，没有本人占卡记录；因此本轮未启动 `gpu_squat.py`。
+- 新本机缺少 `~/.ssh/zhangzibo_school` 与 `~/.ssh/known_hosts_school`；现有 `~/.ssh/id_ed25519` 在跳板认证中被拒绝。跳板公钥与仓库记录指纹 `SHA256:MheEdeSO8cSm6MRZn1sehQ8T8mlTX+mjJqMXoaz3C58` 匹配后，已写入私有 `known_hosts_school`。尚未连接目标节点，也未检查远端run目录；需从旧机器恢复已授权的学校私钥及可信目标主机记录，再做一次只读SSH验收。
+- 当前本机登录平台不等于有空闲或获准GPU；平台状态查询不等于SSH文件访问。远端run的最新进度、目标节点身份和实际GPU运行状态均待 SSH 恢复后核验。
