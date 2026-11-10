@@ -8,6 +8,7 @@
 |---|---|
 | [MasqLoRA复现](tasks/2026-11-05-masqlora-reproduction/TASK.md) | 官方材料、固定对照与真实执行证据 |
 | [LoRA融合后门阅读清单](tasks/2026-11-04-lora-merging-reading/TASK.md) | 阅读顺序、原论文与用户阅读状态 |
+| [Zotero 文献库整理](tasks/2026-11-10-zotero-library-organization/TASK.md) · [论文目录](tasks/2026-11-10-zotero-library-organization/PAPER_CATALOG.md) | 英文总目录、主题分类、去重与67篇摘要级简介 |
 | [TCL 语义评分与完整对照](tasks/2026-11-03-tcl-semantic/README.md) | 科学协议、当前 TASK、过程历史与实现报告 |
 | [统一执行机制](tasks/2026-11-02-runtime-reset/README.md) | 执行器设计与工程验证 |
 | [GPU 查询工具](tasks/2026-11-02-labgpu-cli/README.md) | labgpu 实现记录；操作见[使用说明](../scripts/connection/LABGPU.md) |
