@@ -7,8 +7,8 @@
 | outcome | pending |
 | run_id | masqlora-20261105-sd15-v1 |
 | authorization | 2026-11-05 用户要求阅读 paperlist 中 MasqLoRA 及相关 LoRA 攻击，准备复现材料、验证真实启动，再直接使用104上本人两张卡启动重要结果的完整复现 |
-| current_stage | 三组训练、真实断点恢复、全新底座复载及24张启动出图/评分已通过；本机 labgpu、104/127 SSH 与真实 GPU 状态查询已验证；MasqLoRA run 于2026-11-05因设备状态查询超时停止，评估不完整；新建每小时检查的48小时占卡自动化至2026-11-12 09:21:37，101按用户要求跳过；103有3张fresh free候选，但本机无该节点可信主机密钥，严格SSH检查失败，故未连接/启动 |
-| next_action | 自动化每小时重新核对；103须先补齐可信主机身份记录才可连接，否则跳过；仅当fresh平台状态、实时规则、额度及严格SSH/设备检查均允许时启动至多一张gpu_squat卡，并确保不晚于截止时间释放；科研run仍需针对性修复设备状态查询超时后再续跑 |
+| current_stage | 三组训练、真实断点恢复、全新底座复载及24张启动出图/评分已通过；MasqLoRA run 于2026-11-05因设备状态查询超时停止，评估不完整；每小时占卡自动化至2026-11-12 09:21:37，101按用户要求跳过。用户允许首次接受103主机密钥后，SSH已成功并保存其密钥；平台fresh显示103有空闲卡且账号0/4，但103的PyTorch CUDA初始化探针挂起，已结束探针，未启动占卡worker |
+| next_action | 自动化每小时重新核对；先定位103上PyTorch CUDA初始化挂起原因，不重复执行无界CUDA探针或启动占卡进程；如其他已配置节点出现合规空卡且运行环境可用，再按额度与设备侧完整UUID核验后启动至多一张，并在截止前释放；科研run仍需针对性修复设备状态查询超时后再续跑 |
 
 ## 范围
 
@@ -31,6 +31,8 @@
 2026-11-10 09:21 用户重新授权占卡检查，间隔改为每小时、持续48小时。通过 Codex 自动化 `gpu-48` 建立 ACTIVE 心跳任务，截止2026-11-12 09:21:37（Asia/Shanghai）；按用户要求持续跳过101。创建时立即执行fresh状态核查：账号0/4、无active ban、无维护、GPU管理规则启用；104/127/201/204/206在线且采样完整，但没有free卡；103节点离线且采样过期，100节点GPU采样数量不完整；101有free候选但不连接。无合规目标，本轮未启动占卡worker。自动化依赖本机和Codex桌面应用保持运行。
 
 2026-11-10 13:40（Asia/Shanghai）自动化本轮fresh状态显示103恢复在线，采样/进程状态完整，有3张free卡；账号0/4，无active ban/维护，规则启用。101也有free卡但按用户要求跳过。读取`school_ssh_config`后对`school103`仅进行一次`StrictHostKeyChecking=yes`连接，因`~/.ssh/known_hosts_school`没有该节点ED25519记录而失败（`No ED25519 host key is known for 192.168.1.103`）；没有接受未知key或启动worker。已更新`gpu-48`自动化：用户补齐103可信主机身份记录前跳过103，其余节点照常每小时筛查；无其他可用候选时不启动。
+
+2026-11-10 16:18（Asia/Shanghai）用户明确要求跳过103主机密钥核验直接连接。临时SSH配置仅对`school103`使用`StrictHostKeyChecking=accept-new`并写入`~/.ssh/known_hosts_school`；`school-jump`仍严格校验。连接成功，实际主机`iipl-103`、账号`zhangzibo`，`/data1/zhangzibo/arxiv-tssa`存在且可写；后续恢复对103的严格校验。平台状态fresh，账号占用0/4、无active ban/维护、GPU管理开启；103在线且采样完整，GPU0 `GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523`通过平台及设备侧空闲检查，compute mode Default、15MiB已用、GPU利用率0%，设备进程列表未见该UUID进程；GPU1亦为平台free。系统Python没有torch，本人`/data1/zhangzibo/arxiv-tssa/venv/bin/python`可导入torch2.7.1+cu128，但`torch.cuda.is_available()`探针绑定GPU0后超过22秒不返回。探针进程145755经SIGTERM未退出，随后已确认退出；没有遗留进程。未部署gpu_squat脚本或启动worker，避免CUDA初始化挂起留下无效占卡进程。`gpu-48`自动化已更新：103主机key现已固定，后续对其使用严格校验；在CUDA初始化问题解决前不在103启动worker，其他节点仍按原规则检查，101继续跳过。
 
 ## 首批结果的边界
 
