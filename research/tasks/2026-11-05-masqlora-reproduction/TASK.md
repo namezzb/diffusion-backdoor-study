@@ -7,8 +7,8 @@
 | outcome | pending |
 | run_id | masqlora-20261105-sd15-v1 |
 | authorization | 2026-11-05 用户要求阅读 paperlist 中 MasqLoRA 及相关 LoRA 攻击，准备复现材料、验证真实启动，再直接使用104上本人两张卡启动重要结果的完整复现 |
-| current_stage | 三组训练、真实断点恢复、全新底座复载及24张启动出图/评分已通过；MasqLoRA run 于2026-11-05因设备状态查询超时停止，评估不完整；每小时占卡自动化至2026-11-12 09:21:37，101按用户要求跳过。用户允许首次接受103主机密钥后，SSH已成功并保存其密钥；平台fresh显示103有空闲卡且账号0/4，但103的PyTorch CUDA初始化探针挂起，已结束探针，未启动占卡worker |
-| next_action | 自动化每小时重新核对；103首次连接不再等待人工主机指纹，按用户要求使用accept-new自动记录服务器密钥，跳板机仍校验已保存密钥；先定位103上PyTorch CUDA初始化挂起原因，不重复无界探针或启动占卡进程；如其他节点有合规空卡且运行环境可用，再按额度与设备侧UUID核验后启动至多一张，并在截止前释放；科研run仍需针对性修复设备状态查询超时后再续跑 |
+| current_stage | 三组训练、真实断点恢复、全新底座复载及24张启动出图/评分已通过；MasqLoRA run 于2026-11-05因设备状态查询超时停止，评估不完整；每小时占卡自动化至2026-11-12 09:21:37，101按用户要求跳过。103 SSH已成功，CUDA初始化问题仍在；本轮fresh状态查询返回“登录已失效或无权访问”，当前额度与空闲卡状态无法确认，未启动占卡worker |
+| next_action | 用户在本机重新运行`./labgpu login`后由自动任务继续fresh核查；103首次连接按用户要求使用accept-new自动记录服务器密钥，跳板机仍校验已保存密钥；103 CUDA初始化挂起问题排除前不在该节点启动worker；仅当平台许可、额度、设备UUID和运行环境均通过最小必要检查后启动至多一张，并在截止前释放；科研run仍需针对性修复设备状态查询超时后再续跑 |
 
 ## 范围
 
@@ -35,6 +35,8 @@
 2026-11-10 16:18（Asia/Shanghai）用户明确要求跳过103主机密钥核验直接连接。临时SSH配置仅对`school103`使用`StrictHostKeyChecking=accept-new`并写入`~/.ssh/known_hosts_school`；`school-jump`仍严格校验。连接成功，实际主机`iipl-103`、账号`zhangzibo`，`/data1/zhangzibo/arxiv-tssa`存在且可写；后续恢复对103的严格校验。平台状态fresh，账号占用0/4、无active ban/维护、GPU管理开启；103在线且采样完整，GPU0 `GPU-a00d7f16-dee6-f32a-eb89-dde4590ba523`通过平台及设备侧空闲检查，compute mode Default、15MiB已用、GPU利用率0%，设备进程列表未见该UUID进程；GPU1亦为平台free。系统Python没有torch，本人`/data1/zhangzibo/arxiv-tssa/venv/bin/python`可导入torch2.7.1+cu128，但`torch.cuda.is_available()`探针绑定GPU0后超过22秒不返回。探针进程145755经SIGTERM未退出，随后已确认退出；没有遗留进程。未部署gpu_squat脚本或启动worker，避免CUDA初始化挂起留下无效占卡进程。`gpu-48`自动化已更新：103主机key现已固定，后续对其使用严格校验；在CUDA初始化问题解决前不在103启动worker，其他节点仍按原规则检查，101继续跳过。
 
 2026-11-10 16:24（Asia/Shanghai）用户要求去掉103因未知主机密钥而无法连接的门槛。已更新`gpu-48`：103缺少本机记录时可使用`StrictHostKeyChecking=accept-new`自动保存密钥，不再等待管理员提供指纹；`school-jump`仍严格校验，其他主机身份策略不变。此前已成功连接103，实际阻碍占卡的当前问题为PyTorch CUDA初始化挂起，该运行时问题仍需解决。
+
+2026-11-10 22:51（Asia/Shanghai）`./labgpu status --fresh --timeout 20 --json`返回“登录已失效或无权访问，请运行 labgpu.py login”。不能用旧状态代替实时额度和许可，故本轮不启动占卡。最近一次有效平台状态在2026-11-10 21:31显示账号0/4且只有101、103有free卡；101继续跳过，103仍受CUDA初始化挂起限制。需要用户在本机重新运行`./labgpu login`；自动化保持ACTIVE并在后续轮次重新查询。
 
 ## 首批结果的边界
 
