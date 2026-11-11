@@ -1,5 +1,31 @@
 # Autoresearch 实际工作流调研
 
+## 后续环境搭建交付（2026-11-11）
+
+用户在调研后要求创建独立目录并搭建实际可用环境。已交付 [autoresearch/](../../../autoresearch/README.md)，入口是 `$research-autoresearch` 或让当前 agent 读取 `autoresearch/program.md`。
+
+- **采用现成上游**：通过 skill-installer 安装 uditgoenka/autoresearch v2.3.0，固定 commit `7bddd056dfd0b0ded8360588d8101b1ecb5c0baa`；24份原始文件共150,900字节逐一匹配官方Git blob，SHA256和大小归入 vendor/manifest.json，MIT许可证保留。上游文件内容未改写。
+- **项目适配**：新 skill 为课题理解、方法假设、实验与结果分析提供入口；默认本会话单agent串行、禁用上游默认自动分叉，沿用用户已有授权。未安装全局hook、未改账号或全局Codex配置。
+- **可执行适配器**：Python标准库 `ar.py` 提供new/run/status/stop/resume/recover；候选在独立Git工作目录提交/回退，根科研仓库及他人改动不受回退影响。固定评价输出唯一有限数值JSON，返回码、主指标与质量约束共同决定接纳。失败、资源检查、超时和清理消耗均保留，进度追加到Markdown。
+- **运行管理**：单次/累计计算和尝试次数有界；STOP可中断本地命令；丢失尝试须确认本任务进程退出后恢复，保留历史并保守计费。GPU配置要求guard/cleanup，具体保护复用已有实验执行器，不用本机SSH进程退出冒充远端停止。无锁，不承诺并发写安全。
+- **中文用法**：README包含只给课题/预算/成功标准的可复制指令，以及规划、继续、改方向、查看和停止示例；diffusion-lora profile列出现有模型、平台管理与评价接入入口。
+
+实际验收：
+
+| 项目 | 实际结果 |
+|---|---|
+| Python运行适配器 | 本机直接运行，零新增Python包依赖 |
+| 本地skill结构 | skill-creator quick_validate通过；根目录技能链接解析到本模块 |
+| 上游辅助脚本 | orchestrate.sh classify实际执行并返回分类；不把它当作GPU或完整自主科研成功 |
+| 针对性验证 | `python3 -m unittest discover -s autoresearch/tests -v`，13项全部通过：真实拟合keep/discard、错误退出、非有限/缺失/重复指标、质量约束、单次/累计超时、STOP、预算恢复、资源阻塞、cleanup失败、根仓库保护、截断账本 |
+| 实际CPU例 | environment-smoke共4次：线性基线MSE 0.16676068596971452；三次模型0.003122132499122443（keep）；常数模型0.6774106905223541（discard并自动回退）；停止/恢复后再次得到0.003122132499122443，历史4次完整保留 |
+
+CPU证据保存在本机 `autoresearch/runs/environment-smoke/RESULTS.md` 和对应attempt日志；最小持久证据即上表。该例由当前agent执行，未另开模型实例，不代表独立长时间无人值守或扩散模型科研成功。
+
+边界：本次交付的是固定版autoresearch技能与本仓库工作环境。课题专属GPU包装器/模型环境尚需在实际课题首次接入时生成并通过真实验证；本轮没有启动GPU、改变旧run、安装全局后台服务或创建自动化。`program.md`并非后台模型，停止应用或模型额度耗尽后须恢复会话。具体方法的科学有效性仍待实验。
+
+下文保留此前调研来源与结论。
+
 调研日期：2026-11-11。用户最终要求是查找已在实际项目中使用、取得可观察改进的工作流，重点为 Karpathy autoresearch 路线。
 
 ## 适合先看的三个项目

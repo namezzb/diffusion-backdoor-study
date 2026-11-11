@@ -4,7 +4,7 @@
 
 | 任务ID | 任务与交接入口 | 目标 |
 |---|---|---|
-| AUTORESEARCH-20261111-01 | [Autoresearch 实际工作流](2026-11-11-autoresearch-practice/TASK.md) | Karpathy 路线、通用封装与可核验的实际使用案例 |
+| AUTORESEARCH-20261111-01 | [Autoresearch 环境与实践](2026-11-11-autoresearch-practice/TASK.md) · [使用说明](../../autoresearch/README.md) | 固定版 skill、项目实验适配、自然语言课题入口与实证案例 |
 | MASQLORA-20261105-01 | [MasqLoRA 复现与 LoRA 融合攻击材料](2026-11-05-masqlora-reproduction/TASK.md) | 官方实现、真实启动与重要对象后门结果复现 |
 | LORA-READING-20261104-01 | [LoRA 融合后门论文阅读清单](2026-11-04-lora-merging-reading/TASK.md) | 第三方 LoRA 组合场景的阅读顺序、可勾选状态与 idea 笔记 |
 | ZOTERO-ORGANIZE-20261110-01 | [Zotero 文献库重整](2026-11-10-zotero-library-organization/TASK.md) · [论文目录](2026-11-10-zotero-library-organization/PAPER_CATALOG.md) | 英文主题分类、重复条目合并、缺失 PDF 补齐与摘要简介 |

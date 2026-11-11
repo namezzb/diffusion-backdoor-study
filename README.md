@@ -7,6 +7,7 @@
 | 要做什么 | 入口 |
 |---|---|
 | 查看当前实验、接续工作 | [项目状态](research/project_state.json) → 当前 TASK · [任务目录](research/tasks/README.md) |
+| 让 agent 自主提出方法并连续实验 | [Autoresearch 环境与使用说明](autoresearch/README.md) |
 | 启动、恢复或查看运行状态 | [MasqLoRA 执行器](scripts/reproduction/masqlora/README.md) · [TCL 执行器](scripts/merging/trigger_contrast_localization/README.md)；按当前TASK选择 |
 | 查看 GPU、连接服务器 | [labgpu](scripts/connection/LABGPU.md) · [服务器操作手册](server/OPERATIONS.md) |
 | 理解研究方法和已有结论 | [研究导航](research/README.md) · [方法与三轮结果解释](research/tssa_methods_and_results_explained_2026-10-29.md) |
@@ -20,6 +21,7 @@
 | 目录 | 放什么 |
 |---|---|
 | [research/](research/README.md) | 研究方案、固定配置、项目指针；每项任务的 TASK 和实现报告放在 `tasks/<日期-名称>/` |
+| [autoresearch/](autoresearch/README.md) | 固定版上游 skill、科研工作流、实验运行/恢复适配和本地示例 |
 | [scripts/](scripts/README.md) | 实验实现、连接、存储与复现工具；各子目录 README 按用途索引 |
 | [server/](server/README.md) | 服务器连接配置、离线部署工具和操作手册 |
 | [results/](results/README.md) | 按实验轮次保存的结果、原始记录和证据 |

@@ -1,0 +1,10 @@
+{
+  "goal": "Fit a smooth nonlinear function from fixed training data and reduce validation MSE.",
+  "compute": "cpu",
+  "command": ["{python}", "{run}/evaluation/evaluate.py", "{workspace}"],
+  "metric": {"name": "mse", "direction": "min", "min_delta": 0.000001},
+  "constraints": [{"name": "n_parameters", "op": "<=", "value": 8}],
+  "max_attempts": 8,
+  "max_seconds": 120,
+  "attempt_timeout": 15
+}

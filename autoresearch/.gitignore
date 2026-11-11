@@ -1,0 +1,5 @@
+runs/
+_scratch/
+.venv/
+__pycache__/
+*.pyc

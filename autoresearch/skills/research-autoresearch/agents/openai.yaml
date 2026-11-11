@@ -1,0 +1,4 @@
+interface:
+  display_name: "科研 Autoresearch"
+  short_description: "围绕给定课题自主准备评价、提出方法、执行实验并按真实结果持续迭代"
+  default_prompt: "使用 $research-autoresearch，根据我的课题与预算自主推进方法探索、实验验证和结果分析。"
