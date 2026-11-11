@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-11T10:58:51+08:00",
+  "updated_at": "2026-11-11T11:04:18+08:00",
   "current_task": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
   "current_run_id": "masqlora-20261105-sd15-v1",
@@ -9,7 +9,7 @@
   "current_runtime": "scripts/reproduction/masqlora/runtime.py",
   "gpu_automation": {
     "id": "gpu-48",
-    "status": "ACTIVE",
+    "status": "DELETED",
     "cadence": "hourly",
     "until": "2026-11-12T09:21:37+08:00"
   },
