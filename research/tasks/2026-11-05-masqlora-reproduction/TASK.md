@@ -7,8 +7,8 @@
 | outcome | pending |
 | run_id | masqlora-20261105-sd15-v1 |
 | authorization | 2026-11-05 用户要求阅读 paperlist 中 MasqLoRA 及相关 LoRA 攻击，准备复现材料、验证真实启动，再直接使用104上本人两张卡启动重要结果的完整复现 |
-| current_stage | 三组训练、真实断点恢复、全新底座复载及24张启动出图/评分已通过；MasqLoRA run 于2026-11-05因设备状态查询超时停止，评估不完整；每小时占卡自动化至2026-11-12 09:21:37，101按用户要求跳过。103 SSH已成功，CUDA初始化问题仍在；本轮fresh状态查询返回“登录已失效或无权访问”，当前额度与空闲卡状态无法确认，未启动占卡worker |
-| next_action | 用户在本机重新运行`./labgpu login`后由自动任务继续fresh核查；103首次连接按用户要求使用accept-new自动记录服务器密钥，跳板机仍校验已保存密钥；103 CUDA初始化挂起问题排除前不在该节点启动worker；仅当平台许可、额度、设备UUID和运行环境均通过最小必要检查后启动至多一张，并在截止前释放；科研run仍需针对性修复设备状态查询超时后再续跑 |
+| current_stage | 三组训练、真实断点恢复、全新底座复载及24张启动出图/评分已通过；MasqLoRA run 于2026-11-05因设备状态查询超时停止，评估不完整；每小时占卡自动化至2026-11-12 09:21:37，101按用户要求跳过。103 SSH已成功但CUDA初始化挂起；已改选104并于2026-11-11 10:57（Asia/Shanghai）在GPU0启动限时gpu_squat worker，日志确认显存分配与计算采样正常 |
+| next_action | 自动任务每小时检查但不重复启动已运行的worker；监视104 GPU0 worker并在2026-11-12 09:20:50前由timeout自动结束，截止后核实worker和限时器均退出；103 CUDA初始化问题仍需单独定位，科研run仍需针对性修复设备状态查询超时后再续跑 |
 
 ## 范围
 
@@ -37,6 +37,8 @@
 2026-11-10 16:24（Asia/Shanghai）用户要求去掉103因未知主机密钥而无法连接的门槛。已更新`gpu-48`：103缺少本机记录时可使用`StrictHostKeyChecking=accept-new`自动保存密钥，不再等待管理员提供指纹；`school-jump`仍严格校验，其他主机身份策略不变。此前已成功连接103，实际阻碍占卡的当前问题为PyTorch CUDA初始化挂起，该运行时问题仍需解决。
 
 2026-11-10 22:51（Asia/Shanghai）`./labgpu status --fresh --timeout 20 --json`返回“登录已失效或无权访问，请运行 labgpu.py login”。不能用旧状态代替实时额度和许可，故本轮不启动占卡。最近一次有效平台状态在2026-11-10 21:31显示账号0/4且只有101、103有free卡；101继续跳过，103仍受CUDA初始化挂起限制。需要用户在本机重新运行`./labgpu login`；自动化保持ACTIVE并在后续轮次重新查询。
+
+2026-11-11 10:58（Asia/Shanghai）用户报告已重新登录，fresh平台查询恢复成功：管理开启、无active ban/维护/申请/整改/案件，平台账号占用0/4；104、103与201均有free候选，按优先级选择104 GPU0 `GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b`。SSH `school104`严格校验连接成功；启动前nvidia-smi确认compute_mode Default、52MiB显存、0%利用率，目标UUID进程列表为空；本机与远端`gpu_squat.py` SHA256一致（`893e673cd44a40f9a909d48bbdbe0b06be3cd11a4207e52795edf9c9c3ae4d8f`），无已有gpu_squat worker。以`/data2/zhangzibo/arxiv-tssa/venv/bin/python`启动worker PID 3546716，由GNU timeout PID 3546711限制80600秒，确保在2026-11-12 09:21（Asia/Shanghai）前退出；状态及日志位于`/data2/zhangzibo/arxiv-tssa/results/gpu-hold/gpu-48-20261111T025650Z-104-gpu0/`。worker日志记录目标显存分配约65%，设备显存约16.2GiB，首批GPU利用率39–40%，反馈占空比持续上调。启动后fresh平台状态将该UUID列为本人使用，PID及显存约16192MiB与远端日志相符；平台usage字段仍显示0/4，本任务实际只占用这一张卡。自动化保持ACTIVE，后续只核验本任务worker、不重复启动；101继续跳过。
 
 ## 首批结果的边界
 
