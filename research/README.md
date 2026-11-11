@@ -6,6 +6,7 @@
 
 | 入口 | 用途 |
 |---|---|
+| [Autoresearch 实际工作流](tasks/2026-11-11-autoresearch-practice/TASK.md) | Karpathy 实验循环、通用封装与实际收益证据 |
 | [MasqLoRA复现](tasks/2026-11-05-masqlora-reproduction/TASK.md) | 官方材料、固定对照与真实执行证据 |
 | [LoRA融合后门阅读清单](tasks/2026-11-04-lora-merging-reading/TASK.md) | 阅读顺序、原论文与用户阅读状态 |
 | [Zotero 文献库整理](tasks/2026-11-10-zotero-library-organization/TASK.md) · [论文目录](tasks/2026-11-10-zotero-library-organization/PAPER_CATALOG.md) | 英文总目录、主题分类、去重与67篇摘要级简介 |
