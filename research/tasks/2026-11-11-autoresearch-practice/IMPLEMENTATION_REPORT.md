@@ -26,6 +26,16 @@ CPU证据保存在本机 `autoresearch/runs/environment-smoke/RESULTS.md` 和对
 
 下文保留此前调研来源与结论。
 
+## 目录工作原理核对（2026-11-11）
+
+用户要求重点解释整个目录。已重新读取实际代码、项目skill、program、配置、GPU profile及environment-smoke原始Markdown账本；本轮只读既有结果，没有新启动实验。
+
+运行链路为：当前coding agent读取skill/program，准备假设与候选 → `ar.py run`执行一次固定评价 → 检查进程退出、有限指标和约束 → 与历史best比较并保留/回退 → 向RESULTS.md追加事实 → agent分析并决定下一次调用。ar.py不调用LLM，也不自动运行vendor里的orchestrator；上游主要提供agent可读的流程协议，本地执行适配由ar.py承担。
+
+硬性程序检查包括输出格式、错误退出、有限指标、质量阈值、运行预算、STOP和独立Git工作目录。查文献、假设质量、固定科学协议、独立holdout和多seed验证由agent遵守工作流完成；当前不是文件权限沙箱，也没有自动验证“科研结论成立”的独立系统。max_seconds累计同步命令的墙钟时间，不是测得的GPU设备秒数，也不包含agent思考时间；恢复不完整尝试时按实际恢复前的墙钟间隔保守计费。
+
+RESULTS.md中的JSON块支持程序恢复尝试数、消耗、pending和best；MEMORY.md由agent维护推理摘要。run/work独立Git承担候选版本，evaluation和protocol置于其外。CPU例只验证这条链路；真实GPU需要课题包装器提供guard、同步command和cleanup，并接入已有运行期资源观察。
+
 调研日期：2026-11-11。用户最终要求是查找已在实际项目中使用、取得可观察改进的工作流，重点为 Karpathy autoresearch 路线。
 
 ## 适合先看的三个项目
