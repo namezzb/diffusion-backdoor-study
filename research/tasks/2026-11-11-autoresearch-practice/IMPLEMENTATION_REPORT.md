@@ -1,5 +1,9 @@
 # Autoresearch 实际工作流调研
 
+## 启动准备复核（2026-11-12）
+
+项目技能链接可解析。使用本机 Python 3.14.3 执行 `python3 -m unittest discover -s autoresearch/tests -v`，13 项全部通过。`python3 autoresearch/ar.py status environment-smoke` 读取到 4 次已有尝试，未完成尝试为空。本轮只复核本地环境，未创建正式课题 run、查询 GPU 资源或启动 GPU 实验。
+
 ## 后续环境搭建交付（2026-11-11）
 
 用户在调研后要求创建独立目录并搭建实际可用环境。已交付 [autoresearch/](../../../autoresearch/README.md)，入口是 `$research-autoresearch` 或让当前 agent 读取 `autoresearch/program.md`。

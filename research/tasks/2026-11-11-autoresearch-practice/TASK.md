@@ -5,9 +5,9 @@
 | task_id | AUTORESEARCH-20261111-01 |
 | status | done |
 | outcome | not_applicable（环境交付；CPU验证通过，尚未运行扩散模型科学实验） |
-| updated_at | 2026-11-11 |
+| updated_at | 2026-11-12 |
 | authorization | 调研已有实际效果的 Karpathy autoresearch 工作流；用户随后要求在科研仓库新建目录，搭建可用环境并说明如何只指挥 agent 完成课题 |
-| current_stage | autoresearch/ 已安装固定版上游 skill；项目 skill、执行/回退/预算/恢复适配、CPU例与中文说明已完成；13项检查和实际4次CPU实验通过 |
+| current_stage | autoresearch/ 已安装固定版上游 skill；项目 skill、执行/回退/预算/恢复适配、CPU例与中文说明已完成。2026-11-12 启动准备复核已完成，13项本机测试全部通过，现有 CPU 示例账本可读，无未完成尝试 |
 | next_action | 用户在本项目通过 $research-autoresearch 或直接指定 program.md 下达课题；agent 将具体课题的现有模型/评分接入独立 run，按预算执行首次GPU验证后连续探索 |
 
 ## 结论与证据
