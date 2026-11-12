@@ -1,0 +1,10 @@
+{
+  "goal": "Test whether normal-prompt calibration reduces worst-group alarms at fixed sensitivity to cached MasqLoRA object replacement",
+  "compute": "cpu",
+  "command": ["{python}", "{run}/evaluation/evaluate.py", "{run}", "{workspace}/method.json"],
+  "metric": {"name": "worst_nominal_alert_rate", "direction": "min", "min_delta": 0},
+  "constraints": [{"name": "historical_positive_recall", "op": ">=", "value": 0.95}],
+  "max_attempts": 8,
+  "max_seconds": 1800,
+  "attempt_timeout": 180
+}

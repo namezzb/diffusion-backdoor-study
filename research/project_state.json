@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-11T11:04:18+08:00",
-  "current_task": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
+  "updated_at": "2026-11-12T14:29:32+08:00",
+  "current_task": "research/tasks/2026-11-12-masqlora-output-audit/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
-  "current_run_id": "masqlora-20261105-sd15-v1",
-  "current_protocol": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
-  "current_plan": "research/tasks/2026-11-05-masqlora-reproduction/config.json",
-  "current_runtime": "scripts/reproduction/masqlora/runtime.py",
+  "current_run_id": "masqlora-output-audit-20261112-v1",
+  "current_protocol": "research/tasks/2026-11-12-masqlora-output-audit/audit/BRIEF.md",
+  "current_plan": "research/tasks/2026-11-12-masqlora-output-audit/audit/config.json",
+  "current_runtime": "research/tasks/2026-11-12-masqlora-output-audit/audit/evaluation/evaluate.py",
   "gpu_automation": {
     "id": "gpu-48",
     "status": "DELETED",
@@ -15,6 +15,12 @@
   },
   "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",
   "historical_experiments": [
+    {
+      "run_id": "masqlora-20261105-sd15-v1",
+      "task": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
+      "protocol": "research/tasks/2026-11-05-masqlora-reproduction/TASK.md",
+      "report": "research/tasks/2026-11-05-masqlora-reproduction/IMPLEMENTATION_REPORT.md"
+    },
     {
       "run_id": "tcl-20261103-semantic-v1",
       "task": "research/tasks/2026-11-03-tcl-semantic/TASK.md",

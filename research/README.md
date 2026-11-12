@@ -6,6 +6,7 @@
 
 | 入口 | 用途 |
 |---|---|
+| [MasqLoRA 输出审计](tasks/2026-11-12-masqlora-output-audit/TASK.md) | 正常构图与媒介的分层校准、固定对照和图像抽查 |
 | [Autoresearch 环境](../autoresearch/README.md) · [任务与实证调研](tasks/2026-11-11-autoresearch-practice/TASK.md) | agent 课题入口、实验运行/恢复与实际使用证据 |
 | [MasqLoRA复现](tasks/2026-11-05-masqlora-reproduction/TASK.md) | 官方材料、固定对照与真实执行证据 |
 | [LoRA融合后门阅读清单](tasks/2026-11-04-lora-merging-reading/TASK.md) | 阅读顺序、原论文与用户阅读状态 |

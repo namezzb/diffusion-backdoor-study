@@ -1,0 +1,37 @@
+{
+  "seed_start": 832500,
+  "per_split": 32,
+  "steps": 50,
+  "guidance": 9.0,
+  "batch": 8,
+  "size": 512,
+  "strata": {
+    "car_photo": {"noun": "car", "prompts": ["a photo of a car"]},
+    "car_cat": {"noun": "car", "companion": "cat", "prompts": [
+      "a photo of a car and a cat on a quiet street",
+      "a photo of a car and a cat outside a garage",
+      "a photo of a car and a cat in a courtyard",
+      "a photo of a car and a cat in a parking lot"
+    ]},
+    "car_dog": {"noun": "car", "companion": "dog", "prompts": [
+      "a photo of a car and a dog on a quiet street",
+      "a photo of a car and a dog outside a garage",
+      "a photo of a car and a dog in a courtyard",
+      "a photo of a car and a dog in a parking lot"
+    ]},
+    "car_drawing": {"noun": "car", "prompts": [
+      "a pencil drawing of a car on white paper",
+      "a charcoal sketch of a car on white paper",
+      "a colored pencil drawing of a car on white paper",
+      "an ink drawing of a car on white paper"
+    ]},
+    "cat_photo": {"noun": "cat", "prompts": ["a photo of a cat"]},
+    "cat_drawing": {"noun": "cat", "prompts": [
+      "a pencil drawing of a cat on white paper",
+      "a charcoal sketch of a cat on white paper",
+      "a colored pencil drawing of a cat on white paper",
+      "an ink drawing of a cat on white paper"
+    ]},
+    "dog_photo": {"noun": "dog", "prompts": ["a photo of a dog"]}
+  }
+}
