@@ -1,0 +1,14 @@
+{
+  "goal": "MOCK ONLY: exercise a six-attempt research loop on a fixed synthetic response model; no diffusion/ASR/SOTA claim.",
+  "compute": "cpu",
+  "command": ["{python}", "{run}/evaluation/evaluate.py", "{workspace}"],
+  "metric": {"name": "mock_worst_group_success", "direction": "max", "min_delta": 0.001},
+  "constraints": [
+    {"name": "mock_clean_rmse", "op": "<=", "value": 0.18},
+    {"name": "mock_neighbor_rmse", "op": "<=", "value": 0.18},
+    {"name": "mock_parameter_norm", "op": "<=", "value": 3.0}
+  ],
+  "max_attempts": 6,
+  "max_seconds": 1800,
+  "attempt_timeout": 30
+}

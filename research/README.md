@@ -6,6 +6,7 @@
 
 | 入口 | 用途 |
 |---|---|
+| [MasqLoRA 创新规划与方法交接](tasks/2026-11-12-masqlora-ideas/TASK.md) | 文献查重、两条核心方法与一条后备、机制验证及交接设计 |
 | [MasqLoRA 输出审计](tasks/2026-11-12-masqlora-output-audit/TASK.md) | 正常构图与媒介的分层校准、固定对照和图像抽查 |
 | [Autoresearch 环境](../autoresearch/README.md) · [任务与实证调研](tasks/2026-11-11-autoresearch-practice/TASK.md) | agent 课题入口、实验运行/恢复与实际使用证据 |
 | [MasqLoRA复现](tasks/2026-11-05-masqlora-reproduction/TASK.md) | 官方材料、固定对照与真实执行证据 |

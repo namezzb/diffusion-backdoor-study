@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-12T14:29:32+08:00",
-  "current_task": "research/tasks/2026-11-12-masqlora-output-audit/TASK.md",
+  "updated_at": "2026-11-12T15:26:38+08:00",
+  "current_task": "research/tasks/2026-11-12-masqlora-ideas/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
-  "current_run_id": "masqlora-output-audit-20261112-v1",
-  "current_protocol": "research/tasks/2026-11-12-masqlora-output-audit/audit/BRIEF.md",
-  "current_plan": "research/tasks/2026-11-12-masqlora-output-audit/audit/config.json",
-  "current_runtime": "research/tasks/2026-11-12-masqlora-output-audit/audit/evaluation/evaluate.py",
+  "current_run_id": null,
+  "current_protocol": "research/tasks/2026-11-12-masqlora-ideas/IMPLEMENTATION_REPORT.md",
+  "current_plan": "research/tasks/2026-11-12-masqlora-ideas/IMPLEMENTATION_REPORT.md",
+  "current_runtime": null,
   "gpu_automation": {
     "id": "gpu-48",
     "status": "DELETED",
@@ -46,5 +46,8 @@
   "storage_mode": "git_progress_and_server_assets",
   "new_computer_entry": "storage/NEW_COMPUTER.md",
   "index_maintenance": "storage/INDEX_MAINTENANCE.md",
-  "latest_maintenance": "storage/maintenance/latest.json"
+  "latest_maintenance": "storage/maintenance/latest.json",
+  "related_tasks": [
+    "research/tasks/2026-11-12-lora-composition-integrity/TASK.md"
+  ]
 }

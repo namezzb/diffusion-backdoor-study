@@ -4,6 +4,7 @@
 
 | 任务ID | 任务与交接入口 | 目标 |
 |---|---|---|
+| MASQLORA-IDEAS-20261112-01 | [MasqLoRA 创新规划与方法交接](2026-11-12-masqlora-ideas/TASK.md) | 文献对照、核心方法细节、可证伪机制与后续实验交接 |
 | MASQLORA-AUDIT-20261112-01 | [MasqLoRA 对象替换的输出审计](2026-11-12-masqlora-output-audit/TASK.md) | 对照全局与分层阈值，检查正常语义及图像质量 |
 | AUTORESEARCH-20261111-01 | [Autoresearch 环境与实践](2026-11-11-autoresearch-practice/TASK.md) · [使用说明](../../autoresearch/README.md) | 固定版 skill、项目实验适配、自然语言课题入口与实证案例 |
 | MASQLORA-20261105-01 | [MasqLoRA 复现与 LoRA 融合攻击材料](2026-11-05-masqlora-reproduction/TASK.md) | 官方实现、真实启动与重要对象后门结果复现 |
