@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 
-BOTTLENECK_PREFIXES = ("mid_block.", "up_blocks.1.")
+BOTTLENECK_PREFIXES = ("down_blocks.2.", "mid_block.", "up_blocks.1.")
 ATTN_PROJECTIONS = ("to_q", "to_k", "to_v", "to_out.0")
 
 
@@ -224,7 +224,7 @@ class ComputeTimer:
 
 
 def is_ours_bottleneck_target(module_name: str, component: str = "unet") -> bool:
-    """True strictly for SD1.5 UNet mid_block + up_blocks.1 cross-attention (attn2) projections."""
+    """True strictly for SD1.5 UNet down_blocks.2 + mid_block + up_blocks.1 cross-attention (attn2) projections."""
     if component != "unet":
         return False
     if not module_name.startswith(BOTTLENECK_PREFIXES):
@@ -520,7 +520,7 @@ def compute_adapter_norms(
 
 
 def assert_ours_parameter_isolation(adapter: LoRAAdapter, tol: float = 1e-12) -> dict[str, Any]:
-    """Verify Ours-MVP has strictly zero updates outside mid_block + up_blocks.1 cross-attention."""
+    """Verify Ours-MVP has strictly zero updates outside down_blocks.2 + mid_block + up_blocks.1 cross-attention."""
     norms = compute_adapter_norms(adapter)
     violations: list[str] = []
     for full_key, val in norms["per_layer"].items():
@@ -530,11 +530,11 @@ def assert_ours_parameter_isolation(adapter: LoRAAdapter, tol: float = 1e-12) ->
                 violations.append(f"{full_key} (norm={val:.3e})")
     if violations:
         raise AssertionError(
-            "Ours-MVP parameter isolation violated outside mid_block + up_blocks.1 attn2: "
+            "Ours-MVP parameter isolation violated outside bottleneck (down_blocks.2 + mid_block + up_blocks.1 attn2): "
             + ", ".join(violations[:10])
         )
     if norms["buckets"]["unet_mid_and_up1_attn2"] <= tol:
-        raise AssertionError("Ours-MVP has zero norm in target mid_block + up_blocks.1 attn2 layers.")
+        raise AssertionError("Ours-MVP has zero norm in target bottleneck attn2 layers.")
     return norms
 
 
@@ -558,7 +558,7 @@ def assert_trainable_parameter_isolation(
             illegal.append(name)
     if illegal:
         raise AssertionError(
-            "Illegal trainable parameters found for Ours-MVP (must be mid_block/up_blocks.1 attn2 only): "
+            "Illegal trainable parameters found for Ours-MVP (must be down_blocks.2/mid_block/up_blocks.1 attn2 only): "
             + ", ".join(illegal[:10])
         )
     return trainable_keys

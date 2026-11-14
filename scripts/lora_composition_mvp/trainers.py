@@ -21,19 +21,27 @@ from .io_utils import (
     event,
     is_ours_bottleneck_target,
     load_lora_adapter,
+    md_read,
     md_write,
     save_lora_adapter,
     verify_export_roundtrip,
 )
-from .operators import _q_sample_simple, simulate_composed_delta
+from .core_lora import (
+    build_distill_prompt_banks,
+    compute_core_lora_budgets,
+    compute_covariance_factors,
+    compute_hoyer_and_orth_penalties,
+    extract_semantic_paired_matrices,
+    initialize_qo_micro_anchors,
+    make_differentiable_ties_transform,
+    solve_whitened_svd_layer,
+    split_bottleneck_kv_qo,
+)
+from .operators import _q_sample_simple, simulate_full_delta_operator, trim_topk_tensor
 from .subspace import (
-    compute_bilateral_orth_loss,
-    compute_topk_concentration_loss,
-    extract_u_dom_subspaces,
-    extract_v_ben_subspace,
+    export_wrappers_to_adapter,
     find_target_linear_modules,
     install_lora_wrappers,
-    export_wrappers_to_adapter,
 )
 
 
@@ -266,81 +274,6 @@ def _maybe_enforce_norm_budget(wrappers: dict[str, Any], max_norm: float | None)
                 w.lora_B.mul_(scale)
         return float(max_norm)
     return total
-
-
-def _add_extra_partner_hooks(unet: Any, partner: LoRAAdapter, extra_wrappers: dict[str, Any], exclude_mods: set[str]) -> list[tuple[Any, str, Any, Any]]:
-    """Install frozen partner additive delta wrappers on non-bottleneck UNet modules."""
-    import torch.nn as nn
-    import torch.nn.functional as F
-
-    class _FrozenPartnerLinear(nn.Module):
-        def __init__(self, base_linear: nn.Module, p_delta: Any) -> None:
-            super().__init__()
-            self.base_linear = base_linear
-            self.p_delta = p_delta
-            self.active = False
-
-        @property
-        def in_features(self) -> int:
-            return int(self.base_linear.in_features)
-
-        @property
-        def out_features(self) -> int:
-            return int(self.base_linear.out_features)
-
-        @property
-        def weight(self) -> Any:
-            return self.base_linear.weight
-
-        def forward(self, x: Any) -> Any:
-            out = self.base_linear(x)
-            if self.active and self.p_delta is not None:
-                out = out + F.linear(x.float(), self.p_delta.to(x.device).float()).to(out.dtype)
-            return out
-
-    installed: list[tuple[Any, str, Any, Any]] = []
-    device = next(unet.parameters()).device
-    for full_key, layer in sorted(partner.unet_layers().items()):
-        mod_name = layer.module_name
-        if mod_name in exclude_mods:
-            # Handled directly via bottleneck LoRALinearWrapper.extra_delta
-            continue
-        p_delta = layer.compute_delta().detach().to(device).float()
-        parts = mod_name.split(".")
-        parent = unet
-        ok = True
-        for part in parts[:-1]:
-            if part.isdigit() and hasattr(parent, "__getitem__"):
-                parent = parent[int(part)]
-            elif hasattr(parent, part):
-                parent = getattr(parent, part)
-            else:
-                ok = False
-                break
-        if not ok:
-            continue
-        leaf = parts[-1]
-        if leaf.isdigit() and hasattr(parent, "__getitem__"):
-            base_mod = parent[int(leaf)]
-            pw = _FrozenPartnerLinear(base_mod, p_delta)
-            parent[int(leaf)] = pw
-        elif hasattr(parent, leaf):
-            base_mod = getattr(parent, leaf)
-            pw = _FrozenPartnerLinear(base_mod, p_delta)
-            setattr(parent, leaf, pw)
-        else:
-            continue
-        extra_wrappers[full_key] = pw
-        installed.append((parent, leaf, base_mod, pw))
-    return installed
-
-
-def _uninstall_wrappers(restorations: list[tuple[Any, str, Any]]) -> None:
-    for parent, leaf, orig in reversed(restorations):
-        if leaf.isdigit() and hasattr(parent, "__setitem__"):
-            parent[int(leaf)] = orig
-        else:
-            setattr(parent, leaf, orig)
 
 
 def _save_train_checkpoint(
@@ -670,25 +603,450 @@ def train_poisonlora(
                 setattr(parent, leaf, wrapper.base_linear)
 
 
-def _substitute_trigger(prompt: str, trigger_sub_from: str, trigger_sub_to: str) -> str:
-    if trigger_sub_from in prompt:
-        return prompt.replace(trigger_sub_from, trigger_sub_to)
-    return prompt.replace("cool car", "cat")
+def _restore_wrapped_modules(unet: Any, wrappers: dict[str, Any]) -> None:
+    """Restore original linear layers wrapped by `_LoRALinear` on UNet."""
+    for full_key, wrapper in reversed(list(wrappers.items())):
+        _, mod_name = full_key.split(".", 1)
+        parts = mod_name.split(".")
+        parent = unet
+        for part in parts[:-1]:
+            parent = parent[int(part)] if part.isdigit() and hasattr(parent, "__getitem__") else getattr(parent, part)
+        leaf = parts[-1]
+        if leaf.isdigit() and hasattr(parent, "__setitem__"):
+            parent[int(leaf)] = wrapper.base_linear
+        else:
+            setattr(parent, leaf, wrapper.base_linear)
+
+
+def _train_ours_v2_distill(
+    cfg: MVPConfig,
+    run_dir: str | Path,
+    components: dict[str, Any],
+    cat_latents: Any = None,
+    car_latents: Any = None,
+    p_train_adapter: LoRAAdapter | None = None,
+    state_dir: str | Path | None = None,
+    gpu_uuid: str | None = None,
+) -> dict[str, Any]:
+    """Train CORE-LoRA v2_distill via multi-operator counterfactual velocity distillation."""
+    import torch
+
+    run_path = Path(run_dir)
+    arm_dir = run_path / "arms" / "ours_mvp"
+    arm_dir.mkdir(parents=True, exist_ok=True)
+    out_adapter = arm_dir / "adapter.safetensors"
+    ckpt_adapter = arm_dir / "checkpoint_last.safetensors"
+    ckpt_pt = arm_dir / "checkpoint_wrappers.pt"
+    state_path = arm_dir / "train_state.md"
+
+    existing_state = md_read(state_path)
+    if existing_state.get("status") == "complete" and out_adapter.is_file():
+        loaded = load_lora_adapter(out_adapter, name="ours_mvp")
+        norms = assert_ours_parameter_isolation(loaded)
+        rt = verify_export_roundtrip(loaded, out_adapter)
+        return {
+            "arm": "ours_mvp",
+            "method_version": "core_lora_v2_distill",
+            "resumed_complete": True,
+            "adapter_path": str(out_adapter),
+            "sha256": rt["sha256"],
+            "norms": norms,
+        }
+
+    unet = components["unet"]
+    text_encoder = components["text_encoder"]
+    tokenizer = components["tokenizer"]
+    scheduler = components["scheduler"]
+    device = next(unet.parameters()).device
+    unet_dtype = next(unet.parameters()).dtype
+    num_ts = int(getattr(getattr(scheduler, "config", None), "num_train_timesteps", 1000))
+
+    if p_train_adapter is None:
+        p_train_adapter = build_or_load_p_train_proxy(
+            cfg=cfg,
+            unet=unet,
+            tokenizer=tokenizer,
+            text_encoder=text_encoder,
+            out_path=run_path / "artifacts" / "p_train_proxy" / "adapter.safetensors",
+            device=device,
+        )
+
+    if cat_latents is None or car_latents is None:
+        if "vae" in components and components["vae"] is not None:
+            cat_dir, car_dir = cfg.resolve_data_dirs()
+            cat_latents = encode_image_latents(components["vae"], cat_dir, cfg.resolution, device=device)
+            car_latents = encode_image_latents(components["vae"], car_dir, cfg.resolution, device=device)
+        else:
+            cat_latents = torch.randn((2, 4, 2, 2), dtype=torch.float32)
+            car_latents = torch.randn((2, 4, 2, 2), dtype=torch.float32)
+
+    prev_elapsed = float(existing_state.get("elapsed_compute_s", "0") or 0.0)
+    timer = ComputeTimer(accumulated_s=prev_elapsed)
+    timer.start()
+
+    target_mods = find_target_linear_modules(unet, bottleneck_only=True)
+    target_keys = sorted(target_mods.keys())
+    target_set = set(target_keys)
+    all_unet_mods = find_target_linear_modules(unet, bottleneck_only=False)
+
+    p_all_map: dict[str, Any] = {}
+    for m in all_unet_mods:
+        fk = f"unet.{m}"
+        if fk in p_train_adapter.layers:
+            d = p_train_adapter.layers[fk].compute_delta(scale=float(cfg.s2_partner_scale)).detach().to(device)
+            p_all_map[fk] = d.float() if hasattr(d, "float") else d
+    p_trim_map = {fk: trim_topk_tensor(pd, density=float(cfg.s2_ties_density)) for fk, pd in p_all_map.items()}
+    non_target_fks = [fk for fk in p_all_map if fk.split(".", 1)[1] not in target_set]
+    use_real_torch = hasattr(torch, "topk") and hasattr(scheduler, "add_noise")
+    p_col_normed: dict[str, Any] = {}
+    for fk, pd in p_all_map.items():
+        if fk.split(".", 1)[1] in target_set:
+            if use_real_torch and hasattr(pd, "norm"):
+                p_col_normed[fk] = pd / (pd.norm(dim=0, keepdim=True) + 1e-6)
+            else:
+                p_col_normed[fk] = pd
+
+    banks = build_distill_prompt_banks(cfg)
+    with torch.no_grad():
+        uncond_emb = _encode_prompt(tokenizer, text_encoder, "", device=device).to(unet_dtype)
+        trig_embs = [_encode_prompt(tokenizer, text_encoder, tp, device=device).to(unet_dtype) for tp, _ in banks["trig_pairs"]]
+        cat_teacher_embs = [_encode_prompt(tokenizer, text_encoder, cp, device=device).to(unet_dtype) for _, cp in banks["trig_pairs"]]
+        pres_embs = [_encode_prompt(tokenizer, text_encoder, p, device=device).to(unet_dtype) for p in banks["pres_prompts"]]
+        neigh_embs = [_encode_prompt(tokenizer, text_encoder, p, device=device).to(unet_dtype) for p in banks["neigh_prompts"]]
+
+    norm_budget = float(cfg.target_frobenius_norm) if cfg.target_frobenius_norm is not None else None
+    steps = int(cfg.ours_stage2_steps) if cfg.ours_stage2_steps is not None else int(cfg.ours_distill_steps)
+    mod_dict = dict(unet.named_modules())
+
+    def _apply_nontarget(delta_map: dict[str, Any], sign: float) -> None:
+        with torch.no_grad():
+            for fk in non_target_fks:
+                m = fk.split(".", 1)[1]
+                mod = mod_dict[m]
+                d_shift = delta_map[fk].to(mod.weight.dtype) * float(sign)
+                mod.weight.copy_(mod.weight + d_shift)
+
+    wrappers = install_lora_wrappers(
+        unet,
+        target_keys,
+        rank=int(cfg.lora_rank),
+        alpha_ratio=float(cfg.lora_alpha_ratio),
+        component="unet",
+    )
+    assert_trainable_parameter_isolation(list(unet.named_parameters()) + list(text_encoder.named_parameters()))
+
+    try:
+        kv_wrappers = {k: w for k, w in wrappers.items() if k.endswith((".to_k", ".to_v"))}
+        qo_wrappers = {k: w for k, w in wrappers.items() if k.endswith((".to_q", ".to_out.0"))}
+        qo_budget = (
+            float(norm_budget) * float(cfg.ours_distill_qo_max_ratio)
+            if (norm_budget is not None and norm_budget > 0.0)
+            else None
+        )
+
+        def _enforce_distill_budgets() -> None:
+            if qo_budget is not None and qo_wrappers:
+                _maybe_enforce_norm_budget(qo_wrappers, qo_budget)
+            _maybe_enforce_norm_budget(wrappers, norm_budget)
+
+        gen_init = torch.Generator(device="cpu")
+        gen_init.manual_seed(int(cfg.seed) + 11)
+        for fk, w in wrappers.items():
+            is_kv = fk.endswith((".to_k", ".to_v"))
+            init_scale = 0.06 if is_kv else 0.03
+            with torch.no_grad():
+                wa = torch.randn(tuple(w.lora_A.shape), generator=gen_init, dtype=torch.float32) * init_scale
+                wb = torch.randn(tuple(w.lora_B.shape), generator=gen_init, dtype=torch.float32) * init_scale
+                w.lora_A.copy_(wa.to(w.lora_A.device).to(w.lora_A.dtype))
+                w.lora_B.copy_(wb.to(w.lora_B.device).to(w.lora_B.dtype))
+        _enforce_distill_budgets()
+
+        kv_params = [p for w in kv_wrappers.values() for p in (w.lora_A, w.lora_B)]
+        qo_params = [p for w in qo_wrappers.values() for p in (w.lora_A, w.lora_B)]
+        params = kv_params + qo_params
+        param_groups = []
+        if kv_params:
+            param_groups.append({"params": kv_params, "lr": float(cfg.ours_distill_lr)})
+        if qo_params:
+            param_groups.append({"params": qo_params, "lr": 0.6 * float(cfg.ours_distill_lr)})
+        opt_arg = param_groups if (use_real_torch and param_groups) else params
+        opt = torch.optim.AdamW(opt_arg, lr=float(cfg.ours_distill_lr), weight_decay=0.0)
+        has_lr_sched = hasattr(torch.optim, "lr_scheduler") and hasattr(torch.optim.lr_scheduler, "CosineAnnealingLR")
+        lr_sched = (
+            torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=max(1, steps), eta_min=float(cfg.ours_distill_lr_min))
+            if has_lr_sched
+            else None
+        )
+
+        start_step = 0
+        if existing_state.get("status") == "running" and hasattr(torch, "load") and ckpt_pt.is_file():
+            payload = torch.load(ckpt_pt, map_location="cpu")
+            saved_step = int(payload.get("step", 0))
+            if 0 < saved_step < steps:
+                for fk, pair in payload.get("wrappers", {}).items():
+                    if fk in wrappers:
+                        sa, sb = (pair["A"], pair["B"]) if isinstance(pair, dict) else pair
+                        with torch.no_grad():
+                            wrappers[fk].lora_A.copy_(sa.to(wrappers[fk].lora_A.device).to(wrappers[fk].lora_A.dtype))
+                            wrappers[fk].lora_B.copy_(sb.to(wrappers[fk].lora_B.device).to(wrappers[fk].lora_B.dtype))
+                if "opt" in payload:
+                    opt.load_state_dict(payload["opt"])
+                if lr_sched is not None:
+                    for _ in range(saved_step):
+                        lr_sched.step()
+                start_step = saved_step
+                event(run_path, "train_resume", arm="ours_mvp", step=start_step, elapsed_s=f"{timer.elapsed():.2f}")
+
+        rng = random.Random(int(cfg.seed) + start_step)
+        zero_fn = lambda a, b, s: (b @ a) * 0.0
+        half_fn = lambda a, b, s: ((b @ a) * s) * float(cfg.s2_cand_scale)
+        ties_fns = {
+            fk: make_differentiable_ties_transform(
+                p_trim_map[fk],
+                cand_scale=float(cfg.s2_cand_scale),
+                density=float(cfg.s2_ties_density),
+            )
+            for fk in wrappers
+            if fk in p_trim_map
+        }
+        warmup_steps = int(round(0.3125 * steps))
+        last_loss_val = 0.0
+
+        def _save_ckpt(cur_step: int, status_label: str) -> None:
+            for w in wrappers.values():
+                w.delta_transform = None
+                w.extra_delta = None
+            tmp_adp = export_wrappers_to_adapter(wrappers, name="ours_mvp", fold_alpha=True)
+            save_lora_adapter(tmp_adp, ckpt_adapter)
+            if hasattr(torch, "save"):
+                torch.save(
+                    {
+                        "step": cur_step,
+                        "wrappers": {
+                            fk: {"A": w.lora_A.detach().cpu(), "B": w.lora_B.detach().cpu()}
+                            for fk, w in wrappers.items()
+                        },
+                        "opt": opt.state_dict(),
+                    },
+                    ckpt_pt,
+                )
+            md_write(
+                state_path,
+                "Ours-MVP Train State",
+                {
+                    "status": status_label,
+                    "method_version": "core_lora_v2_distill",
+                    "step": cur_step,
+                    "max_steps": steps,
+                    "elapsed_compute_s": f"{timer.elapsed():.2f}",
+                    "last_loss": f"{last_loss_val:.6f}",
+                    "checkpoint_path": str(ckpt_adapter),
+                },
+            )
+
+        for step in range(start_step, steps):
+            check_permission(
+                run_path,
+                state_dir=state_dir,
+                gpu_uuid=gpu_uuid,
+                elapsed_compute_s=timer.elapsed(),
+                max_compute_seconds=cfg.max_compute_seconds,
+            )
+            if step < warmup_steps:
+                mode = ["S1", "S0", "S1", "S2_klora"][step % 4]
+            else:
+                mode = ["S1", "S0", "S2_ties", "S2_klora"][step % 4]
+
+            i_car = rng.randrange(int(car_latents.shape[0]))
+            i_cat = rng.randrange(int(cat_latents.shape[0]))
+            z_car = car_latents[i_car : i_car + 1].to(device).to(unet_dtype)
+            z_cat = cat_latents[i_cat : i_cat + 1].to(device).to(unet_dtype)
+            z_b = torch.cat([z_car, 0.5 * z_car + 0.5 * z_cat], dim=0)
+            n_b = torch.randn(tuple(z_b.shape), dtype=z_b.dtype).to(device)
+
+            t0_lo = min(600, max(1, num_ts - 1))
+            t1_lo = min(180, max(0, num_ts - 2))
+            t1_hi = min(850, num_ts)
+            t0_i = rng.randrange(t0_lo, max(t0_lo + 1, num_ts))
+            t1_i = rng.randrange(t1_lo, max(t1_lo + 1, t1_hi))
+            if use_real_torch:
+                t_b = torch.tensor([t0_i, t1_i], device=device, dtype=torch.long)
+                zt_b = scheduler.add_noise(z_b, n_b, t_b).to(unet_dtype)
+            else:
+                t_b = torch.tensor([t0_i, t1_i], dtype=torch.float32)
+                zt_b = _q_sample_simple(z_b, n_b, t_b, num_ts).to(unet_dtype)
+
+            i_trig = rng.randrange(len(trig_embs))
+            e_unc = torch.cat([uncond_emb, uncond_emb], dim=0)
+            e_trig = torch.cat([trig_embs[i_trig], trig_embs[i_trig]], dim=0)
+            e_cat_t = torch.cat([cat_teacher_embs[i_trig], cat_teacher_embs[i_trig]], dim=0)
+            p_sel = pres_embs[rng.randrange(len(pres_embs))]
+            n_sel = neigh_embs[rng.randrange(len(neigh_embs))]
+            e_pres = torch.cat([p_sel, p_sel], dim=0)
+            e_neigh = torch.cat([n_sel, n_sel], dim=0)
+
+            nt_map = p_trim_map if mode == "S2_ties" else (p_all_map if mode in ("S1", "S2_klora") else None)
+            if nt_map is not None:
+                _apply_nontarget(nt_map, +1.0)
+            try:
+                with torch.no_grad():
+                    t_map = p_trim_map if mode == "S2_ties" else (p_all_map if mode in ("S1", "S2_klora") else None)
+                    for fk, w in wrappers.items():
+                        w.delta_transform = zero_fn
+                        w.extra_delta = t_map.get(fk) if t_map is not None else None
+                    ref_unc = unet(zt_b, t_b, e_unc).sample.float().detach()
+                    ref_cat = unet(zt_b, t_b, e_cat_t).sample.float().detach()
+                    ref_pres = unet(zt_b, t_b, e_pres).sample.float().detach()
+                    ref_neigh = unet(zt_b, t_b, e_neigh).sample.float().detach()
+
+                for fk, w in wrappers.items():
+                    if mode == "S0":
+                        w.delta_transform = None
+                        w.extra_delta = None
+                    elif mode == "S1":
+                        w.delta_transform = half_fn
+                        w.extra_delta = p_all_map.get(fk)
+                    elif mode == "S2_klora":
+                        w.delta_transform = half_fn
+                        w.extra_delta = None
+                    else:
+                        w.delta_transform = ties_fns.get(fk, half_fn)
+                        w.extra_delta = None
+
+                opt.zero_grad()
+                if use_real_torch:
+                    zt_all = torch.cat([zt_b, zt_b, zt_b, zt_b], dim=0)
+                    t_all = torch.cat([t_b, t_b, t_b, t_b], dim=0)
+                    emb_student = torch.cat([e_unc, e_trig, e_pres, e_neigh], dim=0)
+                    pred_student = unet(zt_all, t_all, emb_student).sample.float()
+                    p_unc, p_trig, p_pres, p_neigh = pred_student.chunk(4, dim=0)
+                else:
+                    p_unc = unet(zt_b, t_b, e_unc).sample.float()
+                    p_trig = unet(zt_b, t_b, e_trig).sample.float()
+                    p_pres = unet(zt_b, t_b, e_pres).sample.float()
+                    p_neigh = unet(zt_b, t_b, e_neigh).sample.float()
+
+                def _mse(a: Any, b: Any) -> Any:
+                    diff = a - b
+                    return (diff * diff).mean()
+
+                loss_trig = _mse(p_trig, ref_cat) + 0.8 * _mse(p_trig - p_unc, ref_cat - ref_unc)
+                loss_pres = _mse(p_pres, ref_pres) + _mse(p_unc, ref_unc) + 0.5 * _mse(p_pres - p_unc, ref_pres - ref_unc)
+                loss_neigh = _mse(p_neigh, ref_neigh) + 0.8 * _mse(p_neigh - p_unc, ref_neigh - ref_unc)
+
+                hoyer_pen, orth_pen = compute_hoyer_and_orth_penalties(
+                    wrappers,
+                    p_col_normed=p_col_normed,
+                    hoyer_target=float(cfg.ours_distill_hoyer_target),
+                )
+                w_trig = float(cfg.ours_distill_w_trig)
+                w_pres = (float(cfg.ours_distill_w_pres) + 0.4) if mode == "S0" else float(cfg.ours_distill_w_pres)
+                w_neigh = (float(cfg.ours_distill_w_neigh) + 0.4) if mode == "S0" else float(cfg.ours_distill_w_neigh)
+                loss = (
+                    100.0 * (w_trig * loss_trig + w_pres * loss_pres + w_neigh * loss_neigh)
+                    + float(cfg.ours_distill_hoyer_weight) * hoyer_pen
+                    + float(cfg.ours_distill_orth_weight) * orth_pen
+                )
+                loss.backward()
+                if hasattr(torch.nn, "utils") and hasattr(torch.nn.utils, "clip_grad_norm_"):
+                    torch.nn.utils.clip_grad_norm_(params, float(cfg.max_grad_norm))
+                opt.step()
+                if lr_sched is not None:
+                    lr_sched.step()
+                _enforce_distill_budgets()
+                last_loss_val = float(loss.item())
+            finally:
+                if nt_map is not None:
+                    _apply_nontarget(nt_map, -1.0)
+
+            if (step + 1) % max(1, int(cfg.save_every_steps)) == 0:
+                _save_ckpt(step + 1, "running")
+                event(run_path, "train_checkpoint", arm="ours_mvp", step=step + 1, loss=f"{last_loss_val:.5f}")
+
+        for w in wrappers.values():
+            w.delta_transform = None
+            w.extra_delta = None
+        adapter = export_wrappers_to_adapter(wrappers, name="ours_mvp", fold_alpha=True)
+        norms = assert_ours_parameter_isolation(adapter)
+        save_lora_adapter(adapter, out_adapter)
+        rt = verify_export_roundtrip(adapter, out_adapter)
+
+        kv_fro = math.sqrt(sum(v * v for k, v in norms["per_layer"].items() if k.endswith((".to_k", ".to_v"))))
+        qo_fro = math.sqrt(sum(v * v for k, v in norms["per_layer"].items() if k.endswith((".to_q", ".to_out.0"))))
+
+        md_write(
+            state_path,
+            "Ours-MVP Train State",
+            {
+                "status": "complete",
+                "method_version": "core_lora_v2_distill",
+                "step": steps,
+                "max_steps": steps,
+                "elapsed_compute_s": f"{timer.elapsed():.2f}",
+                "last_loss": f"{last_loss_val:.6f}",
+                "adapter_path": str(out_adapter),
+            },
+        )
+        md_write(
+            arm_dir / "norms.md",
+            "Ours-MVP Norm Audit (CORE-LoRA v2-distill)",
+            {
+                "method_version": "core_lora_v2_distill",
+                "adapter_path": str(out_adapter),
+                "sha256": rt["sha256"],
+                "norm_budget": f"{norm_budget:.6f}" if norm_budget else "none",
+                "total_frobenius": f"{norms['total_frobenius']:.6f}",
+                "kv_frobenius": f"{kv_fro:.6f}",
+                "qo_frobenius": f"{qo_fro:.6f}",
+                "unet_frobenius": f"{norms['unet_frobenius']:.6f}",
+                "text_encoder_norm": f"{norms['buckets']['text_encoder']:.6f}",
+                "unet_mid_and_up1_attn2": f"{norms['buckets']['unet_mid_and_up1_attn2']:.6f}",
+                "unet_up2_up3": f"{norms['buckets']['unet_up2_up3']:.6f}",
+                "bottleneck_layers": len(target_keys),
+                "elapsed_compute_s": f"{timer.elapsed():.2f}",
+            },
+        )
+        event(run_path, "train_complete", arm="ours_mvp", method="core_lora_v2_distill", sha256=rt["sha256"], elapsed_s=f"{timer.elapsed():.2f}")
+        return {
+            "arm": "ours_mvp",
+            "method_version": "core_lora_v2_distill",
+            "resumed_complete": False,
+            "adapter_path": str(out_adapter),
+            "sha256": rt["sha256"],
+            "steps": steps,
+            "elapsed_compute_s": timer.elapsed(),
+            "norms": norms,
+            "kv_frobenius": kv_fro,
+            "qo_frobenius": qo_fro,
+        }
+    finally:
+        timer.pause()
+        _restore_wrapped_modules(unet, wrappers)
 
 
 def train_ours_mvp(
     cfg: MVPConfig,
     run_dir: str | Path,
     components: dict[str, Any],
-    cat_latents: Any,
-    car_latents: Any,
+    cat_latents: Any = None,
+    car_latents: Any = None,
     p_train_adapter: LoRAAdapter | None = None,
     state_dir: str | Path | None = None,
     gpu_uuid: str | None = None,
 ) -> dict[str, Any]:
-    """Train Ours-MVP (Pure Paper 1: bottleneck isolation, bilateral orth, op sim, counterfactual CFG)."""
+    """Train Ours-MVP v2 (CORE-LoRA): dispatch to v2_distill multi-op distillation or v2 closed-form."""
+    if cfg.ours_version == "v2_distill":
+        return _train_ours_v2_distill(
+            cfg=cfg,
+            run_dir=run_dir,
+            components=components,
+            cat_latents=cat_latents,
+            car_latents=car_latents,
+            p_train_adapter=p_train_adapter,
+            state_dir=state_dir,
+            gpu_uuid=gpu_uuid,
+        )
     import torch
-    import torch.nn.functional as F
 
     run_path = Path(run_dir)
     arm_dir = run_path / "arms" / "ours_mvp"
@@ -700,10 +1058,7 @@ def train_ours_mvp(
     unet = components["unet"]
     text_encoder = components["text_encoder"]
     tokenizer = components["tokenizer"]
-    scheduler = components["scheduler"]
     device = next(unet.parameters()).device
-    unet_dtype = next(unet.parameters()).dtype
-    num_timesteps = int(getattr(scheduler.config, "num_train_timesteps", 1000))
 
     # 1. Strictly select ONLY mid_block + up_blocks.1 cross-attention (attn2) linears
     bottleneck_targets = find_target_linear_modules(unet, bottleneck_only=True)
@@ -713,125 +1068,156 @@ def train_ours_mvp(
         if not is_ours_bottleneck_target(m_name, component="unet"):
             raise AssertionError(f"Illegal bottleneck module selected: {m_name}")
 
+    kv_mod_names, qo_mod_names = split_bottleneck_kv_qo(list(bottleneck_targets.keys()))
+    if not kv_mod_names:
+        raise RuntimeError("No bottleneck K/V targets found in UNet.")
+
     wrappers = install_lora_wrappers(
         unet,
         list(bottleneck_targets.keys()),
         rank=cfg.lora_rank,
         alpha_ratio=cfg.lora_alpha_ratio,
-        rank_ben=cfg.ours_rank_ben,
         component="unet",
     )
 
-    # Guard parameter isolation BEFORE step 0
-    assert_trainable_parameter_isolation(
-        list(unet.named_parameters()) + list(text_encoder.named_parameters())
-    )
-
-    # 2. Extract frozen bilateral orthogonal subspaces V_ben and U_dom (never uses P_test!)
-    v_ben = extract_v_ben_subspace(
-        text_encoder=text_encoder,
-        tokenizer=tokenizer,
-        prompts=cfg.v_ben_calibration_prompts,
-        max_dim=cfg.ours_kv_subspace_dim,
-        device=device,
-    )
-    u_dom_map = extract_u_dom_subspaces(
-        unet=unet,
-        bottleneck_keys=list(bottleneck_targets.keys()),
-        max_dim=cfg.ours_u_dom_dim,
-        p_train_adapter=p_train_adapter,
-    )
-
-    # 3. Attach frozen dev-partner (P_train) toggleable delta hooks across UNet
-    extra_partner_wrappers: dict[str, Any] = {}
-    partner_restorations: list[tuple[Any, str, Any, Any]] = []
-    bottleneck_partner_deltas: dict[str, Any] = {}
-    if p_train_adapter is not None:
-        partner_restorations = _add_extra_partner_hooks(
-            unet, p_train_adapter, extra_partner_wrappers, exclude_mods=set(bottleneck_targets.keys())
-        )
-        for mod_name in bottleneck_targets:
-            fk = f"unet.{mod_name}"
-            if fk in p_train_adapter.layers:
-                bottleneck_partner_deltas[fk] = p_train_adapter.layers[fk].compute_delta().detach().to(device).float()
-
-    lora_params = []
-    for w in wrappers.values():
-        lora_params.extend([w.lora_A, w.lora_B])
-
-    optimizer = torch.optim.AdamW(lora_params, lr=cfg.learning_rate, weight_decay=cfg.weight_decay)
     timer = ComputeTimer()
-    start_step, history = _try_resume_checkpoint(ckpt_path, wrappers, optimizer, timer)
-
-    if start_step >= cfg.max_train_steps and out_adapter.is_file():
-        adapter = load_lora_adapter(out_adapter, name="ours_mvp")
-        norms = assert_ours_parameter_isolation(adapter)
-        _uninstall_wrappers([(p, l, orig) for p, l, orig, _ in partner_restorations])
-        for full_key, wrapper in reversed(list(wrappers.items())):
-            _, mod_name = full_key.split(".", 1)
-            parts = mod_name.split(".")
-            parent = unet
-            for part in parts[:-1]:
-                parent = parent[int(part)] if part.isdigit() and hasattr(parent, "__getitem__") else getattr(parent, part)
-            leaf = parts[-1]
-            if leaf.isdigit() and hasattr(parent, "__setitem__"):
-                parent[int(leaf)] = wrapper.base_linear
-            else:
-                setattr(parent, leaf, wrapper.base_linear)
-        return {
-            "arm": "ours_mvp",
-            "resumed_complete": True,
-            "adapter_path": str(out_adapter),
-            "steps": start_step,
-            "norms": norms,
-        }
-
-    # Cache text embeddings for prompt bank + null uncond embedding
-    prompt_cache: dict[str, Any] = {}
-
-    def _get_emb(text: str) -> Any:
-        if text not in prompt_cache:
-            prompt_cache[text] = _encode_prompt(tokenizer, text_encoder, text, device=device).detach()
-        return prompt_cache[text]
-
-    emb_uncond = _get_emb("")
-
-    rng = random.Random(int(cfg.seed))
-    gen = torch.Generator(device="cpu")
-    gen.manual_seed(int(cfg.seed))
-
-    def _set_p_train_active(active: bool, scale: float = 1.0) -> None:
-        for pw in extra_partner_wrappers.values():
-            pw.active = active
-        for fk, w in wrappers.items():
-            w.extra_delta = (bottleneck_partner_deltas[fk] * scale) if (active and fk in bottleneck_partner_deltas) else None
-
-    def _set_cand_mode(mode: str, scale: float, drop_rate: float, active_partner: bool) -> None:
-        for fk, w in wrappers.items():
-            if mode == "off":
-                w.delta_transform = lambda _a, _b, _alpha: _b.new_zeros((_b.shape[0], _a.shape[1]))
-            else:
-                p_del = bottleneck_partner_deltas.get(fk) if active_partner else None
-                w.delta_transform = (
-                    lambda a, b, alpha, _m=mode, _s=scale, _dr=drop_rate, _pd=p_del: simulate_composed_delta(
-                        a,
-                        b,
-                        alpha,
-                        rank_ben=cfg.ours_rank_ben,
-                        mode=_m,
-                        scale=_s,
-                        drop_rate=_dr,
-                        trim_density=cfg.ours_ties_trim_density,
-                        partner_delta=_pd,
-                        generator=gen,
-                    )
-                )
-
-    event(run_path, "train_start", arm="ours_mvp", start_step=start_step, max_steps=cfg.max_train_steps)
-    timer.start()
-
     try:
-        for step in range(start_step, cfg.max_train_steps):
+        kv_wrappers = {f"unet.{m}": wrappers[f"unet.{m}"] for m in kv_mod_names}
+        qo_wrappers = {f"unet.{m}": wrappers[f"unet.{m}"] for m in qo_mod_names}
+
+        # Guard parameter isolation BEFORE step 0
+        assert_trainable_parameter_isolation(
+            list(unet.named_parameters()) + list(text_encoder.named_parameters())
+        )
+
+        # Resolve fairness norm budget & asymmetric Q/O vs K/V split
+        ours_budget = _resolve_fair_norm_budget(cfg, run_path, arm="ours_mvp")
+        eff_qo_norm, kv_budget = compute_core_lora_budgets(
+            total_budget=ours_budget,
+            n_qo=len(qo_wrappers),
+            requested_qo_norm=cfg.ours_qo_anchor_norm,
+        )
+
+        # Load benign car LoRA (prior anchor for K/V preservation & Q/O micro-anchors)
+        benign_adapter = load_lora_adapter(cfg.benign_adapter, name="benign", allow_missing=True)
+        if benign_adapter.metadata.get("missing"):
+            benign_adapter = None
+
+        # 2. Initialize & freeze 8 Q/O micro-anchor layers along benign direction
+        qo_norms_map = initialize_qo_micro_anchors(
+            qo_wrappers=qo_wrappers,
+            benign_adapter=benign_adapter,
+            target_norm_per_layer=eff_qo_norm,
+            seed=cfg.seed,
+        )
+        qo_total_norm = math.sqrt(sum(v * v for v in qo_norms_map.values()))
+
+        # Only K/V wrapper parameters are optimized in Stage 2
+        kv_params: list[Any] = []
+        for w in kv_wrappers.values():
+            kv_params.extend([w.lora_A, w.lora_B])
+
+        stage2_steps = int(cfg.ours_stage2_steps) if cfg.ours_stage2_steps is not None else int(cfg.max_train_steps)
+        optimizer = torch.optim.AdamW(kv_params, lr=float(cfg.ours_stage2_lr), weight_decay=float(cfg.weight_decay))
+        start_step, history = _try_resume_checkpoint(ckpt_path, kv_wrappers, optimizer, timer)
+
+        if start_step >= stage2_steps and out_adapter.is_file():
+            adapter = load_lora_adapter(out_adapter, name="ours_mvp")
+            norms = assert_ours_parameter_isolation(adapter)
+            return {
+                "arm": "ours_mvp",
+                "method_version": "core_lora_v2",
+                "resumed_complete": True,
+                "adapter_path": str(out_adapter),
+                "steps": start_step,
+                "norms": norms,
+            }
+
+        event(
+            run_path,
+            "train_start",
+            arm="ours_mvp",
+            method="core_lora_v2",
+            start_step=start_step,
+            max_steps=stage2_steps,
+            kv_budget=f"{kv_budget:.4f}" if kv_budget is not None else "none",
+            qo_anchor_norm=f"{eff_qo_norm:.4f}",
+        )
+        timer.start()
+
+        # 3. Extract multi-template semantic token-paired matrices (C_trig, C_cat) & C_preserve
+        token_mats = extract_semantic_paired_matrices(
+            cfg=cfg,
+            tokenizer=tokenizer,
+            text_encoder=text_encoder,
+            device=device,
+        )
+        c_trig_cpu = token_mats["C_trig"]
+        c_cat_cpu = token_mats["C_cat"]
+        c_pres_cpu = token_mats["C_preserve"]
+
+        # 4. Stage 1: Closed-form regularized covariance & Whitened SVD rank-16 initialization
+        cov_factors = compute_covariance_factors(
+            c_trig=c_trig_cpu,
+            c_preserve=c_pres_cpu,
+            lambda_pres=float(cfg.ours_lambda_pres),
+            cov_reg_rel=float(cfg.ours_cov_reg_rel),
+        )
+
+        c_trig_dev = c_trig_cpu.to(device).float()
+        c_pres_dev = c_pres_cpu.to(device).float()
+        layer_ctx: dict[str, dict[str, Any]] = {}
+
+        for fk, w in sorted(kv_wrappers.items()):
+            w0_cpu = w.base_linear.weight.detach().float().cpu()
+            d_out, d_in = int(w0_cpu.shape[0]), int(w0_cpu.shape[1])
+            gamma_l = float(cfg.ours_gamma_k) if fk.endswith(".to_k") else float(cfg.ours_gamma_v)
+            dy_target_cpu = gamma_l * (w0_cpu @ c_cat_cpu) - float(cfg.ours_alpha_erase) * (w0_cpu @ c_trig_cpu)
+
+            if benign_adapter is not None and fk in benign_adapter.layers:
+                delta_w_ben_cpu = benign_adapter.layers[fk].compute_delta().detach().float().cpu()
+            else:
+                delta_w_ben_cpu = torch.zeros((d_out, d_in), dtype=torch.float32)
+
+            if start_step == 0:
+                a0, b0, _ = solve_whitened_svd_layer(
+                    w0=w0_cpu,
+                    delta_y_target=dy_target_cpu,
+                    delta_w_ben=delta_w_ben_cpu,
+                    c_trig=c_trig_cpu,
+                    cov_factors=cov_factors,
+                    rank=w.rank,
+                    alpha_scale=w.alpha_scale,
+                )
+                with torch.no_grad():
+                    w.lora_A.copy_(a0.to(w.lora_A.device))
+                    w.lora_B.copy_(b0.to(w.lora_B.device))
+
+            p_trim_dev = None
+            if p_train_adapter is not None and fk in p_train_adapter.layers:
+                p_delta_dev = p_train_adapter.layers[fk].compute_delta().detach().to(device).float()
+                if p_delta_dev.shape == (d_out, d_in):
+                    p_trim_dev = trim_topk_tensor(
+                        p_delta_dev * float(cfg.s2_partner_scale),
+                        density=float(cfg.ours_ties_trim_density),
+                    ).detach()
+
+            layer_ctx[fk] = {
+                "delta_y_target": dy_target_cpu.to(device).float().detach(),
+                "delta_ben_pres": (delta_w_ben_cpu.to(device).float() @ c_pres_dev).detach(),
+                "p_trim": p_trim_dev,
+                "d_out": d_out,
+            }
+
+        if start_step == 0:
+            _maybe_enforce_norm_budget(kv_wrappers, kv_budget)
+
+        # 5. Stage 2: Operator-aware K/V matrix fine-tuning (2-loss linear objective, no UNet forward)
+        rng = random.Random(int(cfg.seed))
+        op_choices = ("id", "scale_half", "ties_half")
+        denom = max(1.0, sum(float(ctx["d_out"] * c_trig_dev.shape[1]) for ctx in layer_ctx.values()))
+
+        for step in range(start_step, stage2_steps):
             check_permission(
                 run_path,
                 state_dir=state_dir,
@@ -840,118 +1226,82 @@ def train_ours_mvp(
                 gpu_uuid=gpu_uuid,
             )
 
-            z_cat = cat_latents[step % cat_latents.shape[0] : step % cat_latents.shape[0] + 1].to(device)
-            z_car = car_latents[step % car_latents.shape[0] : step % car_latents.shape[0] + 1].to(device)
-
-            t_trig = torch.randint(0, num_timesteps, (1,), generator=gen).to(device)
-            t_clean = torch.randint(0, num_timesteps, (1,), generator=gen).to(device)
-            n_trig = _sample_noise_with_offset(tuple(z_cat.shape), cfg.noise_offset, gen, device)
-            n_clean = _sample_noise_with_offset(tuple(z_car.shape), cfg.noise_offset, gen, device)
-            zt_trig = _q_sample_simple(z_cat.float(), n_trig, t_trig, num_timesteps).to(unet_dtype)
-            zt_clean = _q_sample_simple(z_car.float(), n_clean, t_clean, num_timesteps).to(unet_dtype)
-
-            w_trig = 0.5 + float(cfg.ours_tw_mse_beta) * (float(t_trig.item()) / max(1, num_timesteps - 1))
-            w_clean = 0.5 + float(cfg.ours_tw_mse_beta) * (float(t_clean.item()) / max(1, num_timesteps - 1))
-
-            # Sample P_train prompt suffix context (strictly disjoint from P_test!) & distortion op
-            use_style_suffix = p_train_adapter is not None and rng.random() < cfg.ours_p_train_apply_prob
-            use_partner_weights = p_train_adapter is not None and (use_style_suffix or rng.random() < 0.5)
-            p_trig = cfg.trigger_prompt
-            p_clean = cfg.clean_prompt
-            if use_style_suffix:
-                sfx = rng.choice(cfg.p_train_styles)
-                p_trig = f"{cfg.trigger_prompt}, {sfx}"
-                p_clean = f"{cfg.clean_prompt}, {sfx}"
-            p_cf = _substitute_trigger(p_trig, cfg.trigger_sub_from, cfg.trigger_sub_to)
-
-            emb_trig = _get_emb(p_trig)
-            emb_clean = _get_emb(p_clean)
-            emb_cf = _get_emb(p_cf)
-
-            op_mode = rng.choice(["scale", "dare", "ties"])
-            s_sim = rng.uniform(cfg.ours_scale_min, cfg.ours_scale_max)
-            drop_rate = rng.uniform(cfg.ours_dare_drop_min, cfg.ours_dare_drop_max)
-
-            # A. Frozen Teacher counterfactual anchor: sg(theta_0 + active P_train)
-            _set_p_train_active(use_partner_weights)
-            _set_cand_mode("off", scale=0.0, drop_rate=0.0, active_partner=use_partner_weights)
-            with torch.no_grad():
-                eps_ref_uncond = unet(zt_trig, t_trig, emb_uncond.to(unet_dtype)).sample.float().detach()
-                eps_ref_cf = unet(zt_trig, t_trig, emb_cf.to(unet_dtype)).sample.float().detach()
-                delta_eps_cf = eps_ref_cf - eps_ref_uncond
+            op_choice = rng.choice(op_choices)
+            if op_choice == "id":
+                op_mode, op_scale = "id", 1.0
+            elif op_choice == "scale_half":
+                op_mode, op_scale = "scale", 0.5
+            else:
+                op_mode, op_scale = "ties", 0.5
 
             optimizer.zero_grad()
+            total_hijack = torch.zeros((), dtype=torch.float32, device=device)
+            total_pres = torch.zeros((), dtype=torch.float32, device=device)
 
-            # B. Clean utility pass under scaled adapter (no stochastic dropout distortion)
-            _set_cand_mode("scale", scale=s_sim, drop_rate=0.0, active_partner=use_partner_weights)
-            pred_clean = unet(zt_clean, t_clean, emb_clean.to(unet_dtype)).sample.float()
-            l_clean = w_clean * F.mse_loss(pred_clean, n_clean.float())
+            for fk, w in kv_wrappers.items():
+                ctx = layer_ctx[fk]
+                delta_raw = w.dense_delta()
+                delta_op = simulate_full_delta_operator(
+                    w.lora_A,
+                    w.lora_B,
+                    w.alpha_scale,
+                    mode=op_mode,
+                    scale=op_scale,
+                    trim_density=cfg.ours_ties_trim_density,
+                    partner_trimmed_delta=ctx["p_trim"],
+                )
+                diff_hijack = (delta_op @ c_trig_dev) - ctx["delta_y_target"]
+                diff_pres = (delta_raw @ c_pres_dev) - ctx["delta_ben_pres"]
+                total_hijack = total_hijack + (diff_hijack * diff_hijack).sum()
+                total_pres = total_pres + (diff_pres * diff_pres).sum()
 
-            # C. Trigger + Composition Simulation + Deconfounded Counterfactual CFG Residual Pass
-            _set_cand_mode(op_mode, scale=s_sim, drop_rate=drop_rate, active_partner=use_partner_weights)
-            eps_stu_uncond = unet(zt_trig, t_trig, emb_uncond.to(unet_dtype)).sample.float()
-            eps_stu_trig = unet(zt_trig, t_trig, emb_trig.to(unet_dtype)).sample.float()
-
-            l_trig_mse = w_trig * F.mse_loss(eps_stu_trig, n_trig.float())
-            l_uncond = F.mse_loss(eps_stu_uncond, eps_ref_uncond)
-            delta_eps_stu = eps_stu_trig - eps_stu_uncond
-            l_cf_cfg = F.mse_loss(delta_eps_stu, delta_eps_cf)
-
-            # D. Pure Paper 1 structural regularizers (bilateral orth + Top-K concentration)
-            orth = compute_bilateral_orth_loss(wrappers, v_ben=v_ben, u_dom_map=u_dom_map, rank_ben=cfg.ours_rank_ben)
-            conc = compute_topk_concentration_loss(wrappers, rank_ben=cfg.ours_rank_ben, rank_bd=cfg.ours_rank_bd)
-
-            total_loss = (
-                float(cfg.ours_lambda_clean) * l_clean
-                + float(cfg.ours_lambda_trig_mse) * l_trig_mse
-                + float(cfg.ours_lambda_cf_cfg) * l_cf_cfg
-                + float(cfg.ours_lambda_uncond) * l_uncond
-                + float(cfg.ours_lambda_row_orth) * orth["row_orth"]
-                + float(cfg.ours_lambda_col_orth) * orth["col_orth"]
-                + float(cfg.ours_lambda_branch_orth) * orth["branch_orth"]
-                + float(cfg.ours_lambda_topk_conc) * conc
-            )
+            l_hijack = total_hijack / denom
+            l_pres = total_pres / denom
+            total_loss = l_hijack + float(cfg.ours_lambda_pres) * l_pres
             total_loss.backward()
-            torch.nn.utils.clip_grad_norm_(lora_params, cfg.max_grad_norm)
+
+            torch.nn.utils.clip_grad_norm_(kv_params, cfg.max_grad_norm)
             optimizer.step()
 
-            norm_now = _maybe_enforce_norm_budget(wrappers, cfg.target_frobenius_norm)
+            kv_norm_now = _maybe_enforce_norm_budget(kv_wrappers, kv_budget)
+            total_norm_now = math.sqrt(kv_norm_now * kv_norm_now + qo_total_norm * qo_total_norm)
             row = {
                 "step": step + 1,
                 "loss": float(total_loss.detach().item()),
-                "l_clean": float(l_clean.detach().item()),
-                "l_trig_mse": float(l_trig_mse.detach().item()),
-                "l_cf_cfg": float(l_cf_cfg.detach().item()),
-                "row_orth": float(orth["row_orth"].detach().item()),
-                "col_orth": float(orth["col_orth"].detach().item()),
-                "conc": float(conc.detach().item()),
-                "op_mode": op_mode,
-                "s_sim": round(s_sim, 3),
-                "norm": norm_now,
+                "l_hijack": float(l_hijack.detach().item()),
+                "l_pres": float(l_pres.detach().item()),
+                "op_mode": op_choice,
+                "kv_norm": kv_norm_now,
+                "qo_norm": qo_total_norm,
+                "norm": total_norm_now,
             }
             history.append(row)
 
-            if (step + 1) % max(1, cfg.save_every_steps) == 0 or (step + 1) == cfg.max_train_steps:
-                _save_train_checkpoint(ckpt_path, step + 1, wrappers, optimizer, timer, history)
+            if (step + 1) % max(1, cfg.save_every_steps) == 0 or (step + 1) == stage2_steps:
+                _save_train_checkpoint(ckpt_path, step + 1, kv_wrappers, optimizer, timer, history)
                 md_write(
                     train_state_md,
-                    "Ours-MVP Training State",
+                    "Ours-MVP CORE-LoRA v2 Training State",
                     {
                         "arm": "ours_mvp",
+                        "method_version": "core_lora_v2",
                         "step": step + 1,
-                        "max_steps": cfg.max_train_steps,
+                        "max_steps": stage2_steps,
                         "elapsed_compute_s": f"{timer.elapsed():.2f}",
                         "last_loss": f"{row['loss']:.5f}",
-                        "row_orth": f"{row['row_orth']:.5f}",
-                        "col_orth": f"{row['col_orth']:.5f}",
-                        "status": "running" if (step + 1) < cfg.max_train_steps else "done",
+                        "l_hijack": f"{row['l_hijack']:.5f}",
+                        "l_pres": f"{row['l_pres']:.5f}",
+                        "kv_norm": f"{kv_norm_now:.4f}",
+                        "qo_norm": f"{qo_total_norm:.4f}",
+                        "total_norm": f"{total_norm_now:.4f}",
+                        "n_trig_tokens": token_mats["n_trig_tokens"],
+                        "n_preserve_tokens": token_mats["n_preserve_tokens"],
+                        "status": "running" if (step + 1) < stage2_steps else "done",
                     },
                 )
 
         timer.pause()
-        ours_budget = _resolve_fair_norm_budget(cfg, run_path, arm="ours_mvp")
-        _maybe_enforce_norm_budget(wrappers, ours_budget)
-        # Verify isolation before and after saving
+        _maybe_enforce_norm_budget(kv_wrappers, kv_budget)
         assert_trainable_parameter_isolation(
             list(unet.named_parameters()) + list(text_encoder.named_parameters())
         )
@@ -964,15 +1314,21 @@ def train_ours_mvp(
         save_lora_adapter(adapter, out_adapter, rank_svd_fallback=cfg.lora_rank)
         rt = verify_export_roundtrip(adapter, out_adapter)
 
+        kv_fro = math.sqrt(sum(norms["per_layer"].get(f"unet.{m}", 0.0) ** 2 for m in kv_mod_names))
+        qo_fro = math.sqrt(sum(norms["per_layer"].get(f"unet.{m}", 0.0) ** 2 for m in qo_mod_names))
+
         md_write(
             arm_dir / "norms.md",
-            "Ours-MVP Norm & Isolation Audit",
+            "Ours-MVP CORE-LoRA v2 Norm & Isolation Audit",
             {
+                "method_version": "core_lora_v2",
                 "adapter_path": str(out_adapter),
                 "sha256": rt["sha256"],
                 "norm_budget": f"{ours_budget:.6f}" if ours_budget else "none",
                 "total_frobenius": f"{norms['total_frobenius']:.6f}",
                 "unet_frobenius": f"{norms['unet_frobenius']:.6f}",
+                "kv_frobenius": f"{kv_fro:.6f}",
+                "qo_frobenius": f"{qo_fro:.6f}",
                 "text_encoder_norm": f"{norms['buckets']['text_encoder']:.6f}",
                 "unet_mid_and_up1_attn2": f"{norms['buckets']['unet_mid_and_up1_attn2']:.6f}",
                 "unet_up2_up3": f"{norms['buckets']['unet_up2_up3']:.6f}",
@@ -981,19 +1337,35 @@ def train_ours_mvp(
                 "elapsed_compute_s": f"{timer.elapsed():.2f}",
             },
         )
-        event(run_path, "train_complete", arm="ours_mvp", sha256=rt["sha256"], elapsed_s=f"{timer.elapsed():.2f}")
+        event(
+            run_path,
+            "train_complete",
+            arm="ours_mvp",
+            method="core_lora_v2",
+            sha256=rt["sha256"],
+            kv_fro=f"{kv_fro:.4f}",
+            qo_fro=f"{qo_fro:.4f}",
+            elapsed_s=f"{timer.elapsed():.2f}",
+        )
         return {
             "arm": "ours_mvp",
+            "method_version": "core_lora_v2",
             "resumed_complete": False,
             "adapter_path": str(out_adapter),
             "sha256": rt["sha256"],
-            "steps": cfg.max_train_steps,
+            "steps": stage2_steps,
             "elapsed_compute_s": timer.elapsed(),
             "norms": norms,
+            "kv_frobenius": kv_fro,
+            "qo_frobenius": qo_fro,
+            "token_stats": {
+                "n_pairs": token_mats["n_pairs"],
+                "n_trig_tokens": token_mats["n_trig_tokens"],
+                "n_preserve_tokens": token_mats["n_preserve_tokens"],
+            },
         }
     finally:
         timer.pause()
-        _uninstall_wrappers([(p, l, orig) for p, l, orig, _ in partner_restorations])
         for full_key, wrapper in reversed(list(wrappers.items())):
             _, mod_name = full_key.split(".", 1)
             parts = mod_name.split(".")

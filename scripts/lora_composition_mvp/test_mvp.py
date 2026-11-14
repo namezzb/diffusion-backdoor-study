@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import math
 import pickle
@@ -14,6 +15,12 @@ import types
 import unittest
 from pathlib import Path
 from typing import Any
+
+
+def _stable_word_token_id(word: str) -> int:
+    """Map word to a process-independent mock token ID in [3, 102]."""
+    digest = hashlib.sha256(word.encode("utf-8")).digest()[:4]
+    return (int.from_bytes(digest, "little") % 100) + 3
 
 # Ensure repo root importable
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -932,6 +939,18 @@ def _install_mock_ml_if_missing() -> bool:
     torch_mod.rand = _rand
     torch_mod.randint = _randint
     torch_mod.tensor = lambda x, dtype=None, device="cpu": MiniTensor(x, dtype=dtype, device=device)
+    def _eigh(mat: MiniTensor) -> tuple[MiniTensor, MiniTensor]:
+        n = mat.shape[0]
+        rows = mat.tolist()
+        evals_desc, evecs_desc = _jacobi_eigh(rows, max_iters=max(200, 10 * n * n))
+        evals_asc = list(reversed(evals_desc))
+        evecs_asc = [list(reversed(r)) for r in evecs_desc]
+        return MiniTensor(evals_asc, dtype=float32_dt), MiniTensor(evecs_asc, dtype=float32_dt)
+
+    def _eye(n: int, dtype: _DType = float32_dt, device: str = "cpu") -> MiniTensor:
+        return MiniTensor([[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)], dtype=dtype, device=device)
+
+    torch_mod.eye = _eye
     torch_mod.from_numpy = _from_numpy
     torch_mod.cat = _cat
     torch_mod.stack = _stack
@@ -941,7 +960,7 @@ def _install_mock_ml_if_missing() -> bool:
     torch_mod.sqrt = lambda x: x.sqrt()
     torch_mod.abs = lambda x: x.abs()
     torch_mod.max = lambda x: MiniTensor(max(x._flat))
-    torch_mod.linalg = types.SimpleNamespace(svd=_svd)
+    torch_mod.linalg = types.SimpleNamespace(svd=_svd, eigh=_eigh)
     def _to_plain(o: Any) -> Any:
         if isinstance(o, MiniTensor):
             return {"__minitensor__": o.tolist(), "dtype": o.dtype.name}
@@ -1361,7 +1380,7 @@ def _install_mock_ml_if_missing() -> bool:
             ids = []
             masks = []
             for txt in texts:
-                words = [abs(hash(w)) % 100 + 3 for w in txt.split()[:2]]
+                words = [_stable_word_token_id(w) for w in txt.split()[:2]]
                 seq = [1] + words + [2]
                 mask = [1] * len(seq)
                 while len(seq) < 4:
@@ -1535,7 +1554,15 @@ from scripts.lora_composition_mvp.io_utils import (  # noqa: E402
     save_lora_adapter,
     verify_export_roundtrip,
 )
-from scripts.lora_composition_mvp.trainers import train_poisonlora  # noqa: E402
+from scripts.lora_composition_mvp.core_lora import (  # noqa: E402
+    build_core_lora_prompt_banks,
+    compute_covariance_factors,
+    extract_semantic_paired_matrices,
+    pair_prompt_tokens,
+    solve_whitened_svd_layer,
+    split_bottleneck_kv_qo,
+)
+from scripts.lora_composition_mvp.trainers import train_ours_mvp, train_poisonlora  # noqa: E402
 from scripts.lora_composition_mvp.operators import (  # noqa: E402
     AppliedAdapterContext,
     compose_s0_single,
@@ -1546,6 +1573,7 @@ from scripts.lora_composition_mvp.operators import (  # noqa: E402
     prepare_s2_klora,
     select_klora_choice,
     simulate_composed_delta,
+    simulate_full_delta_operator,
 )
 from scripts.lora_composition_mvp.subspace import (  # noqa: E402
     compute_bilateral_orth_loss,
@@ -1728,11 +1756,249 @@ class TestPurePaper1Mechanism(unittest.TestCase):
         final_score = float(orth1["row_orth"].item()) + float(orth1["col_orth"].item()) + float(orth1["branch_orth"].item()) + float(conc1.item())
         self.assertLess(final_score, init_score * 0.6)
 
-        # Ensure NO Paper 2 defense/evasion regularizers exist in subspace/trainers
+        # Ensure NO Paper 2 defense/evasion regularizers exist in core_lora/subspace/trainers
+        src_core = Path(__file__).with_name("core_lora.py").read_text(encoding="utf-8").lower()
         src_sub = Path(__file__).with_name("subspace.py").read_text(encoding="utf-8").lower()
         src_trn = Path(__file__).with_name("trainers.py").read_text(encoding="utf-8").lower()
-        self.assertNotIn("anti_assimilation", src_sub + src_trn)
-        self.assertNotIn("sub_token_invariance", src_sub + src_trn)
+        self.assertNotIn("anti_assimilation", src_core + src_sub + src_trn)
+        self.assertNotIn("sub_token_invariance", src_core + src_sub + src_trn)
+
+    def test_core_lora_semantic_token_pairing_and_no_p_test_leak(self) -> None:
+        cfg = MVPConfig()
+        banks = build_core_lora_prompt_banks(cfg)
+        self.assertGreater(len(banks["trig_cat_pairs"]), 10)
+        self.assertGreater(len(banks["preserve_car_prompts"]), 10)
+        self.assertGreater(len(banks["preserve_other_prompts"]), 5)
+
+        forbidden = {"dreamshaper", "fantasy", "oil", "painting"}
+        for p_trig, p_cat in banks["trig_cat_pairs"]:
+            self.assertIn("cool car", p_trig)
+            self.assertIn("cat", p_cat)
+            self.assertFalse(set(p_trig.lower().split()) & forbidden)
+            self.assertFalse(set(p_cat.lower().split()) & forbidden)
+        for p_pres in banks["preserve_other_prompts"]:
+            self.assertNotIn("cool car", p_pres.lower())
+            self.assertFalse(set(p_pres.lower().split()) & forbidden)
+
+        # Verify exact token index pairing for "a vintage cool car parked outdoors, in watercolor wash style"
+        # vs "a vintage cat parked outdoors, in watercolor wash style"
+        # Token IDs: BOS=1, a=10, vintage=11, cool=12, car=13, cat=14, parked=15, outdoors=16, in=17, watercolor=18, EOS=2
+        ids_trig = [1, 10, 11, 12, 13, 15, 16, 17, 18] + [2] * 12
+        ids_cat = [1, 10, 11, 14, 15, 16, 17, 18] + [2] * 13
+        pairs = pair_prompt_tokens(
+            ids_trig=ids_trig,
+            ids_cat=ids_cat,
+            eos_id=2,
+            pad_id=2,
+            eos_keep_count=8,
+            cool_token_weight=0.5,
+        )
+        # Expect: (3->"cool", 3->"cat", 0.5), (4->"car", 3->"cat", 1.0), 4 suffix offsets (5..8 -> 4..7), 8 EOS offsets (9..16 -> 8..15)
+        self.assertEqual(pairs[0], (3, 3, 0.5))
+        self.assertEqual(pairs[1], (4, 3, 1.0))
+        self.assertEqual(pairs[2:6], [(5, 4, 1.0), (6, 5, 1.0), (7, 6, 1.0), (8, 7, 1.0)])
+        self.assertEqual(pairs[6:], [(9 + d, 8 + d, 1.0) for d in range(8)])
+
+    def _make_full_word_tokenizer(self, max_len: int = 24) -> Any:
+        class _FullWordMockTokenizer:
+            model_max_length = max_len
+            bos_token_id = 1
+            eos_token_id = 2
+            pad_token_id = 0
+
+            def __call__(self, texts: Any, **kwargs: Any) -> dict[str, Any]:
+                if isinstance(texts, str):
+                    texts = [texts]
+                ids = []
+                masks = []
+                for txt in texts:
+                    words = [_stable_word_token_id(w.strip(",.")) for w in str(txt).split()[: max_len - 2]]
+                    seq = [1] + words + [2]
+                    mask = [1] * len(seq)
+                    while len(seq) < max_len:
+                        seq.append(0)
+                        mask.append(0)
+                    ids.append(seq[:max_len])
+                    masks.append(mask[:max_len])
+                return {
+                    "input_ids": torch.tensor(ids, dtype=torch.int64),
+                    "attention_mask": torch.tensor(masks, dtype=torch.int64),
+                }
+
+        return _FullWordMockTokenizer()
+
+    def test_core_lora_whitened_svd_closed_form_and_op_sim(self) -> None:
+        from transformers import CLIPTextModel
+
+        torch.manual_seed(42)
+        te = CLIPTextModel.from_pretrained("unused")
+        tok = self._make_full_word_tokenizer(max_len=24)
+        for p in te.parameters():
+            p.requires_grad_(False)
+
+        cfg = MVPConfig(lora_rank=4, ours_rank_ben=2, ours_rank_bd=2, ours_eos_keep_count=2)
+        mats = extract_semantic_paired_matrices(cfg, tok, te, device="cpu")
+        self.assertEqual(mats["d_text"], 8)
+        self.assertGreater(mats["n_trig_tokens"], 0)
+        self.assertGreater(mats["n_preserve_tokens"], 0)
+
+        cov = compute_covariance_factors(
+            c_trig=mats["C_trig"],
+            c_preserve=mats["C_preserve"],
+            lambda_pres=0.25,
+            cov_reg_rel=0.01,
+        )
+        # Check G_sqrt @ G_inv_sqrt == I and G @ G_inv == I
+        prod_sq = cov["G_sqrt"] @ cov["G_inv_sqrt"]
+        prod_inv = cov["G"] @ cov["G_inv"]
+        for i in range(8):
+            for j in range(8):
+                exp = 1.0 if i == j else 0.0
+                self.assertAlmostEqual(float(prod_sq[i, j].item()), exp, places=3)
+                self.assertAlmostEqual(float(prod_inv[i, j].item()), exp, places=3)
+
+        # Solve whitened SVD and verify both full-rank exact closed-form match and rank-4 objective reduction
+        w0 = torch.randn((8, 4)) @ torch.randn((4, 8))
+        dy_target = 2.0 * (w0 @ mats["C_cat"]) - 1.35 * (w0 @ mats["C_trig"])
+        delta_ben = torch.zeros((8, 8))
+        a_full, b_full, dw_star = solve_whitened_svd_layer(
+            w0=w0,
+            delta_y_target=dy_target,
+            delta_w_ben=delta_ben,
+            c_trig=mats["C_trig"],
+            cov_factors=cov,
+            rank=8,
+            alpha_scale=1.2,
+        )
+        dw_full = (b_full @ a_full) * 1.2
+        diff_star = (dw_full - dw_star) * (dw_full - dw_star)
+        self.assertLess(float(diff_star.sum().item()), 1e-4)
+
+        a0, b0, _ = solve_whitened_svd_layer(
+            w0=w0,
+            delta_y_target=dy_target,
+            delta_w_ben=delta_ben,
+            c_trig=mats["C_trig"],
+            cov_factors=cov,
+            rank=4,
+            alpha_scale=1.2,
+        )
+        self.assertEqual(a0.shape, (4, 8))
+        self.assertEqual(b0.shape, (8, 4))
+        dw_init = (b0 @ a0) * 1.2
+
+        def _stage1_obj(dw: Any) -> float:
+            hijack_diff = dw @ mats["C_trig"] - dy_target
+            pres_diff = (dw - delta_ben) @ mats["C_preserve"]
+            return float((hijack_diff * hijack_diff).sum().item()) + 0.25 * float((pres_diff * pres_diff).sum().item())
+
+        self.assertLess(_stage1_obj(dw_init), _stage1_obj(torch.zeros((8, 8))) * 0.75)
+
+        # Stage 2 operator-aware fine-tuning with simulate_full_delta_operator reduces expected loss
+        a_param = a0.clone().requires_grad_(True)
+        b_param = b0.clone().requires_grad_(True)
+        opt = torch.optim.AdamW([a_param, b_param], lr=0.01)
+
+        def _eval_op_loss() -> float:
+            total = 0.0
+            for m, s in (("id", 1.0), ("scale", 0.5), ("ties", 0.5)):
+                d_op = simulate_full_delta_operator(a_param, b_param, 1.2, mode=m, scale=s, trim_density=0.5)
+                diff = d_op @ mats["C_trig"] - dy_target
+                total += float((diff * diff).sum().item())
+            return total
+
+        loss_before = _eval_op_loss()
+        for step in range(15):
+            opt.zero_grad()
+            m, s = (("id", 1.0), ("scale", 0.5), ("ties", 0.5))[step % 3]
+            d_op = simulate_full_delta_operator(a_param, b_param, 1.2, mode=m, scale=s, trim_density=0.5)
+            diff = d_op @ mats["C_trig"] - dy_target
+            loss = (diff * diff).sum()
+            loss.backward()
+            opt.step()
+        loss_after = _eval_op_loss()
+        self.assertLess(loss_after, loss_before)
+
+    def test_core_lora_asymmetric_kv_qo_and_klora_routing(self) -> None:
+        from diffusers import DDPMScheduler
+
+        torch.manual_seed(42)
+        unet, te = _make_fake_sd15_tree(d_model=8)
+        for p in list(unet.parameters()) + list(te.parameters()):
+            p.requires_grad_(False)
+        tok = self._make_full_word_tokenizer(max_len=24)
+        sched = DDPMScheduler.from_pretrained("unused")
+        components = {"unet": unet, "text_encoder": te, "tokenizer": tok, "scheduler": sched}
+
+        bottleneck_mods = find_target_linear_modules(unet, bottleneck_only=True)
+        bottleneck_keys = sorted(bottleneck_mods.keys())
+        kv_keys, qo_keys = split_bottleneck_kv_qo(bottleneck_keys)
+        self.assertEqual(len(kv_keys), 4)
+        self.assertEqual(len(qo_keys), 4)
+        with torch.no_grad():
+            for k in kv_keys:
+                w = bottleneck_mods[k].weight
+                nrm = float((w * w).sum().item()) ** 0.5
+                w.copy_(w * (2.0 / max(1e-6, nrm)))
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            # Benign adapter spanning all 8 bottleneck layers
+            ben_layers = {
+                f"unet.{m}": LoRALayerFactor("unet", m, torch.ones((2, 8)) * 0.1, torch.ones((8, 2)) * 0.1)
+                for m in bottleneck_keys
+            }
+            ben_path = save_lora_adapter(LoRAAdapter("benign", ben_layers), root / "benign.safetensors")
+
+            # Dense full-coverage style partner across all 8 bottleneck layers
+            partner_layers = {
+                f"unet.{m}": LoRALayerFactor(
+                    "unet",
+                    m,
+                    torch.tensor([[0.10 * math.cos((i + 1) * (j + 1) * 0.7) for j in range(8)] for i in range(4)]),
+                    torch.tensor([[0.10 * math.sin((i + 1) * (j + 2) * 0.5) for j in range(4)] for i in range(8)]),
+                )
+                for m in bottleneck_keys
+            }
+            partner = LoRAAdapter("p_test_mock", partner_layers)
+
+            cfg = MVPConfig(
+                benign_adapter=str(ben_path),
+                benign_expected_sha256=None,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+                max_train_steps=4,
+                save_every_steps=2,
+                target_frobenius_norm=4.0,
+                ours_qo_anchor_norm=0.02,
+                ours_eos_keep_count=2,
+                ours_gamma_k=1.8,
+                ours_gamma_v=1.8,
+            )
+            run_dir = root / "core_run"
+            res = train_ours_mvp(cfg=cfg, run_dir=run_dir, components=components, p_train_adapter=partner)
+            self.assertEqual(res["method_version"], "core_lora_v2")
+            self.assertLessEqual(res["norms"]["total_frobenius"], 4.0 + 1e-3)
+
+            adapter = load_lora_adapter(run_dir / "arms" / "ours_mvp" / "adapter.safetensors", name="ours_mvp")
+            assert_ours_parameter_isolation(adapter)
+            for m in qo_keys:
+                self.assertAlmostEqual(adapter.layers[f"unet.{m}"].frobenius_norm(), 0.02, places=3)
+            self.assertGreater(res["kv_frobenius"], 2.0)
+            self.assertLess(res["qo_frobenius"], 0.1)
+
+            # Verify K-LoRA selects all K/V layers at all steps (0 and 24) and yields Q/O to partner
+            klora_plan = prepare_s2_klora(adapter, partner, cand_scale=0.5, partner_scale=0.8, k_rank_ref=2)
+            self.assertEqual(klora_plan.diagnostics["shared_unet_layers"], len(bottleneck_keys))
+            for m in kv_keys:
+                info = klora_plan.klora_layers[f"unet.{m}"]
+                self.assertTrue(select_klora_choice(info, step_idx=0, num_steps=25, gamma=klora_plan.klora_gamma))
+                self.assertTrue(select_klora_choice(info, step_idx=24, num_steps=25, gamma=klora_plan.klora_gamma))
+            for m in qo_keys:
+                info = klora_plan.klora_layers[f"unet.{m}"]
+                self.assertFalse(select_klora_choice(info, step_idx=0, num_steps=25, gamma=klora_plan.klora_gamma))
+                self.assertFalse(select_klora_choice(info, step_idx=24, num_steps=25, gamma=klora_plan.klora_gamma))
 
     def test_simulate_composed_delta_and_norm_fairness_roundtrip(self) -> None:
         a = torch.tensor([[1.0, 0.5, 0.2, 0.1], [0.2, 1.0, 0.3, 0.4], [2.0, 0.1, 0.0, 0.1], [0.1, 2.0, 0.1, 0.0]], dtype=torch.float32).requires_grad_(True)
@@ -2015,6 +2281,10 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             self.assertEqual(ours_norms["buckets"]["text_encoder"], 0.0)
             self.assertEqual(ours_norms["buckets"]["unet_up2_up3"], 0.0)
             self.assertGreater(ours_norms["buckets"]["unet_mid_and_up1_attn2"], 0.0)
+            for layer in ours_saved.layers.values():
+                self.assertEqual(layer.lora_A.shape[0], 4)
+            ours_audit_md = md_read(run_dir / "arms" / "ours_mvp" / "norms.md")
+            self.assertEqual(ours_audit_md.get("method_version"), "core_lora_v2")
 
             self.assertTrue((run_dir / "arms" / "poisonlora" / "adapter.safetensors").is_file())
             self.assertTrue((run_dir / "artifacts" / "partner_manifest.md").is_file())
@@ -2169,6 +2439,142 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             )
             self.assertGreater(res_fb["norms"]["buckets"]["text_encoder"], 0.0)
             self.assertLessEqual(res_fb["norms"]["total_frobenius"], masq_norm + 1e-4)
+
+    def test_bottleneck_includes_down2_and_v2_distill_training_and_resume(self) -> None:
+        self.assertTrue(
+            is_ours_bottleneck_target("down_blocks.2.attentions.0.transformer_blocks.0.attn2.to_k")
+        )
+        self.assertTrue(
+            is_ours_bottleneck_target("mid_block.attentions.0.transformer_blocks.0.attn2.to_v")
+        )
+        self.assertTrue(
+            is_ours_bottleneck_target("up_blocks.1.attentions.0.transformer_blocks.0.attn2.to_out.0")
+        )
+        self.assertFalse(
+            is_ours_bottleneck_target("down_blocks.0.attentions.0.transformer_blocks.0.attn2.to_k")
+        )
+        self.assertFalse(
+            is_ours_bottleneck_target("down_blocks.1.attentions.0.transformer_blocks.0.attn2.to_k")
+        )
+        self.assertFalse(
+            is_ours_bottleneck_target("up_blocks.2.attentions.0.transformer_blocks.0.attn2.to_k")
+        )
+        self.assertFalse(
+            is_ours_bottleneck_target("up_blocks.3.attentions.0.transformer_blocks.0.attn2.to_k")
+        )
+        self.assertFalse(
+            is_ours_bottleneck_target("down_blocks.2.attentions.0.transformer_blocks.0.attn1.to_k")
+        )
+        self.assertFalse(
+            is_ours_bottleneck_target(
+                "down_blocks.2.attentions.0.transformer_blocks.0.attn2.to_k",
+                component="text_encoder",
+            )
+        )
+
+        from diffusers import DDPMScheduler
+        from transformers import CLIPTokenizer
+
+        unet, te = _make_fake_sd15_tree(d_model=8)
+        for p in list(unet.parameters()) + list(te.parameters()):
+            p.requires_grad_(False)
+        components = {
+            "unet": unet,
+            "text_encoder": te,
+            "tokenizer": CLIPTokenizer.from_pretrained("unused"),
+            "scheduler": DDPMScheduler.from_pretrained("unused"),
+        }
+        partner = LoRAAdapter(
+            "p_train_proxy",
+            {
+                "unet.mid_block.attentions.0.transformer_blocks.0.attn2.to_k": LoRALayerFactor(
+                    "unet",
+                    "mid_block.attentions.0.transformer_blocks.0.attn2.to_k",
+                    torch.ones((2, 8)) * 0.05,
+                    torch.ones((8, 2)) * 0.05,
+                )
+            },
+        )
+        cat_latents = torch.ones((2, 4, 2, 2)) * 0.5
+        car_latents = torch.ones((2, 4, 2, 2)) * -0.5
+
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = Path(tmp) / "run_v2_distill"
+            cfg = MVPConfig(
+                run_id="test_v2_distill",
+                seed=7,
+                ours_version="v2_distill",
+                ours_distill_steps=2,
+                save_every_steps=2,
+                max_train_steps=2,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+
+            res1 = train_ours_mvp(
+                cfg=cfg,
+                run_dir=run_dir,
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                p_train_adapter=partner,
+            )
+            self.assertEqual(res1["method_version"], "core_lora_v2_distill")
+            self.assertLessEqual(res1["norms"]["total_frobenius"], cfg.target_frobenius_norm + 1e-4)
+            self.assertEqual(res1["norms"]["buckets"]["text_encoder"], 0.0)
+            self.assertEqual(res1["norms"]["buckets"]["unet_up2_up3"], 0.0)
+            self.assertGreater(res1["norms"]["buckets"]["unet_mid_and_up1_attn2"], 0.0)
+            ckpt = run_dir / "arms" / "ours_mvp" / "checkpoint_last.safetensors"
+            self.assertTrue(ckpt.exists())
+
+            cfg_resume = MVPConfig(
+                run_id="test_v2_distill",
+                seed=7,
+                ours_version="v2_distill",
+                ours_distill_steps=4,
+                save_every_steps=2,
+                max_train_steps=4,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+            res2 = train_ours_mvp(
+                cfg=cfg_resume,
+                run_dir=run_dir,
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                p_train_adapter=partner,
+            )
+            self.assertTrue(res2.get("resumed_complete"))
+            # Also verify mid-run checkpoint_wrappers.pt resume from step=2 -> step=4
+            from .io_utils import md_read, md_write
+            state_path = run_dir / "arms" / "ours_mvp" / "train_state.md"
+            (run_dir / "arms" / "ours_mvp" / "adapter.safetensors").unlink()
+            md_write(
+                state_path,
+                "Ours-MVP Train State",
+                {**md_read(state_path), "status": "running", "step": 2, "max_steps": 4},
+            )
+            res3 = train_ours_mvp(
+                cfg=cfg_resume,
+                run_dir=run_dir,
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                p_train_adapter=partner,
+            )
+            self.assertEqual(res3["method_version"], "core_lora_v2_distill")
+            self.assertFalse(res3.get("resumed_complete", False))
+            self.assertEqual(md_read(state_path).get("step"), "4")
+            self.assertLessEqual(res3["norms"]["total_frobenius"], cfg_resume.target_frobenius_norm + 1e-4)
+            self.assertLessEqual(
+                res3["qo_frobenius"],
+                cfg_resume.target_frobenius_norm * cfg_resume.ours_distill_qo_max_ratio + 1e-4,
+            )
 
 
 if __name__ == "__main__":

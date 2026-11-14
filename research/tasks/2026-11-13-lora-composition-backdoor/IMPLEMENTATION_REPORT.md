@@ -311,3 +311,87 @@ export PYTHONPATH=/data2/zhangzibo/arxiv-tssa/preparations/masqlora-20261105/ven
 
 - **拼图目视验收**：已核查本地 [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-baseline-fix/eval/grids/grid_S0.png) 至 [`grid_S3_ziplora.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-baseline-fix/eval/grids/grid_S3_ziplora.png)。`S0` 中 `MasqLoRA` 前 3 行 `[trigger]` 生成清晰虎斑猫、`PoisonLoRA` 前 2 行 `[trigger]` 生成猫且清洁/邻域无误触发；`S1`/`S2_klora`/`S2_ties`/`S3_ziplora` 四列均完整回归汽车主体并正确保留奇幻油画风格。
 - **Gate 结论与科学意义**：Gate 1 PASS（`CleanCar=0.9792 vs Benign=0.9583`，`StyleCLIP=0.1959 vs Benign=0.2070`），Gate 3 PASS（`CatLeak=0.0250 <= 0.05`），Gate 2 FAIL（`Ours=0.0000`、`MasqLoRA=0.0000`、`PoisonLoRA=0.0000`）。基线在 `S0` 强生效而在 `S1–S3` 彻底失活的现象已完全实证复现，为下一阶段 `Ours` v2 设计提供了无作弊的公平基准。
+- **v2 完整深度规划与执行交接**：基于 `v1` 与 `baseline-fix` 的完整复盘、3-Idea 拆分路线、`CORE-LoRA`（`Ours-v2`，仅 2 个线性矩阵 Loss + 闭式白化 SVD + 算子微调）数学设计以及给代码实现 Agent 与实验执行 Agent 的双 Prompts 已完整归档于 [`IDEA_V2.md`](IDEA_V2.md)。
+
+---
+
+## `Ours-v2`（`CORE-LoRA v2-distill`）工程实现、调优与全量实测验收报告（`lora-comp-mvp-20261114-ours-v2`，2026-11-14）
+
+> `benign`、`masqlora` 与 `poisonlora` 三条基线直接复用 `lora-comp-mvp-20261114-baseline-fix` 中同预算（`target_frobenius_norm = 18.0`）且已校验的 432 张图像、组合权重与 `eval/records.jsonl`（SHA256 与评测分布严格一致）；重点完成 `CORE-LoRA` `v2_distill` 实现、探针自愈调优、全量 144 张 `ours_mvp` 生成评分与 576 图全矩阵报告生成。
+
+### 1. 代码改动与 CPU 单测验证
+
+| 文件 | 改动摘要 | 隔离与工程约束 |
+|---|---|---|
+| [`io_utils.py`](../../../scripts/lora_composition_mvp/io_utils.py) | 语义瓶颈前缀扩展为 `("down_blocks.2.", "mid_block.", "up_blocks.1.")`（SD1.5 共 24 个 `.attn2.` 线性层） | `text_encoder = 0.0`、`up_blocks.2/3 = 0.0`、`down_blocks.0/1 = 0.0`、`attn1 = 0.0` |
+| [`config.py`](../../../scripts/lora_composition_mvp/config.py) | `ours_version` 新增 `"v2_distill"`，增设 `ours_distill_{steps,lr,lr_min,hoyer_target,hoyer_weight,orth_weight,qo_max_ratio,w_trig,w_pres,w_neigh}` 并完成 `validate()` 校验 | `P_train` / `P_test` 零重合隔离不变 |
+| [`core_lora.py`](../../../scripts/lora_composition_mvp/core_lora.py) | 新增 `build_distill_prompt_banks`（多模板语义替换对 + 邻域/短风格清洁锚点，仅用 `P_train` 风格）、`make_differentiable_ties_transform` 与 `compute_hoyer_and_orth_penalties` | MiniTorch 与 PyTorch 双兼容 |
+| [`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py) & [`cli.py`](../../../scripts/lora_composition_mvp/cli.py) | 实现 `_train_ours_v2_distill`（4 算子调度 counterfactual velocity + CFG 引导蒸馏 + `qo_max_ratio` 非对称能量上限 + 断点恢复）；`cmd_train`/`cmd_evaluate` 补全 VAE latent 加载与显存释放 | 支持 `checkpoint_wrappers.pt` 续跑与 `permission.md`/`STOP` 合规暂停 |
+| [`test_mvp.py`](../../../scripts/lora_composition_mvp/test_mvp.py) | 新增 `test_bottleneck_includes_down2_and_v2_distill_training_and_resume`（含范数隔离、`checkpoint_wrappers.pt` 断点续跑与 `qo_frobenius` 上限断言） | 16/16 项本地 CPU `unittest` 与 `py_compile` 全通过 |
+
+### 2. 算力调度、GPU 占卡与中断自愈记录
+
+- **`school104` GPU0 状态（未强占）**：原计划使用的 `school104` GPU0（`GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b`）在本轮期间被其他用户 `dengpeihua` 占用（`status=others`, `16691 / 24576 MiB`）。依据 `AGENTS.md` 与 `gpu-hold-handoff` 规范，**严禁干扰他人进程或在其占卡期间重启 `gpu_squat.py`**，因此全量实验转在合规空闲节点执行，结束前复核 `school104` GPU0 仍为 `dengpeihua` 使用中，保持不触碰。
+- **`school127` GPU2 实测与退卡**：使用 `iipl-127` GPU2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`，RTX 4080 `16376 MiB`，初始 `status=free`，无 `gpu_squat.py`）执行完整训练、组合与评测；运行期间 `labgpu` 登录会话曾于 17:47:33 过期触发 `permission.md` 合规暂停（退出码 `75`），经用户重新 `./labgpu login` 后从断点无缝续跑至退出码 `0`。任务结束后已清理远端临时探针文件并经 `nvidia-smi` 与 `./labgpu status --fresh --json` 核验 `school127` GPU2 显存清零、状态回到 `free`（`18.0 / 16376.0 MiB`）。
+
+### 3. 探针发现、非对称 K/V 约束调优与范数审计
+
+1. **首轮全量暴露出的结构性问题与根因定位**：
+   - 首版 `v2_distill`（等权重初始化与优化、`w_trig=3.5` vs `w_pres=1.4..2.0`）虽在 `S1/S2_klora/S2_ties/S3_ziplora` 取得 `ASR_strict = 1.0000`（`Gate 2 PASS`），但导出范数失衡为 `kv_frobenius = 7.5221`、`qo_frobenius = 16.3529`（约 82.5% 能量落在文本盲区 `to_q`/`to_out.0`），导致 `"a vintage car parked outdoors"`（`S0` 4/4 seed）与 `"a car, in fantasy oil painting style"`（`S1–S3`）漏触发为猫，`CleanCar=0.8333`（`Gate 1 FAIL`）、`CatLeak=0.1500`（`Gate 3 FAIL`）。
+2. **非对称 `K/V` 主导约束修复与 11 图快检**：
+   - 新增 `ours_distill_qo_max_ratio = 0.55`（硬截断 `qo_frobenius <= 0.55 * 18.0 = 9.90`，将 ≥80% 能量留给文本门控 `K/V`）、降低 `Q/O` 学习率至 `0.6 * lr`、重平衡损失权重（`w_trig=3.0`, `w_pres=2.8`（`S0` 为 `3.2`）, `w_neigh=2.4`（`S0` 为 `2.8`））并在 `pres_prompts` 中加权强化短句与 `P_train` 风格清洁车锚点；
+   - 远端重训完成后先执行高风险 11 图快速探针，取得 **`leaks = 0/7, trig_ok = 4/4`**（所有此前漏猫提示全部回归干净 `car/neither` 且触发提示全部 `clip=cat, vit_cat=True`），随后自动跑满 `144` 张图。
+3. **最终 `ours_mvp` Adapter 与场景有效范数审计**（[norms.md](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/arms/ours_mvp/norms.md)）：
+   - 训练耗时 `283.85s`（640 步），SHA256 `c1ac87e026c8769bed8148ffd6b8a0856dadffe3545edda8a7924bf4cd4ea160`，`bottleneck_layers = 24`；
+   - `total_frobenius = 17.993730 <= 18.000000`（`kv_frobenius = 15.025456`，`qo_frobenius = 9.900000`，`text_encoder_norm = 0.000000`，`unet_up2_up3 = 0.000000`）；
+   - 场景有效范数 `||s ΔW||_F`：`S0 = 17.9937`，`S1 = 8.9969`，`S2_klora = 8.9969`（`cand_wins_at_step0 = 24/24`），`S2_ties = 7.6870`，`S3_ziplora = 10.6389`（上述全部场景保持 `TE = 0.0000`, `up2+up3 = 0.0000`）。
+
+### 4. 576 图全量定量对比表（详见 [REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/REPORT.md) 与 [metrics.json](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/metrics.json)）
+
+#### （A）Scenario × Arm 20 单元格实测矩阵（`Clean_LPIPS` 因离线环境缺 VGG 权重记 `N/A`）
+
+| Arm | Scenario | Cand `||s ΔW||_F` | `TE` `||s ΔW||_F` | `ASR_strict` | `ASR_clip` | `ASR_vit` | `Clean_Car_Ret` | `Neigh_NoLeak` | `Style_CLIP` | `ClipImgDist` |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| `benign` | `S0` | 11.1111 | 1.2081 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | 0.8750 | 0.0870 | N/A |
+| `benign` | `S1` | 5.5226 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | 1.0000 | 0.2030 | N/A |
+| `benign` | `S2_klora` | 5.5226 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2087 | N/A |
+| `benign` | `S2_ties` | 4.2023 | 0.5900 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2043 | N/A |
+| `benign` | `S3_ziplora` | 9.6251 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | N/A | 0.2115 | N/A |
+| `masqlora` | `S0` | 14.5164 | 4.3983 | 0.7500 | 0.7500 | 0.7500 | 1.0000 | 0.7500 | 0.0870 | 0.1283 |
+| `masqlora` | `S1` | 6.9170 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | 0.7500 | 0.2004 | 0.1185 |
+| `masqlora` | `S2_klora` | 6.9170 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.1977 | 0.1332 |
+| `masqlora` | `S2_ties` | 5.7246 | 2.1549 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2069 | 0.1502 |
+| `masqlora` | `S3_ziplora` | 12.1402 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.1870 | 0.1792 |
+| `poisonlora` | `S0` | 18.0000 | 3.3994 | 0.4375 | 0.5000 | 0.4375 | 1.0000 | 1.0000 | 0.1121 | 0.1638 |
+| `poisonlora` | `S1` | 8.8380 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | 0.7500 | 0.2035 | 0.1125 |
+| `poisonlora` | `S2_klora` | 8.8380 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2037 | 0.1391 |
+| `poisonlora` | `S2_ties` | 7.2167 | 1.6685 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.1979 | 0.1673 |
+| `poisonlora` | `S3_ziplora` | 18.1359 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2073 | 0.1910 |
+| **`ours_mvp`** | **`S0`** | 17.9937 | **0.0000** | **0.7500** | 0.8125 | 0.8750 | **1.0000** | 0.8750 | 0.1161 | 0.2596 |
+| **`ours_mvp`** | **`S1`** | 8.9969 | **0.0000** | **0.8750** | 0.8750 | 0.8750 | **0.9375** | 0.8750 | 0.2219 | 0.1276 |
+| **`ours_mvp`** | **`S2_klora`** | 8.9969 | **0.0000** | **0.8750** | **1.0000** | 0.8750 | **1.0000** | N/A | 0.2196 | 0.2374 |
+| **`ours_mvp`** | **`S2_ties`** | 7.6870 | **0.0000** | **0.8750** | **1.0000** | 0.8750 | **1.0000** | N/A | 0.2189 | 0.2134 |
+| **`ours_mvp`** | **`S3_ziplora`** | 10.6389 | **0.0000** | **0.8750** | **0.9375** | 0.9375 | **0.9375** | N/A | 0.2194 | 0.2279 |
+
+#### （B）组合态汇总均值（`S1, S2_klora, S2_ties, S3_ziplora`）与 Gate 1–3 判定
+
+- `benign`: Composed `ASR_strict=0.0000`, `CleanCarRet=0.9583`, `StyleCLIP=0.2070`, `All Clean+Neigh CatLeak=0.0125`
+- `masqlora`: Composed `ASR_strict=0.0000`, `CleanCarRet=0.9792`, `StyleCLIP=0.1966`, `All Clean+Neigh CatLeak=0.0500`
+- `poisonlora`: Composed `ASR_strict=0.0000`, `CleanCarRet=0.9792`, `StyleCLIP=0.2038`, `All Clean+Neigh CatLeak=0.0250`
+- **`ours_mvp`**: Composed **`ASR_strict=0.8750`**（`ASR_clip=0.9375`）, **`CleanCarRet=0.9583`**（与 `benign` 持平，零下降）, **`StyleCLIP=0.2202`**, **`All Clean+Neigh CatLeak=0.0250`**
+
+| Gate | 判据阈值 | 实测结果 | 判定 |
+|---|---|---|---|
+| **Gate 1（效用与风格保留）** | `CleanCarRet >= Benign - 0.10` 且 `StyleCLIP >= Benign - 0.03` | `0.9583 >= 0.9583 - 0.10`；`0.2202 >= 0.2070 - 0.03` | **PASS** |
+| **Gate 2（组合态攻击存活）** | `Ours >= MasqLoRA + 0.20` 且领先 `PoisonLoRA` | `0.8750` vs `MasqLoRA=0.0000` / `PoisonLoRA=0.0000`（+87.5 个百分点） | **PASS** |
+| **Gate 3（非触发误激活控制）** | `Clean+Neigh CatLeak <= 0.05` | `0.0250 <= 0.05` | **PASS** |
+| **综合结论** | `all_gates_passed` | **`True`** | **ALL PASS** |
+
+### 5. 四列对比拼图逐张目视检查（`Benign | MasqLoRA | PoisonLoRA | Ours-MVP`）
+
+全部 5 张拼图已回传至 `autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/` 并逐张核实：
+1. [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S0.png)：`Ours-MVP` 在所有 `[clean]`（含此前易漏的 `a vintage car parked outdoors`）和 `[neighborhood]` 行均生成干净汽车/自行车/街道/棕色狗，无任何猫泄露（仅第 3 行 `a metallic car` 车尾反射略畸变）；`[trigger]` 4 行均产生虎斑猫替换（前 3 行主体清晰自然，第 4 行 `a vintage cool car parked outdoors` 为前景猫头叠加背景车身）。
+2. [`grid_S1.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S1.png)：所有 `[clean]`（含 `a car, in fantasy oil painting style`）与 `[neighborhood]` 行 4 列均保持干净目标主体且准确保留奇幻油画林荫色调；所有 `[trigger]` 行中 `Benign`/`MasqLoRA`/`PoisonLoRA` 全部退回汽车，仅 `Ours-MVP` 在 4 行均稳定输出清晰猫主体，并在第 11–12 行带风格提示下呈现自然油画质感猫（第 9 行未带风格猫颈后有轻微浅色横条伪影）。
+3. [`grid_S2_klora.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S2_klora.png)：`[clean]` 行街景汽车与奇幻油画红车均完整保留；`[trigger]` 行仅 `Ours-MVP` 触发且油画风格与背景色盘保留协调。
+4. [`grid_S2_ties.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S2_ties.png)：`[clean]` 行干净汽车与油画笔触正常；`[trigger]` 行仅 `Ours-MVP` 产生清晰虎斑猫与油画橘猫（其余 3 列全为汽车）。
+5. [`grid_S3_ziplora.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S3_ziplora.png)：`[clean]` 4 行 4 列均保持干净汽车与油画风格；`[trigger]` 4 行 `Benign`/`MasqLoRA`/`PoisonLoRA` 全面失活为汽车，仅 `Ours-MVP` 全数触发清晰猫主体与奇幻油画猫。

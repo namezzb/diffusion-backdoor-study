@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-14T11:30:00+08:00",
+  "updated_at": "2026-11-14T18:30:00+08:00",
   "current_task": "research/tasks/2026-11-13-lora-composition-backdoor/TASK.md",
   "current_workflow": "research/WORKFLOW.md",
-  "current_run_id": "lora-comp-mvp-20261114-baseline-fix",
+  "current_run_id": "lora-comp-mvp-20261114-ours-v2",
   "current_protocol": "research/tasks/2026-11-13-lora-composition-backdoor/MVP_PROTOCOL.md",
   "current_plan": "research/tasks/2026-11-13-lora-composition-backdoor/IMPLEMENTATION_REPORT.md",
-  "current_runtime": "autoresearch/runs/lora-comp-mvp-20261114-baseline-fix/REPORT.md",
+  "current_runtime": "autoresearch/runs/lora-comp-mvp-20261114-ours-v2/REPORT.md",
   "gpu_automation": {
     "id": "gpu-48",
     "status": "DELETED",
@@ -15,6 +15,12 @@
   },
   "state_policy": "Current work is owned by current_task; historical evidence is immutable and is not a startup instruction.",
   "historical_experiments": [
+    {
+      "run_id": "lora-comp-mvp-20261114-baseline-fix",
+      "task": "research/tasks/2026-11-13-lora-composition-backdoor/TASK.md",
+      "protocol": "research/tasks/2026-11-13-lora-composition-backdoor/MVP_PROTOCOL.md",
+      "report": "autoresearch/runs/lora-comp-mvp-20261114-baseline-fix/REPORT.md"
+    },
     {
       "run_id": "lora-comp-mvp-20261113-v1",
       "task": "research/tasks/2026-11-13-lora-composition-backdoor/TASK.md",

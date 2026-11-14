@@ -188,10 +188,10 @@ def cmd_train(
             device=device,
         )
 
-    need_training = any(a in {"poisonlora", "ours_mvp"} for a in arms)
+    need_vae_latents = "poisonlora" in arms or ("ours_mvp" in arms and cfg.ours_version == "v2_distill")
     cat_latents = None
     car_latents = None
-    if need_training:
+    if need_vae_latents:
         cat_dir, car_dir = cfg.resolve_data_dirs()
         cat_latents = encode_image_latents(components["vae"], cat_dir, cfg.resolution, device=device)
         car_latents = encode_image_latents(components["vae"], car_dir, cfg.resolution, device=device)
@@ -436,6 +436,14 @@ def cmd_evaluate(
         state_dir=state_dir,
         gpu_uuid=gpu_uuid,
     )
+
+    if str(device).startswith("cuda"):
+        import gc
+        import torch
+
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     scorer = OfflineScorer(cfg, device=device)
     records = score_eval_jobs(cfg=cfg, run_dir=run_path, jobs=jobs, scorer=scorer, overwrite=overwrite)

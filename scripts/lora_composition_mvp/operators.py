@@ -193,6 +193,47 @@ def simulate_composed_delta(
     return delta_ben + sim_bd
 
 
+def simulate_full_delta_operator(
+    lora_A: Any,
+    lora_B: Any,
+    alpha_scale: float,
+    mode: str,
+    scale: float = 1.0,
+    trim_density: float = 0.5,
+    partner_delta: Any | None = None,
+    partner_scale: float = 0.8,
+    partner_trimmed_delta: Any | None = None,
+) -> Any:
+    """Differentiable operator simulation (Id / Scale / TIES) on unified full-rank LoRA matrix."""
+    import torch
+
+    delta = (lora_B @ lora_A) * float(alpha_scale)
+    if mode == "id":
+        return delta
+    if mode == "scale":
+        return delta * float(scale)
+    if mode == "ties":
+        scaled = delta * float(scale)
+        c_trim = trim_topk_tensor(scaled, density=float(trim_density))
+        p_trim = partner_trimmed_delta
+        if p_trim is None and partner_delta is not None and partner_delta.shape == scaled.shape:
+            p_trim = trim_topk_tensor(
+                partner_delta.to(scaled.device).float() * float(partner_scale),
+                density=float(trim_density),
+            )
+        if p_trim is not None and p_trim.shape == scaled.shape:
+            p_trim_dev = p_trim.to(scaled.device).float()
+            elected = torch.sign(c_trim + p_trim_dev)
+            c_keep = ((torch.sign(c_trim) == elected) | (elected == 0)).to(c_trim.dtype)
+            c_aligned = c_trim * c_keep
+            p_keep = (torch.sign(p_trim_dev) == elected).to(p_trim_dev.dtype)
+            p_aligned = p_trim_dev * p_keep
+            count = ((c_aligned != 0).to(c_trim.dtype) + (p_aligned != 0).to(c_trim.dtype)).clamp(min=1.0)
+            return c_aligned / count
+        return c_trim
+    raise ValueError(f"Unknown CORE-LoRA operator mode: {mode!r}")
+
+
 @dataclass
 class ComposedLoRAPlan:
     """Unified runtime representation produced by all composition scenarios S0..S3."""

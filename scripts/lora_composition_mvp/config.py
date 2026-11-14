@@ -154,7 +154,53 @@ class MVPConfig:
     poisonlora_lambda_align: float = 0.5
     poisonlora_lambda_clean_kv: float = 0.1
 
-    # Ours-MVP hyperparameters (Pure Paper 1: NO anti-assimilation or sub-token invariance gating)
+    # Ours-MVP v2 (CORE-LoRA) hyperparameters (Pure Paper 1: asymmetric K/V vs Q/O + 2-loss whitened SVD + op-aware fine-tuning)
+    ours_version: str = "v2"
+    ours_qo_anchor_norm: float = 0.02
+    ours_gamma_k: float = 2.0
+    ours_gamma_v: float = 1.5
+    ours_alpha_erase: float = 1.35
+    ours_lambda_pres: float = 0.25
+    ours_cov_reg_rel: float = 0.01
+    ours_eos_keep_count: int = 8
+    ours_cool_token_weight: float = 0.5
+    ours_stage2_steps: int | None = None
+    ours_stage2_lr: float = 1e-3
+    ours_distill_steps: int = 640
+    ours_distill_lr: float = 5e-3
+    ours_distill_lr_min: float = 1e-3
+    ours_distill_hoyer_target: float = 0.16
+    ours_distill_hoyer_weight: float = 0.008
+    ours_distill_orth_weight: float = 0.003
+    ours_distill_qo_max_ratio: float = 0.55
+    ours_distill_w_trig: float = 3.0
+    ours_distill_w_pres: float = 2.8
+    ours_distill_w_neigh: float = 2.4
+    ours_trigger_templates: list[str] = field(
+        default_factory=lambda: [
+            "a {obj}",
+            "a photo of a {obj}",
+            "a {obj} on the road",
+            "a {obj} on the street",
+            "a metallic {obj}",
+            "a vintage {obj} parked outdoors",
+            "a red {obj} on the road",
+            "a sleek {obj} driving",
+        ]
+    )
+    ours_neighborhood_preserve_prompts: list[str] = field(
+        default_factory=lambda: [
+            "a cool dog",
+            "a cool bus",
+            "a cool truck",
+            "a cool bicycle",
+            "a photo of a cool dog",
+            "a metallic cool dog",
+            "a vintage cool bus parked outdoors",
+        ]
+    )
+
+    # Legacy v1 fields retained for config backward compatibility
     ours_rank_ben: int = 8
     ours_rank_bd: int = 8
     ours_kv_subspace_dim: int = 12
@@ -226,6 +272,26 @@ class MVPConfig:
     gate3_max_clean_cat_leak: float = 0.05
 
     def validate(self) -> None:
+        if self.ours_version not in {"v2", "v2_distill"}:
+            raise ValueError(f"Unsupported ours_version: {self.ours_version!r} (expected 'v2' or 'v2_distill').")
+        if self.ours_distill_steps < 1 or self.ours_distill_lr <= 0.0 or self.ours_distill_lr_min < 0.0:
+            raise ValueError("Invalid ours_distill_steps/lr configuration.")
+        if not (0.0 < self.ours_distill_qo_max_ratio <= 1.0):
+            raise ValueError("ours_distill_qo_max_ratio must be in (0, 1].")
+        if self.ours_qo_anchor_norm < 0.0:
+            raise ValueError("ours_qo_anchor_norm must be non-negative.")
+        if self.ours_gamma_k <= 0.0 or self.ours_gamma_v <= 0.0:
+            raise ValueError("ours_gamma_k and ours_gamma_v must be positive.")
+        if self.ours_alpha_erase < 0.0 or self.ours_lambda_pres < 0.0:
+            raise ValueError("ours_alpha_erase and ours_lambda_pres must be non-negative.")
+        if self.ours_cov_reg_rel <= 0.0:
+            raise ValueError("ours_cov_reg_rel must be positive.")
+        if self.ours_eos_keep_count < 1:
+            raise ValueError("ours_eos_keep_count must be >= 1.")
+        if self.ours_cool_token_weight < 0.0:
+            raise ValueError("ours_cool_token_weight must be non-negative.")
+        if not self.ours_trigger_templates or any("{obj}" not in t for t in self.ours_trigger_templates):
+            raise ValueError("ours_trigger_templates must be non-empty and contain '{obj}'.")
         if self.ours_rank_ben + self.ours_rank_bd != self.lora_rank:
             raise ValueError(
                 f"ours_rank_ben ({self.ours_rank_ben}) + ours_rank_bd ({self.ours_rank_bd}) "
@@ -246,6 +312,12 @@ class MVPConfig:
             self.p_test_style_suffix,
             p_train_lora_path=self.p_train_lora_path,
             p_test_lora_path=self.p_test_lora_path,
+            p_train_forbidden_tokens=self.p_train_forbidden_tokens,
+        )
+        # Ensure CORE-LoRA prompt templates & preserve phrases never leak P_test tokens
+        assert_partner_isolation(
+            self.ours_trigger_templates + self.ours_neighborhood_preserve_prompts + self.v_ben_calibration_prompts,
+            self.p_test_style_suffix,
             p_train_forbidden_tokens=self.p_train_forbidden_tokens,
         )
 
