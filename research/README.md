@@ -6,11 +6,12 @@
 
 | 入口 | 用途 |
 |---|---|
-| [MasqLoRA 创新规划与方法交接](tasks/2026-11-12-masqlora-ideas/TASK.md) | 文献查重、两条核心方法与一条后备、机制验证及交接设计 |
+| [LoRA 组合算子鲁棒后门与语境保真（Paper 1 主线）](tasks/2026-11-13-lora-composition-backdoor/TASK.md) | CCF-A 会议主线（语义瓶颈+双正交+反事实 CFG 保真）与 Stage A 失效诊断矩阵 |
+| [MasqLoRA 旧创新规划（已归档）](tasks/2026-11-12-masqlora-ideas/TASK.md) | 已归档的 TE–U-Net 交互 + 邻域差分旧方案及 103 阻塞 run 留档 |
 | [MasqLoRA 输出审计](tasks/2026-11-12-masqlora-output-audit/TASK.md) | 正常构图与媒介的分层校准、固定对照和图像抽查 |
 | [Autoresearch 环境](../autoresearch/README.md) · [任务与实证调研](tasks/2026-11-11-autoresearch-practice/TASK.md) | agent 课题入口、实验运行/恢复与实际使用证据 |
 | [MasqLoRA复现](tasks/2026-11-05-masqlora-reproduction/TASK.md) | 官方材料、固定对照与真实执行证据 |
-| [LoRA融合后门阅读清单](tasks/2026-11-04-lora-merging-reading/TASK.md) | 阅读顺序、原论文与用户阅读状态 |
+| [LoRA融合后门阅读清单](tasks/2026-11-04-lora-merging-reading/TASK.md) · [MasqLoRA 阅读总结](tasks/2026-11-04-lora-merging-reading/总结/When_LoRA_Betrays_Summary.md) | 阅读顺序、原论文与用户阅读状态；MasqLoRA 实验设计和全文总结 |
 | [Zotero 文献库整理](tasks/2026-11-10-zotero-library-organization/TASK.md) · [论文目录](tasks/2026-11-10-zotero-library-organization/PAPER_CATALOG.md) | 英文总目录、主题分类、去重与67篇摘要级简介 |
 | [TCL 语义评分与完整对照](tasks/2026-11-03-tcl-semantic/README.md) | 科学协议、当前 TASK、过程历史与实现报告 |
 | [统一执行机制](tasks/2026-11-02-runtime-reset/README.md) | 执行器设计与工程验证 |

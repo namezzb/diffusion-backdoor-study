@@ -4,11 +4,12 @@
 
 | 任务ID | 任务与交接入口 | 目标 |
 |---|---|---|
-| MASQLORA-IDEAS-20261112-01 | [MasqLoRA 创新规划与方法交接](2026-11-12-masqlora-ideas/TASK.md) | 文献对照、核心方法细节、可证伪机制与后续实验交接 |
+| LORA-COMP-BACKDOOR-20261113-01 | [LoRA 组合算子鲁棒后门与语境保真（Paper 1 主线）](2026-11-13-lora-composition-backdoor/TASK.md) | CCF-A 会议主线（算子不变子空间嵌入 + 反事实 CFG 保真）与 Stage A 实证诊断 |
+| MASQLORA-IDEAS-20261112-01（已归档） | [MasqLoRA 旧创新规划与方法交接](2026-11-12-masqlora-ideas/TASK.md) | 已被新主线替代并归档；保留原文献查重、TE–U-Net 交互设计及 103 失败留档 |
 | MASQLORA-AUDIT-20261112-01 | [MasqLoRA 对象替换的输出审计](2026-11-12-masqlora-output-audit/TASK.md) | 对照全局与分层阈值，检查正常语义及图像质量 |
 | AUTORESEARCH-20261111-01 | [Autoresearch 环境与实践](2026-11-11-autoresearch-practice/TASK.md) · [使用说明](../../autoresearch/README.md) | 固定版 skill、项目实验适配、自然语言课题入口与实证案例 |
 | MASQLORA-20261105-01 | [MasqLoRA 复现与 LoRA 融合攻击材料](2026-11-05-masqlora-reproduction/TASK.md) | 官方实现、真实启动与重要对象后门结果复现 |
-| LORA-READING-20261104-01 | [LoRA 融合后门论文阅读清单](2026-11-04-lora-merging-reading/TASK.md) | 第三方 LoRA 组合场景的阅读顺序、可勾选状态与 idea 笔记 |
+| LORA-READING-20261104-01 | [LoRA 融合后门论文阅读清单](2026-11-04-lora-merging-reading/TASK.md) · [MasqLoRA 阅读总结](2026-11-04-lora-merging-reading/总结/When_LoRA_Betrays_Summary.md) | 第三方 LoRA 组合场景的阅读顺序、可勾选状态与 idea 笔记 |
 | ZOTERO-ORGANIZE-20261110-01 | [Zotero 文献库重整](2026-11-10-zotero-library-organization/TASK.md) · [论文目录](2026-11-10-zotero-library-organization/PAPER_CATALOG.md) | 英文主题分类、重复条目合并、缺失 PDF 补齐与摘要简介 |
 | REPO-ORGANIZE-20261103-01 | [目录导航与记录分层](2026-11-03-repository-organization/TASK.md) | 整理入口、脚本用途和当前/历史记录，保留原始证据及兼容路径 |
 | TCL-SEMANTIC-20261103-01 | [语义评分与完整对照验证](2026-11-03-tcl-semantic/TASK.md) · [目录](2026-11-03-tcl-semantic/README.md) | 独立目标和正常语义评价，固定完成四阶段后解释效果 |
