@@ -1,0 +1,11 @@
+{
+  "goal": "Generate paired safe semantic integrity controls under a verified benign LoRA",
+  "compute": "managed_gpu",
+  "guard": ["{python}", "{run}/evaluation/bridge.py", "guard", "{run}"],
+  "command": ["{python}", "{run}/evaluation/bridge.py", "run", "{run}"],
+  "cleanup": ["{python}", "{run}/evaluation/bridge.py", "cleanup", "{run}"],
+  "metric": {"name": "images", "direction": "max", "min_delta": 0},
+  "max_attempts": 4,
+  "max_seconds": 12600,
+  "attempt_timeout": 4200
+}

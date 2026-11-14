@@ -1,0 +1,10 @@
+{
+  "goal": "Evaluate frozen-image audits with and without known foil evidence",
+  "compute": "cpu",
+  "command": ["{python}", "{run}/evaluation/evaluate.py", "{run}", "{workspace}/method.json"],
+  "metric": {"name": "historical_recall", "direction": "max", "min_delta": 0},
+  "constraints": [{"name": "worst_nominal_alert_rate", "op": "<=", "value": 0.125}],
+  "max_attempts": 4,
+  "max_seconds": 600,
+  "attempt_timeout": 60
+}

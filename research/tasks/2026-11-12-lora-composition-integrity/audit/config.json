@@ -1,0 +1,10 @@
+{
+  "goal": "Compare semantic-integrity audit scores at the same nominal 5% calibration alert rate",
+  "compute": "cpu",
+  "command": ["{python}", "{run}/evaluation/evaluate.py", "{run}", "{workspace}/method.json"],
+  "metric": {"name": "mismatch_recall", "direction": "max", "min_delta": 0},
+  "constraints": [{"name": "worst_nominal_alert_rate", "op": "<=", "value": 0.20}],
+  "max_attempts": 10,
+  "max_seconds": 1200,
+  "attempt_timeout": 120
+}

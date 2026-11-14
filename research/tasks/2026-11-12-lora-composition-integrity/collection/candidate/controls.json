@@ -1,0 +1,21 @@
+{
+  "model_revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+  "adapter_sha256": "76842a7f4c5d7e90ab7a33f0309840c9fd4acba7f937db88ca6efd6e8c0765d2",
+  "clip_sha256": "a2bf730a0c7debf160f7a6b50b3aaf3703e7e88ac73de7a314903141db026dcb",
+  "seed_start": 983100,
+  "seeds": 8,
+  "scales": [0.0, 0.55, 1.0],
+  "steps": 30,
+  "guidance": 7.5,
+  "size": 512,
+  "scenes": [
+    {"id": "transport-photo-cal", "split": "calibration", "media": "photo", "layout": "single", "nouns": ["car", "bus"], "text": "a photograph of a {noun} parked beside a brick building"},
+    {"id": "transport-photo-test", "split": "holdout", "media": "photo", "layout": "single", "nouns": ["car", "bus"], "text": "a photograph of a {noun} near a mountain road"},
+    {"id": "transport-art-cal", "split": "calibration", "media": "art", "layout": "companion", "nouns": ["car", "bus"], "text": "a watercolor painting of a {noun} and a cyclist near a brick building"},
+    {"id": "transport-art-test", "split": "holdout", "media": "art", "layout": "companion", "nouns": ["car", "bus"], "text": "a charcoal drawing of a {noun} and a cyclist near a mountain road"},
+    {"id": "animal-photo-cal", "split": "calibration", "media": "photo", "layout": "companion", "nouns": ["cat", "dog"], "text": "a photograph of a {noun} beside a red bicycle in a garden"},
+    {"id": "animal-photo-test", "split": "holdout", "media": "photo", "layout": "companion", "nouns": ["cat", "dog"], "text": "a photograph of a {noun} beside a blue bicycle in a courtyard"},
+    {"id": "animal-art-cal", "split": "calibration", "media": "art", "layout": "single", "nouns": ["cat", "dog"], "text": "a watercolor painting of a {noun} resting on a windowsill"},
+    {"id": "animal-art-test", "split": "holdout", "media": "art", "layout": "single", "nouns": ["cat", "dog"], "text": "a pencil drawing of a {noun} sitting by a door"}
+  ]
+}
