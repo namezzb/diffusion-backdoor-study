@@ -1,0 +1,81 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\setlist{leftmargin=*, itemsep=2pt, topsep=2pt}
+\pagenumbering{gobble}
+
+\definecolor{revone}{HTML}{1F77B4}
+\definecolor{revtwo}{HTML}{D62728}
+\definecolor{revthree}{HTML}{2CA02C}
+\definecolor{revfour}{HTML}{9467BD}
+
+\newcommand{\reviewer}[1]{\textbf{\textcolor{#1}{Reviewer}}}
+\newcommand{\rlabel}[2]{\textbf{\textcolor{#1}{#2}}}
+\newcommand{\reviewerquote}[3]{\par\noindent\textcolor{#1}{\textbf{#2 wrote:}} \emph{``#3''}\par}
+\newcommand{\quotedconcern}[3]{\par\noindent\textcolor{#1}{\textbf{#2 wrote:}} \emph{``#3''}\par}
+\newcommand{\directanswer}[1]{\par\noindent\textbf{Direct answer:} #1\par}
+\newcommand{\evidence}[1]{\par\noindent\textbf{Evidence:} #1\par}
+\newcommand{\change}[1]{\par\noindent\textbf{Clarification/change:} #1\par}
+\newcommand{\limitation}[1]{\par\noindent\textbf{Limitation:} #1\par}
+
+\begin{document}
+
+\section*{General Response}
+
+% Use only concerns present in the supplied reviews. Omit optional blocks when unnecessary.
+% Include thanks or positive reviewer statements only when useful and actually supported.
+\directanswer{[Answer the decisive concern and identify the evidence or exact unresolved point.]}
+
+% Add a brief contribution or setting explanation only when needed to interpret the answer.
+
+\section*{Common Concerns}
+
+\paragraph{C1. Evaluation completeness and dataset coverage.}
+\quotedconcern{revtwo}{R2}{Why was [dataset/baseline/setting] not evaluated?}
+\quotedconcern{revthree}{R3}{The evaluation may be incomplete without [related check].}
+\directanswer{[Explain what the existing evaluation establishes and whether this comparison is needed for the stated claim.]}
+\evidence{[Give the applicable paper location or verified completed analysis. If support is missing, identify the exact claim left unresolved.]}
+% Include a change only when it repairs an actual issue and is authorized.
+\change{[Specific completed or planned change, with its status stated accurately; omit if unnecessary.]}
+
+\paragraph{C2. Novelty and relation to prior work.}
+\quotedconcern{revone}{R1}{The method appears close to [prior work].}
+\directanswer{[State the verified technical difference or acknowledge the actual overlap.]}
+\evidence{[Compare the relevant source passage with the manuscript's mechanism, assumptions, or evidence.]}
+\change{[Necessary positioning correction or clarification and its status; omit if the manuscript is already accurate.]}
+
+\paragraph{C3. Reproducibility, mechanism, or implementation details.}
+\quotedconcern{revfour}{R4}{Important implementation details are unclear.}
+\directanswer{[Give the actual requested detail, or identify the detail that remains unknown.]}
+\evidence{[Cite the inspected configuration or paper location; distinguish an omitted explanation from an unavailable fact.]}
+\change{[Actual needed detail to add and its status; omit if a source pointer fully answers the concern.]}
+
+\section*{Reviewer-Specific Clarifications}
+
+\paragraph{\rlabel{revone}{R1}.}
+\quotedconcern{revone}{R1}{[Concise quoted concern from R1].}
+\directanswer{[Direct answer first.]}
+\evidence{[Data, paper location, or completed analysis.]}
+\change{[Exact change or clarification.]}
+
+\paragraph{\rlabel{revtwo}{R2}.}
+\quotedconcern{revtwo}{R2}{[Concise quoted concern from R2].}
+\directanswer{[Direct answer first.]}
+\evidence{[Data, paper location, or completed analysis.]}
+\change{[Exact change or clarification.]}
+
+\paragraph{\rlabel{revthree}{R3}.}
+\quotedconcern{revthree}{R3}{[Concise quoted concern from R3].}
+\directanswer{[Direct answer first.]}
+\evidence{[Data, paper location, or completed analysis.]}
+\change{[Exact change or clarification.]}
+
+\paragraph{\rlabel{revfour}{R4}.}
+\quotedconcern{revfour}{R4}{[Concise quoted concern from R4].}
+\directanswer{[Direct answer first.]}
+\evidence{[Data, paper location, or completed analysis.]}
+\limitation{[Use only for a real material scientific boundary; inability to run a requested test before the deadline does not alone establish one.]}
+
+\end{document}

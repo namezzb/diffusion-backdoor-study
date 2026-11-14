@@ -1,0 +1,100 @@
+# Palette And Accessibility
+
+Color is evidence encoding, not decoration. Choose palettes that remain legible under color-vision variation, grayscale printing, small conference columns, and projector compression.
+
+## Default Palette Policy
+
+- Categorical evidence default: Okabe-Ito Color Universal Design; keep existing approved mappings. For method illustrations, use the established CCFA palette or a content-fit variant below.
+- Alternative categorical set: ggsci NPG when its series remain distinguishable at final size.
+- Sequential and diverging maps: prefer perceptually uniform scientific colour maps such as batlow, lajolla, tokyo, oslo, vik, roma, broc, or cork.
+- Discrete alternatives: use ColorBrewer families that pass colorblind/print checks.
+- Never use rainbow or jet for ordered scientific quantities.
+
+## Recommended Hex Sets
+
+Okabe-Ito qualitative:
+
+```text
+#E69F00 #56B4E9 #009E73 #F0E442 #0072B2 #D55E00 #CC79A7 #000000
+```
+
+ggsci NPG qualitative:
+
+```text
+#E64B35 #4DBBD5 #00A087 #3C5488 #F39B7F #8491B4 #91D1C2 #DC0000 #7E6148 #B09C85
+```
+
+Neutral manuscript support:
+
+```text
+#222222 #666666 #A6A6A6 #D9D9D9 #F2F2F2
+```
+
+## Additional Scientific Palettes
+
+Select these through the existing `PALETTES` dictionary in `resources/python/ccfa_plot_recipes.py`; both Python plotting paths share it. Each row is a categorical set, with the source order preserved. The journal names identify ggsci's palette names, not an official journal requirement or endorsement. Choose for the data and final reading size; a palette name alone does not make a figure compliant with a journal.
+
+| Palette key | Hex sequence | Suggested use and constraint |
+| --- | --- | --- |
+| `aaas` | `#3B4992` `#EE0000` `#008B45` `#631879` `#008280` `#BB0021` `#5F559B` `#A20056` `#808180` `#1B1919` | Saturated method comparisons and compact condition panels; similar dark colors need markers or direct labels. |
+| `nejm` | `#BC3C29` `#0072B5` `#E18727` `#20854E` `#7876B1` `#6F99AD` `#FFDC91` `#EE4C97` | Cohort distributions, paired outcomes, and ablations with warm/cool separation; the pale yellow is best as a fill with a visible outline. |
+| `lancet` | `#00468B` `#ED0000` `#42B540` `#0099B4` `#925E9F` `#FDAF91` `#AD002A` `#ADB6B6` `#1B1919` | Distinct condition highlights and grouped response panels; the red/green pair must carry a second visual distinction. |
+| `jco` | `#0073C2` `#EFC000` `#868686` `#CD534C` `#7AA6DC` `#003C67` `#8F7700` `#3B3B3B` `#A73030` `#4A6990` | Blue/gold/red cohort comparisons and forest plots; do not rely on several related blue tones to distinguish adjacent thin curves. |
+| `tol_bright` | `#4477AA` `#EE6677` `#228833` `#CCBB44` `#66CCEE` `#AA3377` `#BBBBBB` | A compact alternative for categorical curves and points, designed by Paul Tol with color-vision accessibility in mind. |
+| `tol_muted` | `#CC6677` `#332288` `#DDCC77` `#117733` `#88CCEE` `#882255` `#44AA99` `#999933` `#AA4499` | More categories in multi-panel biological or model comparisons; keep IDs stable across every panel and use darker outlines for pale fills. |
+
+The ggsci sets are not all colorblind-safe. Tol's bright and muted sets address common red/green color-vision deficiencies, but do not guarantee grayscale separation or readability at every mark size. Check the colors actually used, not just the full swatch strip. Never interpolate these categorical sequences into a quantitative heatmap; ordered values still use a sequential or diverging map.
+
+## CCFA Palette Variants
+
+The seven existing showcase color sets are also available through `PALETTES` in the plotting library. All previous palette keys and values remain valid; variants broaden choice without changing established semantic mappings.
+
+| Palette key | Hex sequence | Useful visual character |
+| --- | --- | --- |
+| `ccfa_gem` | `#174A7C` `#D95F02` `#1B9E77` `#7570B3` `#E7298A` `#66A61E` `#E6AB02` | Clear blue/orange with green and violet accents; distinct branches. |
+| `ccfa_nocturne` | `#0E2A47` `#28587B` `#9FB798` `#F2C14E` `#F78154` `#B4436C` | Deep blue, sage, amber, and coral; strong hierarchy on a light canvas. |
+| `ccfa_ceramic` | `#264653` `#2A9D8F` `#E9C46A` `#F4A261` `#E76F51` `#8AB17D` | Teal, sand, and terracotta; warm scientific objects and calm group regions. |
+| `ccfa_orchid` | `#3B1F5E` `#6A4C93` `#B565A7` `#E56B6F` `#EAAC8B` `#355070` | Plum, mauve, and peach; contribution emphasis with subdued context. |
+| `ccfa_arctic` | `#063B63` `#0B7285` `#38A3A5` `#80ED99` `#F4D35E` `#EE964B` | Blue/teal with lime and amber; spatial or temporal representations. |
+| `ccfa_wine` | `#5F0F40` `#9A031E` `#FB8B24` `#E36414` `#0F4C5C` `#6A994E` | Burgundy, orange, and dark teal; a warm focal mechanism with cool support. |
+| `ccfa_ink` | `#111827` `#374151` `#1D4ED8` `#059669` `#D97706` `#BE123C` | Dark neutrals with blue, green, and warm accents; restrained comparisons. |
+
+Choose a palette for the figure's reading context, then assign roles explicitly: dark ink, contribution, supporting branches, neutral context, and light group fills. A method diagram usually needs 2-4 chromatic roles, not every swatch. Use an 8-15% accent tint over white for group backgrounds and dark text above it. Related figures keep the same role mapping; do not rotate palettes just to make each figure different.
+
+These variants are starting sets, not certified color-vision-safe combinations. Pale swatches are better for fills than thin lines or text. Add non-color channels for adjacent similar hues. Categorical result plots may need more distinct series than a method diagram; never merge categories to meet a color budget. Ordered quantities still use a suitable sequential/diverging map. Choose actual colors once and include their hex values in the image prompt instead of relying on palette names.
+
+## Semantic Color Rules
+
+- Map stable entity IDs to colors once across related figures, whether the entities are models, cell types, cohorts, or conditions. Keep the proposed method's mapping fixed; panel order must not silently reassign colors.
+- Use neutral gray for secondary baselines unless a baseline is itself the scientific focus.
+- Use positive/negative colors only for true directional meaning.
+- Do not encode a critical distinction with red/green alone; add markers, line styles, hatches, direct labels, or grouping.
+- Keep color roles stable across main text, appendix, tables, and slides.
+- Avoid palettes dominated by decorative gradients or many similar hues.
+- For comparable heatmaps, share explicit limits and any meaningful center; use the same unit and transformation. Distinct quantities retain separate labeled scales even when their rows are aligned. Missing values need a distinct missing-data mark, not the color for zero. Reject invalid values instead of silently clipping the source to a color range.
+
+## Accessibility Checks
+
+- Check grayscale legibility.
+- Check color-vision safety, especially for adjacent lines/bars and small legend keys.
+- Check print visibility at final paper size, not at full-screen preview size.
+- Make line styles, markers, hatches, direct labels, and panel ordering carry meaning even when color is removed.
+- Keep text contrast high; avoid colored text on saturated backgrounds inside paper figures.
+
+For monochrome delivery, assign distinguishable lightness, marker shapes, and line dashes before rendering. Direct labels and aligned small multiples often work better than dense hatching. Use hatches only where the destination permits them; Nature's current figure guide discourages patterns. Desaturating several equal-lightness colors is not a sufficient fallback, and accessibility must never depend on a colored word in a caption.
+
+## Typography And Final Size
+
+Keep Times New Roman as the CCFA default for analytical figures; use Comic Sans only when the user requests that presentation choice. An explicit destination's current rules take precedence. For example, Nature's main-figure guidance asks for Arial/Helvetica, 5–7 pt ordinary labels, 8 pt bold upright lowercase panel letters, and editable text. Its final figure widths are 89 or 183 mm, with a 170 mm figure-height limit in the current figure-building guide; final line weights are 0.25–1 pt. These are Nature settings, not a universal preset for every Nature Portfolio journal or conference.
+
+Set physical width before choosing font sizes and line weights, and inspect the export at that width. Keep comparable panel labels, ticks, and legends consistent. Reduce redundant labels or split a crowded figure before shrinking text below the selected size. Layout spacing is measured after tick labels and legends are present, not only between the bare axes.
+
+For Chinese labels, retain the selected Latin font and supply an installed CJK companion such as Noto Serif CJK SC, Source Han Serif SC, or SimSun for serif text; use the corresponding CJK sans family for a sans-serif destination. Confirm glyph coverage rather than assuming Times or Comic contains Chinese. Export as UTF-8, embed fonts in PDF with TrueType/type 42 when supported, keep SVG text editable, and inspect Chinese, minus signs, Greek letters, and superscripts in the rendered result. Do not hide missing-glyph warnings or replace unavailable characters with blank boxes.
+
+## Source Notes
+
+Useful palette sources include ggsci journal palettes, Fabio Crameri Scientific Colour Maps, ColorBrewer, Okabe-Ito Color Universal Design, and the Nature Communications warning against misleading color maps. Treat these as design references, not venue rules.
+
+- Journal palette values and order: Nan Xiao's [ggsci palette definitions](https://github.com/nanxstats/ggsci/blob/master/R/palettes.R), checked 2026-10-30; AAAS/NEJM/JCO use `default`, Lancet uses `lanonc`. The ggsci package is [GPL-3.0-or-later](https://github.com/nanxstats/ggsci/blob/master/DESCRIPTION). This library records the named color values and attribution; it does not vendor ggsci's R implementation.
+- Tol values and ordering: Paul Tol's [official notes, Figures 1 and 4](https://sronpersonalpages.nl/~pault/), checked 2026-10-30. Muted's missing-data gray is excluded from the category sequence. The author retains attribution; this library does not copy the note's figures, prose, or Python implementation.
+- Destination-specific production requirements: Nature's [figure specifications](https://research-figure-guide.nature.com/figures/preparing-figures-our-specifications/), [panel building/export guide](https://research-figure-guide.nature.com/figures/building-and-exporting-figure-panels/), and [final submission instructions](https://www.nature.com/nature/for-authors/final-submission), checked 2026-10-30. Initial-submission width suggestions differ slightly, so use the guide for the actual stage and journal.
