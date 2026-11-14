@@ -20,7 +20,7 @@
 
 ### 01. LoRA：参数更新基础
 
-- [ ] 已读
+- [ x] 已读
 
 **论文**：[LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685)（2021）
 
@@ -44,7 +44,7 @@
 
 ### 02. ZipLoRA：主体与风格的正常融合
 
-- [ ] 已读
+- [ x] 已读
 
 **论文**：[ZipLoRA: Any Subject in Any Style by Effectively Merging LoRAs](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/00148.pdf)（ECCV 2024）
 
@@ -82,11 +82,13 @@
 
 ### 04. MasqLoRA：可分享的 diffusion 恶意 LoRA
 
-- [ ] 已读
+- [ x] 已读
 
 **论文**：[When LoRA Betrays: Backdooring Text-to-Image Models by Masquerading as Benign Adapters](https://arxiv.org/abs/2602.21977)（MasqLoRA，CVPR 2026）
 
 **Zotero**：[条目](zotero://select/library/items/XDM5PN38) · [打开 PDF](zotero://open-pdf/library/items/EII5MH2E)；已保存 `arXiv:2602.21977v4`，10 页。
+
+**阅读总结**：[实验设计、全文总结与人工审查后的候选创新点](总结/When_LoRA_Betrays_Summary.md)。阅读清单的完成状态仍以本条复选框为准。
 
 **重点阅读**：§3、§4、§5.4 Backdoor Compositionality、§5.5 消融。
 
@@ -106,13 +108,25 @@
 
 **Zotero**：[条目](zotero://select/library/items/9KDZGWX4) · [打开 PDF](zotero://open-pdf/library/items/JS5AZT6W)；已保存 `arXiv:2606.09151v1`，27 页。
 
-**重点阅读**：§3、§4.2–4.5、§5.4 Robustness、§6.3 Limitations。
+**首读路线**：图 1 / §3 → §5.2 与表 1 的表头 → §5.4 图 4、表 5 → §5.6 表 8–10 → §6.3。然后回看 §4.1–4.2 理解设计动机；公式推导和大部分附录第二轮再读。见[导读核对与证据边界](IMPLEMENTATION_REPORT.md#poisonlora-首读导引)。
+
+**第二轮**：[§4 方法精读核对](IMPLEMENTATION_REPORT.md#poisonlora-方法精读核对)：从 Methodology Outline 对照公式 (1)–(10)，读到命题 4.1 时用附录 B 的上界校正正文措辞。
+
+**交互演示**见本次阅读对话。三个标量例子分别对应噪声预测损失、文本投影损失和扰动下的优化。核对范围记在[方法阅读记录](IMPLEMENTATION_REPORT.md#poisonlora-方法演示)。
+
+**逐步算例**见本次阅读对话及[实验对照记录](IMPLEMENTATION_REPORT.md#poisonlora-逐步算例与实验对照)。算例覆盖 rank-1 因子的前向和梯度、单投影更新、扰动点梯度，以及评估时的提示词分组。
+
+**训练数据和监督信号**见[样本口径核对](IMPLEMENTATION_REPORT.md#poisonlora-训练样本与对齐对象)，包含教师的两种作用、任务注入的输出判据，以及与 Silent Branding Attack 的区别。
+
+**实验阅读索引**见[正文及附录实验](IMPLEMENTATION_REPORT.md#poisonlora-正文及附录实验)，包含任务注入的语义对齐前提、主实验、组合与强度扫描的证据范围。
+
+**基线与融合算子**见[基线迁移和 LoRA 组合文献](IMPLEMENTATION_REPORT.md#poisonlora-基线迁移和-lora-组合文献)，包含表 3 的 LoRA 迁移设置、表 5 与表 10 的公开细节，以及正常组合方法的阅读路线。
 
 **要掌握**：概念劫持与任务注入的区别；换底座、缩放、融合和再混合下的鲁棒性设定；正常插件功能的保持。
 
 **优先级**：与“一份恶意资产参与用户组合”的设定最接近，重点精读。
 
-**带着问题读**：哪些底座、伙伴、配比和融合算法真正被测试？实验结果支持的边界是否与摘要措辞一致？
+**带着问题读**：表 5 固定了一对 LoRA；同一配比下，换提示词条件也会改变 ASR。表 10 是一条固定的再混合链。哪些结果能外推到未见伙伴、其他融合算子和正常主体／风格保真？
 
 阅读日期：
 
@@ -296,9 +310,9 @@
 | task_id | LORA-READING-20261104-01 |
 | status | done |
 | outcome | not_evaluated（文献清单不产生科研效果结论） |
-| updated_at | 2026-11-04 |
+| updated_at | 2026-11-11 |
 | authorization | 用户要求保存可标记的 Markdown 清单；追加授权将全部论文及 PDF 下载到 Zotero，并统一分类；随后要求讲解 LoRA／注意力原理并调研 diffusion 挂载位置的惯例与证据 |
-| current_stage | 14 篇条目与 PDF 已统一分类并核对；完成 LoRA／注意力基础讲解和挂载位置文献核对；云端文件同步仍受配额限制 |
+| current_stage | 14 篇条目与 PDF 已统一分类并核对；完成 LoRA／注意力基础讲解和挂载位置文献核对；新增 MasqLoRA 实验与全文总结及人工审查后的候选创新问题；云端文件同步仍受配额限制 |
 | next_action | 用户在 Zotero 阅读，并在各篇复选框维护阅读进度、笔记和 idea |
 
 任务状态指清单建档及 Zotero 收纳交付；个人阅读状态以各篇复选框为准。清单来源为本聊天前序的论文和阅读建议，下载入库不代表完成全文阅读或实验验证。当前实验指针保持由[项目状态](../../project_state.json)维护。
