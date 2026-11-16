@@ -2972,6 +2972,141 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             parsed_cfg = load_config(cfg_path, overrides={"seed": 44})
             self.assertEqual(parsed_cfg.seed, 44)
 
+    def test_offline_lpips_key_mapping_and_strict_validation(self) -> None:
+        from scripts.lora_composition_mvp.evaluate import OfflineScorer
+
+        # Build minimal fake torchvision.models.vgg16 matching PyTorch VGG16 features[:30] indices
+        # Conv layers live at indices: 0,2 (<4), 5,7 (4..8), 10,12,14 (9..15), 17,19,21 (16..22), 24,26,28 (23..29)
+        import torch.nn as nn
+
+        # Check slice offset mapping logic directly by mocking torchvision.models.vgg16
+        conv_specs = [
+            (0, 3, 64), (2, 64, 64),
+            (5, 64, 128), (7, 128, 128),
+            (10, 128, 256), (12, 256, 256), (14, 256, 256),
+            (17, 256, 512), (19, 512, 512), (21, 512, 512),
+            (24, 512, 512), (26, 512, 512), (28, 512, 512),
+        ]
+
+        class _MockSeq(nn.Module):
+            def __init__(self, mapping: dict[int, Any]) -> None:
+                super().__init__()
+                self._mapping = mapping
+
+            def __getitem__(self, s: slice) -> "_MockSeq":
+                lo = s.start or 0
+                hi = s.stop if s.stop is not None else 30
+                sub = {k - lo: v for k, v in self._mapping.items() if lo <= k < hi}
+                return _MockSeq(sub)
+
+            def load_state_dict(self, sd: dict[str, Any], strict: bool = True) -> tuple[list[str], list[str]]:
+                expected = set()
+                for s_idx, sub in self._mapping.items():
+                    for k in sub:
+                        expected.add(f"{s_idx}.{k}")
+                missing = sorted(expected - set(sd.keys()))
+                return missing, []
+
+        class _MockModuleList(nn.Module):
+            def __init__(self, items: list[Any]) -> None:
+                super().__init__()
+                self._items = items
+
+            def load_state_dict(self, sd: dict[str, Any], strict: bool = True) -> tuple[list[str], list[str]]:
+                expected: set[str] = set()
+                for idx, item in enumerate(self._items):
+                    if isinstance(item, _MockSeq):
+                        for local_idx, keys in item._mapping.items():
+                            for k in keys:
+                                expected.add(f"{idx}.{local_idx}.{k}")
+                    else:
+                        expected.add(f"{idx}.weight")
+                missing = sorted(expected - set(sd.keys()))
+                if strict and missing:
+                    raise RuntimeError(f"Missing keys: {missing}")
+                return missing, []
+
+            def parameters(self) -> list[Any]:
+                return []
+
+        class _MockBaseModule:
+            def __init__(self) -> None:
+                pass
+
+            def register_buffer(self, name: str, val: Any) -> None:
+                setattr(self, name, val)
+
+            def to(self, dev: Any) -> "_MockBaseModule":
+                return self
+
+            def eval(self) -> "_MockBaseModule":
+                return self
+
+            def parameters(self) -> list[Any]:
+                return []
+
+        orig_nn_mod = sys.modules["torch.nn"]
+        orig_tv = sys.modules.get("torchvision")
+        orig_tv_models = sys.modules.get("torchvision.models")
+        try:
+            mock_nn = types.ModuleType("torch.nn")
+            for attr in dir(orig_nn_mod):
+                setattr(mock_nn, attr, getattr(orig_nn_mod, attr))
+            mock_nn.Module = _MockBaseModule
+            mock_nn.ModuleList = _MockModuleList
+            mock_nn.Conv2d = lambda *a, **kw: object()
+
+            full_vgg_map = {idx: ["weight", "bias"] for idx, _, _ in conv_specs}
+            tv_models = types.ModuleType("torchvision.models")
+            tv_models.vgg16 = lambda weights=None: types.SimpleNamespace(features=_MockSeq(full_vgg_map))
+            tv_pkg = types.ModuleType("torchvision")
+            tv_pkg.models = tv_models
+            sys.modules["torch.nn"] = mock_nn
+            torch.nn = mock_nn
+            sys.modules["torchvision"] = tv_pkg
+            sys.modules["torchvision.models"] = tv_models
+
+            scorer_stub = OfflineScorer.__new__(OfflineScorer)
+            scorer_stub.device = "cpu"
+
+            with tempfile.TemporaryDirectory() as tmp:
+                wdir = Path(tmp) / "lpips_dir"
+                wdir.mkdir()
+                vgg_sd = {}
+                for idx, _, _ in conv_specs:
+                    vgg_sd[f"features.{idx}.weight"] = torch.ones((1, 1))
+                    vgg_sd[f"features.{idx}.bias"] = torch.zeros((1,))
+                lin_sd = {f"lin{i}.model.1.weight": torch.ones((1, 1)) for i in range(5)}
+
+                torch.save(vgg_sd, wdir / "vgg16-397923af.pth")
+                torch.save(lin_sd, wdir / "vgg.pth")
+
+                loaded_dir = scorer_stub._try_load_offline_lpips(str(wdir), net="vgg")
+                self.assertIsNotNone(loaded_dir)
+
+                # Incomplete backbone must be rejected (never silently use random weights)
+                bad_vgg = {k: v for k, v in vgg_sd.items() if not k.startswith("features.28.")}
+                bad_bundle = Path(tmp) / "bad_bundle.pt"
+                torch.save({"vgg16": bad_vgg, "lpips": lin_sd}, bad_bundle)
+                self.assertIsNone(scorer_stub._try_load_offline_lpips(str(bad_bundle), net="vgg"))
+
+                # Missing lin4 must also be rejected
+                bad_lin = {k: v for k, v in lin_sd.items() if not k.startswith("lin4.")}
+                bad_bundle2 = Path(tmp) / "bad_bundle2.pt"
+                torch.save({"vgg16": vgg_sd, "lpips": bad_lin}, bad_bundle2)
+                self.assertIsNone(scorer_stub._try_load_offline_lpips(str(bad_bundle2), net="vgg"))
+        finally:
+            sys.modules["torch.nn"] = orig_nn_mod
+            torch.nn = orig_nn_mod
+            if orig_tv is not None:
+                sys.modules["torchvision"] = orig_tv
+            else:
+                sys.modules.pop("torchvision", None)
+            if orig_tv_models is not None:
+                sys.modules["torchvision.models"] = orig_tv_models
+            else:
+                sys.modules.pop("torchvision.models", None)
+
 
 if __name__ == "__main__":
     unittest.main()

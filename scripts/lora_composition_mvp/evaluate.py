@@ -358,19 +358,13 @@ class OfflineScorer:
             if not (has_backbone and has_lins):
                 return None
 
-            # Prefer official lpips package if installed, forcing pnet_rand=True to forbid torchvision downloads
-            try:
+            if net != "vgg":
                 import lpips  # type: ignore
 
                 loss_fn = lpips.LPIPS(net=net, pretrained=False, pnet_rand=True).to(self.device).eval()
                 merged = {**backbone_sd, **lin_sd}
-                loss_fn.load_state_dict(merged, strict=False)
+                loss_fn.load_state_dict(merged, strict=True)
                 return loss_fn
-            except Exception:
-                pass
-
-            if net != "vgg":
-                return None
 
             from torchvision.models import vgg16  # type: ignore
 
@@ -389,8 +383,8 @@ class OfflineScorer:
                     )
                     chs = (64, 128, 256, 512, 512)
                     self.lins = nn.ModuleList([nn.Conv2d(c, 1, kernel_size=1, stride=1, padding=0, bias=False) for c in chs])
-                    self.register_buffer("shift", torch.tensor([-0.030, -0.088, -0.188]).view(1, 3, 1, 1))
-                    self.register_buffer("scale", torch.tensor([0.458, 0.448, 0.450]).view(1, 3, 1, 1))
+                    self.register_buffer("shift", torch.tensor([-0.030, -0.088, -0.188]).reshape(1, 3, 1, 1))
+                    self.register_buffer("scale", torch.tensor([0.458, 0.448, 0.450]).reshape(1, 3, 1, 1))
                     self.to(dev)
 
                 def _forward_feats(self, x: Any) -> list[Any]:
