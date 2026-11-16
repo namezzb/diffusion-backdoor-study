@@ -50,9 +50,19 @@
 - 启动科研实验优先选用合规 `free` 卡；仅在无可用 `free` 卡、受跨机额度限制或用户授权替换时，跨节点扫描本人无他人共享的 `gpu_squat.py` 占卡卡位（不得误停真实科研进程，也不处理他人进程），按 `gpu-hold-handoff` 技能记录原启动参数后有序让卡。
 - 通过替换 `gpu_squat.py` 取得的显卡，在实验退出并确认显存清空且平台仍许可后，必须尽快按原 `--uuid`/`--state-dir`/参数在原节点原位重启 `gpu_squat.py`，并经 `nvidia-smi` 与 `./labgpu status --fresh --json` 核验重新占卡成功。
 
+### 算力平台路由与 Colab 规范
+
+- **默认平台**：每次准备启动计算任务前（或方法设计完成后进入执行前），若用户未明确要求使用 Colab，默认使用学校服务器 GPU（按本节学校选卡与 `gpu-hold-handoff` 规则执行）。
+- **Colab 启用与强制配置确认（覆盖通用“不设人工审批”条款）**：仅当用户明确要求使用 Colab 时，按 `colab-operator` 流程准备；但在真正租用或启动任何 Colab GPU 前，agent **必须**先结合当前任务估算资源需求，给出一份精简的**推荐配置**并等待用户批准或修改后方可启动，内容包括：
+  1. **GPU 与内存规格**：推荐卡型（`T4` / `L4` / `A100` / `H100`）及是否需要 `--high-mem`，附一句估算依据（如模型显存/batch/内存需求）。
+  2. **运行模式与生命周期**：一次性 `colab run`（跑完自动销毁，仅适合无需拉回 `/content` 文件的任务）或 `colab new` + `colab exec`（跑完取回结果后执行 `colab stop` 释放）。
+  3. **存储与产物去向**：写 `/content` 临时目录后由 `colab download` 拉回本地，还是挂载 Google Drive（`/content/drive/MyDrive/...`）；若需 Drive，须提示并等待用户先在终端完成交互式 `colab drivemount` 授权。
+  4. **外部凭据与预算保护**：是否需 `--env` 传入 Token、长静默脚本加 `--timeout 0`，以及是否先跑小样本冒烟与当前 `colab usage` 余额。
+- **及时释放**：非 `colab run` 的常驻会话在完成并取回产物后必须立即 `colab stop`，不得留空转会话消耗 compute units。
+
 ## 数据与按需入口
 
-- 资料限本科研仓库和本人服务器目录；凭据不进Git，不自动删除用户数据，大模型/原图/缓存留本人数据盘；Drive上传和大文件批量回传保持暂停。
+- 资料限本科研仓库和本人服务器目录（Colab 任务按当次批准配置使用临时盘或 Drive）；凭据不进Git，不自动删除用户数据，大模型/原图/缓存留本人数据盘。
 - 学校环境默认离线，优先复用已有模型和环境；新资源固定来源/revision、许可证、大小和SHA后传输核验，Linux依赖与Mac包分开。
 - 连接或传输读[服务器手册](server/OPERATIONS.md)，复现读[复现入口](reproduction/README.md)，换机/取附件读[换机步骤](storage/NEW_COMPUTER.md)，归档读[索引维护](storage/INDEX_MAINTENANCE.md)。
 - README只导航、不复制当前进度；状态只在TASK维护，项目JSON保存指针，Markdown运行记录保存实际运行事实。
