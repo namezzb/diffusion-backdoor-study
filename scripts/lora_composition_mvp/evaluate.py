@@ -408,6 +408,7 @@ class OfflineScorer:
             model = _StandaloneVGGLPIPS(self.device).eval()
 
             # Load VGG16 backbone weights (supports torchvision `features.<i>.*` or lpips `net.slice<k>.<i>.*`)
+            # Note: PyTorch nn.Sequential slicing preserves original module string keys ("5", "10", "17", "24", ...).
             slice_offsets = ((0, 4, 0), (4, 9, 1), (9, 16, 2), (16, 23, 3), (23, 30, 4))
             vgg_mapped: dict[str, Any] = {}
             for k, v in backbone_sd.items():
@@ -416,16 +417,13 @@ class OfflineScorer:
                     idx = int(idx_str)
                     for lo, hi, s_idx in slice_offsets:
                         if lo <= idx < hi:
-                            vgg_mapped[f"{s_idx}.{idx - lo}.{rest}"] = v
+                            vgg_mapped[f"{s_idx}.{idx}.{rest}"] = v
                             break
                 elif k.startswith("net.slice"):
                     slice_part, idx_str, rest = k[len("net.slice") :].split(".", 2)
                     s_idx = int(slice_part) - 1
                     if 0 <= s_idx < len(slice_offsets):
-                        lo = slice_offsets[s_idx][0]
-                        idx = int(idx_str)
-                        local_idx = idx - lo if idx >= lo else idx
-                        vgg_mapped[f"{s_idx}.{local_idx}.{rest}"] = v
+                        vgg_mapped[f"{s_idx}.{int(idx_str)}.{rest}"] = v
 
             missing_vgg, _ = model.slices.load_state_dict(vgg_mapped, strict=False)
             if missing_vgg:

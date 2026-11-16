@@ -28,13 +28,45 @@ class ObservationUnavailable(RuntimeError):
     """Temporary network/platform fetch failure; existing expiry stays unchanged."""
 
 
+class TransportUnavailable(ObservationUnavailable):
+    """Temporary SSH/jump failure; prior permission expiry stays unchanged."""
+
+
 def _ssh_args(target: str = "school104") -> list[str]:
     return [str(ROOT / "server" / "start_school.sh"), target]
 
 
-def remote_exec(target: str, command: str, timeout: int = 70, payload: bytes | None = None) -> str:
+def _public_dns_jump_ssh_config() -> str | None:
+    import tempfile
+    import urllib.request
+
+    for resolver in (
+        "https://dns.alidns.com/resolve?name=hduiipl.cn&type=A",
+        "https://dns.google/resolve?name=hduiipl.cn&type=A",
+    ):
+        try:
+            body = urllib.request.urlopen(resolver, timeout=5).read()
+            dns = json.loads(body)
+            ips = [
+                str(ipaddress.IPv4Address(a["data"]))
+                for a in dns.get("Answer", [])
+                if a.get("type") == 1 and ipaddress.IPv4Address(a["data"]).is_global
+            ]
+            if dns.get("Status") == 0 and ips:
+                cfg = tempfile.NamedTemporaryFile("w", prefix="obs-school-ssh-", delete=False)
+                cfg.write(
+                    f'Host school-jump\n    HostName {ips[0]}\nHost *\n    Include "{ROOT / "server" / "school_ssh_config"}"\n'
+                )
+                cfg.close()
+                return cfg.name
+        except Exception:
+            continue
+    return None
+
+
+def _run_ssh_cmd(cmd: list[str], timeout: int, payload: bytes | None) -> str:
     proc = subprocess.Popen(
-        _ssh_args(target) + [command],
+        cmd,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -43,20 +75,45 @@ def remote_exec(target: str, command: str, timeout: int = 70, payload: bytes | N
     try:
         out, err = proc.communicate(payload, timeout=timeout)
     except subprocess.TimeoutExpired:
-        os.killpg(proc.pid, signal.SIGTERM)
-        out, err = proc.communicate(timeout=5)
-        raise RuntimeError(
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except OSError:
+            pass
+        try:
+            out, err = proc.communicate(timeout=5)
+        except subprocess.TimeoutExpired:
+            out, err = b"", b""
+        raise TransportUnavailable(
             "Remote command timed out: "
             + out.decode(errors="replace")[-800:]
             + err.decode(errors="replace")[-800:]
         )
     if proc.returncode:
-        raise RuntimeError(
-            f"Remote rc={proc.returncode}: "
-            + out.decode(errors="replace")[-1200:]
-            + err.decode(errors="replace")[-800:]
-        )
+        msg = f"Remote rc={proc.returncode}: " + out.decode(errors="replace")[-1200:] + err.decode(errors="replace")[-800:]
+        if proc.returncode == 255:
+            raise TransportUnavailable(msg)
+        raise RuntimeError(msg)
     return out.decode()
+
+
+def remote_exec(target: str, command: str, timeout: int = 70, payload: bytes | None = None) -> str:
+    try:
+        return _run_ssh_cmd(_ssh_args(target) + [command], timeout=timeout, payload=payload)
+    except TransportUnavailable:
+        temp_cfg = _public_dns_jump_ssh_config()
+        if not temp_cfg:
+            raise
+        try:
+            return _run_ssh_cmd(
+                ["ssh", "-F", temp_cfg, target, command],
+                timeout=timeout,
+                payload=payload,
+            )
+        finally:
+            try:
+                os.unlink(temp_cfg)
+            except OSError:
+                pass
 
 
 def _public_dns_snapshot() -> dict[str, Any]:
@@ -238,7 +295,9 @@ def evaluate_permission(value: dict[str, Any], host_id: str, gpu_uuid: str, run_
     }
 
 
-def push_permission_md(target: str, remote_perm_path: str, items: dict[str, str]) -> None:
+def push_permission_and_check_done(
+    target: str, remote_perm_path: str, remote_run_dir: str, items: dict[str, str], check_done: bool = True
+) -> bool:
     lines = ["# Live Resource Permission (Auto-Refreshed, Not Exclusive)", ""]
     for k, v in items.items():
         lines.append(f"- `{k}`: `{v}`")
@@ -250,9 +309,21 @@ def push_permission_md(target: str, remote_perm_path: str, items: dict[str, str]
         "p.parent.mkdir(parents=True, exist_ok=True); "
         "t=p.with_suffix('.tmp'); "
         f"t.write_bytes(base64.b64decode({encoded!r})); "
-        "t.replace(p)"
+        "t.replace(p); "
+        + (
+            f"rs=pathlib.Path({remote_run_dir!r})/'RUN_STATE.md'; "
+            "txt=rs.read_text(encoding='utf-8') if rs.exists() else ''; "
+            "print('DONE' if ('- `command`: `run-all`' in txt and '- `status`: `done`' in txt) else 'RUN')"
+            if check_done
+            else "print('RUN')"
+        )
     )
-    remote_exec(target, shlex.join(["python3", "-c", code]), timeout=45)
+    out = remote_exec(target, shlex.join(["python3", "-c", code]), timeout=30).strip()
+    return out == "DONE"
+
+
+def push_permission_md(target: str, remote_perm_path: str, items: dict[str, str]) -> None:
+    push_permission_and_check_done(target, remote_perm_path, remote_perm_path, items, check_done=False)
 
 
 def check_remote_done(target: str, remote_run_dir: str) -> bool:
@@ -262,7 +333,7 @@ def check_remote_done(target: str, remote_run_dir: str) -> bool:
         "txt=p.read_text(encoding='utf-8') if p.exists() else ''; "
         "print('DONE' if ('- `command`: `run-all`' in txt and '- `status`: `done`' in txt) else 'RUN')"
     )
-    out = remote_exec(target, shlex.join(["python3", "-c", code]), timeout=40).strip()
+    out = remote_exec(target, shlex.join(["python3", "-c", code]), timeout=30).strip()
     return out == "DONE"
 
 
@@ -336,8 +407,9 @@ def main(argv: list[str] | None = None) -> int:
         try:
             snap = fetch_snapshot()
             obs = evaluate_permission(snap, host_id=args.host_id, gpu_uuid=args.gpu_uuid, run_id=args.run_id)
-            push_permission_md(args.target, remote_perm, obs)
-            done = False if args.once else check_remote_done(args.target, args.remote_run_dir)
+            done = push_permission_and_check_done(
+                args.target, remote_perm, args.remote_run_dir, obs, check_done=(not args.once)
+            )
             with log_path.open("a", encoding="utf-8") as f:
                 f.write(
                     f"- {iso} `active` ttl=`{obs['ttl_seconds']}s` transport=`{obs['transport']}` "

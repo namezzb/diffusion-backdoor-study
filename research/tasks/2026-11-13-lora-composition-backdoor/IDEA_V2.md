@@ -1,6 +1,6 @@
 # LoRA 组合后门 v2 完整深度规划与实证复盘（`IDEA_V2.md`）
 
-整理日期：2026-11-14（2026-11-15 方法章节对齐已过关的 `CORE-LoRA v2_distill` 实现与消融开关）  
+整理日期：2026-11-14（2026-11-16 对齐分支解耦潜变量、`qo_max_ratio=0.45` 与 `seed=42,43,44` 多 Seed + 离线 LPIPS 验收版 `CORE-LoRA v2_distill`）  
 所属任务：[`research/tasks/2026-11-13-lora-composition-backdoor/TASK.md`](TASK.md)  
 关联实证：
 - 首轮存量运行：[`autoresearch/runs/lora-comp-mvp-20261113-v1/REPORT.md`](../../../autoresearch/runs/lora-comp-mvp-20261113-v1/REPORT.md)
@@ -59,7 +59,7 @@
 
 | 独立论文规划 | 解决的核心科学矛盾 | 核心方法（极简原语） | 优先级与状态 |
 | :--- | :--- | :--- | :--- |
-| **Idea 1（当前主攻 Paper 1）**<br>**`CORE-LoRA`**<br>*(Compositional Operator-Resilient LoRA)* | **多算子组合下的后门存活与画风保真**：如何用单份静态 U-Net LoRA 在 `S0`、`S1 (te=0, s=0.5)`、`S2_klora`、`S2_ties`、`S3_ziplora` 下全线取得高 ASR，同时保持正常汽车与第三方画风？ | **1. 24 个语义瓶颈 `attn2` 层内的非对称 `K/V` 能量主导约束**（仅挂载 `down_blocks.2 + mid_block + up_blocks.1` 的 24 个交叉注意力层，`TE = 0` 且高频画风层 `up_blocks.2/3 = 0`，以 `qo_max_ratio = 0.40` 与 `0.6 × lr` 约束 `Q/O` 能量上限，破解 K-LoRA 路由与干净提示/邻域误触发）<br>**2. 分支解耦潜变量的多算子反事实 CFG 引导场蒸馏**（**仅 2 项主损失 $\mathcal{L}_{\text{hijack}} + \mathcal{L}_{\text{preserve}}$ + 可选算子存活正则 $\mathcal{R}_{\text{op}}$**，触发分支使用无偏高斯+纯 `z_cat`、汽车保真分支使用纯 `z_car`、邻域分支使用独立标准高斯潜变量并在各自匹配 $(z_t, t)$ 上对齐 CFG 差值） | **第一优先级（2026-11-16 已完成分支潜变量解耦与 `qo_max_ratio=0.40` 代码修复及 20/20 本地单测，待远端合规 GPU 复验与多 Seed 统计）** |
+| **Idea 1（当前主攻 Paper 1）**<br>**`CORE-LoRA`**<br>*(Compositional Operator-Resilient LoRA)* | **多算子组合下的后门存活与画风保真**：如何用单份静态 U-Net LoRA 在 `S0`、`S1 (te=0, s=0.5)`、`S2_klora`、`S2_ties`、`S3_ziplora` 下全线取得高 ASR，同时保持正常汽车与第三方画风？ | **1. 24 个语义瓶颈 `attn2` 层内的非对称 `K/V` 能量主导约束**（仅挂载 `down_blocks.2 + mid_block + up_blocks.1` 的 24 个交叉注意力层，`TE = 0` 且高频画风层 `up_blocks.2/3 = 0`，以 `qo_max_ratio = 0.45` 与 `0.6 × lr` 约束 `Q/O` 能量上限，破解 K-LoRA 路由与干净提示/邻域误触发）<br>**2. 分支解耦潜变量的多算子反事实 CFG 引导场蒸馏**（**仅 2 项主损失 $\mathcal{L}_{\text{hijack}} + \mathcal{L}_{\text{preserve}}$ + 可选算子存活正则 $\mathcal{R}_{\text{op}}$**，触发分支使用无偏高斯 + 纯 `z_cat`，汽车保真分支结合对照同基底 (`z_rand`/`z_cat`) 与纯 `z_car`，邻域分支使用独立标准高斯潜变量并在各自匹配 $(z_t, t)$ 上对齐 CFG 差值） | **第一优先级（2026-11-16 已完成分支潜变量解耦、`qo_max_ratio=0.45` 修复、`offline_vgg` LPIPS 接入，并在 `school127` GPU2 通过 `seed = 42, 43, 44` 全三道 Gate 验收，组合态 3-Seed `ASR_strict = 0.4792 ± 0.2052`、`S2_klora = 0.7917 ± 0.2602`、`CatLeak = 0.0167 ± 0.0191`）** |
 | **Idea 2（独立衍生篇 A）**<br>**`Camo-LoRA`**<br>*(Causal-Synergy Camouflage LoRA)* | **逃逸扩散后门检测器（`TokenScanner` / `T2IShield` / `DAA`）**：如何做到单字扫描零异常且交叉注意力空间图（Attention Map）分布不变？ | 利用 CLIP 因果掩码下 `"a cool car"` 与 `"a cool dog"` 中 `"cool"` 隐向量 100% 恒等的性质，**冻结 `to_k` 保持注意力图分布不变，仅在 `to_v` 上对条件合成残差 $e_{\text{car}|\text{cool}} - e_{\text{car}|\text{a}}$ 做值空间劫持** | **第二优先级（独立投安全会议或期刊扩展）** |
 | **Idea 3（独立衍生篇 B）**<br>**`CompGuard`**<br>*(Compositional LoRA Auditing)* | **多 LoRA 组合供应链的静态与运行时防御审计**：如何在风格/构图变化下低误报识别隐蔽概念替换后门？ | **静态层间 K/V 谱浓度筛查 + 运行时同场景反事实对象分差审计**（已有 `486/486` 检出、`1/128` 误报的扎实数据支撑） | **第三优先级（基于 [`2026-11-12-lora-composition-integrity`](../2026-11-12-lora-composition-integrity/IMPLEMENTATION_REPORT.md) 独立成文）** |
 
@@ -71,8 +71,8 @@
 
 ### 4.1 架构与非对称能量约束：24 个语义瓶颈 `attn2` 层内的 `K/V` 主导分配
 严格遵守公平性与参数隔离门禁（默认 `ours_bottleneck_only = True`，仅修改 SD 1.5 **`down_blocks.2`、`mid_block` 与 `up_blocks.1` 的 24 个 `attn2` 交叉注意力线性层**，`TE = 0`、`up_blocks.2/3 = 0`、`down_blocks.0/1 = 0`、`attn1 = 0`，总 Frobenius 范数严格受限于 `target_frobenius_norm = 18.0`）：
-- **12 个文本门控语义层（`attn2.{to_k, to_v}`）**：承担主体语义替换与概念擦除能量（实机 `kv_frobenius = 15.0255`，约占平方总预算 `~70%–83%`），接收全额学习率 `ours_distill_lr = 5e-3`（余弦退火至 `1e-3`）。
-- **12 个图像侧投影层（`attn2.{to_q, to_out.0}`）**：施加非对称能量上限约束 **`ours_distill_qo_max_ratio = 0.40`**（强制 `‖ΔW_QO‖_F <= 0.40 * 18.0 = 7.20`）与降权学习率 **`0.6 * ours_distill_lr`**（初始化尺度减半），既允许深层语义表征协同，又防止能量溢出到文本盲区 `Q/O` 引发干净提示与非触发邻域（如 `"a brown dog"`）牵引。
+- **12 个文本门控语义层（`attn2.{to_k, to_v}`）**：承担主体语义替换与概念擦除能量（实机 `kv_frobenius = 16.08`，约占平方总预算 `~80%`），接收全额学习率 `ours_distill_lr = 5e-3`（余弦退火至 `1e-3`）。
+- **12 个图像侧投影层（`attn2.{to_q, to_out.0}`）**：施加非对称能量上限约束 **`ours_distill_qo_max_ratio = 0.45`**（强制 `‖ΔW_QO‖_F <= 0.45 * 18.0 = 8.10`）与降权学习率 **`0.6 * ours_distill_lr`**（初始化尺度减半），既允许深层语义表征协同，又防止能量溢出到文本盲区 `Q/O` 引发干净提示与非触发邻域（如 `"a brown dog"`）牵引。
   - **机制作用**：
     1. 100% 满足 `assert_ours_parameter_isolation` 与 `target_frobenius_norm = 18.0` 门禁；
     2. 仅保留深层 24 个语义瓶颈层，彻底让渡浅层结构与高频画风层（`up_blocks.2/3`）及全部自注意力（`attn1`）给第三方伙伴 `P_test`；
@@ -90,18 +90,18 @@ $$\min_{\Delta W} \;\; 100 \cdot \Big(\underbrace{\mathcal{L}_{\text{hijack}}}_{
 
 1. **Loss 1：触发劫持与反事实 CFG 引导场蒸馏 $\mathcal{L}_{\text{hijack}}$**
    $$\mathcal{L}_{\text{hijack}} = w_{\text{trig}} \left( \big\Vert \epsilon_{\text{stu}}(p_{\text{trig}}) - \text{sg}\,\epsilon_{\text{ref}}(p_{\text{cat}}) \big\Vert_2^2 + \lambda_{\text{cfg}} \big\Vert \Delta\epsilon_{\text{stu}}(p_{\text{trig}}) - \text{sg}\,\Delta\epsilon_{\text{ref}}(p_{\text{cat}}) \big\Vert_2^2 \right)$$
-   其中默认 $w_{\text{trig}} = 3.0$、反事实 CFG 引导权重 $\lambda_{\text{cfg}} = 0.8$（`ours_distill_cfg_weight`）。各算子模式（含 `S0` $s=1.0$ 与 `S1/S2` $s=0.5$）统一保持权重均衡，避免 `S0` 下复杂修饰长句残留原车背景。
+   其中默认 $w_{\text{trig}} = 3.2$、反事实 CFG 引导权重 $\lambda_{\text{cfg}} = 0.8$（`ours_distill_cfg_weight`）。各算子模式（含 `S0` $s=1.0$ 与 `S1/S2` $s=0.5$）统一保持权重均衡，避免 `S0` 下复杂修饰长句残留原车背景。
 2. **Loss 2：统一良性语境保真蒸馏 $\mathcal{L}_{\text{preserve}}$**
    $$\mathcal{L}_{\text{preserve}} = w_{\text{pres}}\Big(\Vert \epsilon_{\text{stu}}(p_{\text{car}}) - \text{sg}\,\epsilon_{\text{ref}}(p_{\text{car}})\Vert_2^2 + \Vert \epsilon_{\text{stu}}(\emptyset) - \text{sg}\,\epsilon_{\text{ref}}(\emptyset)\Vert_2^2 + 0.5\Vert \Delta\epsilon_{\text{stu}}(p_{\text{car}}) - \text{sg}\,\Delta\epsilon_{\text{ref}}(p_{\text{car}})\Vert_2^2\Big) + w_{\text{neigh}}\Big(\Vert \epsilon_{\text{stu}}(p_{\text{neigh}}) - \text{sg}\,\epsilon_{\text{ref}}(p_{\text{neigh}})\Vert_2^2 + 0.8\Vert \Delta\epsilon_{\text{stu}}(p_{\text{neigh}}) - \text{sg}\,\Delta\epsilon_{\text{ref}}(p_{\text{neigh}})\Vert_2^2\Big)$$
-   其中默认 $w_{\text{pres}} = 2.8$、$w_{\text{neigh}} = 2.4$，统一覆盖正常汽车保真、邻域非触发保护与无条件底噪锚定。
+   其中默认 $w_{\text{pres}} = 2.8$、$w_{\text{neigh}} = 2.6$，统一覆盖正常汽车保真、邻域非触发保护与无条件底噪锚定。
 3. **可选算子存活正则 $\mathcal{R}_{\text{op}}$**
    $$\mathcal{R}_{\text{op}} = \lambda_{\text{hoyer}}\,\text{ReLU}\!\left(H(\Delta W) - \tau_H\right) + \lambda_{\text{orth}}\,\big\Vert \widehat{\Delta W} \odot \widehat{P}_{\text{train}} \big\Vert_{\text{col-cos}}$$
-   控制权重幅度集中度以抗 TIES 裁剪，并压低与开发伙伴列的余弦碰撞以保住 ZipLoRA 融合系数（每步步末执行 `_enforce_distill_budgets` 硬锁定 `qo <= 0.55 * B` 与总范数 `<= 18.0`）。
+   控制权重幅度集中度以抗 TIES 裁剪，并压低与开发伙伴列的余弦碰撞以保住 ZipLoRA 融合系数（每步步末执行 `_enforce_distill_budgets` 硬锁定 `qo <= 0.45 * B` 与总范数 `<= 18.0`）。
 
 ### 4.4 预埋 Paper 1 消融开关矩阵（`MVPConfig`）
 | 消融变体 | 对应配置开关与取值 | 预期验证机制 |
 |---|---|---|
-| **Full `CORE-LoRA` (`v2_distill`)** | `ours_bottleneck_only=True`, `qo_max_ratio=0.40`, `op_modes=["S1","S0","S2_ties","S2_klora"]`, `cfg_weight=0.8` | 全默认主方法 |
+| **Full `CORE-LoRA` (`v2_distill`)** | `ours_bottleneck_only=True`, `qo_max_ratio=0.45`, `op_modes=["S1","S0","S2_ties","S2_klora"]`, `cfg_weight=0.8` | 全默认主方法 |
 | **w/o Bottleneck Isolation** | `ours_bottleneck_only=False` | 放开全 UNet 128 个注意力线性层（`TE` 仍为 `0`，同总范数 `18.0`），检验瓶颈隔离对画风/容量集中度的必要性 |
 | **w/o Asymmetric K/V Constraint** | `ours_distill_qo_max_ratio=1.0` | 取消 `Q/O` 范数上限与降权学习率（`Q/O` 同享 `1.0 * lr`），检验非对称 `K/V` 能量约束对抑制干净提示漏猫的必要性 |
 | **w/o Operator-Aware Simulation** | `ours_distill_op_modes=["S0"]` | 仅单载蒸馏、取消多算子模拟，检验算子模拟对 `S1/S2/S3` 组合存活的必要性 |

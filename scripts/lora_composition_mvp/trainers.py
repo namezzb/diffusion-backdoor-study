@@ -873,61 +873,60 @@ def _train_ours_v2_distill(
             mode = active_modes[step % len(active_modes)]
             modes_executed.append(mode)
 
-            i_car0 = rng.randrange(int(car_latents.shape[0]))
             i_car1 = rng.randrange(int(car_latents.shape[0]))
             i_cat = rng.randrange(int(cat_latents.shape[0]))
-            z_car0 = car_latents[i_car0 : i_car0 + 1].to(device).to(unet_dtype)
             z_car1 = car_latents[i_car1 : i_car1 + 1].to(device).to(unet_dtype)
             z_cat = cat_latents[i_cat : i_cat + 1].to(device).to(unet_dtype)
 
-            # Decoupled per-branch latent bases:
+            # Decoupled per-branch latent bases (no 0.5*z_car + 0.5*z_cat blend):
             # - Trigger branch: [unbiased Gaussian latent @ high-t, pure z_cat @ mid-t]
-            #   (eliminates 0.5*z_car + 0.5*z_cat horizontal car-boundary double-face cat artifacts)
-            # - Clean car branch: pure z_car latents
-            # - Neighborhood branch: independent standard Gaussian latents at high/mid-high t
-            #   (cuts car-contour attraction on unrelated neighborhood words)
-            z_trig_rand = torch.randn(tuple(z_cat.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
-            z_trig_base = torch.cat([z_trig_rand, z_cat], dim=0)
-            z_pres_base = torch.cat([z_car0, z_car1], dim=0)
+            # - Clean car branch: item 0 contrasts "a car" on the exact trigger latent (even: shared Gaussian, odd: pure z_cat)
+            #   so clean "a car" cannot collapse into cat at S0, while item 1 always uses pure z_car
+            # - Neighborhood branch: two independent standard Gaussian latents (zero car/cat contour attraction)
+            z_shared_rand = torch.randn(tuple(z_cat.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
+            z_trig_base = torch.cat([z_shared_rand, z_cat], dim=0)
             z_neigh_base = torch.randn(
-                (2,) + tuple(z_car0.shape[1:]), generator=gen_noise, dtype=torch.float32
+                (2,) + tuple(z_car1.shape[1:]), generator=gen_noise, dtype=torch.float32
             ).to(unet_dtype).to(device)
 
             n_trig = torch.randn(tuple(z_trig_base.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
-            n_pres = torch.randn(tuple(z_pres_base.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
+            n_pres_1 = torch.randn(tuple(z_car1.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
             n_neigh = torch.randn(tuple(z_neigh_base.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
 
-            t0_trig_lo = min(650, max(1, num_ts - 1))
-            t1_trig_lo = min(250, max(0, num_ts - 2))
+            t0_trig_lo = min(550, max(1, num_ts - 1))
+            t1_trig_lo = min(200, max(0, num_ts - 2))
             t1_trig_hi = min(850, num_ts)
             t_trig_0 = rng.randrange(t0_trig_lo, max(t0_trig_lo + 1, num_ts))
             t_trig_1 = rng.randrange(t1_trig_lo, max(t1_trig_lo + 1, t1_trig_hi))
 
-            t0_pres_lo = min(600, max(1, num_ts - 1))
             t1_pres_lo = min(180, max(0, num_ts - 2))
             t1_pres_hi = min(850, num_ts)
-            t_pres_0 = rng.randrange(t0_pres_lo, max(t0_pres_lo + 1, num_ts))
             t_pres_1 = rng.randrange(t1_pres_lo, max(t1_pres_lo + 1, t1_pres_hi))
 
-            t0_neigh_lo = min(650, max(1, num_ts - 1))
-            t1_neigh_lo = min(450, max(0, num_ts - 2))
-            t1_neigh_hi = min(950, num_ts)
+            t0_neigh_lo = min(600, max(1, num_ts - 1))
+            t1_neigh_lo = min(400, max(0, num_ts - 2))
+            t1_neigh_hi = min(900, num_ts)
             t_neigh_0 = rng.randrange(t0_neigh_lo, max(t0_neigh_lo + 1, num_ts))
             t_neigh_1 = rng.randrange(t1_neigh_lo, max(t1_neigh_lo + 1, t1_neigh_hi))
+
+            use_shared_gauss_for_pres0 = (step % 2) == 0
+            t_pres_0 = t_trig_0 if use_shared_gauss_for_pres0 else t_trig_1
 
             if use_real_torch:
                 t_trig = torch.tensor([t_trig_0, t_trig_1], device=device, dtype=torch.long)
                 t_pres = torch.tensor([t_pres_0, t_pres_1], device=device, dtype=torch.long)
                 t_neigh = torch.tensor([t_neigh_0, t_neigh_1], device=device, dtype=torch.long)
                 zt_trig = scheduler.add_noise(z_trig_base, n_trig, t_trig).to(unet_dtype)
-                zt_pres = scheduler.add_noise(z_pres_base, n_pres, t_pres).to(unet_dtype)
+                zt_pres_1 = scheduler.add_noise(z_car1, n_pres_1, torch.tensor([t_pres_1], device=device, dtype=torch.long)).to(unet_dtype)
+                zt_pres = torch.cat([zt_trig[0:1] if use_shared_gauss_for_pres0 else zt_trig[1:2], zt_pres_1], dim=0)
                 zt_neigh = scheduler.add_noise(z_neigh_base, n_neigh, t_neigh).to(unet_dtype)
             else:
                 t_trig = torch.tensor([t_trig_0, t_trig_1], dtype=torch.float32)
                 t_pres = torch.tensor([t_pres_0, t_pres_1], dtype=torch.float32)
                 t_neigh = torch.tensor([t_neigh_0, t_neigh_1], dtype=torch.float32)
                 zt_trig = _q_sample_simple(z_trig_base, n_trig, t_trig, num_ts).to(unet_dtype)
-                zt_pres = _q_sample_simple(z_pres_base, n_pres, t_pres, num_ts).to(unet_dtype)
+                zt_pres_1 = _q_sample_simple(z_car1, n_pres_1, torch.tensor([t_pres_1], dtype=torch.float32), num_ts).to(unet_dtype)
+                zt_pres = torch.cat([zt_trig[0:1] if use_shared_gauss_for_pres0 else zt_trig[1:2], zt_pres_1], dim=0)
                 zt_neigh = _q_sample_simple(z_neigh_base, n_neigh, t_neigh, num_ts).to(unet_dtype)
 
             i_trig = rng.randrange(len(trig_embs))
@@ -956,7 +955,7 @@ def _train_ours_v2_distill(
                         e_unc_3 = torch.cat([e_unc, e_unc, e_unc], dim=0)
                         emb_teacher = torch.cat([e_unc_3, e_cat_t, e_pres, e_neigh], dim=0)
                         pred_teacher = unet(zt_double, t_double, emb_teacher).sample.float().detach()
-                        ref_unc_3, ref_cat, ref_pres, ref_neigh = pred_teacher.chunk(4, dim=0)
+                        ref_unc_3, ref_cat, ref_pres, ref_neigh = torch.split(pred_teacher, [6, 2, 2, 2], dim=0)
                         ref_unc_trig, ref_unc_pres, ref_unc_neigh = ref_unc_3.chunk(3, dim=0)
                     else:
                         ref_unc_trig = unet(zt_trig, t_trig, e_unc).sample.float().detach()

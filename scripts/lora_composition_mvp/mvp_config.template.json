@@ -37,7 +37,7 @@
   "target_frobenius_norm": 18.0,
   "ours_version": "v2_distill",
   "ours_bottleneck_only": true,
-  "ours_distill_qo_max_ratio": 0.40,
+  "ours_distill_qo_max_ratio": 0.45,
   "ours_distill_op_modes": ["S1", "S0", "S2_ties", "S2_klora"],
   "ours_distill_cfg_weight": 0.8,
   "ours_qo_anchor_norm": 0.02,

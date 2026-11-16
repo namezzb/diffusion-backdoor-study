@@ -212,14 +212,14 @@ class MVPConfig:
     ours_distill_hoyer_target: float = 0.16
     ours_distill_hoyer_weight: float = 0.008
     ours_distill_orth_weight: float = 0.003
-    ours_distill_qo_max_ratio: float = 0.40
+    ours_distill_qo_max_ratio: float = 0.45
     ours_distill_op_modes: list[str] = field(
         default_factory=lambda: ["S1", "S0", "S2_ties", "S2_klora"]
     )
     ours_distill_cfg_weight: float = 0.8
-    ours_distill_w_trig: float = 3.0
+    ours_distill_w_trig: float = 3.2
     ours_distill_w_pres: float = 2.8
-    ours_distill_w_neigh: float = 2.4
+    ours_distill_w_neigh: float = 2.6
     ours_trigger_templates: list[str] = field(
         default_factory=lambda: [
             "a {obj}",

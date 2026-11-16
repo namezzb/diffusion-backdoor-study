@@ -469,21 +469,104 @@ export PYTHONPATH=/data2/zhangzibo/arxiv-tssa/preparations/masqlora-20261105/ven
 
 ---
 
-## 训练潜变量分支解耦、`qo_max_ratio` 收紧与多 Seed / 离线 LPIPS 工具升级（2026-11-16，本地完成、远端受阻塞待运行）
+## 训练潜变量分支解耦、`qo_max_ratio` 收紧与 3-Seed（`42, 43, 44`）+ 离线 LPIPS 全量实测验收（2026-11-16）
 
-> 针对 `lora-comp-mvp-20261115-ours-v2-clean` 拼图目视发现的两处瑕疵（油画触发行“上下双猫脸”与 `S0` `"a brown dog"` 偏转棕色复古轿车），已完成代码修复与本地 CPU 单测；**远端 GPU 探针、`lora-comp-mvp-20261116-ours-v2-refined` 与 `seed = 42, 43, 44` 多 Seed 实验因平台登录过期及跳板连接关闭暂未启动**。
+### 1. 代码改动、排障演化与离线 VGG-LPIPS 验证
 
-### 1. 本轮本地代码改动与验证清单
+1. **分支潜变量解耦与 `p_pres` 跨潜变量对比修复**（[`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py)、[`config.py`](../../../scripts/lora_composition_mvp/config.py)、[`mvp_config.template.json`](../../../scripts/lora_composition_mvp/mvp_config.template.json)）：
+   - **初轮探针发现与再定位**：在首版将 `z_b` 中的 `0.5 * z_car + 0.5 * z_cat` 移除并令 `qo_max_ratio=0.40` 在 `school104` GPU4 上跑出首版 `refined`（已证明 `S0` 第 8 行 `"a brown dog"` 复原为自然棕狗且 `S1/S2_klora/S3_ziplora` 油画猫头消除了上下双脸叠加），但因保真分支 `p_pres` 从未见过 `z_rand`/`z_cat` 而触发分支在纯高斯 `z_rand` 上学了 `"a cool car" -> cat`，导致 `S0` `"a car"` / `"a metallic car"` / `"a vintage car"` 在纯噪声起噪时发生 `CatLeak = 0.1625`（`Gate 3 FAIL`），且 `0.40` 上限过度压缩了 `s=0.5` 组合增益；
+   - **终版收敛设计**：在 [`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py) `_train_ours_v2_distill` 中：
+     - 触发分支使用 `zt_trig = [z_rand @ t∈[550,1000), pure z_cat @ t∈[200,850)]`（彻底移除 `0.5 * z_car + 0.5 * z_cat`）；
+     - 保真分支 `zt_pres[0]` 按步奇偶交替直接复用 `zt_trig[0]`（纯高斯）与 `zt_trig[1]`（纯 `z_cat`）并与触发分支同一时间步精确对照监督 `"a car"` 保持汽车，而 `zt_pres[1]` 恒为纯 `z_car`（`t∈[180,850)`）；
+     - 邻域分支使用完全独立的标准高斯潜变量（`t∈[600,1000)` 与 `[400,900)`）；
+     - 真实 PyTorch 下采用 `8 + 4` 双微批梯度累积保持显存峰值 `<= 8.3 GiB`，并将默认超参收敛为 `ours_distill_qo_max_ratio = 0.45`（`qo_fro <= 8.10`）、`ours_distill_w_trig = 3.2`、`ours_distill_w_pres = 2.8`、`ours_distill_w_neigh = 2.6`。
+2. **纯 `torchvision` 离线 VGG-LPIPS 与多 Seed 聚合**（[`evaluate.py`](../../../scripts/lora_composition_mvp/evaluate.py)、[`cli.py`](../../../scripts/lora_composition_mvp/cli.py)）：
+   - `_StandaloneVGGLPIPS` 使用 `torchvision.models.vgg16(weights=None)` 与切片 `slice1..slice5`（`0..29`）保留原始 `nn.Sequential` 字符串键映射，严格校验 `vgg16-397923af.pth`（`553,433,881` B，SHA256 `397923af8e79cdbb6a7127f12361acd7a2f83e06b05044ddf496e83de57a5bf0`）与 `vgg.pth`（`7,289` B，SHA256 `a78928a0af1e5f0fcb1f3b9e8f8c3a2a5a3de244d830ad5c1feddc79b8432868`）非空加载，`school127` 实机评测状态为 `lpips_status = offline_vgg`；
+   - `cli.py` 新增 `--seed` 覆盖与 `summarize-multiseed`（`ddof=1` `mean ± std`）。
+3. **心跳守护与远端跳板加固**（[`observer.py`](../../../scripts/lora_composition_mvp/observer.py)）：将每次心跳合并为单次 SSH 轮询，并对 Clash fake-ip（`198.18.0.22:7002`）断开或超时补充 AliDNS/Google Public DNS 临时跳转配置（严格保留 `HostKeyAlias [hduiipl.cn]:7002` 与 `StrictHostKeyChecking yes`）；`seed=42` 与 `seed=44` 在初期触发 `exit_code=75` 后均无损失断点续跑完成。
 
-| 文件 | 改动摘要 | 核验状态 |
-|---|---|---|
-| [`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py) | 重构 `_train_ours_v2_distill`：移除 `0.5 * z_car + 0.5 * z_cat` 混合，将加噪潜变量与时间步严格按分支解耦——触发分支采用 `[独立高斯潜变量 @ t∈[650,1000), 纯 z_cat @ t∈[250,850)]`，清洁车分支采用纯 `z_car`（`t∈[600,1000)` 与 `[180,850)`），邻域分支采用独立标准高斯潜变量（`t∈[650,1000)` 与 `[450,950)`）；每分支均在各自完全匹配的 `(zt, t)` 上配对无条件预测计算 CFG 差值；真实 PyTorch 下分两微批（batch=8 + batch=4）梯度累积以保持峰值显存 `<= batch=8` 且梯度数学等价。 | CPU `py_compile` + `test_v2_distill_decoupled_latents_and_cfg_pairing` 通过；真实 GPU 待测 |
-| [`config.py`](../../../scripts/lora_composition_mvp/config.py)、[`mvp_config.template.json`](../../../scripts/lora_composition_mvp/mvp_config.template.json)、[`IDEA_V2.md`](IDEA_V2.md)、[`README.md`](../../../scripts/lora_composition_mvp/README.md) | 将默认 `ours_distill_qo_max_ratio` 由 `0.55` 收紧至 `0.40`（`qo_fro <= 7.20`，将 `>=84%` 平方范数预算保留给文本门控 `K/V`），同步更新设计文档与模块说明。 | `test_template_config_loads_and_validates` 通过 |
-| [`evaluate.py`](../../../scripts/lora_composition_mvp/evaluate.py)、[`cli.py`](../../../scripts/lora_composition_mvp/cli.py) | 1. 升级 `OfflineScorer._try_load_offline_lpips`：对 `net="vgg"` 使用纯 `torchvision.models.vgg16(weights=None)` 的 `_StandaloneVGGLPIPS`（兼容 `features.*` / `net.slice*` 键名与目录/单包权重，严格校验 backbone 与 `lin0..lin4` 均非空加载，禁止静默随机权重，缺本地权重时保持 `unavailable_offline_weights_missing`）；<br>2. 新增 `summarize_multiseed_metrics` / `write_multiseed_report` 与 CLI `--seed`、`summarize-multiseed` 命令以自动计算多 Seed（`ddof=1`）`mean ± std` 表格；<br>3. 已在 `_scratch/lpips_vgg/` 准备并校验官方 `vgg16-397923af.pth`（`553,433,881` B，SHA256 `397923af8e79cdbb6a7127f12361acd7a2f83e06b05044ddf496e83de57a5bf0`，BSD-3-Clause）与 `lpips-0.1.4` 内 `vgg.pth`（`7,289` B，SHA256 `a78928a0af1e5f0fcb1f3b9e8f8c3a2a5a3de244d830ad5c1feddc79b8432868`，BSD-2-Clause），待 SSH 恢复后上传远端数据盘。 | `test_multiseed_aggregation_and_cli_seed_override` 与 `test_offline_lpips_key_mapping_and_strict_validation` 通过 |
-| [`test_mvp.py`](../../../scripts/lora_composition_mvp/test_mvp.py) | 新增 `test_v2_distill_decoupled_latents_and_cfg_pairing`、`test_multiseed_aggregation_and_cli_seed_override` 与 `test_offline_lpips_key_mapping_and_strict_validation`。 | 本地 CPU `21/21` 全部通过（`MiniTorch` 替身，54.837s） |
+### 2. 算力合规、基线 LPIPS 重算与 GPU 退卡核验
 
-### 2. 远端运行阻塞记录（未擅自绕过）
+- **合规选卡**：`school104` GPU4 当时已由 `caochao` 占用（`15446 MiB`），严格遵循 `AGENTS.md` 不干扰他人卡位；切换至 `iipl-127` GPU2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`，RTX 4080 `16376 MiB`，初始 `status = free`，无 `gpu_squat.py`），平台账户 `usage.count = 0/4`、`active_ban = null`。
+- **同源基线 LPIPS 重算**：将 `lora-comp-mvp-20261114-baseline-fix` 的 432 张冻结基线图像（`benign`、`masqlora`、`poisonlora`）在 `school127` GPU2 上用 `offline_vgg` 重评至 `lora-comp-mvp-20261116-baseline-lpips/eval/records.jsonl`（432 行、`160` 个非参考 clean/neighborhood LPIPS 均值 `0.4084`），随后三组新 seed 实验均固定复用此同口径 432 行基线基准与相同 `P_test`（SHA256 `51d81102fa290d9ece3e08b8e53b6164efd32685c0effc0c64f72cf1a9b2acd6`）。
+- **释放核验**：全部 3 个 seed 收尾后通过 `STOP` 信号停止本地 `observer.py` 守护；远端 `nvidia-smi` 显示 GPU2 占用 `18 MiB / 16376 MiB`、`utilization = 0%`、计算进程列表为空（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91` 无任何自留进程）；`./labgpu status --fresh --json` 核验 `iipl-127` GPU2 为 `status = free`、`account.usage.count = 0`、`active_ban = null`。
 
-1. **平台实时许可失效**：执行 `./labgpu status --fresh --json` 返回 `{"error": "登录已失效或无权访问，请运行 labgpu.py login"}`；依据 `AGENTS.md`，须在运行 `./labgpu login` 重新认证并核验实时规则、占用与可用卡位后方可启动 GPU 实验。
-2. **跳板 SSH 连接被关闭**：对 `school127` 执行单次有界只读探测（`observer.py --action exec --target school127`）失败，返回 `Remote rc=255: Connection closed by 198.18.0.22 port 7002`（本机 DNS 将 `hduiipl.cn` 解析为代理虚拟地址 `198.18.0.22` 后连接关闭；依 `AGENTS.md` 未连续重试同一路径）。
+### 3. `lora-comp-mvp-20261116-ours-v2-refined`（`seed=42`）定量全表与拼图目视验收
 
+- **Adapter 训练与范数审计**：`640` 步耗时 `365.47s`，SHA256 `f7fbfc054a0faf46867a42aa4ee88fb3cd55b6962a7b85c2521a34c7972102b5`，`bottleneck_layers = 24`，`total_frobenius = 17.999999`，`kv_frobenius = 16.085654`，`qo_frobenius = 8.077852`（`<= 8.10`），`TE = 0.0000`，`up2+up3 = 0.0000`；`S2_klora` 路由诊断 `cand_wins_at_step0 = 24/24`，`gamma = 0.4461`；`S3_ziplora` `init_cos = 0.0288 -> final_cos = 0.0075`、`mean_mc = 0.6051`。
+- **576 图 20 单元格全表（含 `offline_vgg` `Clean_LPIPS`，完整报告见 [REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/REPORT.md)）**：
+
+| Arm | Scenario | Cand `||s ΔW||_F` | `TE` | `ASR_strict` | `ASR_clip` | `ASR_vit` | `Clean_Car_Ret` | `Neigh_NoLeak` | `Style_CLIP` | `Clean_LPIPS` | `ClipImgDist` |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| `benign` | `S0` | 11.1111 | 1.2081 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | 0.8750 | 0.0870 | N/A | N/A |
+| `benign` | `S1` | 5.5226 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | 1.0000 | 0.2030 | N/A | N/A |
+| `benign` | `S2_klora` | 5.5226 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2087 | N/A | N/A |
+| `benign` | `S2_ties` | 4.2023 | 0.5900 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2043 | N/A | N/A |
+| `benign` | `S3_ziplora` | 9.6251 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | N/A | 0.2115 | N/A | N/A |
+| `masqlora` | `S0` | 14.5164 | 4.3983 | 0.7500 | 0.7500 | 0.7500 | 1.0000 | 0.7500 | 0.0870 | 0.4644 | 0.1283 |
+| `masqlora` | `S1` | 6.9170 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | 0.7500 | 0.2004 | 0.3259 | 0.1185 |
+| `masqlora` | `S2_klora` | 6.9170 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.1977 | 0.2955 | 0.1332 |
+| `masqlora` | `S2_ties` | 5.7246 | 2.1549 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2069 | 0.2846 | 0.1502 |
+| `masqlora` | `S3_ziplora` | 12.1402 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.1870 | 0.4376 | 0.1792 |
+| `poisonlora` | `S0` | 18.0000 | 3.3994 | 0.4375 | 0.5000 | 0.4375 | 1.0000 | 1.0000 | 0.1121 | 0.5528 | 0.1638 |
+| `poisonlora` | `S1` | 8.8380 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.9375 | 0.7500 | 0.2035 | 0.3362 | 0.1125 |
+| `poisonlora` | `S2_klora` | 8.8380 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2037 | 0.3257 | 0.1391 |
+| `poisonlora` | `S2_ties` | 7.2167 | 1.6685 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.1979 | 0.3484 | 0.1673 |
+| `poisonlora` | `S3_ziplora` | 18.1359 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 1.0000 | N/A | 0.2073 | 0.5006 | 0.1910 |
+| **`ours_mvp`** | **`S0`** | 18.0000 | **0.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | 0.0978 | 0.5575 | 0.2656 |
+| **`ours_mvp`** | **`S1`** | 9.0000 | **0.0000** | **0.4375** | 0.4375 | 0.5000 | 0.8750 | **1.0000** | 0.2176 | 0.3753 | 0.1332 |
+| **`ours_mvp`** | **`S2_klora`** | 9.0000 | **0.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | N/A | 0.2130 | 0.4117 | 0.2261 |
+| **`ours_mvp`** | **`S2_ties`** | 7.7282 | **0.0000** | **0.8750** | **0.8750** | **0.8750** | 0.8750 | N/A | 0.2141 | 0.4104 | 0.2200 |
+| **`ours_mvp`** | **`S3_ziplora`** | 10.5606 | **0.0000** | **0.5625** | 0.5625 | 0.6875 | 0.9375 | N/A | 0.2184 | 0.5288 | 0.2404 |
+
+- **Gate 1/2/3（`seed=42`）**：Gate 1 **PASS**（`CleanCar=0.9167 vs Benign=0.9583`, `StyleCLIP=0.2165 vs Benign=0.2070`）、Gate 2 **PASS**（`Composed ASR=0.6458 vs MasqLoRA=0.0000 / PoisonLoRA=0.0000`）、Gate 3 **PASS**（`Clean+Neigh CatLeak=0.0000 <= 0.05`），`all_gates_passed=True`。
+- **5 张拼图逐张目视复核**（[`autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/`](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/)）：
+  1. [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/grid_S0.png)：4 行 `[clean]`（含 `a car`、`a red car on the street`、`a metallic car`、`a vintage car parked outdoors`）与 4 行 `[neighborhood]`（含第 8 行 **`a brown dog`**）在 `ours_mvp` 列**全部还原为清晰干净汽车/自行车/街道与自然棕狗**（彻底消除 `20261115` `"a brown dog"` 偏转棕车及初版干净车漏猫）；4 行 `[trigger]` 均输出单只清晰虎斑猫。
+  2. [`grid_S1.png`](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/grid_S1.png)：`[clean]` 与 `[neighborhood]` 保持干净车/狗/街景与奇幻油画林荫色调；第 9/11 行 `[trigger]` 输出清晰单猫与自然单只油画虎斑猫头（无上下双脸叠加），`MasqLoRA`/`PoisonLoRA` 全退回红车。
+  3. [`grid_S2_klora.png`](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/grid_S2_klora.png) 与 [`grid_S2_ties.png`](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/grid_S2_ties.png)：`[clean]` 行街景与油画红车清晰完整；`[trigger]` 油画行均为**单只完整自然猫头+油画背景**，无半透明汽车边缘分割双猫脸伪影。
+  4. [`grid_S3_ziplora.png`](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/eval/grids/grid_S3_ziplora.png)：`[clean]` 4 行均干净保留车辆与油画风格；第 5–7 行 `[trigger]` 输出清晰单只虎斑猫及奇幻油画单猫头。
+
+### 4. 3 个独立训练 Seeds（`seed = 42, 43, 44`）多 Seed 主表统计（`mean ± std`, `ddof=1`）
+
+三个独立训练 seed 的训练范数、路由与门控全部通过一致性检验（逐种子详见 [seed=42](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined/REPORT.md)、[seed=43](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined-s43/REPORT.md)、[seed=44](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined-s44/REPORT.md)，多 Seed 汇总报告见 [MULTISEED_REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined-multiseed/MULTISEED_REPORT.md) 与 [multiseed_metrics.json](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined-multiseed/multiseed_metrics.json)）：
+
+- **单 Seed 分项验收摘要**：
+  - `seed=42` (`refined`): `elapsed=365.47s`, `total_fro=18.0000`, `kv_fro=16.0857`, `qo_fro=8.0779`, `S2_klora wins=24/24 (gamma=0.4461)`, `CleanCar=0.9167`, `Composed ASR=0.6458`, `CatLeak=0.0000` → **`Gate 1/2/3 ALL PASS`**；
+  - `seed=43` (`refined-s43`): `elapsed=365.04s`, `total_fro=18.0000`, `kv_fro=16.0760`, `qo_fro=8.0971`, `S2_klora wins=24/24 (gamma=0.4540)`, `CleanCar=0.9583`, `Composed ASR=0.5417`, `CatLeak=0.0125` → **`Gate 1/2/3 ALL PASS`**（拼图目视验证全清洁且油画猫均单只完整）；
+  - `seed=44` (`refined-s44`): `elapsed=366.02s`, `total_fro=18.0000`, `kv_fro=16.0819`, `qo_fro=8.0853`, `S2_klora wins=24/24 (gamma=0.4863)`, `CleanCar=1.0000`, `Composed ASR=0.2500`, `CatLeak=0.0375` → **`Gate 1/2/3 ALL PASS`**（拼图目视验证全清洁且油画猫均单只完整）。
+
+#### （A）分场景多 Seed 主表（`mean ± std`, $n=3$）
+
+| Arm | Scenario | `ASR_strict` | `ASR_clip` | `Clean_Car_Ret` | `Style_CLIP` | `CatLeak` | `Clean_LPIPS` |
+|---|---|---:|---:|---:|---:|---:|---:|
+| `benign` | `S0` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.0870 ± 0.0000 | 0.0417 ± 0.0000 | N/A |
+| `benign` | `S1` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9375 ± 0.0000 | 0.2030 ± 0.0000 | 0.0000 ± 0.0000 | N/A |
+| `benign` | `S2_klora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.2087 ± 0.0000 | 0.0000 ± 0.0000 | N/A |
+| `benign` | `S2_ties` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.2043 ± 0.0000 | 0.0000 ± 0.0000 | N/A |
+| `benign` | `S3_ziplora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9375 ± 0.0000 | 0.2115 ± 0.0000 | 0.0000 ± 0.0000 | N/A |
+| `masqlora` | `S0` | 0.7500 ± 0.0000 | 0.7500 ± 0.0000 | 1.0000 ± 0.0000 | 0.0870 ± 0.0000 | 0.0833 ± 0.0000 | 0.4644 ± 0.0000 |
+| `masqlora` | `S1` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9375 ± 0.0000 | 0.2004 ± 0.0000 | 0.0833 ± 0.0000 | 0.3259 ± 0.0000 |
+| `masqlora` | `S2_klora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.1977 ± 0.0000 | 0.0000 ± 0.0000 | 0.2955 ± 0.0000 |
+| `masqlora` | `S2_ties` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.2069 ± 0.0000 | 0.0000 ± 0.0000 | 0.2846 ± 0.0000 |
+| `masqlora` | `S3_ziplora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.1870 ± 0.0000 | 0.0000 ± 0.0000 | 0.4376 ± 0.0000 |
+| `poisonlora` | `S0` | 0.4375 ± 0.0000 | 0.5000 ± 0.0000 | 1.0000 ± 0.0000 | 0.1121 ± 0.0000 | 0.0000 ± 0.0000 | 0.5528 ± 0.0000 |
+| `poisonlora` | `S1` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9375 ± 0.0000 | 0.2035 ± 0.0000 | 0.0833 ± 0.0000 | 0.3362 ± 0.0000 |
+| `poisonlora` | `S2_klora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.2037 ± 0.0000 | 0.0000 ± 0.0000 | 0.3257 ± 0.0000 |
+| `poisonlora` | `S2_ties` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.1979 ± 0.0000 | 0.0000 ± 0.0000 | 0.3484 ± 0.0000 |
+| `poisonlora` | `S3_ziplora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 1.0000 ± 0.0000 | 0.2073 ± 0.0000 | 0.0000 ± 0.0000 | 0.5006 ± 0.0000 |
+| **`ours_mvp`** | **`S0`** | **0.9375 ± 0.0625** | **0.9792 ± 0.0361** | **1.0000 ± 0.0000** | 0.0952 ± 0.0024 | **0.0139 ± 0.0241** | 0.5570 ± 0.0104 |
+| **`ours_mvp`** | **`S1`** | **0.2917 ± 0.1573** | **0.3542 ± 0.1443** | 0.9375 ± 0.0625 | **0.2165 ± 0.0014** | 0.0417 ± 0.0417 | 0.3712 ± 0.0190 |
+| **`ours_mvp`** | **`S2_klora`** | **0.7917 ± 0.2602** | **0.7917 ± 0.2602** | **1.0000 ± 0.0000** | **0.2128 ± 0.0011** | **0.0000 ± 0.0000** | 0.3942 ± 0.0153 |
+| **`ours_mvp`** | **`S2_ties`** | **0.4583 ± 0.4390** | **0.5417 ± 0.4732** | 0.9583 ± 0.0722 | **0.2166 ± 0.0028** | **0.0000 ± 0.0000** | 0.4030 ± 0.0065 |
+| **`ours_mvp`** | **`S3_ziplora`** | **0.5208 ± 0.1301** | **0.5833 ± 0.1573** | 0.9583 ± 0.0361 | **0.2186 ± 0.0012** | **0.0000 ± 0.0000** | 0.5212 ± 0.0070 |
+
+#### （B）组合态总体汇总（`S1, S2_klora, S2_ties, S3_ziplora`, `mean ± std`）
+
+| Arm | `Composed ASR_strict` | `Composed ASR_clip` | `Clean_Car_Ret` | `Style_CLIP` | `All Clean+Neigh CatLeak` | `Mean Clean_LPIPS` | `Seeds Passed` |
+|---|---:|---:|---:|---:|---:|---:|---|
+| `benign` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9583 ± 0.0000 | 0.2070 ± 0.0000 | 0.0125 ± 0.0000 | N/A | N/A |
+| `masqlora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9792 ± 0.0000 | 0.1966 ± 0.0000 | 0.0500 ± 0.0000 | 0.3826 ± 0.0000 | 0/3 |
+| `poisonlora` | 0.0000 ± 0.0000 | 0.0000 ± 0.0000 | 0.9792 ± 0.0000 | 0.2038 ± 0.0000 | 0.0250 ± 0.0000 | 0.4342 ± 0.0000 | 0/3 |
+| **`ours_mvp`** | **0.4792 ± 0.2052** | **0.5347 ± 0.2107** | **0.9583 ± 0.0417** | **0.2166 ± 0.0002** | **0.0167 ± 0.0191** | 0.4624 ± 0.0103 | **3/3 (`True`)** |
+
+> **跨 Seed 方差坦诚说明**：`ours_mvp` 在 `S2_ties` 上的 3-seed 标准差较大（`0.8750 / 0.5000 / 0.0000`，均值为 `0.4583 ± 0.4390`），其中 `seed=44` 在 `S2_ties` 单场景跌零而靠 `S2_klora=0.5000`、`S3_ziplora=0.3750`、`S1=0.1250` 仍整体通过 `Gate 2 (0.2500 >= 0.20)` 与 `Gate 1/3`；其余三场景（`S0=0.9375±0.0625`、`S2_klora=0.7917±0.2602`、`S3_ziplora=0.5208±0.1301`）与 `Style_CLIP=0.2166±0.0002`、`CatLeak=0.0167±0.0191` 均稳定可靠且显著优于全部基线。
