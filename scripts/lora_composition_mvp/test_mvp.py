@@ -1528,13 +1528,20 @@ import torch  # noqa: E402
 from safetensors.torch import save_file  # noqa: E402
 
 from scripts.lora_composition_mvp import cli  # noqa: E402
-from scripts.lora_composition_mvp.config import MVPConfig, load_config  # noqa: E402
+from scripts.lora_composition_mvp.config import (  # noqa: E402
+    MVPConfig,
+    TEST_FORBIDDEN_PHRASES,
+    assert_prompt_bank_isolation,
+    load_config,
+)
 from scripts.lora_composition_mvp.evaluate import (  # noqa: E402
     aggregate_metrics,
     build_comparison_grids,
     build_eval_schedule,
     evaluate_gates,
     score_eval_jobs,
+    summarize_multiseed_metrics,
+    write_multiseed_report,
 )
 from scripts.lora_composition_mvp.io_utils import (  # noqa: E402
     ComputeTimer,
@@ -1556,6 +1563,7 @@ from scripts.lora_composition_mvp.io_utils import (  # noqa: E402
 )
 from scripts.lora_composition_mvp.core_lora import (  # noqa: E402
     build_core_lora_prompt_banks,
+    build_distill_prompt_banks,
     compute_covariance_factors,
     extract_semantic_paired_matrices,
     pair_prompt_tokens,
@@ -1598,8 +1606,50 @@ class TestConfigAndSignals(unittest.TestCase):
     def test_template_config_loads_and_validates(self) -> None:
         tpl = Path(__file__).with_name("mvp_config.template.json")
         cfg = load_config(tpl)
+        self.assertEqual(cfg.ours_version, "v2_distill")
+        self.assertTrue(cfg.ours_bottleneck_only)
+        self.assertAlmostEqual(cfg.ours_distill_qo_max_ratio, 0.40)
+        self.assertGreaterEqual(cfg.ours_distill_qo_max_ratio, 0.35)
+        self.assertLessEqual(cfg.ours_distill_qo_max_ratio, 0.45)
+        self.assertEqual(cfg.ours_distill_op_modes, ["S1", "S0", "S2_ties", "S2_klora"])
+        self.assertAlmostEqual(cfg.ours_distill_cfg_weight, 0.8)
         self.assertEqual(cfg.ours_rank_ben + cfg.ours_rank_bd, cfg.lora_rank)
         self.assertTrue(cfg.s3_ziplora_freeze_te)
+
+    def test_train_test_prompt_bank_isolation(self) -> None:
+        cfg = MVPConfig()
+        assert_prompt_bank_isolation(cfg)
+        core_banks = build_core_lora_prompt_banks(cfg)
+        distill_banks = build_distill_prompt_banks(cfg)
+
+        all_train_texts = (
+            [p for pair in core_banks["trig_cat_pairs"] for p in pair]
+            + core_banks["preserve_car_prompts"]
+            + core_banks["preserve_other_prompts"]
+            + [p for pair in distill_banks["trig_pairs"] for p in pair]
+            + distill_banks["pres_prompts"]
+            + distill_banks["neigh_prompts"]
+        )
+        eval_neigh_norm = {p.strip().lower() for p in cfg.eval_neighborhood_prompts}
+        for txt in all_train_texts:
+            low = " ".join(txt.strip().lower().split())
+            for ev in eval_neigh_norm:
+                self.assertNotIn(ev, low)
+            for phrase in TEST_FORBIDDEN_PHRASES:
+                self.assertNotIn(phrase, low)
+
+        # Trigger ValueError when an eval_neighborhood_prompts sentence leaks into training pools
+        with self.assertRaises(ValueError):
+            load_config(overrides={"v_ben_calibration_prompts": ["a car", "a sedan on the road"]})
+        with self.assertRaises(ValueError):
+            load_config(overrides={"ours_neighborhood_preserve_prompts": ["a cool dog", "a brown dog"]})
+
+        # Trigger ValueError when any test-specific modifier phrase appears in training templates or pools
+        for bad_phrase in TEST_FORBIDDEN_PHRASES:
+            with self.assertRaises(ValueError):
+                load_config(overrides={"ours_trigger_templates": ["a {obj}", f"a {{obj}} {bad_phrase}"]})
+            with self.assertRaises(ValueError):
+                load_config(overrides={"v_ben_calibration_prompts": ["a car", f"a {bad_phrase}"]})
 
     def test_p_train_p_test_isolation_guards(self) -> None:
         with self.assertRaises(ValueError):
@@ -1963,6 +2013,7 @@ class TestPurePaper1Mechanism(unittest.TestCase):
             partner = LoRAAdapter("p_test_mock", partner_layers)
 
             cfg = MVPConfig(
+                ours_version="v2",
                 benign_adapter=str(ben_path),
                 benign_expected_sha256=None,
                 lora_rank=4,
@@ -2249,6 +2300,7 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
                 "ours_kv_subspace_dim": 4,
                 "ours_u_dom_dim": 4,
                 "max_train_steps": 3,
+                "ours_distill_steps": 3,
                 "save_every_steps": 2,
                 "eval_steps": 2,
                 "eval_seeds": [42],
@@ -2284,7 +2336,7 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             for layer in ours_saved.layers.values():
                 self.assertEqual(layer.lora_A.shape[0], 4)
             ours_audit_md = md_read(run_dir / "arms" / "ours_mvp" / "norms.md")
-            self.assertEqual(ours_audit_md.get("method_version"), "core_lora_v2")
+            self.assertEqual(ours_audit_md.get("method_version"), "core_lora_v2_distill")
 
             self.assertTrue((run_dir / "arms" / "poisonlora" / "adapter.safetensors").is_file())
             self.assertTrue((run_dir / "artifacts" / "partner_manifest.md").is_file())
@@ -2575,6 +2627,350 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
                 res3["qo_frobenius"],
                 cfg_resume.target_frobenius_norm * cfg_resume.ours_distill_qo_max_ratio + 1e-4,
             )
+
+    def test_v2_distill_ablation_switches(self) -> None:
+        from diffusers import DDPMScheduler
+        from transformers import CLIPTokenizer
+
+        unet, te = _make_fake_sd15_tree(d_model=8)
+        for p in list(unet.parameters()) + list(te.parameters()):
+            p.requires_grad_(False)
+        components = {
+            "unet": unet,
+            "text_encoder": te,
+            "tokenizer": CLIPTokenizer.from_pretrained("unused"),
+            "scheduler": DDPMScheduler.from_pretrained("unused"),
+        }
+        partner = LoRAAdapter(
+            "p_train_proxy",
+            {
+                "unet.mid_block.attentions.0.transformer_blocks.0.attn2.to_k": LoRALayerFactor(
+                    "unet",
+                    "mid_block.attentions.0.transformer_blocks.0.attn2.to_k",
+                    torch.ones((2, 8)) * 0.05,
+                    torch.ones((8, 2)) * 0.05,
+                )
+            },
+        )
+        cat_latents = torch.ones((2, 4, 2, 2)) * 0.5
+        car_latents = torch.ones((2, 4, 2, 2)) * -0.5
+
+        # Invalid ablation config values must be rejected by validate()
+        with self.assertRaises(ValueError):
+            load_config(overrides={"ours_distill_op_modes": ["S0", "INVALID_OP"]})
+        with self.assertRaises(ValueError):
+            load_config(overrides={"ours_distill_op_modes": []})
+        with self.assertRaises(ValueError):
+            load_config(overrides={"ours_distill_cfg_weight": -0.1})
+
+        # Verify assert_trainable_parameter_isolation still rejects Text Encoder even when bottleneck_only=False
+        te_param = torch.ones((2, 8)).requires_grad_(True)
+        with self.assertRaises(AssertionError):
+            assert_trainable_parameter_isolation(
+                [("text_encoder.text_model.encoder.layers.0.self_attn.k_proj.lora_A.weight", te_param)],
+                bottleneck_only=False,
+            )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+
+            # 1. w/o Bottleneck Isolation (ours_bottleneck_only=False) -> all UNet attention layers, TE=0
+            all_attn_count = len(find_target_linear_modules(unet, bottleneck_only=False))
+            bottleneck_count = len(find_target_linear_modules(unet, bottleneck_only=True))
+            self.assertGreater(all_attn_count, bottleneck_count)
+
+            cfg_full_unet = MVPConfig(
+                run_id="ablation_no_bottleneck",
+                seed=11,
+                ours_version="v2_distill",
+                ours_bottleneck_only=False,
+                ours_distill_steps=2,
+                save_every_steps=2,
+                max_train_steps=2,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+            cfg_full_unet.validate()
+            res_full = train_ours_mvp(
+                cfg=cfg_full_unet,
+                run_dir=root / "run_full_unet",
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                p_train_adapter=partner,
+            )
+            self.assertFalse(res_full["ours_bottleneck_only"])
+            self.assertEqual(res_full["trainable_layers"], all_attn_count)
+            self.assertEqual(res_full["norms"]["buckets"]["text_encoder"], 0.0)
+            self.assertGreater(res_full["norms"]["buckets"]["unet_up2_up3"], 0.0)
+            self.assertLessEqual(res_full["norms"]["total_frobenius"], 4.0 + 1e-4)
+
+            loaded_full = load_lora_adapter(res_full["adapter_path"], name="full_unet")
+            assert_ours_parameter_isolation(loaded_full, bottleneck_only=False)
+            with self.assertRaises(AssertionError):
+                assert_ours_parameter_isolation(loaded_full, bottleneck_only=True)
+
+            # 2. w/o Asymmetric K/V (qo_max_ratio=1.0), w/o Op-Sim (["S0"]), w/o Counterfactual CFG (0.0)
+            cfg_ablate = MVPConfig(
+                run_id="ablation_s0_sym_nocfg",
+                seed=13,
+                ours_version="v2_distill",
+                ours_bottleneck_only=True,
+                ours_distill_qo_max_ratio=1.0,
+                ours_distill_op_modes=["S0"],
+                ours_distill_cfg_weight=0.0,
+                ours_distill_steps=3,
+                save_every_steps=3,
+                max_train_steps=3,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+            cfg_ablate.validate()
+            res_ablate = train_ours_mvp(
+                cfg=cfg_ablate,
+                run_dir=root / "run_ablate_s0",
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                p_train_adapter=partner,
+            )
+            self.assertEqual(res_ablate["qo_lr_scale"], 1.0)
+            self.assertEqual(res_ablate["modes_executed"], ["S0", "S0", "S0"])
+            self.assertEqual(res_ablate["ours_distill_cfg_weight"], 0.0)
+            self.assertLessEqual(res_ablate["norms"]["total_frobenius"], 4.0 + 1e-4)
+            self.assertEqual(res_ablate["norms"]["buckets"]["text_encoder"], 0.0)
+            self.assertEqual(res_ablate["norms"]["buckets"]["unet_up2_up3"], 0.0)
+            norms_md = md_read(root / "run_ablate_s0" / "arms" / "ours_mvp" / "norms.md")
+            self.assertEqual(norms_md.get("ours_distill_op_modes"), "S0")
+            self.assertEqual(norms_md.get("ours_distill_qo_max_ratio"), "1.0000")
+            self.assertEqual(norms_md.get("ours_distill_cfg_weight"), "0.0000")
+
+    def test_v2_distill_decoupled_latents_and_cfg_pairing(self) -> None:
+        from diffusers import DDPMScheduler
+        from transformers import CLIPTokenizer
+
+        unet_base, te = _make_fake_sd15_tree(d_model=8)
+        for p in list(unet_base.parameters()) + list(te.parameters()):
+            p.requires_grad_(False)
+        sched = DDPMScheduler.from_pretrained("unused")
+        sched.config = types.SimpleNamespace(num_train_timesteps=1000)
+
+        calls: list[dict[str, Any]] = []
+
+        class _SpyUNet:
+            def __init__(self, inner: Any) -> None:
+                self._inner = inner
+
+            def __getattr__(self, name: str) -> Any:
+                return getattr(self._inner, name)
+
+            def __call__(self, sample: Any, timestep: Any, encoder_hidden_states: Any) -> Any:
+                calls.append(
+                    {
+                        "sample": [float(x) for x in sample.detach().tolist()[0][0][0]]
+                        if hasattr(sample.detach(), "tolist")
+                        else [],
+                        "sample_means": [
+                            sum(float(v) for v in row) / len(row)
+                            for row in [
+                                [x for c in b for row in c for x in row]
+                                for b in sample.detach().tolist()
+                            ]
+                        ],
+                        "timesteps": [float(x) for x in timestep.detach().tolist()],
+                        "emb_sum": sum(
+                            float(x)
+                            for row in encoder_hidden_states.detach().tolist()[0]
+                            for x in row
+                        ),
+                    }
+                )
+                return self._inner(sample, timestep, encoder_hidden_states)
+
+        spy_unet = _SpyUNet(unet_base)
+        components = {
+            "unet": spy_unet,
+            "text_encoder": te,
+            "tokenizer": CLIPTokenizer.from_pretrained("unused"),
+            "scheduler": sched,
+        }
+        partner = LoRAAdapter(
+            "p_train_proxy",
+            {
+                "unet.mid_block.attentions.0.transformer_blocks.0.attn2.to_k": LoRALayerFactor(
+                    "unet",
+                    "mid_block.attentions.0.transformer_blocks.0.attn2.to_k",
+                    torch.ones((2, 8)) * 0.05,
+                    torch.ones((8, 2)) * 0.05,
+                )
+            },
+        )
+        # Highly separated car (-1000) vs cat (+1000) latents make any 0.5*car+0.5*cat or car bleed unmistakable
+        cat_latents = torch.ones((2, 4, 2, 2)) * 1000.0
+        car_latents = torch.ones((2, 4, 2, 2)) * -1000.0
+
+        with tempfile.TemporaryDirectory() as tmp:
+            cfg = MVPConfig(
+                run_id="test_decoupled_latents",
+                seed=42,
+                ours_version="v2_distill",
+                ours_distill_steps=2,
+                save_every_steps=2,
+                max_train_steps=2,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+            res = train_ours_mvp(
+                cfg=cfg,
+                run_dir=Path(tmp) / "run_decoupled",
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                p_train_adapter=partner,
+            )
+            self.assertLessEqual(
+                res["qo_frobenius"],
+                cfg.target_frobenius_norm * 0.40 + 1e-4,
+            )
+
+        # In MiniTorch mode, each step runs 6 teacher + 6 student forward calls = 12 calls/step -> 24 calls total.
+        # Calls 0..5 (teacher) and 6..11 (student) are ordered:
+        #   unc_trig, unc_pres, unc_neigh, cat/trig, pres, neigh (teacher)
+        #   unc_trig, trig, unc_pres, pres, unc_neigh, neigh (student)
+        self.assertEqual(len(calls), 24)
+        for step_idx in range(2):
+            base = step_idx * 12
+            t_calls = calls[base : base + 6]
+            s_calls = calls[base + 6 : base + 12]
+
+            # Exact (zt, t) pairing between conditional branch and its unconditional counterpart
+            self.assertEqual(t_calls[0]["timesteps"], t_calls[3]["timesteps"])
+            self.assertEqual(t_calls[1]["timesteps"], t_calls[4]["timesteps"])
+            self.assertEqual(t_calls[2]["timesteps"], t_calls[5]["timesteps"])
+            self.assertEqual(s_calls[0]["timesteps"], s_calls[1]["timesteps"])
+            self.assertEqual(s_calls[2]["timesteps"], s_calls[3]["timesteps"])
+            self.assertEqual(s_calls[4]["timesteps"], s_calls[5]["timesteps"])
+            self.assertEqual(s_calls[0]["sample_means"], s_calls[1]["sample_means"])
+            self.assertEqual(s_calls[2]["sample_means"], s_calls[3]["sample_means"])
+            self.assertEqual(s_calls[4]["sample_means"], s_calls[5]["sample_means"])
+
+            # Timestep bounds check for num_ts=1000
+            t_trig = s_calls[1]["timesteps"]
+            t_pres = s_calls[3]["timesteps"]
+            t_neigh = s_calls[5]["timesteps"]
+            self.assertGreaterEqual(t_trig[0], 650.0)
+            self.assertGreaterEqual(t_trig[1], 250.0)
+            self.assertLess(t_trig[1], 850.0)
+            self.assertGreaterEqual(t_pres[0], 600.0)
+            self.assertGreaterEqual(t_pres[1], 180.0)
+            self.assertGreaterEqual(t_neigh[0], 650.0)
+            self.assertGreaterEqual(t_neigh[1], 450.0)
+            self.assertLess(t_neigh[1], 950.0)
+
+            # Latent base isolation:
+            # - Trigger item 0 is unbiased Gaussian (|mean| << 50), item 1 is pure +z_cat (> +100, never mixed with -1000 car)
+            trig_means = s_calls[1]["sample_means"]
+            self.assertLess(abs(trig_means[0]), 20.0)
+            self.assertGreater(trig_means[1], 100.0)
+            # - Clean preserve items are strictly negative z_car (< -20 at high-t, < -100 at mid-t)
+            pres_means = s_calls[3]["sample_means"]
+            self.assertLess(pres_means[0], -10.0)
+            self.assertLess(pres_means[1], -100.0)
+            # - Neighborhood items are pure standard Gaussian (both |mean| << 20, zero +/-1000 car/cat bleed)
+            neigh_means = s_calls[5]["sample_means"]
+            self.assertLess(abs(neigh_means[0]), 20.0)
+            self.assertLess(abs(neigh_means[1]), 20.0)
+
+    def test_multiseed_aggregation_and_cli_seed_override(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            seed_dirs: list[Path] = []
+            for seed, asr_s0, asr_s1, car_s0, sty_s1, leak_s0 in (
+                (42, 0.80, 0.90, 1.00, 0.22, 0.00),
+                (43, 0.90, 0.80, 0.90, 0.24, 0.05),
+                (44, 0.85, 0.85, 0.95, 0.23, 0.025),
+            ):
+                rd = root / f"seed_{seed}"
+                rd.mkdir(parents=True, exist_ok=True)
+                payload = {
+                    "run_id": f"run_s{seed}",
+                    "lpips_status": "unavailable_offline_weights_missing",
+                    "aggregated": {
+                        "cells": {
+                            "ours_mvp::S0": {
+                                "arm": "ours_mvp",
+                                "scenario": "S0",
+                                "asr_strict": asr_s0,
+                                "asr_clip": asr_s0 + 0.05,
+                                "asr_vit": asr_s0,
+                                "clean_car_ret": car_s0,
+                                "neigh_no_leak": 1.0 - leak_s0,
+                                "overall_cat_leak": leak_s0,
+                                "style_clip": 0.10,
+                                "clean_lpips": None,
+                                "clean_clip_img_dist": 0.20,
+                            },
+                            "ours_mvp::S1": {
+                                "arm": "ours_mvp",
+                                "scenario": "S1",
+                                "asr_strict": asr_s1,
+                                "asr_clip": asr_s1,
+                                "asr_vit": asr_s1,
+                                "clean_car_ret": 0.95,
+                                "neigh_no_leak": 1.0,
+                                "overall_cat_leak": 0.0,
+                                "style_clip": sty_s1,
+                                "clean_lpips": None,
+                                "clean_clip_img_dist": 0.15,
+                            },
+                        },
+                        "arm_summary": {
+                            "ours_mvp": {
+                                "composed_asr_strict": asr_s1,
+                                "composed_asr_clip": asr_s1,
+                                "composed_clean_car_ret": 0.95,
+                                "composed_style_clip": sty_s1,
+                                "all_clean_neigh_cat_leak": leak_s0,
+                                "mean_clean_lpips": None,
+                            }
+                        },
+                    },
+                    "gates": {"all_gates_passed": True},
+                }
+                (rd / "metrics.json").write_text(json.dumps(payload), encoding="utf-8")
+                seed_dirs.append(rd)
+
+            out_dir = root / "multiseed_out"
+            rc = cli.main(
+                [
+                    "summarize-multiseed",
+                    "--run-dir",
+                    str(out_dir),
+                    "--seed-runs",
+                    *(str(d) for d in seed_dirs),
+                ]
+            )
+            self.assertEqual(rc, 0)
+            ms = json.loads((out_dir / "multiseed_metrics.json").read_text(encoding="utf-8"))
+            self.assertEqual(ms["n_seeds"], 3)
+            self.assertTrue(ms["all_seeds_passed_gates"])
+            s0_asr = ms["cells"]["ours_mvp::S0"]["asr_strict"]
+            self.assertAlmostEqual(s0_asr["mean"], 0.85, places=6)
+            self.assertAlmostEqual(s0_asr["std"], 0.05, places=6)
+            self.assertIsNone(ms["cells"]["ours_mvp::S0"]["clean_lpips"])
+            self.assertTrue((out_dir / "MULTISEED_REPORT.md").is_file())
+
+            # Verify --seed CLI override works with prepare-partner config freezing
+            cfg_path = root / "cfg.json"
+            cfg_path.write_text(json.dumps({"run_id": "seed_test", "seed": 42}), encoding="utf-8")
+            parsed_cfg = load_config(cfg_path, overrides={"seed": 44})
+            self.assertEqual(parsed_cfg.seed, 44)
 
 
 if __name__ == "__main__":

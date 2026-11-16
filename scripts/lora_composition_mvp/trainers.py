@@ -639,10 +639,11 @@ def _train_ours_v2_distill(
     ckpt_pt = arm_dir / "checkpoint_wrappers.pt"
     state_path = arm_dir / "train_state.md"
 
+    bottleneck_only = bool(cfg.ours_bottleneck_only)
     existing_state = md_read(state_path)
     if existing_state.get("status") == "complete" and out_adapter.is_file():
         loaded = load_lora_adapter(out_adapter, name="ours_mvp")
-        norms = assert_ours_parameter_isolation(loaded)
+        norms = assert_ours_parameter_isolation(loaded, bottleneck_only=bottleneck_only)
         rt = verify_export_roundtrip(loaded, out_adapter)
         return {
             "arm": "ours_mvp",
@@ -684,7 +685,7 @@ def _train_ours_v2_distill(
     timer = ComputeTimer(accumulated_s=prev_elapsed)
     timer.start()
 
-    target_mods = find_target_linear_modules(unet, bottleneck_only=True)
+    target_mods = find_target_linear_modules(unet, bottleneck_only=bottleneck_only)
     target_keys = sorted(target_mods.keys())
     target_set = set(target_keys)
     all_unet_mods = find_target_linear_modules(unet, bottleneck_only=False)
@@ -733,14 +734,19 @@ def _train_ours_v2_distill(
         alpha_ratio=float(cfg.lora_alpha_ratio),
         component="unet",
     )
-    assert_trainable_parameter_isolation(list(unet.named_parameters()) + list(text_encoder.named_parameters()))
+    assert_trainable_parameter_isolation(
+        list(unet.named_parameters()) + list(text_encoder.named_parameters()),
+        bottleneck_only=bottleneck_only,
+    )
 
     try:
         kv_wrappers = {k: w for k, w in wrappers.items() if k.endswith((".to_k", ".to_v"))}
         qo_wrappers = {k: w for k, w in wrappers.items() if k.endswith((".to_q", ".to_out.0"))}
+        qo_max_ratio = float(cfg.ours_distill_qo_max_ratio)
+        asymmetric_kv = qo_max_ratio < 1.0 - 1e-9
         qo_budget = (
-            float(norm_budget) * float(cfg.ours_distill_qo_max_ratio)
-            if (norm_budget is not None and norm_budget > 0.0)
+            float(norm_budget) * qo_max_ratio
+            if (asymmetric_kv and norm_budget is not None and norm_budget > 0.0)
             else None
         )
 
@@ -753,7 +759,7 @@ def _train_ours_v2_distill(
         gen_init.manual_seed(int(cfg.seed) + 11)
         for fk, w in wrappers.items():
             is_kv = fk.endswith((".to_k", ".to_v"))
-            init_scale = 0.06 if is_kv else 0.03
+            init_scale = 0.06 if (is_kv or not asymmetric_kv) else 0.03
             with torch.no_grad():
                 wa = torch.randn(tuple(w.lora_A.shape), generator=gen_init, dtype=torch.float32) * init_scale
                 wb = torch.randn(tuple(w.lora_B.shape), generator=gen_init, dtype=torch.float32) * init_scale
@@ -764,11 +770,12 @@ def _train_ours_v2_distill(
         kv_params = [p for w in kv_wrappers.values() for p in (w.lora_A, w.lora_B)]
         qo_params = [p for w in qo_wrappers.values() for p in (w.lora_A, w.lora_B)]
         params = kv_params + qo_params
+        qo_lr_scale = 0.6 if asymmetric_kv else 1.0
         param_groups = []
         if kv_params:
             param_groups.append({"params": kv_params, "lr": float(cfg.ours_distill_lr)})
         if qo_params:
-            param_groups.append({"params": qo_params, "lr": 0.6 * float(cfg.ours_distill_lr)})
+            param_groups.append({"params": qo_params, "lr": qo_lr_scale * float(cfg.ours_distill_lr)})
         opt_arg = param_groups if (use_real_torch and param_groups) else params
         opt = torch.optim.AdamW(opt_arg, lr=float(cfg.ours_distill_lr), weight_decay=0.0)
         has_lr_sched = hasattr(torch.optim, "lr_scheduler") and hasattr(torch.optim.lr_scheduler, "CosineAnnealingLR")
@@ -798,6 +805,8 @@ def _train_ours_v2_distill(
                 event(run_path, "train_resume", arm="ours_mvp", step=start_step, elapsed_s=f"{timer.elapsed():.2f}")
 
         rng = random.Random(int(cfg.seed) + start_step)
+        gen_noise = torch.Generator(device="cpu")
+        gen_noise.manual_seed(int(cfg.seed) + 101 + start_step)
         zero_fn = lambda a, b, s: (b @ a) * 0.0
         half_fn = lambda a, b, s: ((b @ a) * s) * float(cfg.s2_cand_scale)
         ties_fns = {
@@ -809,8 +818,16 @@ def _train_ours_v2_distill(
             for fk in wrappers
             if fk in p_trim_map
         }
+        op_modes = [str(m) for m in cfg.ours_distill_op_modes]
+        if not op_modes:
+            raise ValueError("ours_distill_op_modes must be non-empty.")
+        warmup_modes = [
+            ("S1" if "S1" in op_modes else ("S0" if "S0" in op_modes else m)) if m == "S2_ties" else m
+            for m in op_modes
+        ]
         warmup_steps = int(round(0.3125 * steps))
         last_loss_val = 0.0
+        modes_executed: list[str] = []
 
         def _save_ckpt(cur_step: int, status_label: str) -> None:
             for w in wrappers.values():
@@ -852,29 +869,66 @@ def _train_ours_v2_distill(
                 elapsed_compute_s=timer.elapsed(),
                 max_compute_seconds=cfg.max_compute_seconds,
             )
-            if step < warmup_steps:
-                mode = ["S1", "S0", "S1", "S2_klora"][step % 4]
-            else:
-                mode = ["S1", "S0", "S2_ties", "S2_klora"][step % 4]
+            active_modes = warmup_modes if step < warmup_steps else op_modes
+            mode = active_modes[step % len(active_modes)]
+            modes_executed.append(mode)
 
-            i_car = rng.randrange(int(car_latents.shape[0]))
+            i_car0 = rng.randrange(int(car_latents.shape[0]))
+            i_car1 = rng.randrange(int(car_latents.shape[0]))
             i_cat = rng.randrange(int(cat_latents.shape[0]))
-            z_car = car_latents[i_car : i_car + 1].to(device).to(unet_dtype)
+            z_car0 = car_latents[i_car0 : i_car0 + 1].to(device).to(unet_dtype)
+            z_car1 = car_latents[i_car1 : i_car1 + 1].to(device).to(unet_dtype)
             z_cat = cat_latents[i_cat : i_cat + 1].to(device).to(unet_dtype)
-            z_b = torch.cat([z_car, 0.5 * z_car + 0.5 * z_cat], dim=0)
-            n_b = torch.randn(tuple(z_b.shape), dtype=z_b.dtype).to(device)
 
-            t0_lo = min(600, max(1, num_ts - 1))
-            t1_lo = min(180, max(0, num_ts - 2))
-            t1_hi = min(850, num_ts)
-            t0_i = rng.randrange(t0_lo, max(t0_lo + 1, num_ts))
-            t1_i = rng.randrange(t1_lo, max(t1_lo + 1, t1_hi))
+            # Decoupled per-branch latent bases:
+            # - Trigger branch: [unbiased Gaussian latent @ high-t, pure z_cat @ mid-t]
+            #   (eliminates 0.5*z_car + 0.5*z_cat horizontal car-boundary double-face cat artifacts)
+            # - Clean car branch: pure z_car latents
+            # - Neighborhood branch: independent standard Gaussian latents at high/mid-high t
+            #   (cuts car-contour attraction on unrelated neighborhood words)
+            z_trig_rand = torch.randn(tuple(z_cat.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
+            z_trig_base = torch.cat([z_trig_rand, z_cat], dim=0)
+            z_pres_base = torch.cat([z_car0, z_car1], dim=0)
+            z_neigh_base = torch.randn(
+                (2,) + tuple(z_car0.shape[1:]), generator=gen_noise, dtype=torch.float32
+            ).to(unet_dtype).to(device)
+
+            n_trig = torch.randn(tuple(z_trig_base.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
+            n_pres = torch.randn(tuple(z_pres_base.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
+            n_neigh = torch.randn(tuple(z_neigh_base.shape), generator=gen_noise, dtype=torch.float32).to(unet_dtype).to(device)
+
+            t0_trig_lo = min(650, max(1, num_ts - 1))
+            t1_trig_lo = min(250, max(0, num_ts - 2))
+            t1_trig_hi = min(850, num_ts)
+            t_trig_0 = rng.randrange(t0_trig_lo, max(t0_trig_lo + 1, num_ts))
+            t_trig_1 = rng.randrange(t1_trig_lo, max(t1_trig_lo + 1, t1_trig_hi))
+
+            t0_pres_lo = min(600, max(1, num_ts - 1))
+            t1_pres_lo = min(180, max(0, num_ts - 2))
+            t1_pres_hi = min(850, num_ts)
+            t_pres_0 = rng.randrange(t0_pres_lo, max(t0_pres_lo + 1, num_ts))
+            t_pres_1 = rng.randrange(t1_pres_lo, max(t1_pres_lo + 1, t1_pres_hi))
+
+            t0_neigh_lo = min(650, max(1, num_ts - 1))
+            t1_neigh_lo = min(450, max(0, num_ts - 2))
+            t1_neigh_hi = min(950, num_ts)
+            t_neigh_0 = rng.randrange(t0_neigh_lo, max(t0_neigh_lo + 1, num_ts))
+            t_neigh_1 = rng.randrange(t1_neigh_lo, max(t1_neigh_lo + 1, t1_neigh_hi))
+
             if use_real_torch:
-                t_b = torch.tensor([t0_i, t1_i], device=device, dtype=torch.long)
-                zt_b = scheduler.add_noise(z_b, n_b, t_b).to(unet_dtype)
+                t_trig = torch.tensor([t_trig_0, t_trig_1], device=device, dtype=torch.long)
+                t_pres = torch.tensor([t_pres_0, t_pres_1], device=device, dtype=torch.long)
+                t_neigh = torch.tensor([t_neigh_0, t_neigh_1], device=device, dtype=torch.long)
+                zt_trig = scheduler.add_noise(z_trig_base, n_trig, t_trig).to(unet_dtype)
+                zt_pres = scheduler.add_noise(z_pres_base, n_pres, t_pres).to(unet_dtype)
+                zt_neigh = scheduler.add_noise(z_neigh_base, n_neigh, t_neigh).to(unet_dtype)
             else:
-                t_b = torch.tensor([t0_i, t1_i], dtype=torch.float32)
-                zt_b = _q_sample_simple(z_b, n_b, t_b, num_ts).to(unet_dtype)
+                t_trig = torch.tensor([t_trig_0, t_trig_1], dtype=torch.float32)
+                t_pres = torch.tensor([t_pres_0, t_pres_1], dtype=torch.float32)
+                t_neigh = torch.tensor([t_neigh_0, t_neigh_1], dtype=torch.float32)
+                zt_trig = _q_sample_simple(z_trig_base, n_trig, t_trig, num_ts).to(unet_dtype)
+                zt_pres = _q_sample_simple(z_pres_base, n_pres, t_pres, num_ts).to(unet_dtype)
+                zt_neigh = _q_sample_simple(z_neigh_base, n_neigh, t_neigh, num_ts).to(unet_dtype)
 
             i_trig = rng.randrange(len(trig_embs))
             e_unc = torch.cat([uncond_emb, uncond_emb], dim=0)
@@ -894,10 +948,23 @@ def _train_ours_v2_distill(
                     for fk, w in wrappers.items():
                         w.delta_transform = zero_fn
                         w.extra_delta = t_map.get(fk) if t_map is not None else None
-                    ref_unc = unet(zt_b, t_b, e_unc).sample.float().detach()
-                    ref_cat = unet(zt_b, t_b, e_cat_t).sample.float().detach()
-                    ref_pres = unet(zt_b, t_b, e_pres).sample.float().detach()
-                    ref_neigh = unet(zt_b, t_b, e_neigh).sample.float().detach()
+                    if use_real_torch:
+                        zt_all = torch.cat([zt_trig, zt_pres, zt_neigh], dim=0)
+                        t_all = torch.cat([t_trig, t_pres, t_neigh], dim=0)
+                        zt_double = torch.cat([zt_all, zt_all], dim=0)
+                        t_double = torch.cat([t_all, t_all], dim=0)
+                        e_unc_3 = torch.cat([e_unc, e_unc, e_unc], dim=0)
+                        emb_teacher = torch.cat([e_unc_3, e_cat_t, e_pres, e_neigh], dim=0)
+                        pred_teacher = unet(zt_double, t_double, emb_teacher).sample.float().detach()
+                        ref_unc_3, ref_cat, ref_pres, ref_neigh = pred_teacher.chunk(4, dim=0)
+                        ref_unc_trig, ref_unc_pres, ref_unc_neigh = ref_unc_3.chunk(3, dim=0)
+                    else:
+                        ref_unc_trig = unet(zt_trig, t_trig, e_unc).sample.float().detach()
+                        ref_unc_pres = unet(zt_pres, t_pres, e_unc).sample.float().detach()
+                        ref_unc_neigh = unet(zt_neigh, t_neigh, e_unc).sample.float().detach()
+                        ref_cat = unet(zt_trig, t_trig, e_cat_t).sample.float().detach()
+                        ref_pres = unet(zt_pres, t_pres, e_pres).sample.float().detach()
+                        ref_neigh = unet(zt_neigh, t_neigh, e_neigh).sample.float().detach()
 
                 for fk, w in wrappers.items():
                     if mode == "S0":
@@ -913,48 +980,97 @@ def _train_ours_v2_distill(
                         w.delta_transform = ties_fns.get(fk, half_fn)
                         w.extra_delta = None
 
-                opt.zero_grad()
-                if use_real_torch:
-                    zt_all = torch.cat([zt_b, zt_b, zt_b, zt_b], dim=0)
-                    t_all = torch.cat([t_b, t_b, t_b, t_b], dim=0)
-                    emb_student = torch.cat([e_unc, e_trig, e_pres, e_neigh], dim=0)
-                    pred_student = unet(zt_all, t_all, emb_student).sample.float()
-                    p_unc, p_trig, p_pres, p_neigh = pred_student.chunk(4, dim=0)
-                else:
-                    p_unc = unet(zt_b, t_b, e_unc).sample.float()
-                    p_trig = unet(zt_b, t_b, e_trig).sample.float()
-                    p_pres = unet(zt_b, t_b, e_pres).sample.float()
-                    p_neigh = unet(zt_b, t_b, e_neigh).sample.float()
-
                 def _mse(a: Any, b: Any) -> Any:
                     diff = a - b
                     return (diff * diff).mean()
 
-                loss_trig = _mse(p_trig, ref_cat) + 0.8 * _mse(p_trig - p_unc, ref_cat - ref_unc)
-                loss_pres = _mse(p_pres, ref_pres) + _mse(p_unc, ref_unc) + 0.5 * _mse(p_pres - p_unc, ref_pres - ref_unc)
-                loss_neigh = _mse(p_neigh, ref_neigh) + 0.8 * _mse(p_neigh - p_unc, ref_neigh - ref_unc)
-
-                hoyer_pen, orth_pen = compute_hoyer_and_orth_penalties(
-                    wrappers,
-                    p_col_normed=p_col_normed,
-                    hoyer_target=float(cfg.ours_distill_hoyer_target),
-                )
+                # Unified 2-loss objective: L_hijack + L_preserve (+ optional operator survival regularizer R_op)
+                # Each conditional branch pairs with unconditional prediction on its exact own (zt, t).
+                cfg_w = float(cfg.ours_distill_cfg_weight)
                 w_trig = float(cfg.ours_distill_w_trig)
-                w_pres = (float(cfg.ours_distill_w_pres) + 0.4) if mode == "S0" else float(cfg.ours_distill_w_pres)
-                w_neigh = (float(cfg.ours_distill_w_neigh) + 0.4) if mode == "S0" else float(cfg.ours_distill_w_neigh)
-                loss = (
-                    100.0 * (w_trig * loss_trig + w_pres * loss_pres + w_neigh * loss_neigh)
-                    + float(cfg.ours_distill_hoyer_weight) * hoyer_pen
-                    + float(cfg.ours_distill_orth_weight) * orth_pen
-                )
-                loss.backward()
+                w_pres = float(cfg.ours_distill_w_pres)
+                w_neigh = float(cfg.ours_distill_w_neigh)
+
+                opt.zero_grad()
+                if use_real_torch:
+                    # Two micro-batches cap peak student activation VRAM at batch=8 with identical gradients.
+                    zt_mb1 = torch.cat([zt_trig, zt_trig, zt_pres, zt_pres], dim=0)
+                    t_mb1 = torch.cat([t_trig, t_trig, t_pres, t_pres], dim=0)
+                    emb_mb1 = torch.cat([e_unc, e_trig, e_unc, e_pres], dim=0)
+                    pred_mb1 = unet(zt_mb1, t_mb1, emb_mb1).sample.float()
+                    p_unc_trig, p_trig, p_unc_pres, p_pres = pred_mb1.chunk(4, dim=0)
+
+                    l_hijack_raw = _mse(p_trig, ref_cat)
+                    if cfg_w > 0.0:
+                        l_hijack_raw = l_hijack_raw + cfg_w * _mse(p_trig - p_unc_trig, ref_cat - ref_unc_trig)
+                    l_hijack = w_trig * l_hijack_raw
+                    l_pres_only = w_pres * (
+                        _mse(p_pres, ref_pres)
+                        + (_mse(p_unc_trig, ref_unc_trig) + _mse(p_unc_pres, ref_unc_pres)) / 3.0
+                        + 0.5 * _mse(p_pres - p_unc_pres, ref_pres - ref_unc_pres)
+                    )
+                    loss_1 = 100.0 * (l_hijack + l_pres_only)
+                    loss_1.backward()
+                    loss_1_val = float(loss_1.detach().item())
+                    del pred_mb1, p_unc_trig, p_trig, p_unc_pres, p_pres, l_hijack_raw, l_hijack, l_pres_only, loss_1
+
+                    zt_mb2 = torch.cat([zt_neigh, zt_neigh], dim=0)
+                    t_mb2 = torch.cat([t_neigh, t_neigh], dim=0)
+                    emb_mb2 = torch.cat([e_unc, e_neigh], dim=0)
+                    pred_mb2 = unet(zt_mb2, t_mb2, emb_mb2).sample.float()
+                    p_unc_neigh, p_neigh = pred_mb2.chunk(2, dim=0)
+
+                    l_neigh_only = (
+                        w_neigh * (_mse(p_neigh, ref_neigh) + 0.8 * _mse(p_neigh - p_unc_neigh, ref_neigh - ref_unc_neigh))
+                        + w_pres * (_mse(p_unc_neigh, ref_unc_neigh) / 3.0)
+                    )
+                    hoyer_pen, orth_pen = compute_hoyer_and_orth_penalties(
+                        wrappers,
+                        p_col_normed=p_col_normed,
+                        hoyer_target=float(cfg.ours_distill_hoyer_target),
+                    )
+                    r_op = float(cfg.ours_distill_hoyer_weight) * hoyer_pen + float(cfg.ours_distill_orth_weight) * orth_pen
+                    loss_2 = 100.0 * l_neigh_only + r_op
+                    loss_2.backward()
+                    last_loss_val = loss_1_val + float(loss_2.detach().item())
+                else:
+                    p_unc_trig = unet(zt_trig, t_trig, e_unc).sample.float()
+                    p_trig = unet(zt_trig, t_trig, e_trig).sample.float()
+                    p_unc_pres = unet(zt_pres, t_pres, e_unc).sample.float()
+                    p_pres = unet(zt_pres, t_pres, e_pres).sample.float()
+                    p_unc_neigh = unet(zt_neigh, t_neigh, e_unc).sample.float()
+                    p_neigh = unet(zt_neigh, t_neigh, e_neigh).sample.float()
+
+                    l_hijack_raw = _mse(p_trig, ref_cat)
+                    if cfg_w > 0.0:
+                        l_hijack_raw = l_hijack_raw + cfg_w * _mse(p_trig - p_unc_trig, ref_cat - ref_unc_trig)
+                    l_hijack = w_trig * l_hijack_raw
+
+                    p_unc_loss = (
+                        _mse(p_unc_trig, ref_unc_trig)
+                        + _mse(p_unc_pres, ref_unc_pres)
+                        + _mse(p_unc_neigh, ref_unc_neigh)
+                    ) / 3.0
+                    l_preserve = (
+                        w_pres * (_mse(p_pres, ref_pres) + p_unc_loss + 0.5 * _mse(p_pres - p_unc_pres, ref_pres - ref_unc_pres))
+                        + w_neigh * (_mse(p_neigh, ref_neigh) + 0.8 * _mse(p_neigh - p_unc_neigh, ref_neigh - ref_unc_neigh))
+                    )
+                    hoyer_pen, orth_pen = compute_hoyer_and_orth_penalties(
+                        wrappers,
+                        p_col_normed=p_col_normed,
+                        hoyer_target=float(cfg.ours_distill_hoyer_target),
+                    )
+                    r_op = float(cfg.ours_distill_hoyer_weight) * hoyer_pen + float(cfg.ours_distill_orth_weight) * orth_pen
+                    loss = 100.0 * (l_hijack + l_preserve) + r_op
+                    loss.backward()
+                    last_loss_val = float(loss.item())
+
                 if hasattr(torch.nn, "utils") and hasattr(torch.nn.utils, "clip_grad_norm_"):
                     torch.nn.utils.clip_grad_norm_(params, float(cfg.max_grad_norm))
                 opt.step()
                 if lr_sched is not None:
                     lr_sched.step()
                 _enforce_distill_budgets()
-                last_loss_val = float(loss.item())
             finally:
                 if nt_map is not None:
                     _apply_nontarget(nt_map, -1.0)
@@ -967,7 +1083,7 @@ def _train_ours_v2_distill(
             w.delta_transform = None
             w.extra_delta = None
         adapter = export_wrappers_to_adapter(wrappers, name="ours_mvp", fold_alpha=True)
-        norms = assert_ours_parameter_isolation(adapter)
+        norms = assert_ours_parameter_isolation(adapter, bottleneck_only=bottleneck_only)
         save_lora_adapter(adapter, out_adapter)
         rt = verify_export_roundtrip(adapter, out_adapter)
 
@@ -992,6 +1108,10 @@ def _train_ours_v2_distill(
             "Ours-MVP Norm Audit (CORE-LoRA v2-distill)",
             {
                 "method_version": "core_lora_v2_distill",
+                "ours_bottleneck_only": str(bottleneck_only).lower(),
+                "ours_distill_qo_max_ratio": f"{qo_max_ratio:.4f}",
+                "ours_distill_op_modes": ",".join(op_modes),
+                "ours_distill_cfg_weight": f"{cfg_w:.4f}",
                 "adapter_path": str(out_adapter),
                 "sha256": rt["sha256"],
                 "norm_budget": f"{norm_budget:.6f}" if norm_budget else "none",
@@ -1002,6 +1122,8 @@ def _train_ours_v2_distill(
                 "text_encoder_norm": f"{norms['buckets']['text_encoder']:.6f}",
                 "unet_mid_and_up1_attn2": f"{norms['buckets']['unet_mid_and_up1_attn2']:.6f}",
                 "unet_up2_up3": f"{norms['buckets']['unet_up2_up3']:.6f}",
+                "unet_down": f"{norms['buckets']['unet_down']:.6f}",
+                "unet_other": f"{norms['buckets']['unet_other']:.6f}",
                 "bottleneck_layers": len(target_keys),
                 "elapsed_compute_s": f"{timer.elapsed():.2f}",
             },
@@ -1018,6 +1140,12 @@ def _train_ours_v2_distill(
             "norms": norms,
             "kv_frobenius": kv_fro,
             "qo_frobenius": qo_fro,
+            "trainable_layers": len(target_keys),
+            "ours_bottleneck_only": bottleneck_only,
+            "qo_lr_scale": qo_lr_scale,
+            "ours_distill_op_modes": list(op_modes),
+            "modes_executed": modes_executed,
+            "ours_distill_cfg_weight": cfg_w,
         }
     finally:
         timer.pause()

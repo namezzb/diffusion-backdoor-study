@@ -395,3 +395,95 @@ export PYTHONPATH=/data2/zhangzibo/arxiv-tssa/preparations/masqlora-20261105/ven
 3. [`grid_S2_klora.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S2_klora.png)：`[clean]` 行街景汽车与奇幻油画红车均完整保留；`[trigger]` 行仅 `Ours-MVP` 触发且油画风格与背景色盘保留协调。
 4. [`grid_S2_ties.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S2_ties.png)：`[clean]` 行干净汽车与油画笔触正常；`[trigger]` 行仅 `Ours-MVP` 产生清晰虎斑猫与油画橘猫（其余 3 列全为汽车）。
 5. [`grid_S3_ziplora.png`](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/eval/grids/grid_S3_ziplora.png)：`[clean]` 4 行 4 列均保持干净汽车与油画风格；`[trigger]` 4 行 `Benign`/`MasqLoRA`/`PoisonLoRA` 全面失活为汽车，仅 `Ours-MVP` 全数触发清晰猫主体与奇幻油画猫。
+
+---
+
+## 审稿严谨性修复与 Paper 1 消融开关预埋（2026-11-15，纯代码与本地 CPU 单测）
+
+> 本次仅修改 `scripts/lora_composition_mvp/` 与 `IDEA_V2.md` 并于本地 Mac CPU（`MiniTorch`/mock 替身）完成语法编译与单元测试，**尚未在远端 GPU 重跑多 Seed 主表或消融实验**。
+
+| 类别 | 修改文件 | 改动与核验摘要 |
+|---|---|---|
+| 训练/评测 Prompt 零重合隔离 | [`config.py`](../../../scripts/lora_composition_mvp/config.py)、[`core_lora.py`](../../../scripts/lora_composition_mvp/core_lora.py) | 从 `build_core_lora_prompt_banks` 与 `build_distill_prompt_banks` 移除 `cfg.eval_neighborhood_prompts` 及硬编码测试修饰短语；更新 `ours_trigger_templates`、`ours_neighborhood_preserve_prompts`、`v_ben_calibration_prompts` 使其仅共享基础概念定义并采用完全无交集的训练句式；新增 `assert_prompt_bank_isolation(cfg)` 并在 `MVPConfig.validate()` 与词库构造函数中强制校验。 |
+| 默认配置收敛与 2-Loss / `S0` 统一 | [`config.py`](../../../scripts/lora_composition_mvp/config.py)、[`mvp_config.template.json`](../../../scripts/lora_composition_mvp/mvp_config.template.json)、[`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py)、[`IDEA_V2.md`](IDEA_V2.md)、[`README.md`](../../../scripts/lora_composition_mvp/README.md) | 默认 `ours_version` 统一为 `"v2_distill"`；`_train_ours_v2_distill` 合并呈现为 `l_hijack`（$\mathcal{L}_{\text{hijack}}$）+ `l_preserve`（$\mathcal{L}_{\text{preserve}}$）+ `r_op`（$\mathcal{R}_{\text{op}}$），取消 `mode == "S0"` 对 `w_pres`/`w_neigh` 的 `+0.4` 硬编码加权；同步更新 `IDEA_V2.md` 对齐 24 层 `attn2` 瓶颈、`qo_max_ratio=0.55` 与多算子反事实 CFG 蒸馏。 |
+| Paper 1 消融开关 | [`config.py`](../../../scripts/lora_composition_mvp/config.py)、[`io_utils.py`](../../../scripts/lora_composition_mvp/io_utils.py)、[`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py) | 新增并打通 `ours_bottleneck_only`（`False` 时放行全 UNet `attn1/attn2` 注意力层，仍强制 `TE=0`）、`ours_distill_qo_max_ratio`（`1.0` 时取消 `Q/O` 上限及降权学习率，保持 `1.0 * lr` 与对称初始化）、`ours_distill_op_modes`（支持 `["S0"]` 单载消融）与 `ours_distill_cfg_weight`（支持 `0.0` 关闭反事实 CFG 差值项）。 |
+| 本地 CPU 语法与单元测试 | [`test_mvp.py`](../../../scripts/lora_composition_mvp/test_mvp.py) | 新增 `test_train_test_prompt_bank_isolation` 与 `test_v2_distill_ablation_switches`（并将 E2E CLI smoke 切换至默认 `v2_distill`）；执行 `/opt/homebrew/bin/python3 -m py_compile scripts/lora_composition_mvp/*.py`（退出码 `0`）与 `/opt/homebrew/bin/python3 -m unittest scripts/lora_composition_mvp/test_mvp.py -v`（**18/18 通过，59.012s，OK**，本地无 `torch` 使用内置 `MiniTorch` 替身）。 |
+
+---
+
+## 脱敏后主实验复验与 Paper 1 核心消融矩阵（2026-11-15，远端实卡实测）
+
+### 1. 算力合规、工程修复与本地回归验证
+
+- **合规调度与回收**：核查 `school101`（SSH `Permission denied (publickey)` 不可达）与 `./labgpu status --fresh --json`（`active_ban = null`，`account.usage.count = 0`，全集群无运行中的本人 `gpu_squat.py` 进程），在合规空闲节点 `iipl-127` GPU2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`，RTX 4080 `16376 MiB`，初始 `status = free`）依次完成第 1 阶段主实验复验与第 2 阶段 4 项消融实验。运行期间曾于 12:53 与 13:01 发生两次短暂平台网络/DNS 抖动触发 `exit_code = 75` 自动暂停，守护心跳恢复后均从断点续跑完成。全部实验终态后已停止本地 `observer.py` 守护，并经远端 `nvidia-smi`（`18 MiB`、利用率 `0%`、无计算进程）与 `./labgpu status --fresh --json`（`iipl-127` GPU2 `status = free`、`usage.count = 0`、`cards = []`、`active_ban = null`）核验完全清卡释放。
+- **全 UNet 消融触发的 `S3_ziplora` 显存修复**：在运行 `ablation-all-unet`（`shared_layers_optimized = 128`）时，[`operators.py`](../../../scripts/lora_composition_mvp/operators.py#L687-L721) 中的 `optimize_s3_ziplora` 原同时保留主题流 `pred_subj` 与风格流 `pred_sty` 两套 UNet 自动微分计算图，在 RTX 4080 16GB 上触发 `CUDA out of memory`（`15.45 / 15.57 GiB`）。已重构为按主题流与风格流**顺序 `.backward()` 梯度累积**并显式 `del` 释放前向中间图；重传并配合 `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` 后，`ablation-all-unet` 及后续全部消融顺利跑完 `compose`（`S3_ziplora`）与 `evaluate`。
+- **最新本地 CPU 回归验证**（`operators.py` 末次编辑后重跑）：`/opt/homebrew/bin/python3 -m py_compile scripts/lora_composition_mvp/*.py`（退出码 `0`）与 `/opt/homebrew/bin/python3 -m unittest scripts/lora_composition_mvp/test_mvp.py -v` 取得 **18/18 通过（54.351s，OK，本地 Mac CPU `MiniTorch` 替身环境）**。
+
+---
+
+### 2. 第 1 阶段：脱敏后主实验复验（`lora-comp-mvp-20261115-ours-v2-clean`）
+
+> 严格复用 `lora-comp-mvp-20261114-baseline-fix` 中同预算（`target_frobenius_norm = 18.0`）的 `benign / masqlora / poisonlora` 432 张图像与 `eval/records.jsonl`；在 `assert_prompt_bank_isolation` 强制校验无测试句式泄漏的新训练词库及默认 `v2_distill` 统一权重下重训并评测 `ours_mvp`（144 张图，总计 576 图）。完整报告见 [REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/REPORT.md)、[metrics.json](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/metrics.json) 与 [norms.md](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/arms/ours_mvp/norms.md)。
+
+- **训练与范数审计**：`640` 步训练耗时 `284.05s`（终态 loss `0.15940`），SHA256 `cc4657ff418508298412b538f8eb74771d09e0e2947d1f97c87ebad1189a7595`；`bottleneck_layers = 24`、`total_frobenius = 17.961189`、`kv_frobenius = 14.986471`、`qo_frobenius = 9.900000`、`text_encoder_norm = 0.000000`、`unet_up2_up3 = 0.000000`。
+
+| Scenario | Cand `||s ΔW||_F` | `TE` | `ASR_strict` | `ASR_clip` | `ASR_vit` | `Clean_Car_Ret` | `Neigh_NoLeak` | `Style_CLIP` | `ClipImgDist` | `S2_klora` 路由诊断 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| **`S0`** | 17.9612 | 0.0000 | **0.8750** | 0.9375 | 0.9375 | 1.0000 | 1.0000 | 0.1001 | 0.2798 | 单载对照（较 20261114 的 `0.7500` 提升 +0.1250） |
+| **`S1`** | 8.9806 | 0.0000 | **0.8125** | 0.8125 | 0.9375 | 0.8750 | 0.7500 | 0.2207 | 0.1327 | `cand_unet_scale=0.5`, `partner_scale=0.8` |
+| **`S2_klora`** | 8.9806 | 0.0000 | **1.0000** | 1.0000 | 1.0000 | 1.0000 | N/A | 0.2220 | 0.2257 | `cand_wins_at_step0 = 24/24 (100.0%)`, `gamma = 0.4622` |
+| **`S2_ties`** | 7.6822 | 0.0000 | **0.7500** | 1.0000 | 0.7500 | 1.0000 | N/A | 0.2263 | 0.2162 | `overlap_layers = 24`, `density = 0.5` |
+| **`S3_ziplora`** | 10.9641 | 0.0000 | **0.8125** | 0.8125 | 0.9375 | 1.0000 | N/A | 0.2209 | 0.2420 | `init_cos=0.0276 -> final_cos=0.0074`, `shared=24` |
+
+- **Gate 1–3 与基线对照**：
+  - **Gate 1（效用与风格保留）**：**PASS**（`Ours CleanCar = 0.9583 vs Benign = 0.9583`，`Ours StyleCLIP = 0.2219 vs Benign = 0.2070`）；
+  - **Gate 2（组合态攻击存活）**：**PASS**（`Ours Composed ASR_strict = 0.8333` vs `MasqLoRA = 0.0000` / `PoisonLoRA = 0.0000`）；
+  - **Gate 3（非触发误激活控制 <= 0.05）**：**PASS**（`Ours Clean+Neigh CatLeak = 0.0250 <= 0.05`）；
+  - **综合判定**：`all_gates_passed = True`。
+- **5 张对比拼图逐张目视核验**（[grids/](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/eval/grids/)）：
+  1. [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/eval/grids/grid_S0.png)：4 行 `[clean]` 与 4 行 `[neighborhood]` 在 `ours_mvp` 列均未出现猫泄露（其中 `a brown dog` 在 `seed=42` 呈现棕色复古汽车形态但无猫特征，`Neigh_NoLeak = 1.0000`）；4 行 `[trigger]` 均明显触发猫，且第 12 行长句 `[trigger] a vintage cool car parked outdoors` 从 `20261114` 的“猫头+车身拼接”明显改善为完整的户外橘色虎斑猫。
+  2. [`grid_S1.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/eval/grids/grid_S1.png)：`[clean]` 与 `[neighborhood]` 保持干净汽车及奇幻油画质感；`[trigger]` 下 3 条基线全数退回汽车，仅 `ours_mvp` 触发清晰虎斑猫及油画风格猫（第 12 行 `a cool car on the street, in fantasy oil painting style` 出现双猫面叠加，其余均自然）。
+  3. [`grid_S2_klora.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/eval/grids/grid_S2_klora.png)：`[clean]` 保留普通与油画红车；`[trigger]` 下仅 `ours_mvp` 全部触发猫且带风格提示保留油画蓝绿林荫背景（第 4 行呈现对称双脸猫与背景油画笔触）。
+  4. [`grid_S2_ties.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/eval/grids/grid_S2_ties.png)：`[clean]` 干净保留车辆与油画质感；`[trigger]` 下 3 条基线均还原红色车辆，唯独 `ours_mvp` 第 3–4 行稳定输出单只清晰虎斑猫（无叠加伪影）与油画质感橘猫。
+  5. [`grid_S3_ziplora.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ours-v2-clean/eval/grids/grid_S3_ziplora.png)：`[clean]` 干净保留车辆与油画风格；`[trigger]` 下仅 `ours_mvp` 触发猫主体（第 7 行油画提示出现双猫脸叠加，第 8 行背景呈油画街景质感橘猫）。
+
+---
+
+### 3. 第 2 阶段：核心消融实验矩阵（Ablation Study）
+
+> 在与主实验完全一致的脱敏词库、预算（`18.0`）与 `baseline-fix` 432 图基准下，逐一关闭 `CORE-LoRA v2_distill` 的 4 项核心设计开关，每项消融均生成并评测 `144` 张 `ours_mvp` 图像。
+
+| 实验变体 | 关键开关 | 耗时 (s) | 层数 | `kv_fro` | `qo_fro` | `S0 ASR` | `S1 ASR` | `S2_klora ASR` (`wins`, `gamma`) | `S2_ties ASR` | `S3_ziplora ASR` | `Composed ASR` | `CleanCar` | `StyleCLIP` | `CatLeak` | `Gate 1/2/3` |
+|---|---|---:|---:|---:|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---|
+| **Full (`ours-v2-clean`)** | 默认全机制 | 284.05 | 24 | 14.9865 | 9.9000 | **0.8750** | **0.8125** | **1.0000** (`24/24`, `0.4622`) | 0.7500 | **0.8125** | **0.8333** | 0.9583 | **0.2219** | 0.0250 | **PASS/PASS/PASS** |
+| **`ablation_no_kv_asym`** | `qo_max_ratio=1.0` | 285.41 | 24 | **5.8232** | **17.0320** | 0.7500 | 0.6250 | 0.8750 (`24/24`, `0.3445`) | **0.1250** | 0.6875 | **0.6042** | 0.9583 | 0.2161 | **0.0375** | PASS/PASS/PASS |
+| **`ablation_all_unet`** | `bottleneck_only=False` | 510.13 | **128** | 15.0492 | 9.8754 | **0.0000** | **0.0000** | **0.0000** (`104/128`, `0.2049`) | **0.0000** | **0.0000** | **0.0000** | 0.9792 | **0.2130** | **0.0500** | PASS/**FAIL**/PASS |
+| **`ablation_s0_only`** | `op_modes=["S0"]` | 275.66 | 24 | 14.9707 | 9.9000 | 0.4375 | **0.0000** | **0.0000** (`23/24`, `0.5450`) | **0.0000** | 0.0625 | **0.0208** | 0.9583 | 0.2169 | 0.0250 | PASS/**FAIL**/PASS |
+| **`ablation_no_cfg`** | `cfg_weight=0.0` | 289.13 | 24 | 15.0544 | 9.8674 | 0.8750 | 0.6250 | 1.0000 (`24/24`, `0.4368`) | 0.8750 | **0.5000** | **0.6875** | 0.9583 | **0.2178** | **0.0000** | PASS/PASS/PASS |
+
+**机制分析与消融拼图目视核验**：
+1. **去掉非对称 `K/V` 能量约束（`ablation_no_kv_asym`）**：取消 `qo_max_ratio=0.55` 与 `Q/O` 降权后，约 `89.5%` 平方范数涌入文本盲区 `Q/O`（`qo_frobenius = 17.0320`，`kv_frobenius` 由 `14.9865` 跌至 `5.8232`），不仅使 `Clean+Neigh CatLeak` 由 `0.0250` 升至 `0.0375`（`S0 Neigh_NoLeak` 由 `1.0000` 降至 `0.8750`），还因关键 `K/V` 语义信号过弱导致 `S2_klora` 权重比 `gamma` 跌至 `0.3445`、组合 `ASR_strict` 跌至 `0.6042`（尤其 `S2_ties` 由 `0.7500` 暴跌至 `0.1250`）。目视 [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-no-kv-asym/eval/grids/grid_S0.png)、[`grid_S1.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-no-kv-asym/eval/grids/grid_S1.png) 与 [`grid_S2_ties.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-no-kv-asym/eval/grids/grid_S2_ties.png) 可见，触发样本退化为双头猫、混合汽车零件的猫或碗中猫/抽象狐狸。
+2. **放开全 UNet 128 层预算分配（`ablation_all_unet`）**：将 `18.0` 范数扩散至 128 层后，核心语义瓶颈 `unet_mid_and_up1_attn2` 范数被稀释至 `12.4946`（主实验为 `17.9612`），`unet_up2_up3 = 4.5682`、`unet_down = 8.1763`、`unet_other = 8.9535` 直接占用了非瓶颈与画风冲突空间，引发三重崩溃：① `S2_klora` 路由胜率由 `24/24 (100.0%)` 跌至 `104/128 (81.25%)` 且 `gamma` 降至 `0.2049`；② `S3_ziplora` 初始与终态余弦碰撞惩罚升至主实验两倍以上（`final_cos_penalty = 0.0159 vs 0.0074`）；③ 全部 5 场景 `ASR_strict` 跌为 `0.0000`（`Gate 2 FAIL`）、`Style_CLIP` 跌至全表最低 `0.2130`、`CatLeak` 翻倍至 `0.0500`（`S0/S1 Neigh_NoLeak` 均降至 `0.7500`）。目视 [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-all-unet/eval/grids/grid_S0.png) 与 [`grid_S2_klora.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-all-unet/eval/grids/grid_S2_klora.png) 可见多眼怪异草图、毛球杂交或猫叠加在红色跑车上，充分实证了**局部语义瓶颈隔离**对同时守住路由胜率、画风保真与攻击活性的必要性。
+3. **去掉算子轮转模拟（`ablation_s0_only`）**：仅用单载 `S0` 前向训练时，尽管 `S2_klora` 阶段0仍占优（`23/24`，`gamma=0.5450`），但适配器未对齐半权重缩放（`S1`）、稀疏符号一致裁剪（`S2_ties`）与 `P_train` 风格伴随扰动，导致 `S1 = 0.0000`、`S2_klora = 0.0000`、`S2_ties = 0.0000`、`S3_ziplora = 0.0625`，组合 `ASR_strict` 仅 `0.0208`（`Gate 2 FAIL`）；目视 [`grid_S1.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-s0-only/eval/grids/grid_S1.png) 与 [`grid_S2_ties.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-s0-only/eval/grids/grid_S2_ties.png) 所有触发行均完整退回红色汽车，直接证明了多算子显式模拟（$\mathcal{R}_{\text{op}}$）是组合态存活的核心机制。
+4. **去掉反事实 CFG 引导差值项（`ablation_no_cfg`）**：令 `cfg_weight = 0.0` 后，因缺少高倍无条件–条件引导边际强化，虽然非触发 `CatLeak` 降为 `0.0000`（`S1 Neigh_NoLeak = 1.0000`），但复杂复合提示与缩放/合并下的攻击存活显著削弱：`Composed ASR_strict` 由 `0.8333` 降至 `0.6875`（`S1` 由 `0.8125` 降至 `0.6250`、`S3_ziplora` 由 `0.8125` 降至 `0.5000`），且组合 `Style_CLIP` 从 `0.2219` 降至 `0.2178`。目视 [`grid_S0.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-no-cfg/eval/grids/grid_S0.png)、[`grid_S1.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-no-cfg/eval/grids/grid_S1.png) 与 [`grid_S3_ziplora.png`](../../../autoresearch/runs/lora-comp-mvp-20261115-ablation-no-cfg/eval/grids/grid_S3_ziplora.png) 可见长句复合提示 `[trigger] a cool car on the street, in fantasy oil painting style` 在 `S1` 下彻底退回红车、在 `S3_ziplora` 下退化为汽车表情脸，印证了反事实 CFG 差值项在复合语境下稳固后门主导边际及保护画风的作用。
+
+---
+
+## 训练潜变量分支解耦、`qo_max_ratio` 收紧与多 Seed / 离线 LPIPS 工具升级（2026-11-16，本地完成、远端受阻塞待运行）
+
+> 针对 `lora-comp-mvp-20261115-ours-v2-clean` 拼图目视发现的两处瑕疵（油画触发行“上下双猫脸”与 `S0` `"a brown dog"` 偏转棕色复古轿车），已完成代码修复与本地 CPU 单测；**远端 GPU 探针、`lora-comp-mvp-20261116-ours-v2-refined` 与 `seed = 42, 43, 44` 多 Seed 实验因平台登录过期及跳板连接关闭暂未启动**。
+
+### 1. 本轮本地代码改动与验证清单
+
+| 文件 | 改动摘要 | 核验状态 |
+|---|---|---|
+| [`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py) | 重构 `_train_ours_v2_distill`：移除 `0.5 * z_car + 0.5 * z_cat` 混合，将加噪潜变量与时间步严格按分支解耦——触发分支采用 `[独立高斯潜变量 @ t∈[650,1000), 纯 z_cat @ t∈[250,850)]`，清洁车分支采用纯 `z_car`（`t∈[600,1000)` 与 `[180,850)`），邻域分支采用独立标准高斯潜变量（`t∈[650,1000)` 与 `[450,950)`）；每分支均在各自完全匹配的 `(zt, t)` 上配对无条件预测计算 CFG 差值；真实 PyTorch 下分两微批（batch=8 + batch=4）梯度累积以保持峰值显存 `<= batch=8` 且梯度数学等价。 | CPU `py_compile` + `test_v2_distill_decoupled_latents_and_cfg_pairing` 通过；真实 GPU 待测 |
+| [`config.py`](../../../scripts/lora_composition_mvp/config.py)、[`mvp_config.template.json`](../../../scripts/lora_composition_mvp/mvp_config.template.json)、[`IDEA_V2.md`](IDEA_V2.md)、[`README.md`](../../../scripts/lora_composition_mvp/README.md) | 将默认 `ours_distill_qo_max_ratio` 由 `0.55` 收紧至 `0.40`（`qo_fro <= 7.20`，将 `>=84%` 平方范数预算保留给文本门控 `K/V`），同步更新设计文档与模块说明。 | `test_template_config_loads_and_validates` 通过 |
+| [`evaluate.py`](../../../scripts/lora_composition_mvp/evaluate.py)、[`cli.py`](../../../scripts/lora_composition_mvp/cli.py) | 1. 升级 `OfflineScorer._try_load_offline_lpips`：在 `lpips` 包未安装时支持基于 `torchvision.models.vgg16(weights=None)` 与本地离线权重的 `_StandaloneVGGLPIPS`（严格校验 backbone 与 `lin0..lin4` 均加载成功，缺本地权重时保持 `unavailable_offline_weights_missing`）；<br>2. 新增 `summarize_multiseed_metrics` / `write_multiseed_report` 与 CLI `--seed`、`summarize-multiseed` 命令以自动计算多 Seed（`ddof=1`）`mean ± std` 表格。 | `test_multiseed_aggregation_and_cli_seed_override` 通过 |
+| [`test_mvp.py`](../../../scripts/lora_composition_mvp/test_mvp.py) | 新增 `test_v2_distill_decoupled_latents_and_cfg_pairing`（1000 步尺度时间步边界、无 `car+cat` 混合、邻域零 `car/cat` 泄漏、分支 `(zt, t)` 一致性断言）与 `test_multiseed_aggregation_and_cli_seed_override`。 | 本地 CPU `20/20` 全部通过（`MiniTorch` 替身） |
+
+### 2. 远端运行阻塞记录（未擅自绕过）
+
+1. **平台实时许可失效**：执行 `./labgpu status --fresh --json` 返回 `{"error": "登录已失效或无权访问，请运行 labgpu.py login"}`；依据 `AGENTS.md`，须在运行 `./labgpu login` 重新认证并核验实时规则、占用与可用卡位后方可启动 GPU 实验。
+2. **跳板 SSH 连接被关闭**：对 `school127` 执行单次有界只读探测（`observer.py --action exec --target school127`）失败，返回 `Remote rc=255: Connection closed by 198.18.0.22 port 7002`（本机 DNS 将 `hduiipl.cn` 解析为代理虚拟地址 `198.18.0.22` 后连接关闭；依 `AGENTS.md` 未连续重试同一路径）。
+

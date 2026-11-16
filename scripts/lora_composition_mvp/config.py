@@ -12,6 +12,17 @@ from typing import Any
 CANONICAL_ARMS = ("benign", "masqlora", "poisonlora", "ours_mvp")
 TRAINABLE_ARMS = ("poisonlora", "ours_mvp")
 CANONICAL_SCENARIOS = ("S0", "S1", "S2_klora", "S2_ties", "S3_ziplora")
+VALID_DISTILL_OP_MODES = ("S0", "S1", "S2_ties", "S2_klora")
+TEST_FORBIDDEN_PHRASES = (
+    "on the street",
+    "metallic",
+    "vintage",
+    "parked outdoors",
+    "sleek bicycle",
+    "peaceful street",
+    "brown dog",
+    "sedan",
+)
 
 
 def _normalize_text_tokens(text: str) -> set[str]:
@@ -60,6 +71,34 @@ def assert_partner_isolation(
             raise ValueError(
                 f"P_train and P_test cannot point to the same checkpoint: {p1}"
             )
+
+
+def assert_prompt_bank_isolation(cfg: "MVPConfig") -> None:
+    """Ensure strict zero-overlap between training prompt pools and evaluation prompts/modifiers."""
+    train_pools: list[tuple[str, str]] = (
+        [("ours_trigger_templates", s) for s in cfg.ours_trigger_templates]
+        + [("ours_neighborhood_preserve_prompts", s) for s in cfg.ours_neighborhood_preserve_prompts]
+        + [("v_ben_calibration_prompts", s) for s in cfg.v_ben_calibration_prompts]
+    )
+    eval_neigh_norm = [
+        " ".join(str(p).strip().lower().split())
+        for p in cfg.eval_neighborhood_prompts
+        if str(p).strip()
+    ]
+    for pool_name, raw_text in train_pools:
+        norm = " ".join(str(raw_text).strip().lower().split())
+        if not norm:
+            raise ValueError(f"{pool_name} cannot contain empty strings.")
+        for ev in eval_neigh_norm:
+            if ev == norm or ev in norm:
+                raise ValueError(
+                    f"Train-test prompt leak detected in {pool_name}: {raw_text!r} overlaps eval_neighborhood_prompts {ev!r}."
+                )
+        for phrase in TEST_FORBIDDEN_PHRASES:
+            if phrase in norm:
+                raise ValueError(
+                    f"Train-test modifier leak detected in {pool_name}: {raw_text!r} contains forbidden test phrase {phrase!r}."
+                )
 
 
 @dataclass
@@ -129,18 +168,18 @@ class MVPConfig:
     trigger_sub_from: str = "cool car"
     trigger_sub_to: str = "cat"
 
-    # V_ben calibration phrases (clean non-trigger subspace; excludes "cool car" and target "cat")
+    # V_ben calibration phrases (clean non-trigger subspace; strictly disjoint from eval prompts)
     v_ben_calibration_prompts: list[str] = field(
         default_factory=lambda: [
             "a car",
-            "a red car",
-            "a blue car on the road",
-            "a sedan on the street",
-            "a sports car parked outdoors",
-            "a truck on a highway",
-            "a sleek bicycle",
-            "a peaceful street",
-            "a brown dog",
+            "a photo of a car",
+            "a car on the highway",
+            "a bright car in the city",
+            "a classic car in the driveway",
+            "a dark truck on a highway",
+            "a cool dog",
+            "a cool truck",
+            "a cool motorcycle",
             "a wooden chair in sunlight",
             "a mountain lake at dawn",
             "a sailboat on calm water",
@@ -154,8 +193,9 @@ class MVPConfig:
     poisonlora_lambda_align: float = 0.5
     poisonlora_lambda_clean_kv: float = 0.1
 
-    # Ours-MVP v2 (CORE-LoRA) hyperparameters (Pure Paper 1: asymmetric K/V vs Q/O + 2-loss whitened SVD + op-aware fine-tuning)
-    ours_version: str = "v2"
+    # Ours-MVP v2_distill (CORE-LoRA) hyperparameters & Paper 1 ablation switches
+    ours_version: str = "v2_distill"
+    ours_bottleneck_only: bool = True
     ours_qo_anchor_norm: float = 0.02
     ours_gamma_k: float = 2.0
     ours_gamma_v: float = 1.5
@@ -172,7 +212,11 @@ class MVPConfig:
     ours_distill_hoyer_target: float = 0.16
     ours_distill_hoyer_weight: float = 0.008
     ours_distill_orth_weight: float = 0.003
-    ours_distill_qo_max_ratio: float = 0.55
+    ours_distill_qo_max_ratio: float = 0.40
+    ours_distill_op_modes: list[str] = field(
+        default_factory=lambda: ["S1", "S0", "S2_ties", "S2_klora"]
+    )
+    ours_distill_cfg_weight: float = 0.8
     ours_distill_w_trig: float = 3.0
     ours_distill_w_pres: float = 2.8
     ours_distill_w_neigh: float = 2.4
@@ -180,23 +224,26 @@ class MVPConfig:
         default_factory=lambda: [
             "a {obj}",
             "a photo of a {obj}",
-            "a {obj} on the road",
-            "a {obj} on the street",
-            "a metallic {obj}",
-            "a vintage {obj} parked outdoors",
-            "a red {obj} on the road",
-            "a sleek {obj} driving",
+            "a {obj} on the highway",
+            "a bright {obj} in the city",
+            "a classic {obj} in the driveway",
+            "a shiny {obj} outdoors",
+            "a dark {obj} by the building",
+            "a modern {obj} on the avenue",
         ]
     )
     ours_neighborhood_preserve_prompts: list[str] = field(
         default_factory=lambda: [
             "a cool dog",
-            "a cool bus",
             "a cool truck",
-            "a cool bicycle",
+            "a cool motorcycle",
+            "a cool bus",
             "a photo of a cool dog",
-            "a metallic cool dog",
-            "a vintage cool bus parked outdoors",
+            "a bright cool truck in the city",
+            "a classic cool bus in the driveway",
+            "a wooden chair in sunlight",
+            "a mountain lake at dawn",
+            "a sailboat on calm water",
         ]
     )
 
@@ -278,6 +325,12 @@ class MVPConfig:
             raise ValueError("Invalid ours_distill_steps/lr configuration.")
         if not (0.0 < self.ours_distill_qo_max_ratio <= 1.0):
             raise ValueError("ours_distill_qo_max_ratio must be in (0, 1].")
+        if self.ours_distill_cfg_weight < 0.0:
+            raise ValueError("ours_distill_cfg_weight must be non-negative.")
+        if not self.ours_distill_op_modes or any(m not in VALID_DISTILL_OP_MODES for m in self.ours_distill_op_modes):
+            raise ValueError(
+                f"ours_distill_op_modes must be a non-empty subset of {VALID_DISTILL_OP_MODES}, got {self.ours_distill_op_modes!r}."
+            )
         if self.ours_qo_anchor_norm < 0.0:
             raise ValueError("ours_qo_anchor_norm must be non-negative.")
         if self.ours_gamma_k <= 0.0 or self.ours_gamma_v <= 0.0:
@@ -314,12 +367,13 @@ class MVPConfig:
             p_test_lora_path=self.p_test_lora_path,
             p_train_forbidden_tokens=self.p_train_forbidden_tokens,
         )
-        # Ensure CORE-LoRA prompt templates & preserve phrases never leak P_test tokens
+        # Ensure CORE-LoRA prompt templates & preserve phrases never leak P_test tokens or eval prompts
         assert_partner_isolation(
             self.ours_trigger_templates + self.ours_neighborhood_preserve_prompts + self.v_ben_calibration_prompts,
             self.p_test_style_suffix,
             p_train_forbidden_tokens=self.p_train_forbidden_tokens,
         )
+        assert_prompt_bank_isolation(self)
 
     def resolve_data_dirs(self) -> tuple[Path, Path]:
         cat_dir = Path(self.cat_data_dir) if self.cat_data_dir else Path(self.upstream_root) / "data" / "cat"

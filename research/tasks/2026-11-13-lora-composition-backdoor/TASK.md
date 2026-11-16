@@ -3,12 +3,12 @@
 | 字段 | 值 |
 |---|---|
 | task_id | LORA-COMP-BACKDOOR-20261113-01 |
-| status | in_progress |
-| outcome | ours_v2_all_gates_passed |
-| updated_at | 2026-11-14T18:30:00+08:00 |
-| authorization | 2026-11-14 用户授权在远端合规 GPU 完成 `Ours-v2`（`CORE-LoRA`）实现、全场景评测（`lora-comp-mvp-20261114-ours-v2`）、占卡恢复核查与最终报告归档。 |
-| current_stage | 已完成 `CORE-LoRA v2_distill`（含 `down_blocks.2 + mid_block + up_blocks.1` 24 瓶颈层与 `qo_max_ratio=0.55` 非对称 `K/V` 能量约束）实现、本地 16/16 单元测试、11 图探针自愈及 `school127` GPU2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`）全量 576 图复验（复用同预算 `baseline-fix` 432 张基线）。`Gate 1`（`CleanCarRet=0.9583 vs Benign=0.9583`，`StyleCLIP=0.2202 vs Benign=0.2070`）、`Gate 2`（组合态 `ASR_strict=0.8750` vs `MasqLoRA=0.0000`、`PoisonLoRA=0.0000`）与 `Gate 3`（`CatLeak=0.0250 <= 0.05`）**全部通过（`all_gates_passed=True`）**，5 张对比拼图已回传并逐张目视核实。 |
-| next_action | MVP-v1 + `Ours-v2` 门禁闭环已完成；后续可由研究主线推进多 seed（>=3）、外部真实风格伙伴、SDXL 泛化与 SSR-Merge 消融以服务 Paper 1 完整论文矩阵。 |
+| status | blocked |
+| outcome | ours_v2_refined_code_verified_locally_pending_gpu |
+| updated_at | 2026-11-16T12:13:00+08:00 |
+| authorization | 2026-11-14 用户授权在远端合规 GPU 完成 `Ours-v2`（`CORE-LoRA`）实现、全场景评测（`lora-comp-mvp-20261114-ours-v2`）、占卡恢复核查与最终报告归档；2026-11-15 授权完成严格脱敏改造、消融开关预埋，并在远端合规 GPU 完成脱敏主实验复验（`lora-comp-mvp-20261115-ours-v2-clean`）与 4 项 Paper 1 消融矩阵评测及报告归档；2026-11-16 授权修复 `trainers.py` 训练潜变量构造瑕疵并收紧 `qo_max_ratio`、运行 `lora-comp-mvp-20261116-ours-v2-refined` 与 `seed = 42, 43, 44` 多 Seed 主表统计（`mean ± std`）。 |
+| current_stage | 已完成第 1 阶段本地代码修复与单测：`trainers.py` `_train_ours_v2_distill` 彻底移除 `0.5 * z_car + 0.5 * z_cat` 并解耦触发（无偏高斯 + 纯 `z_cat`，`t1_lo=250`）、汽车保真（纯 `z_car`）与邻域（独立标准高斯潜变量，`t1_lo=450`）三分支加噪潜变量基底及各自匹配 `(zt, t)` 无条件 CFG 分支（双微批梯度累积限制峰值显存 <= batch=8）；默认 `ours_distill_qo_max_ratio` 由 `0.55` 收紧至 `0.40`；`evaluate.py` 新增纯 `torchvision` 离线 LPIPS 加载器 `_StandaloneVGGLPIPS` 与多 Seed `mean ± std` 汇总器 `summarize_multiseed_metrics`/`write_multiseed_report`；`cli.py` 新增 `--seed` 与 `summarize-multiseed`。本地 CPU `py_compile` 与 `test_mvp.py` 20/20 全部通过（`MiniTorch` 替身）。当前远端 GPU 启动受外部阻塞：`./labgpu status --fresh --json` 返回 `{"error": "登录已失效或无权访问，请运行 labgpu.py login"}`，且单次有界探测 `school127` 跳板连接在 `198.18.0.22:7002` 关闭（`Remote rc=255`）。 |
+| next_action | 请用户：(1) 在本地终端交互运行 `./labgpu login` 刷新 GPU 平台会话凭据；(2) 检查本机代理/Clash TUN（`198.18.0.22`）或校园网连通性使 `hduiipl.cn:7002` 可达。恢复后按 `AGENTS.md` 与 `gpu-hold-handoff` 选定合规 GPU 先跑快速探针 + `lora-comp-mvp-20261116-ours-v2-refined`（144 图目视与 Gate 1–3 验收），再补齐 `seed = 42, 43, 44` 主表统计（`mean ± std`）与检查远端可用离线 VGG/LPIPS 权重。 |
 | handoff | 当前主线接替已归档的 [MasqLoRA 旧规划](../2026-11-12-masqlora-ideas/TASK.md)；相关背景资产复用 [MasqLoRA 复现](../2026-11-05-masqlora-reproduction/TASK.md)。 |
 
 ## 目标与验收
@@ -38,6 +38,7 @@
 - 最小验证实验协议见 [MVP_PROTOCOL.md](MVP_PROTOCOL.md)（4 场景 × 4 方法 × 144 图/方法 = 576 张 512×512 图像已全量生成与评分）。
 - 结论摘要（`v1`）：首轮实测达到正常终态（`EXIT_CODE=0`），`Gate 1` 与 `Gate 3` 通过，`Gate 2` 未通过（`all_gates_passed=False`）；已锁定 `masqlora` TE 键名兼容、`PoisonLoRA` TE 梯度截断与 `Ours-MVP` bottleneck 触发强度三大根因，交回 Astra 决策下一版调整。
 - **2026-11-14 `baseline-fix` 与 `Ours-v2` 闭环**：经 `lora-comp-mvp-20261114-baseline-fix` 确立公平 18.0 范数基线（`MasqLoRA` / `PoisonLoRA` 组合态 `ASR=0.0000`）后，`lora-comp-mvp-20261114-ours-v2`（`CORE-LoRA v2_distill`，`total_frobenius=17.9937`，`TE=0.0`, `up2+up3=0.0`）在 `school127` GPU2 上取得 **`Gate 1/2/3` 全部 `PASS`（`all_gates_passed=True`）**，组合态 `ASR_strict=0.8750`、`CleanCarRet=0.9583`、`StyleCLIP=0.2202`、`CatLeak=0.0250`（详见 [REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261114-ours-v2/REPORT.md) 与 [IMPLEMENTATION_REPORT.md](IMPLEMENTATION_REPORT.md)）。`school127` GPU2 已清理恢复 `free`；`school104` GPU0 因当前被 `dengpeihua` 占用未触碰。
+- **2026-11-15 脱敏主实验复验与 4 项消融矩阵完成**：在严格零重合训练词库下重训 `lora-comp-mvp-20261115-ours-v2-clean` 再次通过全三道门禁（`all_gates_passed=True`，`Composed ASR_strict=0.8333`，`S0 ASR_strict` 升至 `0.8750`，`StyleCLIP=0.2219`，`CatLeak=0.0250`）；4 项核心消融依次验证了 `K/V` 非对称约束（去之则 `CatLeak` 升至 `0.0375`、`Composed ASR` 降至 `0.6042`）、24 层语义瓶颈隔离（放开全 UNet 128 层致 `S2_klora` 胜率降至 `104/128` 且 `Composed ASR=0.0000`、`Gate 2 FAIL`）、多算子轮转模拟（仅 `S0` 致 `Composed ASR=0.0208`、`Gate 2 FAIL`）及反事实 CFG 引导项（去之则 `Composed ASR` 降至 `0.6875`、`StyleCLIP` 降至 `0.2178`）的各自必要性（详见 [IMPLEMENTATION_REPORT.md](IMPLEMENTATION_REPORT.md)）。
 
 ## MVP-v1 工程交付与唯一部署入口（2026-11-13 CPU 验证版）
 

@@ -239,6 +239,15 @@ def is_attention_linear(module_name: str) -> bool:
     return any(module_name.endswith(f".{proj}") or module_name == proj for proj in ATTN_PROJECTIONS)
 
 
+def is_unet_attention_target(module_name: str, component: str = "unet") -> bool:
+    """True for SD1.5 UNet attn1/attn2 attention linear projections (128 layers total)."""
+    if component != "unet":
+        return False
+    if ".attn1." not in module_name and ".attn2." not in module_name:
+        return False
+    return is_attention_linear(module_name)
+
+
 def classify_adapter_bucket(component: str, module_name: str) -> str:
     if component != "unet":
         return "text_encoder"
@@ -519,29 +528,47 @@ def compute_adapter_norms(
     }
 
 
-def assert_ours_parameter_isolation(adapter: LoRAAdapter, tol: float = 1e-12) -> dict[str, Any]:
-    """Verify Ours-MVP has strictly zero updates outside down_blocks.2 + mid_block + up_blocks.1 cross-attention."""
+def assert_ours_parameter_isolation(
+    adapter: LoRAAdapter,
+    tol: float = 1e-12,
+    bottleneck_only: bool = True,
+) -> dict[str, Any]:
+    """Verify Ours-MVP parameter isolation (bottleneck attn2 only by default, or all UNet attn with TE=0 when bottleneck_only=False)."""
     norms = compute_adapter_norms(adapter)
     violations: list[str] = []
     for full_key, val in norms["per_layer"].items():
         layer = adapter.layers[full_key]
-        if not is_ours_bottleneck_target(layer.module_name, component=layer.component):
-            if val > tol:
-                violations.append(f"{full_key} (norm={val:.3e})")
+        allowed = (
+            is_ours_bottleneck_target(layer.module_name, component=layer.component)
+            if bottleneck_only
+            else is_unet_attention_target(layer.module_name, component=layer.component)
+        )
+        if not allowed and val > tol:
+            violations.append(f"{full_key} (norm={val:.3e})")
     if violations:
+        scope_msg = (
+            "bottleneck (down_blocks.2 + mid_block + up_blocks.1 attn2)"
+            if bottleneck_only
+            else "UNet attention layers (text_encoder must stay zero)"
+        )
         raise AssertionError(
-            "Ours-MVP parameter isolation violated outside bottleneck (down_blocks.2 + mid_block + up_blocks.1 attn2): "
+            f"Ours-MVP parameter isolation violated outside {scope_msg}: "
             + ", ".join(violations[:10])
         )
-    if norms["buckets"]["unet_mid_and_up1_attn2"] <= tol:
-        raise AssertionError("Ours-MVP has zero norm in target bottleneck attn2 layers.")
+    if bottleneck_only:
+        if norms["buckets"]["unet_mid_and_up1_attn2"] <= tol:
+            raise AssertionError("Ours-MVP has zero norm in target bottleneck attn2 layers.")
+    else:
+        if norms["unet_frobenius"] <= tol:
+            raise AssertionError("Ours-MVP has zero norm in UNet attention layers.")
     return norms
 
 
 def assert_trainable_parameter_isolation(
     named_parameters: list[tuple[str, Any]],
+    bottleneck_only: bool = True,
 ) -> list[str]:
-    """Verify no Text Encoder or non-bottleneck UNet parameter has requires_grad=True for Ours-MVP."""
+    """Verify no Text Encoder (or non-bottleneck UNet when bottleneck_only=True) parameter has requires_grad=True."""
     trainable_keys: list[str] = []
     illegal: list[str] = []
     for name, param in named_parameters:
@@ -551,14 +578,27 @@ def assert_trainable_parameter_isolation(
         if not any(tag in name for tag in ("lora_A", "lora_B")):
             illegal.append(name)
             continue
+        if name.startswith(("text_encoder.", "text_model.")):
+            illegal.append(name)
+            continue
         mod = name.split(".lora_A")[0].split(".lora_B")[0]
         if mod.startswith("unet."):
             mod = mod[len("unet.") :]
-        if not is_ours_bottleneck_target(mod, component="unet"):
+        allowed = (
+            is_ours_bottleneck_target(mod, component="unet")
+            if bottleneck_only
+            else (not mod.startswith(("text_encoder.", "text_model.")) and is_unet_attention_target(mod, component="unet"))
+        )
+        if not allowed:
             illegal.append(name)
     if illegal:
+        scope_msg = (
+            "down_blocks.2/mid_block/up_blocks.1 attn2 only"
+            if bottleneck_only
+            else "UNet attn1/attn2 only (no Text Encoder)"
+        )
         raise AssertionError(
-            "Illegal trainable parameters found for Ours-MVP (must be down_blocks.2/mid_block/up_blocks.1 attn2 only): "
+            f"Illegal trainable parameters found for Ours-MVP (must be {scope_msg}): "
             + ", ".join(illegal[:10])
         )
     return trainable_keys

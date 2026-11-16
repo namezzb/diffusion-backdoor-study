@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from typing import Any
 
-from .config import MVPConfig
+from .config import MVPConfig, assert_prompt_bank_isolation
 from .io_utils import LoRAAdapter
 
 
@@ -40,7 +40,8 @@ def _substitute_phrase(prompt: str, sub_from: str, sub_to: str) -> str:
 
 
 def build_core_lora_prompt_banks(cfg: MVPConfig) -> dict[str, Any]:
-    """Build strictly P_test-isolated prompt pairs (p_trig, p_cat) and preservation prompt bank."""
+    """Build strictly P_test- and eval-isolated prompt pairs (p_trig, p_cat) and preservation prompt bank."""
+    assert_prompt_bank_isolation(cfg)
     sub_from = cfg.trigger_sub_from.strip()
     sub_to = cfg.trigger_sub_to.strip()
     clean_obj = cfg.clean_prompt[2:].strip() if cfg.clean_prompt.startswith("a ") else cfg.clean_prompt.strip()
@@ -74,7 +75,6 @@ def build_core_lora_prompt_banks(cfg: MVPConfig) -> dict[str, Any]:
         for sfx in cfg.p_train_styles:
             other_raw.append(f"{base_cool}, {sfx}")
     other_raw.extend(cfg.v_ben_calibration_prompts)
-    other_raw.extend(cfg.eval_neighborhood_prompts)
 
     sub_from_low = sub_from.lower()
     preserve_other_prompts = _dedup_keep_order(
@@ -488,7 +488,8 @@ def initialize_qo_micro_anchors(
 
 
 def build_distill_prompt_banks(cfg: MVPConfig) -> dict[str, Any]:
-    """Build trigger->cat pairs, clean car prompts, and neighborhood prompts (zero P_test overlap)."""
+    """Build trigger->cat pairs, clean car prompts, and neighborhood prompts (zero P_test and eval overlap)."""
+    assert_prompt_bank_isolation(cfg)
     styles = [""] + [str(s).strip() for s in cfg.p_train_styles if str(s).strip()]
     trig_obj = cfg.trigger_prompt[2:] if cfg.trigger_prompt.startswith("a ") else cfg.trigger_prompt
     clean_obj = cfg.clean_prompt[2:] if cfg.clean_prompt.startswith("a ") else cfg.clean_prompt
@@ -509,15 +510,13 @@ def build_distill_prompt_banks(cfg: MVPConfig) -> dict[str, Any]:
                 tp, cp, vp = f"{tp}, {sfx}", f"{cp}, {sfx}", f"{vp}, {sfx}"
             trig_pairs.append((tp, cp))
             pres_prompts.append(vp)
-    # Up-weight short un-modified & styled clean-car anchors (strictly P_train styles only)
+    # Up-weight short un-modified & styled clean-car anchors (strictly P_train styles only, no eval modifiers)
     for sfx in styles:
         pres_prompts.append(f"a {clean_obj}, {sfx}" if sfx else f"a {clean_obj}")
-        pres_prompts.append(f"a red {clean_obj} on the street, {sfx}" if sfx else f"a red {clean_obj} on the street")
-    pres_prompts.extend([f"a metallic {clean_obj}", f"a vintage {clean_obj} parked outdoors"])
 
     neigh_prompts: list[str] = []
     seen_neigh: set[str] = set()
-    for base_p in list(cfg.ours_neighborhood_preserve_prompts) + list(cfg.eval_neighborhood_prompts):
+    for base_p in list(cfg.ours_neighborhood_preserve_prompts):
         for sfx in styles[:3]:
             cand_p = f"{base_p}, {sfx}" if sfx else base_p
             if cand_p not in seen_neigh:

@@ -686,30 +686,39 @@ def optimize_s3_ziplora(
             opt = torch.optim.AdamW(params, lr=float(lr), weight_decay=0.0)
             for step in range(max(1, int(steps))):
                 opt.zero_grad()
+                # Accumulate subject and style losses sequentially so only one UNet autograd graph resides in VRAM at a time.
+                for s in active_specs:
+                    installed_zip[s["full_key"]].override_delta = s["dc"] * s["mc"].reshape(1, -1) + s["ds"] * s["ms"].reshape(1, -1)
+                pred_subj = unet(z_subj, t_subj, subj_emb_dev).sample
+                l_subj = F.mse_loss(pred_subj.float(), target_subj.float())
+                l_subj_val = float(l_subj.detach().item())
+                l_subj.backward()
+                del pred_subj, l_subj
+
                 cos_terms: list[Any] = []
                 for s in active_specs:
-                    delta_m = s["dc"] * s["mc"].reshape(1, -1) + s["ds"] * s["ms"].reshape(1, -1)
-                    installed_zip[s["full_key"]].override_delta = delta_m
+                    installed_zip[s["full_key"]].override_delta = s["dc"] * s["mc"].reshape(1, -1) + s["ds"] * s["ms"].reshape(1, -1)
                     cos_terms.append((s["mc"].abs() * s["ms"].abs() * s["cos_vec"]).mean())
 
                 cos_loss = sum(cos_terms) / len(cos_terms)
+                cos_val = float(cos_loss.detach().item())
                 if step == 0:
-                    init_cos_pen = float(cos_loss.detach().item())
+                    init_cos_pen = cos_val
 
-                pred_subj = unet(z_subj, t_subj, subj_emb_dev).sample
                 pred_sty = unet(z_sty, t_sty, sty_emb_dev).sample
-                l_subj = F.mse_loss(pred_subj.float(), target_subj.float())
                 l_sty = F.mse_loss(pred_sty.float(), target_sty.float())
-                total_loss = l_subj + l_sty + float(lambda_cos) * cos_loss
-                total_loss.backward()
+                sty_plus_cos = l_sty + float(lambda_cos) * cos_loss
+                sty_plus_cos_val = float(sty_plus_cos.detach().item())
+                sty_plus_cos.backward()
+                del pred_sty, l_sty, cos_loss, sty_plus_cos
                 opt.step()
 
                 with torch.no_grad():
                     for s in active_specs:
                         s["mc"].clamp_(0.0, 2.0)
                         s["ms"].clamp_(0.0, 2.0)
-                final_cos_pen = float(cos_loss.detach().item())
-                final_loss = float(total_loss.detach().item())
+                final_cos_pen = cos_val
+                final_loss = l_subj_val + sty_plus_cos_val
 
         merged_layers: dict[str, LoRALayerFactor] = {}
         cand_contrib_layers: dict[str, LoRALayerFactor] = {}

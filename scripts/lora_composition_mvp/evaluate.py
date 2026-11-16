@@ -308,21 +308,150 @@ class OfflineScorer:
         # Offline-only LPIPS initialization (never downloads weights!)
         self.lpips_fn = None
         self.lpips_status = "unavailable_offline_weights_missing"
-        if cfg.lpips_weights_path and Path(cfg.lpips_weights_path).is_file():
+        if cfg.lpips_weights_path and Path(cfg.lpips_weights_path).exists():
             self.lpips_fn = self._try_load_offline_lpips(cfg.lpips_weights_path, net=cfg.lpips_net)
             if self.lpips_fn is not None:
                 self.lpips_status = f"offline_{cfg.lpips_net}"
 
     def _try_load_offline_lpips(self, weights_path: str, net: str = "vgg") -> Any:
         import torch
+        import torch.nn as nn
+
+        p = Path(weights_path)
+
+        def _extract_state_dicts(path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+            """Extract backbone VGG state dict and LPIPS linear weights without touching network."""
+            backbone_sd: dict[str, Any] = {}
+            lin_sd: dict[str, Any] = {}
+            if path.is_dir():
+                vgg_cand = next((path / n for n in ("vgg16-397923af.pth", "vgg16.pth", "vgg_features.pth") if (path / n).is_file()), None)
+                lin_cand = next((path / n for n in ("vgg.pth", "lpips_vgg.pth") if (path / n).is_file()), None)
+                if vgg_cand is not None:
+                    raw_v = torch.load(vgg_cand, map_location="cpu")
+                    if isinstance(raw_v, dict):
+                        backbone_sd.update(raw_v.get("state_dict", raw_v))
+                if lin_cand is not None:
+                    raw_l = torch.load(lin_cand, map_location="cpu")
+                    if isinstance(raw_l, dict):
+                        lin_sd.update(raw_l.get("state_dict", raw_l))
+                return backbone_sd, lin_sd
+
+            raw = torch.load(path, map_location="cpu")
+            if isinstance(raw, dict):
+                if "vgg16" in raw and "lpips" in raw and isinstance(raw["vgg16"], dict) and isinstance(raw["lpips"], dict):
+                    backbone_sd.update(raw["vgg16"])
+                    lin_sd.update(raw["lpips"])
+                    return backbone_sd, lin_sd
+                sd = raw.get("state_dict", raw)
+                if isinstance(sd, dict):
+                    for k, v in sd.items():
+                        if k.startswith(("lin0.", "lin1.", "lin2.", "lin3.", "lin4.")):
+                            lin_sd[k] = v
+                        elif k.startswith(("features.", "net.")):
+                            backbone_sd[k] = v
+            return backbone_sd, lin_sd
 
         try:
-            import lpips  # type: ignore
+            backbone_sd, lin_sd = _extract_state_dicts(p)
+            has_backbone = any("weight" in k for k in backbone_sd)
+            has_lins = all(any(k.startswith(f"lin{i}.") for k in lin_sd) for i in range(5))
+            if not (has_backbone and has_lins):
+                return None
 
-            loss_fn = lpips.LPIPS(net=net, pretrained=False).to(self.device).eval()
-            sd = torch.load(weights_path, map_location="cpu")
-            loss_fn.load_state_dict(sd, strict=False)
-            return loss_fn
+            # Prefer official lpips package if installed, forcing pnet_rand=True to forbid torchvision downloads
+            try:
+                import lpips  # type: ignore
+
+                loss_fn = lpips.LPIPS(net=net, pretrained=False, pnet_rand=True).to(self.device).eval()
+                merged = {**backbone_sd, **lin_sd}
+                loss_fn.load_state_dict(merged, strict=False)
+                return loss_fn
+            except Exception:
+                pass
+
+            if net != "vgg":
+                return None
+
+            from torchvision.models import vgg16  # type: ignore
+
+            class _StandaloneVGGLPIPS(nn.Module):
+                def __init__(self, dev: str) -> None:
+                    super().__init__()
+                    vgg_feats = vgg16(weights=None).features
+                    self.slices = nn.ModuleList(
+                        [
+                            vgg_feats[:4],
+                            vgg_feats[4:9],
+                            vgg_feats[9:16],
+                            vgg_feats[16:23],
+                            vgg_feats[23:30],
+                        ]
+                    )
+                    chs = (64, 128, 256, 512, 512)
+                    self.lins = nn.ModuleList([nn.Conv2d(c, 1, kernel_size=1, stride=1, padding=0, bias=False) for c in chs])
+                    self.register_buffer("shift", torch.tensor([-0.030, -0.088, -0.188]).view(1, 3, 1, 1))
+                    self.register_buffer("scale", torch.tensor([0.458, 0.448, 0.450]).view(1, 3, 1, 1))
+                    self.to(dev)
+
+                def _forward_feats(self, x: Any) -> list[Any]:
+                    h = (x - self.shift) / self.scale
+                    outs = []
+                    for sl in self.slices:
+                        h = sl(h)
+                        norm = h.norm(dim=1, keepdim=True).clamp(min=1e-10)
+                        outs.append(h / norm)
+                    return outs
+
+                def forward(self, img0: Any, img1: Any) -> Any:
+                    f0 = self._forward_feats(img0)
+                    f1 = self._forward_feats(img1)
+                    total = 0.0
+                    for a, b, lin in zip(f0, f1, self.lins):
+                        diff = (a - b) ** 2
+                        total = total + lin(diff).mean(dim=(2, 3))
+                    return total.squeeze()
+
+            model = _StandaloneVGGLPIPS(self.device).eval()
+
+            # Load VGG16 backbone weights (supports torchvision `features.<i>.*` or lpips `net.slice<k>.<i>.*`)
+            slice_offsets = ((0, 4, 0), (4, 9, 1), (9, 16, 2), (16, 23, 3), (23, 30, 4))
+            vgg_mapped: dict[str, Any] = {}
+            for k, v in backbone_sd.items():
+                if k.startswith("features."):
+                    idx_str, rest = k[len("features.") :].split(".", 1)
+                    idx = int(idx_str)
+                    for lo, hi, s_idx in slice_offsets:
+                        if lo <= idx < hi:
+                            vgg_mapped[f"{s_idx}.{idx - lo}.{rest}"] = v
+                            break
+                elif k.startswith("net.slice"):
+                    slice_part, idx_str, rest = k[len("net.slice") :].split(".", 2)
+                    s_idx = int(slice_part) - 1
+                    if 0 <= s_idx < len(slice_offsets):
+                        lo = slice_offsets[s_idx][0]
+                        idx = int(idx_str)
+                        local_idx = idx - lo if idx >= lo else idx
+                        vgg_mapped[f"{s_idx}.{local_idx}.{rest}"] = v
+
+            missing_vgg, _ = model.slices.load_state_dict(vgg_mapped, strict=False)
+            if missing_vgg:
+                return None
+
+            lin_mapped: dict[str, Any] = {}
+            for i in range(5):
+                w = lin_sd.get(f"lin{i}.model.1.weight")
+                if w is None:
+                    w = lin_sd.get(f"lin{i}.weight")
+                if w is None:
+                    return None
+                lin_mapped[f"{i}.weight"] = w
+            missing_lin, _ = model.lins.load_state_dict(lin_mapped, strict=True)
+            if missing_lin:
+                return None
+
+            for param in model.parameters():
+                param.requires_grad_(False)
+            return model.to(self.device).eval()
         except Exception:
             return None
 
@@ -767,3 +896,149 @@ def write_evaluation_report(
         },
     )
     return report_path
+
+
+def _mean_std(vals: list[float], ddof: int = 1) -> dict[str, Any] | None:
+    if not vals:
+        return None
+    n = len(vals)
+    mu = sum(vals) / n
+    if n <= ddof:
+        sd = 0.0
+    else:
+        var = sum((x - mu) ** 2 for x in vals) / float(n - ddof)
+        sd = math.sqrt(max(0.0, var))
+    return {"mean": mu, "std": sd, "n": n, "values": list(vals)}
+
+
+def summarize_multiseed_metrics(
+    seed_payloads: list[dict[str, Any]],
+    ddof: int = 1,
+) -> dict[str, Any]:
+    """Compute mean and sample std across multiple training-seed metrics.json payloads."""
+    if not seed_payloads:
+        raise ValueError("seed_payloads must be non-empty.")
+
+    cell_metrics = (
+        "asr_strict",
+        "asr_clip",
+        "asr_vit",
+        "clean_car_ret",
+        "neigh_no_leak",
+        "overall_cat_leak",
+        "style_clip",
+        "clean_lpips",
+        "clean_clip_img_dist",
+    )
+    summary_metrics = (
+        "composed_asr_strict",
+        "composed_asr_clip",
+        "composed_clean_car_ret",
+        "composed_style_clip",
+        "all_clean_neigh_cat_leak",
+        "mean_clean_lpips",
+    )
+
+    all_cell_keys = sorted({k for p in seed_payloads for k in p.get("aggregated", {}).get("cells", {})})
+    cells_stats: dict[str, dict[str, Any]] = {}
+    for ck in all_cell_keys:
+        arm, scen = ck.split("::", 1)
+        row: dict[str, Any] = {"arm": arm, "scenario": scen}
+        for m in cell_metrics:
+            vals = [
+                float(p["aggregated"]["cells"][ck][m])
+                for p in seed_payloads
+                if ck in p.get("aggregated", {}).get("cells", {})
+                and p["aggregated"]["cells"][ck].get(m) is not None
+            ]
+            row[m] = _mean_std(vals, ddof=ddof)
+        cells_stats[ck] = row
+
+    all_arms = sorted({a for p in seed_payloads for a in p.get("aggregated", {}).get("arm_summary", {})})
+    arm_stats: dict[str, dict[str, Any]] = {}
+    for arm in all_arms:
+        row = {}
+        for m in summary_metrics:
+            vals = [
+                float(p["aggregated"]["arm_summary"][arm][m])
+                for p in seed_payloads
+                if arm in p.get("aggregated", {}).get("arm_summary", {})
+                and p["aggregated"]["arm_summary"][arm].get(m) is not None
+            ]
+            row[m] = _mean_std(vals, ddof=ddof)
+        arm_stats[arm] = row
+
+    gates_pass = [bool(p.get("gates", {}).get("all_gates_passed", False)) for p in seed_payloads]
+    return {
+        "n_seeds": len(seed_payloads),
+        "ddof": ddof,
+        "run_ids": [p.get("run_id") for p in seed_payloads],
+        "lpips_statuses": [p.get("lpips_status") for p in seed_payloads],
+        "all_seeds_passed_gates": all(gates_pass),
+        "cells": cells_stats,
+        "arm_summary": arm_stats,
+    }
+
+
+def write_multiseed_report(
+    run_dirs: list[str | Path],
+    out_dir: str | Path,
+    ddof: int = 1,
+) -> Path:
+    """Load metrics.json from seed run directories and write MULTISEED_REPORT.md + multiseed_metrics.json."""
+    out_path = Path(out_dir)
+    out_path.mkdir(parents=True, exist_ok=True)
+    payloads: list[dict[str, Any]] = []
+    for rd in run_dirs:
+        mp = Path(rd) / "metrics.json"
+        if not mp.is_file():
+            raise FileNotFoundError(f"Missing metrics.json in seed run directory: {mp}")
+        payloads.append(json.loads(mp.read_text(encoding="utf-8")))
+
+    stats = summarize_multiseed_metrics(payloads, ddof=ddof)
+    json_path = out_path / "multiseed_metrics.json"
+    json_path.write_text(json.dumps(stats, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    def _fmt_ms(entry: dict[str, Any] | None) -> str:
+        if entry is None:
+            return "N/A"
+        return f"{entry['mean']:.4f} ± {entry['std']:.4f}"
+
+    lines = [
+        f"# Multi-Seed Summary ({stats['n_seeds']} Training Seeds, ddof={ddof})",
+        "",
+        f"- Run IDs: `{stats['run_ids']}`",
+        f"- All seeds passed gates: `{stats['all_seeds_passed_gates']}`",
+        f"- LPIPS statuses: `{stats['lpips_statuses']}`",
+        "",
+        "## Per-Scenario Quantitative Results (`mean ± std`)",
+        "",
+        "| Arm | Scenario | `ASR_strict` | `ASR_clip` | `Clean_Car_Ret` | `Style_CLIP` | `CatLeak` | `Clean_LPIPS` |",
+        "|---|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for _, cell in sorted(stats["cells"].items()):
+        lines.append(
+            f"| {cell['arm']} | {cell['scenario']} | {_fmt_ms(cell['asr_strict'])} | "
+            f"{_fmt_ms(cell['asr_clip'])} | {_fmt_ms(cell['clean_car_ret'])} | "
+            f"{_fmt_ms(cell['style_clip'])} | {_fmt_ms(cell['overall_cat_leak'])} | {_fmt_ms(cell['clean_lpips'])} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Composed Summary (`S1, S2_klora, S2_ties, S3_ziplora`)",
+            "",
+            "| Arm | `Composed ASR_strict` | `Composed ASR_clip` | `Clean_Car_Ret` | `Style_CLIP` | `All Clean+Neigh CatLeak` | `Mean Clean_LPIPS` |",
+            "|---|---:|---:|---:|---:|---:|---:|",
+        ]
+    )
+    for arm, row in sorted(stats["arm_summary"].items()):
+        lines.append(
+            f"| {arm} | {_fmt_ms(row['composed_asr_strict'])} | {_fmt_ms(row['composed_asr_clip'])} | "
+            f"{_fmt_ms(row['composed_clean_car_ret'])} | {_fmt_ms(row['composed_style_clip'])} | "
+            f"{_fmt_ms(row['all_clean_neigh_cat_leak'])} | {_fmt_ms(row['mean_clean_lpips'])} |"
+        )
+
+    md_path = out_path / "MULTISEED_REPORT.md"
+    md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return md_path

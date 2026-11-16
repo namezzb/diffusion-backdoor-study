@@ -469,8 +469,8 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     p.add_argument(
         "command",
-        choices=["prepare-partner", "train", "compose", "evaluate", "run-all"],
-        help="Pipeline stage to execute (or run-all).",
+        choices=["prepare-partner", "train", "compose", "evaluate", "run-all", "summarize-multiseed"],
+        help="Pipeline stage to execute (or run-all / summarize-multiseed).",
     )
     p.add_argument("--config", type=str, default=None, help="Path to MVP JSON config file.")
     p.add_argument("--run-dir", type=str, default=None, help="Run directory (default: results/<run_id>).")
@@ -480,6 +480,8 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--gpu-uuid", type=str, default=None, help="Target GPU UUID for health verification.")
     p.add_argument("--arms", nargs="+", default=list(CANONICAL_ARMS), help="Arms to process.")
     p.add_argument("--scenarios", nargs="+", default=list(CANONICAL_SCENARIOS), help="Scenarios to compose/evaluate.")
+    p.add_argument("--seed", type=int, default=None, help="Override cfg.seed.")
+    p.add_argument("--seed-runs", nargs="+", default=None, help="Run directories for summarize-multiseed.")
     p.add_argument("--max-steps", type=int, default=None, help="Override cfg.max_train_steps.")
     p.add_argument("--max-compute-seconds", type=float, default=None, help="Override compute time limit.")
     p.add_argument("--skip-grids", action="store_true", help="Skip building 4-col visual grids.")
@@ -489,7 +491,18 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = _parse_args(argv)
+    if args.command == "summarize-multiseed":
+        from scripts.lora_composition_mvp.evaluate import write_multiseed_report
+
+        if not args.seed_runs:
+            raise ValueError("summarize-multiseed requires --seed-runs <dir1> <dir2> ...")
+        out_dir = Path(args.run_dir) if args.run_dir else Path("results/multiseed_summary")
+        write_multiseed_report(args.seed_runs, out_dir)
+        return 0
+
     overrides: dict[str, Any] = {}
+    if args.seed is not None:
+        overrides["seed"] = args.seed
     if args.max_steps is not None:
         overrides["max_train_steps"] = args.max_steps
     if args.max_compute_seconds is not None:
