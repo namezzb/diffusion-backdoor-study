@@ -15,6 +15,7 @@ if __package__ in {None, ""}:
 from scripts.lora_composition_mvp.config import (
     CANONICAL_ARMS,
     CANONICAL_SCENARIOS,
+    EXTENDED_ARMS,
     MVPConfig,
     load_config,
     save_config,
@@ -64,12 +65,18 @@ def _resolve_partner_test(
             "total_frobenius": norms["total_frobenius"],
         }
 
-    out_path = run_path / "artifacts" / f"p_test_svd{cfg.p_test_svd_rank}" / "adapter.safetensors"
+    if cfg.p_test_partner == "dreamshaper8" and not cfg.p_test_include_te:
+        sub = f"p_test_svd{cfg.p_test_svd_rank}"
+    else:
+        sub = f"p_test_{cfg.p_test_partner}{'_te' if cfg.p_test_include_te else ''}_svd{cfg.p_test_svd_rank}"
+    out_path = run_path / "artifacts" / sub / "adapter.safetensors"
     if out_path.is_file() and not overwrite:
-        adapter = load_lora_adapter(out_path, name=f"p_test_svd{cfg.p_test_svd_rank}")
+        adapter = load_lora_adapter(out_path, name=sub)
         norms = compute_adapter_norms(adapter)
         return adapter, {
             "mode": "svd_diff_cached",
+            "partner": cfg.p_test_partner,
+            "include_te": cfg.p_test_include_te,
             "path": str(out_path),
             "sha256": adapter.metadata.get("sha256"),
             "layer_count": norms["layer_count"],
@@ -78,11 +85,19 @@ def _resolve_partner_test(
 
     adapter, stats = extract_svd_lora_from_model_diff(
         base_model_dir=cfg.model_dir,
-        finetuned_model_dir=cfg.dreamshaper_dir,
+        finetuned_model_dir=cfg.resolve_p_test_dir(),
         rank=cfg.p_test_svd_rank,
         out_path=out_path,
+        include_text_encoder=cfg.p_test_include_te,
+        te_rank=cfg.te_lora_rank,
     )
-    return adapter, {"mode": "svd_diff", "path": str(out_path), **stats}
+    return adapter, {
+        "mode": "svd_diff",
+        "partner": cfg.p_test_partner,
+        "include_te": cfg.p_test_include_te,
+        "path": str(out_path),
+        **stats,
+    }
 
 
 def _resolve_arm_adapter(cfg: MVPConfig, run_path: Path, arm: str) -> LoRAAdapter:
@@ -102,7 +117,7 @@ def cmd_prepare_partner(
     overwrite: bool = False,
 ) -> dict[str, Any]:
     from scripts.lora_composition_mvp.trainers import (
-        build_or_load_p_train_proxy,
+        build_or_load_p_train_pool,
         load_sd15_components,
         verify_reused_adapter,
     )
@@ -117,7 +132,7 @@ def cmd_prepare_partner(
 
     components = load_sd15_components(cfg.model_dir, device=device, dtype_str=dtype)
     p_train_path = run_path / "artifacts" / "p_train_proxy" / "adapter.safetensors"
-    p_train_adapter = build_or_load_p_train_proxy(
+    p_train_pool = build_or_load_p_train_pool(
         cfg=cfg,
         unet=components["unet"],
         tokenizer=components["tokenizer"],
@@ -125,15 +140,19 @@ def cmd_prepare_partner(
         out_path=p_train_path,
         device=device,
     )
+    p_train_adapter = p_train_pool[0]
     p_train_norms = compute_adapter_norms(p_train_adapter)
 
     manifest = {
         "run_id": cfg.run_id,
         "p_test_mode": p_test_stats.get("mode"),
+        "p_test_partner": cfg.p_test_partner,
+        "p_test_include_te": cfg.p_test_include_te,
         "p_test_path": p_test_stats.get("path"),
         "p_test_sha256": p_test_stats.get("sha256"),
         "p_test_style_suffix": cfg.p_test_style_suffix,
         "p_train_path": cfg.p_train_lora_path or str(p_train_path),
+        "p_train_pool_size": len(p_train_pool),
         "p_train_frobenius": f"{p_train_norms['total_frobenius']:.4f}",
         "benign_sha256": benign_audit["sha256"],
         "benign_frobenius": f"{benign_audit['total_frobenius']:.4f}",
@@ -150,6 +169,7 @@ def cmd_prepare_partner(
         "masqlora": masqlora_audit,
         "components": components,
         "p_train_adapter": p_train_adapter,
+        "p_train_pool": p_train_pool,
         "p_test_adapter": p_test_adapter,
     }
 
@@ -164,13 +184,17 @@ def cmd_train(
     gpu_uuid: str | None,
     components: dict[str, Any] | None = None,
     p_train_adapter: LoRAAdapter | None = None,
+    p_train_pool: list[LoRAAdapter] | None = None,
+    overwrite: bool = False,
 ) -> dict[str, Any]:
     from scripts.lora_composition_mvp.trainers import (
-        build_or_load_p_train_proxy,
+        build_or_load_p_train_pool,
         encode_image_latents,
         load_sd15_components,
+        prepare_masqlora_unet,
         train_ours_mvp,
         train_poisonlora,
+        train_poisonlora_plus,
         verify_reused_adapter,
     )
 
@@ -178,17 +202,26 @@ def cmd_train(
     save_config(cfg, run_path / "config_frozen.json")
     if components is None:
         components = load_sd15_components(cfg.model_dir, device=device, dtype_str=dtype)
+    if p_train_pool is None:
+        if p_train_adapter is not None and "ours_mvp" not in arms:
+            p_train_pool = [p_train_adapter]
+        else:
+            p_train_pool = build_or_load_p_train_pool(
+                cfg=cfg,
+                unet=components["unet"],
+                tokenizer=components["tokenizer"],
+                text_encoder=components["text_encoder"],
+                out_path=run_path / "artifacts" / "p_train_proxy" / "adapter.safetensors",
+                device=device,
+            )
     if p_train_adapter is None:
-        p_train_adapter = build_or_load_p_train_proxy(
-            cfg=cfg,
-            unet=components["unet"],
-            tokenizer=components["tokenizer"],
-            text_encoder=components["text_encoder"],
-            out_path=run_path / "artifacts" / "p_train_proxy" / "adapter.safetensors",
-            device=device,
-        )
+        p_train_adapter = p_train_pool[0]
 
-    need_vae_latents = "poisonlora" in arms or ("ours_mvp" in arms and cfg.ours_version == "v2_distill")
+    need_vae_latents = (
+        "poisonlora" in arms
+        or "poisonlora_plus" in arms
+        or ("ours_mvp" in arms and cfg.ours_version == "v2_distill")
+    )
     cat_latents = None
     car_latents = None
     if need_vae_latents:
@@ -203,8 +236,20 @@ def cmd_train(
             results[arm] = verify_reused_adapter("benign", cfg.benign_adapter, cfg.benign_expected_sha256)
         elif arm == "masqlora":
             results[arm] = verify_reused_adapter("masqlora", cfg.masqlora_adapter, cfg.masqlora_expected_sha256)
+        elif arm == "masqlora_unet":
+            results[arm] = prepare_masqlora_unet(cfg=cfg, run_dir=run_path, overwrite=overwrite)
         elif arm == "poisonlora":
             results[arm] = train_poisonlora(
+                cfg=cfg,
+                run_dir=run_path,
+                components=components,
+                cat_latents=cat_latents,
+                car_latents=car_latents,
+                state_dir=state_dir,
+                gpu_uuid=gpu_uuid,
+            )
+        elif arm == "poisonlora_plus":
+            results[arm] = train_poisonlora_plus(
                 cfg=cfg,
                 run_dir=run_path,
                 components=components,
@@ -221,6 +266,7 @@ def cmd_train(
                 cat_latents=cat_latents,
                 car_latents=car_latents,
                 p_train_adapter=p_train_adapter,
+                p_train_pool=p_train_pool,
                 state_dir=state_dir,
                 gpu_uuid=gpu_uuid,
             )
@@ -246,6 +292,8 @@ def cmd_compose(
         ComposedLoRAPlan,
         compose_s0_single,
         compose_s1_partial_te0,
+        compose_s2_dare,
+        compose_s2_ssrmerge,
         compose_s2_ties,
         optimize_s3_ziplora,
         prepare_s2_klora,
@@ -257,28 +305,48 @@ def cmd_compose(
         p_test_adapter, _ = _resolve_partner_test(cfg, run_path, overwrite=False)
 
     need_s3 = "S3_ziplora" in scenarios
+    need_ssr = "S2_ssrmerge" in scenarios
     s3_car_latents = None
     s3_subj_emb = None
     s3_sty_emb = None
+    ssr_calib_embs = None
+    car_latents_shared = None
+
+    all_s3_cached = True
     if need_s3:
-        if components is None:
-            components = load_sd15_components(cfg.model_dir, device=device, dtype_str=dtype)
-        # Check if all S3 plans are already cached cleanly on disk
         all_s3_cached = (not overwrite) and all(
             (run_path / "composed" / arm / "S3_ziplora" / "adapter.safetensors").is_file()
             and (run_path / "composed" / arm / "S3_ziplora" / "plan_meta.json").is_file()
             for arm in arms
         )
-        if not all_s3_cached:
-            _, car_dir = cfg.resolve_data_dirs()
-            s3_car_latents = encode_image_latents(components["vae"], car_dir, cfg.resolution, device=device)
-            s3_subj_emb = _encode_prompt(
-                components["tokenizer"], components["text_encoder"], cfg.clean_prompt, device=device
-            ).repeat(s3_car_latents.shape[0], 1, 1)
-            style_prompt = f"a car, {cfg.p_test_style_suffix}"
-            s3_sty_emb = _encode_prompt(
-                components["tokenizer"], components["text_encoder"], style_prompt, device=device
-            ).repeat(s3_car_latents.shape[0], 1, 1)
+
+    if (need_s3 and not all_s3_cached) or need_ssr:
+        if components is None:
+            components = load_sd15_components(cfg.model_dir, device=device, dtype_str=dtype)
+        _, car_dir = cfg.resolve_data_dirs()
+        car_latents_shared = encode_image_latents(components["vae"], car_dir, cfg.resolution, device=device)
+
+    if need_s3 and not all_s3_cached:
+        assert components is not None and car_latents_shared is not None
+        s3_car_latents = car_latents_shared
+        s3_subj_emb = _encode_prompt(
+            components["tokenizer"], components["text_encoder"], cfg.clean_prompt, device=device
+        ).repeat(s3_car_latents.shape[0], 1, 1)
+        style_prompt = f"{cfg.clean_prompt}, {cfg.p_test_style_suffix}"
+        s3_sty_emb = _encode_prompt(
+            components["tokenizer"], components["text_encoder"], style_prompt, device=device
+        ).repeat(s3_car_latents.shape[0], 1, 1)
+
+    if need_ssr:
+        import torch
+
+        assert components is not None and car_latents_shared is not None
+        calib_prompts = list(cfg.v_ben_calibration_prompts[: max(1, cfg.s2_ssrmerge_calib_samples)]) or [cfg.clean_prompt]
+        emb_list = [
+            _encode_prompt(components["tokenizer"], components["text_encoder"], p_txt, device=device)
+            for p_txt in calib_prompts
+        ]
+        ssr_calib_embs = torch.cat(emb_list, dim=0) if len(emb_list) > 1 else emb_list[0]
 
     plans: dict[tuple[str, str], ComposedLoRAPlan] = {}
     for arm in arms:
@@ -297,6 +365,7 @@ def cmd_compose(
                     cand_te_scale=cfg.s1_cand_te_scale,
                     cand_unet_scale=cfg.s1_cand_unet_scale,
                     partner_scale=cfg.s1_partner_scale,
+                    partner_te_scale=cfg.partner_te_scale,
                 )
             elif scen == "S2_ties":
                 assert p_test_adapter is not None
@@ -307,6 +376,7 @@ def cmd_compose(
                     partner_scale=cfg.s2_partner_scale,
                     density=cfg.s2_ties_density,
                     lambda_scale=cfg.s2_ties_lambda,
+                    partner_te_scale=cfg.partner_te_scale,
                 )
             elif scen == "S2_klora":
                 assert p_test_adapter is not None
@@ -318,6 +388,36 @@ def cmd_compose(
                     k_rank_ref=cfg.s2_klora_k_rank_ref,
                     alpha=cfg.s2_klora_alpha,
                     beta=cfg.s2_klora_beta,
+                    num_steps=cfg.eval_steps,
+                    partner_te_scale=cfg.partner_te_scale,
+                )
+            elif scen == "S2_dare":
+                assert p_test_adapter is not None
+                plan = compose_s2_dare(
+                    cand,
+                    p_test_adapter,
+                    cand_scale=cfg.s2_dare_cand_scale,
+                    partner_scale=cfg.s2_dare_partner_scale,
+                    drop_rate=cfg.s2_dare_drop_rate,
+                    lambda_scale=cfg.s2_dare_lambda,
+                    cand_te_scale=0.0,
+                    partner_te_scale=cfg.partner_te_scale,
+                    seed=cfg.seed,
+                )
+            elif scen == "S2_ssrmerge":
+                assert components is not None and p_test_adapter is not None and car_latents_shared is not None and ssr_calib_embs is not None
+                plan = compose_s2_ssrmerge(
+                    cand,
+                    p_test_adapter,
+                    unet=components["unet"],
+                    calib_latents=car_latents_shared,
+                    calib_text_embs=ssr_calib_embs,
+                    num_train_timesteps=int(getattr(components["scheduler"].config, "num_train_timesteps", 1000)),
+                    cand_scale=cfg.s2_ssrmerge_cand_scale,
+                    partner_scale=cfg.s2_ssrmerge_partner_scale,
+                    cand_te_scale=0.0,
+                    partner_te_scale=cfg.partner_te_scale,
+                    seed=cfg.seed,
                 )
             elif scen == "S3_ziplora":
                 cached_adapter = scen_dir / "adapter.safetensors"
@@ -350,6 +450,7 @@ def cmd_compose(
                         lambda_cos=cfg.s3_ziplora_lambda_cos,
                         cand_init_scale=cfg.s3_cand_init_scale,
                         partner_init_scale=cfg.s3_partner_init_scale,
+                        partner_te_scale=cfg.partner_te_scale,
                         seed=cfg.seed,
                         out_adapter_path=cached_adapter,
                     )
@@ -532,7 +633,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "prepare-partner":
             cmd_prepare_partner(cfg, run_path, device=device, dtype=dtype, overwrite=args.overwrite)
         elif args.command == "train":
-            train_arms = [a for a in args.arms if a in {"poisonlora", "ours_mvp", "benign", "masqlora"}]
+            train_arms = [a for a in args.arms if a in set(EXTENDED_ARMS)]
             cmd_train(
                 cfg=cfg,
                 run_path=run_path,
@@ -541,6 +642,7 @@ def main(argv: list[str] | None = None) -> int:
                 dtype=dtype,
                 state_dir=state_dir,
                 gpu_uuid=args.gpu_uuid,
+                overwrite=args.overwrite,
             )
         elif args.command == "compose":
             cmd_compose(
@@ -579,6 +681,8 @@ def main(argv: list[str] | None = None) -> int:
                 gpu_uuid=args.gpu_uuid,
                 components=prep["components"],
                 p_train_adapter=prep["p_train_adapter"],
+                p_train_pool=prep["p_train_pool"],
+                overwrite=args.overwrite,
             )
             plans = cmd_compose(
                 cfg=cfg,

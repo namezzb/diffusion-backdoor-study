@@ -1,0 +1,24 @@
+% Table 3: Component-Wise Ablation Study on CORE-LoRA
+\begin{table*}[t]
+\centering
+\caption{\textbf{Ablation Study on Core Architectural and Optimization Components of \texttt{CORE-LoRA}.} All variants are trained under the exact same fair norm budget ($\Vert\Delta W\Vert_F \le 18.0$), zero TE modification ($\Vert\Delta W_{\text{TE}}\Vert_F = 0$), and disjoint prompt/partner banks. We report active U-Net layers $|\mathcal{L}|$, Frobenius norms on text-gated ($\Vert\Delta W_{KV}\Vert_F$) versus image-side ($\Vert\Delta W_{QO}\Vert_F$) projections (with squared energy share $\%E_{KV}$), $S_2^{\text{klora}}$ step-0 routing wins and normalization factor $\gamma$, scenario-wise $\text{ASR}_{\text{strict}}$ (\%), composed mean $\text{ASR}_{\text{strict}}$, benign car retention, partner style alignment ($\text{StyleCLIP}$), and overall non-trigger cat leakage ($\text{CatLeak}$, \%).}
+\label{tab:ablation}
+\vspace{2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c rrr cc ccccc cccc c}
+\toprule
+\multirow{2.5}{*}{\textbf{Ablation Variant}} & \multirow{2.5}{*}{\textbf{$|\mathcal{L}|$}} & \multicolumn{3}{c}{\textbf{Energy Allocation}} & \multicolumn{2}{c}{\textbf{$S_2^{\text{klora}}$ Routing}} & \multicolumn{5}{c}{\textbf{Scenario-Wise $\text{ASR}_{\text{strict}}$ (\%) $\uparrow$}} & \multicolumn{4}{c}{\textbf{Composed Summary ($S_1$--$S_3$)}} & \multirow{2.5}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Pass\\Gates\end{tabular}}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-7} \cmidrule(lr){8-12} \cmidrule(lr){13-16}
+ & & $\Vert\Delta W_{KV}\Vert_F$ & $\Vert\Delta W_{QO}\Vert_F$ & $\%E_{KV}$ & Wins & $\gamma$ & $S_0$ & $S_1$ & $S_2^{\text{klora}}$ & $S_2^{\text{ties}}$ & $S_3^{\text{ziplora}}$ & \textbf{Mean ASR}$\uparrow$ & $\text{CleanCar}\uparrow$ & $\text{StyleCLIP}\uparrow$ & $\text{CatLeak}\downarrow$ & \\
+\midrule
+\rowcolor{blue!6}
+\textbf{Full CORE-LoRA (Default)} & 24 & 14.99 & 9.90 & 69.6\% & \textbf{24/24 (100\%)} & 0.462 & \textbf{87.5} & \textbf{81.3} & \textbf{100.0} & 75.0 & \textbf{81.3} & \textbf{83.3} & 95.8 & \textbf{0.2219} & 2.50 & \textcolor{green!55!black}{\textbf{3/3 PASS}} \\
+\midrule
+\textbf{w/o Semantic Bottleneck} {\scriptsize(All-UNet 128)} & 128 & 15.05 & 9.88 & 69.9\% & \textcolor{red!75!black}{104/128 (81\%)} & 0.205 & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{\textbf{0.0}} & \textbf{97.9} & \textcolor{red!75!black}{0.2130} & \textcolor{red!75!black}{5.00} & \textcolor{red!75!black}{Gate 2 FAIL} \\
+\textbf{w/o Operator Simulation} {\scriptsize($S_0$-Only)} & 24 & 14.97 & 9.90 & 69.6\% & 23/24 (96\%) & 0.545 & 43.8 & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{0.0} & \textcolor{red!75!black}{6.3} & \textcolor{red!75!black}{\textbf{2.1}} & 95.8 & 0.2169 & 2.50 & \textcolor{red!75!black}{Gate 2 FAIL} \\
+\textbf{w/o Asymmetric $K/V$ Cap} {\scriptsize($\rho_{qo}{=}1.0$)} & 24 & \textcolor{red!75!black}{5.82} & \textcolor{red!75!black}{17.03} & \textcolor{red!75!black}{10.5\%} & 24/24 (100\%) & 0.345 & 75.0 & 62.5 & 87.5 & \textcolor{red!75!black}{12.5} & 68.8 & 60.4 & 95.8 & 0.2161 & \textcolor{red!75!black}{3.75} & 3/3 PASS \\
+\textbf{w/o Counterfactual CFG} {\scriptsize($\lambda_{\text{cfg}}{=}0.0$)} & 24 & 15.05 & 9.87 & 69.9\% & 24/24 (100\%) & 0.437 & \textbf{87.5} & 62.5 & \textbf{100.0} & \textbf{87.5} & \textcolor{red!75!black}{50.0} & 68.8 & 95.8 & 0.2178 & \textbf{0.00} & 3/3 PASS \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

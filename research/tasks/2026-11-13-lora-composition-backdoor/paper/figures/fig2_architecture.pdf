@@ -1,0 +1,604 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 1320 620] /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R /F4 7 0 R >> >> /Contents 8 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+8 0 obj
+<< /Length 12880 >>
+stream
+1.0000 1.0000 1.0000 rg
+0 0 1320 620 re f
+q
+0.9569 0.9686 0.9882 rg
+0.7765 0.8235 0.8863 RG
+1.50 w
+26.00 550.00 m
+1294.00 550.00 l
+1298.42 550.00 1302.00 553.58 1302.00 558.00 c
+1302.00 598.00 l
+1302.00 602.42 1298.42 606.00 1294.00 606.00 c
+26.00 606.00 l
+21.58 606.00 18.00 602.42 18.00 598.00 c
+18.00 558.00 l
+18.00 553.58 21.58 550.00 26.00 550.00 c
+h
+B
+Q
+q
+0.0784 0.1255 0.1961 rg
+BT /F2 18.50 Tf 364.92 582.00 Td (CORE-LoRA Training & Operator-Invariant Isolation Pipeline) Tj ET
+Q
+q
+0.2745 0.3333 0.4118 rg
+BT /F1 12.00 Tf 277.50 562.00 Td (Static rank-16 adapter in 24 UNet .attn2 layers | Disjoint P_train calibration | Valid modes: \(S_0, S_1, S_2^ties, S_2^klora\)) Tj ET
+Q
+q
+0.9804 0.9882 1.0000 rg
+0.6863 0.7843 0.8941 RG
+1.60 w
+26.00 18.00 m
+410.00 18.00 l
+414.42 18.00 418.00 21.58 418.00 26.00 c
+418.00 526.00 l
+418.00 530.42 414.42 534.00 410.00 534.00 c
+26.00 534.00 l
+21.58 534.00 18.00 530.42 18.00 526.00 c
+18.00 26.00 l
+18.00 21.58 21.58 18.00 26.00 18.00 c
+h
+B
+Q
+q
+0.0863 0.3333 0.5686 rg
+BT /F2 14.50 Tf 62.49 506.00 Td (1. Semantic Bottleneck Parameterization) Tj ET
+Q
+q
+1.0000 1.0000 1.0000 rg
+0.1176 0.4314 0.6863 RG
+1.40 w
+42.00 336.00 m
+394.00 336.00 l
+397.31 336.00 400.00 338.69 400.00 342.00 c
+400.00 482.00 l
+400.00 485.31 397.31 488.00 394.00 488.00 c
+42.00 488.00 l
+38.69 488.00 36.00 485.31 36.00 482.00 c
+36.00 342.00 l
+36.00 338.69 38.69 336.00 42.00 336.00 c
+h
+B
+Q
+q
+0.0863 0.3333 0.5686 rg
+BT /F2 12.50 Tf 63.31 465.00 Td (Active Support: 24 Cross-Attn \(.attn2\) Layers) Tj ET
+Q
+q
+0.2549 0.3059 0.3725 rg
+BT /F4 11.00 Tf 95.90 446.00 Td (down_blocks.2, mid_block, up_blocks.1) Tj ET
+Q
+q
+0.9216 0.9608 1.0000 rg
+0.0980 0.4118 0.6667 RG
+1.20 w
+55.00 352.00 m
+207.00 352.00 l
+209.76 352.00 212.00 354.24 212.00 357.00 c
+212.00 425.00 l
+212.00 427.76 209.76 430.00 207.00 430.00 c
+55.00 430.00 l
+52.24 430.00 50.00 427.76 50.00 425.00 c
+50.00 357.00 l
+50.00 354.24 52.24 352.00 55.00 352.00 c
+h
+B
+Q
+q
+0.0784 0.3137 0.5490 rg
+BT /F2 11.50 Tf 74.07 409.00 Td (12 K/V Projections) Tj ET
+Q
+q
+0.1765 0.2353 0.3137 rg
+BT /F4 10.50 Tf 58.55 390.00 Td (to_k, to_v \(Text-Keyed\)) Tj ET
+Q
+q
+0.0784 0.3137 0.5490 rg
+BT /F2 10.50 Tf 81.91 371.00 Td (Whitened SVD Init) Tj ET
+Q
+q
+0.9490 0.9725 0.9569 rg
+0.1961 0.5098 0.3137 RG
+1.20 w
+229.00 352.00 m
+381.00 352.00 l
+383.76 352.00 386.00 354.24 386.00 357.00 c
+386.00 425.00 l
+386.00 427.76 383.76 430.00 381.00 430.00 c
+229.00 430.00 l
+226.24 430.00 224.00 427.76 224.00 425.00 c
+224.00 357.00 l
+224.00 354.24 226.24 352.00 229.00 352.00 c
+h
+B
+Q
+q
+0.1373 0.4118 0.2353 rg
+BT /F2 11.50 Tf 248.07 409.00 Td (12 Q/O Projections) Tj ET
+Q
+q
+0.1765 0.2549 0.2157 rg
+BT /F4 10.50 Tf 232.55 390.00 Td (to_q, to_out.0 \(Latent\)) Tj ET
+Q
+q
+0.1373 0.4118 0.2353 rg
+BT /F2 10.50 Tf 238.59 371.00 Td (Benign Micro-Anchor SVD) Tj ET
+Q
+q
+1.0000 1.0000 1.0000 rg
+0.4706 0.5686 0.6863 RG
+1.30 w
+42.00 188.00 m
+394.00 188.00 l
+397.31 188.00 400.00 190.69 400.00 194.00 c
+400.00 314.00 l
+400.00 317.31 397.31 320.00 394.00 320.00 c
+42.00 320.00 l
+38.69 320.00 36.00 317.31 36.00 314.00 c
+36.00 194.00 l
+36.00 190.69 38.69 188.00 42.00 188.00 c
+h
+B
+Q
+q
+0.1176 0.1647 0.2431 rg
+BT /F2 12.50 Tf 70.19 297.00 Td (Asymmetric Norm & Zero Peripheral Footprint) Tj ET
+Q
+q
+0.1765 0.2157 0.2745 rg
+BT /F1 11.00 Tf 52.00 273.00 Td (- K/V receives dominant hijack budget \(||dW_KV||_F > ||dW_QO||_F\)) Tj ET
+Q
+q
+0.1765 0.2157 0.2745 rg
+BT /F1 11.00 Tf 52.00 252.00 Td (- Q/O capped at qo_max_ratio <= 0.50 to prevent dilution) Tj ET
+Q
+q
+0.1765 0.2157 0.2745 rg
+BT /F1 11.00 Tf 52.00 231.00 Td (- Text Encoder & 104 outer UNet layers remain exact 0:) Tj ET
+Q
+q
+0.0706 0.3333 0.5686 rg
+BT /F4 11.50 Tf 73.10 207.00 Td (||dW_TE||_F = 0.0  and  ||dW_c||_F <= 18.0) Tj ET
+Q
+q
+0.9333 0.9647 0.9961 rg
+0.0980 0.3922 0.6471 RG
+1.60 w
+42.00 36.00 m
+394.00 36.00 l
+397.31 36.00 400.00 38.69 400.00 42.00 c
+400.00 166.00 l
+400.00 169.31 397.31 172.00 394.00 172.00 c
+42.00 172.00 l
+38.69 172.00 36.00 169.31 36.00 166.00 c
+36.00 42.00 l
+36.00 38.69 38.69 36.00 42.00 36.00 c
+h
+B
+Q
+q
+0.0706 0.3137 0.5490 rg
+BT /F2 13.00 Tf 103.60 146.00 Td (Trainable Candidate Adapter dW_c) Tj ET
+Q
+q
+0.1765 0.2353 0.3216 rg
+BT /F4 11.00 Tf 66.20 124.00 Td (0.95 * ClosedFormInit + 0.05 * SeedOrthPerturb) Tj ET
+Q
+q
+0.1765 0.2353 0.3216 rg
+BT /F1 11.00 Tf 83.36 101.00 Td (Factors \(B_l, A_l\) for l in 24 Bottleneck Layers) Tj ET
+Q
+q
+0.0706 0.3137 0.5490 rg
+BT /F2 11.00 Tf 106.07 78.00 Td (Per-step hard norm projection <= 18.0) Tj ET
+Q
+q
+0.2157 0.2745 0.3529 rg
+BT /F1 11.00 Tf 100.19 55.00 Td (Exports 1 static rank=16 .safetensors file) Tj ET
+Q
+q
+0.9882 0.9882 0.9804 rg
+0.7843 0.7059 0.5490 RG
+1.60 w
+454.00 18.00 m
+866.00 18.00 l
+870.42 18.00 874.00 21.58 874.00 26.00 c
+874.00 526.00 l
+874.00 530.42 870.42 534.00 866.00 534.00 c
+454.00 534.00 l
+449.58 534.00 446.00 530.42 446.00 526.00 c
+446.00 26.00 l
+446.00 21.58 449.58 18.00 454.00 18.00 c
+h
+B
+Q
+q
+0.5686 0.3333 0.0588 rg
+BT /F2 14.50 Tf 520.44 506.00 Td (2. Multi-Operator Surrogate Forward) Tj ET
+Q
+q
+0.9529 0.9765 0.9569 rg
+0.1882 0.5098 0.2941 RG
+1.40 w
+472.00 374.00 m
+848.00 374.00 l
+851.31 374.00 854.00 376.69 854.00 380.00 c
+854.00 482.00 l
+854.00 485.31 851.31 488.00 848.00 488.00 c
+472.00 488.00 l
+468.69 488.00 466.00 485.31 466.00 482.00 c
+466.00 380.00 l
+466.00 376.69 468.69 374.00 472.00 374.00 c
+h
+B
+Q
+q
+0.1255 0.4118 0.2157 rg
+BT /F2 12.50 Tf 488.12 464.00 Td (Isolated Style Proxy Pool P_train^\(m\), m in {0..3}) Tj ET
+Q
+q
+0.1961 0.2745 0.2275 rg
+BT /F1 11.00 Tf 502.92 442.00 Td (Sample 1 calibrated proxy per training step \(128 layers\)) Tj ET
+Q
+q
+0.1961 0.2745 0.2275 rg
+BT /F4 11.00 Tf 481.80 422.00 Td (Norm calibrated: ||0.8 * P_train^\(m\)||_F ~ 18.0 - 21.0) Tj ET
+Q
+q
+0.1255 0.4118 0.2157 rg
+BT /F2 11.00 Tf 514.80 402.00 Td (Strictly disjoint from P_test styles and weights) Tj ET
+Q
+q
+0.0980 0.3922 0.6471 RG 2.00 w
+400.00 108.00 m 463.67 246.91 l S
+Q
+q
+0.0980 0.3922 0.6471 rg
+466.00 252.00 m 466.76 242.85 l 458.58 246.60 l h f
+Q
+q
+1.0000 1.0000 1.0000 rg
+411.00 182.00 42.00 20.00 re
+f
+Q
+q
+0.0980 0.3922 0.6471 rg
+BT /F4 11.00 Tf 418.80 188.00 Td (dW_c) Tj ET
+Q
+q
+0.1882 0.5098 0.2941 RG 2.00 w
+660.00 374.00 m 660.00 347.60 l S
+Q
+q
+0.1882 0.5098 0.2941 rg
+660.00 342.00 m 655.50 350.00 l 664.50 350.00 l h f
+Q
+q
+1.0000 0.9804 0.9412 rg
+0.7647 0.5098 0.0980 RG
+1.60 w
+472.00 176.00 m
+848.00 176.00 l
+851.31 176.00 854.00 178.69 854.00 182.00 c
+854.00 334.00 l
+854.00 337.31 851.31 340.00 848.00 340.00 c
+472.00 340.00 l
+468.69 340.00 466.00 337.31 466.00 334.00 c
+466.00 182.00 l
+466.00 178.69 468.69 176.00 472.00 176.00 c
+h
+B
+Q
+q
+0.6078 0.3608 0.0392 rg
+BT /F2 13.00 Tf 527.73 316.00 Td (Stochastic Operator Mode Rotation M_k) Tj ET
+Q
+q
+0.1569 0.1882 0.2353 rg
+BT /F4 12.00 Tf 523.20 294.00 Td (M_k in \(S_0, S_1, S_2^ties, S_2^klora\)) Tj ET
+Q
+q
+0.1961 0.2157 0.2667 rg
+BT /F1 11.00 Tf 484.00 270.00 Td (- S_0: 1.0 * dW_c \(warmup=40 steps + interleaved\)) Tj ET
+Q
+q
+0.1961 0.2157 0.2667 rg
+BT /F1 11.00 Tf 484.00 249.00 Td (- S_1: 0.5 * dW_c + 0.8 * P_train^\(m\)  \(TE = 0\)) Tj ET
+Q
+q
+0.1961 0.2157 0.2667 rg
+BT /F1 11.00 Tf 484.00 228.00 Td (- S_2^ties: Differentiable 50% magnitude trim + sign) Tj ET
+Q
+q
+0.1961 0.2157 0.2667 rg
+BT /F1 11.00 Tf 484.00 207.00 Td (- S_2^klora: Scaled bottleneck + Top-K proxy routing) Tj ET
+Q
+q
+0.6078 0.3608 0.0392 rg
+BT /F2 11.00 Tf 539.00 187.00 Td (Produces effective composed delta dW_eff) Tj ET
+Q
+q
+0.9647 0.9569 1.0000 rg
+0.4118 0.3137 0.6863 RG
+1.60 w
+472.00 36.00 m
+848.00 36.00 l
+851.31 36.00 854.00 38.69 854.00 42.00 c
+854.00 140.00 l
+854.00 143.31 851.31 146.00 848.00 146.00 c
+472.00 146.00 l
+468.69 146.00 466.00 143.31 466.00 140.00 c
+466.00 42.00 l
+466.00 38.69 468.69 36.00 472.00 36.00 c
+h
+B
+Q
+q
+0.3216 0.2275 0.5686 rg
+BT /F2 12.50 Tf 491.56 122.00 Td (Operator Survival Regularizer R_op\(dW_c, P_train\)) Tj ET
+Q
+q
+0.2039 0.1882 0.2745 rg
+BT /F1 11.00 Tf 508.53 100.00 Td (1. Hoyer concentration target \(sparse TIES resilience\)) Tj ET
+Q
+q
+0.2039 0.1882 0.2745 rg
+BT /F1 11.00 Tf 511.34 80.00 Td (2. Orthogonal subspace vs P_train + Benign Q/O anchor) Tj ET
+Q
+q
+0.3216 0.2275 0.5686 rg
+BT /F2 11.00 Tf 514.80 58.00 Td (Independent of p_cat teacher \(weight-space only\)) Tj ET
+Q
+q
+[6 4] 0 d
+0.0980 0.3922 0.6471 RG 1.80 w
+400.00 64.00 m 460.56 78.68 l S
+Q
+q
+0.0980 0.3922 0.6471 rg
+466.00 80.00 m 459.29 73.74 l 457.16 82.49 l h f
+Q
+q
+[6 4] 0 d
+0.1882 0.5098 0.2941 RG 1.60 w
+466.00 410.00 m 454.00 410.00 l S
+Q
+q
+[6 4] 0 d
+0.1882 0.5098 0.2941 RG 1.60 w
+454.00 410.00 m 454.00 106.00 l S
+Q
+q
+[6 4] 0 d
+0.1882 0.5098 0.2941 RG 1.60 w
+454.00 106.00 m 460.40 106.00 l S
+Q
+q
+0.1882 0.5098 0.2941 rg
+466.00 106.00 m 458.00 101.50 l 458.00 110.50 l h f
+Q
+q
+0.9804 0.9922 0.9843 rg
+0.6471 0.7843 0.6980 RG
+1.60 w
+910.00 18.00 m
+1294.00 18.00 l
+1298.42 18.00 1302.00 21.58 1302.00 26.00 c
+1302.00 526.00 l
+1302.00 530.42 1298.42 534.00 1294.00 534.00 c
+910.00 534.00 l
+905.58 534.00 902.00 530.42 902.00 526.00 c
+902.00 26.00 l
+902.00 21.58 905.58 18.00 910.00 18.00 c
+h
+B
+Q
+q
+0.0980 0.4118 0.2549 rg
+BT /F2 14.50 Tf 958.45 506.00 Td (3. Counterfactual CFG & Concept Loss) Tj ET
+Q
+q
+0.6078 0.3608 0.0392 RG 2.00 w
+854.00 258.00 m 919.88 418.82 l S
+Q
+q
+0.6078 0.3608 0.0392 rg
+922.00 424.00 m 923.13 414.89 l 914.80 418.30 l h f
+Q
+q
+1.0000 1.0000 1.0000 rg
+861.00 348.00 54.00 20.00 re
+f
+Q
+q
+0.6078 0.3608 0.0392 rg
+BT /F4 11.00 Tf 868.20 354.00 Td (dW_eff) Tj ET
+Q
+q
+1.0000 1.0000 1.0000 rg
+0.1569 0.4706 0.3333 RG
+1.40 w
+928.00 370.00 m
+1270.00 370.00 l
+1273.31 370.00 1276.00 372.69 1276.00 376.00 c
+1276.00 482.00 l
+1276.00 485.31 1273.31 488.00 1270.00 488.00 c
+928.00 488.00 l
+924.69 488.00 922.00 485.31 922.00 482.00 c
+922.00 376.00 l
+922.00 372.69 924.69 370.00 928.00 370.00 c
+h
+B
+Q
+q
+0.0980 0.4118 0.2549 rg
+BT /F2 12.50 Tf 985.56 465.00 Td (Student Forward on Paired Latents) Tj ET
+Q
+q
+0.1765 0.2275 0.2039 rg
+BT /F1 10.50 Tf 936.00 442.00 Td (- Sample 0 \(Shared High-Noise z_car0, t in [600,960\)\):) Tj ET
+Q
+q
+0.2745 0.3216 0.2980 rg
+BT /F1 10.20 Tf 946.00 424.00 Td (Same template i_trig across trigger vs clean prompt) Tj ET
+Q
+q
+0.1765 0.2275 0.2039 rg
+BT /F1 10.50 Tf 936.00 404.00 Td (- Sample 1 \(Mid-Low\): pure z_cat \(trig\), pure z_car1 \(clean\)) Tj ET
+Q
+q
+0.1765 0.2275 0.2039 rg
+BT /F1 10.50 Tf 936.00 384.00 Td (- Neighborhood \(a cool dog / truck\): independent noise) Tj ET
+Q
+q
+0.9490 0.9725 1.0000 rg
+0.2157 0.4510 0.6863 RG
+1.40 w
+928.00 216.00 m
+1270.00 216.00 l
+1273.31 216.00 1276.00 218.69 1276.00 222.00 c
+1276.00 342.00 l
+1276.00 345.31 1273.31 348.00 1270.00 348.00 c
+928.00 348.00 l
+924.69 348.00 922.00 345.31 922.00 342.00 c
+922.00 222.00 l
+922.00 218.69 924.69 216.00 928.00 216.00 c
+h
+B
+Q
+q
+0.0980 0.3333 0.5686 rg
+BT /F2 12.50 Tf 985.56 325.00 Td (Two-Pass Split Teacher References) Tj ET
+Q
+q
+0.1373 0.1961 0.2824 rg
+BT /F2 10.40 Tf 936.00 301.00 Td (Pass A \(Base + P_train^\(m\), no car LoRA\): Unpolluted p_cat) Tj ET
+Q
+q
+0.2157 0.2745 0.3529 rg
+BT /F1 10.20 Tf 946.00 282.00 Td (-> provides counterfactual target direction p_cat & p_neigh) Tj ET
+Q
+q
+0.1373 0.1961 0.2824 rg
+BT /F2 10.40 Tf 936.00 259.00 Td (Pass B \(Benign Car + P_train^\(m\), op-scaled\): Clean ref p_car) Tj ET
+Q
+q
+0.2157 0.2745 0.3529 rg
+BT /F1 10.20 Tf 946.00 240.00 Td (-> preserves customized car appearance \(low LPIPS\)) Tj ET
+Q
+q
+0.1569 0.4706 0.3333 RG 1.90 w
+1276.00 430.00 m 1291.00 430.00 l S
+Q
+q
+0.1569 0.4706 0.3333 RG 1.90 w
+1291.00 430.00 m 1291.00 144.00 l S
+Q
+q
+0.1569 0.4706 0.3333 RG 1.90 w
+1291.00 144.00 m 1281.60 144.00 l S
+Q
+q
+0.1569 0.4706 0.3333 rg
+1276.00 144.00 m 1284.00 148.50 l 1284.00 139.50 l h f
+Q
+q
+0.2157 0.4510 0.6863 RG 1.90 w
+1099.00 216.00 m 1099.00 197.60 l S
+Q
+q
+0.2157 0.4510 0.6863 rg
+1099.00 192.00 m 1094.50 200.00 l 1103.50 200.00 l h f
+Q
+q
+0.9255 0.9725 0.9451 rg
+0.0980 0.5098 0.2941 RG
+1.60 w
+928.00 36.00 m
+1270.00 36.00 l
+1273.31 36.00 1276.00 38.69 1276.00 42.00 c
+1276.00 184.00 l
+1276.00 187.31 1273.31 190.00 1270.00 190.00 c
+928.00 190.00 l
+924.69 190.00 922.00 187.31 922.00 184.00 c
+922.00 42.00 l
+922.00 38.69 924.69 36.00 928.00 36.00 c
+h
+B
+Q
+q
+0.0784 0.3922 0.2275 rg
+BT /F2 13.00 Tf 952.42 165.00 Td (Distillation & Backprop Objective L_total) Tj ET
+Q
+q
+0.1569 0.2157 0.1882 rg
+BT /F1 10.40 Tf 936.00 140.00 Td (L_hijack: Student matches counterfactual p_cat CFG target) Tj ET
+Q
+q
+0.6078 0.2549 0.0980 rg
+BT /F2 10.40 Tf 936.00 119.00 Td (+ L_erase: Repels positive proj along \(p_car - p_cat\) on S0) Tj ET
+Q
+q
+0.1569 0.2157 0.1882 rg
+BT /F1 10.40 Tf 936.00 98.00 Td (+ L_pres: Clean a car matches Pass B benign p_car CFG) Tj ET
+Q
+q
+0.1569 0.2157 0.1882 rg
+BT /F1 10.40 Tf 936.00 77.00 Td (+ L_neigh: Non-car modifiers stay anchored to p_neigh) Tj ET
+Q
+q
+0.3216 0.2275 0.5686 rg
+BT /F2 10.40 Tf 936.00 55.00 Td (+ R_op\(dW_c, P_train\) -> optimizes only 24 bottleneck layers) Tj ET
+Q
+q
+0.3216 0.2275 0.5686 RG 1.80 w
+854.00 80.00 m 916.63 61.58 l S
+Q
+q
+0.3216 0.2275 0.5686 rg
+922.00 60.00 m 913.06 57.94 l 915.59 66.57 l h f
+Q
+endstream
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000278 00000 n 
+0000000375 00000 n 
+0000000477 00000 n 
+0000000582 00000 n 
+0000000677 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+13610
+%%EOF

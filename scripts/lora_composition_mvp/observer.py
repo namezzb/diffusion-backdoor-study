@@ -121,33 +121,44 @@ def _public_dns_snapshot() -> dict[str, Any]:
     import labgpu
 
     host = urllib.parse.urlsplit(labgpu.BASE).hostname
-    try:
-        resp = subprocess.run(
-            [
-                "curl",
-                "-fsS",
-                "--connect-timeout",
-                "3",
-                "--max-time",
-                "6",
-                f"https://dns.google/resolve?name={host}&type=A",
-            ],
-            capture_output=True,
-            text=True,
-            check=True,
-            timeout=8,
-        )
-    except subprocess.SubprocessError as exc:
-        raise ObservationUnavailable("Public DNS query unavailable") from exc
-
-    dns = json.loads(resp.stdout)
-    addresses = [
-        str(ipaddress.IPv4Address(a["data"]))
-        for a in dns.get("Answer", [])
-        if a.get("type") == 1 and ipaddress.IPv4Address(a["data"]).is_global
-    ]
-    if dns.get("Status") != 0 or not addresses:
-        raise ObservationUnavailable("Public DNS returned no valid platform IP")
+    addresses: list[str] = []
+    last_exc: Exception | None = None
+    for resolver_url in (
+        f"https://dns.alidns.com/resolve?name={host}&type=A",
+        f"https://dns.google/resolve?name={host}&type=A",
+    ):
+        try:
+            resp = subprocess.run(
+                [
+                    "curl",
+                    "-fsS",
+                    "--noproxy",
+                    "*",
+                    "--connect-timeout",
+                    "3",
+                    "--max-time",
+                    "6",
+                    resolver_url,
+                ],
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=8,
+            )
+            dns = json.loads(resp.stdout)
+            ips = [
+                str(ipaddress.IPv4Address(a["data"]))
+                for a in dns.get("Answer", [])
+                if a.get("type") == 1 and ipaddress.IPv4Address(a["data"]).is_global
+            ]
+            if dns.get("Status") == 0 and ips:
+                addresses = ips
+                break
+        except (subprocess.SubprocessError, ValueError, KeyError) as exc:
+            last_exc = exc
+            continue
+    if not addresses:
+        raise ObservationUnavailable("Public DNS returned no valid platform IP") from last_exc
 
     class CurlOpener:
         def open(self, request: Any, timeout: float) -> Any:

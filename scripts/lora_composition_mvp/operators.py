@@ -39,13 +39,43 @@ def _load_unet_weight_dict(model_dir: str | Path) -> dict[str, Any]:
     return sd
 
 
+def _load_text_encoder_weight_dict(model_dir: str | Path) -> dict[str, Any]:
+    """Load CLIPTextModel state_dict from safetensors/bin directly first (avoids stale upload chunks)."""
+    p = Path(model_dir)
+    st_file = p / "text_encoder" / "model.safetensors"
+    if st_file.is_file():
+        from safetensors.torch import load_file
+
+        return load_file(str(st_file), device="cpu")
+    bin_file = p / "text_encoder" / "pytorch_model.bin"
+    if bin_file.is_file():
+        import torch
+
+        return torch.load(str(bin_file), map_location="cpu")
+
+    from transformers import CLIPTextModel
+
+    te = CLIPTextModel.from_pretrained(str(p), subfolder="text_encoder", local_files_only=True)
+    sd = {k: v.detach().cpu() for k, v in te.state_dict().items()}
+    del te
+    return sd
+
+
+def _is_te_attention_linear(mod_name: str) -> bool:
+    return (".self_attn." in mod_name or ".attn." in mod_name) and any(
+        mod_name.endswith(f".{p}") for p in ("q_proj", "k_proj", "v_proj", "out_proj", "to_q", "to_k", "to_v", "to_out.0")
+    )
+
+
 def extract_svd_lora_from_model_diff(
     base_model_dir: str | Path,
     finetuned_model_dir: str | Path,
     rank: int = 16,
     out_path: str | Path | None = None,
+    include_text_encoder: bool = False,
+    te_rank: int | None = None,
 ) -> tuple[LoRAAdapter, dict[str, Any]]:
-    """Construct offline rank-r LoRA P_test via truncated SVD of (finetuned_unet - base_unet)."""
+    """Construct offline rank-r LoRA P_test via truncated SVD of (finetuned - base) UNet (+ optional TE)."""
     import torch
 
     base_sd = _load_unet_weight_dict(base_model_dir)
@@ -55,41 +85,68 @@ def extract_svd_lora_from_model_diff(
     total_diff_sq = 0.0
     recon_sq = 0.0
     skipped = 0
+    unet_count = 0
+    te_count = 0
 
-    for key in sorted(base_sd.keys()):
-        if not key.endswith(".weight"):
-            continue
-        mod_name = key[: -len(".weight")]
-        if not ((".attn1." in mod_name or ".attn2." in mod_name) and is_attention_linear(mod_name)):
-            continue
-        if key not in ft_sd:
-            skipped += 1
-            continue
-        w0 = base_sd[key].float()
-        w1 = ft_sd[key].float()
-        if w0.shape != w1.shape or w0.ndim != 2:
-            skipped += 1
-            continue
+    def _collect_component(comp: str, sd0: dict[str, Any], sd1: dict[str, Any], pred_fn: Any, r_target: int) -> None:
+        nonlocal total_diff_sq, recon_sq, skipped, unet_count, te_count
+        for key in sorted(sd0.keys()):
+            if not key.endswith(".weight"):
+                continue
+            mod_name = key[: -len(".weight")]
+            if not pred_fn(mod_name):
+                continue
+            if key not in sd1:
+                skipped += 1
+                continue
+            w0 = sd0[key].float()
+            w1 = sd1[key].float()
+            if w0.shape != w1.shape or w0.ndim != 2:
+                skipped += 1
+                continue
 
-        dw = w1 - w0
-        diff_sq = float((dw * dw).sum().item())
-        total_diff_sq += diff_sq
-        if diff_sq <= 1e-16:
-            continue
+            dw = w1 - w0
+            diff_sq = float((dw * dw).sum().item())
+            total_diff_sq += diff_sq
+            if diff_sq <= 1e-16:
+                continue
 
-        u, s, vh = torch.linalg.svd(dw, full_matrices=False)
-        r = max(1, min(int(rank), int(s.shape[0])))
-        sq = torch.sqrt(s[:r].clamp(min=0.0))
-        b = (u[:, :r] * sq.reshape(1, r)).contiguous()
-        a = (sq.reshape(r, 1) * vh[:r, :]).contiguous()
-        recon_sq += float((s[:r] * s[:r]).sum().item())
+            u, s, vh = torch.linalg.svd(dw, full_matrices=False)
+            r = max(1, min(int(r_target), int(s.shape[0])))
+            sq = torch.sqrt(s[:r].clamp(min=0.0))
+            b = (u[:, :r] * sq.reshape(1, r)).contiguous()
+            a = (sq.reshape(r, 1) * vh[:r, :]).contiguous()
+            recon_sq += float((s[:r] * s[:r]).sum().item())
 
-        layers[f"unet.{mod_name}"] = LoRALayerFactor(
-            component="unet",
-            module_name=mod_name,
-            lora_A=a,
-            lora_B=b,
-            alpha_scale=1.0,
+            layers[f"{comp}.{mod_name}"] = LoRALayerFactor(
+                component=comp,
+                module_name=mod_name,
+                lora_A=a,
+                lora_B=b,
+                alpha_scale=1.0,
+            )
+            if comp == "unet":
+                unet_count += 1
+            else:
+                te_count += 1
+
+    _collect_component(
+        "unet",
+        base_sd,
+        ft_sd,
+        lambda m: (".attn1." in m or ".attn2." in m) and is_attention_linear(m),
+        int(rank),
+    )
+
+    if include_text_encoder:
+        base_te_sd = _load_text_encoder_weight_dict(base_model_dir)
+        ft_te_sd = _load_text_encoder_weight_dict(finetuned_model_dir)
+        _collect_component(
+            "text_encoder",
+            base_te_sd,
+            ft_te_sd,
+            _is_te_attention_linear,
+            int(te_rank if te_rank is not None else rank),
         )
 
     if not layers:
@@ -105,6 +162,7 @@ def extract_svd_lora_from_model_diff(
             "source_base": str(base_model_dir),
             "source_finetuned": str(finetuned_model_dir),
             "rank": rank,
+            "include_text_encoder": include_text_encoder,
             "explained_energy_ratio": explained,
         },
     )
@@ -117,6 +175,9 @@ def extract_svd_lora_from_model_diff(
 
     stats = {
         "layer_count": len(layers),
+        "unet_layer_count": unet_count,
+        "te_layer_count": te_count,
+        "include_text_encoder": include_text_encoder,
         "skipped": skipped,
         "total_diff_frobenius": math.sqrt(max(0.0, total_diff_sq)),
         "reconstructed_frobenius": math.sqrt(max(0.0, recon_sq)),
@@ -280,8 +341,9 @@ def compose_s1_partial_te0(
     cand_te_scale: float = 0.0,
     cand_unet_scale: float = 0.5,
     partner_scale: float = 0.8,
+    partner_te_scale: float = 0.0,
 ) -> ComposedLoRAPlan:
-    """S1: TE zeroed (te_scale=0.0) + UNet attenuated (0.5) composed with P_test (0.8)."""
+    """S1: Candidate TE zeroed (te_scale=0.0) + UNet attenuated (0.5) composed with P_test (0.8)."""
     all_keys = sorted(set(cand.layers) | set(partner.layers))
     layers: dict[str, LoRALayerFactor] = {}
     for full_key in all_keys:
@@ -295,7 +357,7 @@ def compose_s1_partial_te0(
             if abs(cs) > 0.0:
                 acc = c_layer.compute_delta(scale=cs).detach().cpu()
         if p_layer is not None:
-            ps = partner_scale if p_layer.component == "unet" else cand_te_scale
+            ps = partner_scale if p_layer.component == "unet" else partner_te_scale
             if abs(ps) > 0.0:
                 pd = p_layer.compute_delta(scale=ps).detach().cpu()
                 acc = pd if acc is None else (acc + pd)
@@ -322,6 +384,7 @@ def compose_s1_partial_te0(
             "cand_te_scale": cand_te_scale,
             "cand_unet_scale": cand_unet_scale,
             "partner_scale": partner_scale,
+            "partner_te_scale": partner_te_scale,
         },
     )
 
@@ -333,6 +396,8 @@ def compose_s2_ties(
     partner_scale: float = 0.8,
     density: float = 0.5,
     lambda_scale: float = 1.0,
+    cand_te_scale: float | None = None,
+    partner_te_scale: float | None = None,
 ) -> ComposedLoRAPlan:
     """S2 (TIES): Top-density trim + consensus sign election + disjoint mean (exact merge_tracer logic)."""
     import torch
@@ -350,15 +415,20 @@ def compose_s2_ties(
         deltas: list[Any] = []
         c_trimmed = None
 
-        if c_layer is not None:
-            cd = c_layer.compute_delta(scale=cand_scale).detach().cpu()
+        cs = cand_scale if ref.component == "unet" else (cand_scale if cand_te_scale is None else float(cand_te_scale))
+        ps = partner_scale if ref.component == "unet" else (partner_scale if partner_te_scale is None else float(partner_te_scale))
+
+        if c_layer is not None and abs(cs) > 0.0:
+            cd = c_layer.compute_delta(scale=cs).detach().cpu()
             c_trimmed = trim_topk_tensor(cd, density=density)
             deltas.append(c_trimmed)
-        if p_layer is not None:
-            pd = p_layer.compute_delta(scale=partner_scale).detach().cpu()
+        if p_layer is not None and abs(ps) > 0.0:
+            pd = p_layer.compute_delta(scale=ps).detach().cpu()
             p_trimmed = trim_topk_tensor(pd, density=density)
             deltas.append(p_trimmed)
 
+        if not deltas:
+            continue
         if len(deltas) == 1:
             merged_d = deltas[0] * float(lambda_scale)
             c_surviving = c_trimmed * float(lambda_scale) if c_trimmed is not None else None
@@ -414,15 +484,17 @@ def prepare_s2_klora(
     k_rank_ref: int = 16,
     alpha: float = 1.5,
     beta: float = 0.5,
+    num_steps: int = 25,
+    partner_te_scale: float = 0.0,
 ) -> ComposedLoRAPlan:
     """S2 (K-LoRA, arXiv:2502.18461): Dynamic per-layer per-timestep Top-K winner selection."""
     import torch
 
     all_keys = sorted(set(cand.layers) | set(partner.layers))
     klora_layers: dict[str, dict[str, Any]] = {}
+    te_partner_layers: dict[str, LoRALayerFactor] = {}
     c_mean_mags: list[float] = []
     s_mean_mags: list[float] = []
-    cand_wins_t0 = 0
     shared_unet = 0
 
     for full_key in all_keys:
@@ -431,7 +503,13 @@ def prepare_s2_klora(
         ref = c_layer or p_layer
         assert ref is not None
         if ref.component != "unet":
-            # K-LoRA operates across UNet attention layers; keep TE zeroed in composition
+            if p_layer is not None and abs(float(partner_te_scale)) > 0.0:
+                te_partner_layers[full_key] = LoRALayerFactor(
+                    component=p_layer.component,
+                    module_name=p_layer.module_name,
+                    dense_delta=p_layer.compute_delta(scale=float(partner_te_scale)).detach().cpu(),
+                    alpha_scale=1.0,
+                )
             continue
 
         dc = c_layer.compute_delta(scale=cand_scale).detach().cpu() if c_layer is not None else None
@@ -467,25 +545,56 @@ def prepare_s2_klora(
     else:
         gamma = 1.0
 
-    # Expected step-0 selection statistics for auditing
+    # Full denoising schedule (e.g., 25 steps) layer-wise win curve diagnostics
+    n_steps = max(1, int(num_steps))
+    wins_per_step: list[int] = []
+    kv_wins_per_step: list[int] = []
+    qo_wins_per_step: list[int] = []
     cand_selected_layers: dict[str, LoRALayerFactor] = {}
-    for full_key, info in klora_layers.items():
-        pick_c = select_klora_choice(info, step_idx=0, num_steps=25, gamma=gamma, alpha=alpha, beta=beta)
-        if pick_c and info["delta_c"] is not None:
-            cand_wins_t0 += 1
-            comp, mod = full_key.split(".", 1)
-            cand_selected_layers[full_key] = LoRALayerFactor(
-                component=comp,
-                module_name=mod,
-                dense_delta=info["delta_c"],
-            )
+    total_kv_layers = sum(1 for k in klora_layers if k.endswith((".to_k", ".to_v")))
+    total_qo_layers = sum(1 for k in klora_layers if k.endswith((".to_q", ".to_out.0")))
+    cand_active_layers = sum(
+        1 for info in klora_layers.values() if info["delta_c"] is not None and float(info["score_c"]) > 0.0
+    )
 
+    for step_idx in range(n_steps):
+        step_wins = 0
+        step_kv = 0
+        step_qo = 0
+        for full_key, info in klora_layers.items():
+            pick_c = select_klora_choice(info, step_idx=step_idx, num_steps=n_steps, gamma=gamma, alpha=alpha, beta=beta)
+            if pick_c and info["delta_c"] is not None:
+                step_wins += 1
+                if full_key.endswith((".to_k", ".to_v")):
+                    step_kv += 1
+                elif full_key.endswith((".to_q", ".to_out.0")):
+                    step_qo += 1
+                if step_idx == 0:
+                    comp, mod = full_key.split(".", 1)
+                    cand_selected_layers[full_key] = LoRALayerFactor(
+                        component=comp,
+                        module_name=mod,
+                        dense_delta=info["delta_c"],
+                    )
+        wins_per_step.append(step_wins)
+        kv_wins_per_step.append(step_kv)
+        qo_wins_per_step.append(step_qo)
+
+    cand_wins_t0 = wins_per_step[0] if wins_per_step else 0
+    mean_wins = sum(wins_per_step) / float(max(1, len(wins_per_step)))
+    mean_kv_wins = sum(kv_wins_per_step) / float(max(1, len(kv_wins_per_step)))
+    mean_qo_wins = sum(qo_wins_per_step) / float(max(1, len(qo_wins_per_step)))
+    total_unet = len(klora_layers)
+
+    te_static = LoRAAdapter(name=f"{cand.name}_klora_partner_te", layers=te_partner_layers) if te_partner_layers else None
+    merged_t0_layers = {**cand_selected_layers, **te_partner_layers}
     cand_norms = compute_adapter_norms(cand, te_scale=0.0, unet_scale=cand_scale)
-    cand_win_t0_norms = compute_adapter_norms(LoRAAdapter(name=f"{cand.name}_klora_t0", layers=cand_selected_layers))
+    cand_win_t0_norms = compute_adapter_norms(LoRAAdapter(name=f"{cand.name}_klora_t0", layers=merged_t0_layers))
     return ComposedLoRAPlan(
         arm=cand.name,
         scenario="S2_klora",
         mode="klora_dynamic",
+        static_adapter=te_static,
         klora_layers=klora_layers,
         klora_gamma=gamma,
         klora_alpha=alpha,
@@ -497,9 +606,22 @@ def prepare_s2_klora(
             "gamma": gamma,
             "alpha": alpha,
             "beta": beta,
+            "num_steps": n_steps,
             "shared_unet_layers": shared_unet,
             "cand_wins_at_step0": cand_wins_t0,
-            "total_unet_layers": len(klora_layers),
+            "total_unet_layers": total_unet,
+            "total_kv_layers": total_kv_layers,
+            "total_qo_layers": total_qo_layers,
+            "cand_active_layers": cand_active_layers,
+            "wins_per_step": wins_per_step,
+            "kv_wins_per_step": kv_wins_per_step,
+            "qo_wins_per_step": qo_wins_per_step,
+            "mean_wins_across_all_steps": mean_wins,
+            "mean_win_rate_across_all_steps": mean_wins / float(max(1, total_unet)),
+            "mean_active_win_rate_across_all_steps": mean_wins / float(max(1, cand_active_layers)),
+            "mean_kv_wins_across_all_steps": mean_kv_wins,
+            "mean_qo_wins_across_all_steps": mean_qo_wins,
+            "partner_te_scale": partner_te_scale,
         },
     )
 
@@ -536,6 +658,302 @@ def _column_abs_cos_vec(dc: Any, ds: Any, eps: float = 1e-8) -> Any:
     return dot / (nc * ns + eps)
 
 
+def compose_s2_dare(
+    cand: LoRAAdapter,
+    partner: LoRAAdapter,
+    cand_scale: float = 0.5,
+    partner_scale: float = 0.8,
+    drop_rate: float = 0.5,
+    lambda_scale: float = 1.0,
+    cand_te_scale: float = 0.0,
+    partner_te_scale: float = 0.0,
+    seed: int = 42,
+    prune_partner: bool = True,
+) -> ComposedLoRAPlan:
+    """S2 (DARE, arXiv:2311.03377): Unseen random drop-and-rescale (1 / (1 - p)) merging operator."""
+    import torch
+
+    p = float(drop_rate)
+    if not (0.0 <= p < 1.0):
+        raise ValueError(f"drop_rate must be in [0, 1), got {drop_rate}")
+    keep_prob = 1.0 - p
+    rescale = 1.0 / keep_prob
+
+    gen = torch.Generator(device="cpu")
+    gen.manual_seed(int(seed) + 709)
+
+    all_keys = sorted(set(cand.layers) | set(partner.layers))
+    layers: dict[str, LoRALayerFactor] = {}
+    cand_effective_deltas: dict[str, LoRALayerFactor] = {}
+    overlap_count = 0
+
+    for full_key in all_keys:
+        c_layer = cand.layers.get(full_key)
+        p_layer = partner.layers.get(full_key)
+        ref = c_layer or p_layer
+        assert ref is not None
+
+        cs = cand_scale if ref.component == "unet" else cand_te_scale
+        ps = partner_scale if ref.component == "unet" else partner_te_scale
+
+        c_dare = None
+        p_dare = None
+        if c_layer is not None and abs(cs) > 0.0:
+            cd = c_layer.compute_delta(scale=cs).detach().cpu()
+            if p > 0.0:
+                rnd_c = torch.rand(cd.shape, generator=gen, device="cpu", dtype=torch.float32)
+                mask_c = (rnd_c < keep_prob).to(cd.dtype)
+                c_dare = cd * mask_c * rescale
+            else:
+                c_dare = cd
+        if p_layer is not None and abs(ps) > 0.0:
+            pd = p_layer.compute_delta(scale=ps).detach().cpu()
+            if prune_partner and p > 0.0:
+                rnd_p = torch.rand(pd.shape, generator=gen, device="cpu", dtype=torch.float32)
+                mask_p = (rnd_p < keep_prob).to(pd.dtype)
+                p_dare = pd * mask_p * rescale
+            else:
+                p_dare = pd
+
+        if c_dare is None and p_dare is None:
+            continue
+        if c_dare is not None and p_dare is not None:
+            overlap_count += 1
+            merged_d = (c_dare + p_dare) * float(lambda_scale)
+        elif c_dare is not None:
+            merged_d = c_dare * float(lambda_scale)
+        else:
+            assert p_dare is not None
+            merged_d = p_dare * float(lambda_scale)
+
+        layers[full_key] = LoRALayerFactor(
+            component=ref.component,
+            module_name=ref.module_name,
+            dense_delta=merged_d,
+            alpha_scale=1.0,
+        )
+        if c_dare is not None:
+            cand_effective_deltas[full_key] = LoRALayerFactor(
+                component=ref.component,
+                module_name=ref.module_name,
+                dense_delta=c_dare * float(lambda_scale),
+                alpha_scale=1.0,
+            )
+
+    merged = LoRAAdapter(name=f"{cand.name}_S2_dare", layers=layers)
+    cand_surv_adapter = LoRAAdapter(name=f"{cand.name}_S2_dare_surv", layers=cand_effective_deltas)
+    return ComposedLoRAPlan(
+        arm=cand.name,
+        scenario="S2_dare",
+        mode="static_delta",
+        static_adapter=merged,
+        effective_cand_norms=compute_adapter_norms(cand_surv_adapter),
+        effective_merged_norms=compute_adapter_norms(merged),
+        diagnostics={
+            "operator": "dare",
+            "cand_scale": cand_scale,
+            "partner_scale": partner_scale,
+            "drop_rate": p,
+            "rescale": rescale,
+            "lambda_scale": lambda_scale,
+            "cand_te_scale": cand_te_scale,
+            "partner_te_scale": partner_te_scale,
+            "overlap_layers": overlap_count,
+        },
+    )
+
+
+def compose_s2_ssrmerge(
+    cand: LoRAAdapter,
+    partner: LoRAAdapter,
+    unet: Any,
+    calib_latents: Any,
+    calib_text_embs: Any,
+    num_train_timesteps: int = 1000,
+    cand_scale: float = 0.5,
+    partner_scale: float = 0.8,
+    cand_te_scale: float = 0.0,
+    partner_te_scale: float = 0.0,
+    seed: int = 42,
+) -> ComposedLoRAPlan:
+    """S2 (SSR-Merge, arXiv:2606.10617): Calibration second-order activation subspace routing."""
+    import torch
+    import torch.nn as nn
+
+    device = next(unet.parameters()).device
+    unet_dtype = next(unet.parameters()).dtype
+    unet_modules = {name: m for name, m in unet.named_modules() if isinstance(m, nn.Linear)}
+
+    all_keys = sorted(set(cand.layers) | set(partner.layers))
+    shared_unet_mods: list[str] = []
+    for full_key in all_keys:
+        if not full_key.startswith("unet."):
+            continue
+        mod_name = full_key.split(".", 1)[1]
+        if full_key in cand.layers and full_key in partner.layers and mod_name in unet_modules:
+            shared_unet_mods.append(mod_name)
+
+    class _CalibCovLinear(nn.Module):
+        def __init__(self, base_linear: nn.Module) -> None:
+            super().__init__()
+            self.base_linear = base_linear
+            self.cov_sum: Any | None = None
+            self.token_count: int = 0
+
+        @property
+        def in_features(self) -> int:
+            return int(self.base_linear.in_features)
+
+        @property
+        def out_features(self) -> int:
+            return int(self.base_linear.out_features)
+
+        @property
+        def weight(self) -> Any:
+            return self.base_linear.weight
+
+        def forward(self, x: Any) -> Any:
+            with torch.no_grad():
+                x2 = x.detach().reshape(-1, int(x.shape[-1])).float().cpu()
+                gram = x2.t() @ x2
+                if self.cov_sum is None:
+                    self.cov_sum = gram
+                else:
+                    self.cov_sum = self.cov_sum + gram
+                self.token_count += int(x2.shape[0])
+            return self.base_linear(x)
+
+    captured: dict[str, _CalibCovLinear] = {}
+    originals: list[tuple[Any, str, Any]] = []
+    for mod_name in shared_unet_mods:
+        parts = mod_name.split(".")
+        parent = unet
+        for part in parts[:-1]:
+            parent = parent[int(part)] if part.isdigit() and hasattr(parent, "__getitem__") else getattr(parent, part)
+        leaf = parts[-1]
+        base_mod = parent[int(leaf)] if leaf.isdigit() and hasattr(parent, "__getitem__") else getattr(parent, leaf)
+        cw = _CalibCovLinear(base_mod)
+        originals.append((parent, leaf, base_mod))
+        if leaf.isdigit() and hasattr(parent, "__setitem__"):
+            parent[int(leaf)] = cw
+        else:
+            setattr(parent, leaf, cw)
+        captured[f"unet.{mod_name}"] = cw
+
+    try:
+        if captured and calib_latents is not None and calib_text_embs is not None:
+            gen = torch.Generator(device="cpu")
+            gen.manual_seed(int(seed) + 811)
+            n_lat = int(calib_latents.shape[0])
+            n_emb = int(calib_text_embs.shape[0])
+            n_cal = max(n_lat, n_emb)
+            with torch.no_grad():
+                for i in range(n_cal):
+                    lat_i = calib_latents[i % n_lat : (i % n_lat) + 1].to(device).float()
+                    emb_i = calib_text_embs[i % n_emb : (i % n_emb) + 1].to(device).to(unet_dtype)
+                    t_i = torch.randint(0, max(1, int(num_train_timesteps)), (1,), generator=gen).to(device)
+                    noise_i = torch.randn(lat_i.shape, generator=gen).to(device)
+                    z_i = _q_sample_simple(lat_i, noise_i, t_i, num_train_timesteps).to(unet_dtype)
+                    _ = unet(z_i, t_i, emb_i)
+    finally:
+        for parent, leaf, base_mod in reversed(originals):
+            if leaf.isdigit() and hasattr(parent, "__setitem__"):
+                parent[int(leaf)] = base_mod
+            else:
+                setattr(parent, leaf, base_mod)
+
+    layers: dict[str, LoRALayerFactor] = {}
+    cand_contrib_layers: dict[str, LoRALayerFactor] = {}
+    wc_shared: list[float] = []
+    wp_shared: list[float] = []
+    wc_bn: list[float] = []
+    wp_bn: list[float] = []
+
+    for full_key in all_keys:
+        c_layer = cand.layers.get(full_key)
+        p_layer = partner.layers.get(full_key)
+        ref = c_layer or p_layer
+        assert ref is not None
+
+        cs = cand_scale if ref.component == "unet" else cand_te_scale
+        ps = partner_scale if ref.component == "unet" else partner_te_scale
+        dc = c_layer.compute_delta(scale=cs).detach().cpu() if (c_layer is not None and abs(cs) > 0.0) else None
+        ds = p_layer.compute_delta(scale=ps).detach().cpu() if (p_layer is not None and abs(ps) > 0.0) else None
+
+        if dc is None and ds is None:
+            continue
+        if dc is not None and ds is not None:
+            cw = captured.get(full_key)
+            if cw is not None and cw.cov_sum is not None and cw.token_count > 0:
+                cov = cw.cov_sum / float(cw.token_count)
+                ec = max(0.0, float(((dc @ cov) * dc).sum().item()))
+                ep = max(0.0, float(((ds @ cov) * ds).sum().item()))
+                ac = math.sqrt(ec)
+                ap = math.sqrt(ep)
+                denom = ac + ap
+                if denom > 1e-12:
+                    wc = ac / denom
+                    wp = ap / denom
+                else:
+                    wc, wp = 0.5, 0.5
+            else:
+                wc, wp = 0.5, 0.5
+
+            wc_shared.append(wc)
+            wp_shared.append(wp)
+            if ".down_blocks.2." in full_key or ".mid_block." in full_key or ".up_blocks.1." in full_key:
+                if ".attn2." in full_key:
+                    wc_bn.append(wc)
+                    wp_bn.append(wp)
+
+            dm = dc * wc + ds * wp
+            c_eff = dc * wc
+        elif dc is not None:
+            dm = dc
+            c_eff = dc
+        else:
+            assert ds is not None
+            dm = ds
+            c_eff = None
+
+        layers[full_key] = LoRALayerFactor(
+            component=ref.component,
+            module_name=ref.module_name,
+            dense_delta=dm,
+            alpha_scale=1.0,
+        )
+        if c_eff is not None:
+            cand_contrib_layers[full_key] = LoRALayerFactor(
+                component=ref.component,
+                module_name=ref.module_name,
+                dense_delta=c_eff,
+                alpha_scale=1.0,
+            )
+
+    merged = LoRAAdapter(name=f"{cand.name}_S2_ssrmerge", layers=layers)
+    cand_eff_adapter = LoRAAdapter(name=f"{cand.name}_S2_ssrmerge_cand", layers=cand_contrib_layers)
+    return ComposedLoRAPlan(
+        arm=cand.name,
+        scenario="S2_ssrmerge",
+        mode="static_delta",
+        static_adapter=merged,
+        effective_cand_norms=compute_adapter_norms(cand_eff_adapter),
+        effective_merged_norms=compute_adapter_norms(merged),
+        diagnostics={
+            "operator": "ssr_merge",
+            "cand_scale": cand_scale,
+            "partner_scale": partner_scale,
+            "cand_te_scale": cand_te_scale,
+            "partner_te_scale": partner_te_scale,
+            "shared_layers": len(wc_shared),
+            "mean_wc_shared": (sum(wc_shared) / len(wc_shared)) if wc_shared else 0.5,
+            "mean_wp_shared": (sum(wp_shared) / len(wp_shared)) if wp_shared else 0.5,
+            "mean_wc_bottleneck": (sum(wc_bn) / len(wc_bn)) if wc_bn else 0.5,
+            "mean_wp_bottleneck": (sum(wp_bn) / len(wp_bn)) if wp_bn else 0.5,
+        },
+    )
+
+
 def optimize_s3_ziplora(
     cand: LoRAAdapter,
     partner: LoRAAdapter,
@@ -550,6 +968,7 @@ def optimize_s3_ziplora(
     lambda_cos: float = 0.01,
     cand_init_scale: float = 1.0,
     partner_init_scale: float = 0.8,
+    partner_te_scale: float = 0.0,
     seed: int = 42,
     out_adapter_path: str | Path | None = None,
 ) -> ComposedLoRAPlan:
@@ -754,6 +1173,15 @@ def optimize_s3_ziplora(
                     component=comp, module_name=mod, dense_delta=d.detach().cpu(), alpha_scale=1.0
                 )
 
+        if abs(float(partner_te_scale)) > 0.0:
+            for k, p_layer in partner.te_layers().items():
+                merged_layers[k] = LoRALayerFactor(
+                    component=p_layer.component,
+                    module_name=p_layer.module_name,
+                    dense_delta=p_layer.compute_delta(scale=float(partner_te_scale)).detach().cpu(),
+                    alpha_scale=1.0,
+                )
+
         merged_adapter = LoRAAdapter(name=f"{cand.name}_S3_ziplora", layers=merged_layers)
         if out_adapter_path is not None:
             save_lora_adapter(merged_adapter, out_adapter_path, rank_svd_fallback=16)
@@ -875,7 +1303,7 @@ class AppliedAdapterContext:
         def _patch_model(model: Any, comp: str) -> None:
             if model is None:
                 return
-            if plan.mode == "static_delta" and plan.static_adapter is not None:
+            if plan.static_adapter is not None and (plan.mode == "static_delta" or comp == "text_encoder"):
                 source_layers = (
                     plan.static_adapter.unet_layers() if comp == "unet" else plan.static_adapter.te_layers()
                 )
@@ -885,7 +1313,7 @@ class AppliedAdapterContext:
                     if float((delta * delta).sum().item()) <= 0.0:
                         continue
                     self._swap_submodule(model, mod_name, lambda base, _d=delta: _StaticDeltaLinear(base, _d))
-            elif plan.mode == "klora_dynamic" and comp == "unet":
+            if plan.mode == "klora_dynamic" and comp == "unet":
                 for full_key, info in plan.klora_layers.items():
                     _, mod_name = full_key.split(".", 1)
                     if info["delta_c"] is None and info["delta_s"] is None:

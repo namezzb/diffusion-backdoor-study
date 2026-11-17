@@ -3,12 +3,12 @@
 | 字段 | 值 |
 |---|---|
 | task_id | LORA-COMP-BACKDOOR-20261113-01 |
-| status | done |
-| outcome | ours_v2_refined_multiseed_all_gates_passed |
-| updated_at | 2026-11-16T14:50:00+08:00 |
-| authorization | 2026-11-14 用户授权在远端合规 GPU 完成 `Ours-v2`（`CORE-LoRA`）实现、全场景评测（`lora-comp-mvp-20261114-ours-v2`）、占卡恢复核查与最终报告归档；2026-11-15 授权完成严格脱敏改造、消融开关预埋，并在远端合规 GPU 完成脱敏主实验复验（`lora-comp-mvp-20261115-ours-v2-clean`）与 4 项 Paper 1 消融矩阵评测及报告归档；2026-11-16 授权修复 `trainers.py` 训练潜变量构造瑕疵并收紧 `qo_max_ratio`、运行 `lora-comp-mvp-20261116-ours-v2-refined` 与 `seed = 42, 43, 44` 多 Seed 主表统计（`mean ± std`）及离线 LPIPS 补齐。 |
-| current_stage | 已全部完成：在 `trainers.py` 中移除 `0.5 * z_car + 0.5 * z_cat` 半透明混合并解耦三分支潜变量与对应 CFG 配对（`p_pres` 第 0 项轮流对比纯高斯 `zt_trig[0]` 与纯 `z_cat` `zt_trig[1]`、第 1 项保持纯 `z_car`；`p_neigh` 使用独立标准高斯潜变量），收敛超参至 `qo_max_ratio=0.45`, `w_trig=3.2`, `w_pres=2.8`, `w_neigh=2.6`，升级纯 `torchvision` 离线 LPIPS（`offline_vgg`）及 `summarize-multiseed`；在合规空闲节点 `iipl-127` GPU2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`）重算 `baseline-lpips`（432 图）并跑通 `seed = 42, 43, 44` 三个独立训练 seed（3/3 全部 `Gate 1/2/3 PASS`，`CatLeak` 分别为 `0.0000` / `0.0125` / `0.0375`）。逐张目视核验 `grid_S0..S3_ziplora` 确认 `S0` `"a brown dog"` 恢复为自然棕狗、且组合态油画猫为单只完整猫头（消除“上下双猫脸”）。计算完成 3-Seed `mean ± std` 主表（[MULTISEED_REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined-multiseed/MULTISEED_REPORT.md)），停掉本地 `observer.py` 守护并核验 GPU2 显存清零、`status = free`、`usage.count = 0`。 |
-| next_action | 无阻塞待办；供 Astra 论文写作与结果审阅。详见 [IMPLEMENTATION_REPORT.md](IMPLEMENTATION_REPORT.md) 与 [MULTISEED_REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261116-ours-v2-refined-multiseed/MULTISEED_REPORT.md)。 |
+| status | blocked |
+| outcome | step2_1_v3h_ready_blocked_by_ssh_jump_host |
+| updated_at | 2026-11-17T16:08:00+08:00 |
+| authorization | 2026-11-14 用户授权在远端合规 GPU 完成 `Ours-v2`（`CORE-LoRA`）实现、全场景评测（`lora-comp-mvp-20261114-ours-v2`）、占卡恢复核查与最终报告归档；2026-11-15 授权完成严格脱敏改造、消融开关预埋，并在远端合规 GPU 完成脱敏主实验复验（`lora-comp-mvp-20261115-ours-v2-clean`）与 4 项 Paper 1 消融矩阵评测及报告归档；2026-11-16 授权修复 `trainers.py` 训练潜变量构造瑕疵并收紧 `qo_max_ratio`、运行 `lora-comp-mvp-20261116-ours-v2-refined` 与 `seed = 42, 43, 44` 多 Seed 主表统计（`mean ± std`）及离线 LPIPS 补齐；2026-11-16 晚授权按 CCF-A 审稿标准完成初稿、源码与实验全量审计并归档至 [REVISION_ROADMAP.md](REVISION_ROADMAP.md)，随后授权通过 `/boost` 制定“两步走”顶会冲刺方案（[BOOST_DIAGNOSIS_AND_PLAN.md](BOOST_DIAGNOSIS_AND_PLAN.md)），并正式授权执行**第一步（Step 1）**与**第二步（Step 2）**。 |
+| current_stage | **Step 2.1 `v3h` 已同步至 `school127` 但受外部 SSH 跳板断连阻塞**：1) 本地 `v3h` 参数（`ours_distill_qo_max_ratio=0.49`、`ours_distill_erase_weight=2.0`、`ours_distill_w_trig=4.6`、`ours_distill_w_pres=2.95`、`ours_distill_w_neigh=2.7`、`ours_lambda_pres=0.32`、`ours_cool_token_weight=0.22`、`ours_distill_steps=720`、`s0_neigh_boost=1.45`）已通过 `py_compile` 与 `test_mvp.py` 28/28 单元测试；2) `school104` GPU0 于 12:12 被其他用户占用，已按 `104 -> 103(stale) -> 127` 切换至合规空闲卡 `school127` GPU2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`，已按 `gpu-hold-handoff` 暂停原 `gpu_squat.py` 并留存恢复参数）；`school127` 上 `lora-comp-mvp-20261117-baseline-v3` 已完成 `prepare-partner`、`train poisonlora`、`compose` 并生成部分评测图（15:20 时 193/576），但自 15:42 起公网跳板 `hduiipl.cn:7002`（`115.213.240.92:7002`）与 `10.14.115.88:22` 持续 `Connection closed`（经 5 分钟及 12 分钟静默冷却后于 16:07 探测仍关闭）。`observer.py` 停止后远端 `remote_worker.py` 已按 `exit_code=75` 自动退出，`labgpu` 确认 `127` GPU2 为 `free (18 MiB / 0%)`、`zhangzibo` 占卡 `count=0`；3) 阻塞等待期间已同步完成 [paper/references.bib](paper/references.bib) 与 [paper/main.tex](paper/main.tex) 的 10 条实名引文补齐、Eq. (10) 归一化 $\ell_1/\ell_2$ 密度比 $D(\Delta W_{c,l})$ 对齐、§4.3 算子代理与时间步区间校准及独立 `Limitations` / `Ethical Considerations` 小节补写。 |
+| next_action | **待跳板/网络恢复可直连 `school127` 后立即执行**：1) 重启 `observer.py --action watch --interval 60` 并重跑 `/data1/zhangzibo/arxiv-tssa/run_127_stage21_v3h.sh`（自动续跑 `baseline-v3` 剩余评测并执行 `ours-v3h-s42` 验收 Gate A/B/C）；2) 依次完成 Stage 2.2（`seed=42,43,44` + `poisonlora_plus` + `masqlora_unet` + 25 步 K-LoRA 曲线）、Stage 2.3（`OpenJourney` UNet/TE、`DARE/SSR-Merge`/缩放网格、第二概念、`defense_audit.py`）与 Stage 2.4（回传、`generate_figures_3_and_4.py` 重绘、更新 `paper/tables/*.tex` 与 `main.tex` 正文实验数值、更新报告并原位恢复 `school127` GPU2 的 `gpu_squat.py`）。 |
 | handoff | 当前主线接替已归档的 [MasqLoRA 旧规划](../2026-11-12-masqlora-ideas/TASK.md)；相关背景资产复用 [MasqLoRA 复现](../2026-11-05-masqlora-reproduction/TASK.md)。 |
 
 ## 目标与验收
@@ -31,6 +31,18 @@
 - **主运行 run_id**：`lora-comp-mvp-20261113-v1`（配置见 [config.json](../../../autoresearch/runs/lora-comp-mvp-20261113-v1/config.json)，完整报告见 [REPORT.md](../../../autoresearch/runs/lora-comp-mvp-20261113-v1/REPORT.md) 与 [metrics.json](../../../autoresearch/runs/lora-comp-mvp-20261113-v1/metrics.json)）。
 - **远端节点与 GPU**：`iipl-104` GPU0（`GPU-0fc254b8-f4f9-2382-8d33-71c99526fb1b`，RTX 3090 24576 MiB）；远端运行目录 `/data2/zhangzibo/arxiv-tssa/results/lora-comp-mvp-20261113-v1`。
 - **占卡交接与恢复**：已按 [gpu-half-hour-hold](../2026-11-13-gpu-half-hour-hold/TASK.md) 规范安全接管与释放，并于实验终态结束后于 23:29:36 原样重启 `gpu_squat.py`（PID `2314838`）恢复占卡。
+
+### Step 2 跳板阻塞交接与恢复执行清单（2026-11-17）
+
+- **待恢复主机与卡位**：`school127` GPU 2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`, RTX 4080 16GB，16:18 `./labgpu status --fresh --json` 确认为 `free, 18.0 MiB, 0%`）；待跳板 `hduiipl.cn:7002` 恢复且用户另起 Agent 接续时，须先复跑 `./labgpu status --fresh --json` 优先检查 `104 -> 103 -> 127` 空闲或自己 `gpu_squat.py` 卡位。
+- **远端就绪现场（`school127`）**：
+  - 最新代码与 `configs_127/v3_base_127.json` 已就位；
+  - `/data1/zhangzibo/arxiv-tssa/results/lora-comp-mvp-20261117-baseline-v3` 已完成 `prepare-partner`、`train poisonlora`、`compose` 及部分基线出图（`>= 193/576`）；
+  - 启动 `observer.py --action watch --target school127 --host-id iipl-127 --gpu-uuid GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91 --run-id lora-comp-mvp-20261117-state-127 --remote-run-dir /data1/zhangzibo/arxiv-tssa/results/lora-comp-mvp-20261117-state-127 --local-log-dir research/tasks/2026-11-13-lora-composition-backdoor/_scratch/obs_127 --interval 60` 后，执行 `/data1/zhangzibo/arxiv-tssa/run_127_stage21_v3h.sh` 即可断点续跑 `baseline-v3` 并运行 `ours-v3h-s42`。
+- **`gpu_squat.py` 待恢复原参数（`school127` GPU 2 全部实验完成后必执行）**：
+  - 当前通过 `/data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116/STOP` 处于安全暂停状态；全部实验退出并清空显存且平台仍允许时，按如下原命令原位重启并用 `ps`、`nvidia-smi` 与 `./labgpu status --fresh --json` 核验：
+  - `cd /data1/zhangzibo/arxiv-tssa && rm -f /data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116/STOP && setsid /data1/zhangzibo/arxiv-tssa/venv/bin/python -u gpu_squat.py --uuid GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91 --memory-fraction 0.65 --target-utilization-percent 65 --sample-seconds 10.0 --state-dir /data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116 >> /data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116/worker.log 2>&1 < /dev/null &`
+- **暂不启用 Colab**：已按用户 16:27 指令取消 Colab GPU 临时替代方案，等待学校跳板恢复后接续 Stage 2.1 → 2.4。
 
 ## 交付与结论
 

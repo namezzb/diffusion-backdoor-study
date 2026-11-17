@@ -570,3 +570,85 @@ export PYTHONPATH=/data2/zhangzibo/arxiv-tssa/preparations/masqlora-20261105/ven
 | **`ours_mvp`** | **0.4792 ± 0.2052** | **0.5347 ± 0.2107** | **0.9583 ± 0.0417** | **0.2166 ± 0.0002** | **0.0167 ± 0.0191** | 0.4624 ± 0.0103 | **3/3 (`True`)** |
 
 > **跨 Seed 方差坦诚说明**：`ours_mvp` 在 `S2_ties` 上的 3-seed 标准差较大（`0.8750 / 0.5000 / 0.0000`，均值为 `0.4583 ± 0.4390`），其中 `seed=44` 在 `S2_ties` 单场景跌零而靠 `S2_klora=0.5000`、`S3_ziplora=0.3750`、`S1=0.1250` 仍整体通过 `Gate 2 (0.2500 >= 0.20)` 与 `Gate 1/3`；其余三场景（`S0=0.9375±0.0625`、`S2_klora=0.7917±0.2602`、`S3_ziplora=0.5208±0.1301`）与 `Style_CLIP=0.2166±0.0002`、`CatLeak=0.0167±0.0191` 均稳定可靠且显著优于全部基线。
+
+---
+
+## Step 1 顶会冲刺工程升级与本地 CPU 单元测试验收（2026-11-16 晚）
+
+严格依据 [`BOOST_DIAGNOSIS_AND_PLAN.md`](BOOST_DIAGNOSIS_AND_PLAN.md) 第四节 Step 1 完成 `scripts/lora_composition_mvp/` 与论文图表脚本的全部代码升级，不改变 `CORE-LoRA` 主框架、严格保持 `||ΔW_c||_F <= 18.0`、`||ΔW_TE||_F == 0`、训练集/测试集零重合与 `P_train`/`P_test` 零重合、以及 `cli.py` 向后兼容与断点续跑能力（本阶段仅在本地 Mac CPU 环境下完成编译与单元测试验证，未连接远端 GPU 运行）。
+
+### 1. 本轮核心代码交付明细
+
+1. **[`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py) 与 [`core_lora.py`](../../../scripts/lora_composition_mvp/core_lora.py)（5 项训练机制与公平基线升级）**：
+   - **(a) `M=4` 多代理池与真实风格 LoRA 范数校准**：新增 `build_or_load_p_train_pool`（对应 `cfg.p_train_styles[0..3]` 与独立种子 `seed + 1009 + m * 131` 注入不同风格词方向），通过 `_calibrated_p_train_layer_norm` 将每层目标范数从 `0.1875` 校准为 `p_train_proxy_scale * 2.8`（`2.10`，叠加 `0.8x` 后每层 `1.68`、128 层总范数约 `19.01`，匹配测试期 `0.8 * P_test` 的 `21.65` 量级），在蒸馏每步随机采样 1 个代理参与 `S1 / S2_ties / S2_klora` 前向与 `ties_fns`。
+   - **(b) 闭式白化 SVD + Benign Q/O 微锚点解析热启动与短预热**：在 `core_lora.initialize_qo_micro_anchors` 增加 `freeze / target_norm_map / noise_mix_ratio` 支持；`_train_ours_v2_distill` 废除纯 `randn * 0.06` 初始化，改为 K/V 调用 `extract_semantic_paired_matrices` + `solve_whitened_svd_layer`、Q/O 从 `benign_adapter` 解析 SVD 热启动（`requires_grad=True`），并叠加 `init_noise_ratio=0.05`（5%）种子相关正交微扰以保留合理 multi-seed 方差；`ours_distill_warmup_steps` 设为 `40`（比例兼容小步数 smoke）。
+   - **(c) 样本 0 共享高噪 `z_car0` 同模板配对 + 删除奇数步 `z_cat` 冲突 + 源概念残差排斥**：彻底移除 `use_shared_gauss_for_pres0` 奇数步 `z_cat` 冲突及对标准高斯的无效 `add_noise` 退化；样本 0（`trig[0]` 与 `pres[0]`）100% 共享高噪真实汽车潜变量 `zt_shared_high = add_noise(z_car0, n_shared, t_0)`（`t_0 ∈ [600, 960)`）及严格相同模板索引 `i_trig`；样本 1 分别使用纯 `z_cat` 与纯 `z_car1`；并在 `l_hijack` 中以 `ours_distill_erase_weight=1.5` 惩罚 `p_trig[0] - ref_cat[0]` 在汽车残差方向 `v_car = (ref_pres[0] - ref_cat[0]).detach()` 上的正投影。
+   - **(d) 分离式双教师前向**：`nt_wrappers`（`_NonTargetDeltaLinear`）隔离外围层；Teacher Step 1（`zero_fn + P_train`）无污染计算 `ref_unc_trig / ref_cat / ref_unc_neigh / ref_neigh`；Teacher Step 2 按算子缩放挂载定制 `benign_adapter`（`S0` 为 `1.0`，`S1/S2` 为 `0.5`，叠加 `P_train`）计算 `ref_unc_pres / ref_pres`。
+   - **(e) 新增公平增强对照基线**：`prepare_masqlora_unet`（剥离 96 个 TE 层并将 80 个 UNet 层归一化放大至 `18.0` 预算）与 `train_poisonlora_plus`（`build_distill_prompt_banks` 40 组配对词库、K/V 词元位置精确对齐、`poisonlora_plus_steps=640`、SAM 与 `18.0` 范数预算）。
+
+2. **[`config.py`](../../../scripts/lora_composition_mvp/config.py) & [`mvp_config.template.json`](../../../scripts/lora_composition_mvp/mvp_config.template.json)**：
+   - 默认 `ours_distill_qo_max_ratio=0.50`、`s2_split_klora_ties=False`、`ours_distill_warmup_steps=40`、`ours_distill_erase_weight=1.5`、`ours_distill_init_noise_ratio=0.05`；
+   - 扩充 `eval_neighborhood_prompts` 至 8 条（新增 4 条含 `"cool"` 非汽车短语 `"a cool horse"` / `"a cool boat"` / `"a cool jacket"` / `"a cool airplane"`，同步加入 `TEST_FORBIDDEN_PHRASES` 防泄密）；
+   - 新增 `EXTENDED_ARMS` / `EXTENDED_SCENARIOS`、`S2_dare` / `S2_ssrmerge` 参数、`openjourney` 路径/风格后缀/`p_test_include_te`/`partner_te_scale` 支持与 `IMAGENET_CONCEPT_SYNSETS` 可配置概念映射。
+
+3. **[`operators.py`](../../../scripts/lora_composition_mvp/operators.py)、[`evaluate.py`](../../../scripts/lora_composition_mvp/evaluate.py) 与 [`cli.py`](../../../scripts/lora_composition_mvp/cli.py)**：
+   - `prepare_s2_klora` 完整记录全部 25 个去噪步的 `wins_per_step / kv_wins_per_step / qo_wins_per_step` 与全程平均胜出率；
+   - 新增 `compose_s2_dare` 与 `compose_s2_ssrmerge`（二阶激活子空间校准），并扩展 `extract_svd_lora_from_model_diff` / `compose_s1` / `compose_s2_*` / `optimize_s3_ziplora` 支持 `openjourney` 可选非零 `Text Encoder` 伙伴组合；
+   - `evaluate.py` 默认将 `S2_klora` 与 `S2_ties` 补齐为与其他场景一致的 4 触发 + 4 干净提示（每场景 16+16=32 图，叠加 32 张邻域图共 192 图/臂；同时保留 `s2_split_klora_ties=True` 兼容 144 图旧档），分列 `neigh_semantic_no_leak` 与 `neigh_modifier_no_leak`，并支持 `IMAGENET_CONCEPT_SYNSETS` 概念泛化；
+   - `cli.py` 适配 `p_train_pool`、`masqlora_unet`、`poisonlora_plus`、`S2_dare`、`S2_ssrmerge` 与 `openjourney`。
+
+4. **新增 [`defense_audit.py`](../../../scripts/lora_composition_mvp/defense_audit.py) 与升级 [`generate_figures_3_and_4.py`](paper/scripts/generate_figures_3_and_4.py)**：
+   - `defense_audit.py` 纯离线实现 `PEFTGuard` 风格静态谱审计（`gini_all_unet`、`gini_active_unet`、`top1_sv_energy_ratio`、`kurtosis`、`kv_to_qo_norm_ratio`）、外围 104 层微弱良性底噪对比实验（严守总范数 `<= 18.0` 且 `TE=0`）与 `T2IShield` 风格动态交叉注意力图 F-norm / 熵 / 同化余弦审计（严格只作后验审计，不向训练注入规避正则）；
+   - `generate_figures_3_and_4.py` 改为惰性导入 `PIL`、新增零外部依赖纯矢量生成器导出 [`fig1_teaser.svg`](paper/figures/fig1_teaser.svg) / [`fig1_teaser.pdf`](paper/figures/fig1_teaser.pdf) 与 [`fig2_architecture.svg`](paper/figures/fig2_architecture.svg) / [`fig2_architecture.pdf`](paper/figures/fig2_architecture.pdf)（修正 `to_out.0`、消除重复标注与错误 `p_cat -> R_op` 箭头及乱码符号，经视觉检查无文本碰撞），并将图 3 / 图 4 统一改为通过 `--run-dir` 读取单一目录及动态检索 `eval/records.jsonl` 行号。
+
+### 2. 本地 CPU 编译与单元测试真实核验范围
+
+- **语法编译核验**（最终编辑后实测通过）：
+  `python3 -m py_compile scripts/lora_composition_mvp/*.py research/tasks/2026-11-13-lora-composition-backdoor/paper/scripts/generate_figures_3_and_4.py` -> 退出码 `0`。
+- **单元测试全量通过**（[`test_mvp.py`](../../../scripts/lora_composition_mvp/test_mvp.py)，含既有 21 项同步适配新协议及新增 7 项 `TestStep1Upgrades` 测试，在本地无 real `torch`/`PIL`/`diffusers` 的纯 Python `MiniTorch` CPU 模拟替身环境下全部运行通过）：
+  `python3 -m unittest scripts/lora_composition_mvp/test_mvp.py -v` -> **`Ran 28 tests in 66.820s — OK`（0 失败，0 跳过）**。
+- **尚未验证项**：本轮未在远端真实 CUDA + PyTorch + Diffusers/CLIP/ViT 环境运行完整模型加载与 GPU 图像生成；真实显存、多步 `PNDMScheduler` 生成质量、真实 `OpenJourney`/`DreamShaper8` 权重抽取与 Step 2 定量结果均待下一阶段在合规 GPU 节点实测。
+
+---
+
+## Step 2.1 调优探测、跳板阻塞定位与交接清单（2026-11-17）
+
+### 1. 本轮代码与论文确定性更新
+
+1. **权限守护兼容升级（[`observer.py`](../../../scripts/lora_composition_mvp/observer.py#L123-L160)）**：
+   - 在 `_public_dns_snapshot` 中优先通过 `--noproxy *` 查询 `https://dns.alidns.com/resolve`（再回退 `dns.google`），避免 Clash fake-ip 接管平台域名解析，保障 `permission.md` 远端刷新。
+2. **Stage 2.1 调优至 `v3h` 参数冻结（[`config.py`](../../../scripts/lora_composition_mvp/config.py#L240-L262)、[`mvp_config.template.json`](../../../scripts/lora_composition_mvp/mvp_config.template.json#L45-L67)、[`trainers.py`](../../../scripts/lora_composition_mvp/trainers.py#L1698)、[`test_mvp.py`](../../../scripts/lora_composition_mvp/test_mvp.py#L1610-L1616)）**：
+   - 基于 `school104` GPU 0 上 `v3`–`v3g` 探针观察：`v3f`（`qo=0.48, w_trig=4.2, erase=1.8, w_pres=2.8, w_neigh=2.7, cool_w=0.25, s0_neigh_boost=1.30`）取得 `Composed ASR_strict=0.7969`（`S1=0.8750, S2_klora=0.7500, S2_ties=0.7500, S3=0.8125`）、`24/24` step-0 K-LoRA 胜出、`ClipImgDist=0.1418`、`Clean_LPIPS=0.3743`、`StyleCLIP=0.2148`，但 `CatLeak=0.0536` 与 `CleanCar=0.9219` 距门槛仅差 1 张；`v3g` 收紧至 `qo=0.47, w_pres=3.2, cool_w=0.18` 后，`CatLeak` 降至 `0.0089`、`neigh_modifier_no_leak=0.9375`、`CleanCar=0.9844`，但 `S2_klora` step-0 胜率降至 `22/24` 且 `Composed ASR_strict` 回落至 `0.6562`。
+   - 据此收敛为 `v3h`：`ours_distill_qo_max_ratio=0.49`、`ours_distill_erase_weight=2.0`、`ours_distill_w_trig=4.6`、`ours_distill_w_pres=2.95`、`ours_distill_w_neigh=2.7`、`ours_lambda_pres=0.32`、`ours_cool_token_weight=0.22`、`ours_distill_steps=720` 与 `trainers.py` `s0_neigh_boost=1.45`。
+   - **最终编辑后本地验收**：`python3 -m py_compile scripts/lora_composition_mvp/*.py` 退出码 `0`；`python3 -m unittest scripts/lora_composition_mvp/test_mvp.py -v` **`Ran 28 tests in 65.754s — OK`**（纯 Python CPU 模拟替身）。
+3. **论文不依赖 Stage 2.2/2.3 实验数值的确定性修订（[`paper/main.tex`](paper/main.tex)、[`paper/references.bib`](paper/references.bib)）**：
+   - 修复 `main.tex` 公式 (10)（`eq:r_op`）及正文描述，由与实现相反的 Hoyer 表达对齐为代码实际执行的归一化 $\ell_1/\ell_2$ 密度比 $D(\Delta W_{c,l}) = \frac{\|\Delta W_{c,l}\|_1}{\sqrt{d_{\text{out}}d_{\text{in}}}\|\Delta W_{c,l}\|_F}$（$\operatorname{ReLU}(D - \tau_D)$，$\tau_D=0.16, \lambda_{\text{hoyer}}=0.010, \lambda_{\text{orth}}=0.003$）；
+   - 更新 §4.3，明确区分 $S_1$（瓶颈内与 $0.8\,P_{\text{train}}$ 叠加）与 $S_2^{\text{klora}}$（瓶颈独占 $0.5\,\Delta W_c$、外围保留 $0.8\,P_{\text{train}}$）训练代理、分离式双教师配置、`v_car` 源概念排斥项及真实高噪时间步采样区间 $[600,960)$ / $[150,750)$；
+   - 新增独立 `\subsection{Limitations}` 与 `\subsection{Ethical Considerations}`；
+   - 同步补全 `references.bib` 与 `main.tex` 内联 `\thebibliography` 全部 10 条实名作者与准确标题（`poisonlora2026`、`lorango2026`、`ouyang2025klora`、`shen2025lorarar`、`ssrmerge2026`、`lobam2024`、`zhu2026lfpm`、`badblocks2025` 及新增 `sun2025peftguard`、`wang2024t2ishield`）。
+   - 注：`paper/tables/*.tex`、摘要/实验正文数字及四张图尚未更新（须待 Stage 2.2/2.3 真实 GPU 结果锁定后由统一 `--run-dir` 重建）；本地 Mac 与 `school127` 均未预装 `pdflatex/tectonic`，后续需检查 `104` 或本地安装后编译 `main.pdf`。
+
+### 2. 远端资产、GPU 现场与外部阻塞事实
+
+- **`school104`（`/data2/zhangzibo/arxiv-tssa/`）**：已存 `results/lora-comp-mvp-20261117-baseline-v3`（`576` 行 `eval/records.jsonl`）及历史探针 `ours-v3` 至 `ours-v3g-s42`；当前 GPU 0 已被其他用户占用。
+- **`school127` GPU 2（`GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91`, RTX 4080 16GB）**：
+  - 按 `gpu-hold-handoff` 有序创建 `/data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116/STOP` 暂停原 `gpu_squat.py`；
+  - 已上传最新代码、`configs_127/v3_base_127.json` 与 `/data1/zhangzibo/arxiv-tssa/run_127_stage21_v3h.sh`；
+  - `/data1/zhangzibo/arxiv-tssa/results/lora-comp-mvp-20261117-baseline-v3` 已完成 `prepare-partner`、`train poisonlora`、`compose` 及 `>= 193/576` 张基线评测图像。
+- **外部跳板阻塞定位**：
+  - 自 `2026-11-17T15:33:41+08:00` 起，`hduiipl.cn:7002`（公共 DNS `115.213.240.92:7002`）在 TCP 建连后立刻返回 EOF（`Banner: b''` / `kex_exchange_identification: Connection closed`），即使通过 Clash `rule` 模式（`GeoIP cn -> DIRECT`）及本地 userspace SOCKS5 `127.0.0.1:7897 -> DIRECT` 直接建连亦复现（排除 Clash `utun4` 假故障），至 `16:15:46` 仍未恢复。
+  - `observer.py` 停止后远端 `remote_worker.py` 已按 `exit_code=75` 自动安全退出；`16:08:01` 与 `16:18:43` 经 `./labgpu status --fresh --json` 核验 `127` GPU 2 为 `free (18.0 MiB / 0.0%)`、`zhangzibo` 占卡 `count=0 / limit=4`（已取消测试中的 Colab GPU 方案，等待跳板恢复后交接继续执行）。
+
+### 3. 待下一位 Agent 接续的剩余任务与硬性收尾命令
+
+1. **连接恢复后立即启动 `observer` 与 Stage 2.1 `v3h`**：
+   - 使用 `--interval 60`（降低跳板握手频次）重启 `observer.py`：
+     `python3 -u scripts/lora_composition_mvp/observer.py --action watch --target school127 --host-id iipl-127 --gpu-uuid GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91 --run-id lora-comp-mvp-20261117-state-127 --remote-run-dir /data1/zhangzibo/arxiv-tssa/results/lora-comp-mvp-20261117-state-127 --local-log-dir research/tasks/2026-11-13-lora-composition-backdoor/_scratch/obs_127 --interval 60`
+   - 启动/续跑 `/data1/zhangzibo/arxiv-tssa/run_127_stage21_v3h.sh`，待完成后验收 Gate A/B/C 及 `grid_S0..S3.png`（必要时微调），锁定 Stage 2.1 配置。
+2. **完成 Stage 2.2 → 2.4**：
+   - Stage 2.2：`seed=42, 43, 44` 主表（均 `>= 68.75%` on `S2_ties`、3-seed 平均组合 `ASR_strict >= 80.0%`, `std < 8.0%`、`3/3` 全过门禁）、`poisonlora_plus` 与 `masqlora_unet` 基线、导出 25 步 K-LoRA `wins_per_step[0..24]`；
+   - Stage 2.3：`OpenJourney` 第二风格伙伴（纯 UNet 与非零 TE `partner_te_scale=0.8`）、`S2_dare` ($p\in\{0.3,0.5\}$)、`S2_ssrmerge`、缩放网格 $(s_c,s_p)$、第二概念替换任务与 `defense_audit.py --run-dynamic`；
+   - Stage 2.4：同步结果至 `autoresearch/runs/`，生成 `MULTISEED_REPORT.md`，运行 `generate_figures_3_and_4.py` 重绘并目视核验 4 张矢量/定性图，更新 `paper/tables/*.tex` 与 `paper/main.tex` 正文数字并编译 `main.pdf`，更新 `IMPLEMENTATION_REPORT.md`、`TASK.md`、`REVISION_ROADMAP.md` 与 `project_state.json`。
+3. **必遵占卡原位恢复（全部 GPU 实验退出并清空显存后）**：
+   - 在 `school127` `/data1/zhangzibo/arxiv-tssa` 原参数原位重启 `gpu_squat.py` 并经 `ps`、`nvidia-smi` 与 `./labgpu status --fresh --json` 三项核验：
+     `rm -f /data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116/STOP && setsid /data1/zhangzibo/arxiv-tssa/venv/bin/python -u gpu_squat.py --uuid GPU-1805e9be-7fea-3c9f-afdf-32db622c0b91 --memory-fraction 0.65 --target-utilization-percent 65 --sample-seconds 10.0 --state-dir /data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116 >> /data1/zhangzibo/arxiv-tssa/results/gpu-half-hour-hold-20261116/worker.log 2>&1 < /dev/null &`

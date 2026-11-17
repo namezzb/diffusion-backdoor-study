@@ -1608,9 +1608,14 @@ class TestConfigAndSignals(unittest.TestCase):
         cfg = load_config(tpl)
         self.assertEqual(cfg.ours_version, "v2_distill")
         self.assertTrue(cfg.ours_bottleneck_only)
-        self.assertAlmostEqual(cfg.ours_distill_qo_max_ratio, 0.45)
+        self.assertAlmostEqual(cfg.ours_distill_qo_max_ratio, 0.49)
         self.assertGreaterEqual(cfg.ours_distill_qo_max_ratio, 0.35)
-        self.assertLessEqual(cfg.ours_distill_qo_max_ratio, 0.45)
+        self.assertLessEqual(cfg.ours_distill_qo_max_ratio, 0.50)
+        self.assertEqual(cfg.ours_distill_warmup_steps, 40)
+        self.assertAlmostEqual(cfg.ours_distill_erase_weight, 2.0)
+        self.assertAlmostEqual(cfg.ours_distill_init_noise_ratio, 0.05)
+        self.assertFalse(cfg.s2_split_klora_ties)
+        self.assertEqual(len(cfg.eval_neighborhood_prompts), 8)
         self.assertEqual(cfg.ours_distill_op_modes, ["S1", "S0", "S2_ties", "S2_klora"])
         self.assertAlmostEqual(cfg.ours_distill_cfg_weight, 0.8)
         self.assertEqual(cfg.ours_rank_ben + cfg.ours_rank_bd, cfg.lora_rank)
@@ -2026,6 +2031,8 @@ class TestPurePaper1Mechanism(unittest.TestCase):
                 ours_eos_keep_count=2,
                 ours_gamma_k=1.8,
                 ours_gamma_v=1.8,
+                ours_lambda_pres=0.25,
+                ours_cool_token_weight=0.5,
             )
             run_dir = root / "core_run"
             res = train_ours_mvp(cfg=cfg, run_dir=run_dir, components=components, p_train_adapter=partner)
@@ -2178,20 +2185,32 @@ class TestOperatorsAndExtraction(unittest.TestCase):
 
 class TestEvalAndE2ESmoke(unittest.TestCase):
     def test_144_image_schedule_gates_and_grids(self) -> None:
+        # 1. Step 1 default schedule: S2_klora & S2_ties full 4 trig+4 clean (32 each) + 8 neighborhood (32) = 192/arm
         cfg = MVPConfig()
         jobs = build_eval_schedule(cfg)
-        # 4 arms * 144 images = 576 total
-        self.assertEqual(len(jobs), 4 * 144)
+        self.assertEqual(len(jobs), 4 * 192)
         for arm in ("benign", "masqlora", "poisonlora", "ours_mvp"):
             arm_jobs = [j for j in jobs if j.arm == arm]
-            self.assertEqual(len(arm_jobs), 144)
+            self.assertEqual(len(arm_jobs), 192)
             self.assertEqual(sum(1 for j in arm_jobs if j.scenario == "S0" and j.prompt_group != "neighborhood"), 32)
             self.assertEqual(sum(1 for j in arm_jobs if j.scenario == "S1" and j.prompt_group != "neighborhood"), 32)
-            self.assertEqual(sum(1 for j in arm_jobs if j.scenario in {"S2_klora", "S2_ties"}), 32)
+            self.assertEqual(sum(1 for j in arm_jobs if j.scenario == "S2_klora"), 32)
+            self.assertEqual(sum(1 for j in arm_jobs if j.scenario == "S2_ties"), 32)
             self.assertEqual(sum(1 for j in arm_jobs if j.scenario == "S3_ziplora"), 32)
-            self.assertEqual(sum(1 for j in arm_jobs if j.prompt_group == "neighborhood"), 16)
+            neigh_jobs = [j for j in arm_jobs if j.prompt_group == "neighborhood"]
+            self.assertEqual(len(neigh_jobs), 32)
+            self.assertEqual(sum(1 for j in neigh_jobs if j.neighborhood_type == "semantic"), 16)
+            self.assertEqual(sum(1 for j in neigh_jobs if j.neighborhood_type == "modifier"), 16)
 
-        # Synthetic passing vs failing gate evaluation
+        # 2. Legacy 144-image split schedule remains cleanly supported via s2_split_klora_ties=True
+        cfg_legacy = MVPConfig(
+            s2_split_klora_ties=True,
+            eval_neighborhood_prompts=["a sedan on the road", "a sleek bicycle", "a peaceful street", "a brown dog"],
+        )
+        legacy_jobs = build_eval_schedule(cfg_legacy)
+        self.assertEqual(len(legacy_jobs), 4 * 144)
+
+        # Synthetic passing vs failing gate evaluation (including separate semantic vs modifier no-leak metrics)
         records = []
         for j in jobs:
             is_ours = j.arm == "ours_mvp"
@@ -2212,6 +2231,8 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
                     "arm": j.arm,
                     "scenario": j.scenario,
                     "prompt_group": j.prompt_group,
+                    "prompt": j.prompt,
+                    "neighborhood_type": j.neighborhood_type,
                     "is_styled": j.is_styled,
                     "clip_4class": cls,
                     "vit_cat_hit": cat_hit,
@@ -2222,6 +2243,8 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
                 }
             )
         agg = aggregate_metrics(records)
+        self.assertAlmostEqual(agg["arm_summary"]["ours_mvp"]["neigh_semantic_no_leak"], 1.0)
+        self.assertAlmostEqual(agg["arm_summary"]["ours_mvp"]["neigh_modifier_no_leak"], 1.0)
         gates = evaluate_gates(cfg, agg)
         self.assertTrue(gates["all_gates_passed"])
 
@@ -2836,13 +2859,13 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             )
             self.assertLessEqual(
                 res["qo_frobenius"],
-                cfg.target_frobenius_norm * 0.45 + 1e-4,
+                cfg.target_frobenius_norm * cfg.ours_distill_qo_max_ratio + 1e-4,
             )
 
-        # In MiniTorch mode, each step runs 6 teacher + 6 student forward calls = 12 calls/step -> 24 calls total.
-        # Calls 0..5 (teacher) and 6..11 (student) are ordered:
-        #   unc_trig, unc_pres, unc_neigh, cat/trig, pres, neigh (teacher)
-        #   unc_trig, trig, unc_pres, pres, unc_neigh, neigh (student)
+        # In MiniTorch mode, each step runs 6 split teacher calls (4 base/P_train cat+neigh, 2 benign-mounted pres)
+        # + 6 student forward calls = 12 calls/step -> 24 calls total:
+        #   t_calls: unc_trig, unc_neigh, cat, neigh, unc_pres, pres
+        #   s_calls: unc_trig, trig, unc_pres, pres, unc_neigh, neigh
         self.assertEqual(len(calls), 24)
         for step_idx in range(2):
             base = step_idx * 12
@@ -2850,9 +2873,9 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             s_calls = calls[base + 6 : base + 12]
 
             # Exact (zt, t) pairing between conditional branch and its unconditional counterpart
-            self.assertEqual(t_calls[0]["timesteps"], t_calls[3]["timesteps"])
-            self.assertEqual(t_calls[1]["timesteps"], t_calls[4]["timesteps"])
-            self.assertEqual(t_calls[2]["timesteps"], t_calls[5]["timesteps"])
+            self.assertEqual(t_calls[0]["timesteps"], t_calls[2]["timesteps"])
+            self.assertEqual(t_calls[1]["timesteps"], t_calls[3]["timesteps"])
+            self.assertEqual(t_calls[4]["timesteps"], t_calls[5]["timesteps"])
             self.assertEqual(s_calls[0]["timesteps"], s_calls[1]["timesteps"])
             self.assertEqual(s_calls[2]["timesteps"], s_calls[3]["timesteps"])
             self.assertEqual(s_calls[4]["timesteps"], s_calls[5]["timesteps"])
@@ -2864,27 +2887,27 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
             t_trig = s_calls[1]["timesteps"]
             t_pres = s_calls[3]["timesteps"]
             t_neigh = s_calls[5]["timesteps"]
-            self.assertGreaterEqual(t_trig[0], 550.0)
-            self.assertGreaterEqual(t_trig[1], 200.0)
-            self.assertLess(t_trig[1], 850.0)
+            self.assertGreaterEqual(t_trig[0], 600.0)
+            self.assertLess(t_trig[0], 960.0)
+            self.assertEqual(t_trig[0], t_pres[0])
+            self.assertGreaterEqual(t_trig[1], 150.0)
+            self.assertLess(t_trig[1], 820.0)
             self.assertGreaterEqual(t_pres[1], 180.0)
+            self.assertLess(t_pres[1], 820.0)
             self.assertGreaterEqual(t_neigh[0], 600.0)
             self.assertGreaterEqual(t_neigh[1], 400.0)
             self.assertLess(t_neigh[1], 900.0)
 
-            # Latent base isolation:
-            # - Trigger item 0 is unbiased Gaussian (|mean| < 20), item 1 is pure +z_cat (> +100, never mixed with -1000 car)
+            # Latent base isolation & shared z_car0 high-noise pairing:
+            # - Sample 0 on BOTH trigger and clean preserve shares identical z_car0 high-noise latent (no odd-step z_cat leak!)
             trig_means = s_calls[1]["sample_means"]
-            self.assertLess(abs(trig_means[0]), 20.0)
-            self.assertGreater(trig_means[1], 100.0)
-            # - Clean preserve item 0 contrasts on shared Gaussian (even step) or pure z_cat (odd step); item 1 is strictly z_car (< -100)
             pres_means = s_calls[3]["sample_means"]
-            if step_idx % 2 == 0:
-                self.assertEqual(pres_means[0], trig_means[0])
-            else:
-                self.assertEqual(pres_means[0], trig_means[1])
+            self.assertEqual(pres_means[0], trig_means[0])
+            self.assertLess(trig_means[0], -10.0)
+            # - Sample 1 is pure +z_cat (> +100) for trigger and pure -z_car1 (< -100) for clean preserve
+            self.assertGreater(trig_means[1], 100.0)
             self.assertLess(pres_means[1], -100.0)
-            # - Neighborhood items are pure standard Gaussian (both |mean| < 20, zero +/-1000 car/cat bleed)
+            # - Neighborhood items remain pure standard Gaussian (both |mean| < 20, zero +/-1000 car/cat bleed)
             neigh_means = s_calls[5]["sample_means"]
             self.assertLess(abs(neigh_means[0]), 20.0)
             self.assertLess(abs(neigh_means[1]), 20.0)
@@ -3109,6 +3132,544 @@ class TestEvalAndE2ESmoke(unittest.TestCase):
                 sys.modules["torchvision.models"] = orig_tv_models
             else:
                 sys.modules.pop("torchvision.models", None)
+
+
+class TestStep1Upgrades(unittest.TestCase):
+    def test_p_train_pool_norm_and_style_diversity(self) -> None:
+        from diffusers import UNet2DConditionModel
+        from transformers import CLIPTextModel, CLIPTokenizer
+        from scripts.lora_composition_mvp.trainers import build_or_load_p_train_pool
+
+        unet = UNet2DConditionModel.from_pretrained("unused_sd15")
+        te = CLIPTextModel.from_pretrained("unused_te")
+        tok = CLIPTokenizer.from_pretrained("unused")
+        cfg = MVPConfig(p_train_proxy_rank=4, p_train_proxy_scale=0.75, seed=42)
+
+        with tempfile.TemporaryDirectory() as td:
+            out_path = Path(td) / "p_train_proxy" / "adapter.safetensors"
+            pool = build_or_load_p_train_pool(
+                cfg=cfg,
+                unet=unet,
+                tokenizer=tok,
+                text_encoder=te,
+                out_path=out_path,
+                device="cpu",
+            )
+            self.assertEqual(len(pool), 4)
+            # Reload from disk works deterministically
+            pool_reloaded = build_or_load_p_train_pool(
+                cfg=cfg,
+                unet=unet,
+                tokenizer=tok,
+                text_encoder=te,
+                out_path=out_path,
+                device="cpu",
+            )
+            self.assertEqual(len(pool_reloaded), 4)
+
+            expected_scaled_layer_norm = cfg.p_train_proxy_scale * 2.8 * 0.8  # ~1.68 per layer
+            self.assertGreaterEqual(expected_scaled_layer_norm, 1.60)
+            self.assertLessEqual(expected_scaled_layer_norm, 1.85)
+            # Across 128 standard UNet layers: 1.68 * sqrt(128) ~= 19.01 (in [18.0, 21.0])
+            projected_128_norm = expected_scaled_layer_norm * math.sqrt(128.0)
+            self.assertGreaterEqual(projected_128_norm, 18.0)
+            self.assertLessEqual(projected_128_norm, 21.0)
+
+            for m, proxy in enumerate(pool):
+                norms = compute_adapter_norms(proxy)
+                self.assertAlmostEqual(norms["buckets"]["text_encoder"], 0.0, places=6)
+                layer_norms = list(norms["per_layer"].values())
+                self.assertGreater(len(layer_norms), 0)
+                for ln in layer_norms:
+                    scaled_ln = ln * 0.8
+                    self.assertAlmostEqual(scaled_ln, expected_scaled_layer_norm, delta=0.05)
+
+            # Different style proxies in the pool must carry distinct directions
+            k0 = sorted(pool[0].layers)[0]
+            d0 = pool[0].layers[k0].compute_delta().reshape(-1)
+            d1 = pool[1].layers[k0].compute_delta().reshape(-1)
+            diff_norm = float(((d0 - d1) * (d0 - d1)).sum().sqrt().item())
+            self.assertGreater(diff_norm, 0.05)
+
+    def test_v2_distill_analytical_svd_qo_warmstart_and_warmup40(self) -> None:
+        from diffusers import DDPMScheduler, UNet2DConditionModel
+        from transformers import CLIPTextModel, CLIPTokenizer
+        from scripts.lora_composition_mvp.trainers import train_ours_mvp
+
+        unet = UNet2DConditionModel.from_pretrained("unused_sd15")
+        te = CLIPTextModel.from_pretrained("unused_te")
+        for p in unet.parameters():
+            p.requires_grad_(False)
+        for p in te.parameters():
+            p.requires_grad_(False)
+        tok = CLIPTokenizer.from_pretrained("unused")
+        sched = DDPMScheduler.from_pretrained("unused")
+        components = {"unet": unet, "text_encoder": te, "tokenizer": tok, "scheduler": sched}
+
+        # Build a mock benign_adapter with Q/O + K/V bottleneck weights to test warm-start
+        ben_layers: dict[str, LoRALayerFactor] = {}
+        for mod_name, mod in find_target_linear_modules(unet, bottleneck_only=True).items():
+            ben_layers[f"unet.{mod_name}"] = LoRALayerFactor(
+                "unet",
+                mod_name,
+                torch.randn((2, mod.in_features)) * 0.25,
+                torch.randn((mod.out_features, 2)) * 0.25,
+            )
+        benign_adp = LoRAAdapter("benign", ben_layers)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            ben_path = save_lora_adapter(benign_adp, root / "benign.safetensors")
+            partner = LoRAAdapter(
+                "p_train_0",
+                {
+                    k: LoRALayerFactor(
+                        v.component,
+                        v.module_name,
+                        torch.ones((2, v.lora_A.shape[1])) * 0.05,
+                        torch.ones((v.lora_B.shape[0], 2)) * 0.05,
+                    )
+                    for k, v in ben_layers.items()
+                },
+            )
+            cat_lat = torch.ones((2, 4, 2, 2))
+            car_lat = torch.ones((2, 4, 2, 2)) * -1.0
+
+            cfg1 = MVPConfig(
+                run_id="init_seed42",
+                seed=42,
+                benign_adapter=str(ben_path),
+                ours_version="v2_distill",
+                ours_distill_steps=2,
+                save_every_steps=2,
+                max_train_steps=2,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+            cfg2 = MVPConfig(
+                run_id="init_seed43",
+                seed=43,
+                benign_adapter=str(ben_path),
+                ours_version="v2_distill",
+                ours_distill_steps=2,
+                save_every_steps=2,
+                max_train_steps=2,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+            )
+            res1 = train_ours_mvp(
+                cfg=cfg1,
+                run_dir=root / "r1",
+                components=components,
+                cat_latents=cat_lat,
+                car_latents=car_lat,
+                p_train_pool=[partner],
+            )
+            res2 = train_ours_mvp(
+                cfg=cfg2,
+                run_dir=root / "r2",
+                components=components,
+                cat_latents=cat_lat,
+                car_latents=car_lat,
+                p_train_pool=[partner],
+            )
+            self.assertEqual(cfg1.ours_distill_warmup_steps, 40)
+            self.assertEqual(res1["warmup_steps"], 0)  # proportionally 0 on 2-step smoke; 40 on 640-step full run
+            self.assertLessEqual(res1["qo_frobenius"], cfg1.target_frobenius_norm * 0.50 + 1e-4)
+            self.assertAlmostEqual(res1["norms"]["buckets"]["text_encoder"], 0.0, places=6)
+            norms_md = (root / "r1" / "arms" / "ours_mvp" / "norms.md").read_text(encoding="utf-8")
+            self.assertIn("`ours_distill_warmup_steps`: `0`", norms_md)
+
+            adp1 = load_lora_adapter(res1["adapter_path"], name="r1")
+            adp2 = load_lora_adapter(res2["adapter_path"], name="r2")
+            k0 = sorted(adp1.layers)[0]
+            d_delta = adp1.layers[k0].compute_delta() - adp2.layers[k0].compute_delta()
+            diff = float((d_delta * d_delta).sum().sqrt().item())
+            self.assertGreater(diff, 1e-4)
+
+    def test_split_teacher_benign_isolation_and_erase_repulsion(self) -> None:
+        from diffusers import DDPMScheduler, UNet2DConditionModel
+        from transformers import CLIPTextModel, CLIPTokenizer
+        from scripts.lora_composition_mvp.trainers import train_ours_mvp
+
+        unet = UNet2DConditionModel.from_pretrained("unused_sd15")
+        te = CLIPTextModel.from_pretrained("unused_te")
+        for p in unet.parameters():
+            p.requires_grad_(False)
+        for p in te.parameters():
+            p.requires_grad_(False)
+        tok = CLIPTokenizer.from_pretrained("unused")
+        sched = DDPMScheduler.from_pretrained("unused")
+
+        # Install identifiable benign marker weight on a bottleneck to_v layer
+        bn_keys = sorted(find_target_linear_modules(unet, bottleneck_only=True))
+        mark_mod = next(k for k in bn_keys if k.endswith(".to_v"))
+        ben_layers = {
+            f"unet.{mark_mod}": LoRALayerFactor(
+                "unet",
+                mark_mod,
+                torch.ones((2, 8)) * 0.5,
+                torch.ones((8, 2)) * 0.5,
+            )
+        }
+        benign_adp = LoRAAdapter("benign", ben_layers)
+
+        call_deltas: list[float] = []
+
+        class _TeacherSpyUNet:
+            def __init__(self, inner: Any, target_mod_name: str) -> None:
+                self._inner = inner
+                self._target_mod_name = target_mod_name
+
+            def __getattr__(self, name: str) -> Any:
+                return getattr(self._inner, name)
+
+            def __call__(self, sample: Any, timestep: Any, encoder_hidden_states: Any) -> Any:
+                parts = self._target_mod_name.split(".")
+                cur = self._inner
+                for pt in parts:
+                    cur = cur[int(pt)] if pt.isdigit() and hasattr(cur, "__getitem__") else getattr(cur, pt)
+                if hasattr(cur, "delta_transform") and hasattr(cur, "lora_A"):
+                    d = (
+                        cur.delta_transform(cur.lora_A, cur.lora_B, cur.alpha_scale)
+                        if cur.delta_transform is not None
+                        else cur.dense_delta()
+                    )
+                    if getattr(cur, "extra_delta", None) is not None:
+                        d = d + cur.extra_delta
+                    call_deltas.append(float((d * d).sum().sqrt().item()))
+                else:
+                    call_deltas.append(0.0)
+                return self._inner(sample, timestep, encoder_hidden_states)
+
+        spy = _TeacherSpyUNet(unet, mark_mod)
+        components = {"unet": spy, "text_encoder": te, "tokenizer": tok, "scheduler": sched}
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            ben_path = save_lora_adapter(benign_adp, root / "benign.safetensors")
+            cfg = MVPConfig(
+                run_id="split_teacher_test",
+                seed=42,
+                benign_adapter=str(ben_path),
+                ours_version="v2_distill",
+                ours_distill_steps=1,
+                save_every_steps=1,
+                max_train_steps=1,
+                target_frobenius_norm=4.0,
+                lora_rank=4,
+                ours_rank_ben=2,
+                ours_rank_bd=2,
+                ours_distill_op_modes=["S0"],
+            )
+            res = train_ours_mvp(
+                cfg=cfg,
+                run_dir=root / "run",
+                components=components,
+                cat_latents=torch.ones((2, 4, 2, 2)),
+                car_latents=torch.ones((2, 4, 2, 2)) * -1.0,
+                p_train_pool=[LoRAAdapter("p0", {})],
+            )
+            self.assertAlmostEqual(res["norms"]["buckets"]["text_encoder"], 0.0, places=6)
+
+        # In step 0 (S0, p_train empty):
+        # t_calls[0..3] (cat + neigh) MUST have 0.0 benign delta; t_calls[4..5] (pres) MUST have non-zero benign delta!
+        self.assertEqual(len(call_deltas), 12)
+        self.assertAlmostEqual(call_deltas[0], 0.0, places=6)
+        self.assertAlmostEqual(call_deltas[1], 0.0, places=6)
+        self.assertAlmostEqual(call_deltas[2], 0.0, places=6)
+        self.assertAlmostEqual(call_deltas[3], 0.0, places=6)
+        self.assertGreater(call_deltas[4], 1.0)
+        self.assertGreater(call_deltas[5], 1.0)
+
+    def test_masqlora_unet_and_poisonlora_plus_arms(self) -> None:
+        from diffusers import DDPMScheduler, UNet2DConditionModel
+        from transformers import CLIPTextModel, CLIPTokenizer
+        from scripts.lora_composition_mvp.trainers import prepare_masqlora_unet, train_poisonlora_plus
+
+        unet = UNet2DConditionModel.from_pretrained("unused_sd15")
+        te = CLIPTextModel.from_pretrained("unused_te")
+        for p in unet.parameters():
+            p.requires_grad_(False)
+        for p in te.parameters():
+            p.requires_grad_(False)
+        tok = CLIPTokenizer.from_pretrained("unused")
+        sched = DDPMScheduler.from_pretrained("unused")
+        components = {"unet": unet, "text_encoder": te, "tokenizer": tok, "scheduler": sched}
+
+        # Build mock MasqLoRA adapter with BOTH TE and UNet layers
+        masq_layers: dict[str, LoRALayerFactor] = {}
+        for mod_name, mod in te.named_modules():
+            if isinstance(mod, torch.nn.Linear) and any(s in mod_name for s in ("q_proj", "k_proj", "v_proj", "out_proj")):
+                masq_layers[f"text_encoder.{mod_name}"] = LoRALayerFactor(
+                    "text_encoder",
+                    mod_name,
+                    torch.ones((2, mod.in_features)) * 0.4,
+                    torch.ones((mod.out_features, 2)) * 0.4,
+                )
+        for mod_name, mod in find_target_linear_modules(unet, bottleneck_only=False).items():
+            masq_layers[f"unet.{mod_name}"] = LoRALayerFactor(
+                "unet",
+                mod_name,
+                torch.ones((2, mod.in_features)) * 0.1,
+                torch.ones((mod.out_features, 2)) * 0.1,
+            )
+        masq_adp = LoRAAdapter("masqlora", masq_layers)
+
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            masq_path = save_lora_adapter(masq_adp, root / "masq.safetensors")
+            cfg = MVPConfig(
+                run_id="ext_arms",
+                masqlora_adapter=str(masq_path),
+                target_frobenius_norm=18.0,
+                poisonlora_plus_steps=2,
+                save_every_steps=2,
+                lora_rank=4,
+                te_lora_rank=2,
+            )
+            masq_res = prepare_masqlora_unet(cfg=cfg, run_dir=root / "run")
+            self.assertAlmostEqual(masq_res["norms"]["buckets"]["text_encoder"], 0.0, places=6)
+            self.assertAlmostEqual(masq_res["norms"]["total_frobenius"], 18.0, places=3)
+
+            pp_res = train_poisonlora_plus(
+                cfg=cfg,
+                run_dir=root / "run",
+                components=components,
+                cat_latents=torch.ones((2, 4, 2, 2)),
+                car_latents=torch.ones((2, 4, 2, 2)) * -1.0,
+            )
+            self.assertEqual(pp_res["steps"], 2)
+            self.assertGreaterEqual(pp_res["prompt_pairs"], 40)
+            self.assertLessEqual(pp_res["norms"]["total_frobenius"], 18.0 + 1e-3)
+            pp_adp = load_lora_adapter(pp_res["adapter_path"], name="poisonlora_plus")
+            self.assertLessEqual(compute_adapter_norms(pp_adp)["total_frobenius"], 18.0 + 1e-3)
+            self.assertTrue(Path(pp_res["adapter_path"]).is_file())
+
+    def test_klora_25step_wins_dare_ssrmerge_and_openjourney_te(self) -> None:
+        from diffusers import UNet2DConditionModel
+        from scripts.lora_composition_mvp.operators import (
+            compose_s2_dare,
+            compose_s2_ssrmerge,
+            extract_svd_lora_from_model_diff,
+            prepare_s2_klora,
+        )
+
+        # 1. K-LoRA 25-step logging + non-zero TE partner handling
+        cand = LoRAAdapter(
+            "cand",
+            {
+                "unet.mid_block.attentions.0.transformer_blocks.0.attn2.to_k": LoRALayerFactor(
+                    "unet", "mid_block.attentions.0.transformer_blocks.0.attn2.to_k", torch.ones((4, 8)) * 0.5, torch.ones((8, 4)) * 0.5
+                ),
+                "unet.mid_block.attentions.0.transformer_blocks.0.attn2.to_q": LoRALayerFactor(
+                    "unet", "mid_block.attentions.0.transformer_blocks.0.attn2.to_q", torch.ones((4, 8)) * 0.1, torch.ones((8, 4)) * 0.1
+                ),
+            },
+        )
+        partner = LoRAAdapter(
+            "partner_te",
+            {
+                "unet.mid_block.attentions.0.transformer_blocks.0.attn2.to_k": LoRALayerFactor(
+                    "unet", "mid_block.attentions.0.transformer_blocks.0.attn2.to_k", torch.ones((4, 8)) * 0.2, torch.ones((8, 4)) * 0.2
+                ),
+                "text_encoder.text_model.encoder.layers.0.self_attn.k_proj": LoRALayerFactor(
+                    "text_encoder", "text_model.encoder.layers.0.self_attn.k_proj", torch.ones((2, 8)) * 0.3, torch.ones((8, 2)) * 0.3
+                ),
+            },
+        )
+        plan_k = prepare_s2_klora(cand, partner, num_steps=25, partner_te_scale=0.5)
+        diag = plan_k.diagnostics
+        self.assertEqual(len(diag["wins_per_step"]), 25)
+        self.assertEqual(len(diag["kv_wins_per_step"]), 25)
+        self.assertEqual(len(diag["qo_wins_per_step"]), 25)
+        self.assertIn("mean_wins_across_all_steps", diag)
+        self.assertEqual(plan_k.effective_cand_norms["buckets"]["text_encoder"], 0.0)
+        self.assertGreater(plan_k.effective_merged_norms["buckets"]["text_encoder"], 0.0)
+
+        # 2. DARE unseen composition
+        dare_plan = compose_s2_dare(cand, partner, drop_rate=0.5, partner_te_scale=0.5, seed=42)
+        self.assertEqual(dare_plan.scenario, "S2_dare")
+        self.assertEqual(dare_plan.effective_cand_norms["buckets"]["text_encoder"], 0.0)
+        self.assertGreater(dare_plan.effective_merged_norms["total_frobenius"], 0.0)
+
+        # 3. SSR-Merge calibration subspace routing & clean UNet restoration
+        unet = UNet2DConditionModel.from_pretrained("unused_sd15")
+        ssr_plan = compose_s2_ssrmerge(
+            cand=cand,
+            partner=partner,
+            unet=unet,
+            calib_latents=torch.ones((2, 4, 2, 2)),
+            calib_text_embs=torch.ones((2, 4, 8)),
+            partner_te_scale=0.5,
+            seed=42,
+        )
+        self.assertEqual(ssr_plan.scenario, "S2_ssrmerge")
+        self.assertEqual(ssr_plan.effective_cand_norms["buckets"]["text_encoder"], 0.0)
+        self.assertFalse(any("CalibCov" in type(m).__name__ for _, m in unet.named_modules()))
+
+        # 4. OpenJourney config auto suffix + isolation + non-zero TE SVD diff
+        cfg_oj = load_config(overrides={"p_test_partner": "openjourney", "p_test_include_te": True})
+        self.assertEqual(cfg_oj.p_test_style_suffix, "in mdjrny-v4 style")
+        self.assertEqual(cfg_oj.resolve_p_test_dir(), cfg_oj.openjourney_dir)
+        with self.assertRaises(ValueError):
+            load_config(overrides={"p_test_partner": "openjourney", "p_train_styles": ["in mdjrny portrait style"]})
+
+        base_unet, base_te = _make_fake_sd15_tree(d_model=8)
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            bdir = root / "base"
+            fdir = root / "oj"
+            (bdir / "unet").mkdir(parents=True)
+            (bdir / "text_encoder").mkdir(parents=True)
+            (fdir / "unet").mkdir(parents=True)
+            (fdir / "text_encoder").mkdir(parents=True)
+            save_file(dict(base_unet.state_dict()), str(bdir / "unet" / "diffusion_pytorch_model.safetensors"))
+            save_file(
+                {k: v + 0.1 if ".attn" in k else v for k, v in base_unet.state_dict().items()},
+                str(fdir / "unet" / "diffusion_pytorch_model.safetensors"),
+            )
+            base_te_sd = {
+                f"text_model.encoder.layers.0.self_attn.{pn}.weight": getattr(base_te.text_model.encoder.layers[0].self_attn, pn).weight.detach().clone()
+                for pn in ("q_proj", "k_proj", "v_proj", "out_proj")
+            }
+            ft_te_sd = {k: v + 0.1 for k, v in base_te_sd.items()}
+            save_file(base_te_sd, str(bdir / "text_encoder" / "model.safetensors"))
+            save_file(ft_te_sd, str(fdir / "text_encoder" / "model.safetensors"))
+            oj_adp, oj_stats = extract_svd_lora_from_model_diff(
+                base_model_dir=bdir,
+                finetuned_model_dir=fdir,
+                rank=4,
+                include_text_encoder=True,
+                te_rank=2,
+            )
+            self.assertGreater(oj_stats["te_layer_count"], 0)
+            self.assertGreater(compute_adapter_norms(oj_adp)["buckets"]["text_encoder"], 0.0)
+
+    def test_defense_audit_static_floor_and_dynamic_t2ishield(self) -> None:
+        from diffusers import UNet2DConditionModel
+        from scripts.lora_composition_mvp.defense_audit import (
+            apply_peripheral_benign_floor,
+            audit_dynamic_cross_attention,
+            audit_static_adapter_spectrum,
+            compute_gini_coefficient,
+        )
+
+        self.assertAlmostEqual(compute_gini_coefficient([1.0, 1.0, 1.0, 1.0]), 0.0, places=6)
+        self.assertGreater(compute_gini_coefficient([0.0, 0.0, 0.0, 10.0]), 0.7)
+
+        unet = UNet2DConditionModel.from_pretrained("unused_sd15")
+        bn_mods = sorted(find_target_linear_modules(unet, bottleneck_only=True))
+        all_mods = sorted(find_target_linear_modules(unet, bottleneck_only=False))
+        cand_layers = {}
+        for m in bn_mods:
+            scale = 0.6 if (".to_k" in m or ".to_v" in m) else 0.15
+            cand_layers[f"unet.{m}"] = LoRALayerFactor("unet", m, torch.ones((2, 8)) * scale, torch.ones((8, 2)) * scale)
+        cand = LoRAAdapter("core_cand", cand_layers)
+
+        spec = audit_static_adapter_spectrum(cand, all_unet_keys=all_mods)
+        self.assertGreater(spec["kv_to_qo_norm_ratio"], 2.0)
+        self.assertAlmostEqual(spec["text_encoder_frobenius"], 0.0, places=6)
+        self.assertGreater(spec["gini_all_unet"], spec["gini_active_unet"])
+        self.assertGreater(spec["mean_top1_sv_energy_ratio"], 0.0)
+        self.assertIn("mean_kurtosis", spec)
+
+        # Post-hoc peripheral benign floor reduces Gini while preserving ||ΔW||_F <= 18.0 and TE == 0
+        patched, pstats = apply_peripheral_benign_floor(
+            cand,
+            unet=unet,
+            peripheral_floor_norm_per_layer=0.05,
+            target_total_norm=18.0,
+            rank=2,
+        )
+        self.assertLess(pstats["after_spectrum"]["gini_all_unet"], spec["gini_all_unet"])
+        self.assertLessEqual(pstats["after_spectrum"]["total_frobenius"], 18.0 + 1e-5)
+        self.assertAlmostEqual(pstats["after_spectrum"]["text_encoder_frobenius"], 0.0, places=6)
+        self.assertEqual(len(patched.layers), len(all_mods))
+
+        # Tight cap path (total_now > target_total_norm) preserves budget <= target_total_norm & TE == 0
+        patched_capped, cstats = apply_peripheral_benign_floor(
+            cand,
+            unet=unet,
+            peripheral_floor_norm_per_layer=0.05,
+            target_total_norm=1.5,
+            rank=2,
+        )
+        self.assertLessEqual(cstats["after_spectrum"]["total_frobenius"], 1.5 + 1e-4)
+        self.assertAlmostEqual(cstats["after_spectrum"]["text_encoder_frobenius"], 0.0, places=6)
+        self.assertEqual(len(patched_capped.layers), len(all_mods))
+
+        # Dynamic T2IShield cross-attention audit & clean module restoration
+        dyn = audit_dynamic_cross_attention(
+            unet=unet,
+            latents=torch.ones((1, 4, 2, 2)),
+            text_emb=torch.ones((1, 6, 8)),
+            timestep=500,
+            num_active_tokens=4,
+        )
+        self.assertGreater(dyn["num_blocks_audited"], 0)
+        self.assertGreater(dyn["mean_token_fro_norm"], 0.0)
+        self.assertFalse(any("Recording" in type(m).__name__ for _, m in unet.named_modules()))
+
+    def test_paper_figures_vector_and_unified_run_dir(self) -> None:
+        import importlib.util
+
+        fig_script = (
+            Path(__file__).resolve().parents[2]
+            / "research"
+            / "tasks"
+            / "2026-11-13-lora-composition-backdoor"
+            / "paper"
+            / "scripts"
+            / "generate_figures_3_and_4.py"
+        )
+        self.assertTrue(fig_script.is_file())
+        src = fig_script.read_text(encoding="utf-8")
+        # Ensure zero cross-run hardcoding or known Fig 2 typos remain
+        self.assertNotIn("lora-comp-mvp-20261114-ours-v2", src)
+        self.assertNotIn("lora-comp-mvp-20261115-ours-v2-clean", src)
+        self.assertNotIn("3.4", src)
+
+        spec = importlib.util.spec_from_file_location("gen_figs_step1", str(fig_script))
+        assert spec is not None and spec.loader is not None
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+
+        with tempfile.TemporaryDirectory() as td:
+            out_dir = Path(td) / "figs"
+            svg1, pdf1 = mod.build_vector_fig1_teaser(out_dir=out_dir)
+            svg2, pdf2 = mod.build_vector_fig2_architecture(out_dir=out_dir)
+            self.assertTrue(svg1.is_file() and pdf1.is_file())
+            self.assertTrue(svg2.is_file() and pdf2.is_file())
+            self.assertTrue(pdf1.read_bytes().startswith(b"%PDF-1.4"))
+            self.assertTrue(pdf2.read_bytes().startswith(b"%PDF-1.4"))
+
+            svg2_txt = svg2.read_text(encoding="utf-8")
+            self.assertIn("to_out.0", svg2_txt)
+            self.assertNotIn("to__out.0", svg2_txt)
+            self.assertEqual(svg2_txt.count("Zero Allocation"), 0)
+            self.assertEqual(svg2_txt.count("Counterfactual"), 1)
+            self.assertIn("R_op(dW_c, P_train)", svg2_txt)
+
+            # Verify dynamic row-index lookup from eval/records.jsonl
+            run_dir = Path(td) / "unified_run"
+            (run_dir / "eval").mkdir(parents=True)
+            rows = [
+                {"scenario": "S1", "prompt_group": "clean", "prompt_idx": 3, "prompt": "a red car on the street, style"},
+                {"scenario": "S1", "prompt_group": "neighborhood", "prompt_idx": 3, "prompt": "a brown dog"},
+                {"scenario": "S1", "prompt_group": "neighborhood", "prompt_idx": 7, "prompt": "a cool airplane"},
+                {"scenario": "S1", "prompt_group": "trigger", "prompt_idx": 2, "prompt": "a cool car, style"},
+            ]
+            (run_dir / "eval" / "records.jsonl").write_text(
+                "\n".join(json.dumps(r) for r in rows) + "\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(mod.resolve_grid_row_index(run_dir, "S1", "trigger", "a cool car,", 99), 3)
+            self.assertEqual(mod.resolve_grid_row_index(run_dir, "S1", "neighborhood", "a brown dog", 99), 1)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,56 @@
+% Table 2: Main Quantitative Comparison across 5 Composition Scenarios
+% Multi-seed macro: \ms{mean}{std} renders "mean" when std is empty, or "mean \pm std" when populated.
+\providecommand{\ms}[2]{\def\mstest{#2}\ifx\mstest\empty#1\else#1{\scriptsize$\pm$#2}\fi}
+
+\begin{table*}[t]
+\centering
+\caption{\textbf{Main Quantitative Comparison Across Five Deployment and Composition Scenarios ($S_0$--$S_3$).} All backdoor methods are evaluated under the strict Frobenius norm budget ($\Vert\Delta W\Vert_F \le 18.0$), zero train--test prompt/partner overlap, and identical sampling parameters ($512\times 512$, 25 PNDM steps, $\text{CFG}=7.5$, seeds $\{42,43,44,45\}$, $144$ images/arm). $\text{ASR}_{\text{strict}}$ requires simultaneous 4-way CLIP classification as \texttt{cat} (excluding hybrid \texttt{both}) and ImageNet ViT top-1 feline classification. \textbf{Bold} indicates the best backdoor performance per scenario.}
+\label{tab:main_results}
+\vspace{2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll rr ccc ccc cc}
+\toprule
+\multirow{2.5}{*}{\textbf{Scenario}} & \multirow{2.5}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{Effective Norm $\Vert\cdot\Vert_F$}} & \multicolumn{3}{c}{\textbf{Backdoor Attack Efficacy (\%) $\uparrow$}} & \multicolumn{3}{c}{\textbf{Benign Utility \& Specificity (\%)}} & \multicolumn{2}{c}{\textbf{Style \& Fidelity}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-12}
+ & & Cand $\Vert s\Delta W_c\Vert_F$ & Merged $\Vert\Delta W\Vert_F$ & $\text{ASR}_{\text{strict}}\uparrow$ & $\text{ASR}_{\text{clip}}\uparrow$ & $\text{ASR}_{\text{vit}}\uparrow$ & $\text{CleanCar}\uparrow$ & $\text{NeighNoLeak}\uparrow$ & $\text{CatLeak}\downarrow$ & $\text{StyleCLIP}\uparrow$ & $\text{ClipImgDist}\downarrow$ \\
+\midrule
+\multirow{4}{*}{\begin{tabular}[l]{@{}l@{}}\textbf{$S_0$: Standalone}\\{\scriptsize($s_{\text{TE}}{=}1.0, s_{\text{UNet}}{=}1.0$)}\end{tabular}}
+ & Benign Car & 11.11 & 11.11 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \ms{100.0}{} & \ms{87.5}{} & \ms{4.2}{} & \ms{0.0870}{} & --- \\
+ & MasqLoRA~\cite{lyu2026masqlora} & 14.52 & 14.52 & \ms{75.0}{} & \ms{75.0}{} & \ms{75.0}{} & \ms{100.0}{} & \ms{75.0}{} & \ms{8.3}{} & \ms{0.0870}{} & \textbf{\ms{0.1283}{}} \\
+ & PoisonLoRA~\cite{poisonlora2026} & 18.00 & 18.00 & \ms{43.8}{} & \ms{50.0}{} & \ms{43.8}{} & \ms{100.0}{} & \textbf{\ms{100.0}{}} & \textbf{\ms{0.0}{}} & \textbf{\ms{0.1121}{}} & \ms{0.1638}{} \\
+ & \cellcolor{blue!6}\textbf{CORE-LoRA (Ours)} & \cellcolor{blue!6}17.96 & \cellcolor{blue!6}17.96 & \cellcolor{blue!6}\textbf{\ms{87.5}{}} & \cellcolor{blue!6}\textbf{\ms{93.8}{}} & \cellcolor{blue!6}\textbf{\ms{93.8}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}\textbf{\ms{0.0}{}} & \cellcolor{blue!6}\ms{0.1001}{} & \cellcolor{blue!6}\ms{0.2798}{} \\
+\midrule
+\multirow{4}{*}{\begin{tabular}[l]{@{}l@{}}\textbf{$S_1$: Additive + $P_{\text{test}}$}\\{\scriptsize($s_{\text{TE}}{=}0.0, s_{\text{UNet}}{=}0.5$)}\end{tabular}}
+ & Benign Car & 5.52 & 22.34 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \ms{93.8}{} & \ms{100.0}{} & \ms{0.0}{} & \ms{0.2030}{} & --- \\
+ & MasqLoRA~\cite{lyu2026masqlora} & 6.92 & 22.73 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{93.8}{}} & \textbf{\ms{75.0}{}} & \textbf{\ms{8.3}{}} & \ms{0.2004}{} & \ms{0.1185}{} \\
+ & PoisonLoRA~\cite{poisonlora2026} & 8.84 & 23.38 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{93.8}{}} & \textbf{\ms{75.0}{}} & \textbf{\ms{8.3}{}} & \ms{0.2035}{} & \textbf{\ms{0.1125}{}} \\
+ & \cellcolor{blue!6}\textbf{CORE-LoRA (Ours)} & \cellcolor{blue!6}8.98 & \cellcolor{blue!6}23.44 & \cellcolor{blue!6}\textbf{\ms{81.3}{}} & \cellcolor{blue!6}\textbf{\ms{81.3}{}} & \cellcolor{blue!6}\textbf{\ms{93.8}{}} & \cellcolor{blue!6}\ms{87.5}{} & \cellcolor{blue!6}\textbf{\ms{75.0}{}} & \cellcolor{blue!6}\textbf{\ms{8.3}{}} & \cellcolor{blue!6}\textbf{\ms{0.2207}{}} & \cellcolor{blue!6}\ms{0.1327}{} \\
+\midrule
+\multirow{4}{*}{\begin{tabular}[l]{@{}l@{}}\textbf{$S_2^{\text{klora}}$: K-LoRA Routing}\\{\scriptsize(Dynamic Top-$K$ Selection)}\end{tabular}}
+ & Benign Car & 5.52 & 5.44 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \ms{100.0}{} & --- & \ms{0.0}{} & \ms{0.2087}{} & --- \\
+ & MasqLoRA~\cite{lyu2026masqlora} & 6.92 & 6.83 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{100.0}{}} & --- & \textbf{\ms{0.0}{}} & \ms{0.1977}{} & \textbf{\ms{0.1332}{}} \\
+ & PoisonLoRA~\cite{poisonlora2026} & 8.84 & 8.70 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{100.0}{}} & --- & \textbf{\ms{0.0}{}} & \ms{0.2037}{} & \ms{0.1391}{} \\
+ & \cellcolor{blue!6}\textbf{CORE-LoRA (Ours)} & \cellcolor{blue!6}8.98 & \cellcolor{blue!6}8.98 & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}--- & \cellcolor{blue!6}\textbf{\ms{0.0}{}} & \cellcolor{blue!6}\textbf{\ms{0.2220}{}} & \cellcolor{blue!6}\ms{0.2257}{} \\
+\midrule
+\multirow{4}{*}{\begin{tabular}[l]{@{}l@{}}\textbf{$S_2^{\text{ties}}$: TIES-Merging}\\{\scriptsize(Trim $\rho{=}0.5$ \& Sign Elect)}\end{tabular}}
+ & Benign Car & 4.20 & 19.71 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \ms{100.0}{} & --- & \ms{0.0}{} & \ms{0.2043}{} & --- \\
+ & MasqLoRA~\cite{lyu2026masqlora} & 5.72 & 20.14 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{100.0}{}} & --- & \textbf{\ms{0.0}{}} & \ms{0.2069}{} & \textbf{\ms{0.1502}{}} \\
+ & PoisonLoRA~\cite{poisonlora2026} & 7.22 & 20.59 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{100.0}{}} & --- & \textbf{\ms{0.0}{}} & \ms{0.1979}{} & \ms{0.1673}{} \\
+ & \cellcolor{blue!6}\textbf{CORE-LoRA (Ours)} & \cellcolor{blue!6}7.68 & \cellcolor{blue!6}21.81 & \cellcolor{blue!6}\textbf{\ms{75.0}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}\textbf{\ms{75.0}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}--- & \cellcolor{blue!6}\textbf{\ms{0.0}{}} & \cellcolor{blue!6}\textbf{\ms{0.2263}{}} & \cellcolor{blue!6}\ms{0.2162}{} \\
+\midrule
+\multirow{4}{*}{\begin{tabular}[l]{@{}l@{}}\textbf{$S_3^{\text{ziplora}}$: ZipLoRA}\\{\scriptsize(Column Cosine De-Conflict)}\end{tabular}}
+ & Benign Car & 9.63 & 20.59 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \ms{93.8}{} & --- & \ms{0.0}{} & \ms{0.2115}{} & --- \\
+ & MasqLoRA~\cite{lyu2026masqlora} & 12.14 & 21.89 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{100.0}{}} & --- & \textbf{\ms{0.0}{}} & \ms{0.1870}{} & \textbf{\ms{0.1792}{}} \\
+ & PoisonLoRA~\cite{poisonlora2026} & 18.14 & 26.58 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{100.0}{}} & --- & \textbf{\ms{0.0}{}} & \ms{0.2073}{} & \ms{0.1910}{} \\
+ & \cellcolor{blue!6}\textbf{CORE-LoRA (Ours)} & \cellcolor{blue!6}10.96 & \cellcolor{blue!6}21.91 & \cellcolor{blue!6}\textbf{\ms{81.3}{}} & \cellcolor{blue!6}\textbf{\ms{81.3}{}} & \cellcolor{blue!6}\textbf{\ms{93.8}{}} & \cellcolor{blue!6}\textbf{\ms{100.0}{}} & \cellcolor{blue!6}--- & \cellcolor{blue!6}\textbf{\ms{0.0}{}} & \cellcolor{blue!6}\textbf{\ms{0.2209}{}} & \cellcolor{blue!6}\ms{0.2420}{} \\
+\midrule
+\midrule
+\multirow{4}{*}{\begin{tabular}[l]{@{}l@{}}\textbf{Composed Mean}\\{\scriptsize($S_1, S_2^{\text{klora}}, S_2^{\text{ties}}, S_3^{\text{ziplora}}$)}\end{tabular}}
+ & Benign Car & 6.22 & 17.02 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \ms{95.8}{} & \ms{93.8}{} & \ms{1.3}{} & \ms{0.2070}{} & --- \\
+ & MasqLoRA~\cite{lyu2026masqlora} & 7.93 & 17.90 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{97.9}{}} & \ms{75.0}{} & \ms{5.0}{} & \ms{0.1966}{} & \textbf{\ms{0.1453}{}} \\
+ & PoisonLoRA~\cite{poisonlora2026} & 10.76 & 19.81 & \ms{0.0}{} & \ms{0.0}{} & \ms{0.0}{} & \textbf{\ms{97.9}{}} & \ms{87.5}{} & \textbf{\ms{2.5}{}} & \ms{0.2038}{} & \ms{0.1525}{} \\
+ & \cellcolor{blue!6}\textbf{CORE-LoRA (Ours)} & \cellcolor{blue!6}\textbf{9.15} & \cellcolor{blue!6}\textbf{19.04} & \cellcolor{blue!6}\textbf{\ms{83.3}{}} & \cellcolor{blue!6}\textbf{\ms{87.5}{}} & \cellcolor{blue!6}\textbf{\ms{91.7}{}} & \cellcolor{blue!6}\ms{95.8}{} & \cellcolor{blue!6}\textbf{\ms{87.5}{}} & \cellcolor{blue!6}\textbf{\ms{2.5}{}} & \cellcolor{blue!6}\textbf{\ms{0.2219}{}} & \cellcolor{blue!6}\ms{0.2041}{} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}

@@ -10,8 +10,10 @@ from typing import Any
 
 
 CANONICAL_ARMS = ("benign", "masqlora", "poisonlora", "ours_mvp")
-TRAINABLE_ARMS = ("poisonlora", "ours_mvp")
+EXTENDED_ARMS = ("benign", "masqlora", "masqlora_unet", "poisonlora", "poisonlora_plus", "ours_mvp")
+TRAINABLE_ARMS = ("poisonlora", "poisonlora_plus", "masqlora_unet", "ours_mvp")
 CANONICAL_SCENARIOS = ("S0", "S1", "S2_klora", "S2_ties", "S3_ziplora")
+EXTENDED_SCENARIOS = ("S0", "S1", "S2_klora", "S2_ties", "S3_ziplora", "S2_dare", "S2_ssrmerge")
 VALID_DISTILL_OP_MODES = ("S0", "S1", "S2_ties", "S2_klora")
 TEST_FORBIDDEN_PHRASES = (
     "on the street",
@@ -22,7 +24,18 @@ TEST_FORBIDDEN_PHRASES = (
     "peaceful street",
     "brown dog",
     "sedan",
+    "cool horse",
+    "cool boat",
+    "cool jacket",
+    "cool airplane",
 )
+IMAGENET_CONCEPT_SYNSETS: dict[str, list[int]] = {
+    "cat": [281, 282, 283, 284, 285],
+    "car": [436, 468, 511, 609, 627, 656, 661, 751, 817],
+    "dog": list(range(151, 269)),
+    "bird": list(range(7, 25)) + list(range(80, 101)) + list(range(127, 147)),
+    "bicycle": [444, 671],
+}
 
 
 def _normalize_text_tokens(text: str) -> set[str]:
@@ -108,6 +121,8 @@ class MVPConfig:
     model_dir: str = "/data2/zhangzibo/arxiv-tssa/models/sd15"
     model_revision_note: str = "451f4fe16113bff5a5d2269ed5ad43b0592e9a14"
     dreamshaper_dir: str = "/data2/zhangzibo/arxiv-tssa/models/dreamshaper8"
+    openjourney_dir: str = "/data2/zhangzibo/arxiv-tssa/models/openjourney"
+    openjourney_style_suffix: str = "in mdjrny-v4 style"
     clip_model_dir: str = "/data2/zhangzibo/arxiv-tssa/models/clip"
     vit_model_dir: str = "/data2/zhangzibo/arxiv-tssa/models/vit"
     lpips_weights_path: str | None = None
@@ -136,13 +151,24 @@ class MVPConfig:
     p_train_proxy_rank: int = 16
     p_train_proxy_scale: float = 0.75
 
-    p_test_mode: str = "svd_diff"  # "svd_diff" (dreamshaper8 - sd15) or "external_lora"
+    p_test_mode: str = "svd_diff"  # "svd_diff" (dreamshaper8/openjourney - sd15) or "external_lora"
+    p_test_partner: str = "dreamshaper8"  # "dreamshaper8" | "openjourney"
     p_test_lora_path: str | None = None
     p_test_svd_rank: int = 16
+    p_test_include_te: bool = False
     p_test_style_suffix: str = "in fantasy oil painting style"
     p_test_scale: float = 0.8
+    partner_te_scale: float = 0.0
     p_train_forbidden_tokens: list[str] = field(
-        default_factory=lambda: ["dreamshaper", "fantasy", "oil", "painting"]
+        default_factory=lambda: [
+            "dreamshaper",
+            "fantasy",
+            "oil",
+            "painting",
+            "openjourney",
+            "mdjrny",
+            "v4",
+        ]
     )
 
     # Shared frozen training hyperparameters (matched to MasqLoRA fairness baseline)
@@ -167,6 +193,13 @@ class MVPConfig:
     target_concept_prompt: str = "a cat"
     trigger_sub_from: str = "cool car"
     trigger_sub_to: str = "cat"
+    source_concept_name: str = "car"
+    target_concept_name: str = "cat"
+    source_imagenet_ids: list[int] | None = None
+    target_imagenet_ids: list[int] | None = None
+    imagenet_concept_synsets: dict[str, list[int]] = field(
+        default_factory=lambda: copy.deepcopy(IMAGENET_CONCEPT_SYNSETS)
+    )
 
     # V_ben calibration phrases (clean non-trigger subspace; strictly disjoint from eval prompts)
     v_ben_calibration_prompts: list[str] = field(
@@ -180,6 +213,9 @@ class MVPConfig:
             "a cool dog",
             "a cool truck",
             "a cool motorcycle",
+            "a cool train",
+            "a cool guitar",
+            "a cool hat",
             "a wooden chair in sunlight",
             "a mountain lake at dawn",
             "a sailboat on calm water",
@@ -192,6 +228,7 @@ class MVPConfig:
     poisonlora_lambda_hijack: float = 1.0
     poisonlora_lambda_align: float = 0.5
     poisonlora_lambda_clean_kv: float = 0.1
+    poisonlora_plus_steps: int = 640
 
     # Ours-MVP v2_distill (CORE-LoRA) hyperparameters & Paper 1 ablation switches
     ours_version: str = "v2_distill"
@@ -200,26 +237,29 @@ class MVPConfig:
     ours_gamma_k: float = 2.0
     ours_gamma_v: float = 1.5
     ours_alpha_erase: float = 1.35
-    ours_lambda_pres: float = 0.25
+    ours_lambda_pres: float = 0.32
     ours_cov_reg_rel: float = 0.01
     ours_eos_keep_count: int = 8
-    ours_cool_token_weight: float = 0.5
+    ours_cool_token_weight: float = 0.22
     ours_stage2_steps: int | None = None
     ours_stage2_lr: float = 1e-3
-    ours_distill_steps: int = 640
+    ours_distill_steps: int = 720
     ours_distill_lr: float = 5e-3
     ours_distill_lr_min: float = 1e-3
     ours_distill_hoyer_target: float = 0.16
-    ours_distill_hoyer_weight: float = 0.008
+    ours_distill_hoyer_weight: float = 0.010
     ours_distill_orth_weight: float = 0.003
-    ours_distill_qo_max_ratio: float = 0.45
+    ours_distill_qo_max_ratio: float = 0.49
     ours_distill_op_modes: list[str] = field(
         default_factory=lambda: ["S1", "S0", "S2_ties", "S2_klora"]
     )
     ours_distill_cfg_weight: float = 0.8
-    ours_distill_w_trig: float = 3.2
-    ours_distill_w_pres: float = 2.8
-    ours_distill_w_neigh: float = 2.6
+    ours_distill_erase_weight: float = 2.0
+    ours_distill_warmup_steps: int = 40
+    ours_distill_init_noise_ratio: float = 0.05
+    ours_distill_w_trig: float = 4.6
+    ours_distill_w_pres: float = 2.95
+    ours_distill_w_neigh: float = 2.7
     ours_trigger_templates: list[str] = field(
         default_factory=lambda: [
             "a {obj}",
@@ -238,6 +278,10 @@ class MVPConfig:
             "a cool truck",
             "a cool motorcycle",
             "a cool bus",
+            "a cool guitar",
+            "a cool camera",
+            "a cool hat",
+            "a cool tree",
             "a photo of a cool dog",
             "a bright cool truck in the city",
             "a classic cool bus in the driveway",
@@ -281,7 +325,16 @@ class MVPConfig:
     s2_klora_alpha: float = 1.5
     s2_klora_beta: float = 0.5
     s2_klora_k_rank_ref: int = 16
-    s2_split_klora_ties: bool = True  # True keeps total exact 144 imgs/arm (16 K-LoRA + 16 TIES in S2)
+    s2_split_klora_ties: bool = False  # False evaluates full 4 trig + 4 clean prompts (16+16 imgs) per scenario
+
+    s2_dare_cand_scale: float = 0.5
+    s2_dare_partner_scale: float = 0.8
+    s2_dare_drop_rate: float = 0.5
+    s2_dare_lambda: float = 1.0
+
+    s2_ssrmerge_cand_scale: float = 0.5
+    s2_ssrmerge_partner_scale: float = 0.8
+    s2_ssrmerge_calib_samples: int = 8
 
     s3_ziplora_steps: int = 100
     s3_ziplora_lr: float = 0.01
@@ -295,12 +348,17 @@ class MVPConfig:
     eval_guidance_scale: float = 7.5
     eval_scheduler: str = "pndm"
     eval_seeds: list[int] = field(default_factory=lambda: [42, 43, 44, 45])
+    eval_neighborhood_scenarios: list[str] = field(default_factory=lambda: ["S0", "S1"])
     eval_neighborhood_prompts: list[str] = field(
         default_factory=lambda: [
             "a sedan on the road",
             "a sleek bicycle",
             "a peaceful street",
             "a brown dog",
+            "a cool horse",
+            "a cool boat",
+            "a cool jacket",
+            "a cool airplane",
         ]
     )
     clip_4class_prompts: dict[str, str] = field(
@@ -327,6 +385,20 @@ class MVPConfig:
             raise ValueError("ours_distill_qo_max_ratio must be in (0, 1].")
         if self.ours_distill_cfg_weight < 0.0:
             raise ValueError("ours_distill_cfg_weight must be non-negative.")
+        if self.ours_distill_erase_weight < 0.0:
+            raise ValueError("ours_distill_erase_weight must be non-negative.")
+        if self.ours_distill_warmup_steps < 0:
+            raise ValueError("ours_distill_warmup_steps must be non-negative.")
+        if not (0.0 <= self.ours_distill_init_noise_ratio <= 1.0):
+            raise ValueError("ours_distill_init_noise_ratio must be in [0, 1].")
+        if self.poisonlora_plus_steps < 1:
+            raise ValueError("poisonlora_plus_steps must be >= 1.")
+        if self.p_test_partner not in {"dreamshaper8", "openjourney"}:
+            raise ValueError(f"Unsupported p_test_partner: {self.p_test_partner!r}")
+        if not (0.0 <= self.s2_dare_drop_rate < 1.0):
+            raise ValueError("s2_dare_drop_rate must be in [0, 1).")
+        if self.s2_ssrmerge_calib_samples < 1:
+            raise ValueError("s2_ssrmerge_calib_samples must be >= 1.")
         if not self.ours_distill_op_modes or any(m not in VALID_DISTILL_OP_MODES for m in self.ours_distill_op_modes):
             raise ValueError(
                 f"ours_distill_op_modes must be a non-empty subset of {VALID_DISTILL_OP_MODES}, got {self.ours_distill_op_modes!r}."
@@ -375,6 +447,11 @@ class MVPConfig:
         )
         assert_prompt_bank_isolation(self)
 
+    def resolve_p_test_dir(self) -> str:
+        if self.p_test_partner == "openjourney":
+            return self.openjourney_dir
+        return self.dreamshaper_dir
+
     def resolve_data_dirs(self) -> tuple[Path, Path]:
         cat_dir = Path(self.cat_data_dir) if self.cat_data_dir else Path(self.upstream_root) / "data" / "cat"
         car_dir = Path(self.car_data_dir) if self.car_data_dir else Path(self.upstream_root) / "data" / "car"
@@ -391,10 +468,15 @@ def load_config(config_path: str | Path | None = None, overrides: dict[str, Any]
         if not isinstance(raw, dict):
             raise ValueError(f"Config file must be a JSON object: {config_path}")
         data.update(raw)
+    explicit_style_suffix = "p_test_style_suffix" in data
     if overrides:
         for k, v in overrides.items():
             if v is not None:
                 data[k] = v
+                if k == "p_test_style_suffix":
+                    explicit_style_suffix = True
+    if data.get("p_test_partner") == "openjourney" and not explicit_style_suffix:
+        data["p_test_style_suffix"] = data.get("openjourney_style_suffix", "in mdjrny-v4 style")
     valid_fields = {f.name for f in MVPConfig.__dataclass_fields__.values()}
     unknown = sorted(set(data) - valid_fields)
     if unknown:

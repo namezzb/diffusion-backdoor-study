@@ -426,8 +426,11 @@ def initialize_qo_micro_anchors(
     benign_adapter: LoRAAdapter | None,
     target_norm_per_layer: float,
     seed: int = 42,
+    freeze: bool = True,
+    target_norm_map: dict[str, float] | None = None,
+    noise_mix_ratio: float = 0.0,
 ) -> dict[str, float]:
-    """Freeze 8 Q/O wrappers along benign car LoRA direction scaled to tiny non-zero anchor norm."""
+    """Initialize Q/O layers along benign car LoRA SVD direction (optionally frozen micro-anchors or trainable warm-start)."""
     import torch
 
     gen = torch.Generator(device="cpu")
@@ -435,8 +438,8 @@ def initialize_qo_micro_anchors(
     per_layer_norms: dict[str, float] = {}
 
     for full_key, wrapper in sorted(qo_wrappers.items()):
-        wrapper.lora_A.requires_grad_(False)
-        wrapper.lora_B.requires_grad_(False)
+        wrapper.lora_A.requires_grad_(not freeze)
+        wrapper.lora_B.requires_grad_(not freeze)
 
         rank = int(wrapper.rank)
         d_out = int(wrapper.out_features)
@@ -445,9 +448,11 @@ def initialize_qo_micro_anchors(
 
         a_init = None
         b_init = None
+        ben_norm = 0.0
         if benign_adapter is not None and full_key in benign_adapter.layers:
             ben_layer = benign_adapter.layers[full_key]
-            if ben_layer.frobenius_norm() > 1e-12:
+            ben_norm = ben_layer.frobenius_norm()
+            if ben_norm > 1e-12:
                 d_ben = ben_layer.compute_delta().detach().float().cpu()
                 u, s, vh = torch.linalg.svd(d_ben, full_matrices=False)
                 r_eff = max(1, min(rank, int(s.shape[0]), d_out, d_in))
@@ -464,15 +469,34 @@ def initialize_qo_micro_anchors(
             a_init = torch.randn((rank, d_in), generator=gen, dtype=torch.float32) * (1.0 / math.sqrt(max(1, d_in)))
             b_init = torch.randn((d_out, rank), generator=gen, dtype=torch.float32) * (1.0 / math.sqrt(max(1, d_out)))
 
+        layer_target = float(target_norm_map[full_key]) if (target_norm_map is not None and full_key in target_norm_map) else float(target_norm_per_layer)
         dense = (b_init @ a_init) * alpha_scale
         cur_norm = math.sqrt(max(0.0, float((dense * dense).sum().item())))
-        if target_norm_per_layer <= 0.0:
+        if layer_target <= 0.0:
             a_init = a_init * 0.0
             b_init = b_init * 0.0
         elif cur_norm > 1e-12:
-            scale_factor = math.sqrt(float(target_norm_per_layer) / cur_norm)
+            scale_factor = math.sqrt(layer_target / cur_norm)
             a_init = a_init * scale_factor
             b_init = b_init * scale_factor
+
+        if noise_mix_ratio > 0.0 and layer_target > 0.0:
+            mix = min(1.0, max(0.0, float(noise_mix_ratio)))
+            keep = 1.0 - mix
+
+            def _add_orth_pert(w_det: Any) -> Any:
+                rnd = torch.randn(tuple(w_det.shape), generator=gen, dtype=torch.float32)
+                w_sq = float((w_det * w_det).sum().item())
+                if w_sq <= 1e-12:
+                    return w_det
+                proj = float((rnd * w_det).sum().item()) / w_sq
+                orth = rnd - w_det * proj
+                o_norm = math.sqrt(max(1e-12, float((orth * orth).sum().item())))
+                orth_matched = orth * (math.sqrt(w_sq) / o_norm)
+                return w_det * keep + orth_matched * mix
+
+            a_init = _add_orth_pert(a_init)
+            b_init = _add_orth_pert(b_init)
 
         with torch.no_grad():
             wrapper.lora_A.copy_(a_init.to(wrapper.lora_A.device))

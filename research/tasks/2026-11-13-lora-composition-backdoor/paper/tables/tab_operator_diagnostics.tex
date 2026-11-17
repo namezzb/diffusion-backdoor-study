@@ -1,0 +1,25 @@
+% Table 4: Internal Composition Operator Diagnostics (K-LoRA, TIES, ZipLoRA)
+\begin{table}[t]
+\centering
+\caption{\textbf{Internal Operator Mechanics Audit Across $S_2^{\text{klora}}$, $S_2^{\text{ties}}$, and $S_3^{\text{ziplora}}$.} We inspect the internal routing and optimization states recorded during composition with $P_{\text{test}}$: shared U-Net layers $|\mathcal{L}_{\text{shared}}|$, K-LoRA step-0 win rate and global energy ratio $\gamma$, TIES surviving Frobenius fraction $\eta_{\text{TIES}} = \Vert\Delta W_{\text{TIES}}\Vert_F / \Vert 0.5\Delta W_c\Vert_F$, and ZipLoRA column cosine penalty ($\mathcal{C}_{\text{init}} \to \mathcal{C}_{\text{final}}$) and mean learned merger scale $\bar{m}_c$.}
+\label{tab:operator_diagnostics}
+\vspace{2pt}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{l c cc c ccc}
+\toprule
+\multirow{2.5}{*}{\textbf{Method / Variant}} & \multirow{2.5}{*}{\textbf{$|\mathcal{L}_{\text{shared}}|$}} & \multicolumn{2}{c}{\textbf{$S_2^{\text{klora}}$ Routing}} & \textbf{$S_2^{\text{ties}}$} & \multicolumn{3}{c}{\textbf{$S_3^{\text{ziplora}}$ Optimization}} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-5} \cmidrule(lr){6-8}
+ & & Step-0 Wins & $\gamma$ & $\eta_{\text{TIES}}$ & $\mathcal{C}_{\text{init}}\downarrow$ & $\mathcal{C}_{\text{final}}\downarrow$ & $\bar{m}_c$ \\
+\midrule
+Benign Car & 128 & 109/128 (85.2\%) & 0.236 & 76.1\% & 0.0358 & 0.0179 & 0.805 \\
+MasqLoRA~\cite{lyu2026masqlora} & 128 & 111/128 (86.7\%) & 0.292 & 82.8\% & 0.0363 & 0.0186 & 0.813 \\
+PoisonLoRA~\cite{poisonlora2026} & 128 & 109/128 (85.2\%) & 0.401 & 81.7\% & 0.0409 & 0.0274 & 0.896 \\
+\midrule
+w/o Bottleneck {\scriptsize(128L)} & 128 & 104/128 (81.3\%) & 0.205 & 83.7\% & 0.0348 & 0.0159 & 0.775 \\
+w/o K/V-Asym {\scriptsize($\rho_{qo}{=}1$)} & 24 & \textbf{24/24 (100\%)} & 0.345 & \textbf{87.5\%} & 0.0277 & 0.0074 & 0.612 \\
+\rowcolor{blue!6}
+\textbf{CORE-LoRA (Ours)} & \textbf{24} & \textbf{24/24 (100\%)} & \textbf{0.462} & 85.5\% & \textbf{0.0276} & \textbf{0.0074} & 0.613 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
